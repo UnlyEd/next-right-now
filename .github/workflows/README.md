@@ -27,8 +27,11 @@ Most useful documentation links:
 > List of necessary requirements for the `Github Actions <> Zeit` to work properly.
 
 #### Required GitHub secrets:
+
+> Those secrets must be added on Github settings page, such as https://github.com/UnlyEd/next-right-now/settings/secrets
+
 - `GITHUB_CI_PR_COMMENT`: Allows to post comments on GitHub Pull Request - See [https://github.com/settings/tokens](https://github.com/settings/tokens)
-  GitHub **"personal access token"** from the enterprise account **"Admin IT"** ("personal" account) with the following permission scopes:
+  GitHub **["personal access token"](https://github.com/settings/tokens)** from your personal account with the following permission scopes:
   - `repo` (all)
   - `user`
     - `read:user`

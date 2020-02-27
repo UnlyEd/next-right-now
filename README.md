@@ -128,7 +128,7 @@ Both share the same source code and configuration, but the database content is d
     - Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects
     - Take a look at [.env.build.example](.env.build.example) for secrets to use by default
     - Example: `now secrets add nrn-locize-project-id my-secret-value`
-1. Advanced - If you want to deploy multiple customers, you will need to add secrets for `GITHUB_CI_PR_COMMENT` and `ZEIT_TOKEN` as well. [See "Required GitHub secrets"](./.github/workflows/README.md).
+1. Advanced - If you want to deploy multiple customers, you will need to add `GITHUB_CI_PR_COMMENT` and `ZEIT_TOKEN` **Github secrets** as well. [See "Required GitHub secrets"](./.github/workflows/README.md).
 
 > If you don't provide all secrets, the app will not be deployable. The Now CLI will complain about missing secrets and abort the build.
 
@@ -227,8 +227,8 @@ It is also possible to create a custom domain manually from the CLI, for any dep
 
 While there can be multiple staging deployments, **there is only one production deployment (per project)**
 
-- `yarn deploy:customer1:production` - Deploy the customer1 app to [https://zeit.co/unly/NRN-customer1](https://zeit.co/unly/NRN-customer1)
-- `yarn deploy:customer2:production` - Deploy the customer2 app to [https://zeit.co/unly/NRN-customer2](https://zeit.co/unly/NRN-customer2)
+- `yarn deploy:customer1:production` - Deploy the customer1 app to [https://zeit.co/unly/nrn-customer1](https://zeit.co/unly/nrn-customer1)
+- `yarn deploy:customer2:production` - Deploy the customer2 app to [https://zeit.co/unly/nrn-customer2](https://zeit.co/unly/nrn-customer2)
 - `yarn deploy:all:production` - Deploy all apps
 
 > N.B: Those commands use the `now` command with the `--prod` argument behind the wheel.
