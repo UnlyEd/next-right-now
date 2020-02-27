@@ -31,7 +31,7 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
   - **GraphCMS** first-class support, which hosts our GraphQL API (server) and database, fully hosted (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
   - **GraphQL schema** available in the developer environment (thanks to [GraphQL Config](https://github.com/kamilkisiela/graphql-config))
 - **SSR** and **CSR** capabilities (thanks to the [Next.js framework](https://nextjs.org/))
-- React hooks HOC
+- React hooks over HOC (functional components over classes)
 - **Internationalisation** (i18n) first-class support (SSR + CSR friendly) (thanks to [react-i18next](https://react.i18next.com/))
   - I18n of the database (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
       - [Automated fallback language, through HTTP headers](https://graphcms.com/features/content-localization/?ref=unly-nrn)
