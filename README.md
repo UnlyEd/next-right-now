@@ -112,6 +112,9 @@ You can see 2 almost identical demo at:
 
 Both share the same source code and configuration, but the database content is different (hosted on GraphCMS).
 
+> **Tip**: You can get metadata at [/api/status](https://nrn-customer1.now.sh/api/status)
+> **Tip**: You can go to preview deployments (staging stage) by looking at [this PR comments](https://github.com/UnlyEd/next-right-now/pull/1)
+
 ## Local installation
 
 > This assumes you've cloned the project on your own computer.

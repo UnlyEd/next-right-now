@@ -119,7 +119,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
         styles={css`
           // Only applied to the main application
           body.nrn {
-            background-color: #f5f5f5; // TODO add to theme?
+            background-color: #f5f5f5;
 
             #__next{
               min-height: 100vh;
@@ -264,7 +264,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
               }
             }
 
-            .info-label { // TODO trouver un meilleur nom
+            .info-label {
               display: inline-block;
               border-radius: 60px;
               border: none;
