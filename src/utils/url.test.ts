@@ -2,7 +2,7 @@ import { decodeQueryParameter, encodeQueryParameter } from './url';
 
 export const data = {
   'organisation': {
-    'name': 'gem',
+    'name': 'customer1',
     'logo': {
       'linkUrl': null,
       'linkTarget': '_blank',
@@ -22,7 +22,7 @@ export const data = {
     },
   },
 };
-export const encodedData = '%7B%22organisation%22%3A%7B%22name%22%3A%22gem%22%2C%22logo%22%3A%7B%22linkUrl%22%3Anull%2C%22linkTarget%22%3A%22_blank%22%2C%22classes%22%3Anull%2C%22style%22%3Anull%2C%22defaultTransformations%22%3A%7B%22width%22%3A200%2C%22height%22%3A200%2C%22__typename%22%3A%22AssetTransformations%22%7D%2C%22mimeType%22%3A%22image%2Fpng%22%2C%22__typename%22%3A%22Asset%22%7D%2C%22theme%22%3A%7B%22primaryColor%22%3A%22%231134e6%22%2C%22primaryAltColor%22%3A%22%23203a51%22%2C%22secondaryColor%22%3A%22white%22%2C%22font%22%3A%22neuzeit-grotesk%22%2C%22__typename%22%3A%22Theme%22%2C%22primaryColorG1%22%3A%22%23ffffff%22%7D%7D%7D';
+export const encodedData = '%7B%22organisation%22%3A%7B%22name%22%3A%22customer1%22%2C%22logo%22%3A%7B%22linkUrl%22%3Anull%2C%22linkTarget%22%3A%22_blank%22%2C%22classes%22%3Anull%2C%22style%22%3Anull%2C%22defaultTransformations%22%3A%7B%22width%22%3A200%2C%22height%22%3A200%2C%22__typename%22%3A%22AssetTransformations%22%7D%2C%22mimeType%22%3A%22image%2Fpng%22%2C%22__typename%22%3A%22Asset%22%7D%2C%22theme%22%3A%7B%22primaryColor%22%3A%22%231134e6%22%2C%22primaryAltColor%22%3A%22%23203a51%22%2C%22secondaryColor%22%3A%22white%22%2C%22font%22%3A%22neuzeit-grotesk%22%2C%22__typename%22%3A%22Theme%22%2C%22primaryColorG1%22%3A%22%23ffffff%22%7D%7D%7D';
 
 describe(`utils/url.ts`, () => {
   describe(`encodeQueryParameter`, () => {

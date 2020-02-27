@@ -59,7 +59,7 @@ Dependencies
 
 > Overview of the project deps, why we use them, and (not always) quick explanations about them
 
-All the packages listed here are under open source, non-restrictive license (MIT, etc.)
+All the packages listed here are under open source, non-restrictive license (MIT, ISC, etc.)
 
 _The order follows the order in `package.json` (kinda alphabetical but not quite exactly `¯\_(ツ)_/¯`)_
 
@@ -93,6 +93,7 @@ If you want to benefit from the **Growth plan for free**, know that it's possibl
 > They told us then always find a way to provide Amplitude at an acceptable price for non-profit
 
 Anyway, Amplitude is [one of the best out there for Analytics](https://stackshare.io/amplitude), if the free plan is enough for your needs, or if you can afford paid plans.
+Also, their react integration is really good, even though it's not officially maintained and could use some love.
 
 ---
 
@@ -140,9 +141,9 @@ For any icon you want to use, you must first load it through the [`src/pages/_ap
 
 ```typescript jsx
 import { config, library } from '@fortawesome/fontawesome-svg-core';
-import { faAngleDown, faAngleLeft } from '@fortawesome/pro-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
-library.add(faAngleDown, faAngleLeft);
+library.add(faGithub);
 ```
 
 > This operation is required in order to make the FA icon load properly on the server side
@@ -153,7 +154,7 @@ Then, you can use those icons in any react component:
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Inside a react component
-<FontAwesomeIcon icon={'times-circle'} />
+<FontAwesomeIcon icon={['fab', 'github']} />
 ```
 
 ---
@@ -163,7 +164,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 > Sentry provides open-source and hosted error monitoring that helps all software teams discover, triage, and prioritize errors in real-time.
 
 We use Sentry to catch errors that happen within the application.
-They are available at [https://sentry.io/organizations/unly/issues/?project=1323212](https://sentry.io/organizations/unly/issues/?project=1323212) for any developers in the team.
+They are available at [https://sentry.io/](https://sentry.io/) for any developers in the team.
 
 Those errors are also sent to our Slack channel `sentry-monitoring`.
 
@@ -176,7 +177,7 @@ Sentry provides 2 different packages, with different abilities (but a very simil
 
 In the source code, we always use `@sentry/node`, which is automatically converted at build step by babel. (see [next.config.js](next.config.js))
 
-This way, we always use the same import, which is linked to the right package based on the engine target.
+This way, we always use the same import, which is linked to the right package based on the runtime engine target.
 
 ---
 
@@ -352,13 +353,13 @@ It was quite complicated to configure Next with Locize, mostly because of the un
 
 ## isomorphic-unfetch
 
-> Can be used to either polyfill the whole app, or used as a `fetch` function.
+> Can be used to either polyfill the whole app, or used as a `fetch` function. _(Stands for "isomorphic universal fetch")_
 
 - [`isomorphic-unfetch`](https://www.npmjs.com/package/isomorphic-unfetch): Switches between unfetch & node-fetch for client & server.
 
 There are several libs to allow fetching data from a react app, [here is a comparison](https://www.npmtrends.com/isomorphic-fetch-vs-isomorphic-unfetch-vs-universal-fetch).
 
-The main reason for choosing this one is its very small bundle size.
+The main reason for choosing this one is its very small bundle size, and it's universal.
 
 ---
 
@@ -389,10 +390,10 @@ We use plenty of utilities from lodash. Make sure read their [documentation](htt
 
 ### Note about Lodash TS typings
 
-We also load each TS types one-by-one. One advantage of that is that **we can decide not ti load typings that do not work**.
+We also load each TS types one-by-one. One advantage of that is that **we can decide not to load typings that do not work**.
 
 > For instance, we tried using `@types/lodash.filter` but eventually removed it because it creates a mess that is hard to deal with.
-> Typings are wrong and breaks our tests.
+> Typings may be wrong and breaks our tests, in such case it's nice to have the flexibility not to use them.
 
 
 
@@ -575,6 +576,3 @@ It's a bit harder to setup, here is a [tutorial](https://www.cypress.io/blog/201
     _Uses many dependencies, many of them outdated (handlebars) and containing security issues, but we don't care much about those as they aren't shipped in the build, but only present on the developer's local machine._
 - [`version-bump-prompt`](https://www.npmjs.com/package/version-bump-prompt): Used to make it easier to bump versions.
 
----
-
-- [``](https://www.npmjs.com/package/):
