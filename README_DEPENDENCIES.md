@@ -556,7 +556,7 @@ Run `yarn lint` to run the linter.
 Several utility scripts have been configured to help with E2E testing, each script takes an optional `CYPRESS_STAGE` environment variable, which defines the [config file](./cypress/config-development.json) that will be used (`development` by default):
 - `yarn e2e:open`: Runs the test suite **in a local browser** _(requires `yarn e2e:install`)_, targets **localhost development website**. (uses [cypress/config-development.json](./cypress/config-development.json))
 - `yarn e2e:run`: Runs the test suite **in a local console**, targets **localhost development website**. (uses [cypress/config-development.json](./cypress/config-development.json))
-- `CYPRESS_STAGE=demo yarn e2e:run` equivalent to `yarn e2e:demo:production`: Runs the test suite in the console, targets **demo production website**. (uses [cypress/config-demo.json](cypress/config-customer2.json))
+- `CYPRESS_STAGE=customer1 yarn e2e:run` equivalent to `yarn e2e:customer1:production`: Runs the test suite in the console, targets **demo production website**. (uses [cypress/config-demo.json](cypress/config-customer2.json))
 
 It is also possible to test all the apps at once:
 - `yarn e2e:all:production`: This will run each production e2e test run (in series, parallel is not free)
