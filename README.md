@@ -114,7 +114,22 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
 
 ## Introduction videos
 
-- [Part 1 - Overview of Next Right Now](http://youtu.be/kltkFwnFL-k?hd=1)
+### Part 1 - Overview of Next Right Now
+[![Part 1 - Overview of Next Right Now](https://img.youtube.com/vi/kltkFwnFL-k/maxresdefault.jpg)](http://youtu.be/kltkFwnFL-k?hd=1)
+
+> Let's talk about why we built RNR in the first place, how it's meant to be used, whom it is for.
+>
+> This video features Zeit deployments, i18n, GraphCMS, Locize in-context editor, Sentry monitoring, Amplitude analytics, CI/CD Github Actions
+
+### Part 2 - Developer Experience with Next Right Now
+[![Part 2 - Developer Experience with Next Right Now](https://img.youtube.com/vi/fGlgIEeUqFg/maxresdefault.jpg)](http://youtu.be/fGlgIEeUqFg?hd=1)
+
+> Let's talk about the developer experience (DX) provided by NRN and how it helps being more efficient.
+>
+> This video features GraphQL auto-completion and local schema update, deployment workflow, CI/CD Github Actions explanations, interactive E2E testing, GraphsCMS field creation
+
+### Guides
+- [How to run NRN in debug mode using WebStorm debug configuration](http://youtu.be/3vbkiRAT4e8?hd=1)
 
 ## Showcases - Live demo
 
@@ -144,7 +159,7 @@ Both share the same source code and configuration, but the database content is d
 
 > **Tip**: You can enable in-context editor mode in order to localise your static content, by appending `?locize=true` to the url, see [https://nrn-customer1.now.sh/?locize=true](https://nrn-customer1.now.sh/?locize=true) _(this is only enabled in development and staging stages, not in production)_
 >
-> **Tip**: You can start the project in debug mode (built-in for WebStorm only) by running the WebStorm "Debug" configuration in debug mode TODO video
+> **Tip**: You can start the project in debug mode (built-in for WebStorm only) [by running the WebStorm "Debug" configuration in debug mode](https://youtu.be/3vbkiRAT4e8)
 
 ## Configuring Zeit staging/production stages
 
