@@ -7,9 +7,6 @@
 Next Right Now
 ===
 
-> # Status
-> **DRAFT - Currently being heavily worked on, subject to massive changes at any time**
-
 > Next Right Now (NRN) is meant to be used as a boilerplate for quick getting started with a production-grade project featuring the Next.js framework, hosted on Zeit platform.
 >
 > NRN is strongly opinionated, but also very flexible.
@@ -70,6 +67,10 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
 <!-- toc -->
 
 - [Getting started](#getting-started)
+  * [Introduction videos](#introduction-videos)
+    + [Part 1 - Overview of Next Right Now](#part-1---overview-of-next-right-now)
+    + [Part 2 - Developer Experience with Next Right Now](#part-2---developer-experience-with-next-right-now)
+    + [Guides](#guides)
   * [Showcases - Live demo](#showcases---live-demo)
   * [Local installation](#local-installation)
   * [Configuring Zeit staging/production stages](#configuring-zeit-stagingproduction-stages)
