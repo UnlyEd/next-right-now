@@ -26,7 +26,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
   label: fileLabel,
 });
 
-const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
+const Terms: NextPage<PageProps> = (props: PageProps): JSX.Element => {
   const {
     customerRef,
     gcmsLocales,
@@ -82,7 +82,7 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
         ...inheritedProps,
         page: {
           ...inheritedProps.page,
-          name: 'index',
+          name: 'terms',
         },
       })}
     >
@@ -161,4 +161,4 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
 
 };
 
-export default Home;
+export default Terms;
