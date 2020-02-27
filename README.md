@@ -76,7 +76,7 @@ Next Right Now
 - [Testing](#testing)
 - [I18n (Internationalization)](#i18n-internationalization)
   * [Fetching translations through GraphCMS (automated)](#fetching-translations-through-graphcms-automated)
-  * [Fetching translations through [Locize](https://www.locize.io/p/w7jrmdie/v/latest) provider](#fetching-translations-through-locizehttpswwwlocizeiopw7jrmdievlatest-provider)
+  * [Fetching translations through Locize provider](#fetching-translations-through-locize-provider)
     + [Locize translation workflow in-depth](#locize-translation-workflow-in-depth)
       - [Locize additional services](#locize-additional-services)
       - [Other additional services](#other-additional-services)
@@ -273,7 +273,7 @@ See the [official documentation](https://graphcms.com/docs/api/content-api/?ref=
 > **N.B:** Even though it is possible to also specify the language `per field`, our **default approach** is to translate all content at once based on the header,
 > because it's so much simpler, and handles automated fallback, which is very useful if the content is not defined in the primary requested language.
 
-## Fetching translations through [Locize](https://www.locize.io/p/w7jrmdie/v/latest) provider
+## Fetching translations through Locize provider
 
 > When the content we want to display doesn't come from GraphCMS API, then it's from the application itself. (in such case, it's because it usually doesn't make sense to host it on GraphCMS)
 >
