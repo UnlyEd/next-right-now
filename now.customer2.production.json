@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "name": "nrn-customer2",
+  "scope": "team_DAU7RcjwnftBzWFDi4ZuypN5",
+  "env": {},
+  "regions": [
+    "all"
+  ],
+  "build": {
+    "env": {
+      "APP_STAGE": "production",
+      "CUSTOMER_REF": "customer2",
+      "GRAPHQL_API_ENDPOINT": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",
+      "GRAPHQL_API_KEY": "@nrn-graphql-api-key",
+      "LOCIZE_PROJECT_ID": "@nrn-locize-project-id",
+      "LOCIZE_API_KEY": "@nrn-locize-api-key",
+      "AMPLITUDE_API_KEY": "@nrn-amplitude-api-key-production",
+      "SENTRY_DSN": "@nrn-sentry-dsn"
+    }
+  },
+  "routes": [
+    {
+      "src": "/robots.txt",
+      "dest": "/robots/production.txt"
+    }
+  ],
+  "public": false
+}

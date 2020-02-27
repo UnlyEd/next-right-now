@@ -1,0 +1,15 @@
+{
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "master": {
+        "url": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",
+        "introspect": true,
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "Authorization": "Bearer ${env:GRAPHQL_API_KEY}"
+        }
+      }
+    }
+  }
+}

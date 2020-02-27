@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Debug" type="NodeJSConfigurationType" application-parameters="node_modules/cross-env/src/bin/cross-env-shell.js 'npx concurrently -p '{name}' -n 'debugger,now-cli' -c 'gray.bgWhite,yellow.bgBlue' \&quot;node --inspect-brk node_modules/.bin/now\&quot; \&quot;yarn start\&quot;'" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

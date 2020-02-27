@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'neuzeit-grotesk';
+  src: url('NeuzeitGrotesk-light.eot');
+  src: url('NeuzeitGrotesk-light.eot?#iefix') format('embedded-opentype'),
+  url('NeuzeitGrotesk-light.woff2') format('woff2'),
+  url('NeuzeitGrotesk-light.woff') format('woff'),
+  url('NeuzeitGrotesk-light.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'neuzeit-grotesk';
+  src: url('NeuzeitGrotesk-regular.eot');
+  src: url('NeuzeitGrotesk-regular.eot?#iefix') format('embedded-opentype'),
+  url('NeuzeitGrotesk-regular.woff2') format('woff2'),
+  url('NeuzeitGrotesk-regular.woff') format('woff'),
+  url('NeuzeitGrotesk-regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'neuzeit-grotesk';
+  src: url('NeuzeitGrotesk-bold.eot');
+  src: url('NeuzeitGrotesk-bold.eot?#iefix') format('embedded-opentype'),
+  url('NeuzeitGrotesk-bold.woff2') format('woff2'),
+  url('NeuzeitGrotesk-bold.woff') format('woff'),
+  url('NeuzeitGrotesk-bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'neuzeit-grotesk';
+  src: url('NeuzeitGrotesk-black.eot');
+  src: url('NeuzeitGrotesk-black.eot?#iefix') format('embedded-opentype'),
+  url('NeuzeitGrotesk-black.woff2') format('woff2'),
+  url('NeuzeitGrotesk-black.woff') format('woff'),
+  url('NeuzeitGrotesk-black.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+}

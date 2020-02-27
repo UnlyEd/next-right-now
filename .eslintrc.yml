@@ -1,0 +1,96 @@
+---
+env:
+  browser: true
+  commonjs: true
+  es6: true
+  node: true
+extends:
+  - plugin:@typescript-eslint/recommended
+  - plugin:react/recommended
+  - plugin:jsx-a11y/recommended
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+plugins:
+  - jest
+  - react
+  - react-hooks
+parser: '@typescript-eslint/parser'
+parserOptions:
+  project: ./tsconfig.json
+settings:
+  react:
+    version: detect
+rules: # See https://eslint.org/docs/rules
+  semi:
+    - error
+    - always # Always put commas, to avoid multilines git diff when new lines are added
+  quotes:
+    - error
+    - single # Prefer simple quotes
+    - allowTemplateLiterals: true # Allow the use of `` instead of '' and don't try to replace it, even when `` isn't needed
+  comma-spacing:
+    - error
+    - before: false
+      after: true
+  indent:
+    - error
+    - 2
+    - SwitchCase: 1
+  arrow-parens:
+    - error
+    - always
+  max-len: 0 # Disable line length checks, because the IDE is already configured to warn about it, and it's a waste of time to check for lines that are too long, especially in comments (like this one!)
+  strict: 'off'
+  no-console: 1 # Shouldn't use "console", but "logger" instead
+  allowArrowFunctions: 0
+  no-unused-vars:
+    - warn # Warn otherwise it false-positive with needed React imports
+    - args: none # Allow to declare unused variables in function arguments, meant to be used later
+  import/prefer-default-export: 0 # When there is only a single export from a module, don't enforce a default export, but rather let developer choose what's best
+  no-else-return: 0 # Don't enforce, let developer choose. Sometimes we like to specifically use "return" for the sake of comprehensibility and avoid ambiguity
+  no-underscore-dangle: 0 # Allow _ before/after variables and functions, convention for something meant to be "private"
+  arrow-body-style: 0 # Don't enforce, let developer choose. Sometimes we like to specifically use "return" for ease of debugging and printing
+  quote-props:
+    - warn
+    - consistent-as-needed # Enforce consistency with quotes on props, either all must be quoted, or all unquoted for a given object
+  no-return-await: 0 # Useful before, but recent node.js enhancements make it useless on node 12+ (we use 10, but still, for consistency) - Read https://stackoverflow.com/questions/44806135/why-no-return-await-vs-const-x-await
+  no-extra-boolean-cast: 0 # Don't enforce, let developer choose. Using "!!!" is sometimes useful (edge cases), and has a semantic value (dev intention)
+  object-curly-newline:
+    - warn
+    - ObjectExpression:
+        multiline: true
+        minProperties: 5
+        consistent: true
+      ObjectPattern:
+        multiline: true
+        minProperties: 5
+        consistent: true
+      ImportDeclaration:
+        multiline: true
+        minProperties: 8 # Doesn't play so well with webstorm, which wraps based on the number of chars in the row, not based on the number of props #sucks
+        consistent: true
+      ExportDeclaration:
+        multiline: true
+        minProperties: 5
+        consistent: true
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps: warn
+  react/jsx-no-target-blank: warn # Not using "noreferrer" is not a security risk, but "noopener" should always be used indeed
+  react/prop-types: warn # Should be handled with TS instead
+  react/no-unescaped-entities: warn # Causes text mismatch when enabled
+  linebreak-style:
+    - error
+    - unix
+  '@typescript-eslint/ban-ts-ignore': warn # ts-ignore are sometimes the only way to bypass a TS issue, we trust we will use them for good and not abuse them
+  '@typescript-eslint/no-use-before-define': warn
+  '@typescript-eslint/no-unused-vars':
+    - warn
+    -
+      vars: 'all' # We don't want unused variables (noise) - XXX Note that this will be a duplicate of "no-unused-vars" rule
+      args: 'none' # Sometimes it's useful to have unused arguments for later use, such as describing what args are available (DX)
+      ignoreRestSiblings: true # Sometimes it's useful to have unused props for later use, such as describing what props are available (DX)
+overrides:
+  - files: ['**/*.tsx']
+    rules:
+      'react/prop-types': 'off'
