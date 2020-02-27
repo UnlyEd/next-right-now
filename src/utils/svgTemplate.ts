@@ -18,14 +18,8 @@ function template(
 
   return typeScriptTpl.ast`
 import React from 'react';
-import { useTheme } from 'emotion-theming';
-
-import { Theme } from '../../types/data/Theme';
 
 const ${componentName} = (props: Props): JSX.Element => {
-  const theme: Theme = useTheme();
-  const { primaryColor } = theme;
-
   return (
     ${jsx}
   );
