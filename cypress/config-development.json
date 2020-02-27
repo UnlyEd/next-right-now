@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:8888",
+  "projectId": "4dvdog",
+  "screenshotsFolder": "cypress/screenshots/development",
+  "videosFolder": "cypress/videos/development",
+  "env": {}
+}

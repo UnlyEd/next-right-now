@@ -1,0 +1,18 @@
+/*
+  XXX See https://creativemarket.com/blog/the-missing-guide-to-font-formats
+*/
+
+/*
+  This font doesn't play well with paragraphs and must only be used for headings
+  Also, it's automatically "bold", there is no "light" variant
+*/
+@font-face {
+  font-family: 'CircularStd-Book';
+  font-display: fallback; /* See https://drafts.csswg.org/css-fonts-4/#font-display-desc */
+  src: local('Circular Std Book'), local('CircularStd-Book'),
+  url('CircularStd-Book.woff2') format('woff2'),
+  url('CircularStd-Book.woff') format('woff'),
+  url('CircularStd-Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

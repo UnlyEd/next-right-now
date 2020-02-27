@@ -1,0 +1,14 @@
+# Optimize speed/size of deployments by not uploading those files
+.idea/
+node_modules/
+cypress/
+coverage/
+.codeclimate.yml
+.editorconfig
+.env.build.example
+.graphqlconfig
+buildspec.yml
+README.md
+schema.graphql
+yarn.lock
+yarn-error.log

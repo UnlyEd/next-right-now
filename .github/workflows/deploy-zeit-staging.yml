@@ -1,0 +1,118 @@
+# Summary:
+# Creates a new deployment on Zeit's platform, when anything is pushed in any branch (except for the "master" branch).
+# Read ./README.md for extensive documentation
+
+name: Deploy to Zeit (staging)
+
+on:
+  push:
+    branches-ignore:
+      - 'master'
+
+jobs:
+  # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
+  # Ex: Necessary to run `yarn deploy`
+  setup-environment:
+    name: Setup deployment environment (Ubuntu 18.04 - Node 10.x)
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Installing node.js
+        uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
+        with:
+          node-version: '10.x' # Use the same node.js version as the one Zeit's uses (currently node10.x)
+
+  # Starts a Zeit deployment, using the staging configuration file of the default institution
+  # The default institution is the one defined in the `now.json` file (which is a symlink to the actual file)
+  # N.B: It's Zeit that will perform the actual deployment
+  start-staging-deployment:
+    name: Starts Zeit deployment (staging) (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    needs: setup-environment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Deploying on Zeit
+        run: yarn deploy:$(cat now.json | jq -r '.build.env.INSTITUTION_NAME') --token $ZEIT_TOKEN
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+
+  # Runs E2E tests against the Zeit deployment
+  run-2e2-tests:
+    name: Run end to end (E2E) tests (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    # Docker image with Cypress pre-installed
+    # https://github.com/cypress-io/cypress-docker-images/tree/master/included
+    container: cypress/included:3.8.3
+    needs: start-staging-deployment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Resolving deployment url from Zeit
+        # The following workflow is:
+        #  - getting all deployments data (by using the scope in `now.json`)
+        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
+        #  - and then we remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        run: |
+          apt update -y >/dev/null && apt install -y jq >/dev/null
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+
+      # On deployment failure, add a comment to the PR
+      - name: Comment PR (Deployment failure)
+        uses: unsplash/comment-on-pr@master
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+        with:
+          msg: "[GitHub Actions]\nDeployment FAILED\n\t Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} (click to see logs)"
+
+      # On deployment success, add a comment to the PR
+      - name: Comment PR (Deployment success)
+        uses: unsplash/comment-on-pr@master
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+        with:
+          msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}"
+
+      # Run the E2E tests against the new Zeit deployment
+      - name: Run E2E tests (Cypress)
+        uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
+        with:
+          wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
+          config-file: cypress/config-demo.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
+        env:
+          GITHUB_SSH_KEY_CDE: ${{ secrets.github-ssh-key-cde }} # Necessary for Cypress to install the dependencies that require access to our private CDE repository
+      # On E2E failure, upload screenshots
+      - name: Uplad screenshots artifacts (E2E failure)
+        uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
+        if: failure()
+        with:
+          name: screenshots
+          path: cypress/screenshots/
+
+      # On E2E failure, upload videos
+      - name: Uplad videos artifacts (E2E failure)
+        uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
+        if: failure()
+        with:
+          name: videos
+          path: cypress/videos/
+
+      # On E2E failure, add a comment to the PR with additional information
+      - name: Comment PR (E2E failure)
+        uses: unsplash/comment-on-pr@master
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+        with:
+          msg: "[GitHub Actions]\nE2E tests FAILED\n  Download artifacts (screenshots + videos) from `checks` section at the top"
+
+      # On E2E success, add a comment to the PR
+      - name: Comment PR (E2E success)
+        uses: unsplash/comment-on-pr@master
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+        with:
+          msg: "[GitHub Actions]\nE2E tests SUCCESS"

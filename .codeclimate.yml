@@ -1,0 +1,78 @@
+# XXX See https://docs.codeclimate.com/docs/advanced-configuration
+version: "2"
+checks:
+  argument-count:
+    enabled: true
+    config:
+      threshold: 4
+  complex-logic:
+    enabled: true
+    config:
+      threshold: 4
+  file-lines:
+    enabled: true
+    config:
+      threshold: 400 # 250 by default
+  method-complexity:
+    enabled: true
+    config:
+      threshold: 10
+  method-count:
+    enabled: true
+    config:
+      threshold: 20
+  method-lines:
+    enabled: true
+    config:
+      threshold: 100 # 25 by default
+  nested-control-flow:
+    enabled: true
+    config:
+      threshold: 4
+  return-statements:
+    enabled: true
+    config:
+      threshold: 4
+
+plugins:
+#  eslint: # https://docs.codeclimate.com/docs/eslint
+#    enabled: true
+#    channel: "eslint-4" # Depends on installed ESLint version - See https://docs.codeclimate.com/docs/eslint#section-eslint-versions
+  duplication: # https://docs.codeclimate.com/docs/duplication
+    enabled: true
+    config:
+      languages:
+        javascript:
+          mass_threshold: 50 # See https://docs.codeclimate.com/docs/duplication#section-understand-the-engine
+  fixme: # https://docs.codeclimate.com/docs/fixme
+    enabled: true
+    config:
+      strings: # Skip "XXX" as we don't use it for things to fix but rather for highlighting comments (DX)
+        - FIXME
+        - BUG
+        - TODO
+        - HACK
+  git-legal: # https://docs.codeclimate.com/docs/git-legal
+    enabled: true
+#  tslint: # https://docs.codeclimate.com/docs/tslint
+#    enabled: true
+#    config: tslint.json
+
+# See https://docs.codeclimate.com/docs/excluding-files-and-folders
+exclude_patterns:
+  - "**/*.test.*"
+  - "**/*.spec.*"
+  - "src/svg/"
+
+  # Default CC excluded paths:
+  - "config/"
+  - "db/"
+  - "dist/"
+  - "features/"
+  - "**/node_modules/"
+  - "script/"
+  - "**/spec/"
+  - "**/test/"
+  - "**/tests/"
+  - "**/vendor/"
+  - "**/*.d.ts"
