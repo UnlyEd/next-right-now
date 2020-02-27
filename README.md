@@ -1,4 +1,6 @@
 <a href="https://unly.org"><img src="https://storage.googleapis.com/unly/images/ICON_UNLY.png" align="right" height="20" alt="Unly logo" title="Unly logo" /></a>
+[![Maintainability](https://api.codeclimate.com/v1/badges/3f3f2c0a4106abcb9a1d/maintainability)](https://codeclimate.com/github/UnlyEd/next-right-now/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/3f3f2c0a4106abcb9a1d/test_coverage)](https://codeclimate.com/github/UnlyEd/next-right-now/test_coverage)
 [![Locize Latest version](https://img.shields.io/badge/dynamic/json.svg?style=plastic&color=2096F3&label=locize&query=%24.versions%5B%27latest%27%5D.translatedPercentage&url=https://api.locize.io/badgedata/7867a172-62dc-4f47-b33c-1785c4701b12?t=1573424617493&suffix=%+translated&link=https://www.locize.com&prefix=latest:+)](https://www.locize.io/p/w7jrmdie/statistics/badges)
 [![Locize Production version](https://img.shields.io/badge/dynamic/json.svg?style=plastic&color=2096F3&label=locize&query=%24.versions%5B%27production%27%5D.translatedPercentage&url=https://api.locize.io/badgedata/7867a172-62dc-4f47-b33c-1785c4701b12?t=1573424617493&suffix=%+translated&link=https://www.locize.com&prefix=production:+)](https://www.locize.io/p/w7jrmdie/statistics/badges)
 
