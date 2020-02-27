@@ -112,6 +112,10 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
 
 # Getting started
 
+## Introduction videos
+
+- [Part 1 - Overview of Next Right Now](http://youtu.be/kltkFwnFL-k?hd=1)
+
 ## Showcases - Live demo
 
 You can see 2 almost identical demo at:
