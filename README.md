@@ -145,7 +145,9 @@ This may, or may not be a good thing. It's perfectly fine if you don't need to d
 ### Advanced - When using multiple customers (B2B multi-tenants)
 
 If you want to deploy multiple customers, then it won't help you at all.
-In that case you should unlink the Zeit project from your Github repository and let Github Action handle that.
+In that case you should unlink the Zeit project from your Github repository and then delete the project (i.e: next-right-now) and leave Github Action handle that (it will create a "nrn-customer1").
+
+Once unlinked and deleted, Zeit will not automatically re-create the project later on ("next-right-now"), and each customer will live on its own project ("nrn-customer1", etc.).
 
 You can now commit/push any change, which will trigger a new build, through **Github Actions.**
 
