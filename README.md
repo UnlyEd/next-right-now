@@ -20,12 +20,13 @@ Next Right Now
 > - Built-in **stages** (development, staging, production) workflow
 > - **TypeScript** first-class support
 > - **GraphQL** support (thanks to [Apollo](https://github.com/apollographql/apollo-client), and others)
->   - **GraphCMS** first-class support, which hosts our GraphQL API (server) and database, fully hosted (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=ambroise))
+>   - **GraphCMS** first-class support, which hosts our GraphQL API (server) and database, fully hosted (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
 >   - **GraphQL schema** available in the developer environment (thanks to [GraphQL Config](https://github.com/kamilkisiela/graphql-config))
 > - **SSR** and **CSR** capabilities (thanks to the [Next.js framework](https://nextjs.org/))
+> - React hooks > HOC
 > - **Internationalisation** (i18n) first-class support (SSR + CSR friendly) (thanks to [react-i18next](https://react.i18next.com/))
->   - I18n of the database (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=ambroise))
->       - [Automated fallback language, through HTTP headers](https://graphcms.com/features/content-localization/)
+>   - I18n of the database (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
+>       - [Automated fallback language, through HTTP headers](https://graphcms.com/features/content-localization/?ref=unly-nrn)
 >   - I18n of the project (thanks to [Locize<sup>1</sup>](https://locize.com/?lng=en))
 >       - [Automated fallback language](https://www.i18next.com/principles/fallback)
 >       - [In-context editor](https://docs.locize.com/more/incontext-editor)
@@ -61,15 +62,17 @@ Next Right Now
 <!-- toc -->
 
 - [Getting started](#getting-started)
-  * [Prerequisites](#prerequisites)
+  * [Showcases - Live demo](#showcases---live-demo)
   * [Local installation](#local-installation)
+  * [Configuring Zeit staging/production stages](#configuring-zeit-stagingproduction-stages)
+    + [Configuring secrets](#configuring-secrets)
+    + [Advanced - When using multiple customers (B2B multi-tenants)](#advanced---when-using-multiple-customers-b2b-multi-tenants)
 - [Understanding `Environments` and `Stages`](#understanding-environments-and-stages)
   * [What is an `environment`?](#what-is-an-environment)
   * [What is a `stage`?](#what-is-a-stage)
-- [Deploying on Zeit](#deploying-on-zeit)
+- [Deploying on Zeit (manually)](#deploying-on-zeit-manually)
   * [Staging deployments](#staging-deployments)
   * [Production deployment](#production-deployment)
-- [Customer instances powered by the Zeit platform](#customer-instances-powered-by-the-zeit-platform)
 - [Testing](#testing)
 - [I18n (Internationalization)](#i18n-internationalization)
   * [Fetching translations through GraphCMS (automated)](#fetching-translations-through-graphcms-automated)
@@ -78,14 +81,13 @@ Next Right Now
       - [Locize additional services](#locize-additional-services)
       - [Other additional services](#other-additional-services)
 - [GraphCMS](#graphcms)
+  * [Discount](#discount)
   * [Fetching data from GraphCMS](#fetching-data-from-graphcms)
-- [(Amplitude)[https://analytics.amplitude.com/unly/] (Analytics)](#amplitudehttpsanalyticsamplitudecomunly-analytics)
+- [Amplitude](#amplitude)
   * [Chrome developer debug tool](#chrome-developer-debug-tool)
 - [Continuous Integration & Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
   * [Overview](#overview)
-  * [Workflow](#workflow)
-  * [Configuration overview](#configuration-overview)
-  * [Configuration in-depth](#configuration-in-depth)
+  * [Workflow of our Zeit <> Github Actions integration](#workflow-of-our-zeit--github-actions-integration)
   * [In-depth project's dependencies](#in-depth-projects-dependencies)
 
 <!-- tocstop -->
@@ -266,7 +268,7 @@ The `gcms-locale` value is a string of the form `'fr, en'`. There is two locales
 - `fr` is the first and main locale. Content in French will therefore be loaded first.
 - `en` is the second and is a fallback locale. If the content is not found in the main locale, then fallback locales are used.
 
-See the [official documentation](https://graphcms.com/docs/api/content-api/#passing-a-header-flag) to learn more.
+See the [official documentation](https://graphcms.com/docs/api/content-api/?ref=unly-nrn#passing-a-header-flag) to learn more.
 
 > **N.B:** Even though it is possible to also specify the language `per field`, our **default approach** is to translate all content at once based on the header,
 > because it's so much simpler, and handles automated fallback, which is very useful if the content is not defined in the primary requested language.
@@ -313,9 +315,11 @@ We use some of the free ones, like:
 
 ---
 
-# [GraphCMS]()
+# [GraphCMS](https://graphcms.com/?ref=unly-nrn)
 
-TODO
+## Discount
+
+> Using the coupon code **`unly-nrn`** will grant you a 3-month 15% discount on the premium plans.
 
 ## Fetching data from GraphCMS
 
@@ -323,14 +327,16 @@ TODO
 >
 > [See full list of dependencies related to GraphCMS]([#apollo-with-react)
 
-There a re two ways of fetching data from GraphCMS:
+There are several ways of fetching data from GraphCMS:
 - [`react-hoc`](https://www.apollographql.com/docs/react/api/react-hoc/): HOC (High Order Components) can be used with an components (classes, functional), the GraphQL query is described in the function's wrapper, outside of its body.
     **Former way, tend to be deprecated in favor of `react-hooks` nowadays.**
     [List of known issues](https://reactjs.org/docs/higher-order-components.html#caveats).
-- [`Render Props`](https://reactjs.org/docs/render-props.html): Never used it, fixes some issues you can encounter with HOC, but hooks are still better.
-- [`react-hooks`](https://www.apollographql.com/docs/react/api/react-hooks): Hooks can only be used with Functional components (not classes), the GraphQL query is described in the function's body.
+- [`Render Props`](https://reactjs.org/docs/render-props.html): Never used it, fixes some issues one can encounter with HOC, but hooks are still better.
+- [**`react-hooks`**](https://www.apollographql.com/docs/react/api/react-hooks): Hooks can only be used with Functional components (not classes), the GraphQL query is described in the function's body.
 
 The difference between both is not so important, the code is written differently but produces the same output, it's more a matter of personal taste.
+We only used the hooks approach because it's just cleaner and simpler to understand.
+
 To better understand the different possible approaches here, [**read this**](https://pawelgrzybek.com/cross-cutting-functionality-in-react-using-higher-order-components-render-props-and-hooks#pros-of-using-hoc).
 
 A few articles to better understand the differences:
@@ -341,9 +347,9 @@ A few articles to better understand the differences:
 
 ---
 
-# (Amplitude)[https://analytics.amplitude.com/unly/] (Analytics)
+# [Amplitude](https://amplitude.com/) (Analytics)
 
-> [Amplitude](https://analytics.amplitude.com/unly/space/jtqpsnq) is used to collect usage metrics (analytics) of the application.
+> Amplitude is used to collect usage metrics (analytics) of the application.
 
 Amplitude is used only on the frontend part of the application. It is composed of two parts:
 - [`@amplitude/react-amplitude`](https://github.com/amplitude/react-amplitude): React components easy to use, see their [blog post](https://amplitude.engineering/introducing-react-amplitude-d7b5258bc708).
@@ -356,7 +362,7 @@ We only use react-amplitude to manipulate events.
 
 > The amplitude team has released a Chrome plugin to see the events from the browser.
 >
-> It is a **must-have** when working with analytics.
+> It is a **must-have** when working with Amplitude.
 
 - [Tutorial](https://help.amplitude.com/hc/en-us/articles/360003032451-Instrumentation-Explorer-Debugger)
 - [Chrome plugin](https://chrome.google.com/webstore/detail/amplitude-instrumentation/acehfjhnmhbmgkedjmjlobpgdicnhkbp)
@@ -372,7 +378,7 @@ We only use react-amplitude to manipulate events.
 >
 > Those actions are managed through Github Actions
 
-## Workflow
+## Workflow of our Zeit <> Github Actions integration
 
 Here is how the multiple steps are ordered:
 
@@ -381,32 +387,9 @@ Here is how the multiple steps are ordered:
     - Either the staging scripts is executed, or the production script, depending on which branch is impacted (see [Github Actions <> Zeit integrations](./.github/workflows/README.md))
     - No matter what script (production vs staging) gets executed, those actions are always triggered:
         1. A new Zeit deployment is triggered, which runs our tests first (`yarn test:once`) (Failing tests will stop the deployment)
-        1. Then, the deployment is deployed, and automatically linked to a custom domain (xxx.now.sh)
-            - The script [`config_github_ssh_for_CDE_on_deployment`](./scripts/config_github_ssh_for_CDE_on_deployment.sh) is executed before yarn installs the dependencies (`preinstall`)
-                - This scripts resolves the environment it's running on (Zeit or Github Actions)
-                - It creates the `.ssh/id_rsa` file and writes the value of `GITHUB_SSH_KEY_CDE` defined in the `now.*.json` file that is being deployed, value that comes from a Zeit secret that contains the [deploy key defined in the CDE repo](https://github.com/UnlyEd/chatbot-dialog-engine/settings/keys) (private SSH key)
-                    This operation allows the deployment server to later fetch our private CDE repository when performing `yarn install`
+        1. Then, the deployment is deployed, and automatically linked to a custom domain which depends on the git branch name (xxx.now.sh)
         1. Then, our 2E2 tests are triggered using Cypress
             - If they fail, artifacts (screenshots, videos) recorded by Cypress are uploaded to Github to help further debug
-1. [Trigger] In parallel, AWS CodeBuild is triggered as well
-    1. It will run our tests in coverage mode, and will update [CodeClimate](https://codeclimate.com/repos/5dc495236986e601a2001499) with the coverage results
-
-## Configuration overview
-
-In summary, you need to:
-
-1. Generate a RSA pair
-1. Store its **public key** as [Github Deploy Key on the CDE repository](https://github.com/UnlyEd/chatbot-dialog-engine/settings/keys)
-1. Store its **private key** as a Zeit secret
-
-## Configuration in-depth
-
-1. [Create a SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
-1. Store its PUBLIC key (`id_rsa.pub`) as a [deploy key](https://github.com/UnlyEd/chatbot-dialog-engine/settings/keys) (named the deploy key as `CI - Zeit (read private repo)`)
-1. Create a Zeit secret using its PRIVATE key (See [https://gist.github.com/Vadorequest/28657f8f513650eff4e40d37e23a1ee1](https://gist.github.com/Vadorequest/28657f8f513650eff4e40d37e23a1ee1))
-1. From our [script](./scripts/config_github_ssh_for_CDE_on_deployment.sh), create a file `~/.ssh/id_rsa` based on the content of `@github-ssh-key-cde`
-
-[See the discussion](https://spectrum.chat/zeit/now/deploy-with-private-github-dependency~67f5de5b-ad7f-4ff0-afbe-c1b717cca4db?m=MTU3NjE0NzQ2OTIxMQ==).
 
 ## In-depth project's dependencies
 
