@@ -81,8 +81,7 @@ jobs:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
           config-file: cypress/config-demo.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
-        env:
-          GITHUB_SSH_KEY_CDE: ${{ secrets.github-ssh-key-cde }} # Necessary for Cypress to install the dependencies that require access to our private CDE repository
+
       # On E2E failure, upload screenshots
       - name: Uplad screenshots artifacts (E2E failure)
         uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts

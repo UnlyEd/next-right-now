@@ -120,16 +120,34 @@ Both share the same source code and configuration, but the database content is d
 
 > Your setup works locally, now you want to deploy it online. We will host it on the Zeit platform.
 
+### Configuring secrets
+
 1. Configuring [Now Secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets?query=secre#adding-secrets), open [`now.customer1.staging.json`](./now.customer1.staging.json)
     - Each secret must be added manually, one by one
     - A secret starts with `@`
     - Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects
     - Take a look at [.env.build.example](.env.build.example) for secrets to use by default
     - Example: `now secrets add nrn-locize-project-id my-secret-value`
+1. Advanced - If you want to deploy multiple customers, you will need to add secrets for `GITHUB_CI_PR_COMMENT` and `ZEIT_TOKEN` as well. [See "Required GitHub secrets"](./.github/workflows/README.md).
 
 > If you don't provide all secrets, the app will not be deployable. The Now CLI will complain about missing secrets and abort the build.
 
-Once you've defined all secrets, you can commit/push any change, which will trigger a new build, through Github Actions.
+If you don't want need to deploy your app for multiple clients, then you should delete the whole [.github](.github) folder, as you won't need it.
+Zeit native Github integration will do just fine for that simpler use-case! :)
+
+You can now commit/push any change, which will trigger a new build, **through the native Zeit <> Github integration.**
+
+> Once you push, Zeit will automatically create a project using your repository's name. For instance, it created a "next-right-now" project for us.
+
+This project is created by the native Zeit <> Github integration.
+This may, or may not be a good thing. It's perfectly fine if you don't need to deploy multiple customers.
+
+### Advanced - When using multiple customers (B2B multi-tenants)
+
+If you want to deploy multiple customers, then it won't help you at all.
+In that case you should unlink the Zeit project from your Github repository and let Github Action handle that.
+
+You can now commit/push any change, which will trigger a new build, through **Github Actions.**
 
 ---
 
