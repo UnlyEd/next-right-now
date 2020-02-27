@@ -10,49 +10,55 @@ Next Right Now
 > # Status
 > **DRAFT - Currently being heavily worked on, subject to massive changes at any time**
 
-> Next Right Now (NRN) is meant to be used as a boilerplate for quick getting started with a production-ready project featuring the Next.js framework, hosted on Zeit platform.
+> Next Right Now (NRN) is meant to be used as a boilerplate for quick getting started with a production-grade project featuring the Next.js framework, hosted on Zeit platform.
 >
-> NRN is strongly opinionated, but also very flexible. It can also be used as a learning/teaching resource.
-> Our goal, by releasing NRN, is to allow any developer to quickly getting started with a fully working setup that includes many of the "must-have" features any real project needs as of 2020, such as:
-> - **B2B multi-tenants** first-class support (optional, advanced use-case)
->   - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base)
->   - This is a very special consideration, and required quite a lot of efforts to make it works smoothly
->   - Most projects do not need such capability, but we build our own projects with such requirement in mind, and thus released NRN with such capability
->   - It's very easy not to use it if you don't need to, but if you do then it'll be a huge time saver for you!
-> - Built-in **stages** (development, staging, production) workflow
-> - **TypeScript** first-class support
-> - **GraphQL** support (thanks to [Apollo](https://github.com/apollographql/apollo-client), and others)
->   - **GraphCMS** first-class support, which hosts our GraphQL API (server) and database, fully hosted (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
->   - **GraphQL schema** available in the developer environment (thanks to [GraphQL Config](https://github.com/kamilkisiela/graphql-config))
-> - **SSR** and **CSR** capabilities (thanks to the [Next.js framework](https://nextjs.org/))
-> - React hooks > HOC
-> - **Internationalisation** (i18n) first-class support (SSR + CSR friendly) (thanks to [react-i18next](https://react.i18next.com/))
->   - I18n of the database (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
->       - [Automated fallback language, through HTTP headers](https://graphcms.com/features/content-localization/?ref=unly-nrn)
->   - I18n of the project (thanks to [Locize<sup>1</sup>](https://locize.com/?lng=en))
->       - [Automated fallback language](https://www.i18next.com/principles/fallback)
->       - [In-context editor](https://docs.locize.com/more/incontext-editor)
->       - Auto-add i18n keys with default translation when working locally
-> - **Testing** first-class support
->   - TS-friendly (thanks to [ts-jest](https://github.com/kulshekhar/ts-jest))
->   - End-to-end (E2E) tests (thanks to [Cypress](https://www.cypress.io/))
->   - Other tests, such as unit tests, etc. (thanks to [Jest](https://jestjs.io/), [Jest extended](https://github.com/jest-community/jest-extended))
-> - Strong **observability** of the system (monitoring) and push-notification on your own messaging channel (i.e: Slack) when things go wrong (thanks to [Sentry<sup>1</sup>](https://sentry.io/))
-> - **Universal JS**, to re-use code as much as possible between frontend and backend (i.e: universal cookies API)
-> - Powerful **CSS-in-JS** styles, SSR & CSR friendly, JSX-friendly, styled-component friendly (thanks to [Emotion](https://github.com/emotion-js/emotion))
-> - **Font** first-class support (SSR/CSR friendly, no FOUT effect) (thanks to [WebFontLoader](https://github.com/typekit/webfontloader))
-> - Fine-grained frontend **analytics**, react-friendly, flexible, SPA-friendly (thanks to [Amplitude<sup>1</sup>**<sup>2</sup>**](https://amplitude.com/))
-> - **Integrated CI/CD pipeline**, automated deployments to preview domains and production domains (thanks to the [Zeit](https://zeit.co/), [GitHub Actions](https://github.com/features/actions))
->   - Including a dedicated "per-deployment domain", for fast feedback loop and testing means, in an online environment (staging)
-> - Built-in **utilities**
->   - Convert SVG to TSX components (thanks to [SVGR](https://github.com/gregberge/svgr))
->   - Font Awesome icons as react components, with SSR support (thanks to [Font Awesome](https://github.com/FortAwesome/react-fontawesome))
->   - Bootstrap support (thanks to [Reactstrap](https://reactstrap.github.io/))
->   - Node debug mode for the server side (only built-in on WebStorm)
->   - NPM security audit (script)
->   - NPM developer-friendly outdated packages (script)
->   - Display warning on outdated browsers, works even if bundle isn't ES5 compatible (IE11, etc.)
-> - [Fully documented usage of all our third party NPM libraries (AKA dependencies)](./README_DEPENDENCIES.md)
+> NRN is strongly opinionated, but also very flexible.
+> It can also be used as a learning/teaching resource.
+>
+> A lot of built-in components and utilities are available out of the box. Keep those you like, throw what you dislike, rewrite what doesn't exactly fit your needs, and share what could be useful to others! ;)
+>
+> Don't hesitate to share your opinion and propose improvements
+
+Our goal, by releasing NRN, is to allow any developer to quickly getting started with a fully working setup that includes many of the "must-have" features any real project needs as of 2020, such as:
+- **B2B multi-tenants** first-class support (optional, advanced use-case)
+  - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, multi-tenants design)
+  - This is a very special consideration, and required quite a lot of efforts to make it works smoothly
+  - Most projects do not need such capability, but we build our own projects with such requirement in mind, and thus released NRN with such built-in capability
+  - It's very easy not to use it if you don't need to, but if you do then it'll be a huge time saver for you!
+- Built-in **stages** (development, staging, production) workflow
+- **TypeScript** first-class support
+- **GraphQL** support (thanks to [Apollo](https://github.com/apollographql/apollo-client), and others)
+  - **GraphCMS** first-class support, which hosts our GraphQL API (server) and database, fully hosted (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
+  - **GraphQL schema** available in the developer environment (thanks to [GraphQL Config](https://github.com/kamilkisiela/graphql-config))
+- **SSR** and **CSR** capabilities (thanks to the [Next.js framework](https://nextjs.org/))
+- React hooks HOC
+- **Internationalisation** (i18n) first-class support (SSR + CSR friendly) (thanks to [react-i18next](https://react.i18next.com/))
+  - I18n of the database (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
+      - [Automated fallback language, through HTTP headers](https://graphcms.com/features/content-localization/?ref=unly-nrn)
+  - I18n of the project (thanks to [Locize<sup>1</sup>](https://locize.com/?lng=en))
+      - [Automated fallback language](https://www.i18next.com/principles/fallback)
+      - [In-context editor](https://docs.locize.com/more/incontext-editor)
+      - Auto-add i18n keys with default translation when working locally
+- **Testing** first-class support
+  - TS-friendly (thanks to [ts-jest](https://github.com/kulshekhar/ts-jest))
+  - End-to-end (E2E) tests (thanks to [Cypress](https://www.cypress.io/))
+  - Other tests, such as unit tests, etc. (thanks to [Jest](https://jestjs.io/), [Jest extended](https://github.com/jest-community/jest-extended))
+- Strong **observability** of the system (monitoring) and push-notification on your own messaging channel (i.e: Slack) when things go wrong (thanks to [Sentry<sup>1</sup>](https://sentry.io/))
+- **Universal JS**, to re-use code as much as possible between frontend and backend (i.e: universal cookies API)
+- Powerful **CSS-in-JS** styles, SSR & CSR friendly, JSX-friendly, styled-component friendly (thanks to [Emotion](https://github.com/emotion-js/emotion))
+- **Font** first-class support (SSR/CSR friendly, no FOUT effect) (thanks to [WebFontLoader](https://github.com/typekit/webfontloader))
+- Fine-grained frontend **analytics**, react-friendly, flexible, SPA-friendly (thanks to [Amplitude<sup>1</sup>**<sup>2</sup>**](https://amplitude.com/))
+- **Integrated CI/CD pipeline**, automated deployments to preview domains and production domains (thanks to the [Zeit](https://zeit.co/), [GitHub Actions](https://github.com/features/actions))
+  - Including a dedicated "per-deployment domain", for fast feedback loop and testing means, in an online environment (staging)
+- Built-in **utilities**
+  - Convert SVG to TSX components (thanks to [SVGR](https://github.com/gregberge/svgr))
+  - Font Awesome icons as react components, with SSR support (thanks to [Font Awesome](https://github.com/FortAwesome/react-fontawesome))
+  - Bootstrap support (thanks to [Reactstrap](https://reactstrap.github.io/))
+  - Node debug mode for the server side (only built-in on WebStorm)
+  - NPM security audit (script)
+  - NPM developer-friendly outdated packages (script)
+  - Display warning on outdated browsers, works even if bundle isn't ES5 compatible (IE11, etc.)
+- [Fully documented usage of all our third party NPM libraries (AKA dependencies)](./README_DEPENDENCIES.md)
 
 **Legend:**
 - `first-class support`: Means that we took a very special care to support this, and that it's not as simple as one may believe
@@ -396,3 +402,45 @@ Here is how the multiple steps are ordered:
 ## In-depth project's dependencies
 
 See [README_DEPENDENCIES](./README_DEPENDENCIES.md)
+
+
+---
+
+## License
+
+MIT
+
+---
+
+# Vulnerability disclosure
+
+[See our policy](https://github.com/UnlyEd/Unly).
+
+---
+
+# Contributors and maintainers
+
+This project is being maintained by:
+- [Unly] Ambroise Dhenain ([Vadorequest](https://github.com/vadorequest)) **(active)**
+
+Special thanks to:
+- [Contributor] Hugo Martin ([Demmonius](https://github.com/Demmonius)) - Github Actions CI/CD pipeline
+
+---
+
+# **[ABOUT UNLY]** <a href="https://unly.org"><img src="https://storage.googleapis.com/unly/images/ICON_UNLY.png" height="40" align="right" alt="Unly logo" title="Unly logo" /></a>
+
+> [Unly](https://unly.org) is a socially responsible company, fighting inequality and facilitating access to higher education.
+> Unly is committed to making education more inclusive, through responsible funding for students.
+
+We provide technological solutions to help students find the necessary funding for their studies.
+
+We proudly participate in many TechForGood initiatives. To support and learn more about our actions to make education accessible, visit :
+- https://twitter.com/UnlyEd
+- https://www.facebook.com/UnlyEd/
+- https://www.linkedin.com/company/unly
+- [Interested to work with us?](https://jobs.zenploy.io/unly/about)
+
+Tech tips and tricks from our CTO on our [Medium page](https://medium.com/unly-org/tech/home)!
+
+#TECHFORGOOD #EDUCATIONFORALL
