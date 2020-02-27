@@ -51,7 +51,7 @@ You can choose which client you deploy by changing the symbolic link `now.json` 
 Changing the symlink allows to change which "CUSTOMER_REF" gets automatically deployed.
 
 _**production**_ (see [`deploy-zeit-production`](./deploy-zeit-production.yml)):
-Commits pushed to the `master` branch will automatically deploy the "INSTITUTION_NAME" specified in `now.json` to Zeit, but will use it's production configuration.
+Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_REF" specified in `now.json` to Zeit, but will use it's production configuration.
 
 > N.B: Those events are triggered by pushed commit, but also merged branches.
 
