@@ -15,10 +15,6 @@ type AggregateAsset {
   count: Int!
 }
 
-type AggregateCategory {
-  count: Int!
-}
-
 type AggregateCustomer {
   count: Int!
 }
@@ -90,49 +86,6 @@ type BatchPayload {
   count: Long!
 }
 
-type Category implements Node {
-  createdAt: DateTime!
-  description: String
-  id: ID!
-  name: String!
-  products(after: String, before: String, first: Int, last: Int, orderBy: ProductOrderByInput, skip: Int, where: ProductWhereInput): [Product!]
-  status: Status!
-  updatedAt: DateTime!
-}
-
-"A connection to a list of items."
-type CategoryConnection {
-  aggregate: AggregateCategory!
-  "A list of edges."
-  edges: [CategoryEdge]!
-  "Information to aid in pagination."
-  pageInfo: PageInfo!
-}
-
-"An edge in a connection."
-type CategoryEdge {
-  "A cursor for use in pagination."
-  cursor: String!
-  "The item at the end of the edge."
-  node: Category!
-}
-
-type CategoryPreviousValues {
-  createdAt: DateTime!
-  description: String
-  id: ID!
-  name: String!
-  status: Status!
-  updatedAt: DateTime!
-}
-
-type CategorySubscriptionPayload {
-  mutation: MutationType!
-  node: Category
-  previousValues: CategoryPreviousValues
-  updatedFields: [String!]
-}
-
 type Customer implements Node {
   createdAt: DateTime!
   id: ID!
@@ -181,25 +134,20 @@ type CustomerSubscriptionPayload {
 
 type Mutation {
   createAsset(data: AssetCreateInput!): Asset!
-  createCategory(data: CategoryCreateInput!): Category!
   createCustomer(data: CustomerCreateInput!): Customer!
   createProduct(data: ProductCreateInput!): Product!
   createTheme(data: ThemeCreateInput!): Theme!
   deleteAsset(where: AssetWhereUniqueInput!): Asset
-  deleteCategory(where: CategoryWhereUniqueInput!): Category
   deleteCustomer(where: CustomerWhereUniqueInput!): Customer
   deleteManyAssets(where: AssetWhereInput): BatchPayload!
-  deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   deleteManyCustomers(where: CustomerWhereInput): BatchPayload!
   deleteManyProducts(where: ProductWhereInput): BatchPayload!
   deleteManyThemes(where: ThemeWhereInput): BatchPayload!
   deleteProduct(where: ProductWhereUniqueInput!): Product
   deleteTheme(where: ThemeWhereUniqueInput!): Theme
   updateAsset(data: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset
-  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
   updateCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
   updateManyAssets(data: AssetUpdateManyMutationInput!, where: AssetWhereInput): BatchPayload!
-  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
   updateManyCustomers(data: CustomerUpdateManyMutationInput!, where: CustomerWhereInput): BatchPayload!
   updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
   updateManyThemes(data: ThemeUpdateManyMutationInput!, where: ThemeWhereInput): BatchPayload!
@@ -207,7 +155,6 @@ type Mutation {
   updateTheme(data: ThemeUpdateInput!, where: ThemeWhereUniqueInput!): Theme
   uploadAsset(data: AssetUploadInput!): Asset!
   upsertAsset(create: AssetCreateInput!, update: AssetUpdateInput!, where: AssetWhereUniqueInput!): Asset!
-  upsertCategory(create: CategoryCreateInput!, update: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
   upsertCustomer(create: CustomerCreateInput!, update: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer!
   upsertProduct(create: ProductCreateInput!, update: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product!
   upsertTheme(create: ThemeCreateInput!, update: ThemeUpdateInput!, where: ThemeWhereUniqueInput!): Theme!
@@ -226,13 +173,13 @@ type PageInfo {
 }
 
 type Product implements Node {
-  categories(after: String, before: String, first: Int, last: Int, orderBy: CategoryOrderByInput, skip: Int, where: CategoryWhereInput): [Category!]
   createdAt: DateTime!
   customer: Customer
   description: String
   id: ID!
   images(after: String, before: String, first: Int, last: Int, orderBy: AssetOrderByInput, skip: Int, where: AssetWhereInput): [Asset!]
   inventoryID: String
+  price: Float
   status: Status!
   title: String!
   updatedAt: DateTime!
@@ -260,6 +207,7 @@ type ProductPreviousValues {
   description: String
   id: ID!
   inventoryID: String
+  price: Float
   status: Status!
   title: String!
   updatedAt: DateTime!
@@ -276,9 +224,6 @@ type Query {
   asset(where: AssetWhereUniqueInput!): Asset
   assets(after: String, before: String, first: Int, last: Int, orderBy: AssetOrderByInput, skip: Int, where: AssetWhereInput): [Asset]!
   assetsConnection(after: String, before: String, first: Int, last: Int, orderBy: AssetOrderByInput, skip: Int, where: AssetWhereInput): AssetConnection!
-  categories(after: String, before: String, first: Int, last: Int, orderBy: CategoryOrderByInput, skip: Int, where: CategoryWhereInput): [Category]!
-  categoriesConnection(after: String, before: String, first: Int, last: Int, orderBy: CategoryOrderByInput, skip: Int, where: CategoryWhereInput): CategoryConnection!
-  category(where: CategoryWhereUniqueInput!): Category
   customer(where: CustomerWhereUniqueInput!): Customer
   customers(after: String, before: String, first: Int, last: Int, orderBy: CustomerOrderByInput, skip: Int, where: CustomerWhereInput): [Customer]!
   customersConnection(after: String, before: String, first: Int, last: Int, orderBy: CustomerOrderByInput, skip: Int, where: CustomerWhereInput): CustomerConnection!
@@ -368,21 +313,6 @@ enum AssetOrderByInput {
   width_DESC
 }
 
-enum CategoryOrderByInput {
-  createdAt_ASC
-  createdAt_DESC
-  description_ASC
-  description_DESC
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  status_ASC
-  status_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
 enum CustomerOrderByInput {
   createdAt_ASC
   createdAt_DESC
@@ -449,6 +379,8 @@ enum ProductOrderByInput {
   id_DESC
   inventoryID_ASC
   inventoryID_DESC
+  price_ASC
+  price_DESC
   status_ASC
   status_DESC
   title_ASC
@@ -1074,359 +1006,6 @@ input AssetWhereUniqueInput {
   id: ID
 }
 
-input CategoryCreateInput {
-  description: String
-  name: String!
-  products: ProductCreateManyWithoutCategoriesInput
-  status: Status
-}
-
-input CategoryCreateManyWithoutProductsInput {
-  connect: [CategoryWhereUniqueInput!]
-  create: [CategoryCreateWithoutProductsInput!]
-}
-
-input CategoryCreateWithoutProductsInput {
-  description: String
-  name: String!
-  status: Status
-}
-
-input CategoryScalarWhereInput {
-  "Logical AND on all given filters."
-  AND: [CategoryScalarWhereInput!]
-  "Logical NOT on all given filters combined by AND."
-  NOT: [CategoryScalarWhereInput!]
-  "Logical OR on all given filters."
-  OR: [CategoryScalarWhereInput!]
-  _search: String
-  createdAt: DateTime
-  "All values greater than the given value."
-  createdAt_gt: DateTime
-  "All values greater than or equal the given value."
-  createdAt_gte: DateTime
-  "All values that are contained in given list."
-  createdAt_in: [DateTime!]
-  "All values less than the given value."
-  createdAt_lt: DateTime
-  "All values less than or equal the given value."
-  createdAt_lte: DateTime
-  "All values that are not equal to given value."
-  createdAt_not: DateTime
-  "All values that are not contained in given list."
-  createdAt_not_in: [DateTime!]
-  description: String
-  "All values containing the given string."
-  description_contains: String
-  "All values ending with the given string."
-  description_ends_with: String
-  "All values greater than the given value."
-  description_gt: String
-  "All values greater than or equal the given value."
-  description_gte: String
-  "All values that are contained in given list."
-  description_in: [String!]
-  "All values less than the given value."
-  description_lt: String
-  "All values less than or equal the given value."
-  description_lte: String
-  "All values that are not equal to given value."
-  description_not: String
-  "All values not containing the given string."
-  description_not_contains: String
-  "All values not ending with the given string."
-  description_not_ends_with: String
-  "All values that are not contained in given list."
-  description_not_in: [String!]
-  "All values not starting with the given string."
-  description_not_starts_with: String
-  "All values starting with the given string."
-  description_starts_with: String
-  id: ID
-  "All values containing the given string."
-  id_contains: ID
-  "All values ending with the given string."
-  id_ends_with: ID
-  "All values greater than the given value."
-  id_gt: ID
-  "All values greater than or equal the given value."
-  id_gte: ID
-  "All values that are contained in given list."
-  id_in: [ID!]
-  "All values less than the given value."
-  id_lt: ID
-  "All values less than or equal the given value."
-  id_lte: ID
-  "All values that are not equal to given value."
-  id_not: ID
-  "All values not containing the given string."
-  id_not_contains: ID
-  "All values not ending with the given string."
-  id_not_ends_with: ID
-  "All values that are not contained in given list."
-  id_not_in: [ID!]
-  "All values not starting with the given string."
-  id_not_starts_with: ID
-  "All values starting with the given string."
-  id_starts_with: ID
-  name: String
-  "All values containing the given string."
-  name_contains: String
-  "All values ending with the given string."
-  name_ends_with: String
-  "All values greater than the given value."
-  name_gt: String
-  "All values greater than or equal the given value."
-  name_gte: String
-  "All values that are contained in given list."
-  name_in: [String!]
-  "All values less than the given value."
-  name_lt: String
-  "All values less than or equal the given value."
-  name_lte: String
-  "All values that are not equal to given value."
-  name_not: String
-  "All values not containing the given string."
-  name_not_contains: String
-  "All values not ending with the given string."
-  name_not_ends_with: String
-  "All values that are not contained in given list."
-  name_not_in: [String!]
-  "All values not starting with the given string."
-  name_not_starts_with: String
-  "All values starting with the given string."
-  name_starts_with: String
-  status: Status
-  "All values that are contained in given list."
-  status_in: [Status!]
-  "All values that are not equal to given value."
-  status_not: Status
-  "All values that are not contained in given list."
-  status_not_in: [Status!]
-  updatedAt: DateTime
-  "All values greater than the given value."
-  updatedAt_gt: DateTime
-  "All values greater than or equal the given value."
-  updatedAt_gte: DateTime
-  "All values that are contained in given list."
-  updatedAt_in: [DateTime!]
-  "All values less than the given value."
-  updatedAt_lt: DateTime
-  "All values less than or equal the given value."
-  updatedAt_lte: DateTime
-  "All values that are not equal to given value."
-  updatedAt_not: DateTime
-  "All values that are not contained in given list."
-  updatedAt_not_in: [DateTime!]
-}
-
-input CategorySubscriptionWhereInput {
-  "Logical AND on all given filters."
-  AND: [CategorySubscriptionWhereInput!]
-  "Logical NOT on all given filters combined by AND."
-  NOT: [CategorySubscriptionWhereInput!]
-  "Logical OR on all given filters."
-  OR: [CategorySubscriptionWhereInput!]
-  "The subscription event gets dispatched when it's listed in mutation_in"
-  mutation_in: [MutationType!]
-  node: CategoryWhereInput
-  "The subscription event gets only dispatched when one of the updated fields names is included in this list"
-  updatedFields_contains: String
-  "The subscription event gets only dispatched when all of the field names included in this list have been updated"
-  updatedFields_contains_every: [String!]
-  "The subscription event gets only dispatched when some of the field names included in this list have been updated"
-  updatedFields_contains_some: [String!]
-}
-
-input CategoryUpdateInput {
-  description: String
-  name: String
-  products: ProductUpdateManyWithoutCategoriesInput
-  status: Status
-}
-
-input CategoryUpdateManyDataInput {
-  description: String
-  name: String
-  status: Status
-}
-
-input CategoryUpdateManyMutationInput {
-  description: String
-  name: String
-  status: Status
-}
-
-input CategoryUpdateManyWithWhereNestedInput {
-  data: CategoryUpdateManyDataInput!
-  where: CategoryScalarWhereInput!
-}
-
-input CategoryUpdateManyWithoutProductsInput {
-  connect: [CategoryWhereUniqueInput!]
-  create: [CategoryCreateWithoutProductsInput!]
-  delete: [CategoryWhereUniqueInput!]
-  deleteMany: [CategoryScalarWhereInput!]
-  disconnect: [CategoryWhereUniqueInput!]
-  set: [CategoryWhereUniqueInput!]
-  update: [CategoryUpdateWithWhereUniqueWithoutProductsInput!]
-  updateMany: [CategoryUpdateManyWithWhereNestedInput!]
-  upsert: [CategoryUpsertWithWhereUniqueWithoutProductsInput!]
-}
-
-input CategoryUpdateWithWhereUniqueWithoutProductsInput {
-  data: CategoryUpdateWithoutProductsDataInput!
-  where: CategoryWhereUniqueInput!
-}
-
-input CategoryUpdateWithoutProductsDataInput {
-  description: String
-  name: String
-  status: Status
-}
-
-input CategoryUpsertWithWhereUniqueWithoutProductsInput {
-  create: CategoryCreateWithoutProductsInput!
-  update: CategoryUpdateWithoutProductsDataInput!
-  where: CategoryWhereUniqueInput!
-}
-
-input CategoryWhereInput {
-  "Logical AND on all given filters."
-  AND: [CategoryWhereInput!]
-  "Logical NOT on all given filters combined by AND."
-  NOT: [CategoryWhereInput!]
-  "Logical OR on all given filters."
-  OR: [CategoryWhereInput!]
-  _search: String
-  createdAt: DateTime
-  "All values greater than the given value."
-  createdAt_gt: DateTime
-  "All values greater than or equal the given value."
-  createdAt_gte: DateTime
-  "All values that are contained in given list."
-  createdAt_in: [DateTime!]
-  "All values less than the given value."
-  createdAt_lt: DateTime
-  "All values less than or equal the given value."
-  createdAt_lte: DateTime
-  "All values that are not equal to given value."
-  createdAt_not: DateTime
-  "All values that are not contained in given list."
-  createdAt_not_in: [DateTime!]
-  description: String
-  "All values containing the given string."
-  description_contains: String
-  "All values ending with the given string."
-  description_ends_with: String
-  "All values greater than the given value."
-  description_gt: String
-  "All values greater than or equal the given value."
-  description_gte: String
-  "All values that are contained in given list."
-  description_in: [String!]
-  "All values less than the given value."
-  description_lt: String
-  "All values less than or equal the given value."
-  description_lte: String
-  "All values that are not equal to given value."
-  description_not: String
-  "All values not containing the given string."
-  description_not_contains: String
-  "All values not ending with the given string."
-  description_not_ends_with: String
-  "All values that are not contained in given list."
-  description_not_in: [String!]
-  "All values not starting with the given string."
-  description_not_starts_with: String
-  "All values starting with the given string."
-  description_starts_with: String
-  id: ID
-  "All values containing the given string."
-  id_contains: ID
-  "All values ending with the given string."
-  id_ends_with: ID
-  "All values greater than the given value."
-  id_gt: ID
-  "All values greater than or equal the given value."
-  id_gte: ID
-  "All values that are contained in given list."
-  id_in: [ID!]
-  "All values less than the given value."
-  id_lt: ID
-  "All values less than or equal the given value."
-  id_lte: ID
-  "All values that are not equal to given value."
-  id_not: ID
-  "All values not containing the given string."
-  id_not_contains: ID
-  "All values not ending with the given string."
-  id_not_ends_with: ID
-  "All values that are not contained in given list."
-  id_not_in: [ID!]
-  "All values not starting with the given string."
-  id_not_starts_with: ID
-  "All values starting with the given string."
-  id_starts_with: ID
-  name: String
-  "All values containing the given string."
-  name_contains: String
-  "All values ending with the given string."
-  name_ends_with: String
-  "All values greater than the given value."
-  name_gt: String
-  "All values greater than or equal the given value."
-  name_gte: String
-  "All values that are contained in given list."
-  name_in: [String!]
-  "All values less than the given value."
-  name_lt: String
-  "All values less than or equal the given value."
-  name_lte: String
-  "All values that are not equal to given value."
-  name_not: String
-  "All values not containing the given string."
-  name_not_contains: String
-  "All values not ending with the given string."
-  name_not_ends_with: String
-  "All values that are not contained in given list."
-  name_not_in: [String!]
-  "All values not starting with the given string."
-  name_not_starts_with: String
-  "All values starting with the given string."
-  name_starts_with: String
-  products_every: ProductWhereInput
-  products_none: ProductWhereInput
-  products_some: ProductWhereInput
-  status: Status
-  "All values that are contained in given list."
-  status_in: [Status!]
-  "All values that are not equal to given value."
-  status_not: Status
-  "All values that are not contained in given list."
-  status_not_in: [Status!]
-  updatedAt: DateTime
-  "All values greater than the given value."
-  updatedAt_gt: DateTime
-  "All values greater than or equal the given value."
-  updatedAt_gte: DateTime
-  "All values that are contained in given list."
-  updatedAt_in: [DateTime!]
-  "All values less than the given value."
-  updatedAt_lt: DateTime
-  "All values less than or equal the given value."
-  updatedAt_lte: DateTime
-  "All values that are not equal to given value."
-  updatedAt_not: DateTime
-  "All values that are not contained in given list."
-  updatedAt_not_in: [DateTime!]
-}
-
-input CategoryWhereUniqueInput {
-  id: ID
-  name: String
-}
-
 input CustomerCreateInput {
   labelEN: String
   products: ProductCreateManyWithoutCustomerInput
@@ -1729,18 +1308,13 @@ input ImageTransformationInput {
 }
 
 input ProductCreateInput {
-  categories: CategoryCreateManyWithoutProductsInput
   customer: CustomerCreateOneWithoutProductsInput
   description: String
   images: AssetCreateManyWithoutImagesProductInput
   inventoryID: String
+  price: Float
   status: Status
   title: String!
-}
-
-input ProductCreateManyWithoutCategoriesInput {
-  connect: [ProductWhereUniqueInput!]
-  create: [ProductCreateWithoutCategoriesInput!]
 }
 
 input ProductCreateManyWithoutCustomerInput {
@@ -1753,29 +1327,20 @@ input ProductCreateManyWithoutImagesInput {
   create: [ProductCreateWithoutImagesInput!]
 }
 
-input ProductCreateWithoutCategoriesInput {
-  customer: CustomerCreateOneWithoutProductsInput
-  description: String
-  images: AssetCreateManyWithoutImagesProductInput
-  inventoryID: String
-  status: Status
-  title: String!
-}
-
 input ProductCreateWithoutCustomerInput {
-  categories: CategoryCreateManyWithoutProductsInput
   description: String
   images: AssetCreateManyWithoutImagesProductInput
   inventoryID: String
+  price: Float
   status: Status
   title: String!
 }
 
 input ProductCreateWithoutImagesInput {
-  categories: CategoryCreateManyWithoutProductsInput
   customer: CustomerCreateOneWithoutProductsInput
   description: String
   inventoryID: String
+  price: Float
   status: Status
   title: String!
 }
@@ -1884,6 +1449,21 @@ input ProductScalarWhereInput {
   inventoryID_not_starts_with: String
   "All values starting with the given string."
   inventoryID_starts_with: String
+  price: Float
+  "All values greater than the given value."
+  price_gt: Float
+  "All values greater than or equal the given value."
+  price_gte: Float
+  "All values that are contained in given list."
+  price_in: [Float!]
+  "All values less than the given value."
+  price_lt: Float
+  "All values less than or equal the given value."
+  price_lte: Float
+  "All values that are not equal to given value."
+  price_not: Float
+  "All values that are not contained in given list."
+  price_not_in: [Float!]
   status: Status
   "All values that are contained in given list."
   status_in: [Status!]
@@ -1954,11 +1534,11 @@ input ProductSubscriptionWhereInput {
 }
 
 input ProductUpdateInput {
-  categories: CategoryUpdateManyWithoutProductsInput
   customer: CustomerUpdateOneWithoutProductsInput
   description: String
   images: AssetUpdateManyWithoutImagesProductInput
   inventoryID: String
+  price: Float
   status: Status
   title: String
 }
@@ -1966,6 +1546,7 @@ input ProductUpdateInput {
 input ProductUpdateManyDataInput {
   description: String
   inventoryID: String
+  price: Float
   status: Status
   title: String
 }
@@ -1973,6 +1554,7 @@ input ProductUpdateManyDataInput {
 input ProductUpdateManyMutationInput {
   description: String
   inventoryID: String
+  price: Float
   status: Status
   title: String
 }
@@ -1980,18 +1562,6 @@ input ProductUpdateManyMutationInput {
 input ProductUpdateManyWithWhereNestedInput {
   data: ProductUpdateManyDataInput!
   where: ProductScalarWhereInput!
-}
-
-input ProductUpdateManyWithoutCategoriesInput {
-  connect: [ProductWhereUniqueInput!]
-  create: [ProductCreateWithoutCategoriesInput!]
-  delete: [ProductWhereUniqueInput!]
-  deleteMany: [ProductScalarWhereInput!]
-  disconnect: [ProductWhereUniqueInput!]
-  set: [ProductWhereUniqueInput!]
-  update: [ProductUpdateWithWhereUniqueWithoutCategoriesInput!]
-  updateMany: [ProductUpdateManyWithWhereNestedInput!]
-  upsert: [ProductUpsertWithWhereUniqueWithoutCategoriesInput!]
 }
 
 input ProductUpdateManyWithoutCustomerInput {
@@ -2018,11 +1588,6 @@ input ProductUpdateManyWithoutImagesInput {
   upsert: [ProductUpsertWithWhereUniqueWithoutImagesInput!]
 }
 
-input ProductUpdateWithWhereUniqueWithoutCategoriesInput {
-  data: ProductUpdateWithoutCategoriesDataInput!
-  where: ProductWhereUniqueInput!
-}
-
 input ProductUpdateWithWhereUniqueWithoutCustomerInput {
   data: ProductUpdateWithoutCustomerDataInput!
   where: ProductWhereUniqueInput!
@@ -2033,37 +1598,22 @@ input ProductUpdateWithWhereUniqueWithoutImagesInput {
   where: ProductWhereUniqueInput!
 }
 
-input ProductUpdateWithoutCategoriesDataInput {
-  customer: CustomerUpdateOneWithoutProductsInput
-  description: String
-  images: AssetUpdateManyWithoutImagesProductInput
-  inventoryID: String
-  status: Status
-  title: String
-}
-
 input ProductUpdateWithoutCustomerDataInput {
-  categories: CategoryUpdateManyWithoutProductsInput
   description: String
   images: AssetUpdateManyWithoutImagesProductInput
   inventoryID: String
+  price: Float
   status: Status
   title: String
 }
 
 input ProductUpdateWithoutImagesDataInput {
-  categories: CategoryUpdateManyWithoutProductsInput
   customer: CustomerUpdateOneWithoutProductsInput
   description: String
   inventoryID: String
+  price: Float
   status: Status
   title: String
-}
-
-input ProductUpsertWithWhereUniqueWithoutCategoriesInput {
-  create: ProductCreateWithoutCategoriesInput!
-  update: ProductUpdateWithoutCategoriesDataInput!
-  where: ProductWhereUniqueInput!
 }
 
 input ProductUpsertWithWhereUniqueWithoutCustomerInput {
@@ -2086,9 +1636,6 @@ input ProductWhereInput {
   "Logical OR on all given filters."
   OR: [ProductWhereInput!]
   _search: String
-  categories_every: CategoryWhereInput
-  categories_none: CategoryWhereInput
-  categories_some: CategoryWhereInput
   createdAt: DateTime
   "All values greater than the given value."
   createdAt_gt: DateTime
@@ -2189,6 +1736,21 @@ input ProductWhereInput {
   inventoryID_not_starts_with: String
   "All values starting with the given string."
   inventoryID_starts_with: String
+  price: Float
+  "All values greater than the given value."
+  price_gt: Float
+  "All values greater than or equal the given value."
+  price_gte: Float
+  "All values that are contained in given list."
+  price_in: [Float!]
+  "All values less than the given value."
+  price_lt: Float
+  "All values less than or equal the given value."
+  price_lte: Float
+  "All values that are not equal to given value."
+  price_not: Float
+  "All values that are not contained in given list."
+  price_not_in: [Float!]
   status: Status
   "All values that are contained in given list."
   status_in: [Status!]

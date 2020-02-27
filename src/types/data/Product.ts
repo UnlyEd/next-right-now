@@ -6,4 +6,5 @@ export declare type Product = {
   title?: string;
   description?: string;
   images?: Asset[];
+  price?: number;
 } & GraphCMSSystemFields;

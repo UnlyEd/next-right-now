@@ -12,6 +12,7 @@ export const product = {
       images {
         ...assetFields
       }
+      price
     }
     ${asset.assetFields}
   `,

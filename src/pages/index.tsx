@@ -177,7 +177,7 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
                       }
 
                       <h2>
-                        {product?.title}
+                        {product?.title} - ${product?.price || 0}
                       </h2>
 
                       <div>
