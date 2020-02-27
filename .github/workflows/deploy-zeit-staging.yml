@@ -60,9 +60,9 @@ jobs:
           echo "::set-env name=ZEIT_DEPLOYEMENT_ALIAS::https://$ZEIT_DEPLOYEMENT_ALIAS"
 
           npx now alias https://$ZEIT_DEPLOYMENT https://$ZEIT_DEPLOYEMENT_ALIAS --token $ZEIT_TOKEN
-       env:
-         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
-         CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+          CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
