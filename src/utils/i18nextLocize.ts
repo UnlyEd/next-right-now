@@ -154,8 +154,8 @@ export const locizeBackendOptions = {
   ...locizeOptions,
   // XXX "build" is meant to automatically invalidate the browser cache when releasing a different version,
   //  so that the end-users get the newest version immediately
-  loadPath: `https://api.locize.io/{{projectId}}/{{version}}/{{lng}}/{{ns}}?build=${process.env.BUILD_TIMESTAMP}`,
-  addPath: `https://api.locize.io/missing/{{projectId}}/{{version}}/{{lng}}/{{ns}}`,
+  loadPath: `https://api.locize.app/{{projectId}}/{{version}}/{{lng}}/{{ns}}?build=${process.env.BUILD_TIMESTAMP}`,
+  addPath: `https://api.locize.app/missing/{{projectId}}/{{version}}/{{lng}}/{{ns}}`,
   private: false, // Should never be private
 
   /**
@@ -207,7 +207,7 @@ export const locizeBackendOptions = {
  *        - The browser's cache is completely disabled in development/staging, so that we may work/test with the latest translation
  *          See the official recommendations https://docs.locize.com/more/caching
  *      - Production stage:
- *        - When in production, the browser will also cache for 1h, because we configured a "Cache-control: Max-Age" at https://www.locize.io/p/w7jrmdie/settings
+ *        - When in production, the browser will also cache for 1h, because we configured a "Cache-control: Max-Age" at https://www.locize.app/p/w7jrmdie/settings
  *          We followed the official recommendations https://docs.locize.com/more/caching
  *          1h seems to be a good compromise between over-fetching (we don't expect our users to use the app for more than 1h straight)
  *          and applying translation "hot-fix" (worst case: "hot-fix"" be applied 1h later, which is acceptable)
