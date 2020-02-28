@@ -65,10 +65,12 @@ fabric.properties
 ### WebStorm Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
+# TODO Comment those if you've cloned the project and are using WebStorm as they should be tracked in your project, but shouldn't be tracked in the boilerplate to avoid conflicts when cloning
 *.iml
 modules.xml
 .idea/misc.xml
 *.ipr
+vcs.xml
 
 # Sonarlint plugin
 .idea/sonarlint
