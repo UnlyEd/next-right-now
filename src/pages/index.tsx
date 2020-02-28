@@ -104,10 +104,6 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
               margin-left: auto;
               margin-right: auto;
 
-              a:hover{
-                text-decoration: none;
-              }
-
               .product-container {
                 background-color: white;
                 border-radius: 10px;
