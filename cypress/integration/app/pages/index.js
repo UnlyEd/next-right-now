@@ -26,11 +26,11 @@ describe('Index page', () => {
     cy.get('#nav a.nav-link').should('have.length', 3);
   });
 
-  it('should have a link in the navbar that redirects to the terms page', () => {
+  it('should have a link in the navbar that redirects to the examples page', () => {
     cy.url().should('eq', `${baseUrl}/`);
     cy.get('#nav-link-terms')
-      .should('have.text', 'Terms')
+      .should('have.text', 'Examples')
       .click();
-    cy.url().should('eq', `${baseUrl}/terms`);
+    cy.url().should('eq', `${baseUrl}/examples`);
   });
 });

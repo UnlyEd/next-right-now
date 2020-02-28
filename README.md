@@ -1,8 +1,8 @@
 <a href="https://unly.org"><img src="https://storage.googleapis.com/unly/images/ICON_UNLY.png" align="right" height="20" alt="Unly logo" title="Unly logo" /></a>
 [![Maintainability](https://api.codeclimate.com/v1/badges/3f3f2c0a4106abcb9a1d/maintainability)](https://codeclimate.com/github/UnlyEd/next-right-now/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3f3f2c0a4106abcb9a1d/test_coverage)](https://codeclimate.com/github/UnlyEd/next-right-now/test_coverage)
-[![Locize Latest version](https://img.shields.io/badge/dynamic/json.svg?style=plastic&color=2096F3&label=locize&query=%24.versions%5B%27latest%27%5D.translatedPercentage&url=https://api.locize.app/badgedata/658fc999-dfa8-4307-b9d7-b4870ad5b968&suffix=%+translated&link=https://www.locize.com&prefix=latest:+)](https://www.locize.io/p/w7jrmdie/statistics/badges)
-[![Locize Production version](https://img.shields.io/badge/dynamic/json.svg?style=plastic&color=2096F3&label=locize&query=%24.versions%5B%27production%27%5D.translatedPercentage&url=https://api.locize.app/badgedata/658fc999-dfa8-4307-b9d7-b4870ad5b968&suffix=%+translated&link=https://www.locize.com&prefix=production:+)](https://www.locize.io/p/w7jrmdie/statistics/badges)
+[![Locize Latest version](https://img.shields.io/badge/dynamic/json.svg?style=plastic&color=2096F3&label=locize&query=%24.versions%5B%27latest%27%5D.translatedPercentage&url=https://api.locize.app/badgedata/658fc999-dfa8-4307-b9d7-b4870ad5b968&suffix=%+translated&link=https://www.locize.com&prefix=latest:+)](https://www.locize.app/p/w7jrmdie/statistics/badges)
+[![Locize Production version](https://img.shields.io/badge/dynamic/json.svg?style=plastic&color=2096F3&label=locize&query=%24.versions%5B%27production%27%5D.translatedPercentage&url=https://api.locize.app/badgedata/658fc999-dfa8-4307-b9d7-b4870ad5b968&suffix=%+translated&link=https://www.locize.com&prefix=production:+)](https://www.locize.app/p/w7jrmdie/statistics/badges)
 
 Next Right Now
 ===
@@ -340,7 +340,7 @@ See the [official documentation](https://graphcms.com/docs/api/content-api/?ref=
 
 > When the content we want to display doesn't come from GraphCMS API, then it's considered as a "static" content.
 >
-> This means that the content is managed by [Locize](https://www.locize.io/p/w7jrmdie/v/latest) and must be updated manually there.
+> This means that the content is managed by [Locize](https://www.locize.app/p/w7jrmdie/v/latest) and must be updated manually there.
 
 Check [this video](https://www.youtube.com/watch?v=9NOzJhgmyQE) to see Locize in action with react-i18next.
 
@@ -361,13 +361,13 @@ Once you're ready to ship the content to production, the `production` version ca
 
 #### Locize additional services
 
-Locize provides a few [additional services](https://www.locize.io/p/w7jrmdie/services). Some are free, some are paid.
+Locize provides a few [additional services](https://www.locize.app/p/w7jrmdie/services). Some are free, some are paid.
 
 #### Other additional services
 
-- One interesting thing is the ability to share part of the project to be translated by a third party using [`Crowdbased`](https://www.locize.io/p/w7jrmdie/services), without sharing the whole project.
-- There are also several paid [Translation services](https://www.locize.io/p/w7jrmdie/services), where you can pay people to translate your content.
-- It is also possible to enable [Audit](https://www.locize.io/p/w7jrmdie/services), which allows to audit every change to our translations, and keep changes up to 10 years. (_expensive_)
+- One interesting thing is the ability to share part of the project to be translated by a third party using [`Crowdbased`](https://www.locize.app/p/w7jrmdie/services), without sharing the whole project.
+- There are also several paid [Translation services](https://www.locize.app/p/w7jrmdie/services), where you can pay people to translate your content.
+- It is also possible to enable [Audit](https://www.locize.app/p/w7jrmdie/services), which allows to audit every change to our translations, and keep changes up to 10 years. (_expensive_)
 
 ---
 
@@ -438,7 +438,7 @@ Here is how the multiple steps are ordered:
         1. A new Zeit deployment is triggered, which runs our tests first (`yarn test:once`) (Failing tests will stop the deployment)
         1. Then, the deployment is deployed, and automatically linked to a custom domain which depends on the git branch name (xxx.now.sh)
         1. Then, our 2E2 tests are triggered using Cypress
-            - If they fail, artifacts (screenshots, videos) recorded by Cypress are uploaded to Github to help further debug
+            - If they fail, artifacts (screenshots, videos) recorded by Cypress are uploaded to Github to help further debug (See [example](https://github.com/UnlyEd/next-right-now/runs/474607960))
 
 ## In-depth project's dependencies
 

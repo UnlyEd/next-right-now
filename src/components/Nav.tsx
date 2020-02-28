@@ -196,18 +196,18 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
 
             <NavItem>
               <Link
-                href={`/terms`}
+                href={`/examples`}
               >
                 <Col className={'navItemsMenu'}>
                   <Row className={'justify-content-center navItemsLogo'}>
-                    <i className={classnames('fas fa-comments', { active: isActive(router, 'terms') })} />
+                    <i className={classnames('fas fa-comments', { active: isActive(router, 'examples') })} />
                   </Row>
                   <Row className={'justify-content-center'}>
                     <NavLink
-                      id={'nav-link-terms'}
-                      active={isActive(router, 'terms')}
+                      id={'nav-link-examples'}
+                      active={isActive(router, 'examples')}
                     >
-                      {t('nav.termsPage.link', 'CGU')}
+                      {t('nav.examplesPage.link', 'Exemples')}
                     </NavLink>
                   </Row>
                 </Col>

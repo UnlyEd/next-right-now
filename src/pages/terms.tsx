@@ -37,7 +37,7 @@ const Terms: NextPage<PageProps> = (props: PageProps): JSX.Element => {
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
-    message: `Rendering index page (${isBrowser() ? 'browser' : 'server'})`,
+    message: `Rendering terms page (${isBrowser() ? 'browser' : 'server'})`,
     level: Sentry.Severity.Debug,
   });
 
