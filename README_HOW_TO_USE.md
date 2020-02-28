@@ -51,7 +51,7 @@ The following binaries are expected to be installed on your computer.
 
 ### Super quick local installation (for local-only testing purpose, without Zeit account)
 
-> Follow this guide if you just want to try it out on your local machine
+> Follow this guide **if you just want to try it out** on your local machine
 >
 > **Tip**: Using now@17+ is required for CI to work properly, but you don't care about that if you just want to get started quickly.
 
@@ -62,13 +62,15 @@ The following binaries are expected to be installed on your computer.
 - That's it! The project now works on your local computer, and should be identical to the online demo
     Note that it's still using the demo GraphCMS/GraphQL endpoint,
 
-> **Tip**: You can enable in-context editor mode in order to localise your static content, by appending `?locize=true` to the url, see [https://nrn-customer1.now.sh/?locize=true](https://nrn-customer1.now.sh/?locize=true) _(this is only enabled in development and staging stages, not in production)_
+> **Tip**: You can enable **Locize in-context editor mode** in order to localise your static content, by appending `?locize=true` to the url, see [https://nrn-customer1.now.sh/?locize=true](https://nrn-customer1.now.sh/?locize=true) _(this is only enabled in development and staging stages, not in production)_
 >
-> **Tip**: You can start the project in debug mode (built-in for WebStorm only) [by running the WebStorm "Debug" configuration in debug mode](https://youtu.be/3vbkiRAT4e8)
+> **Tip**: You can start the project in **debug mode** (built-in for WebStorm only) [by running the WebStorm "Debug" configuration in debug mode](https://youtu.be/3vbkiRAT4e8)
+>
+> **Tip**: You can change **which customer is started by default** by changing the [`./now.json`](./now.json) symlink (ie: `ln -s ./now.customer2.staging.json ./now.json`)
 
 ### Full local installation
 
-> Follow this guide if you want to deep-dive into the demo, deploy it to staging/production, change the source code, basically make this project your own.
+> Follow this guide **if you want to deep-dive into the demo**, deploy it to staging/production, change the source code, basically make this project your own.
 
 #### Prerequisites third parties
 
