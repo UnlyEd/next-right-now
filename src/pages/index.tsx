@@ -127,7 +127,7 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
                 <br />
                 We use a custom component <code>GraphCMSAsset</code> to display images.<br />
                 <br />
-                You can navigate between <Link href={'/terms'}>/terms</Link> and <Link href={'/'}>/</Link> to see CSR in action.<br />
+                You can navigate between <Link href={'/examples'}>/examples</Link> and <Link href={'/'}>/</Link> to see CSR in action.<br />
                 You can also disable JS on your browser to see how SSR works.<br />
                 <br />
                 You can also use
