@@ -438,7 +438,7 @@ Here is how the multiple steps are ordered:
         1. A new Zeit deployment is triggered, which runs our tests first (`yarn test:once`) (Failing tests will stop the deployment)
         1. Then, the deployment is deployed, and automatically linked to a custom domain which depends on the git branch name (xxx.now.sh)
         1. Then, our 2E2 tests are triggered using Cypress
-            - If they fail, artifacts (screenshots, videos) recorded by Cypress are uploaded to Github to help further debug
+            - If they fail, artifacts (screenshots, videos) recorded by Cypress are uploaded to Github to help further debug (See [example](https://github.com/UnlyEd/next-right-now/runs/474607960))
 
 ## In-depth project's dependencies
 
