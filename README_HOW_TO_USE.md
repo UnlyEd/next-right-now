@@ -201,7 +201,6 @@ The next step is to [link this Zeit project to your computer source code](#linki
 
 > In this tutorial, we will see how to link an existing Zeit project to a local source code (cloned repository) and how to manually deploy new customers from our local computer (without CI/CD)
 
-
 ---
 
 ## Advanced Zeit usage
@@ -247,6 +246,11 @@ While there can be multiple staging deployments, **there is only one production 
 If you don't want/need to deploy your app for multiple clients, then you should delete the whole [.github](.github) folder, as you won't need it.
 Zeit native Github integration will do just fine for that simpler use-case! :)
 
+#### Video Tutorial - How to link a Zeit project to a local source code (12 minutes)
+
+[![Tutorial NRN - How to link a Zeit project to a local source code](https://img.youtube.com/vi/hPQu6jgOyC0/maxresdefault.jpg)](http://youtu.be/hPQu6jgOyC0?hd=1)
+
+> In this tutorial, we will see how to configure our custom Zeit <> Github Actions integration (CI/CD)
 
 ### Configuring Zeit secrets (manually)
 
@@ -263,6 +267,6 @@ Zeit native Github integration will do just fine for that simpler use-case! :)
 
 > If you don't provide all secrets, the app will not be deployable. The Now CLI will complain about missing secrets and abort the build.
 
----
+### Configuring Zeit deployment regions
 
-TODO Tip: Regions
+Please see the [official documentation](https://zeit.co/docs/v2/network/regions-and-providers#routing).
