@@ -196,7 +196,7 @@ The next step is to [link this Zeit project to your computer source code](#linki
 - `yarn` - Installs all deps from [`package.json`](./package.json)
 - Remove `"scope": "team_DAU7RcjwnftBzWFDi4ZuypN5",` from all now JSON config file
     - **Tip**: Don't forget `now.json` is a symlink to `now.customer1.staging.json` and doesn't need to be modified
-- `now` - Installs all deps from [`package.json`](./package.json)
+- `now` - Authenticates to Zeit and link local project to Zeit project (creates `/.now` folder)
 - `yarn start` - Starts the app on [http://localhost:8888/](http://localhost:8888/)
 
 #### Video Tutorial - How to link a Zeit project to a local source code (12 minutes)
@@ -272,5 +272,9 @@ Zeit native Github integration will do just fine for that simpler use-case! :)
 > If you don't provide all secrets, the app will not be deployable. The Now CLI will complain about missing secrets and abort the build.
 
 ### Configuring Zeit deployment regions
+
+> You may want to deploy Zeit to multiple regions in the world, depending on your use case
+>
+> By default (if not specified), it will only deploy to the closest region, which is probably **not** what you want to do!
 
 Please see the [official documentation](https://zeit.co/docs/v2/network/regions-and-providers#routing).
