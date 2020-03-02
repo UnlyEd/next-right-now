@@ -3,9 +3,6 @@
   "name": "nrn-customer2",
   "scope": "team_DAU7RcjwnftBzWFDi4ZuypN5",
   "env": {},
-  "regions": [
-    "all"
-  ],
   "build": {
     "env": {
       "APP_STAGE": "production",
