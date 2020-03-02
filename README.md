@@ -17,11 +17,12 @@ Next Right Now
 > Don't hesitate to share your opinion and propose improvements
 
 Our goal, by releasing NRN, is to allow any developer to quickly getting started with a fully working setup that includes many of the "must-have" features any real project needs as of 2020, such as:
-- **B2B multi-tenants** first-class support (optional, advanced use-case)
+- **B2B multi-tenants** first-class support (optional, **advanced use-case**)
   - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, multi-tenants design)
   - This is a very special consideration, and required quite a lot of efforts to make it works smoothly
+    - With multi-tenants setup, we don't use the native **Zeit <> Github integration**, but our **custom Zeit <> Github Actions integration** instead ([.github](.github))
   - Most projects do not need such capability, but we build our own projects with such requirement in mind, and thus released NRN with such built-in capability
-  - It's very easy not to use it if you don't need to, but if you do then it'll be a huge time saver for you!
+  - **It's very easy not to use it** if you don't need to, but it'll be a huge time saver for you if you need it!
 - Built-in **stages** (development, staging, production) workflow
 - **TypeScript** first-class support
 - **GraphQL** support (thanks to [Apollo](https://github.com/apollographql/apollo-client), and others)
