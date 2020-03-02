@@ -18,10 +18,13 @@ How to use
     + [Configuring project on Zeit platform](#configuring-project-on-zeit-platform)
   * [Creating Locize account](#creating-locize-account)
     + [Locize configuration video tutorial (12 minutes)](#locize-configuration-video-tutorial-12-minutes)
+    + [Additional i18n/Locize documentation](#additional-i18nlocize-documentation)
   * [Creating GraphCMS account](#creating-graphcms-account)
     + [Discount](#discount)
     + [GraphCMS configuration video tutorial (10 minutes)](#graphcms-configuration-video-tutorial-10-minutes)
+    + [Additional GraphCMS documentation](#additional-graphcms-documentation)
   * [Creating Sentry account](#creating-sentry-account)
+    + [Additional Sentry documentation](#additional-sentry-documentation)
   * [Linking a Zeit project to a local source code](#linking-a-zeit-project-to-a-local-source-code)
       - [Video Tutorial - How to link a Zeit project to a local source code (12 minutes)](#video-tutorial---how-to-link-a-zeit-project-to-a-local-source-code-12-minutes)
   * [Advanced Zeit usage](#advanced-zeit-usage)
@@ -32,6 +35,8 @@ How to use
       - [Video Tutorial - How to link a Zeit project to a local source code (12 minutes)](#video-tutorial---how-to-link-a-zeit-project-to-a-local-source-code-12-minutes-1)
     + [Configuring Zeit secrets (manually)](#configuring-zeit-secrets-manually)
     + [Configuring Zeit deployment regions](#configuring-zeit-deployment-regions)
+  * [Advanced GraphCMS usage](#advanced-graphcms-usage)
+    + [Demo data structure](#demo-data-structure)
 
 <!-- tocstop -->
 
@@ -146,6 +151,15 @@ The next step is to [link this Zeit project to your computer source code](#linki
 
 > This video explains how to create a Locize account and configure versions, languages, namespaces, Caching and how to release new versions to production
 
+### Additional i18n/Locize documentation
+
+- react-i18next
+    - [Official react-i18next documentation](https://react.i18next.com/)
+    - [Github react-i18next](https://github.com/i18next/react-i18next)
+    - [`useTranslation` hook official guide](https://react.i18next.com/latest/usetranslation-hook)
+    - [`Trans` component official guide](https://react.i18next.com/latest/trans-component)
+- [Official i18next documentation](https://www.i18next.com/)
+
 ---
 
 ## Creating GraphCMS account
@@ -168,6 +182,23 @@ The next step is to [link this Zeit project to your computer source code](#linki
 
 > This video explains how to create a GraphCMS account and configure locales, versions, auth tokens and gives an overview of the settings
 
+### Additional GraphCMS documentation
+
+If you decide to keep GraphCMS, you'll need to read the official documentation if you're not already familiar with it.
+GraphCMS is very powerful, and quite helpful. It handles your database, your CMS and your GraphQL API. It's a fully managed service.
+It also provides a built-in assets management system, with on-the-fly image transformations.
+
+It can be replaced by any other GraphQL endpoint though, if you prefer to manage those things yourself.
+
+- See [Advanced GraphCMS usage](#advanced-graphcms-usage) for further explanation
+- [Official "Getting started" guide](https://graphcms.com/docs/getting-started?ref=unly-nrn)
+- I18n
+    - [Official "I18n" guide](https://graphcms.com/docs/guides/i18n/)
+    - [Querying localized content](https://graphcms.com/docs/api/content-api/#querying-localized-content)
+- Assets
+    - [Official "Assets" guide](https://graphcms.com/docs/assets/general)
+    - [Dynamic asset transformations](https://graphcms.com/docs/assets/transformations)
+
 ---
 
 ## Creating Sentry account
@@ -180,7 +211,14 @@ The next step is to [link this Zeit project to your computer source code](#linki
     - **Tip**: You **must** create only one project, even if you use a multi-tenants setup, because all customers will be using the same error monitoring project
 - You can find your Sentry DSN at [https://sentry.io/settings/TEAM_NAME/projects/PROJECT_NAME/keys/](https://sentry.io/settings/TEAM_NAME/projects/PROJECT_NAME/keys/)
 
----
+### Additional Sentry documentation
+
+- [Official "Getting started" guide](https://docs.sentry.io/error-reporting/quickstart/?platform=javascript)
+- [Capturing errors](https://docs.sentry.io/error-reporting/capturing/?platform=javascript)
+- [Configuration](https://docs.sentry.io/error-reporting/configuration/?platform=javascript)
+- [Using "context" for events](https://docs.sentry.io/enriching-error-data/context/?platform=javascript)
+- [Using "breadcrumbs" for events](https://docs.sentry.io/enriching-error-data/breadcrumbs/?platform=javascript)
+- [How to blacklist sensitive data tracking (GDPR, security)](https://docs.sentry.io/data-management/sensitive-data/)
 
 ---
 
@@ -278,3 +316,31 @@ Zeit native Github integration will do just fine for that simpler use-case! :)
 > By default (if not specified), it will only deploy to the closest region, which is probably **not** what you want to do!
 
 Please see the [official documentation](https://zeit.co/docs/v2/network/regions-and-providers#routing).
+
+---
+
+## Advanced GraphCMS usage
+
+### Demo data structure
+
+> Data structure of the GraphCMS database used as example.
+>
+> This is only useful if you wish to understand the relationships and data structure of the demo, you don't really need it.
+> But if you fork and try to rebuild the demo on your own GraphCMS endpoint, it'll come in handy.
+
+- customer
+    - ref - Single line text, required, unique
+    - label - Single line text, localized
+    - theme - Theme
+    - products - Product[]
+    - terms - RichText Editor, localized
+- product
+    - title - Single line text, required, unique
+    - images - Asset[]
+    - description - Markdown, localized
+    - customer - Customer
+    - price - float
+- theme
+    - primaryColor - Single line text, required
+    - logo - Asset, required
+    - customer - Customer

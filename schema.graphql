@@ -119,9 +119,11 @@ type CustomerPreviousValues {
   createdAt: DateTime!
   id: ID!
   labelEN: String
+  labelFR: String
   ref: String!
   status: Status!
   termsEN: RichText
+  termsFR: RichText
   updatedAt: DateTime!
 }
 
@@ -175,13 +177,12 @@ type PageInfo {
 type Product implements Node {
   createdAt: DateTime!
   customer: Customer
-  description: String
+  description(locale: Locale): String
   id: ID!
   images(after: String, before: String, first: Int, last: Int, orderBy: AssetOrderByInput, skip: Int, where: AssetWhereInput): [Asset!]
-  inventoryID: String
   price: Float
   status: Status!
-  title: String!
+  title(locale: Locale): String
   updatedAt: DateTime!
 }
 
@@ -204,12 +205,13 @@ type ProductEdge {
 
 type ProductPreviousValues {
   createdAt: DateTime!
-  description: String
+  descriptionEN: String
+  descriptionFR: String
   id: ID!
-  inventoryID: String
   price: Float
   status: Status!
-  title: String!
+  titleEN: String
+  titleFR: String
   updatedAt: DateTime!
 }
 
@@ -320,12 +322,16 @@ enum CustomerOrderByInput {
   id_DESC
   labelEN_ASC
   labelEN_DESC
+  labelFR_ASC
+  labelFR_DESC
   ref_ASC
   ref_DESC
   status_ASC
   status_DESC
   termsEN_ASC
   termsEN_DESC
+  termsFR_ASC
+  termsFR_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -362,6 +368,7 @@ enum ImageFit {
 
 enum Locale {
   EN
+  FR
 }
 
 enum MutationType {
@@ -373,18 +380,20 @@ enum MutationType {
 enum ProductOrderByInput {
   createdAt_ASC
   createdAt_DESC
-  description_ASC
-  description_DESC
+  descriptionEN_ASC
+  descriptionEN_DESC
+  descriptionFR_ASC
+  descriptionFR_DESC
   id_ASC
   id_DESC
-  inventoryID_ASC
-  inventoryID_DESC
   price_ASC
   price_DESC
   status_ASC
   status_DESC
-  title_ASC
-  title_DESC
+  titleEN_ASC
+  titleEN_DESC
+  titleFR_ASC
+  titleFR_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -1008,10 +1017,12 @@ input AssetWhereUniqueInput {
 
 input CustomerCreateInput {
   labelEN: String
+  labelFR: String
   products: ProductCreateManyWithoutCustomerInput
   ref: String!
   status: Status
   termsEN: RichTextAST
+  termsFR: RichTextAST
   theme: ThemeCreateOneWithoutCustomerInput
 }
 
@@ -1027,18 +1038,22 @@ input CustomerCreateOneWithoutThemeInput {
 
 input CustomerCreateWithoutProductsInput {
   labelEN: String
+  labelFR: String
   ref: String!
   status: Status
   termsEN: RichTextAST
+  termsFR: RichTextAST
   theme: ThemeCreateOneWithoutCustomerInput
 }
 
 input CustomerCreateWithoutThemeInput {
   labelEN: String
+  labelFR: String
   products: ProductCreateManyWithoutCustomerInput
   ref: String!
   status: Status
   termsEN: RichTextAST
+  termsFR: RichTextAST
 }
 
 input CustomerSubscriptionWhereInput {
@@ -1061,18 +1076,22 @@ input CustomerSubscriptionWhereInput {
 
 input CustomerUpdateInput {
   labelEN: String
+  labelFR: String
   products: ProductUpdateManyWithoutCustomerInput
   ref: String
   status: Status
   termsEN: RichTextAST
+  termsFR: RichTextAST
   theme: ThemeUpdateOneWithoutCustomerInput
 }
 
 input CustomerUpdateManyMutationInput {
   labelEN: String
+  labelFR: String
   ref: String
   status: Status
   termsEN: RichTextAST
+  termsFR: RichTextAST
 }
 
 input CustomerUpdateOneWithoutProductsInput {
@@ -1095,18 +1114,22 @@ input CustomerUpdateOneWithoutThemeInput {
 
 input CustomerUpdateWithoutProductsDataInput {
   labelEN: String
+  labelFR: String
   ref: String
   status: Status
   termsEN: RichTextAST
+  termsFR: RichTextAST
   theme: ThemeUpdateOneWithoutCustomerInput
 }
 
 input CustomerUpdateWithoutThemeDataInput {
   labelEN: String
+  labelFR: String
   products: ProductUpdateManyWithoutCustomerInput
   ref: String
   status: Status
   termsEN: RichTextAST
+  termsFR: RichTextAST
 }
 
 input CustomerUpsertWithoutProductsInput {
@@ -1196,6 +1219,33 @@ input CustomerWhereInput {
   labelEN_not_starts_with: String
   "All values starting with the given string."
   labelEN_starts_with: String
+  labelFR: String
+  "All values containing the given string."
+  labelFR_contains: String
+  "All values ending with the given string."
+  labelFR_ends_with: String
+  "All values greater than the given value."
+  labelFR_gt: String
+  "All values greater than or equal the given value."
+  labelFR_gte: String
+  "All values that are contained in given list."
+  labelFR_in: [String!]
+  "All values less than the given value."
+  labelFR_lt: String
+  "All values less than or equal the given value."
+  labelFR_lte: String
+  "All values that are not equal to given value."
+  labelFR_not: String
+  "All values not containing the given string."
+  labelFR_not_contains: String
+  "All values not ending with the given string."
+  labelFR_not_ends_with: String
+  "All values that are not contained in given list."
+  labelFR_not_in: [String!]
+  "All values not starting with the given string."
+  labelFR_not_starts_with: String
+  "All values starting with the given string."
+  labelFR_starts_with: String
   products_every: ProductWhereInput
   products_none: ProductWhereInput
   products_some: ProductWhereInput
@@ -1309,12 +1359,13 @@ input ImageTransformationInput {
 
 input ProductCreateInput {
   customer: CustomerCreateOneWithoutProductsInput
-  description: String
+  descriptionEN: String
+  descriptionFR: String
   images: AssetCreateManyWithoutImagesProductInput
-  inventoryID: String
   price: Float
   status: Status
-  title: String!
+  titleEN: String
+  titleFR: String
 }
 
 input ProductCreateManyWithoutCustomerInput {
@@ -1328,21 +1379,23 @@ input ProductCreateManyWithoutImagesInput {
 }
 
 input ProductCreateWithoutCustomerInput {
-  description: String
+  descriptionEN: String
+  descriptionFR: String
   images: AssetCreateManyWithoutImagesProductInput
-  inventoryID: String
   price: Float
   status: Status
-  title: String!
+  titleEN: String
+  titleFR: String
 }
 
 input ProductCreateWithoutImagesInput {
   customer: CustomerCreateOneWithoutProductsInput
-  description: String
-  inventoryID: String
+  descriptionEN: String
+  descriptionFR: String
   price: Float
   status: Status
-  title: String!
+  titleEN: String
+  titleFR: String
 }
 
 input ProductScalarWhereInput {
@@ -1368,33 +1421,60 @@ input ProductScalarWhereInput {
   createdAt_not: DateTime
   "All values that are not contained in given list."
   createdAt_not_in: [DateTime!]
-  description: String
+  descriptionEN: String
   "All values containing the given string."
-  description_contains: String
+  descriptionEN_contains: String
   "All values ending with the given string."
-  description_ends_with: String
+  descriptionEN_ends_with: String
   "All values greater than the given value."
-  description_gt: String
+  descriptionEN_gt: String
   "All values greater than or equal the given value."
-  description_gte: String
+  descriptionEN_gte: String
   "All values that are contained in given list."
-  description_in: [String!]
+  descriptionEN_in: [String!]
   "All values less than the given value."
-  description_lt: String
+  descriptionEN_lt: String
   "All values less than or equal the given value."
-  description_lte: String
+  descriptionEN_lte: String
   "All values that are not equal to given value."
-  description_not: String
+  descriptionEN_not: String
   "All values not containing the given string."
-  description_not_contains: String
+  descriptionEN_not_contains: String
   "All values not ending with the given string."
-  description_not_ends_with: String
+  descriptionEN_not_ends_with: String
   "All values that are not contained in given list."
-  description_not_in: [String!]
+  descriptionEN_not_in: [String!]
   "All values not starting with the given string."
-  description_not_starts_with: String
+  descriptionEN_not_starts_with: String
   "All values starting with the given string."
-  description_starts_with: String
+  descriptionEN_starts_with: String
+  descriptionFR: String
+  "All values containing the given string."
+  descriptionFR_contains: String
+  "All values ending with the given string."
+  descriptionFR_ends_with: String
+  "All values greater than the given value."
+  descriptionFR_gt: String
+  "All values greater than or equal the given value."
+  descriptionFR_gte: String
+  "All values that are contained in given list."
+  descriptionFR_in: [String!]
+  "All values less than the given value."
+  descriptionFR_lt: String
+  "All values less than or equal the given value."
+  descriptionFR_lte: String
+  "All values that are not equal to given value."
+  descriptionFR_not: String
+  "All values not containing the given string."
+  descriptionFR_not_contains: String
+  "All values not ending with the given string."
+  descriptionFR_not_ends_with: String
+  "All values that are not contained in given list."
+  descriptionFR_not_in: [String!]
+  "All values not starting with the given string."
+  descriptionFR_not_starts_with: String
+  "All values starting with the given string."
+  descriptionFR_starts_with: String
   id: ID
   "All values containing the given string."
   id_contains: ID
@@ -1422,33 +1502,6 @@ input ProductScalarWhereInput {
   id_not_starts_with: ID
   "All values starting with the given string."
   id_starts_with: ID
-  inventoryID: String
-  "All values containing the given string."
-  inventoryID_contains: String
-  "All values ending with the given string."
-  inventoryID_ends_with: String
-  "All values greater than the given value."
-  inventoryID_gt: String
-  "All values greater than or equal the given value."
-  inventoryID_gte: String
-  "All values that are contained in given list."
-  inventoryID_in: [String!]
-  "All values less than the given value."
-  inventoryID_lt: String
-  "All values less than or equal the given value."
-  inventoryID_lte: String
-  "All values that are not equal to given value."
-  inventoryID_not: String
-  "All values not containing the given string."
-  inventoryID_not_contains: String
-  "All values not ending with the given string."
-  inventoryID_not_ends_with: String
-  "All values that are not contained in given list."
-  inventoryID_not_in: [String!]
-  "All values not starting with the given string."
-  inventoryID_not_starts_with: String
-  "All values starting with the given string."
-  inventoryID_starts_with: String
   price: Float
   "All values greater than the given value."
   price_gt: Float
@@ -1471,33 +1524,60 @@ input ProductScalarWhereInput {
   status_not: Status
   "All values that are not contained in given list."
   status_not_in: [Status!]
-  title: String
+  titleEN: String
   "All values containing the given string."
-  title_contains: String
+  titleEN_contains: String
   "All values ending with the given string."
-  title_ends_with: String
+  titleEN_ends_with: String
   "All values greater than the given value."
-  title_gt: String
+  titleEN_gt: String
   "All values greater than or equal the given value."
-  title_gte: String
+  titleEN_gte: String
   "All values that are contained in given list."
-  title_in: [String!]
+  titleEN_in: [String!]
   "All values less than the given value."
-  title_lt: String
+  titleEN_lt: String
   "All values less than or equal the given value."
-  title_lte: String
+  titleEN_lte: String
   "All values that are not equal to given value."
-  title_not: String
+  titleEN_not: String
   "All values not containing the given string."
-  title_not_contains: String
+  titleEN_not_contains: String
   "All values not ending with the given string."
-  title_not_ends_with: String
+  titleEN_not_ends_with: String
   "All values that are not contained in given list."
-  title_not_in: [String!]
+  titleEN_not_in: [String!]
   "All values not starting with the given string."
-  title_not_starts_with: String
+  titleEN_not_starts_with: String
   "All values starting with the given string."
-  title_starts_with: String
+  titleEN_starts_with: String
+  titleFR: String
+  "All values containing the given string."
+  titleFR_contains: String
+  "All values ending with the given string."
+  titleFR_ends_with: String
+  "All values greater than the given value."
+  titleFR_gt: String
+  "All values greater than or equal the given value."
+  titleFR_gte: String
+  "All values that are contained in given list."
+  titleFR_in: [String!]
+  "All values less than the given value."
+  titleFR_lt: String
+  "All values less than or equal the given value."
+  titleFR_lte: String
+  "All values that are not equal to given value."
+  titleFR_not: String
+  "All values not containing the given string."
+  titleFR_not_contains: String
+  "All values not ending with the given string."
+  titleFR_not_ends_with: String
+  "All values that are not contained in given list."
+  titleFR_not_in: [String!]
+  "All values not starting with the given string."
+  titleFR_not_starts_with: String
+  "All values starting with the given string."
+  titleFR_starts_with: String
   updatedAt: DateTime
   "All values greater than the given value."
   updatedAt_gt: DateTime
@@ -1535,28 +1615,31 @@ input ProductSubscriptionWhereInput {
 
 input ProductUpdateInput {
   customer: CustomerUpdateOneWithoutProductsInput
-  description: String
+  descriptionEN: String
+  descriptionFR: String
   images: AssetUpdateManyWithoutImagesProductInput
-  inventoryID: String
   price: Float
   status: Status
-  title: String
+  titleEN: String
+  titleFR: String
 }
 
 input ProductUpdateManyDataInput {
-  description: String
-  inventoryID: String
+  descriptionEN: String
+  descriptionFR: String
   price: Float
   status: Status
-  title: String
+  titleEN: String
+  titleFR: String
 }
 
 input ProductUpdateManyMutationInput {
-  description: String
-  inventoryID: String
+  descriptionEN: String
+  descriptionFR: String
   price: Float
   status: Status
-  title: String
+  titleEN: String
+  titleFR: String
 }
 
 input ProductUpdateManyWithWhereNestedInput {
@@ -1599,21 +1682,23 @@ input ProductUpdateWithWhereUniqueWithoutImagesInput {
 }
 
 input ProductUpdateWithoutCustomerDataInput {
-  description: String
+  descriptionEN: String
+  descriptionFR: String
   images: AssetUpdateManyWithoutImagesProductInput
-  inventoryID: String
   price: Float
   status: Status
-  title: String
+  titleEN: String
+  titleFR: String
 }
 
 input ProductUpdateWithoutImagesDataInput {
   customer: CustomerUpdateOneWithoutProductsInput
-  description: String
-  inventoryID: String
+  descriptionEN: String
+  descriptionFR: String
   price: Float
   status: Status
-  title: String
+  titleEN: String
+  titleFR: String
 }
 
 input ProductUpsertWithWhereUniqueWithoutCustomerInput {
@@ -1652,33 +1737,60 @@ input ProductWhereInput {
   "All values that are not contained in given list."
   createdAt_not_in: [DateTime!]
   customer: CustomerWhereInput
-  description: String
+  descriptionEN: String
   "All values containing the given string."
-  description_contains: String
+  descriptionEN_contains: String
   "All values ending with the given string."
-  description_ends_with: String
+  descriptionEN_ends_with: String
   "All values greater than the given value."
-  description_gt: String
+  descriptionEN_gt: String
   "All values greater than or equal the given value."
-  description_gte: String
+  descriptionEN_gte: String
   "All values that are contained in given list."
-  description_in: [String!]
+  descriptionEN_in: [String!]
   "All values less than the given value."
-  description_lt: String
+  descriptionEN_lt: String
   "All values less than or equal the given value."
-  description_lte: String
+  descriptionEN_lte: String
   "All values that are not equal to given value."
-  description_not: String
+  descriptionEN_not: String
   "All values not containing the given string."
-  description_not_contains: String
+  descriptionEN_not_contains: String
   "All values not ending with the given string."
-  description_not_ends_with: String
+  descriptionEN_not_ends_with: String
   "All values that are not contained in given list."
-  description_not_in: [String!]
+  descriptionEN_not_in: [String!]
   "All values not starting with the given string."
-  description_not_starts_with: String
+  descriptionEN_not_starts_with: String
   "All values starting with the given string."
-  description_starts_with: String
+  descriptionEN_starts_with: String
+  descriptionFR: String
+  "All values containing the given string."
+  descriptionFR_contains: String
+  "All values ending with the given string."
+  descriptionFR_ends_with: String
+  "All values greater than the given value."
+  descriptionFR_gt: String
+  "All values greater than or equal the given value."
+  descriptionFR_gte: String
+  "All values that are contained in given list."
+  descriptionFR_in: [String!]
+  "All values less than the given value."
+  descriptionFR_lt: String
+  "All values less than or equal the given value."
+  descriptionFR_lte: String
+  "All values that are not equal to given value."
+  descriptionFR_not: String
+  "All values not containing the given string."
+  descriptionFR_not_contains: String
+  "All values not ending with the given string."
+  descriptionFR_not_ends_with: String
+  "All values that are not contained in given list."
+  descriptionFR_not_in: [String!]
+  "All values not starting with the given string."
+  descriptionFR_not_starts_with: String
+  "All values starting with the given string."
+  descriptionFR_starts_with: String
   id: ID
   "All values containing the given string."
   id_contains: ID
@@ -1709,33 +1821,6 @@ input ProductWhereInput {
   images_every: AssetWhereInput
   images_none: AssetWhereInput
   images_some: AssetWhereInput
-  inventoryID: String
-  "All values containing the given string."
-  inventoryID_contains: String
-  "All values ending with the given string."
-  inventoryID_ends_with: String
-  "All values greater than the given value."
-  inventoryID_gt: String
-  "All values greater than or equal the given value."
-  inventoryID_gte: String
-  "All values that are contained in given list."
-  inventoryID_in: [String!]
-  "All values less than the given value."
-  inventoryID_lt: String
-  "All values less than or equal the given value."
-  inventoryID_lte: String
-  "All values that are not equal to given value."
-  inventoryID_not: String
-  "All values not containing the given string."
-  inventoryID_not_contains: String
-  "All values not ending with the given string."
-  inventoryID_not_ends_with: String
-  "All values that are not contained in given list."
-  inventoryID_not_in: [String!]
-  "All values not starting with the given string."
-  inventoryID_not_starts_with: String
-  "All values starting with the given string."
-  inventoryID_starts_with: String
   price: Float
   "All values greater than the given value."
   price_gt: Float
@@ -1758,33 +1843,60 @@ input ProductWhereInput {
   status_not: Status
   "All values that are not contained in given list."
   status_not_in: [Status!]
-  title: String
+  titleEN: String
   "All values containing the given string."
-  title_contains: String
+  titleEN_contains: String
   "All values ending with the given string."
-  title_ends_with: String
+  titleEN_ends_with: String
   "All values greater than the given value."
-  title_gt: String
+  titleEN_gt: String
   "All values greater than or equal the given value."
-  title_gte: String
+  titleEN_gte: String
   "All values that are contained in given list."
-  title_in: [String!]
+  titleEN_in: [String!]
   "All values less than the given value."
-  title_lt: String
+  titleEN_lt: String
   "All values less than or equal the given value."
-  title_lte: String
+  titleEN_lte: String
   "All values that are not equal to given value."
-  title_not: String
+  titleEN_not: String
   "All values not containing the given string."
-  title_not_contains: String
+  titleEN_not_contains: String
   "All values not ending with the given string."
-  title_not_ends_with: String
+  titleEN_not_ends_with: String
   "All values that are not contained in given list."
-  title_not_in: [String!]
+  titleEN_not_in: [String!]
   "All values not starting with the given string."
-  title_not_starts_with: String
+  titleEN_not_starts_with: String
   "All values starting with the given string."
-  title_starts_with: String
+  titleEN_starts_with: String
+  titleFR: String
+  "All values containing the given string."
+  titleFR_contains: String
+  "All values ending with the given string."
+  titleFR_ends_with: String
+  "All values greater than the given value."
+  titleFR_gt: String
+  "All values greater than or equal the given value."
+  titleFR_gte: String
+  "All values that are contained in given list."
+  titleFR_in: [String!]
+  "All values less than the given value."
+  titleFR_lt: String
+  "All values less than or equal the given value."
+  titleFR_lte: String
+  "All values that are not equal to given value."
+  titleFR_not: String
+  "All values not containing the given string."
+  titleFR_not_contains: String
+  "All values not ending with the given string."
+  titleFR_not_ends_with: String
+  "All values that are not contained in given list."
+  titleFR_not_in: [String!]
+  "All values not starting with the given string."
+  titleFR_not_starts_with: String
+  "All values starting with the given string."
+  titleFR_starts_with: String
   updatedAt: DateTime
   "All values greater than the given value."
   updatedAt_gt: DateTime
@@ -1804,8 +1916,8 @@ input ProductWhereInput {
 
 input ProductWhereUniqueInput {
   id: ID
-  inventoryID: String
-  title: String
+  titleEN: String
+  titleFR: String
 }
 
 input ThemeCreateInput {

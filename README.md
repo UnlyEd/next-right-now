@@ -75,6 +75,7 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
     + [Guides](#guides)
   * [Showcases - Live demo](#showcases---live-demo)
 - [How to use?](#how-to-use)
+- [Roadmap and future improvements](#roadmap-and-future-improvements)
 - [Understanding `Environments` and `Stages`](#understanding-environments-and-stages)
   * [What is an `environment`?](#what-is-an-environment)
   * [What is a `stage`?](#what-is-a-stage)
@@ -97,7 +98,7 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
   * [CI tests Workflow](#ci-tests-workflow)
   * [Running tests manually (locally)](#running-tests-manually-locally)
   * [Running E2E tests manually (locally)](#running-e2e-tests-manually-locally)
-  * [License](#license)
+- [License](#license)
 - [Vulnerability disclosure](#vulnerability-disclosure)
 - [Contributors and maintainers](#contributors-and-maintainers)
 - [**[ABOUT UNLY]**](#about-unly-)
@@ -150,6 +151,19 @@ You can see 2 almost identical demo at:
 # How to use?
 
 If you're interested about using this project for yourself, see our ["How to use" Guide](./README_HOW_TO_USE.md).
+
+---
+
+# Roadmap and future improvements
+
+> This boilerplate is usable (and used) in production environments. But there are a few improvements we're really looking towards.
+
+- **Static Site Generation (SSG)**
+    - This feature is currently in [RFC draft](https://github.com/zeit/next.js/issues/9524) and being developed on the Zeit framework.
+    It's gonna be a huge game changer for Next.js, because it will allow statically generated apps that are still dynamic.
+    It's similar of what Gatbsy allows, but it will be much more powerful and flexible, as we will be able to enable SSG on a page basis.
+    This means that on the same app, some page may use SSR, other may use SSG, etc.
+    We are closely watching this RFC, as we hope to change the boilerplate to handle such use case.
 
 ---
 
@@ -359,9 +373,10 @@ You can also run them non-interactively using `yarn e2e:run` script.
 
 > You may need to run `yarn e2e:install` script first
 
+
 ---
 
-## License
+# License
 
 MIT
 
