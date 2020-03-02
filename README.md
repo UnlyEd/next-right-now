@@ -75,6 +75,7 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
     + [Guides](#guides)
   * [Showcases - Live demo](#showcases---live-demo)
 - [How to use?](#how-to-use)
+- [Roadmap and future improvements](#roadmap-and-future-improvements)
 - [Understanding `Environments` and `Stages`](#understanding-environments-and-stages)
   * [What is an `environment`?](#what-is-an-environment)
   * [What is a `stage`?](#what-is-a-stage)
@@ -97,7 +98,8 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
   * [CI tests Workflow](#ci-tests-workflow)
   * [Running tests manually (locally)](#running-tests-manually-locally)
   * [Running E2E tests manually (locally)](#running-e2e-tests-manually-locally)
-  * [License](#license)
+- [Project folders structure](#project-folders-structure)
+- [License](#license)
 - [Vulnerability disclosure](#vulnerability-disclosure)
 - [Contributors and maintainers](#contributors-and-maintainers)
 - [**[ABOUT UNLY]**](#about-unly-)
@@ -150,6 +152,19 @@ You can see 2 almost identical demo at:
 # How to use?
 
 If you're interested about using this project for yourself, see our ["How to use" Guide](./README_HOW_TO_USE.md).
+
+---
+
+# Roadmap and future improvements
+
+> This boilerplate is usable (and used) in production environments. But there are a few improvements we're really looking towards.
+
+- **Static Site Generation (SSG)**
+    - This feature is currently in [RFC draft](https://github.com/zeit/next.js/issues/9524) and being developed on the Zeit framework.
+    It's gonna be a huge game changer for Next.js, because it will allow statically generated apps that are still dynamic.
+    It's similar of what Gatbsy allows, but it will be much more powerful and flexible, as we will be able to enable SSG on a page basis.
+    This means that on the same app, some page may use SSR, other may use SSG, etc.
+    We are closely watching this RFC, as we hope to change the boilerplate to handle such use case.
 
 ---
 
@@ -361,7 +376,28 @@ You can also run them non-interactively using `yarn e2e:run` script.
 
 ---
 
-## License
+# Project folders structure
+
+> Overview of the project folder and files structure
+
+- `cypress`: Folder used by Cypress (E2E), see ["Getting started"](https://docs.cypress.io/guides/getting-started/installing-cypress.html#npm-install)
+- `public`: Static files, see ["Static file serving](https://nextjs.org/docs/basic-features/static-file-serving)
+- `src`: Source code of the app
+    - `Components`: React components
+        - `__snapshots__`: Folder used by Jest when using [Snapshot testing](https://jestjs.io/docs/en/snapshot-testing)
+        - `svg`: SVG components, imported from `src/svg`
+    - `gql`: GraphQL queries, partials, etc.
+    - `hoc`: React High Order Components
+    - `pages`: Next.js pages, see ["Pages"](https://nextjs.org/docs/basic-features/pages)
+    - `propTypes`: Shared propTypes (for re-usability)
+    - `svg`: Contains both `.svg` files and their react `.tsx` version. When a SVG is converted to a TSX component, it should then be copied to `src/components/svg` to be used within the app.
+    - `types`: Shared types (for re-usability)
+        - `data`: Types that are data-related, basically those that are related to a database record
+    - `utils`: Various utilities
+
+---
+
+# License
 
 MIT
 
