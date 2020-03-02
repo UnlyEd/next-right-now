@@ -28,7 +28,7 @@ describe('Index page', () => {
 
   it('should have a link in the navbar that redirects to the examples page', () => {
     cy.url().should('eq', `${baseUrl}/`);
-    cy.get('#nav-link-terms')
+    cy.get('#nav-link-examples')
       .should('have.text', 'Examples')
       .click();
     cy.url().should('eq', `${baseUrl}/examples`);

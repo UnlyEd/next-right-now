@@ -17,11 +17,12 @@ Next Right Now
 > Don't hesitate to share your opinion and propose improvements
 
 Our goal, by releasing NRN, is to allow any developer to quickly getting started with a fully working setup that includes many of the "must-have" features any real project needs as of 2020, such as:
-- **B2B multi-tenants** first-class support (optional, advanced use-case)
+- **B2B multi-tenants** first-class support (optional, **advanced use-case**)
   - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, multi-tenants design)
   - This is a very special consideration, and required quite a lot of efforts to make it works smoothly
+    - With multi-tenants setup, we don't use the native **Zeit <> Github integration**, but our **custom Zeit <> Github Actions integration** instead ([.github](.github))
   - Most projects do not need such capability, but we build our own projects with such requirement in mind, and thus released NRN with such built-in capability
-  - It's very easy not to use it if you don't need to, but if you do then it'll be a huge time saver for you!
+  - **It's very easy not to use it** if you don't need to, but it'll be a huge time saver for you if you need it!
 - Built-in **stages** (development, staging, production) workflow
 - **TypeScript** first-class support
 - **GraphQL** support (thanks to [Apollo](https://github.com/apollographql/apollo-client), and others)
@@ -55,6 +56,7 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
   - NPM security audit (script)
   - NPM developer-friendly outdated packages (script)
   - Display warning on outdated browsers, works even if bundle isn't ES5 compatible (IE11, etc.)
+  - Use Zeit secrets for sensitive information
 - [Fully documented usage of all our third party NPM libraries (AKA dependencies)](./README_DEPENDENCIES.md)
 
 **Legend:**
@@ -66,27 +68,16 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
 
 <!-- toc -->
 
-- [Getting started](#getting-started)
+- [Overview of Next Right Now](#overview-of-next-right-now)
   * [Introduction videos](#introduction-videos)
-    + [Part 1 - Overview of Next Right Now](#part-1---overview-of-next-right-now)
-    + [Part 2 - Developer Experience with Next Right Now](#part-2---developer-experience-with-next-right-now)
+    + [Part 1 - Overview of Next Right Now (15 minutes)](#part-1---overview-of-next-right-now-15-minutes)
+    + [Part 2 - Developer Experience with Next Right Now (15 minutes)](#part-2---developer-experience-with-next-right-now-15-minutes)
     + [Guides](#guides)
   * [Showcases - Live demo](#showcases---live-demo)
-  * [Local installation](#local-installation)
-  * [Configuring Zeit staging/production stages](#configuring-zeit-stagingproduction-stages)
-    + [Configuring your own Zeit account](#configuring-your-own-zeit-account)
-    + [Configuring secrets](#configuring-secrets)
-    + [**Advanced** - When using multiple customers (B2B multi-tenants)](#advanced---when-using-multiple-customers-b2b-multi-tenants)
+- [How to use?](#how-to-use)
 - [Understanding `Environments` and `Stages`](#understanding-environments-and-stages)
   * [What is an `environment`?](#what-is-an-environment)
   * [What is a `stage`?](#what-is-a-stage)
-- [Deploying on Zeit (manually)](#deploying-on-zeit-manually)
-  * [Staging deployments](#staging-deployments)
-  * [Production deployment](#production-deployment)
-- [Testing](#testing)
-  * [CI tests Workflow](#ci-tests-workflow)
-  * [Running tests manually (locally)](#running-tests-manually-locally)
-  * [Running E2E tests manually (locally)](#running-e2e-tests-manually-locally)
 - [I18n (Internationalization)](#i18n-internationalization)
   * [Fetching translations through GraphCMS](#fetching-translations-through-graphcms)
   * [Fetching translations through Locize provider](#fetching-translations-through-locize-provider)
@@ -102,6 +93,10 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
   * [Overview](#overview)
   * [Workflow of our Zeit <> Github Actions integration](#workflow-of-our-zeit--github-actions-integration)
   * [In-depth project's dependencies](#in-depth-projects-dependencies)
+- [Testing](#testing)
+  * [CI tests Workflow](#ci-tests-workflow)
+  * [Running tests manually (locally)](#running-tests-manually-locally)
+  * [Running E2E tests manually (locally)](#running-e2e-tests-manually-locally)
   * [License](#license)
 - [Vulnerability disclosure](#vulnerability-disclosure)
 - [Contributors and maintainers](#contributors-and-maintainers)
@@ -111,18 +106,22 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
 
 ---
 
-# Getting started
+# Overview of Next Right Now
+
+> Below are explanations about how NRN works and why we did things the way we did
+>
+> **Tip**: If you're interested about how to use this project for your own need, see our ["How to use" Guide](./README_HOW_TO_USE.md) instead!
 
 ## Introduction videos
 
-### Part 1 - Overview of Next Right Now
+### Part 1 - Overview of Next Right Now (15 minutes)
 [![Part 1 - Overview of Next Right Now](https://img.youtube.com/vi/kltkFwnFL-k/maxresdefault.jpg)](http://youtu.be/kltkFwnFL-k?hd=1)
 
 > Let's talk about why we built RNR in the first place, how it's meant to be used, whom it is for.
 >
 > This video features Zeit deployments, i18n, GraphCMS, Locize in-context editor, Sentry monitoring, Amplitude analytics, CI/CD Github Actions
 
-### Part 2 - Developer Experience with Next Right Now
+### Part 2 - Developer Experience with Next Right Now (15 minutes)
 [![Part 2 - Developer Experience with Next Right Now](https://img.youtube.com/vi/fGlgIEeUqFg/maxresdefault.jpg)](http://youtu.be/fGlgIEeUqFg?hd=1)
 
 > Let's talk about the developer experience (DX) provided by NRN and how it helps being more efficient.
@@ -130,7 +129,9 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
 > This video features GraphQL auto-completion and local schema update, deployment workflow, CI/CD Github Actions explanations, interactive E2E testing, GraphsCMS field creation
 
 ### Guides
-- [How to run NRN in debug mode using WebStorm debug configuration](http://youtu.be/3vbkiRAT4e8?hd=1)
+- [How to run NRN in debug mode using WebStorm debug configuration](http://youtu.be/3vbkiRAT4e8?hd=1) (2 minutes)
+
+---
 
 ## Showcases - Live demo
 
@@ -138,71 +139,17 @@ You can see 2 almost identical demo at:
 - [https://nrn-customer1.now.sh](https://nrn-customer1.now.sh)
 - [https://nrn-customer2.now.sh](https://nrn-customer2.now.sh)
 
-Both share the same source code and configuration, but the database content is different (hosted on GraphCMS).
+**Both share the same source code and configuration**, but the database content is different (hosted on GraphCMS).
 
 > **Tip**: You can get metadata at [/api/status](https://nrn-customer1.now.sh/api/status)
 >
-> **Tip**: You can go to preview deployments (staging stage) by looking at [this PR comments](https://github.com/UnlyEd/next-right-now/pull/1)
+> **Tip**: All `/api/*` are serverless functions, running under AWS Lambda
 
-## Local installation
+---
 
-> This assumes you've cloned the project on your own computer.
+# How to use?
 
-- `nvm use` - Selects the right node.js version based on our [`.nvmrc`](./.nvmrc) file
-- `yarn` - Installs all deps from [`package.json`](./package.json)
-- Duplicate the [`.env.build.example`](./.env.build.example) and rename it `.env.build` _(this file is only used on your local computer)_
-    1. Create a free account on [Locize](https://www.locize.app/register?ref=unly-nrn), it's required for the project to work properly when running locally
-        - Make sure to keep `i18n format: i18next/locizify` (by default)
-        - Make sure to select `publish format: json nested`
-    1. Copy the `Project Id` and `API Key` from the settings page to the `.env.build` `LOCIZE_PROJECT_ID` and `LOCIZE_API_KEY` respectively
-- `yarn start` - Starts the app on [http://localhost:8888/](http://localhost:8888/)
-- That's it!
-
-> **Tip**: You can enable in-context editor mode in order to localise your static content, by appending `?locize=true` to the url, see [https://nrn-customer1.now.sh/?locize=true](https://nrn-customer1.now.sh/?locize=true) _(this is only enabled in development and staging stages, not in production)_
->
-> **Tip**: You can start the project in debug mode (built-in for WebStorm only) [by running the WebStorm "Debug" configuration in debug mode](https://youtu.be/3vbkiRAT4e8)
-
-## Configuring Zeit staging/production stages
-
-> Your setup works locally, but now you want to deploy it online. We will do so by hosting it on the Zeit platform.
-
-### Configuring your own Zeit account
-
-1. Go to [https://zeit.co/signup](https://zeit.co/signup?ref=unly-nrn) and create your account, a free account will do just fine for now
-1. _(Optional)_ Run `npx now login` and follow the login steps (this will allow you to use the Now CLI locally and deploy to your Zeit account).
-
-
-### Configuring secrets
-
-1. Configuring [Now Secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets?query=secre#adding-secrets), open [`now.customer1.staging.json`](./now.customer1.staging.json)
-    - Each secret must be added manually, one by one
-    - A secret starts with `@`
-    - Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects _(Zeit is working on this, to avoid leaking secrets from one project to another, but hasn't released anything yet)_
-    - Take a look at [.env.build.example](.env.build.example) for secrets to use by default (you can use them for testing purpose, it's fine, they're not sensitive)
-    - Example: `now secrets add nrn-locize-project-id 658fc999-dfa8-4307-b9d7-b4870ad5b968`
-1. **Advanced** - If you want to deploy multiple customers, you will need to add `GITHUB_CI_PR_COMMENT` and `ZEIT_TOKEN` **Github secrets** as well. [See "Required GitHub secrets"](./.github/workflows/README.md).
-
-> If you don't provide all secrets, the app will not be deployable. The Now CLI will complain about missing secrets and abort the build.
-
-If you don't want need to deploy your app for multiple clients, then you should delete the whole [.github](.github) folder, as you won't need it.
-Zeit native Github integration will do just fine for that simpler use-case! :)
-
-You can now commit/push any change, which will trigger a new build, **through the native Zeit <> Github integration.**
-
-> Once you push, Zeit will automatically create a project using your repository's name. For instance, it created a "next-right-now" project for us.
-> You can also deploy from your local computer (without using CI), see [Deploying on Zeit (manually)](#deploying-on-zeit-manually)
-
-The project "next-right-now" is created by the native Zeit <> Github integration.
-It's perfectly fine if you **don't need** to deploy multiple customers (multi-tenants).
-
-### **Advanced** - When using multiple customers (B2B multi-tenants)
-
-If you want to deploy multiple customers, then the default "next-right-now" project it won't help you at all.
-In that case you should unlink the Zeit project from your Github repository and then delete the "next-right-now" project and leave Github Action handle that (it will create a "nrn-customer1" project when deploying that customer for the first time).
-
-Once unlinked and deleted, Zeit will not automatically re-create the "next-right-now" project later on, and each customer will live on its own project ("nrn-customer1", "nrn-customer1", etc.).
-
-You can now commit/push any change, which will trigger a new build, through **Github Actions.**
+If you're interested about using this project for yourself, see our ["How to use" Guide](./README_HOW_TO_USE.md).
 
 ---
 
@@ -255,62 +202,6 @@ The stage changes the behaviour of the application, because we sometimes need th
 
 > i.e: We don't want to enable the same level of debugging in production environment.
 > For instance, Locize is configured to be in `debug` mode only in non-production stages.
-
----
-
-# Deploying on Zeit (manually)
-
-For each customer instance, we create a different Zeit project.
-
-A project is itself composed of multiple staging deployments (called "previews" on Zeit) and one production deployment.
-
-_**N.B**: If you want to learn more about what happens (on the technical level) when pushing a commit to the repository, read the [CI/CD section](#continuous-integration--continuous-deployment-cicd)_
-
-## Staging deployments
-
-Using Zeit Now, **we have access to many staging "deployments"**.
-
-By default, there is one custom domain per Git Branch, but also one per commit.
-It is also possible to create a custom domain manually from the CLI, for any deployment.
-
-- `yarn deploy` - Deploy the customer1 app (shortcut)
-- `yarn deploy:customer1` - Deploy the customer1 app
-- `yarn deploy:customer2` - Deploy the customer2 app
-- `yarn deploy:all` - Deploy all apps
-
-## Production deployment
-
-While there can be multiple staging deployments, **there is only one production deployment (per project)**
-
-- `yarn deploy:customer1:production` - Deploy the customer1 app to [https://zeit.co/unly/nrn-customer1](https://zeit.co/unly/nrn-customer1)
-- `yarn deploy:customer2:production` - Deploy the customer2 app to [https://zeit.co/unly/nrn-customer2](https://zeit.co/unly/nrn-customer2)
-- `yarn deploy:all:production` - Deploy all apps
-
-> N.B: Those commands use the `now` command with the `--prod` argument behind the wheel.
-> N.B: Those commands are used by our CI server.
-
----
-
-# Testing
-
-## CI tests Workflow
-
-Zeit will automatically run the tests before deploying, as configured in the `yarn build` command.
-
-> If any test fail, the deployment will be aborted. This ensures that any code that doesn't pass the tests never get deployed online.
-
-Once a deployment has been deployed on Zeit, **Github Actions** will run our **E2E tests**, to make sure that the app behaves as expected.
-This can also be considered as an integration tests suite.
-
-## Running tests manually (locally)
-You can run interactive tests using Jest with `yarn test` script.
-
-## Running E2E tests manually (locally)
-You can run interactive E2E tests using Cypress with `yarn e2e:open` script.
-
-You can also run them non-interactively using `yarn e2e:run` script.
-
-> You may need to run `yarn e2e:install` script first
 
 ---
 
@@ -444,6 +335,29 @@ Here is how the multiple steps are ordered:
 
 See [README_DEPENDENCIES](./README_DEPENDENCIES.md)
 
+
+---
+
+# Testing
+
+## CI tests Workflow
+
+Zeit will automatically run the tests before deploying, as configured in the `yarn build` command.
+
+> If any test fail, the deployment will be aborted. This ensures that any code that doesn't pass the tests never get deployed online.
+
+Once a deployment has been deployed on Zeit, **Github Actions** will run our **E2E tests**, to make sure that the app behaves as expected.
+This can also be considered as an integration tests suite.
+
+## Running tests manually (locally)
+You can run interactive tests using Jest with `yarn test` script.
+
+## Running E2E tests manually (locally)
+You can run interactive E2E tests using Cypress with `yarn e2e:open` script.
+
+You can also run them non-interactively using `yarn e2e:run` script.
+
+> You may need to run `yarn e2e:install` script first
 
 ---
 
