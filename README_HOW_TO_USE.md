@@ -81,8 +81,9 @@ How to use
 
 ### Prerequisites third parties
 
-**It is recommended to first create your own accounts** on the following third parties. _If you do not wish to create your own accounts then ou can use some of the values in `.env.build.example`._
-- **Tip**: You _could_ use any value for `LOCIZE_API_KEY`, `AMPLITUDE_API_KEY` because the app would still work even if those values are wrong. But associated features won't work correctly.
+> **It is recommended to first create your own accounts** on the following third parties. _If you do not wish to create your own accounts then you can use some of the values in `.env.build.example`._
+>
+> **Tip**: You _could_ use any value for `LOCIZE_API_KEY`, `AMPLITUDE_API_KEY` because the app would still work even if those values are wrong. But associated features won't work correctly.
 
 - [Create a Locize account](#creating-locize-account)
 - [Create a GraphCMS account](#creating-graphcms-account)
@@ -198,6 +199,33 @@ It can be replaced by any other GraphQL endpoint though, if you prefer to manage
 - Assets
     - [Official "Assets" guide](https://graphcms.com/docs/assets/general)
     - [Dynamic asset transformations](https://graphcms.com/docs/assets/transformations)
+
+### Network and reliability concerns
+
+As all internet things, sometimes it breaks. It's also true with any third party providers, such as GraphCMS.
+
+Downtime happen, it's not frequent, it's usually really short, but it's boring anyway, and it may be very harmful to your business.
+
+We've used GraphCMS for more than a year, and it's really good overall. When downtime happen, they take care of it really fast and are good communicators (through Slack or in-app messages mostly)
+Most of the 2019 issues were related to AWS itself, not even their own infrastructure.
+
+Nevertheless, we've built another open source tool to help deal with this kind of things: [GraphCMS Cache Boilerplate](https://github.com/UnlyEd/GraphCMS-cache-boilerplate)
+
+It uses a "reliability-first" design, to make sure that it always works, even if things are broken behind. It's basically a cache system on top of GraphCMS.
+
+We use it since September 2019 and haven't suffered any downtime since then, no matter what.
+
+### GraphQL API security concerns (token)
+
+One thing that you must be aware of (amongst many other) is that the GraphQL token you use in this Next.js app is used by both the server (SSR) and the client (CSR).
+
+Thus, it means that the client gets the token to authenticate to your GraphQL endpoint. And that can be a serious security issue, depending on how sensitive the data are.
+
+In the current demo, all data are non-sensitive, so sharing the token with the client isn't an issue. But on our real app, it's a serious concern.
+
+We use [GraphCMS Cache Boilerplate](https://github.com/UnlyEd/GraphCMS-cache-boilerplate) in between the client and the GraphQL API to serve as a proxy, all requests go to the GraphCMS Cache unauthenticated, and it's the proxy that provides the authentication credentials when fetching the API.
+
+This way, the GraphQL API token is never shared on the client, it's managed and only used through our GraphCMS Cache proxy.
 
 ---
 
