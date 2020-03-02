@@ -14,6 +14,7 @@ How to use
   * [Online installation (on Zeit)](#online-installation-on-zeit)
     + [Prerequisites third parties](#prerequisites-third-parties)
     + [Creating Zeit account](#creating-zeit-account)
+      - [Video Tutorial - How to import and configure Zeit project (6 minutes)](#video-tutorial---how-to-import-and-configure-zeit-project-6-minutes)
     + [Configuring project on Zeit platform](#configuring-project-on-zeit-platform)
   * [Creating Locize account](#creating-locize-account)
     + [Locize configuration video tutorial (12 minutes)](#locize-configuration-video-tutorial-12-minutes)
@@ -22,12 +23,15 @@ How to use
     + [GraphCMS configuration video tutorial (10 minutes)](#graphcms-configuration-video-tutorial-10-minutes)
   * [Creating Sentry account](#creating-sentry-account)
   * [Linking a Zeit project to a local source code](#linking-a-zeit-project-to-a-local-source-code)
+      - [Video Tutorial - How to link a Zeit project to a local source code (12 minutes)](#video-tutorial---how-to-link-a-zeit-project-to-a-local-source-code-12-minutes)
   * [Advanced Zeit usage](#advanced-zeit-usage)
     + [Deploying on Zeit (manually)](#deploying-on-zeit-manually)
       - [Staging deployments](#staging-deployments)
       - [Production deployment](#production-deployment)
     + [Configuring custom Zeit <> Github Actions integration](#configuring-custom-zeit--github-actions-integration)
+      - [Video Tutorial - How to link a Zeit project to a local source code (12 minutes)](#video-tutorial---how-to-link-a-zeit-project-to-a-local-source-code-12-minutes-1)
     + [Configuring Zeit secrets (manually)](#configuring-zeit-secrets-manually)
+    + [Configuring Zeit deployment regions](#configuring-zeit-deployment-regions)
 
 <!-- tocstop -->
 
