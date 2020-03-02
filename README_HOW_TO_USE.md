@@ -23,6 +23,8 @@ How to use
     + [Discount](#discount)
     + [GraphCMS configuration video tutorial (10 minutes)](#graphcms-configuration-video-tutorial-10-minutes)
     + [Additional GraphCMS documentation](#additional-graphcms-documentation)
+    + [Network and reliability concerns](#network-and-reliability-concerns)
+    + [GraphQL API security concerns (token)](#graphql-api-security-concerns-token)
   * [Creating Sentry account](#creating-sentry-account)
     + [Additional Sentry documentation](#additional-sentry-documentation)
   * [Linking a Zeit project to a local source code](#linking-a-zeit-project-to-a-local-source-code)

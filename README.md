@@ -98,6 +98,7 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
   * [CI tests Workflow](#ci-tests-workflow)
   * [Running tests manually (locally)](#running-tests-manually-locally)
   * [Running E2E tests manually (locally)](#running-e2e-tests-manually-locally)
+- [Project folders structure](#project-folders-structure)
 - [License](#license)
 - [Vulnerability disclosure](#vulnerability-disclosure)
 - [Contributors and maintainers](#contributors-and-maintainers)
@@ -373,6 +374,26 @@ You can also run them non-interactively using `yarn e2e:run` script.
 
 > You may need to run `yarn e2e:install` script first
 
+---
+
+# Project folders structure
+
+> Overview of the project folder and files structure
+
+- `cypress`: Folder used by Cypress (E2E), see ["Getting started"](https://docs.cypress.io/guides/getting-started/installing-cypress.html#npm-install)
+- `public`: Static files, see ["Static file serving](https://nextjs.org/docs/basic-features/static-file-serving)
+- `src`: Source code of the app
+    - `Components`: React components
+        - `__snapshots__`: Folder used by Jest when using [Snapshot testing](https://jestjs.io/docs/en/snapshot-testing)
+        - `svg`: SVG components, imported from `src/svg`
+    - `gql`: GraphQL queries, partials, etc.
+    - `hoc`: React High Order Components
+    - `pages`: Next.js pages, see ["Pages"](https://nextjs.org/docs/basic-features/pages)
+    - `propTypes`: Shared propTypes (for re-usability)
+    - `svg`: Contains both `.svg` files and their react `.tsx` version. When a SVG is converted to a TSX component, it should then be copied to `src/components/svg` to be used within the app.
+    - `types`: Shared types (for re-usability)
+        - `data`: Types that are data-related, basically those that are related to a database record
+    - `utils`: Various utilities
 
 ---
 
