@@ -43,7 +43,7 @@ The following binaries are expected to be installed on your computer.
 
 ## Local installation
 
-> This assumes you've cloned the project on your own computer.
+> This assumes you've **cloned** the project on your own computer.
 >
 > **Tip**: If there are tools that you don't need/like, read our [guide about how to remove them](README_HOW_TO_REMOVE.md).
 
@@ -70,12 +70,30 @@ The following binaries are expected to be installed on your computer.
 
 ### Full local installation
 
-> Follow this guide **if you want to deep-dive into the demo**, deploy it to staging/production, change the source code, basically make this project your own.
+> Follow this guide **if you want to deep-dive into the demo**, deploy it to staging/production, **make this project your own**.
 
 #### Prerequisites third parties
 
+It is recommended to first create your own accounts on the following third parties. _If you do not wish to create your own accounts then ou can use some of the values in `.env.build.example`._
+- **Tip**: You _could_ use any value for `LOCIZE_API_KEY`, `AMPLITUDE_API_KEY`, `SENTRY_DSN` because the app would still work even if those values are wrong. But associated features won't work correctly.
+
+- [Creating Locize account](#creating-locize-account)
+- [Creating GraphCMS account](#creating-graphcms-account)
 - [Create a Zeit account](#creating-zeit-account)
-- **Tip**: You can continue to use our default `LOCIZE_PROJECT_ID`, `GRAPHQL_API_ENDPOINT` and `GRAPHQL_API_KEY` when deploying to staging/production, or you can overwrite them with your own (you will need to create your own accounts then, see [tutorials](#creating-locize-account) below)
+
+#### Configuring project on Zeit
+
+- Go to [https://zeit.co/import/git](https://zeit.co/import/git) and import the project
+    - Use the GitHub integration if you've forked the project into your own GitHub account
+    - Use `Import a third-party project` if you haven't forked the project, with value `https://github.com/UnlyEd/next-right-now`
+- Select the Zeit team you want to use (it will pick your user's team by default)
+    - You may want to [create a team first](https://zeit.co/teams/create), it really depends on what you want to do here.
+    - **Tip**: Teams are better if you mean to collaborate on this project with other people.
+- Fill-in the environment variables
+    - **Tip**: If you're faking some env vars, don't use ` ` (whitespace) as it won't allow you to continue
+
+Tip: Regions
+
 
 
 ---
@@ -85,8 +103,26 @@ The following binaries are expected to be installed on your computer.
 > Creating a Zeit account is **necessary** to deploy the application online (staging/production stages)
 
 [Create a free account on Zeit](https://zeit.co/signup?ref=unly-nrn)
+- Once your free account is created, click on "Import project" feature (because we will need to configure the project first, and then we'll deploy the project using the now CLI)
 
-TODO
+Assuming you've cloned the project on your local computer, run the following:
+- `nvm use` - Selects the right node.js version based on our [`.nvmrc`](./.nvmrc) file
+- `yarn` - Installs all deps from [`package.json`](./package.json)
+- `now` - Authenticate (through web browser) to Zeit, creates `~/.now` folder (auth token, global config), creates `.now` folder (project's config) and creates the Zeit project on your Zeit account
+    - This command will fail with `Error! Could not find a secret by name "nrn-graphql-api-key"`
+- Create all required ["Zeit secrets"](#configuring-zeit-secrets)
+    - **Tip**: You can use some of the values in `.env.build.example` if you don't wish to create
+```
+ ↵ 1  now
+Now CLI 17.0.4
+> No existing credentials found. Please log in: my-email@gmail.com
+We sent an email to my-email@gmail.com. Please follow the steps provided inside it and make sure the security code matches Glamorous Panther.
+✔ Email confirmed
+Congratulations! You are now logged in. In order to deploy something, run `now`.
+💡  Connect your Git Repositories to deploy every branch push automatically (https://zeit.ink/1X).
+```
+- Use the default choices for all questions:
+
 
 ## Configuring Zeit staging/production stages
 
