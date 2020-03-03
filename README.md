@@ -29,7 +29,7 @@ This boilerplate includes must-have built-ins such as **i18n, GraphQL, Next.js, 
 There are a lot of things, and some of them rely on third-party providers.
 There are so many tools out there and we've chosen them based on our personal opinion (and experience/experiments), while keeping in mind that **you may have a different opinion**, and may want to use something else.
 
-Thus, **you can still use this boilerplate even if you don't like all our choices**, because you can simply get rid of what you dislike.
+Thus, **you can still use this boilerplate even if you don't like all our choices**, because you can simply [get rid of what you dislike](README_HOW_TO_REMOVE.md).
 
 # Benefits
 

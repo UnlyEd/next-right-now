@@ -11,7 +11,7 @@ describe(`utils/graphcms.ts`, () => {
         expect(prepareGraphCMSLocaleHeader(['fr', 'en'])).toEqual(`FR, EN`);
       });
 
-      test(`when using 2 languages`, async () => {
+      test(`when using 3 languages`, async () => {
         expect(prepareGraphCMSLocaleHeader(['fr', 'en', 'es'])).toEqual(`FR, EN, ES`);
       });
     });
