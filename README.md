@@ -16,7 +16,23 @@ Next Right Now
 >
 > Don't hesitate to share your opinion and propose improvements
 
-Our goal, by releasing NRN, is to allow any developer to quickly getting started with a fully working setup that includes many of the "must-have" features any real project needs as of 2020, such as:
+# Overview
+
+This boilerplate is meant for developers with solid React background, who are looking for a way of building **production-grade web applications**.
+We took a very special care about the **Developer Experience**, because it's very important to build quality software.
+
+Knowing Next.js, Zeit and/or GraphQL will be **a huge help**.
+We explain how to install them and properly setup them, but **it's your job to go deeper and actually learn how they work**.
+
+This boilerplate includes must-have built-ins such as **i18n, GraphQL, Next.js, TypeScript, monitoring, CI/CD pipeline (dev > staging > production), unit tests, end-to-end tests, analytics and various utilities**.
+
+There are a lot of things, and some of them rely on third-party providers.
+There are so many tools out there and we've chosen them based on our personal opinion (and experience/experiments), while keeping in mind that **you may have a different opinion**, and may want to use something else.
+
+Thus, **you can still use this boilerplate even if you don't like all our choices**, because you can simply get rid of what you dislike.
+
+# Benefits
+
 - **B2B multi-tenants** first-class support (optional, **advanced use-case**)
   - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, multi-tenants design)
   - This is a very special consideration, and required quite a lot of efforts to make it works smoothly
@@ -48,6 +64,7 @@ Our goal, by releasing NRN, is to allow any developer to quickly getting started
 - Fine-grained frontend **analytics**, react-friendly, flexible, SPA-friendly (thanks to [Amplitude<sup>1</sup>**<sup>2</sup>**](https://amplitude.com/))
 - **Integrated CI/CD pipeline**, automated deployments to preview domains and production domains (thanks to the [Zeit](https://zeit.co/), [GitHub Actions](https://github.com/features/actions))
   - Including a dedicated "per-deployment domain", for fast feedback loop and testing means, in an online environment (staging)
+  - Including a dedicated "per-branch domain", for fast feedback loop and testing means, in an online environment with a url which is automatically updated as new pushed commits are being deployed (staging)
 - Built-in **utilities**
   - Convert SVG to TSX components (thanks to [SVGR](https://github.com/gregberge/svgr))
   - Font Awesome icons as react components, with SSR support (thanks to [Font Awesome](https://github.com/FortAwesome/react-fontawesome))
