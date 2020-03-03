@@ -33,8 +33,8 @@ Thus, **you can still use this boilerplate even if you don't like all our choice
 
 # Benefits
 
-- **B2B multi-tenants** first-class support (optional, **advanced use-case**)
-  - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, multi-tenants design)
+- **B2B multi-tenants** (AKA **"monorepo"**) first-class support (optional, **advanced use-case**)
+  - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, monorepo design)
   - This is a very special consideration, and required quite a lot of efforts to make it works smoothly
     - With multi-tenants setup, we don't use the native **Zeit <> Github integration**, but our **custom Zeit <> Github Actions integration** instead ([.github](.github))
   - Most projects do not need such capability, but we build our own projects with such requirement in mind, and thus released NRN with such built-in capability
