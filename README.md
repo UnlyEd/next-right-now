@@ -182,6 +182,11 @@ If you're interested about using this project for yourself, see our ["How to use
     It's similar of what Gatbsy allows, but it will be much more powerful and flexible, as we will be able to enable SSG on a page basis.
     This means that on the same app, some page may use SSR, other may use SSG, etc.
     We are closely watching this RFC, as we hope to change the boilerplate to handle such use case.
+- **Admin frontend**
+    - We are planning on releasing another OSS boilerplate featuring [React-admin](https://github.com/marmelab/react-admin), which is another OSS framework.
+    The goal is to provide a boilerplate similar to this one, only this time it'll be a BackOffice on top of a GraphQL API.
+    [Our first POC](https://github.com/Vadorequest/react-admin-graphql-boilerplate) was released a few months ago and the next step is to go further.
+    Our secret goal would be to automatically generate all the BackOffice CRUD views dynamically, by using the GraphQL schema (but it seems quite a bit complicated).
 
 ---
 
