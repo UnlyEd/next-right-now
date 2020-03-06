@@ -56,24 +56,6 @@ jobs:
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
 
-      # On deployment failure, add a comment to the PR
-      - name: Comment PR (Deployment failure)
-        uses: unsplash/comment-on-pr@master
-        if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-        with:
-          msg: "[GitHub Actions]\nDeployment FAILED\n\t Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} (click to see logs)"
-
-      # On deployment success, add a comment to the PR
-      - name: Comment PR (Deployment success)
-        uses: unsplash/comment-on-pr@master
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-        with:
-          msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}"
-
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
         uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
