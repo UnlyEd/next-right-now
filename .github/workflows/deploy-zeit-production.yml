@@ -79,21 +79,3 @@ jobs:
         with:
           name: videos
           path: cypress/videos/
-
-      # On E2E failure, add a comment to the PR with additional information
-      - name: Comment PR (E2E failure)
-        uses: unsplash/comment-on-pr@master
-        if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-        with:
-          msg: "[GitHub Actions]\nE2E tests FAILED\n  Download artifacts (screenshots + videos) from `checks` section at the top"
-
-      # On E2E success, add a comment to the PR
-      - name: Comment PR (E2E success)
-        uses: unsplash/comment-on-pr@master
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-        with:
-          msg: "[GitHub Actions]\nE2E tests SUCCESS"
