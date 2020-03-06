@@ -249,6 +249,13 @@ class NRNApp extends NextApp {
           visitor.setOnce('initial_iframe', isInIframe);
           visitor.setOnce('initial_iframeReferrer', iframeReferrer);
 
+          // XXX We must set all other "must-have" properties here (instead of below, as userProperties), because react-amplitude will send the next "page-displayed" event BEFORE sending the $identify event
+          //  Thus, it'd store the first event with an associated user who has not defined "customer.ref", "lang", etc... and that'd break our stats (following events would be correct, only the first event of a new user would be wrong)
+          visitor.setOnce('customer.ref', layoutProps.customerRef);
+          visitor.setOnce('lang', pageProps.lang);
+          visitor.setOnce('iframe', isInIframe);
+          visitor.setOnce('iframeReferrer', iframeReferrer);
+
           amplitudeInstance.identify(visitor); // Send the new identify event to amplitude (updates user's identity)
         }
 
@@ -280,14 +287,7 @@ class NRNApp extends NextApp {
                 iframe: isInIframe,
                 iframeReferrer: iframeReferrer,
               }}
-              userProperties={{
-                customer: {
-                  ref: layoutProps.customerRef,
-                },
-                lang: pageProps.lang,
-                iframe: isInIframe,
-                iframeReferrer: iframeReferrer,
-              }}
+              // userProperties={{}} XXX Do not use this, add default user-related properties above
             >
               <UniversalApp />
             </Amplitude>
