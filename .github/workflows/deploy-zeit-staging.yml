@@ -31,9 +31,41 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Deploying on Zeit
-        run: yarn deploy:$(cat now.json | jq -r '.build.env.CUSTOMER_REF') --token $ZEIT_TOKEN
+        # Workflow:
+        #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, what we are looking for)
+        #   - Set deployment url to show on PR message
+        #   - Create alias and link it
+        run: |
+          ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$(cat now.json | jq -r '.build.env.CUSTOMER_REF') --token $ZEIT_TOKEN`
+
+          ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.now.sh'`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::$ZEIT_DEPLOYMENT_URL"
+
+          ZEIT_DEPLOYMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}.now.sh
+          echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
+
+          npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+          CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
+
+      # On deployment failure, add a comment to the PR
+      - name: Comment PR (Deployment failure)
+        uses: unsplash/comment-on-pr@master
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+        with:
+          msg: "[GitHub Actions]\nDeployment FAILED\n\t Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} (click to see logs)"
+
+      # On deployment success, add a comment to the PR
+      - name: Comment PR (Deployment success)
+        uses: unsplash/comment-on-pr@master
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+        with:
+          msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}\n\tDeployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}"
 
   # Runs E2E tests against the Zeit deployment
   run-2e2-tests:
@@ -55,32 +87,8 @@ jobs:
           apt update -y >/dev/null && apt install -y jq >/dev/null
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
-
-          ZEIT_DEPLOYEMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}.now.sh
-          echo "::set-env name=ZEIT_DEPLOYEMENT_ALIAS::https://$ZEIT_DEPLOYEMENT_ALIAS"
-
-          npx now alias https://$ZEIT_DEPLOYMENT https://$ZEIT_DEPLOYEMENT_ALIAS --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
-          CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
-
-      # On deployment failure, add a comment to the PR
-      - name: Comment PR (Deployment failure)
-        uses: unsplash/comment-on-pr@master
-        if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-        with:
-          msg: "[GitHub Actions]\nDeployment FAILED\n\t Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} (click to see logs)"
-
-      # On deployment success, add a comment to the PR
-      - name: Comment PR (Deployment success)
-        uses: unsplash/comment-on-pr@master
-        if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-        with:
-          msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}\n\tDeployment aliased as ${{ env.ZEIT_DEPLOYEMENT_ALIAS }}"
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
