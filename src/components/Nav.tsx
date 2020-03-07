@@ -177,40 +177,28 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
               <Link
                 href={`/index`}
                 as={'/'}
+                passHref={true}
               >
-                <Col className={'navItemsMenu'}>
-                  <Row className={'justify-content-center navItemsLogo'}>
-                    <i className={classnames('fas fa-comments', { active: isActive(router, 'index') })} />
-                  </Row>
-                  <Row className={'justify-content-center'}>
-                    <NavLink
-                      id={'nav-link-home'}
-                      active={isActive(router, '') || isActive(router, 'index')}
-                    >
-                      {t('nav.indexPage.link', 'Accueil')}
-                    </NavLink>
-                  </Row>
-                </Col>
+                <NavLink
+                  id={'nav-link-home'}
+                  active={isActive(router, '') || isActive(router, 'index')}
+                >
+                  {t('nav.indexPage.link', 'Accueil')}
+                </NavLink>
               </Link>
             </NavItem>
 
             <NavItem>
               <Link
                 href={`/examples`}
+                passHref={true}
               >
-                <Col className={'navItemsMenu'}>
-                  <Row className={'justify-content-center navItemsLogo'}>
-                    <i className={classnames('fas fa-comments', { active: isActive(router, 'examples') })} />
-                  </Row>
-                  <Row className={'justify-content-center'}>
-                    <NavLink
-                      id={'nav-link-examples'}
-                      active={isActive(router, 'examples')}
-                    >
-                      {t('nav.examplesPage.link', 'Exemples')}
-                    </NavLink>
-                  </Row>
-                </Col>
+                <NavLink
+                  id={'nav-link-examples'}
+                  active={isActive(router, 'examples')}
+                >
+                  {t('nav.examplesPage.link', 'Exemples')}
+                </NavLink>
               </Link>
             </NavItem>
 

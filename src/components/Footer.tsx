@@ -84,16 +84,20 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
           </p>
           <Link
             href={`/terms`}
+            passHref={true}
           >
-            <div
-              css={{
-                marginTop: '20px',
-                textDecoration: 'underline',
-                cursor: 'pointer',
-              }}
-            >
-              {t('footer.terms.link', 'Conditions générales d\'utilisation')}
-            </div>
+            <a>
+              <div
+                css={{
+                  marginTop: '20px',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  color: 'white',
+                }}
+              >
+                {t('footer.terms.link', 'Conditions générales d\'utilisation')}
+              </div>
+            </a>
           </Link>
         </Col>
         <Col md={4} xs={12} className={'text-md-right text-center mt-3'}>
