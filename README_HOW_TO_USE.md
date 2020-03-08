@@ -365,7 +365,7 @@ Please see the [official documentation](https://zeit.co/docs/v2/network/regions-
     - products - Product[]
     - terms - RichText Editor, localized
 - product
-    - title - Single line text, required, unique
+    - title - Single line text, required, localised
     - images - Asset[]
     - description - Markdown, localized
     - customer - Customer
