@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 
 import { asset } from '../fragments/asset';
+import { product } from '../fragments/product';
 import { theme } from '../fragments/theme';
 
 /**
@@ -22,13 +23,10 @@ export const INDEX_PAGE_QUERY = gql`
         ref: $customerRef
       }
     }){
-      title
-      description
-      images {
-        ...assetFields
-      }
+      ...productFields
     }
   }
   ${theme.themeFields}
   ${asset.assetFields}
+  ${product.productFields}
 `;
