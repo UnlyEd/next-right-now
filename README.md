@@ -118,6 +118,7 @@ Thus, **you can still use this boilerplate even if you don't like all our choice
   * [Running tests manually (locally)](#running-tests-manually-locally)
   * [Running E2E tests manually (locally)](#running-e2e-tests-manually-locally)
 - [Project folders structure](#project-folders-structure)
+- [FAQ](#faq)
 - [License](#license)
 - [Vulnerability disclosure](#vulnerability-disclosure)
 - [Contributors and maintainers](#contributors-and-maintainers)
@@ -414,6 +415,17 @@ You can also run them non-interactively using `yarn e2e:run` script.
     - `types`: Shared types (for re-usability)
         - `data`: Types that are data-related, basically those that are related to a database record
     - `utils`: Various utilities
+
+---
+
+# FAQ
+
+> Q: I wanted to understand how the i18next integration works. How is the `i18nextInstance` passed to react? It seems to be passed to the `Layout` component, but the `Layout` component never uses it. So how does this work?
+
+- The i18nextInstance isn't necessary to perform translations actually, it's forwarded as a utility.
+- Manipulating the i18nextInstance is not often necessary, using import { Trans, useTranslation } from 'react-i18next'; is what you'll need most of the time when translating content.
+- See [`Layout.tsx`](https://github.com/UnlyEd/next-right-now/blob/eb509517199e91a0b1cc646848654c257ca30666/src/components/Layout.tsx#L416), that's where the Layout component passes down to the react tree the `i18nextInstance` defined in [`_app.tsx`](https://github.com/UnlyEd/next-right-now/blob/8cdebadea0a03b6f60709bc1ad673f90bdd4becb/src/pages/_app.tsx#L172)
+- The `i18next` library is actually initiated in [i18nextLocize.ts](https://github.com/UnlyEd/next-right-now/blob/3458fa30aecd0dc95ebd2abfeb20c2e45c76a09f/src/utils/i18nextLocize.ts)
 
 ---
 
