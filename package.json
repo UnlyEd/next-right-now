@@ -60,7 +60,7 @@
     "@fortawesome/react-fontawesome": "0.1.8",
     "@sentry/browser": "5.12.1",
     "@sentry/node": "5.12.3",
-    "@unly/universal-language-detector": "2.0.2",
+    "@unly/universal-language-detector": "2.0.3",
     "@unly/utils": "1.0.3",
     "@unly/utils-simple-logger": "1.4.0",
     "amplitude-js": "5.9.0",
