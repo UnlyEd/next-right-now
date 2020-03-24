@@ -262,7 +262,7 @@ This way, the GraphQL API token is never shared on the client, it's managed and 
     - Define all missing environment variables
 - `nvm use` - Selects the right node.js version based on our [`.nvmrc`](./.nvmrc) file
 - `yarn` - Installs all deps from [`package.json`](./package.json)
-- Remove `"scope": "team_DAU7RcjwnftBzWFDi4ZuypN5",` from all now JSON config file
+- Remove `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` from all now JSON config file
     - **Tip**: Don't forget `now.json` is a symlink to `now.customer1.staging.json` and doesn't need to be modified
 - `now` - Authenticates to Zeit and link local project to Zeit project (creates `/.now` folder)
 - `yarn start` - Starts the app on [http://localhost:8888/](http://localhost:8888/)
