@@ -1,4 +1,4 @@
-# XXX This file is only used by GitHub Pages, when deploying online
+# XXX This file is only used when working on your local machine, in development
 
 # Welcome to Jekyll!
 #
@@ -23,7 +23,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 #baseurl: "" # the subpath of your site, e.g. /blog
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com XXX Auto-resolved by GitHub
 
-remote_theme: pmarsceill/just-the-docs # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
+theme: 'just-the-docs' # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
