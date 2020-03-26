@@ -28,6 +28,8 @@
     "e2e:open": "CYPRESS_STAGE=${CYPRESS_STAGE:-development}; cypress open --config-file cypress/config-$CYPRESS_STAGE.json",
     "e2e:run": "CYPRESS_STAGE=${CYPRESS_STAGE:-development}; cypress run --config-file cypress/config-$CYPRESS_STAGE.json",
     "e2e:ci": "yarn e2e:install && cypress run --record",
+    "doc:start": "cd docs/ && bundle exec jekyll serve",
+    "doc:gem:install": "cd docs/ && bundle install",
     "preversion": "yarn doc:toc && yarn lint:once && yarn test:once",
     "release": "yarn bump --commit --tag && git add CHANGELOG.md README.md && git commit --amend --no-edit && git push && git push --tags",
     "doc:toc": "yarn doc:toc:readme",

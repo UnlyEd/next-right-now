@@ -1,3 +1,9 @@
+---
+layout: page
+title: FAQ
+permalink: /FAQ/
+---
+
 # FAQ
 
 > Q: I wanted to understand how the i18next integration works. How is the `i18nextInstance` passed to react? It seems to be passed to the `Layout` component, but the `Layout` component never uses it. So how does this work?
