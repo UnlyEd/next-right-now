@@ -147,7 +147,11 @@ You can see 2 almost identical demo at:
 
 # Documentation
 
-[Go to our Documentation](https://unlyed.github.io/next-right-now/).
+> **Note**: Our docs are [being improved](https://github.com/UnlyEd/next-right-now/issues/20) and the dedicated github site isn't ready yet.
+>
+> Check the [doc-v0](https://github.com/UnlyEd/next-right-now/tree/doc-v0) for the time being, while the transition to github site is in progress (they're up-to-date!)
+
+~~[Go to our Documentation](https://unlyed.github.io/next-right-now/).~~ (**WIP**)
 
 ---
 
