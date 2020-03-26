@@ -1,5 +1,12 @@
 # XXX This file is only used by GitHub Pages, when deploying online
 
+# XXX --------- Specific to GHP config ------------
+remote_theme: pmarsceill/just-the-docs # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
+ga_tracking: UA-89785688-8
+
+
+# XXX --------- Common to all config --------------
+
 # Welcome to Jekyll!
 #
 # This config file is meant for settings that affect your whole blog, values
@@ -23,7 +30,12 @@ description: >- # this means to ignore newlines until "baseurl:"
 #baseurl: "" # the subpath of your site, e.g. /blog
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com XXX Auto-resolved by GitHub
 
-remote_theme: pmarsceill/just-the-docs # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
+# Aux links for the upper right navigation
+aux_links:
+  "Github": "https://github.com/UnlyEd/next-right-now"
+
+footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd/next-right-now/blob/master/LICENSE\">MIT license.</a>"
+color_scheme: "dark"
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
