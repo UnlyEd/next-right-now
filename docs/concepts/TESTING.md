@@ -1,0 +1,20 @@
+# Testing
+
+## CI tests Workflow
+
+Zeit will automatically run the tests before deploying, as configured in the `yarn build` command.
+
+> If any test fail, the deployment will be aborted. This ensures that any code that doesn't pass the tests never get deployed online.
+
+Once a deployment has been deployed on Zeit, **Github Actions** will run our **E2E tests**, to make sure that the app behaves as expected.
+This can also be considered as an integration tests suite.
+
+## Running tests manually (locally)
+You can run interactive tests using Jest with `yarn test` script.
+
+## Running E2E tests manually (locally)
+You can run interactive E2E tests using Cypress with `yarn e2e:open` script.
+
+You can also run them non-interactively using `yarn e2e:run` script.
+
+> You may need to run `yarn e2e:install` script first
