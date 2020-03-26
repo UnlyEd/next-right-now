@@ -1981,10 +1981,10 @@
   resolved "https://registry.yarnpkg.com/@unly/iso3166-1/-/iso3166-1-1.0.2.tgz#ef1504b4aa6e618b800c14a77261a6c5e9449fa0"
   integrity sha512-aL/7cmcfjpwOaKFr9XHcWP/Z7lQjKLm5NMcjncT96aeSJxfblmPLnH/8lnX0GrWWFA2/CseCxnA73u5eiZcClA==
 
-"@unly/universal-language-detector@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@unly/universal-language-detector/-/universal-language-detector-2.0.2.tgz#8a410354d3d52218659e8430042c81a669bddf14"
-  integrity sha512-RbNgBkBohPJHrgFP3R9bJ3zqKTKibD+dQRcuPZhmwTTmNso4LkPhd8ugBSum55qLsOiXc3L8MuPUH20ZwqQasw==
+"@unly/universal-language-detector@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@unly/universal-language-detector/-/universal-language-detector-2.0.3.tgz#0535f6284a5d2b062ccbcf3f1ac93e971da2dad8"
+  integrity sha512-UMmZIQS2XfJko8/GOrJc9ojO4UIF9HJM59NyQgcH+Ncrb0WBHL2L7EZ/7iZ/YcdoRnioonRECUQmmUELWt9z5Q==
   dependencies:
     "@unly/iso3166-1" "1.0.2"
     "@unly/utils" "1.0.3"

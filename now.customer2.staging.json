@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "name": "nrn-customer2",
-  "scope": "team_DAU7RcjwnftBzWFDi4ZuypN5",
+  "name": "nrn-v1-ssr-customer2",
+  "scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",
   "env": {},
   "build": {
     "env": {
