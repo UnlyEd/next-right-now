@@ -3,7 +3,6 @@ layout: default
 title: Analytics
 parent: Concepts
 nav_order: 45
-has_children: true
 ---
 
 # [Amplitude](https://amplitude.com/) (Analytics)

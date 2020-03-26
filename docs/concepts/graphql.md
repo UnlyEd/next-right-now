@@ -3,7 +3,6 @@ layout: default
 title: GraphQL
 parent: Concepts
 nav_order: 30
-has_children: true
 ---
 
 # [GraphCMS](https://graphcms.com/?ref=unly-nrn)

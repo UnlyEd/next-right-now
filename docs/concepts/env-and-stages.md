@@ -3,7 +3,6 @@ layout: default
 title: Environments and Stages
 parent: Concepts
 nav_order: 10
-has_children: true
 ---
 
 # Understanding `Environments` and `Stages`
