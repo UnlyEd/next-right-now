@@ -4,6 +4,12 @@
 [![Locize Latest version](https://img.shields.io/badge/dynamic/json.svg?style=plastic&color=2096F3&label=locize&query=%24.versions%5B%27latest%27%5D.translatedPercentage&url=https://api.locize.app/badgedata/658fc999-dfa8-4307-b9d7-b4870ad5b968&suffix=%+translated&link=https://www.locize.com&prefix=latest:+)](https://www.locize.app/p/w7jrmdie/statistics/badges)
 [![Locize Production version](https://img.shields.io/badge/dynamic/json.svg?style=plastic&color=2096F3&label=locize&query=%24.versions%5B%27production%27%5D.translatedPercentage&url=https://api.locize.app/badgedata/658fc999-dfa8-4307-b9d7-b4870ad5b968&suffix=%+translated&link=https://www.locize.com&prefix=production:+)](https://www.locize.app/p/w7jrmdie/statistics/badges)
 
+> Documentation in progress - See [on-progress issue](https://github.com/UnlyEd/next-right-now/issues/20)
+> Don't hesitate to contribute! :)
+>
+> Go to the [`doc-v0` documentation branch](https://github.com/UnlyEd/next-right-now/tree/doc-v0) to see the old (but up-to-date) documentation
+
+
 > Next Right Now (NRN) is meant to be used as a boilerplate for quick getting started with a production-grade project featuring the Next.js framework, hosted on Zeit platform.
 >
 > NRN is strongly opinionated, but also very flexible.
@@ -81,5 +87,3 @@ Thus, **you can still use this boilerplate even if you don't like all our choice
 - **<sup>2</sup>**: Beware huge gap between free and paid plans cost.
 
 
-> Documentation in progress - See https://github.com/UnlyEd/next-right-now/issues/20
-> Don't hesitate to contribute! :)
