@@ -35,7 +35,7 @@ aux_links:
   "Github": "https://github.com/UnlyEd/next-right-now"
 
 footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd/next-right-now/blob/master/LICENSE\">MIT license.</a>"
-color_scheme: "dark"
+#color_scheme: "dark"
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
