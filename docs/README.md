@@ -79,3 +79,7 @@ Thus, **you can still use this boilerplate even if you don't like all our choice
 - `first-class support`: Means that we took a very special care to support this, and that it's not as simple as one may believe
 - <sup>1</sup>: Third parties that provide a free plan that is enough for a "simple" application, but make sure to check that their pricing fits you.
 - **<sup>2</sup>**: Beware huge gap between free and paid plans cost.
+
+
+> Documentation in progress - See https://github.com/UnlyEd/next-right-now/issues/20
+> Don't hesitate to contribute! :)
