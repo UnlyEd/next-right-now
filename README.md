@@ -95,6 +95,7 @@ Thus, **you can still use this boilerplate even if you don't like all our choice
   * [Showcases - Live demo](#showcases---live-demo)
 - [Documentation](#documentation)
 - [FAQ](#faq)
+- [Contributing](#contributing)
 - [License](#license)
 - [Vulnerability disclosure](#vulnerability-disclosure)
 - [Contributors and maintainers](#contributors-and-maintainers)
@@ -166,9 +167,15 @@ You can see 2 almost identical demo at:
 
 ---
 
+# Contributing
+
+[GO TO CONTRIBUTING](https://unlyed.github.io/next-right-now/CONTRIBUTING)
+
+---
+
 # License
 
-MIT
+[MIT](LICENSE)
 
 ---
 
