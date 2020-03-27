@@ -1,12 +1,15 @@
 ---
-layout: page
+layout: default
 title: FAQ
 permalink: /FAQ/
+nav_order: 70
 ---
 
 # FAQ
 
-> Q: I wanted to understand how the i18next integration works. How is the `i18nextInstance` passed to react? It seems to be passed to the `Layout` component, but the `Layout` component never uses it. So how does this work?
+<div class="code-example" markdown="1">
+  **Question**: _I wanted to understand how the i18next integration works. How is the `i18nextInstance` passed to react? It seems to be passed to the `Layout` component, but the `Layout` component never uses it. So how does this work?_
+</div>
 
 - The i18nextInstance isn't necessary to perform translations actually, it's forwarded as a utility.
 - Manipulating the i18nextInstance is not often necessary, using import { Trans, useTranslation } from 'react-i18next'; is what you'll need most of the time when translating content.
