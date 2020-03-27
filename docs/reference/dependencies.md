@@ -4,9 +4,6 @@ title: Dependencies
 parent: Reference
 nav_order: 20
 ---
-
-<a href="https://unly.org"><img src="https://storage.googleapis.com/unly/images/ICON_UNLY.png" align="right" height="20" alt="Unly logo" title="Unly logo" /></a>
-
 Dependencies
 ===
 
@@ -582,4 +579,6 @@ It's a bit harder to setup, here is a [tutorial](https://www.cypress.io/blog/201
 - [`markdown-toc`](https://www.npmjs.com/package/markdown-toc): Generate a markdown TOC (table of contents).
     _Uses many dependencies, many of them outdated (handlebars) and containing security issues, but we don't care much about those as they aren't shipped in the build, but only present on the developer's local machine._
 - [`version-bump-prompt`](https://www.npmjs.com/package/version-bump-prompt): Used to make it easier to bump versions.
+
+
 
