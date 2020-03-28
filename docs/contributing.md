@@ -21,7 +21,7 @@ Jekyll needs Ruby binary.
 
 1. Install and configure Jekyll on your computer, follow [https://jekyllrb.com/docs/](https://jekyllrb.com/docs/)
 1. Once Jekyll is installed, you can install all Ruby gems using `yarn doc:gem:install`
-1. Once gems are installed, you can run Jekyll by using `yarn doc:start`
+1. Once gems are installed, you can run the local Jekyll server by using `yarn doc:start` which will start the server at localhost:4000
 
 ### Configuring Jekyll properly
 
@@ -33,3 +33,8 @@ There are a few, but important differences between both. The custom configuratio
 The shared configuration must be written below.
 
 > **N.B**: If you add custom/shared configuration, don't forget update both config files, as needed.
+
+## Known issues
+
+- Using `yarn doc:start` will rebuild the whole documentation but it's slower. Using `yarn doc:start:fast` won't rebuild the whole thing and it's faster.
+  If you're working on the navigation menu, be warned the fast mode won't apply changes and your menu links won't update.

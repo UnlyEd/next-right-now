@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Overview
+title: Video tutorials
 parent: Getting started
 nav_order: 10
 ---
@@ -29,17 +29,3 @@ nav_order: 10
 
 ### Guides
 - [How to run NRN in debug mode using WebStorm debug configuration](http://youtu.be/3vbkiRAT4e8?hd=1) (2 minutes)
-
----
-
-## Showcases - Live demo
-
-You can see 2 almost identical demo at:
-- [https://nrn-customer1.now.sh](https://nrn-customer1.now.sh)
-- [https://nrn-customer2.now.sh](https://nrn-customer2.now.sh)
-
-**Both share the same source code and configuration**, but the database content is different (hosted on GraphCMS).
-
-> **Tip**: You can get metadata at [/api/status](https://nrn-customer1.now.sh/api/status)
->
-> **Tip**: All `/api/*` are serverless functions, running under AWS Lambda

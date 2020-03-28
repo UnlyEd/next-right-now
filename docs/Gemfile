@@ -1,4 +1,6 @@
 # XXX This file is only used when working on your local machine, in development
+# Run `yarn doc:start` to start the development server
+# Read ./CONTRIBUTING.md for further instructions
 
 source "https://rubygems.org"
 

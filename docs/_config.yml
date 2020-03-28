@@ -1,19 +1,12 @@
 # XXX This file is only used by GitHub Pages, when deploying online
+# Checkout https://pages.github.com/versions/ for the list of Github Pages built-in plugins
 
 # XXX --------- Specific to GHP config ------------
 remote_theme: pmarsceill/just-the-docs # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
 ga_tracking: UA-89785688-8
 
+# XXX --------- Common to all configs (local + GHP) --------------
 
-# XXX --------- Common to all config --------------
-
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
@@ -32,7 +25,9 @@ description: >- # this means to ignore newlines until "baseurl:"
 
 # Aux links for the upper right navigation
 aux_links:
+  "Home": "/"
   "Github": "https://github.com/UnlyEd/next-right-now"
+  "About us": "https://github.com/UnlyEd/Unly"
 
 footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd/next-right-now/blob/master/LICENSE\">MIT license.</a>"
 #color_scheme: "dark"

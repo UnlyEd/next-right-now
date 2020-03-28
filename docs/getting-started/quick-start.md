@@ -2,7 +2,7 @@
 layout: default
 title: Quick start
 parent: Getting started
-nav_order: 30
+nav_order: 20
 ---
 
 ## Super quick local installation (for local-only testing purpose, without Zeit account)
