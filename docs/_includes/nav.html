@@ -8,6 +8,13 @@
       {%- if page.parent == node.title or page.grand_parent == node.title -%}
       {%- assign first_level_url = node.url | absolute_url -%}
       {%- endif -%}
+
+      {%- if node.title == "-" -%}
+      <!-- Visual separator -->
+      <hr class="navigation-sep" />
+      {%- endif -%}
+
+      {%- if node.title != "" and node.title != "-" -%}
       <a href="{{ node.url | absolute_url }}" class="navigation-list-link{% if page.url == node.url %} active{% endif %}">
         {{ node.title }}
 
@@ -15,6 +22,8 @@
         &nbsp;>
         {%- endif -%}
       </a>
+      {%- endif -%}
+
       {%- if node.has_children -%}
       {%- assign children_list = site.html_pages | where: "parent", node.title | sort:"nav_order" -%}
       <ul class="navigation-list-child-list ">
