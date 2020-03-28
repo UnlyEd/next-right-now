@@ -102,6 +102,9 @@ Here is an overview of all the features covered by this boilerplate:
 ---
 
 ### Opt-in features (only some variants have those built-in):
+
+> Note that the default variant ([`master`](https://github.com/UnlyEd/next-right-now) branch) have all those features built-in.
+
 - **B2B multiple single-tenants (MST)**
   - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, monorepo design)
   - Most projects do not need such capability, it's useful for B2B businesses with large/key customer accounts who want to replicate the underlying infrastructure per-customer
