@@ -32,6 +32,9 @@ aux_links:
 footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd/next-right-now/blob/master/LICENSE\">MIT license.</a>"
 #color_scheme: "dark"
 
+plugins:
+  - jekyll-sitemap
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.

@@ -45,7 +45,7 @@ Next Right Now
 
 # Contributing
 
-[Go to contributors guide](https://unlyed.github.io/next-right-now/CONTRIBUTING).
+[Go to oue contributing guide](https://unlyed.github.io/next-right-now/CONTRIBUTING).
 
 ---
 
