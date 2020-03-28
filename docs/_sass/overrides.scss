@@ -4,3 +4,8 @@ blockquote {
   border-left: #f4f1fa 1px solid;
   padding-left: 25px;
 }
+
+.pagination-section {
+  display: flex;
+  justify-content: space-between;
+}

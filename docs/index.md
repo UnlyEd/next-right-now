@@ -92,7 +92,10 @@ Here is an overview of all the features covered by this boilerplate:
   - NPM developer-friendly outdated packages (script)
   - Display warning on outdated browsers<sup>2</sup>, works even if bundle isn't ES5 compatible (IE11, etc.)
   - Proper handling of sensitive information _(i.e: token)_ using non-tracked `.env.build` file locally and [Zeit secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets) online
-- [Fully documented usage of all the project's nodejs dependencies](./reference/dependencies)
+- Fully documented usage of all the [project's dependencies](./reference/dependencies)
+- Jekyll site for [online documentation using Github Pages](https://help.github.com/en/github/working-with-github-pages/about-github-pages-and-jekyll)
+  - Check out [`jekyll-auth` plugin](https://github.com/benbalter/jekyll-auth) if you need to release a non-public version
+  - We use [`just-the-docs` Jekyll theme](https://github.com/pmarsceill/just-the-docs)
 
 <div class="code-example" markdown="1">
 - _<sup>1</sup>: Note that your own code should support **universal rendering**, to re-use code as much as possible between frontend and backend (beware libraries you rely on, as they may not be universal)_

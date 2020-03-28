@@ -23,3 +23,14 @@ This section contains everything about how to get started with NRN. Here is the 
 ## Want some real fun?
 
 - [Dependencies documentation](../reference/vendors): Overview of the project dependencies (enjoy!)
+
+---
+
+<div class="pagination-section">
+    <span class="fs-4" markdown="1">
+    [< Introduction](../){: .btn }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Watch video tutorials >](./video-tutorials){: .btn .btn-purple }
+    </span>
+</div>
