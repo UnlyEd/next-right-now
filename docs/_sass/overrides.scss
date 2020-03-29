@@ -8,6 +8,10 @@ blockquote {
 .pagination-section {
   display: flex;
   justify-content: space-between;
+
+  &.space-even {
+    justify-content: space-evenly;
+  }
 }
 
 // Overrides https://github.com/jekyll/jemoji for better positioning alongside text

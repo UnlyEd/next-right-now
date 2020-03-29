@@ -23,8 +23,6 @@ and help you get started to build your own project based on this variant.
 ## Table of contents
 {: .no_toc .text-delta }
 
-[//]: # (XXX See https://pmarsceill.github.io/just-the-docs/docs/navigation-structure/#in-page-navigation-with-table-of-contents)
-
 - TOC
 {:toc}
 
