@@ -8,7 +8,7 @@ has_children: true
 # Concepts
 
 <div class="code-example" markdown="1">
-This section explains in details the different concepts around Next Right Now.
+This section explains the different concepts around Next Right Now.
 
 We recommend to follow the given order to go through them all.
 

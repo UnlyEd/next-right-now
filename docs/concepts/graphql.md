@@ -5,26 +5,29 @@ parent: Concepts
 nav_order: 30
 ---
 
-# [GraphCMS](https://graphcms.com/?ref=unly-nrn)
+# GraphQL
 
-## Discount
+<div class="code-example" markdown="1">
+GraphQL is a query language for your API, and a server-side runtime for executing queries by using a type system you define for your data. GraphQL isn't tied to any specific database or storage engine and is instead backed by your existing code and data.
 
-> Using the coupon code **`unly-nrn`** will grant you a 3-month 15% discount on the premium plans.
+<span style="float: right">
+[Source](https://graphql.org/learn/)
+</span>
+</div>
 
-## Fetching data from GraphCMS
+> NRN promotes the usage of GraphCMS vendor.
 
-> We use multiple libraries to fetch data from GraphCMS. GraphCMS provides a GraphQL endpoint, so we use generic libraries to the GraphQL specification like `react-apollo`.
->
-> [See full list of dependencies related to GraphCMS](README_DEPENDENCIES.md)
+GraphCMS is a 3-in-1 managed platform that provides you with:
+- A CMS to manage your data visually (back office)
+- A GraphQL API to manipulate your data
+- A database (hidden behind the GraphQL API)
 
-There are several ways of fetching data from a GraphQL API:
-- [`react-hoc`](https://www.apollographql.com/docs/react/api/react-hoc/): HOC (High Order Components) can be used with an components (classes, functional), the GraphQL query is described in the function's wrapper, outside of its body.
-    **Former way, tend to be deprecated in favor of `react-hooks` nowadays.**
-    [List of known issues](https://reactjs.org/docs/higher-order-components.html#caveats).
-- [`Render Props`](https://reactjs.org/docs/render-props.html): Never used it, fixes some issues one can encounter with HOC, but hooks are still better.
-- [**`react-hooks`**](https://www.apollographql.com/docs/react/api/react-hooks): Hooks can only be used with Functional components (not classes), the GraphQL query is described in the function's body.
+It's very simple to use and provides many benefits, especially for small businesses, because you don't have to manage any infrastructure.
+It may not fit all needs, but you can use any GraphQL API anyway because it's based on the GraphQL [Specification](https://spec.graphql.org/).
+You can always start with it and use your own self-managed GraphQL server later on. There is no lock-in.
 
-We used the hooks approach because it's just cleaner and simpler to understand.
+[Read our review](../reference/vendors).
+
 
 ---
 

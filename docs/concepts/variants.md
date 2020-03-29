@@ -93,6 +93,9 @@ We do not plan on providing variants for:
     [< Concepts](./){: .btn }
     </span>
     <span class="fs-4" markdown="1">
+    [Available variants](../getting-started/pick-variant){: .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
     [Environments and Stages >](./env-and-stages){: .btn .btn-purple }
     </span>
 </div>

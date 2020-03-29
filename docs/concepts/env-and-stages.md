@@ -8,10 +8,11 @@ nav_order: 10
 # Understanding **Environments** and **Stages**
 
 <div class="code-example" markdown="1">
-- NRN relies on environment variables to function correctly.
-- Those variables are provided differently depending on the environment.
+NRN relies on environment variables to function correctly.
 
-The following examples use the [`v1-ssr`](../getting-started/pick-variant.html#v1-ssr---default-variant) variant, which uses a multi single-tenants design.
+Those variables are provided differently depending on the environment.
+
+> The following examples use the [`v1-ssr`](../getting-started/pick-variant.html#v1-ssr---default-variant) variant, which uses a MST design.
 </div>
 
 ---

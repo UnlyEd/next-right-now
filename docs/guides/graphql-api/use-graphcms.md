@@ -86,3 +86,39 @@ It uses a "reliability-first" design, to make sure that it always works, even if
 We use it since September 2019 and haven't suffered any downtime since then, no matter what.
 
 ---
+
+### Packages
+
+We use multiple libraries to fetch data from GraphCMS.
+
+GraphCMS provides a GraphQL endpoint, so we use generic libraries to the GraphQL specification like `react-apollo`.
+
+- **Tip**: [See full list of dependencies related to GraphCMS](../../reference/dependencies)
+
+There are several ways of fetching data from a GraphQL API:
+- [`react-hoc`](https://www.apollographql.com/docs/react/api/react-hoc/): HOC (High Order Components) can be used with an components (classes, functional), the GraphQL query is described in the function's wrapper, outside of its body.
+    **Former way, tend to be deprecated in favor of `react-hooks` nowadays.**
+    [List of known issues](https://reactjs.org/docs/higher-order-components.html#caveats).
+- [`Render Props`](https://reactjs.org/docs/render-props.html): Never used it, fixes some issues one can encounter with HOC, but hooks are still better.
+- [**`react-hooks`**](https://www.apollographql.com/docs/react/api/react-hooks): Hooks can only be used with Functional components (not classes), the GraphQL query is described in the function's body.
+
+We used the hooks approach because it's just cleaner and simpler to understand.
+
+---
+
+##1 Fetching translations through GraphCMS
+
+> When the content is fetched through GraphCMS, the content is automatically internationalized using the `gcms-locale` **HTTP header** provided in the HTTP request.
+>
+> This means that a given user will not fetch the same content (even though the GraphQL query is identical) based on the `gcms-locale` value.
+
+The `gcms-locale` value is a string of the form `'FR, EN'`. _([case matters!](https://docs.graphcms.com/docs/api/content-api/?ref=unly-nrn#passing-a-header-flag))_
+There is two locales defined in this example _(there can be more, but we only handle 2 locales at this time in this app)_.
+- `FR` is the first and main locale. Content in French will therefore be loaded first.
+- `EN` is the second and is a fallback locale. If the content is not found in the main locale, then fallback locales are used.
+
+See the [official documentation](https://docs.graphcms.com/docs/api/content-api/?ref=unly-nrn#passing-a-header-flag) to learn more.
+
+> **N.B:** Even though it is possible to also specify the language `per field`, our **default approach** is to translate all content at once based on the header,
+> because it's so much simpler, and handles automated fallback, which is very useful if the content is not defined in the primary requested language.
+
