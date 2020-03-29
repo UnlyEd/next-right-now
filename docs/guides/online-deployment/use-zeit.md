@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Use Zeit
+title: How to use Zeit
 parent: Online deployment
 grand_parent: Guides
 nav_order: 20

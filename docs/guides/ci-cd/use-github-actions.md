@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Use Github Actions
+title: How to use Github Actions
 parent: CI/CD
 grand_parent: Guides
 nav_order: 20

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Setup Zeit
+title: How to setup Zeit
 parent: Online deployment
 grand_parent: Guides
 nav_order: 10

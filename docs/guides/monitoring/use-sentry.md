@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Use Sentry
+title: How to use Sentry
 parent: Monitoring
 grand_parent: Guides
 nav_order: 20

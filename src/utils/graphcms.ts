@@ -1,14 +1,14 @@
 /**
  * GraphCMS country codes separator expected in the header
  *
- * @see https://graphcms.com/docs/api/content-api/#passing-a-header-flag
+ * @see https://docs.graphcms.com/docs/api/content-api/#passing-a-header-flag
  * @type {string}
  */
 export const LANGUAGES_SEP = ', ';
 
 /**
  * Convert an array of languages into a GraphCMS-compatible locale header
- * @see https://graphcms.com/docs/api/content-api/#passing-a-header-flag
+ * @see https://docs.graphcms.com/docs/api/content-api/#passing-a-header-flag
  *
  * XXX Beware, uppercase is very important as it won't work properly if not upper-cased!
  *

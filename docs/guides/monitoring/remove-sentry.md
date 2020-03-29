@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remove Sentry
+title: How to remove Sentry
 parent: Monitoring
 grand_parent: Guides
 nav_order: 30

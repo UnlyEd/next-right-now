@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Setup Amplitude
+title: How to setup Amplitude
 parent: Analytics
 grand_parent: Guides
 nav_order: 10

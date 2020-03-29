@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Use Cypress
+title: How to use Cypress
 parent: Testing
 grand_parent: Guides
 nav_order: 10

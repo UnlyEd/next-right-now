@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remove Emotion
+title: How to remove Emotion
 parent: CSS-in-JS
 grand_parent: Guides
 nav_order: 20

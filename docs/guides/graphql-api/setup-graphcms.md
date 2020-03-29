@@ -1,73 +1,110 @@
 ---
 layout: default
-title: Setup GraphCMS
+title: How to setup GraphCMS
 parent: GraphQL API
 grand_parent: Guides
 nav_order: 10
 ---
 
-## Creating GraphCMS account
+# How to setup GraphCMS
+{: .no_toc }
 
-### Discount
+Step by step guide about how to create and properly configure your GraphCMS account.
 
-> **Tip**: Using the coupon code **`unly-nrn`** will grant you a 3-month 15% discount on the premium plans.
->
-> **Tip**: Free support is available on their [Slack channel](https://graphcms.slack.com) _(and they're awesome)_
+---
+
+## Table of contents
+{: .no_toc .text-delta }
+
+- TOC
+{:toc}
+
+---
+
+## Tips
+
+- Using the coupon code **`unly-nrn`** will grant you a 3-month 15% discount on the premium plans.
+- Free support is available on their [Slack channel](https://graphcms.slack.com) _(and they're awesome)_
+
+## Video tutorial (10 minutes)
+[![GraphCMS configuration video tutorial](https://img.youtube.com/vi/ig5a7LXTiBM/maxresdefault.jpg)](http://youtu.be/ig5a7LXTiBM?hd=1)
+
+> This video explains how to create a GraphCMS account and configure locales, versions, auth tokens and gives an overview of the settings.
+
+---
+
+## Create GraphCMS account
 
 - [Create a free account on GraphCMS](https://graphcms.com/?ref=unly-nrn)
 - Create a new project
-    - **Tip**: You only need to create one project, even if you use a multi-tenants setup, because all customers will be using the same API/Database
-    - **Tip**: You could use one project per customer (if you use a multi-tenants setup), but beware the implications regarding migrating all your schemas one by one in the future. We recommend using one project for all customers when getting started.
-- Make sure to select the right region, as it cannot be changed afterwards. The "right region" is the one that's closer to your customer
-- Copy the `Master endpoint` and create a `Permanent Auth Token` (QUERY) from the GraphCMS **settings page** to the [`.env.build`](.env.build) (`GRAPHQL_API_ENDPOINT` and `GRAPHQL_API_KEY` respectively)
-
-### GraphCMS configuration video tutorial (10 minutes)
-[![GraphCMS configuration video tutorial](https://img.youtube.com/vi/ig5a7LXTiBM/maxresdefault.jpg)](http://youtu.be/ig5a7LXTiBM?hd=1)
-
-> This video explains how to create a GraphCMS account and configure locales, versions, auth tokens and gives an overview of the settings
-
-### Additional GraphCMS documentation
-
-If you decide to keep GraphCMS, you'll need to read the official documentation if you're not already familiar with it.
-GraphCMS is very powerful, and quite helpful. It handles your database, your CMS and your GraphQL API. It's a fully managed service.
-It also provides a built-in assets management system, with on-the-fly image transformations.
-
-It can be replaced by any other GraphQL endpoint though, if you prefer to manage those things yourself.
-
-- See [Advanced GraphCMS usage](#advanced-graphcms-usage) for further explanation
-- [Official "Getting started" guide](https://graphcms.com/docs/getting-started?ref=unly-nrn)
-- I18n
-    - [Official "I18n" guide](https://graphcms.com/docs/guides/i18n/)
-    - [Querying localized content](https://graphcms.com/docs/api/content-api/#querying-localized-content)
-- Assets
-    - [Official "Assets" guide](https://graphcms.com/docs/assets/general)
-    - [Dynamic asset transformations](https://graphcms.com/docs/assets/transformations)
-
-### Network and reliability concerns
-
-As all internet things, sometimes it breaks. It's also true with any third party providers, such as GraphCMS.
-
-Downtime happen, it's not frequent, it's usually really short, but it's boring anyway, and it may be very harmful to your business.
-
-We've used GraphCMS for more than a year, and it's really good overall. When downtime happen, they take care of it really fast and are good communicators (through Slack or in-app messages mostly)
-Most of the 2019 issues were related to AWS itself, not even their own infrastructure.
-
-Nevertheless, we've built another open source tool to help deal with this kind of things: [GraphCMS Cache Boilerplate](https://github.com/UnlyEd/GraphCMS-cache-boilerplate)
-
-It uses a "reliability-first" design, to make sure that it always works, even if things are broken behind. It's basically a cache system on top of GraphCMS.
-
-We use it since September 2019 and haven't suffered any downtime since then, no matter what.
-
-### GraphQL API security concerns (token)
-
-One thing that you must be aware of (amongst many other) is that the GraphQL token you use in this Next.js app is used by both the server (SSR) and the client (CSR).
-
-Thus, it means that the client gets the token to authenticate to your GraphQL endpoint. And that can be a serious security issue, depending on how sensitive the data are.
-
-In the current demo, all data are non-sensitive, so sharing the token with the client isn't an issue. But on our real app, it's a serious concern.
-
-We use [GraphCMS Cache Boilerplate](https://github.com/UnlyEd/GraphCMS-cache-boilerplate) in between the client and the GraphQL API to serve as a proxy, all requests go to the GraphCMS Cache unauthenticated, and it's the proxy that provides the authentication credentials when fetching the API.
-
-This way, the GraphQL API token is never shared on the client, it's managed and only used through our GraphCMS Cache proxy.
+    - **Make sure to select the right region**, as it cannot be changed afterwards.
+    _The "right region" is the one that's the closest to your customers._
 
 ---
+
+## GraphCMS concepts
+
+#### Public API Permissions
+
+By default, your `Public API Permissions` is set to **`PROTECTED`**.
+
+But, it is also possible to allow anyone, without any authentication, to interact with your API.
+This is managed using `Public API Permissions`:
+- `QUERY`: Allow anyone to query the data. But won't allow to mutate any data. (read-only)
+- `MUTATION`: Allows anyone to mutate the data. But won't allow to query any data. (write-only)
+- `OPEN`: Allows any consumer to both query and mutate the data.
+- **`PROTECTED`** (default): This means an authentication is required to perform any operation on the API, and the permission scope is managed using `Permanent Auth Token`.
+    **This is what we will be using in this guide.**
+
+> We considered the most common use case is to allow to fetch data from your API, protected by an auth token.
+
+The decision eventually depends on your own requirements. But please bear with us for now and keep the default `PROTECTED` configuration.
+
+#### Permanent Auth Token
+
+You may allow each token a different permissions scope:
+- `QUERY`: Allows any consumer to query the data. But won't allow to mutate any data. (read-only)
+    **This is what we will be using in this guide, because we only need to fetch the data and not mutate them.**
+- `MUTATION`: Allows any consumer to mutate the data. But won't allow to query any data. (write-only)
+- `OPEN`: Allows any consumer to both query and mutate the data.
+
+---
+
+## Configure your GraphCMS project
+
+- Copy the `Master endpoint` and update the `GRAPHQL_API_ENDPOINT` env variable in your `.env.build`
+    - **Hint**: It starts with `https://api-euwest.graphcms.com/v1...`
+- Create a `Permanent Auth Token` with `QUERY` permissions.
+    - This will generate a token that can be used to authenticate to your GraphCMS API endpoint and fetch data.
+    - Copy this token, you won't be able to see it again.
+- Use the previously copied auth token and update the `GRAPHQL_API_KEY` env variable in your `.env.build`
+- If you have already configured Zeit, and if you want to deploy your app online, you must also configure Zeit secrets
+    - Replace the `GRAPHQL_API_ENDPOINT` in all `now.*.json` files (this is not a secret because it's not considered sensitive)
+    - `now secrets add nrn-graphql-api-key YOUR_API_KEY`
+- Your app is now properly configured and will be able to run GraphQL queries to fetch data from your app.
+
+**Important note:**
+Do not expect your app to actually work at this time, you've just created a new GraphCMS project which doesn't match the expected GraphQL API structure, all requests will fail and that's expected.
+
+### (Optional) Replicating the GraphCMS data structure
+
+If you want to replicate the online demo on your local computer, you will have to use the same GraphCMS schema structure so that queries can be executed successfully.
+
+We use a particular GraphCMS [data structure for our demo](../../reference/demo-database-structure), you'll need to replicate it on your GraphCMS project.
+- It is recommended to watch the video if you haven't done it already.
+- It's basically WYSIWYG, creating new fields on GraphCMS models, all changes are applied immediately (CMS + API are dynamically updated when the GraphCMS schema is changed)
+
+**Some considerations:**
+- Any missing field will throw a GraphQL error. (querying a field that doesn't exist on the GraphCMS API)
+- The field types must match. (Some mismatch would still succeed, like using a `Multi line text` or `Markdown` instead of `Single line text` because it doesn't affect the structure of the GraphQL query, but better use exactly the same types)
+- You can have more fields on your GraphCMS schema. (Having more fields is not an issue, the GraphQL queries will work nonetheless)
+
+Once you've created all fields on GraphCMS, you can run your app locally using `yarn start` and it should work properly.
+
+---
+
+<div class="pagination-section space-even">
+    <span class="fs-4" markdown="1">
+    [How to use GraphCMS >](./use-graphcms){: .btn .btn-purple }
+    </span>
+</div>

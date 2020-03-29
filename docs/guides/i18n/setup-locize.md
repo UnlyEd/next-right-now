@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Setup Locize
+title: How to setup Locize
 parent: I18n
 grand_parent: Guides
 nav_order: 10

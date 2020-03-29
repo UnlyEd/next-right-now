@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Setup Sentry
+title: How to setup Sentry
 parent: Monitoring
 grand_parent: Guides
 nav_order: 10

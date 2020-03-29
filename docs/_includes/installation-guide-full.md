@@ -1,6 +1,7 @@
-1. `git clone git@github.com:UnlyEd/next-right-now.git` - Clones the boilerplate
-1. `git checkout {{ include.variant }}` - Select the variant
-1. Duplicate the `.env.build.example` and rename it `.env.build` _(this file is only used on your local computer)_
+- This assumes you've cloned the NRN repository locally (cloning it once is enough, no need to clone it multiple times, but it may be simpler to use one clone per variant if you're trying out multiple variants locally :wink:)
+- This assumes you're already authenticated to Zeit (you should, if you've followed the [quick start](./quick-start), or if you're familiar with Zeit already)
+
+1. `cp .env.build.example .env.build` - Duplicates the `.env.build.example` as `.env.build` _(`.env.build` is only used when working locally)_
 1. Create an account for all required 3rd party vendors above, and fill-in missing environment variables in your `.env.build` file
 1. `nvm use` - Selects the right node.js version based on the `.nvmrc` file
 1. `yarn` - Installs all deps from `package.json`

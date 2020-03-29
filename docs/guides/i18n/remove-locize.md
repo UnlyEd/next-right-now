@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remove Locize
+title: How to remove Locize
 parent: I18n
 grand_parent: Guides
 nav_order: 30

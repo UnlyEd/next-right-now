@@ -127,7 +127,7 @@ class NRNApp extends NextApp {
       readonlyCookies,
       userSession,
       bestCountryCodes, // i.e: ['en', 'fr']
-      gcmsLocales, // i.e: 'EN, FR' XXX MUST BE UPPERCASED - See https://graphcms.com/docs/api/content-api/#passing-a-header-flag
+      gcmsLocales, // i.e: 'EN, FR' XXX MUST BE UPPERCASED - See https://docs.graphcms.com/docs/api/content-api/#passing-a-header-flag
       lang, // i.e: 'en'
       defaultLocales,
       isSSRReadyToRender: true,

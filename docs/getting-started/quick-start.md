@@ -17,22 +17,9 @@ This tutorial uses the [**`v1-ssr`**](../getting-started/pick-variant) variant, 
 
 > **Tip**: Using now@17+ is required for CI to work properly when deploying to Zeit, but we don't care about that as we just want to get started quickly.
 
-{% include installation-guide-simple.md variant=v1-ssr %}
+{% include installation-guide-quick-start.md variant=v1-ssr %}
 
 {% include installation-guide-tips.md %}
-
-## Deploying on Zeit
-
-1. If you have a Zeit account, you can deploy to Zeit but you need to change the associated Zeit `scope` first (it currently uses ours, because it's required for our CI/CD Github Actions)
-  - Remove the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `now.*.json` files
-  - `yarn add -D now@17.0.4` to install an up-to-date `now` CLI
-  - (Optional) Run `now login` if you aren't authenticated to Zeit from your local machine. Typically, if it's the first time you use Zeit you'll need to do it.
-  - `yarn start` - Will create a `.now` folder containing project metadata.
-  - Add a `scope` line in all `now.*.json` files using the `projectId` in `.now/project.json`
-  - `yarn deploy` - Will deploy the project online, and automatically create the Zeit project first, if it doesn't exist already
-  - Go to [Zeit](https://zeit.co/) to see the project being deployed, go through logs, etc.
-
-> Zeit doesn't provide the `projectId` from the Zeit platform itself, even if the project exists already. Running `yarn start` locally is the only way to know what is your `projectId`, AFAIK.
 
 ---
 

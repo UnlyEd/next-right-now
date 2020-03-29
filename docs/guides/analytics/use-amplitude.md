@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Use Amplitude
+title: How to use Amplitude
 parent: Analytics
 grand_parent: Guides
 nav_order: 20

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Setup Github Actions
+title: How to setup Github Actions
 parent: CI/CD
 grand_parent: Guides
 nav_order: 10

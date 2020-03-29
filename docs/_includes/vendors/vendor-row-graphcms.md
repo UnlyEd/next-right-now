@@ -1,1 +1,1 @@
-| [GraphCMS](https://graphcms.com/pricing?ref=unly-nrn) | :white_check_mark: | :white_check_mark: **Growth** plan 2 weeks | Provide discounts for non-profit organisations | [Guide](../guides/graphql-api/setup-graphcms) |
+| [GraphCMS](https://graphcms.com/pricing?ref=unly-nrn) | :heavy_check_mark: 2 weeks on **Growth** plan | :heavy_check_mark: | [15% discount for NRN users](../guides/graphql-api/setup-graphcms) + provides discounts for non-profit organisations | [Guide](../guides/graphql-api/setup-graphcms) |

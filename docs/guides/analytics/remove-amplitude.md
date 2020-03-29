@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Remove Amplitude
+title: How to remove Amplitude
 parent: Analytics
 grand_parent: Guides
 nav_order: 30
