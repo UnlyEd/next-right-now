@@ -59,8 +59,8 @@ This boilerplate provides multiple variants, which provide different features an
 > If you wish to learn more about this design, see the [RFC specifications](https://github.com/UnlyEd/next-right-now/issues/18).
 
 Simply put, each variant provides a different "built-in" features and tools.
-Therefore, you probably want to get an overview of all the [available variants](https://unlyed.github.io/next-right-now/getting-started/available-variants) to decide which one best fit your needs.
-
+Therefore, you probably want to get an overview of all the [available variants](https://unlyed.github.io/next-right-now/getting-started/pick-variant) to decide which one best fit your needs.
+Make sure to understand [what's a variant](./concepts/variants) first! :wink:
 ---
 
 ## Benefits
@@ -144,3 +144,4 @@ Here is an overview of all the features covered by this boilerplate:
 
 - Having questions? Check out the [FAQ](./faq)! Open a github issue if you don't find your answer.
 - Check out our [roadmap](./roadmap) to see what we plan to release next!
+- Check out our [terminology](./reference/terminology) to make sure you understand correctly all acronyms used :wink:

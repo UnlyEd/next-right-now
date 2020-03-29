@@ -251,6 +251,7 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  jemoji
   just-the-docs
   tzinfo (~> 1.2)
   tzinfo-data

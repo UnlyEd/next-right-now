@@ -1,0 +1,1 @@
+| [Amplitude](https://amplitude.com/pricing?ref=unly-nrn) | :white_check_mark: | :white_check_mark: [1<sup>st</sup> year free](https://amplitude.com/startups?ref=unly-nrn) _(for startups and non-profit)_ | Don't provide discounts |

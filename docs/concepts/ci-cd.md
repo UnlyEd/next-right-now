@@ -29,3 +29,14 @@ Here is how the multiple steps are ordered:
 ## In-depth project's dependencies
 
 See [README_DEPENDENCIES](./README_DEPENDENCIES.md)
+
+---
+
+<div class="pagination-section">
+    <span class="fs-4" markdown="1">
+    [< Monitoring](./monitoring){: .btn }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Testing >](./testing){: .btn .btn-purple }
+    </span>
+</div>

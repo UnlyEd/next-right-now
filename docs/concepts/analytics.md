@@ -26,3 +26,14 @@ We only use react-amplitude to manipulate events.
 
 - [Tutorial](https://help.amplitude.com/hc/en-us/articles/360003032451-Instrumentation-Explorer-Debugger)
 - [Chrome plugin](https://chrome.google.com/webstore/detail/amplitude-instrumentation/acehfjhnmhbmgkedjmjlobpgdicnhkbp)
+
+---
+
+<div class="pagination-section">
+    <span class="fs-4" markdown="1">
+    [< I18n](./i18n){: .btn }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Monitoring >](./monitoring){: .btn .btn-purple }
+    </span>
+</div>

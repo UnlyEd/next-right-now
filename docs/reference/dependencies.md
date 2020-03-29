@@ -2,7 +2,7 @@
 layout: default
 title: Dependencies
 parent: Reference
-nav_order: 20
+nav_order: 60
 ---
 Dependencies
 ===
@@ -480,8 +480,8 @@ Marked as alpha-3 version but stable. **Much better than Reactstrap Tooltip comp
 >
 > Sometimes, TS types are included in the same package as the main package, sometimes in a different package, such as for those below.
 
-- [`@types/jest`](https://www.npmjs.com/package/@types/jest): This package contains type definitions for Jest (https://jestjs.io/).
-- [`@types/react`](https://www.npmjs.com/package/@types/react): This package contains type definitions for React (http://facebook.github.io/react/).
+- [`@types/jest`](https://www.npmjs.com/package/@types/jest): This package contains type terminology for Jest (https://jestjs.io/).
+- [`@types/react`](https://www.npmjs.com/package/@types/react): This package contains type terminology for React (http://facebook.github.io/react/).
 - [`@types/webpack-env`](https://www.npmjs.com/package/@types/webpack-env): Allow to use [`__non_webpack_require__` with TypeScript](https://hackernoon.com/building-isomorphic-javascript-packages-1ba1c7e558c5).
 - [`@typescript-eslint/eslint-plugin`](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin): ESLint plugin for TypeScript support .It is important that you use the same version number for `@typescript-eslint/parser` and `@typescript-eslint/eslint-plugin`.
 - [`@typescript-eslint/parser`](https://www.npmjs.com/package/@typescript-eslint/parser): An ESLint custom parser which leverages TypeScript ESTree to allow for ESLint to lint TypeScript source code.

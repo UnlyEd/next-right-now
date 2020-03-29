@@ -25,3 +25,14 @@ There are several ways of fetching data from a GraphQL API:
 - [**`react-hooks`**](https://www.apollographql.com/docs/react/api/react-hooks): Hooks can only be used with Functional components (not classes), the GraphQL query is described in the function's body.
 
 We used the hooks approach because it's just cleaner and simpler to understand.
+
+---
+
+<div class="pagination-section">
+    <span class="fs-4" markdown="1">
+    [< Tenancy](./tenancy){: .btn }
+    </span>
+    <span class="fs-4" markdown="1">
+    [I18n >](./i18n){: .btn .btn-purple }
+    </span>
+</div>

@@ -15,4 +15,4 @@ nav_order: 50
 
 ## Advanced guides
 
-- [WebStorm interactive debug mode (2 minutes)](http://youtu.be/3vbkiRAT4e8?hd=1): How to run NRN in debug mode using WebStorm debug configuration
+- [WebStorm interactive debug mode (2 minutes)](http://youtu.be/3vbkiRAT4e8?hd=1): Guides run NRN in debug mode using WebStorm debug configuration

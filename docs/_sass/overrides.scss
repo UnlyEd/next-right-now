@@ -9,3 +9,21 @@ blockquote {
   display: flex;
   justify-content: space-between;
 }
+
+// Overrides https://github.com/jekyll/jemoji for better positioning alongside text
+img.emoji {
+  top: 5px;
+  position: relative;
+}
+
+h1 {
+  code {
+    font-size: 36px;
+  }
+}
+
+h2 {
+  code {
+    font-size: 24px;
+  }
+}

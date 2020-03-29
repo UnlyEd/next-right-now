@@ -33,6 +33,7 @@ footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd
 
 plugins:
   - jekyll-sitemap
+  - jemoji
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
