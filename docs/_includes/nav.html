@@ -15,7 +15,7 @@
       {%- endif -%}
 
       {%- if node.title != "" and node.title != "-" -%}
-      <a href="{{ node.url | absolute_url }}" class="navigation-list-link{% if page.url == node.url %} active{% endif %}">
+      <a href="{{ node.url | remove: '.html' | absolute_url }}" class="navigation-list-link{% if page.url == node.url %} active{% endif %}">
         {{ node.title }}
 
         {%- if node.has_children -%}
@@ -32,14 +32,14 @@
           {%- if page.url == child.url or page.parent == child.title -%}
           {%- assign second_level_url = child.url | absolute_url -%}
           {%- endif -%}
-          <a href="{{ child.url | absolute_url }}" class="navigation-list-link{% if page.url == child.url %} active{% endif %}">{{ child.title }}</a>
+          <a href="{{ child.url | remove: '.html' | absolute_url }}" class="navigation-list-link{% if page.url == child.url %} active{% endif %}">{{ child.title }}</a>
           {%- if child.has_children -%}
           {%- assign grand_children_list = site.html_pages | where: "parent", child.title | sort:"nav_order" -%}
           <ul class="navigation-list-child-list">
             {%- for grand_child in grand_children_list -%}
             <li class="navigation-list-item {% if page.url == grand_child.url %} active{% endif %}">
               <a
-                href="{{ grand_child.url | absolute_url }}"
+                href="{{ grand_child.url | remove: '.html' | absolute_url }}"
                 class="navigation-list-link{% if page.url == grand_child.url %} active{% endif %}"
               >{{ grand_child.title }}</a>
             </li>
