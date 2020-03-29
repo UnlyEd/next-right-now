@@ -14,18 +14,18 @@ nav_order: 1
 - TOC
 {:toc}
 
+---
+
 ## What is a variant?
 
-A variant is a variation of the boilerplate. Each variant provides different built-in features.
+A variant is a variation of the boilerplate. Each variant provides different **built-in** features.
 
-- Each variant lives in the same NRN Github repository, but in a distinct branch.
+- Each variant lives in the same NRN Github repository, but in a distinct **branch**.
 - Each variant has its own dedicated demo and "how to install" documentation.
 
-> Variants are opt-in, meaning that you, as a developer, get to choose which one you use.
+> Variants are **opt-in**, meaning that you, as a developer, get to choose which one you use.
 >
-> This decision is up to you only, and you will likely choose the variant that matches the closest your business needs/requirements.
->
-> You may be limited by the provided variants,
+> This decision is **up to you** only, and you will likely choose the variant that matches the closest your business needs/requirements.
 
 ---
 

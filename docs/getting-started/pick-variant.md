@@ -5,7 +5,7 @@ parent: Getting started
 nav_order: 30
 ---
 
-# Available variants
+# Find and pick your variant
 {: .no_toc }
 
 <div class="code-example" markdown="1">
