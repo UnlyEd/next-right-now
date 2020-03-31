@@ -8,18 +8,14 @@ nav_order: 1
 # Variants
 {: .no_toc }
 
-## Table of contents
-{: .no_toc .text-delta }
-
-- TOC
-{:toc}
+{% include page-toc.md %}
 
 ---
 
 ## What is a variant?
 
-A variant is a variation of the boilerplate. Each variant provides different **built-in** features.
-
+- A variant is a "variation" of the boilerplate. It's the same as a "Preset" of features that are "ready-to-use", because they're built-in within that variant.
+- Each variant provides different **built-in** features.
 - Each variant lives in the same NRN Github repository, but in a distinct **branch**.
 - Each variant has its own dedicated demo and "how to install" documentation.
 
@@ -35,8 +31,8 @@ The boilerplate was built with re-usability in mind, but also tries to solve non
 - Analytics
 - Monitoring
 - API usage (consumption)
-- Content i18n
-- Platform i18n
+- [Dynamic i18n](../reference/terminology#nrn-terms) (content)
+- [Static i18n](../reference/terminology#nrn-terms) (website)
 
 >Those are non-trivial features, and they can't always be build using open source software.
 >
@@ -45,7 +41,7 @@ The boilerplate was built with re-usability in mind, but also tries to solve non
 Variants are meant to cover as much possibilities as possible. For instance, you may want to use:
 - SSG or SSR
 - Multi-tenants or Multiple Single-Tenants or Single Tenant
-- Platform i18n with Locize vendor, or implemented using static files (no vendor), or maybe you don't need this feature at all
+- Static i18n with Locize vendor, or implemented using static files (no vendor), or maybe you don't need this feature at all
 - Sentry to monitor your app (client + server sides), but maybe you already use another different vendor and would like to stick with it
 - Analytics, but because you may use SSG only, and your needs are small then Google Analytics may be a better fit for you and avoid additional complexity
 - Etc.
@@ -66,9 +62,9 @@ It's a waste of time if everybody has to do that on their own, and it strongly l
 Here is a short list of all variants that we consider to support in the future:
 - ST (as an alternative to current MST)
 - SSG (as an alternative to current SSR)
-- Platform i18n without Locize provider (as an alternative to current Locize provider, which isn't free)
-- No platform i18n and no content i18n support either
-    (completely remove platform/content i18n support as an alternative for those who don't need related i18n complexity and prefer to keep things simpler)
+- Static i18n without Locize provider (as an alternative to current Locize provider, which isn't free)
+- No static i18n and no dynamic i18n support
+    (completely remove any i18n support as an alternative for those who don't need related i18n complexity and prefer to keep things simpler)
 
 ---
 
@@ -86,6 +82,26 @@ We do not plan on providing variants for:
 >
 > We are therefore open to add more/new tooling, but we must discuss it together first! :wink:
 
+## How do I know which variant is best for me?
+
+A variant is nothing more than a preset of features that are built-in within.
+
+So, to decide which one you need, you must compare what features are available versus what features you actually need.
+Also, some variants include non-free vendors, or vendors that only provide a limited plan. Depending on those things, you may chose one variant over another.
+
+Here is a summary of all features that are provided through variants:
+- **Manage multiple B2B single-tenants**: Do you need to deploy different sites (one per customer) through the same code base (monorepo design)? If so, we've got you covered.
+- **I18n**: Do you need to display your app in multiple languages?
+    If so, you should start with a variant that allows both ["dynamic i18n" and "static i18n"](../reference/terminology#nrn-terms).
+    - Also, depending on your needs, you may want to rely on a professional vendor to store, provide and help with i18n.
+        - For instance, our team love Locize for its [in-context editor](https://docs.locize.com/more/incontext-editor), because it really helps translators understand the context of a sentence, and our marketing/product team can make small changes without having to bother developers.
+- **Connect with external APIs**: Do you need to use external APIs? It's very much likely for any app nowadays.
+    If so, you should start with a variant that provides built-in support. Make sure to select one that fits your needs, we only provide built-in support for GraphQL at the moment.
+- **Monitoring**: Do you need to monitor what happens on your server and be warned about bugs and crashes? We bet you do.
+- **Analytics**: Do you need to track usage of your features and know how many users visited your site this month? We bet you do.
+
+- **Tip**: Check out our [**Vendors overview**](../reference/vendors)
+
 ---
 
 <div class="pagination-section">
@@ -93,7 +109,7 @@ We do not plan on providing variants for:
     [< Concepts](./){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Available variants](../getting-started/pick-variant){: .btn-blue }
+    [Find your variant](../getting-started/pick-variant){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
     [Environments and Stages >](./env-and-stages){: .btn .btn-purple }

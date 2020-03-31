@@ -99,7 +99,7 @@ Here is an overview of all the features covered by this boilerplate:
 
 <div class="code-example" markdown="1">
 - _<sup>1</sup>: Note that your own code should support **universal rendering**, to re-use code as much as possible between frontend and backend (beware libraries you rely on, as they may not be universal)_
-- _<sup>2</sup>: I have reasonable doubts regarding how optimised the current implementation is (SEO, First Contentful Paint), and I'd love a community feedback on this!_
+- _<sup>2</sup>: We have reasonable doubts regarding how optimised the current implementation is (SEO, First Contentful Paint), and we'd love a community feedback on this!_
 </div>
 
 ---
@@ -124,8 +124,6 @@ Here is an overview of all the features covered by this boilerplate:
       - Auto-add i18n keys with default translation when working locally
 - Strong **observability** of the system (monitoring) and push-notification on your own messaging channel (i.e: Slack) when things go wrong (thanks to [Sentry<sup>1</sup>](https://sentry.io/))
 - Fine-grained frontend **analytics**, react-friendly, flexible, SPA-friendly (thanks to [Amplitude<sup>1</sup>**<sup>2</sup>**](https://amplitude.com/))
-- [_WIP - Contributions welcomed!_] [**Next Right Now Admin**](https://github.com/UnlyEd/next-right-now-admin), **a backoffice/admin site to manage your GraphQL API content**, based on [react-admin](https://github.com/marmelab/react-admin), forked from NRN itself!
-    _[V2](https://github.com/UnlyEd/next-right-now-admin/projects) aims at making it multi-tenants compliant_
 
 <div class="code-example" markdown="1">
 - `advanced support`: Means that we took a very special care to support this, and that it's not as simple as one may believe

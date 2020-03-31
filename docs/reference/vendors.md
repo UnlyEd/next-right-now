@@ -12,8 +12,9 @@ nav_order: 19
 Comprehensive overview of all vendors available with focus on what to be aware of.
 </div>
 
-- TOC
-{:toc}
+{% include page-toc.md %}
+
+---
 
 ## Key figures
 

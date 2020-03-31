@@ -5,12 +5,20 @@ parent: Reference
 nav_order: 30
 ---
 
-### Demo database structure
+# Demo database structure
+{: .no_toc }
+
+{% include page-toc.md %}
+
+---
+
+## GraphCMS vendor
 
 > Data structure of the GraphCMS database used as example.
 >
-> This is only useful if you wish to understand the relationships and data structure of the demo, you don't really need it.
-> But if you fork and try to rebuild the demo on your own GraphCMS endpoint, it'll come in handy.
+> This is only useful if you wish to understand the relationships and data structure of the demo.
+>
+> It's only useful if try to rebuild the demo on your own GraphCMS endpoint (after cloning, for example).
 
 - customer
     - ref - Single line text, required, unique

@@ -11,22 +11,22 @@ This short tutorial will explain how to perform a super quick local installation
 
 This tutorial uses the [**`v1-ssr`**](../getting-started/pick-variant) variant, which is the ~~simplest~~ _only one_ available at this time.
 
-> It doesn't really matter if the selected variant fits your needs, the goal here is to give your a tour of what NRN can do for you, as quick as possible.
+> It doesn't really matter if the selected variant fits your needs, the goal here is to give your a tour of what NRN can do for you, as quickly as possible.
 
 ## Step by step installation
 
-> **Tip**: Using now@17+ is required for CI to work properly when deploying to Zeit, but we don't care about that as we just want to get started quickly.
-
 {% include installation-guide-quick-start.md variant=v1-ssr %}
+
+### Advanced configuration
 
 {% include installation-guide-tips.md %}
 
 ---
 
 <div markdown="1" style="text-align: center">
-**Recommended**:
+:books: **Recommended**: Go through the Concepts section:
 
-Go through the Concepts section
+Learn more about NRN concepts before getting your hands dirty&nbsp;:wink:
 </div>
 
 <div class="pagination-section">
@@ -41,14 +41,14 @@ Go through the Concepts section
 ---
 
 <div markdown="1" style="text-align: center">
-**For experienced developers**:
+:rocket: **For experimented developers** - _or if you're in a hurry_:
 
-Pick the Variant that best fit your needs and get started ASAP
+Pick the Variant that best fit your needs and it deploy online right now!
 </div>
 
 <div class="pagination-section" style="justify-content: center">
     <span class="fs-4" markdown="1">
-    [Pick your variant >](./pick-variant){: .btn .btn-blue }
+    [Find your variant >](./pick-variant){: .btn .btn-blue }
     </span>
 </div>
 

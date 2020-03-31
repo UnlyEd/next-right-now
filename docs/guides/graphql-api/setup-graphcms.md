@@ -11,13 +11,7 @@ nav_order: 10
 
 Step by step guide about how to create and properly configure your GraphCMS account.
 
----
-
-## Table of contents
-{: .no_toc .text-delta }
-
-- TOC
-{:toc}
+{% include page-toc.md %}
 
 ---
 

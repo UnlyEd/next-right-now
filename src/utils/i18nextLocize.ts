@@ -185,7 +185,7 @@ export const locizeBackendOptions = {
  * Instead, we manually fetch (pre-fetch) the translations ourselves from the _app:getInitialProps, so that they're available both on the client and the server
  * @see https://github.com/i18next/i18next/issues/1373
  *
- * XXX Make sure you don't use "auto" publish format, but either "nested" or "flat", to avoid the format to dynamically change (I personally recommend "nested")
+ * XXX Make sure you don't use "auto" publish format, but either "nested" or "flat", to avoid the format to dynamically change (We recommend "nested")
  * @see https://faq.locize.com/#/general-questions/why-is-my-namespace-suddenly-a-flat-json
  *
  * XXX Caching is quite complicated, because the caching strategy depends on the runtime engine (browser vs server) and the stage (development, staging, production)

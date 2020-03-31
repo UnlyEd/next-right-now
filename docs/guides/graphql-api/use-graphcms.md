@@ -11,13 +11,7 @@ nav_order: 20
 
 Advices and "must-know" things regarding GraphCMS usage.
 
----
-
-## Table of contents
-{: .no_toc .text-delta }
-
-- TOC
-{:toc}
+{% include page-toc.md %}
 
 ---
 
@@ -87,7 +81,7 @@ We use it since September 2019 and haven't suffered any downtime since then, no 
 
 ---
 
-### Packages
+### Dependencies
 
 We use multiple libraries to fetch data from GraphCMS.
 

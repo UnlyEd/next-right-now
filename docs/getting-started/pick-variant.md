@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Pick your variant
+title: Find my variant
 parent: Getting started
 nav_order: 30
 ---
 
-# Find and pick your variant
+# Find and use your variant
 {: .no_toc }
 
 <div class="code-example" markdown="1">
@@ -18,13 +18,13 @@ and help you get started to build your own project based on this variant.
 - Make sure you're up-to-date with the [terminology](../reference/terminology) being used.
 </div>
 
+{% include page-toc.md %}
+
 ---
 
-## Table of contents
-{: .no_toc .text-delta }
+## How do I know which variant is best for me?
 
-- TOC
-{:toc}
+[Check our guide](../concepts/variants#how-do-i-know-which-variant-is-best-for-me)
 
 ---
 
@@ -33,10 +33,9 @@ and help you get started to build your own project based on this variant.
 You can get metadata at `/api/status` on any demo, because all variants provide this API (even those that aren't tagged with `ssr`)
 
 **Quick reminders**:
+- The rendering mode (SSR/SSG) only affect how `pages` are served, it doesn't affect the API.
 - All `/api/*` endpoints are serverless functions, running under AWS Lambda
-- Even when the build configuration doesn't use SSR, because Next.js allows a hybrid design, it stills allows some page to be served from a server
-    - All API endpoints are obviously always served by an actual server, they're not affected by SSG configuration, for instance.
-    - When pages don't use SSR, it only affects `/pages`, not the api endpoints themselves
+- Next.js allows a hybrid design, thus allowing a per-page rendering mode (SSG or SSR)
 - The [database schema structure](../reference/demo-database-structure) is the same for all variants
 
 > We don't have examples using SSG at this time, but it is planned soon, don't hesitate to contribute!
@@ -75,8 +74,8 @@ The plan is to release simpler variants soon.
 | SSR vs SSG | **SSR** | SSR by default for all pages (through `pages/_app`), SSG not available |
 | Tenancy | **MST** (Hybrid MT/ST) | Deploys 2 tenants on different domains (ST), sharing the same DB and API endpoint (MT) |
 | GraphQL API (GraphCMS) | :heavy_check_mark: | Advanced GraphCMS support |
-| I18n content support (GraphCMS) | :heavy_check_mark: | Content from GraphCMS is localised |
-| I18n platform support (Locize) | :heavy_check_mark: | Static content for the platform is localised using Locize (menu, links, etc.) |
+| Dynamic i18n support (GraphCMS) | :heavy_check_mark: | Content from GraphCMS is localised (db records) |
+| Static i18n support (Locize) | :heavy_check_mark: | Content for the platform is localised using Locize (menu, links, etc.) |
 | Monitoring (Sentry) | :heavy_check_mark: | Errors are sent to Sentry in real-time (both frontend and backend) |
 | Analytics (Amplitude) | :heavy_check_mark: | Fine-grained analytics is processed in real-time (1mn graph latency on free plans) |
 
@@ -115,6 +114,14 @@ This will create a `nrn-variant-{{variant}}` folder in your current directory an
 ### Local installation guide
 
 {% include installation-guide-full.md variant=variant %}
+
+#### Advanced configuration
+
+{% include installation-guide-tips.md %}
+
+#### Want to learn more?
+
+- Make sure to check our ["How to use" guides](../guides) for any of the vendor used above!
 
 ---
 

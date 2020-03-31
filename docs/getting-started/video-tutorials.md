@@ -33,6 +33,6 @@ Let's talk about the developer experience (DX) provided by NRN and how it helps 
     [< Getting started](../){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Quick start >](./quick-start){: .btn .btn-purple }
+    [Pre-requisites >](./pre-requisites){: .btn .btn-purple }
     </span>
 </div>
