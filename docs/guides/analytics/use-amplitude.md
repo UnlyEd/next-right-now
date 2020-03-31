@@ -9,7 +9,9 @@ nav_order: 20
 # How to use Amplitude
 {: .no_toc }
 
+<div class="code-example" markdown="1">
 Advices and "must-know" things regarding Amplitude usage.
+</div>
 
 {% include page-toc.md %}
 

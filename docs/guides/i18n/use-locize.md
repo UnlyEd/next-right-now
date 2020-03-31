@@ -14,6 +14,8 @@ The content displayed on NRN is translated using different ways, depending on wh
 - Locize - Static content (fetched from Locize API). This content can be updated through Locize backoffice, or when using in-context editor.
 </div>
 
+## Overview
+
 ## Fetching translations through Locize provider
 
 > When the content we want to display doesn't come from GraphCMS API, then it's considered as a "static" content.
@@ -46,6 +48,26 @@ Locize provides a few [additional services](https://locize.com/services.html?ref
 - One interesting thing is the ability to share part of the project to be translated by a third party using [`Crowdbased`](https://locize.com/services.html?ref=unly-nrn), without sharing the whole project.
 - There are also several paid [Translation services](https://locize.com/services.html?ref=unly-nrn), where you can pay people to translate your content.
 - It is also possible to enable [Audit](https://locize.com/services.html?ref=unly-nrn), which allows to audit every change to our translations, and keep changes up to 10 years. (_expensive_)
+
+### Dependencies
+
+We rely on those packages to manage the translations:
+- [`i18next-locize-backend`](https://www.npmjs.com/package/i18next-locize-backend): This is an i18next backend to be used for locize service. It will load resources from locize server using xhr.
+  It will allow you to save missing keys containing both default value and context information
+  **This backend is used when using the browser.**
+- [`i18next-node-locize-backend`](https://www.npmjs.com/package/i18next-node-locize-backend): This is a i18next backend to be used with node.js for the locize service. It's for the node.js server what the i18next-locize-backend is for the browser.
+  **This backend is used when using node (server).**
+- [`locize-editor`](https://www.npmjs.com/package/locize-editor): The locize-editor enables you to directly connect content from your website / application with your content on your localization project on locize.
+  Enabling the editor by querystring ?locize=true you can click any text content on your website to open it on the right side editor window
+  **This plugin is used when using the browser.**
+- [`locize-node-lastused`](https://www.npmjs.com/package/locize-node-lastused): This is an i18next plugin or standalone scriot to be used for locize service. It will update last used timestamps on reference keys from your locize project using xhr. It sets the last used date on your reference language's namespaces.
+  **This plugin is used when using node (server).**
+
+It was quite complicated to configure Next with Locize, mostly because of the universal way Next works, while Locize has dedicated packages depending on the runtime engine.
+
+> See `src/utils/i18nextLocize.ts` to see how it was all put together.
+
+We were inspired by [this SO question](https://stackoverflow.com/questions/55994799/how-to-integrate-next-i18next-nextjs-locize/58782594).
 
 
 https://locize.com/

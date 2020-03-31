@@ -14,9 +14,10 @@ Therefore, we will provide **advanced WebStorm advices and configuration**.
 
 > This is a personal preference and **you can use any IDE** of your choosing with NRN.
 
-As of 2020, we recommend either
-    - [WebStorm](https://www.jetbrains.com/webstorm/) (paid, free for students)
-    - or [VSCode](https://code.visualstudio.com/) (free, OSS)
+
+As of 2020, we recommend either:
+- [WebStorm](https://www.jetbrains.com/webstorm/) (paid, free for students)
+- or [VSCode](https://code.visualstudio.com/) (free, OSS)
 
 > Please contribute if you wish to add advanced advices and configuration for other tools, such as VSCode.
 
@@ -28,5 +29,9 @@ You can start the project in **debug mode** [by running the WebStorm "Debug" con
 
 Beware that this will only allow for back-end debugging.
 Frontend debug should be performed from the browser itself.
+
+### Dependencies
+
+[Read more](../../reference/dependencies#debug-webstorm)
 
 ---

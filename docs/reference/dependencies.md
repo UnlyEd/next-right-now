@@ -60,11 +60,12 @@ When using Emotion, the file must start with `/** @jsx jsx */` on top of it.
 
 [FontAwesome](https://github.com/FortAwesome/Font-Awesome) is an awesome icon toolkit.
 
-We use the pro (paid) version, but a free version is also available.
+NRN uses the free version, but we managed to use the paid version on some other app (cloned from NRN), it's not an issue, just harder to configure.
 
 - [`@fortawesome/fontawesome-svg-core`](https://www.npmjs.com/package/@fortawesome/fontawesome-svg-core): Necessary to use font-awesome with a node project. Contains libs to config the FA library. (see `src/pages/_app.tsx`)
-- [`@fortawesome/free-light-svg-icons`](https://www.npmjs.com/package/@fortawesome/fontawesome-free): Contains the icons themselves, there is one package per free/pro and kind of icon (light, regular, solid), and specific packages per technology stack (vue, angular, react-native, etc.)
-- [`@fortawesome/react-fontawesome`](https://www.npmjs.com/package/@fortawesome/react-fontawesome): Contains the icons themselves
+- [`@fortawesome/fontawesome-free`](https://www.npmjs.com/package/@fortawesome/fontawesome-free): Contains the free icons
+- [`@fortawesome/free-brands-svg-icons`](https://www.npmjs.com/package/@fortawesome/free-brands-svg-icons): Contains the free brand icons
+- [`@fortawesome/react-fontawesome`](https://www.npmjs.com/package/@fortawesome/react-fontawesome): Contains the icons for React-friendly usage
 
 [Installation tutorial](https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers)
 
@@ -94,59 +95,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 ---
 
-### Sentry
+### Our `@unly` packages
 
-> Sentry provides open-source and hosted error monitoring that helps all software teams discover, triage, and prioritize errors in real-time.
+We use some of our own packages made [`@unly`](https://www.npmjs.com/search?q=%40unly).
 
-We use Sentry to catch errors that happen within the application.
-They are available at [https://sentry.io/](https://sentry.io/) for any developers in the team.
-
-Those errors are also sent to our Slack channel `sentry-monitoring`.
-
-- [`@sentry/browser`](https://www.npmjs.com/package/@sentry/browser): Package to use from the browser.
-- [`@sentry/node`](https://www.npmjs.com/package/@sentry/node): Package to use from the server.
-
-Sentry provides 2 different packages, with different abilities (but a very similar API) for browser and server usage.
-
-#### A note about Sentry usage
-
-In the source code, we always use `@sentry/node`, which is automatically converted at build step by babel. (see [next.config.js](next.config.js))
-
-This way, we always use the same import, which is linked to the right package based on the runtime engine target.
-
----
-
-### Unly packages
-
-We use some of our own packages. They are all hosted on ou [GitHub repository](https://github.com/UnlyEd), and all under MIT license.
+They are all hosted on ou [GitHub repository](https://github.com/UnlyEd), and all under open source license.
 
 - [`@unly/utils`](https://github.com/UnlyEd/utils): This is a utility library which contains various helpers. This repository was created because those helpers are used amongst several projects and were copy/pasted, which is a bad practice.
 - [`@unly/utils-simple-logger`](https://github.com/UnlyEd/utils-simple-logger): Logger based on [Winston](https://github.com/winstonjs/winston) with sane default so that it only logs `error` in production and filter other logs, while keeping them all in non-production environments.
   Basically avoids to increase cost by logging useless logs in production.
 - [`@unly/universal-language-detector`](https://github.com/UnlyEd/universal-language-detector): Language detector that works universally (browser + server) - Meant to be used with a universal framework, such as Next.js
 
----
+Feel free not to use them.
 
-### [Apollo with react](https://github.com/apollographql/react-apollo)
-
-> React Apollo allows you to fetch data from your GraphQL server and use it in building complex and reactive UIs using the React framework. React Apollo may be used in any context that React may be used.
-
-- [`apollo-boost`](https://www.npmjs.com/package/apollo-boost): Apollo Boost is a zero-config way to start using Apollo Client. It includes some sensible defaults, such as our recommended InMemoryCache and HttpLink, which come configured for you with our recommended settings.
-  Even though it may seems unused, this package is required as peer-dependency.
-- [`apollo-cache-inmemory`](https://www.npmjs.com/package/apollo-cache-inmemory): apollo-cache-inmemory is the recommended cache implementation for Apollo Client 2.0. InMemoryCache is a normalized data store that supports all of Apollo Client 1.0's features without the dependency on Redux.
-- [`apollo-client`](https://www.npmjs.com/package/apollo-client): Apollo Client is a fully-featured caching GraphQL client with integrations for React, Angular, and more. It allows you to easily build UI components that fetch data via GraphQL.
-- [`apollo-link-http`](https://www.npmjs.com/package/apollo-link-http): The http link is a terminating link that fetches GraphQL results from a GraphQL endpoint over an http connection.
-- [`react-apollo`](https://www.npmjs.com/package/react-apollo): React Apollo allows you to fetch data from your GraphQL server and use it in building complex and reactive UIs using the React framework. React Apollo may be used in any context that React may be used. In the browser, in React Native, or in Node.js when you want to do server-side rendering.
-
-Our implementation is based on [this example](https://github.com/tomanagle/GraphQL-Apollo-Next.js) and uses the [`react hooks`](https://reactjs.org/docs/hooks-intro.html) recent feature.
-
-> It works fine with both SSR and client-side navigation.
->
-> A universal [HOC](https://reactjs.org/docs/higher-order-components.html) is used to fetch data from our GraphQL endpoint: [withUniversalGraphQLDataLoader](src/hoc/withUniversalGraphQLDataLoader.ts). (both from browser and SSR)
->
-> We don't use any authentication, as we connect to our GraphCMS Cache instance, which doesn't require any.
->
-> We provide some headers on-the-fly (for I18n), that are added per-query basis.
+`@unly/universal-language-detector` is necessary for SSR language detection, you won't need it if not using SSR.
 
 ---
 
@@ -242,50 +204,6 @@ Handles deeply nested objects.
 
 ---
 
-### GraphQL
-
-- [`graphql`](https://www.npmjs.com/package/graphql): Client for connecting to a GraphQL endpoint.
-- [`graphql-tag`](https://www.npmjs.com/package/graphql-tag): Helpful utilities for parsing GraphQL queries.
-  Useful to write plain-text GraphQL query using the `gql` tag, that can be validated by other tools, such as **JS GraphQL IntelliJ Plugin**.
-- [JS GraphQL IntelliJ Plugin](https://github.com/jimkyndemeyer/js-graphql-intellij-plugin): GraphQL language support for WebStorm, IntelliJ IDEA and other IDEs based on the IntelliJ Platform.
-  The plugin is available using WebStorm directly. To install it, open your IDE "Settings", "Plugins", "Marketplace" and search for "GraphQL".
-  But, it should be automatically made available by default. (through shared IDE config)
-
-The usage of both `gql` and the IntelliJ GraphQL plugin is awesome, it allows to write GraphQL queries (see [gql folder](./src/gql)) and have auto-completion and validation from WebStorm itself.
-
-To refresh the GraphQL spec, just run the `.graphqlconfig` file by opening it and run the stage you want to sync (usually staging).
-
----
-
-### I18n, i18next and Locize
-
-#### Language detection
-We rely on a few packages for I18n:
-- [`accept-language-parser`](https://www.npmjs.com/package/accept-language-parser): Parses the accept-language header from an HTTP request and produces an array of language objects sorted by quality.
-
-Together, those packages are used in [i18n.ts](src/utils/i18n.ts) and are used to resolve the languages/codes used/preferred by the end user.
-We do it manually instead of relying on another lib that would detect the language for us, because we need to be consistent with the language displayed to the end user, and need to provide the exact same value to GraphCMS and Locize.
-
-#### Translation
-We also rely on those packages to manage the translations:
-- [`i18next-locize-backend`](https://www.npmjs.com/package/i18next-locize-backend): This is an i18next backend to be used for locize service. It will load resources from locize server using xhr.
-  It will allow you to save missing keys containing both default value and context information
-  **This backend is used when using the browser.**
-- [`i18next-node-locize-backend`](https://www.npmjs.com/package/i18next-node-locize-backend): This is a i18next backend to be used with node.js for the locize service. It's for the node.js server what the i18next-locize-backend is for the browser.
-  **This backend is used when using node (server).**
-- [`locize-editor`](https://www.npmjs.com/package/locize-editor): The locize-editor enables you to directly connect content from your website / application with your content on your localization project on locize.
-  Enabling the editor by querystring ?locize=true you can click any text content on your website to open it on the right side editor window
-  **This plugin is used when using the browser.**
-- [`locize-node-lastused`](https://www.npmjs.com/package/locize-node-lastused): This is an i18next plugin or standalone scriot to be used for locize service. It will update last used timestamps on reference keys from your locize project using xhr. It sets the last used date on your reference language's namespaces.
-  **This plugin is used when using node (server).**
-
-It was quite complicated to configure Next with Locize, mostly because of the universal way Next works, while Locize has dedicated packages depending on the runtime engine.
-
-> See [i18nextLocize.ts](./src/utils/i18nextLocize.ts) to see how it was all put together.
-> Also, we were inspired by [this SO question](https://stackoverflow.com/questions/55994799/how-to-integrate-next-i18next-nextjs-locize/58782594).
-
----
-
 ### isomorphic-unfetch
 
 > Can be used to either polyfill the whole app, or used as a `fetch` function. _(Stands for "isomorphic universal fetch")_
@@ -330,8 +248,6 @@ We also load each TS types one-by-one. One advantage of that is that **we can de
 > For instance, we tried using `@types/lodash.filter` but eventually removed it because it creates a mess that is hard to deal with.
 > Typings may be wrong and breaks our tests, in such case it's nice to have the flexibility not to use them.
 
-
-
 ---
 
 ### Next
@@ -342,7 +258,6 @@ We also load each TS types one-by-one. One advantage of that is that **we can de
   See [tutorial](https://nextjs.org/learn/basics/getting-started).
 - [`next-cookies`](https://www.npmjs.com/package/next-cookies): See [Cookies](#cookies)
 - [`next-with-apollo`](https://www.npmjs.com/package/next-with-apollo): Apollo HOC for Next.js
-
 
 ---
 
@@ -513,7 +428,4 @@ It's a bit harder to setup, here is a [tutorial](https://www.cypress.io/blog/201
   _Uses many dependencies, many of them outdated (handlebars) and containing security issues, but we don't care much about those as they aren't shipped in the build, but only present on the developer's local machine._
 - [`version-bump-prompt`](https://www.npmjs.com/package/version-bump-prompt): Used to make it easier to bump versions.
 
-
-
-
-
+---
