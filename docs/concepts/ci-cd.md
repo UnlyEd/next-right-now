@@ -53,6 +53,9 @@ Zeit uses the term "preview", which is exactly the same as what we call "staging
     [< Monitoring](./monitoring){: .btn }
     </span>
     <span class="fs-4" markdown="1">
+    [Guides: CI/CD](../guides/ci-cd){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
     [Testing >](./testing){: .btn .btn-purple }
     </span>
 </div>

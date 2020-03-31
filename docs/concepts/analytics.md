@@ -42,13 +42,16 @@ If you want fine-grained control over the data you want to collect, it's the per
 
 Also, it provides a really great react package.
 
-[Read our review](../reference/vendors).
+[Read our vendors review](../reference/vendors).
 
 ---
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
     [< I18n](./i18n){: .btn }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Guides: Analytics](../guides/analytics){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
     [Monitoring >](./monitoring){: .btn .btn-purple }

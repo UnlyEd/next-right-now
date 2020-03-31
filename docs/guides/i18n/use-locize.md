@@ -10,11 +10,17 @@ nav_order: 20
 
 <div class="code-example" markdown="1">
 The content displayed on NRN is translated using different ways, depending on where the translations are stored:
-- GraphCMS - Dynamic content (fetched from the DB, through GraphCMS API). This content can be updated through GraphCMS backoffice.
-- Locize - Static content (fetched from Locize API). This content can be updated through Locize backoffice, or when using in-context editor.
+- Dynamic content - GraphCMS (fetched from the DB, through GraphCMS API). This content can be updated through GraphCMS backoffice.
+- Static content - Locize (fetched from Locize API). This content can be updated through Locize backoffice, or when using in-context editor.
 </div>
 
 ## Overview
+
+## How to use Locize in-context editor?
+
+You can enable **Locize in-context editor mode**, by appending `?locize=true` to the url, see [https://nrn-customer1.now.sh/?locize=true](https://nrn-customer1.now.sh/?locize=true)
+
+Note that it's only enabled in development and staging stages, not in production.
 
 ## Fetching translations through Locize provider
 

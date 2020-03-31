@@ -27,7 +27,7 @@ You can start the project in **debug mode** (built-in for WebStorm only) [by run
 
 The configuration file is built-in and should be available as soon as you open the project using WebStorm.
 
-## Configure GraphQL support
+## Configure in-editor GraphQL support
 
 Install [JS GraphQL IntelliJ Plugin](https://github.com/jimkyndemeyer/js-graphql-intellij-plugin): GraphQL language support for WebStorm, IntelliJ IDEA and other IDEs based on the IntelliJ Platform.
 

@@ -33,6 +33,9 @@ Monitoring is so important, you can't afford to get it wrong. Tools matter!
     [< Analytics](./analytics){: .btn }
     </span>
     <span class="fs-4" markdown="1">
+    [Guides: Monitoring](../guides/monitoring){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
     [CI/CD >](./ci-cd){: .btn .btn-purple }
     </span>
 </div>

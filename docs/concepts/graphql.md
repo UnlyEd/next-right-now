@@ -36,6 +36,9 @@ You can always start with it and use your own self-managed GraphQL server later 
     [< Tenancy](./tenancy){: .btn }
     </span>
     <span class="fs-4" markdown="1">
+    [Guides: GraphQL API](../guides/graphql-api){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
     [I18n >](./i18n){: .btn .btn-purple }
     </span>
 </div>
