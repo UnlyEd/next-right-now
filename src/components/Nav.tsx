@@ -204,7 +204,32 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
 
             <NavItem>
               <a
-                href={`https://github.com/UnlyEd/next-right-now`}
+                href={`https://unlyed.github.io/next-right-now/`}
+                target={'_blank'}
+                rel={'noopener'}
+                onClick={() => {
+                  logEvent('open-github-doc');
+                }}
+              >
+                <Col className={'navItemsMenu'}>
+                  <Row className={'justify-content-center navItemsLogo'}>
+                    <i className={classnames('fas fa-balance-scale')} />
+                  </Row>
+                  <Row className={'justify-content-center'}>
+                    <NavLink
+                      id={'nav-link-github-doc'}
+                    >
+                      <FontAwesomeIcon icon={['fas', 'book']} />
+                      {t('nav.githubDocPage.link', 'Documentation')}
+                    </NavLink>
+                  </Row>
+                </Col>
+              </a>
+            </NavItem>
+
+            <NavItem>
+              <a
+                href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NRN_PRESET}`}
                 target={'_blank'}
                 rel={'noopener'}
                 onClick={() => {
@@ -220,7 +245,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                       id={'nav-link-github'}
                     >
                       <FontAwesomeIcon icon={['fab', 'github']} />
-                      {t('nav.githubPage.link', 'Github')}
+                      {t('nav.githubPage.link', 'Github branch')}
                     </NavLink>
                   </Row>
                 </Col>

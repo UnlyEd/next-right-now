@@ -136,35 +136,26 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
               font-family: "${getValue(theme, `font`, NRN_DEFAULT_FONT, STRATEGY_DO_NOTHING)}", sans-serif !important;
             }
 
-            h1, h2 {
-              // XXX "CircularStd-Book" must only be used for headings, doesn't play well for paragraphs & such
-              font-family: "CircularStd-Book", sans-serif !important;
+            .container {
+              justify-content: center;
+              text-align: center;
+              margin-left: auto;
+              margin-right: auto;
             }
 
-            h1 {
-              font-weight: 700;
-              font-size: 22px;
+            .container-white {
+              background-color: white;
+              border-radius: 10px;
+              padding: 30px;
+              margin-top: 30px;
+              margin-bottom: 30px;
             }
 
-            h2 {
-              font-weight: 600;
-              font-size: 20px;
-            }
+            // ----------- Utilities -----------
 
-            h3 {
-              font-weight: 400;
-              font-size: 15px;
-              line-height: 16.5px;
-            }
-
-            p {
-              font-weight: 300;
-              font-size: 15px;
-              line-height: 16.5px;
-            }
-
-            b, .b {
+            b, .b, strong {
               color: ${getValue(theme, `primaryColor`)};
+              font-weight: bold;
             }
 
             a {

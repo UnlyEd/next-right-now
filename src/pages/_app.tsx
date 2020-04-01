@@ -3,6 +3,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
@@ -39,6 +40,7 @@ import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(
   faGithub,
+  faBook,
 );
 
 const fileLabel = 'pages/_app';

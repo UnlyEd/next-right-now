@@ -1,17 +1,27 @@
 /** @jsx jsx */
 import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
+import { QueryResult } from '@apollo/react-common';
+import { useQuery } from '@apollo/react-hooks';
 import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
+import map from 'lodash.map';
 import { NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Trans, useTranslation, UseTranslationResponse } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
 import uuid from 'uuid/v1';
+import ErrorDebug from '../components/ErrorDebug';
+import GraphCMSAsset from '../components/GraphCMSAsset';
 
 import Head from '../components/Head';
+import Loader from '../components/Loader';
+import { EXAMPLES_PAGE_QUERY } from '../gql/pages/examples';
+import { Asset } from '../types/data/Asset';
+import { Customer } from '../types/data/Customer';
+import { Product } from '../types/data/Product';
 import { PageProps } from '../types/PageProps';
 
 const fileLabel = 'pages/examples';
@@ -20,6 +30,10 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 });
 
 const Examples: NextPage<PageProps> = (props: PageProps): JSX.Element => {
+  const {
+    customerRef,
+    gcmsLocales,
+  }: PageProps = props;
   const { t }: UseTranslationResponse = useTranslation();
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
@@ -27,6 +41,43 @@ const Examples: NextPage<PageProps> = (props: PageProps): JSX.Element => {
     message: `Rendering examples page (${isBrowser() ? 'browser' : 'server'})`,
     level: Sentry.Severity.Debug,
   });
+
+  const variables = {
+    customerRef,
+  };
+  const queryOptions = {
+    displayName: 'EXAMPLES_PAGE_QUERY',
+    variables,
+    context: {
+      headers: {
+        'gcms-locale': gcmsLocales,
+      },
+    },
+  };
+  const {
+    data,
+    loading,
+    error,
+  }: QueryResult<{
+    customer: Customer;
+    products: Product[];
+  }> = useQuery(EXAMPLES_PAGE_QUERY, queryOptions);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <ErrorDebug error={new Error(JSON.stringify(error, null, 2))} context={{ variables, queryOptions }} />;
+  }
+
+  const {
+    customer,
+    products,
+  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring
+  if (process.env.APP_STAGE !== 'production') {
+    console.log('data', data); // eslint-disable-line no-console
+  }
 
   return (
     <Amplitude
@@ -42,19 +93,77 @@ const Examples: NextPage<PageProps> = (props: PageProps): JSX.Element => {
         <>
           <LogOnMount eventType="page-displayed" />
           <Head />
-          <div
-            css={css`
-              justify-content: center;
-              text-align: center;
-              margin-left: auto;
-              margin-right: auto;
-            `}
+          <Container
+            className={'container-white'}
           >
-            <h1>Code snippet examples</h1>
+            <h1>Examples</h1>
 
             <hr />
 
-            <h2>i18n examples</h2>
+            <div
+              css={css`
+                .product-container {
+                  margin: 30px;
+                  border: 1px solid lightgray;
+                  padding: 10px;
+                  border-radius: 5px;
+
+                  .product-description {
+                     font-style: italic;
+                  }
+                }
+              `}
+            >
+              <h2 className={'pcolor'}>GraphQL & GraphCMS examples</h2>
+              <blockquote>Fetching products from GraphCMS API</blockquote>
+              <div>
+                The below products are fetched from GraphCMS API, using GraphQL and Apollo.<br />
+                We don't do anything fancy with them, it's just a simple example of data fetching and displaying.<br />
+                Note that the GraphQL API can be auto-completed on the IDE, that's quite useful. <br />
+                We also split our <code>.gql</code> files into reusable fragments to avoid duplicating code.<br />
+                We use a custom component <code>GraphCMSAsset</code> to display images.<br />
+              </div>
+              <Container>
+                {
+                  map(products, (product: Product) => {
+                    return (
+                      <div
+                        key={product?.id}
+                        className={'product-container'}
+                      >
+                        {
+                          map(product.images, (image: Asset) => {
+                            return (
+                              <GraphCMSAsset
+                                key={image?.id}
+                                id={image?.id}
+                                asset={image}
+                                transformationsOverride={{
+                                  width: 75,
+                                  height: 100,
+                                }}
+                              />
+                            );
+                          })
+                        }
+
+                        <h2 className={'product-title'}>
+                          {product?.title} - ${product?.price || 0}
+                        </h2>
+
+                        <div className={'product-description'}>
+                          {product?.description}
+                        </div>
+                      </div>
+                    );
+                  })
+                }
+              </Container>
+            </div>
+
+            <hr />
+
+            <h2 className={'pcolor'}>i18n examples</h2>
             <Alert color={'info'}>
               <div>
                 Each example shows the rendered version and its code snippet.<br />
@@ -136,7 +245,7 @@ const Examples: NextPage<PageProps> = (props: PageProps): JSX.Element => {
               <hr />
 
             </Container>
-          </div>
+          </Container>
         </>
       )}
     </Amplitude>
