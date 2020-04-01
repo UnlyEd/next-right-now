@@ -22,7 +22,7 @@ NRN is maintained with several purposes in mind:
     - It has been used to build production-grade websites within 2h time during a French COVID-19 hackathon (March 2020)
     - It has been used to build [NRN Admin](https://github.com/UnlyEd/next-right-now-admin)
 - To be used as an **educational** resource, meant to be used as a **learning/teaching** resource.
-- Provide various boilerplate [variants](https://unlyed.github.io/next-right-now/concepts/variants), to get started with the variant that matches the closest your needs.
+- Provide various boilerplate [presets](./concepts/presets), to get started with the preset that matches the closest your needs.
 
 Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience and your [feedback about opt-in 3rd parties](https://github.com/UnlyEd/next-right-now/issues/13)!
 </div>
@@ -40,7 +40,7 @@ Knowing Next.js and Zeit will be **a huge help**, because they are the pillars o
 
 ### This boilerplate includes:
 - **Built-in** features and 3rd parties vendors: Online hosting (Zeit vendor), React framework with SSR/SSG support (Next.js 9), TypeScript<sup>2</sup>, CI/CD pipeline (Github Actions), unit testing (Jest), end-to-end testing (Cypress), css-in-js (Emotion), css components (Reactstrap/Bootstrap).
-- **Opt-in** features and 3rd parties vendors: I18n (Locize vendor), GraphQL (GraphCMS vendor), monitoring (Sentry vendor), analytics (Amplitude vendor) and various utilities (cookies, ...) through **variants**.
+- **Opt-in** features and 3rd parties vendors: I18n (Locize vendor), GraphQL (GraphCMS vendor), monitoring (Sentry vendor), analytics (Amplitude vendor) and various utilities (cookies, ...) through **presets**.
 
 > Some of those vendors provide large free plans, other only provide short free trials.
 > No worries though, as Zeit is the only **non-free** vendor, and it provides a [large free plan](https://zeit.co/pricing), also, they're very comprehensive regarding [non-commercial usage](https://spectrum.chat/zeit/general/deploying-on-ziet-now~700e3286-551f-42d1-a289-df4cb52e23ea?m=MTU4MzgzMjg1MzAyOA==).
@@ -52,22 +52,23 @@ Knowing Next.js and Zeit will be **a huge help**, because they are the pillars o
 - _<sup>2</sup>: It's possible **not to use** TypeScript. TS support is provided by the [Next.js framework](https://nextjs.org/learn/excel/typescript) and is actually opt-in, but we consider it a better practice than plain JS and it's used extensively in this boilerplate._
 </div>
 
-### Boilerplate variants and opt-in features and 3rd party vendors
+### Boilerplate presets and opt-in features and 3rd party vendors
 
-This boilerplate provides multiple variants, which provide different features and rely on different vendors.
+This boilerplate provides multiple presets, which provide different features and rely on different vendors.
 
 > If you wish to learn more about this design, see the [RFC specifications](https://github.com/UnlyEd/next-right-now/issues/18).
 
-Simply put, each variant provides a different "built-in" features and tools.
-Therefore, you probably want to get an overview of all the [available variants](https://unlyed.github.io/next-right-now/getting-started/pick-variant) to decide which one best fit your needs.
-Make sure to understand [what's a variant](./concepts/variants) first! :wink:
+Simply put, each preset provides a different "built-in" features and tools.
+Therefore, you probably want to get an overview of all the [available presets](./getting-started/select-preset) to decide which one best fit your needs.
+Make sure to understand [what's a preset](./concepts/presets) first! :wink:
+
 ---
 
 ## Benefits
 
 Here is an overview of all the features covered by this boilerplate:
 
-### Built-in features (available in all variants):
+### Built-in features (available in all presets):
 - **Stages** (development, staging, production) workflow
 - **TypeScript** advanced support
 - Various **rendering**<sup>1</sup> capabilities, which allow for **hybrid** configuration (you can use SSR + SSG, it's a **per-page configuration**)
@@ -104,9 +105,9 @@ Here is an overview of all the features covered by this boilerplate:
 
 ---
 
-### Opt-in features (only some variants have those built-in):
+### Opt-in features (only some presets have those built-in):
 
-> Note that the default variant ([`master`](https://github.com/UnlyEd/next-right-now) branch) have all those features built-in.
+> Note that the default preset ([`master`](https://github.com/UnlyEd/next-right-now) branch) have all those features built-in.
 
 - **B2B multiple single-tenants (MST)**
   - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, monorepo design)

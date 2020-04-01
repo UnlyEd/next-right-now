@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Find my variant
+title: Find my preset
 parent: Getting started
 nav_order: 30
 ---
 
-# Find and use your variant
+# Find and use your preset
 {: .no_toc }
 
 <div class="code-example" markdown="1">
-Comprehensive list of all the available variants of the NRN boilerplate.
+Comprehensive list of all the available presets of the NRN boilerplate.
 
-This list is **meant to help you find the variant that best fit your needs**, depending on the **built-in features** that comes with each,
-and help you get started to build your own project based on this variant.
+This list is **meant to help you find the preset that best fit your needs**, depending on the **built-in features** that comes with each,
+and help you get started to build your own project based on this preset.
 
-- Make sure you understand [**what's a variant**](../concepts/variants) before going further.
+- Make sure you understand [**what's a preset**](../concepts/presets) before going further.
 - Make sure you're up-to-date with the [terminology](../reference/terminology) being used.
 </div>
 
@@ -22,28 +22,28 @@ and help you get started to build your own project based on this variant.
 
 ---
 
-## How do I know which variant is best for me?
+## How do I know which preset is best for me?
 
-[Check our guide](../concepts/variants#how-do-i-know-which-variant-is-best-for-me)
+[Check our guide](../concepts/presets#how-do-i-know-which-preset-is-best-for-me)
 
 ---
 
-## Common to all variants
+## Common to all presets
 
-You can get metadata at `/api/status` on any demo, because all variants provide this API (even those that aren't tagged with `ssr`)
+You can get metadata at `/api/status` on any demo, because all presets provide this API (even those that aren't tagged with `ssr`)
 
 **Quick reminders**:
 - The rendering mode (SSR/SSG) only affect how `pages` are served, it doesn't affect the API.
 - All `/api/*` endpoints are serverless functions, running under AWS Lambda
 - Next.js allows a hybrid design, thus allowing a per-page rendering mode (SSG or SSR)
-- The [database schema structure](../reference/demo-database-structure) is the same for all variants
+- The [database schema structure](../reference/demo-database-structure) is the same for all presets
 
 > We don't have examples using SSG at this time, but it is planned soon, don't hesitate to contribute!
 
 ---
 
-{% capture variant %}v1-ssr{% endcapture %}
-## `{{variant}}` - **Default variant**
+{% capture preset %}v1-ssr{% endcapture %}
+## `{{preset}}` - **Default preset**
 
 DEFAULT
 {: .label .label-purple }
@@ -56,14 +56,14 @@ March 2020
 
 ### Overview
 
-| Variant | Branch | Diff PR | Pricing concerns |
+| Preset | Branch | Diff PR | Pricing concerns |
 |:--------|:-------|:--------|:-----------------|
-| `{{variant}}` | [`{{variant}}` - Source code](https://github.com/UnlyEd/next-right-now/tree/{{variant}}) | Identical | [Not free (Locize)](../reference/vendors) |
+| `{{preset}}` | [`{{preset}}` - Source code](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | Identical | [Not free (Locize)](../reference/vendors) |
 
-It is the main variant at this time.
+It is the main preset at this time.
 It is also the most complicated and feature-rich, as it contains all available features built-in.
 
-The plan is to release simpler variants soon.
+The plan is to release simpler presets soon.
 
 ### Built-in features
 
@@ -81,11 +81,11 @@ The plan is to release simpler variants soon.
 
 ### Demo
 
-This variant uses a MST design.
+This preset uses a MST design.
 
 Therefore, there are 2 different demo available at:
-- [https://nrn-{{variant}}-customer1.now.sh/](https://nrn-{{variant}}-customer1.now.sh/)
-- [https://nrn-{{variant}}-customer2.now.sh/](https://nrn-{{variant}}-customer2.now.sh/)
+- [https://nrn-{{preset}}-customer1.now.sh/](https://nrn-{{preset}}-customer1.now.sh/)
+- [https://nrn-{{preset}}-customer2.now.sh/](https://nrn-{{preset}}-customer2.now.sh/)
 
 <div class="code-example" markdown="1">
 Both demo have been generated using the same source code, the two demo live in a completely separated server and won't be affected by each other (MST design)
@@ -101,19 +101,19 @@ Of course, if the DB itself gets down, all tenants would be impacted (browser ca
 
 ### Built-in 3rd party vendors
 
-{% include vendors/vendor-table.md variant=variant zeit=true graphcms=true locize=true amplitude=true sentry=true  %}
+{% include vendors/vendor-table.md preset=preset zeit=true graphcms=true locize=true amplitude=true sentry=true  %}
 
 ### Clone locally
 
 ```sh
-git clone https://github.com/UnlyEd/next-right-now.git nrn-variant-{{variant}} && cd nrn-demo && git checkout {{variant}}
+git clone https://github.com/UnlyEd/next-right-now.git nrn-preset-{{preset}} && cd nrn-demo && git checkout {{preset}}
 ```
 
-This will create a `nrn-variant-{{variant}}` folder in your current directory and checkout the `{{variant}}` git branch automatically.
+This will create a `nrn-preset-{{preset}}` folder in your current directory and checkout the `{{preset}}` git branch automatically.
 
 ### Local installation guide
 
-{% include installation-guide-full.md variant=variant %}
+{% include installation-guide-full.md preset=preset %}
 
 #### Advanced configuration
 

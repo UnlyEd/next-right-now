@@ -17,7 +17,7 @@ theme: 'just-the-docs' # XXX Our Jekyll theme - See https://pmarsceill.github.io
 title: Next Right Now
 description: >- # this means to ignore newlines until "baseurl:"
   Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript.
-  Includes multiple opt-in variants using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing,
+  Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing,
   Internationalization, CI/CD and B2B multiple single-tenants (monorepo) support
 #baseurl: "" # the subpath of your site, e.g. /blog
 #url: "" # the base hostname & protocol for your site, e.g. http://example.com XXX Auto-resolved by GitHub

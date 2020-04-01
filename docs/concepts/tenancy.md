@@ -117,7 +117,7 @@ Honestly, most businesses just need a simple multi-tenants design. But if you're
 
 At least, we hope it does! :wink:
 
-- **Tip**: All variants that support `mst` design use the `mst` tag in their name.
+- **Tip**: All presets that support `mst` design use the `mst` tag in their name.
 
 ---
 

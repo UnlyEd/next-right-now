@@ -36,6 +36,6 @@ You can also run them non-interactively using `yarn e2e:run` script.
     [Guides: Testing](../guides/testing){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
-    [Getting started: Pick your variant >](../getting-started/pick-variant){: .btn .btn-purple }
+    [Getting started: Pick your preset >](../getting-started/select-preset){: .btn .btn-purple }
     </span>
 </div>

@@ -15,7 +15,7 @@ Next Right Now
 >     - It has been used to build production-grade websites within 2h time during a French COVID-19 hackathon (March 2020)
 >     - It has been used to build [NRN Admin](https://github.com/UnlyEd/next-right-now-admin)
 > - To be used as an **educational** resource, meant to be used as a **learning/teaching** resource.
-> - Provide various boilerplate [variants](https://unlyed.github.io/next-right-now/concepts/variants), to get started with the variant that matches the closest your needs.
+> - Provide various boilerplate [presets](https://unlyed.github.io/next-right-now/concepts/presets), to get started with the preset that matches the closest your needs.
 >
 > Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience and your [feedback about opt-in 3rd parties](https://github.com/UnlyEd/next-right-now/issues/13)!
 

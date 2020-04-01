@@ -1,5 +1,5 @@
 1. `git clone https://github.com/UnlyEd/next-right-now.git nrn-quick-start` - Clones the boilerplate
-1. `cd nrn-quick-start && git checkout v1-ssr` - Selects the variant
+1. `cd nrn-quick-start && git checkout v1-ssr` - Selects the preset
 1. `cp .env.build.example .env.build` - Duplicates the `.env.build.example` as `.env.build`
     - **Tip**: `.env.build` is only used when working locally
 1. _(Optional)_ `nvm use` - Selects the right node.js version based on the `.nvmrc` file

@@ -12,8 +12,8 @@ This section contains everything about how to get started with NRN. Here is the 
 
 1. [Video tutorials](./video-tutorials): Check our video tutorial to get an overview of what using NRN really looks like, from a developer point of view
 1. [Pre-requisites](./pre-requisites): Make sure all required tools are installed
-1. [Quick start](./quick-start): Quickly get started with the most simple variant and run it on your own computer under 5mn
-1. [Pick your variant](./pick-variant): **Advanced** - Find the variant that fits your needs through a comprehensive list of all possibilities _(make sure you are familiar with the basic [NRN concepts](../concepts) first!)_
+1. [Quick start](./quick-start): Quickly get started with the most simple preset and run it on your own computer under 5mn
+1. [Select your preset](./select-preset): **Advanced** - Find the preset that fits your needs through a comprehensive list of all possibilities _(make sure you are familiar with the basic [NRN concepts](../concepts) first!)_
 
 ## Want more?
 

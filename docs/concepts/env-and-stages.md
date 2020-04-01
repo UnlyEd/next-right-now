@@ -12,7 +12,7 @@ NRN relies on environment variables to function correctly.
 
 Those variables are provided differently depending on the environment.
 
-> The following examples use the [`v1-ssr`](../getting-started/pick-variant.html#v1-ssr---default-variant) variant, which uses a MST design.
+> The following examples use the [`v1-ssr`](../getting-started/select-preset#v1-ssr---default-preset) preset, which uses a MST design.
 </div>
 
 ---
@@ -73,7 +73,7 @@ The stage changes the behaviour of the application, because we sometimes need th
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< Variants](./variants){: .btn }
+    [< Presets](./presets){: .btn }
     </span>
     <span class="fs-4" markdown="1">
     [Tenancy >](./tenancy){: .btn .btn-purple }

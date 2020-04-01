@@ -1,5 +1,5 @@
-{% if variant %}
-The following vendors are **built-in** with the variant `{{variant}}`.
+{% if preset %}
+The following vendors are **built-in** with the preset `{{preset}}`.
 {% endif %}
 
 | Vendor | Has free trial | Has free plan | Potential discounts | Install guide |
