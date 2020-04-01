@@ -100,10 +100,6 @@ This will create a `nrn-preset-{{preset}}` folder in your current directory and 
 
 {% include installation-guide-tips.md %}
 
-### Want to learn more?
-
-- Make sure to check our ["How to use" guides](../guides) for any of the vendor used above!
-
 ---
 
 <div class="pagination-section">

@@ -3,7 +3,22 @@
 
 1. `cp .env.build.example .env.build` - Duplicates the `.env.build.example` as `.env.build`
     - **Tip**: `.env.build` is only used when working locally
-1. Create an account for all required 3rd party vendors above, and fill-in missing environment variables in your `.env.build` file
+1. Create an account for all required 3rd party vendors below
+{% if include.hosting == zeit %}
+    - [Learn how to setup Zeit](../guides/online-deployment/setup-zeit)
+{% endif %}
+{% if include.gql-api == gcms %}
+    - [Learn how to setup GraphCMS](../guides/graphql-api/setup-graphcms)
+{% endif %}
+{% if include.i18n == locize %}
+    - [Learn how to setup Locize](../guides/i18n/setup-locize)
+{% endif %}
+{% if include.monitoring == sentry %}
+    - [Learn how to setup Sentry](../guides/monitoring/setup-sentry)
+{% endif %}
+{% if include.monitoring == amplitude %}
+    - [Learn how to setup Amplitude](../guides/analytics/setup-amplitude)
+{% endif %}
 1. _(Optional)_ `nvm use` - Selects the right node.js version based on the `.nvmrc` file
     - **Tip**: Ignore this if you're not using [NVM](https://github.com/nvm-sh/nvm), but you should!
 1. `yarn` - Installs all deps from `package.json`
