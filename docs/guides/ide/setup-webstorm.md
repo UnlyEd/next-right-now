@@ -9,7 +9,9 @@ nav_order: 10
 # How to setup WebStorm IDE
 {: .no_toc }
 
+<div class="code-example" markdown="1">
 Guide about how to properly configure your WebStorm IDE.
+</div>
 
 {% include page-toc.md %}
 

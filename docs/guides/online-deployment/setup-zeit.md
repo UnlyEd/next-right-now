@@ -6,6 +6,13 @@ grand_parent: Guides
 nav_order: 10
 ---
 
+# How to setup Zeit
+{: .no_toc }
+
+{% include page-toc.md %}
+
+---
+
 ## Online installation (on Zeit)
 
 > Follow this guide **if you want to deep-dive into the demo**, deploy it to staging/production, **make this project your own**, etc.

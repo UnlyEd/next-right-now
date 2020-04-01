@@ -6,6 +6,7 @@ nav_order: 50
 ---
 
 # Monitoring
+{: .no_toc }
 
 <div class="code-example" markdown="1">
 Website monitoring is the process of testing and logging the status and uptime performance of one or more websites. This monitoring tool ensures that websites are accessible for all users and is used by businesses and organizations to ensure that website uptime, functionality and performance are always up to standard.
@@ -14,6 +15,8 @@ Website monitoring is the process of testing and logging the status and uptime p
 [Source](https://www.techopedia.com/definition/29994/website-monitoring)
 </span>
 </div>
+
+---
 
 Monitoring is a must-have in any production-grade application. How can fix a problem if you're not even aware of its existence?
 

@@ -9,7 +9,9 @@ nav_order: 20
 # How to use GraphCMS
 {: .no_toc }
 
+<div class="code-example" markdown="1">
 Advices and "must-know" things regarding GraphCMS usage.
+</div>
 
 {% include page-toc.md %}
 
@@ -33,7 +35,18 @@ https://docs.graphcms.com/docs/introduction
 
 ---
 
-## Advanced GraphCMS documentation
+## Overview
+
+GraphCMS is a 3-in-1 managed platform that provides you with:
+- A CMS to manage your data visually (back office)
+- A GraphQL API to manipulate your data
+- A database (hidden behind the GraphQL API)
+
+It's very simple to use and provides many benefits, especially for small businesses, because you don't have to manage any infrastructure.
+It may not fit all needs, but you can use any GraphQL API anyway because it's based on the GraphQL [Specification](https://spec.graphql.org/).
+You can always start with it and use your own self-managed GraphQL server later on. There is no lock-in.
+
+[Read our review](../reference/vendors).
 
 GraphCMS is very powerful, and quite helpful. It handles your database, your CMS and your GraphQL API. It's a fully managed service.
 It also provides a built-in assets management system, with on-the-fly image transformations.

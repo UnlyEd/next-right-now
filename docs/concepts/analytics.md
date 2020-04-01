@@ -32,18 +32,6 @@ Building a business without any analytics is similar to driving a car with your 
 
 It is a pillar to any serious business website, and it is quite complicated to do it right. Tools matter!
 
-> NRN promotes the usage of Amplitude vendor.
-
-It's simply the best one we've worked with over the past 2 years.
-
-It's much more flexible than Google Analytics. Also, it plays much better with isomorphic apps and SPA.
-
-If you want fine-grained control over the data you want to collect, it's the perfect tool for the job.
-
-Also, it provides a really great react package.
-
-[Read our vendors review](../reference/vendors).
-
 ---
 
 <div class="pagination-section">

@@ -7,6 +7,11 @@ nav_order: 10
 ---
 
 # How to use WebStorm IDE
+{: .no_toc }
+
+{% include page-toc.md %}
+
+---
 
 We use [WebStorm IDE](https://www.jetbrains.com/webstorm/) because it's one of the best out there and we're very used to it.
 

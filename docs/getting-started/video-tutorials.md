@@ -6,11 +6,17 @@ nav_order: 10
 ---
 
 # Video tutorials
+{: .no_toc }
 
+<div class="code-example" markdown="1">
 Those videos will show you how NRN works, from a developer point of view.
 
 They're great to watch if you want a peek preview of all available features and how they work.
+</div>
 
+{% include page-toc.md %}
+
+---
 
 ## Part 1 - Overview of Next Right Now (15 minutes)
 [![Part 1 - Overview of Next Right Now](https://img.youtube.com/vi/kltkFwnFL-k/maxresdefault.jpg)](http://youtu.be/kltkFwnFL-k?hd=1)

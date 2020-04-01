@@ -7,10 +7,15 @@ nav_order: 10
 ---
 
 # Github Actions <> Zeit integrations
+{: .no_toc }
 
-> Automated actions configured through GitHub Actions
->
-> This documentation explains how our GitHub actions integrate themselves with the Zeit platform
+<div class="code-example" markdown="1">
+Automated actions configured through GitHub Actions
+
+This documentation explains how our GitHub actions integrate themselves with the Zeit platform
+</div>
+
+{% include page-toc.md %}
 
 ---
 

@@ -6,6 +6,7 @@ nav_order: 60
 ---
 
 # Continuous Integration & Continuous Deployment (CI/CD)
+{: .no_toc }
 
 <div class="code-example" markdown="1">
 **Continuous Integration** is the practice of automating the integration of code changes from multiple contributors into a single software project. The CI process is comprised of automatic tools that assert the new code’s correctness before integration. A source code version control system is the crux of the CI process. The version control system is also supplemented with other checks like automated code quality tests, syntax style review tools, and more.
@@ -18,6 +19,8 @@ nav_order: 60
 
 > Simply put, CI/CD is a way of automating integration and deployment of source code changes, run various checks, and eventually deploy a newer version of the software, without requiring human interaction.
 </div>
+
+{% include page-toc.md %}
 
 ---
 

@@ -6,9 +6,11 @@ grand_parent: Guides
 nav_order: 30
 ---
 
-## How to remove Sentry
+# How to remove Sentry
 
-> You may replace Sentry by another monitoring tool of your choice. Make sure it is JS universal-friendly though.
+---
+
+You may replace Sentry by another monitoring tool of your choice. Make sure it is JS universal-friendly though.
 
 1. Remove the following libraries:
     - [`@sentry/browser`](https://www.npmjs.com/package/@sentry/browser): Package to use from the browser.

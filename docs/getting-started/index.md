@@ -8,7 +8,13 @@ has_toc: false
 
 # Getting started
 
-This section contains everything about how to get started with NRN. Here is the order we recommend:
+<div class="code-example" markdown="1">
+This section contains everything about how to get started with NRN.
+</div>
+
+---
+
+Here is the order we recommend:
 
 1. [Video tutorials](./video-tutorials): Check our video tutorial to get an overview of what using NRN really looks like, from a developer point of view
 1. [Pre-requisites](./pre-requisites): Make sure all required tools are installed

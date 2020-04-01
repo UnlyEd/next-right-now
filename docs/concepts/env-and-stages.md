@@ -6,6 +6,7 @@ nav_order: 10
 ---
 
 # Understanding **Environments** and **Stages**
+{: .no_toc }
 
 <div class="code-example" markdown="1">
 NRN relies on environment variables to function correctly.
@@ -15,9 +16,11 @@ Those variables are provided differently depending on the environment.
 > The following examples use the [`v1-ssr`](../getting-started/select-preset#v1-ssr---default-preset) preset, which uses a MST design.
 </div>
 
+{% include page-toc.md %}
+
 ---
 
-When working on the `development` environment (localhost), the variables from [`.env.build`](.env.build) are used by [the webpack configuration](./next.config.js),
+When working on the `development` environment (localhost), the variables from `.env.build` are used by [the webpack configuration](./next.config.js),
 also, the [`now.json`](./now.json) configuration file is used _(it's always a symlink to another staging `now.*.json` file, e.g: `now.customer1.staging.json`)_, but the variable defined in `.env.build` take precedence.
 
 When deploying an instance to the Zeit's platform, the variables used are the one that belong to that instance, such as:

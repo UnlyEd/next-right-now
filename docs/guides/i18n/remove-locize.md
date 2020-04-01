@@ -6,11 +6,11 @@ grand_parent: Guides
 nav_order: 30
 ---
 
-## How to remove Locize & i18n
+# How to remove Locize & i18n
 
-> You may replace Locize by another internationalisation too of your choice. Make sure it is JS universal-friendly though.
->
-> You may also completely remove i18n from your app, if you don't need it. (`i18next` and `react-i18next` packages)
+---
+
+You may replace Locize by another internationalisation too of your choice. Make sure it is JS universal-friendly though.
 
 1. Remove the following libraries:
 - [`i18next-locize-backend`](https://www.npmjs.com/package/i18next-locize-backend): This is an i18next backend to be used for locize service. It will load resources from locize server using xhr.

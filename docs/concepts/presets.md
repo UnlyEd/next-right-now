@@ -9,7 +9,7 @@ nav_order: 1
 {: .no_toc }
 
 <div class="code-example" markdown="1">
-A preset is similar to a "Preset" of features that are "ready-to-use".
+A preset is predefined set of features that are built-in and thus "ready-to-use".
 </div>
 
 {% include page-toc.md %}
@@ -18,7 +18,7 @@ A preset is similar to a "Preset" of features that are "ready-to-use".
 
 ## What is a preset?
 
-- A preset is a "variation" of the boilerplate. It's the same as a "Preset" of features that are "ready-to-use", because they're built-in within that preset.
+- A preset can be described as a "variation" of the boilerplate.
 - Each preset provides different **built-in** features.
 - Each preset lives in the same NRN Github repository, but in a distinct **branch**.
 - Each preset has its own dedicated demo and "how to install" documentation.
@@ -32,9 +32,9 @@ A preset is similar to a "Preset" of features that are "ready-to-use".
 ## Why presets?
 
 The boilerplate was built with re-usability in mind, but also tries to solve non-trivial issues such as:
-- Analytics
-- Monitoring
-- API usage (consumption)
+- [Analytics](./analytics)
+- [Monitoring](./monitoring)
+- [API manipulation](./analytics)
 - [Dynamic i18n](../reference/terminology#nrn-terms) (content)
 - [Static i18n](../reference/terminology#nrn-terms) (website)
 

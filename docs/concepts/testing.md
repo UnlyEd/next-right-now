@@ -6,6 +6,15 @@ nav_order: 70
 ---
 
 # Testing
+{: .no_toc }
+
+<div class="code-example" markdown="1">
+Unit tests and end-to-end (E2E) tests workflow.
+</div>
+
+{% include page-toc.md %}
+
+---
 
 ## CI tests Workflow
 

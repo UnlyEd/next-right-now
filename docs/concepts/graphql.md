@@ -6,6 +6,7 @@ nav_order: 30
 ---
 
 # GraphQL
+{: .no_toc }
 
 <div class="code-example" markdown="1">
 GraphQL is a query language for your API, and a server-side runtime for executing queries by using a type system you define for your data. GraphQL isn't tied to any specific database or storage engine and is instead backed by your existing code and data.
@@ -15,19 +16,26 @@ GraphQL is a query language for your API, and a server-side runtime for executin
 </span>
 </div>
 
-> NRN promotes the usage of GraphCMS vendor.
+{% include page-toc.md %}
 
-GraphCMS is a 3-in-1 managed platform that provides you with:
-- A CMS to manage your data visually (back office)
-- A GraphQL API to manipulate your data
-- A database (hidden behind the GraphQL API)
+---
 
-It's very simple to use and provides many benefits, especially for small businesses, because you don't have to manage any infrastructure.
-It may not fit all needs, but you can use any GraphQL API anyway because it's based on the GraphQL [Specification](https://spec.graphql.org/).
-You can always start with it and use your own self-managed GraphQL server later on. There is no lock-in.
+## Why GraphQL over REST?
 
-[Read our review](../reference/vendors).
+Some of the REST(ful/-ish) issues are as follows:
+- We often call multiple endpoints to fetch the data required for one page, screen or for a particular component tree.
+- The data returned is non-negotiable. We cannot opt to not receive certain return values unless we explicitly code it in the route handling logic. This will in turn introduce more complexity to the request body.
+- If an endpoint is updated with a different response value, all installed apps or front-end clients will also need to be updated to handle that change. To overcome this, versioning has become a standard practice with RESTful APIs, along with managing deprecation for an entire API version, rather than just particular endpoints.
+- Although global validation mechanisms such as authentication can be handled through middleware, validating request bodies on a per-endpoint basis is often repetitive and introduces more boilerplate code.
 
+## Want more?
+
+If you're not familiar with the differences between REST and GraphQL:
+- [https://goodapi.co/blog/rest-vs-graphql](https://goodapi.co/blog/rest-vs-graphql)
+- [https://medium.com/@rossbulat/graphql-in-javascript-an-introduction-f50b8dc6e92](https://medium.com/@rossbulat/graphql-in-javascript-an-introduction-f50b8dc6e92)
+
+- **Tip**: Make sur to check the official [GraphQL tutorial](https://graphql.org/learn/) if you want to learn more about it!
+    - You should probably focus on the "client" usage, and use a Headless CMS that manages the server for you, it's much less work! :wink:
 
 ---
 

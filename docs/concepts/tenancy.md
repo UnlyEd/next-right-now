@@ -6,6 +6,7 @@ nav_order: 20
 ---
 
 # Tenancy (ST, MT, HT and MST)
+{: .no_toc }
 
 <div class="code-example" markdown="1">
 **Single-tenancy** (ST) is an architecture in which a **single instance** of a software application and supporting infrastructure **serves one customer** (i.e: tenant).
@@ -41,6 +42,8 @@ It's also the case of most HeadlessCMS you can see out there, such as GraphCMS, 
 This design is very powerful, but also much more complicated to build and maintain, it is also (much) more expensive, and often requires a strong tech team.
 
 - <sup>1</sup>: I haven't checked, but I believe that's the case. Correct me if I'm wrong! :wink:
+
+---
 
 ## What kind of tenancy do I need?
 

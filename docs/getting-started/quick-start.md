@@ -6,6 +6,12 @@ nav_order: 20
 ---
 
 # Quick start
+{: .no_toc }
+
+{% include page-toc.md %}
+
+---
+
 
 This short tutorial will explain how to perform a super quick local installation (for local-only testing purpose, without deploying anything online)
 

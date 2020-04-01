@@ -36,6 +36,16 @@ The world of analytics is huge, and isn't cheap.
 
 Amplitude allows to track events and users behaviour, who are two very different things, even if events are related to users.
 
+It's simply the best one we've worked with over the past 2 years.
+
+It's much more flexible than Google Analytics. Also, it plays much better with isomorphic apps and SPA.
+
+If you want fine-grained control over the data you want to collect, it's the perfect tool for the job.
+
+Also, it provides a really great react package.
+
+[Read our vendors review](../reference/vendors).
+
 ### A note about Amplitude's pricing
 
 Amplitude [offers a free plan](https://amplitude.com/pricing) that allows 10 million events per months (`$identity` events aren't counted towards `events`, they're free).

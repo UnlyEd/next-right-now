@@ -6,9 +6,18 @@ grand_parent: Guides
 nav_order: 20
 ---
 
-# Introducing GitHub Actions
+# How to use Github Actions
+{: .no_toc }
 
-> Stuff to read if you're not familiar with GitHub Actions
+<div class="code-example" markdown="1">
+Advices and "must-know" things regarding Github Actions usage.
+</div>
+
+{% include page-toc.md %}
+
+---
+
+## Overview
 
 [Official documentation](https://help.github.com/en/actions/automating-your-workflow-with-github-actions)
 
@@ -19,6 +28,7 @@ Most useful documentation links:
 - [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idruns-on](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idruns-on)
 - [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet)
 
+---
 
 ## Dependencies
 

@@ -7,6 +7,8 @@ nav_order: 15
 
 # Pre-requisites
 
+---
+
 NRN expects the following to be already installed on your computer:
 
 - [NVM](https://github.com/nvm-sh/nvm) to manage installed Nodejs versions (allow to switch between versions)

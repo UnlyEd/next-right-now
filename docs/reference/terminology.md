@@ -54,7 +54,7 @@ The infrastructure itself **may** be **completely isolated** from other tenants 
 > _This terminology has been defined by us, we couldn't find much resources supporting this definition._
 
 ##### [Preset](../concepts/presets)
-Similar to a preset of features that are built-in within. Helps to quickly get started a new project.
+Preset of features that are built-in within. Helps to quickly get started a new project.
 
 ##### Dynamic i18n
 Content-related (e.g: Post title in FR + EN).

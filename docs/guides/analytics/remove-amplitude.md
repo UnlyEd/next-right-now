@@ -6,12 +6,9 @@ grand_parent: Guides
 nav_order: 30
 ---
 
-## How to remove Amplitude
+# How to remove Amplitude
 
-> You can use other alternative libraries for analytics.
->
-> We've experimented with Google Analytics and were really disappointed by it.
-> Amplitude is much better, both for configuring the events, documenting them and exploit them. But it's much more expensive.
+---
 
 1. Remove the following libraries:
     - [`amplitude-js`](https://www.npmjs.com/package/amplitude-js): Top-level amplitude official lib, used by react-amplitude.

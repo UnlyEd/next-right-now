@@ -7,6 +7,11 @@ nav_order: 20
 ---
 
 # How to use Zeit
+{: .no_toc }
+
+{% include page-toc.md %}
+
+---
 
 ## Node.js runtime version
 

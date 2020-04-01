@@ -9,7 +9,9 @@ nav_order: 1
 # How to use i18n
 {: .no_toc }
 
+<div class="code-example" markdown="1">
 Advices and "must-know" things regarding i18n usage.
+</div>
 
 {% include page-toc.md %}
 

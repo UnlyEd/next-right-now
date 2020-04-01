@@ -7,12 +7,17 @@ nav_order: 20
 ---
 
 # How to use Locize
+{: .no_toc }
 
 <div class="code-example" markdown="1">
 The content displayed on NRN is translated using different ways, depending on where the translations are stored:
 - Dynamic content - GraphCMS (fetched from the DB, through GraphCMS API). This content can be updated through GraphCMS backoffice.
 - Static content - Locize (fetched from Locize API). This content can be updated through Locize backoffice, or when using in-context editor.
 </div>
+
+{% include page-toc.md %}
+
+---
 
 ## Overview
 
