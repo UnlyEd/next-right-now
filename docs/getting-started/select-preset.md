@@ -43,6 +43,11 @@ You can get metadata at `/api/status` on any demo, because all presets provide t
 ---
 
 {% capture preset %}v1-ssr{% endcapture %}
+{% capture rendering %}ssr{% endcapture %}
+{% capture tenancy %}mst{% endcapture %}
+{% capture gql-api %}gcms{% endcapture %}
+{% capture monitoring %}sentry{% endcapture %}
+{% capture analytics %}amplitude{% endcapture %}
 ## `{{preset}}` - **Default preset**
 
 DEFAULT
@@ -69,15 +74,8 @@ The plan is to release simpler presets soon.
 
 > [Reminder: Terminology](../reference/terminology)
 
-| Feature | Availability | Notes |
-|:--------|:-------------|:------|
-| SSR vs SSG | **SSR** | SSR by default for all pages (through `pages/_app`), SSG not available |
-| Tenancy | **MST** (Hybrid MT/ST) | Deploys 2 tenants on different domains (ST), sharing the same DB and API endpoint (MT) |
-| GraphQL API (GraphCMS) | :heavy_check_mark: | Advanced GraphCMS support |
-| Dynamic i18n support (GraphCMS) | :heavy_check_mark: | Content from GraphCMS is localised (db records) |
-| Static i18n support (Locize) | :heavy_check_mark: | Content for the platform is localised using Locize (menu, links, etc.) |
-| Monitoring (Sentry) | :heavy_check_mark: | Errors are sent to Sentry in real-time (both frontend and backend) |
-| Analytics (Amplitude) | :heavy_check_mark: | Fine-grained analytics is processed in real-time (1mn graph latency on free plans) |
+{% include features/features-table.md preset=preset %}
+
 
 ### Demo
 
@@ -101,7 +99,7 @@ Of course, if the DB itself gets down, all tenants would be impacted (browser ca
 
 ### Built-in 3rd party vendors
 
-{% include vendors/vendor-table.md preset=preset zeit=true graphcms=true locize=true amplitude=true sentry=true  %}
+{% include vendors/vendors-table.md preset=preset zeit=true graphcms=true locize=true amplitude=true sentry=true  %}
 
 ### Clone locally
 
