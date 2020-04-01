@@ -88,10 +88,10 @@ The plan is to release simpler presets soon.
 ### Clone locally
 
 ```sh
-git clone https://github.com/UnlyEd/next-right-now.git nrn-preset-{{preset}} && cd nrn-demo && git checkout {{preset}}
+git clone https://github.com/UnlyEd/next-right-now.git nrn-{{preset}} && cd nrn-demo && git checkout {{preset}}
 ```
 
-This will create a `nrn-preset-{{preset}}` folder in your current directory and checkout the `{{preset}}` git branch automatically.
+This will create a `nrn-{{preset}}` folder in your current directory and checkout the `{{preset}}` git branch automatically.
 
 ### Local installation guide
 
