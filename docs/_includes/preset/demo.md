@@ -2,8 +2,8 @@
 This preset uses a MST design.
 
 Therefore, there are 2 different demo available at:
-- [https://nrn-{{preset}}-customer1.now.sh/](https://nrn-{{preset}}-customer1.now.sh/)
-- [https://nrn-{{preset}}-customer2.now.sh/](https://nrn-{{preset}}-customer2.now.sh/)
+- [https://nrn-{{preset}}-c1.now.sh/](https://nrn-{{preset}}-c1.now.sh/)
+- [https://nrn-{{preset}}-c2.now.sh/](https://nrn-{{preset}}-c2.now.sh/)
 
 Both demo have been generated using the same source code, the two demo live in a completely separated server and won't be affected by each other (MST design)
 
