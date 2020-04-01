@@ -9,7 +9,7 @@ nav_order: 1
 {: .no_toc }
 
 <div class="code-example" markdown="1">
-A preset is predefined set of features that are built-in and thus "ready-to-use".
+A preset is a predefined set of features that are built-in and thus "ready-to-use".
 </div>
 
 {% include page-toc.md %}
@@ -38,11 +38,11 @@ The boilerplate was built with re-usability in mind, but also tries to solve non
 - [Dynamic i18n](../reference/terminology#nrn-terms) (content)
 - [Static i18n](../reference/terminology#nrn-terms) (website)
 
->Those are non-trivial features, and they can't always be build using open source software.
->
->They would be very complex to build from scratch, and the use of established standards and worldwide known vendors seemed as a necessity to answer our needs.
+Those are non-trivial features, and they can't always be build using open source software.
 
-Presets are meant to cover as much possibilities as possible. For instance, you may want to use:
+They are non-trivial to build from scratch, and the use of established standards and worldwide known vendors sometimes helps a lot.
+
+Presets are meant to provide various possibilities of recommended "base code". For instance, you may want to use:
 - SSG or SSR
 - Multi-tenants or Multiple Single-Tenants or Single Tenant
 - Static i18n using a vendor (e.g: Locize), or implemented using static files (no vendor), or maybe you don't need this feature at all
@@ -50,14 +50,18 @@ Presets are meant to cover as much possibilities as possible. For instance, you 
 - Analytics, but because you may use SSG only, and your needs are small then Google Analytics may be a better fit for you and avoid additional complexity
 - Etc.
 
-Also, the more features NRN covers, and the more possible variations there will be.
-We don't intend of supporting all possible variations, but we'll try to focus on the basic ones and most requested ones.
+NRN currently covers quite a few features, and relies on 3rd party vendors for some of those features.
+The more feature NRN covers and the stronger the need for "opt-in predefined set of features" feels like a necessity.
 
-The more presets we will offer, and the easiest it will be for any newcomer to get started quickly with a preset that really fits their needs.
+We don't intend of supporting all possible variations though, but we'll try to focus on the basic ones and most requested ones.
 
-> For instance, when creating [NRN Admin](https://github.com/UnlyEd/next-right-now-admin), we got started from the `v1-ssr` preset and had to manually remove MST and i18n because we didn't need those.
+The more presets we will offer, and the easiest it will be for any newcomer to get started quickly with a preset that matches their needs as closely as possible.
 
-It's a waste of time if everybody has to do that on their own, and it strongly limits the boilerplate re-usability.
+> For instance, when creating [NRN Admin](https://github.com/UnlyEd/next-right-now-admin), we got started from the `v1-ssr` preset and **had to manually remove MST and i18n** because we didn't need those.
+>
+> **It's a waste of time if everybody has to do that on their own**, and it strongly limits the boilerplate **re-usability**.
+
+Presets were discussed [in a RFC](https://github.com/UnlyEd/next-right-now/issues/18).
 
 ---
 
