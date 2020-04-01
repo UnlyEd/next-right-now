@@ -357,27 +357,8 @@ Run `yarn lint` to run the linter.
 
 ---
 
-### Tests
-
-#### [Jest](https://jestjs.io/)
-
-> Jest is our test runner, it runs our tests to make sure we don't ship regressions to our end users
-
-- [`jest`](https://www.npmjs.com/package/jest): Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
-- [`jest-extended`](https://www.npmjs.com/package/jest-extended): Additional Jest matchers. Provides additional built-in tests for ease of testing.
-- [`react-test-renderer`](https://www.npmjs.com/package/react-test-renderer): This package provides an experimental React renderer that can be used to render React components to pure JavaScript objects, without depending on the DOM or a native mobile environment.
-  Essentially, this package makes it easy to grab a snapshot of the "DOM tree" rendered by a React DOM or React Native component without using a browser or jsdom.
-- [`ts-jest`](https://www.npmjs.com/package/ts-jest): TypeScript preprocessor with source map support for Jest that lets you use Jest to test projects written in TypeScript.
-
-**Known issues**:
-- `jest-emotion`: [Breaks tests](https://github.com/emotion-js/emotion/issues/1440#issuecomment-551235747)
-
----
-
 ### Documentation
 
 - [`markdown-toc`](https://www.npmjs.com/package/markdown-toc): Generate a markdown TOC (table of contents).
   _Uses many dependencies, many of them outdated (handlebars) and containing security issues, but we don't care much about those as they aren't shipped in the build, but only present on the developer's local machine._
 - [`version-bump-prompt`](https://www.npmjs.com/package/version-bump-prompt): Used to make it easier to bump versions.
-
----
