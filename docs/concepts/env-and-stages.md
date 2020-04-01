@@ -18,7 +18,7 @@ Those variables are provided differently depending on the environment.
 ---
 
 When working on the `development` environment (localhost), the variables from [`.env.build`](.env.build) are used by [the webpack configuration](./next.config.js),
-also, the [`now.json`](./now.json) configuration file is used _(it's always a symlink to another staging `now.*.json` file, i.e: `now.customer1.staging.json`)_, but the variable defined in `.env.build` take precedence.
+also, the [`now.json`](./now.json) configuration file is used _(it's always a symlink to another staging `now.*.json` file, e.g: `now.customer1.staging.json`)_, but the variable defined in `.env.build` take precedence.
 
 When deploying an instance to the Zeit's platform, the variables used are the one that belong to that instance, such as:
 - `yarn deploy:customer1`: This script will deploy an instance using the `now.customer1.staging.json` file.
@@ -41,7 +41,7 @@ When working on your local computer, you automatically use `NODE_ENV=developemen
 
 The environment affects how the application **is bundled**, it is defined at **build time**. (webpack, hot-reloading, etc.)
 
-> i.e: When building the app using the `development` environment, you have access to PropTypes warnings, but you won't when using `production`.
+> e.g: When building the app using the `development` environment, you have access to PropTypes warnings, but you won't when using `production`.
 
 ---
 
@@ -55,18 +55,18 @@ The environment affects how the application **is bundled**, it is defined at **b
 > **N.B**: You can use any stage name you like, there is no restriction.
 
 - When working on your local computer, NRN automatically uses `APP_STAGE=developement` _(as defined in `.env.build`)_.
-- When creating a Zeit preview deployment (i.e: when pushing a commit/branch (CD), or when using `yarn deploy`, etc.), NRN automatically uses `APP_STAGE=staging` _(as defined in `now.customer1.staging.json`)_.
-- When creating a Zeit production deployment (i.e: when using `yarn deploy:customer1:production`, or when merging a PR to `master`, etc.), NRN automatically uses `APP_STAGE=production` _(as defined in `now.customer1.production.json`)_.
+- When creating a Zeit preview deployment (e.g: when pushing a commit/branch (CD), or when using `yarn deploy`, etc.), NRN automatically uses `APP_STAGE=staging` _(as defined in `now.customer1.staging.json`)_.
+- When creating a Zeit production deployment (e.g: when using `yarn deploy:customer1:production`, or when merging a PR to `master`, etc.), NRN automatically uses `APP_STAGE=production` _(as defined in `now.customer1.production.json`)_.
 
 The stage changes the behaviour of the application, because we sometimes need the application to behave differently depending on the stage.
 
 > The stage **isn't magically chosen by NRN**, it is **automated** but it's because of either your `.env.build`, or because **Github Actions** have been configured this way.
 > (any push on **master** is considered as **production** stage, while any push on **any other branch** is considered as **staging** stage)
 
-> i.e: In `production` stage, the Locize configuration uses the `production` version.
+> e.g: In `production` stage, the Locize configuration uses the `production` version.
 > When using another stage, it uses the `latest` version.
 
-> i.e: We don't want to enable the same level of debugging in production environment.
+> e.g: We don't want to enable the same level of debugging in production environment.
 > For instance, Locize is configured to be in `debug` mode only in non-production stages.
 
 ---

@@ -45,7 +45,7 @@ The boilerplate was built with re-usability in mind, but also tries to solve non
 Variants are meant to cover as much possibilities as possible. For instance, you may want to use:
 - SSG or SSR
 - Multi-tenants or Multiple Single-Tenants or Single Tenant
-- Static i18n using a vendor (i.e: Locize), or implemented using static files (no vendor), or maybe you don't need this feature at all
+- Static i18n using a vendor (e.g: Locize), or implemented using static files (no vendor), or maybe you don't need this feature at all
 - Sentry to monitor your app (client + server sides), but maybe you already use another different vendor and would like to stick with it
 - Analytics, but because you may use SSG only, and your needs are small then Google Analytics may be a better fit for you and avoid additional complexity
 - Etc.

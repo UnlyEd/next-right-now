@@ -126,9 +126,9 @@ class NRNApp extends NextApp {
       headers: publicHeaders, // Publicly available headers - whitelist
       readonlyCookies,
       userSession,
-      bestCountryCodes, // i.e: ['en', 'fr']
-      gcmsLocales, // i.e: 'EN, FR' XXX MUST BE UPPERCASED - See https://docs.graphcms.com/docs/api/content-api/#passing-a-header-flag
-      lang, // i.e: 'en'
+      bestCountryCodes, // e.g: ['en', 'fr']
+      gcmsLocales, // e.g: 'EN, FR' XXX MUST BE UPPERCASED - See https://docs.graphcms.com/docs/api/content-api/#passing-a-header-flag
+      lang, // e.g: 'en'
       defaultLocales,
       isSSRReadyToRender: true,
     };
@@ -233,7 +233,7 @@ class NRNApp extends NextApp {
           },
         });
 
-        amplitudeInstance.setVersionName(process.env.APP_VERSION); // i.e: 1.0.0
+        amplitudeInstance.setVersionName(process.env.APP_VERSION); // e.g: 1.0.0
 
         // Inject additional variables in the layout
         layoutProps.isInIframe = isInIframe;

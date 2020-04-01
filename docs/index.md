@@ -91,7 +91,7 @@ Here is an overview of all the features covered by this boilerplate:
   - NPM security audit (script)
   - NPM developer-friendly outdated packages (script)
   - Display warning on outdated browsers<sup>2</sup>, works even if bundle isn't ES5 compatible (IE11, etc.)
-  - Proper handling of sensitive information _(i.e: token)_ using non-tracked `.env.build` file locally and [Zeit secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets) online
+  - Proper handling of sensitive information _(e.g: token)_ using non-tracked `.env.build` file locally and [Zeit secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets) online
 - Fully documented usage of all the [project's dependencies](./reference/dependencies)
 - Jekyll site for [online documentation using Github Pages](https://help.github.com/en/github/working-with-github-pages/about-github-pages-and-jekyll)
   - Check out [`jekyll-auth` plugin](https://github.com/benbalter/jekyll-auth) if you need to release a non-public version
@@ -122,7 +122,7 @@ Here is an overview of all the features covered by this boilerplate:
       - [Automated fallback language](https://www.i18next.com/principles/fallback)
       - [In-context editor](https://docs.locize.com/more/incontext-editor)
       - Auto-add i18n keys with default translation when working locally
-- Strong **observability** of the system (monitoring) and push-notification on your own messaging channel (i.e: Slack) when things go wrong (thanks to [Sentry<sup>1</sup>](https://sentry.io/))
+- Strong **observability** of the system (monitoring) and push-notification on your own messaging channel (e.g: Slack) when things go wrong (thanks to [Sentry<sup>1</sup>](https://sentry.io/))
 - Fine-grained frontend **analytics**, react-friendly, flexible, SPA-friendly (thanks to [Amplitude<sup>1</sup>**<sup>2</sup>**](https://amplitude.com/))
 
 <div class="code-example" markdown="1">

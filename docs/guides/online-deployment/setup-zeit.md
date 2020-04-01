@@ -69,7 +69,7 @@ The next step is to [link this Zeit project to your computer source code](#linki
 
 > You need to have [a working Zeit project](#online-installation-on-zeit) in order to link it to a local source code
 >
-> You also need to have a local clone of the project (i.e: `git clone https://github.com/UnlyEd/next-right-now.git nrn-demo`)
+> You also need to have a local clone of the project (e.g: `git clone https://github.com/UnlyEd/next-right-now.git nrn-demo`)
 
 - Duplicate the [`.env.build.example`](./.env.build.example) and rename it `.env.build` _(this file is only used on your local computer)_
     - Define all missing environment variables

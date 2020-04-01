@@ -24,14 +24,19 @@ Definition of terms used in NRN documentation and source code.
 ##### SSG
 [Static Site Generation](https://nextjs.org/blog/next-9-3#next-gen-static-site-generation-ssg-support)
 
+##### Tenancy
+[Definition](https://legal-dictionary.thefreedictionary.com/tenancy): A tenancy is the occupancy or possession of land or premises by lease.
+
+:thinking: **What does that mean?** :point_right: [Read more](../concepts/tenancy)
+
 ##### ST
-[Single-Tenant](https://www.liquidweb.com/kb/what-is-single-tenant-vs-multi-tenant-software/) - Single-tenancy is an architecture in which a single instance of a software application and supporting infrastructure serves one customer (i.e., tenant).
+[Single-Tenancy](https://www.liquidweb.com/kb/what-is-single-tenant-vs-multi-tenant-software/) - **Single-tenancy** (ST) is an architecture in which a **single instance** of a software application and supporting infrastructure **serves one customer** (i.e: tenant).
 
 ##### MT
-[Multi-Tenants](https://www.liquidweb.com/kb/what-is-single-tenant-vs-multi-tenant-software/) - Multi-tenancy is an architecture in which a single instance of a software application serves multiple customers (tenants).
+[Multi-Tenancy](https://www.liquidweb.com/kb/what-is-single-tenant-vs-multi-tenant-software/) - **Multi-tenancy** (MT) is an architecture in which a **single instance** of a software application **serves multiple customers** (i.e: tenants).
 
-##### MST
-[Multiple Single-Tenants](https://www.pega.com/insights/articles/cloud-hybrid-tenancy-replacing-single-and-multi-tenancy) - Hybrid-tenancy is where microservice architectures leverage services that are both single- and multi-tenant to optimize the balance of performance, scale, and security.
+##### HT
+[Hybrid-tenancy](https://www.pega.com/insights/articles/cloud-hybrid-tenancy-replacing-single-and-multi-tenancy) - **Hybrid-tenancy** (HT) is an architecture which leverages (micro)services that are **both single and multi-tenants** to **optimize** the balance of performance, scale, and security.
 
 ##### TTM
 [Time to market](https://en.wikipedia.org/wiki/Time_to_market)
@@ -42,12 +47,18 @@ Definition of terms used in NRN documentation and source code.
 
 Those terms are specific to NRN and you're not likely to find a definition elsewhere.
 
+##### MST
+**Multiple single-tenancy** (MST) is an architecture in which a **single base code** of a software application allows to **deploy multiple tenants**, each with **their own infrastructure**.
+The infrastructure itself **may** be **completely isolated** from other tenants (ST), or **partially shared** (HT, e.g: different servers, but same DB).
+
+> _This terminology has been defined by us, we couldn't find much resources supporting this definition._
+
 ##### [Variant](../concepts/variants)
 Similar to a preset of features that are built-in within. Helps to quickly get started a new project.
 
 ##### Dynamic i18n
-Content-related (i.e: Post title in FR + EN).
+Content-related (e.g: Post title in FR + EN).
 
 ##### Static i18n
-Everything that isn't related to dynamic content (i.e: Site links, any content that is static and not related to dynamic data).
+Everything that isn't related to dynamic content (e.g: Site links, any content that is static and not related to dynamic data).
 
