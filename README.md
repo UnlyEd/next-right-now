@@ -25,7 +25,6 @@ Next Right Now
 
 <!-- toc -->
 
-- [Documentation](#documentation)
 - [FAQ](#faq)
 - [Contributing](#contributing)
 - [License](#license)

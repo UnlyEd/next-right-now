@@ -1,6 +1,6 @@
 {
   "name": "next-right-now",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "now dev --listen 8888",
