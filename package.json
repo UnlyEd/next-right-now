@@ -34,6 +34,7 @@
     "doc:toc:readme": "yarn markdown-toc --maxdepth 4 -i README.md",
     "doc:toc:dependencies": "yarn markdown-toc --maxdepth 4 -i ./docs/reference/dependencies.md",
     "doc:start": "cd docs/ && bundle exec jekyll serve --config _config-development.yml",
+    "doc:start:fast": "cd docs/ && bundle exec jekyll serve --config _config-development.yml --incremental",
     "doc:gem:install": "cd docs/ && bundle install",
     "lint": "esw src/ -w --ext .ts --ext .tsx",
     "lint:once": "eslint src/ --ext .ts --ext .tsx",

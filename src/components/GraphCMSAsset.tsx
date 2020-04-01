@@ -89,7 +89,7 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
       const assetFileHandle = _urlSplitted[_urlSplitted.length - 1];
       const assetBaseUrl = resolvedAssetProps.url.replace(assetFileHandle, '');
 
-      // XXX See https://graphcms.com/docs/assets/transformations/
+      // XXX See https://docs.graphcms.com/docs/assets/transformations/
       let transformationsToApply = 'quality=value:100/'; // Forcing max quality (not sure it's useful, but we want max visual quality)
       transformationsToApply += forcePNGOutput ? 'output=format:png/' : ''; // Forcing output format to be PNG, allows to display PDF files as images (this bypasses the usage of SVG files)
 

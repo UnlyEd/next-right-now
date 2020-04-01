@@ -4,9 +4,14 @@ title: Folder structure
 parent: Reference
 nav_order: 20
 ---
+
 # Project folders structure
 
-> Overview of the project folder and files structure
+<div class="code-example" markdown="1">
+Overview of the project folder and files structure
+</div>
+
+---
 
 - `cypress`: Folder used by Cypress (E2E), see ["Getting started"](https://docs.cypress.io/guides/getting-started/installing-cypress.html#npm-install)
 - `public`: Static files, see ["Static file serving](https://nextjs.org/docs/basic-features/static-file-serving)

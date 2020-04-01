@@ -6,6 +6,15 @@ nav_order: 70
 ---
 
 # Testing
+{: .no_toc }
+
+<div class="code-example" markdown="1">
+Unit tests and end-to-end (E2E) tests workflow.
+</div>
+
+{% include page-toc.md %}
+
+---
 
 ## CI tests Workflow
 
@@ -25,3 +34,17 @@ You can run interactive E2E tests using Cypress with `yarn e2e:open` script.
 You can also run them non-interactively using `yarn e2e:run` script.
 
 > You may need to run `yarn e2e:install` script first
+
+---
+
+<div class="pagination-section">
+    <span class="fs-4" markdown="1">
+    [< CI/CD](./ci-cd){: .btn }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Guides: Testing](../guides/testing){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Getting started: Pick your preset >](../getting-started/select-preset){: .btn .btn-purple }
+    </span>
+</div>

@@ -5,23 +5,48 @@ parent: Concepts
 nav_order: 30
 ---
 
-# [GraphCMS](https://graphcms.com/?ref=unly-nrn)
+# GraphQL
+{: .no_toc }
 
-## Discount
+<div class="code-example" markdown="1">
+GraphQL is a query language for your API, and a server-side runtime for executing queries by using a type system you define for your data. GraphQL isn't tied to any specific database or storage engine and is instead backed by your existing code and data.
 
-> Using the coupon code **`unly-nrn`** will grant you a 3-month 15% discount on the premium plans.
+<span style="float: right">
+[Source](https://graphql.org/learn/)
+</span>
+</div>
 
-## Fetching data from GraphCMS
+{% include page-toc.md %}
 
-> We use multiple libraries to fetch data from GraphCMS. GraphCMS provides a GraphQL endpoint, so we use generic libraries to the GraphQL specification like `react-apollo`.
->
-> [See full list of dependencies related to GraphCMS](README_DEPENDENCIES.md)
+---
 
-There are several ways of fetching data from a GraphQL API:
-- [`react-hoc`](https://www.apollographql.com/docs/react/api/react-hoc/): HOC (High Order Components) can be used with an components (classes, functional), the GraphQL query is described in the function's wrapper, outside of its body.
-    **Former way, tend to be deprecated in favor of `react-hooks` nowadays.**
-    [List of known issues](https://reactjs.org/docs/higher-order-components.html#caveats).
-- [`Render Props`](https://reactjs.org/docs/render-props.html): Never used it, fixes some issues one can encounter with HOC, but hooks are still better.
-- [**`react-hooks`**](https://www.apollographql.com/docs/react/api/react-hooks): Hooks can only be used with Functional components (not classes), the GraphQL query is described in the function's body.
+## Why GraphQL over REST?
 
-We used the hooks approach because it's just cleaner and simpler to understand.
+Some of the REST(ful/-ish) issues are as follows:
+- We often call multiple endpoints to fetch the data required for one page, screen or for a particular component tree.
+- The data returned is non-negotiable. We cannot opt to not receive certain return values unless we explicitly code it in the route handling logic. This will in turn introduce more complexity to the request body.
+- If an endpoint is updated with a different response value, all installed apps or front-end clients will also need to be updated to handle that change. To overcome this, versioning has become a standard practice with RESTful APIs, along with managing deprecation for an entire API version, rather than just particular endpoints.
+- Although global validation mechanisms such as authentication can be handled through middleware, validating request bodies on a per-endpoint basis is often repetitive and introduces more boilerplate code.
+
+## Want more?
+
+If you're not familiar with the differences between REST and GraphQL:
+- [https://goodapi.co/blog/rest-vs-graphql](https://goodapi.co/blog/rest-vs-graphql)
+- [https://medium.com/@rossbulat/graphql-in-javascript-an-introduction-f50b8dc6e92](https://medium.com/@rossbulat/graphql-in-javascript-an-introduction-f50b8dc6e92)
+
+- **Tip**: Make sur to check the official [GraphQL tutorial](https://graphql.org/learn/) if you want to learn more about it!
+    - You should probably focus on the "client" usage, and use a Headless CMS that manages the server for you, it's much less work! :wink:
+
+---
+
+<div class="pagination-section">
+    <span class="fs-4" markdown="1">
+    [< Tenancy](./tenancy){: .btn }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Guides: GraphQL API](../guides/graphql-api){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
+    [I18n >](./i18n){: .btn .btn-purple }
+    </span>
+</div>

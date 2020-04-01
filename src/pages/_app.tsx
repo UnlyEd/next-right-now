@@ -126,9 +126,9 @@ class NRNApp extends NextApp {
       headers: publicHeaders, // Publicly available headers - whitelist
       readonlyCookies,
       userSession,
-      bestCountryCodes, // i.e: ['en', 'fr']
-      gcmsLocales, // i.e: 'EN, FR' XXX MUST BE UPPERCASED - See https://graphcms.com/docs/api/content-api/#passing-a-header-flag
-      lang, // i.e: 'en'
+      bestCountryCodes, // e.g: ['en', 'fr']
+      gcmsLocales, // e.g: 'EN, FR' XXX MUST BE UPPERCASED - See https://docs.graphcms.com/docs/api/content-api/#passing-a-header-flag
+      lang, // e.g: 'en'
       defaultLocales,
       isSSRReadyToRender: true,
     };
@@ -179,7 +179,7 @@ class NRNApp extends NextApp {
       i18nextInstance,
     };
 
-    // XXX For an unknown reason, I noticed 2 render() calls. (each render call starts a new graphql request, and it makes debugging harder)
+    // XXX For an unknown reason, we noticed 2 render() calls. (each render call starts a new graphql request, and it makes debugging harder)
     //  The first one doesn't contain any data from the server (no data, almost nothing) and therefore result in errors along the react sub tree
     //  The second contains the expected data
     //  Due to this behaviour, an "isSSRReadyToRender" variable has been introduced, to make sure we only render the components when all the data have been provided
@@ -233,7 +233,7 @@ class NRNApp extends NextApp {
           },
         });
 
-        amplitudeInstance.setVersionName(process.env.APP_VERSION); // i.e: 1.0.0
+        amplitudeInstance.setVersionName(process.env.APP_VERSION); // e.g: 1.0.0
 
         // Inject additional variables in the layout
         layoutProps.isInIframe = isInIframe;
