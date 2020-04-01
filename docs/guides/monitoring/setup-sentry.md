@@ -19,7 +19,7 @@ Guide about how to properly configure Sentry.
 
 ## Creating Sentry account
 
-- **Tip**: If you don't want to create an account, you can use `https://14fa1cae05079675b18cd05403ae5c48@sentry.io/1234567` as `SENTRY_DSN`
+- **Tip**: If you don't want to create an account, you can use `https://14fa1cae05079675b18cd05403ae5c48@sentry.io/1234567` as `SENTRY_DSN`, it will not catch any error, but it will allow for online deployment
 
 - [Create a free account on Sentry](https://sentry.io/signup/?ref=unly-nrn)
 - Create a new project
@@ -39,5 +39,3 @@ That's it! Your Sentry account is ready to use!
 - [Using "context" for events](https://docs.sentry.io/enriching-error-data/context/?platform=javascript)
 - [Using "breadcrumbs" for events](https://docs.sentry.io/enriching-error-data/breadcrumbs/?platform=javascript)
 - [How to blacklist sensitive data tracking (GDPR, security)](https://docs.sentry.io/data-management/sensitive-data/)
-
----

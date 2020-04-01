@@ -19,8 +19,8 @@ Guide about how to properly configure Amplitude.
 
 ## Create an Amplitude account
 
-1. Go to [https://amplitude.com/](https://amplitude.com/) and check their online demo to familiarise you a bit with the features and UI.
-1. [Create an account](https://amplitude.com/signup)
+1. Go to [https://amplitude.com/](https://amplitude.com/?ref=unly-nrn) and check their online demo to familiarise you a bit with the features and UI.
+1. [Create an account](https://amplitude.com/signup?ref=unly-nrn)
 1. Create a "[NRN] Staging" project. We recommend to use a different project per stage.
     - We usually have one "Production" and one "Stating" versions, the staging version stores both development and staging events in order to keep the production database clean
 1. Create a "[NRN] Production" project
@@ -30,6 +30,7 @@ Guide about how to properly configure Amplitude.
 1. Copy the "API Key" value (not the secret!) and apply it to `AMPLITUDE_API_KEY` in `.env.build`
 1. If you have already configured Zeit, and if you want to deploy your app online, you must also configure Zeit secrets
     - `now secrets add nrn-amplitude-api-key-staging YOUR_AMPLITUDE_STAGING_API_KEY`
-    - Get your "[NRN] Production" "API key" too, and run `now secrets add nrn-amplitude-api-key-production YOUR_AMPLITUDE_PRODUCTION_API_KEY`
+    - (Optional) Get your "[NRN] Production" "API key" too, and run `now secrets add nrn-amplitude-api-key-production YOUR_AMPLITUDE_PRODUCTION_API_KEY`
+        - This is only useful if you attempt to deploy to production
 
 That's it! Your Amplitude account is ready to use!

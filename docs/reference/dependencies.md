@@ -372,28 +372,6 @@ Run `yarn lint` to run the linter.
 **Known issues**:
 - `jest-emotion`: [Breaks tests](https://github.com/emotion-js/emotion/issues/1440#issuecomment-551235747)
 
-#### Cypress
-
-> Cypress is a tool that helps performing end-to-end (E2E) tests that aim at testing the UI and the user workflows.
->
-> It is open source and free to use from the command line (doesn't count as Tests recording).
->
-> It also comes with a paid plan that provides a [Dashboard](https://dashboard.cypress.io/#/projects/4dvdog/runs), we use it with the Free plan, but it only allows [500 tests recordings per month](https://dashboard.cypress.io/#/organizations/1e9a77da-8ecf-4a84-8ad9-99a01ac2b098/billing).
-
-Several utility scripts have been configured to help with E2E testing, each script takes an optional `CYPRESS_STAGE` environment variable, which defines the [config file](./cypress/config-development.json) that will be used (`development` by default):
-- `yarn e2e:open`: Runs the test suite **in a local browser** _(requires `yarn e2e:install`)_, targets **localhost development website**. (uses [cypress/config-development.json](./cypress/config-development.json))
-- `yarn e2e:run`: Runs the test suite **in a local console**, targets **localhost development website**. (uses [cypress/config-development.json](./cypress/config-development.json))
-- `CYPRESS_STAGE=customer1 yarn e2e:run` equivalent to `yarn e2e:customer1:production`: Runs the test suite in the console, targets **demo production website**. (uses [cypress/config-demo.json](cypress/config-customer2.json))
-
-It is also possible to test all the apps at once:
-- `yarn e2e:all:production`: This will run each production e2e test run (in series, parallel is not free)
-
-We used the following [**Cypress <> Next.js** tutorial](https://buttercms.com/blog/how-to-test-nextjs-apps) to get started.
-Note that our current installation doesn't provide test coverage.
-It's a bit harder to setup, here is a [tutorial](https://www.cypress.io/blog/2019/09/05/cypress-code-coverage-for-create-react-app-v3/) if ever needed.
-
-> **N.B**: [Here is the documentation about the options available in the config files](https://docs.cypress.io/guides/references/configuration.html).
-
 ---
 
 ### Documentation

@@ -9,7 +9,9 @@ nav_order: 10
 # How to setup GraphCMS
 {: .no_toc }
 
+<div class="code-example" markdown="1">
 Step by step guide about how to create and properly configure your GraphCMS account.
+</div>
 
 {% include page-toc.md %}
 
@@ -17,10 +19,11 @@ Step by step guide about how to create and properly configure your GraphCMS acco
 
 ## Tips
 
-- Using the coupon code **`unly-nrn`** will grant you a 3-month 15% discount on the premium plans.
+- Using the coupon code **`unly-nrn`** will grant you a **3-month 15% discount** on any premium plans.
 - Free support is available on their [Slack channel](https://graphcms.slack.com) _(and they're awesome)_
 
 ## Video tutorial (10 minutes)
+
 [![GraphCMS configuration video tutorial](https://img.youtube.com/vi/ig5a7LXTiBM/maxresdefault.jpg)](http://youtu.be/ig5a7LXTiBM?hd=1)
 
 > This video explains how to create a GraphCMS account and configure locales, versions, auth tokens and gives an overview of the settings.
@@ -36,7 +39,7 @@ Step by step guide about how to create and properly configure your GraphCMS acco
 
 ---
 
-## GraphCMS concepts
+## Learn how to configure your GraphCMS project
 
 #### Public API Permissions
 

@@ -19,6 +19,7 @@
 {% if include.monitoring == amplitude %}
     - [Learn how to setup Amplitude](../guides/analytics/setup-amplitude)
 {% endif %}
+    - [Learn how to setup Cypress](../guides/testing/setup-cypress)
 1. _(Optional)_ `nvm use` - Selects the right node.js version based on the `.nvmrc` file
     - **Tip**: Ignore this if you're not using [NVM](https://github.com/nvm-sh/nvm), but you should!
 1. `yarn` - Installs all deps from `package.json`
