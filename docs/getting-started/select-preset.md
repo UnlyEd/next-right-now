@@ -50,13 +50,13 @@ You can get metadata at `/api/status` on any demo, because all presets provide t
 {% capture gql-api %}gcms{% endcapture %}
 {% capture monitoring %}sentry{% endcapture %}
 {% capture analytics %}amplitude{% endcapture %}
-## **[Default preset]** `{{preset}}` - SSR, MST, GraphCMS, Locize, Sentry, Amplitude
+## **[DEFAULT]** `{{preset}}` - {% include preset/title.md %}
 
 DEFAULT
-{: .label .label-purple }
+{: .label .label-yellow }
 
-STABLE
-{: .label .label-green }
+OFFICIAL
+{: .label .label-purple }
 
 March 2020
 {: .label .label-blue }
@@ -78,7 +78,7 @@ The plan is to release simpler presets soon.
 
 ### Demo
 
-{% include presets/demo.md %}
+{% include preset/demo.md %}
 
 ### Built-in 3rd party vendors
 
