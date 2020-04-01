@@ -45,6 +45,8 @@ You can get metadata at `/api/status` on any demo, because all presets provide t
 {% capture preset %}v1-ssr{% endcapture %}
 {% capture rendering %}ssr{% endcapture %}
 {% capture tenancy %}mst{% endcapture %}
+{% capture hosting %}zeit{% endcapture %}
+{% capture i18n %}locize{% endcapture %}
 {% capture gql-api %}gcms{% endcapture %}
 {% capture monitoring %}sentry{% endcapture %}
 {% capture analytics %}amplitude{% endcapture %}
@@ -72,34 +74,15 @@ The plan is to release simpler presets soon.
 
 ### Built-in features
 
-> [Reminder: Terminology](../reference/terminology)
-
-{% include features/features-table.md preset=preset %}
-
+{% include features/features-table.md %}
 
 ### Demo
 
-This preset uses a MST design.
-
-Therefore, there are 2 different demo available at:
-- [https://nrn-{{preset}}-customer1.now.sh/](https://nrn-{{preset}}-customer1.now.sh/)
-- [https://nrn-{{preset}}-customer2.now.sh/](https://nrn-{{preset}}-customer2.now.sh/)
-
-<div class="code-example" markdown="1">
-Both demo have been generated using the same source code, the two demo live in a completely separated server and won't be affected by each other (MST design)
-
-The same database is used by both tenants (MT design), but the displayed content is specific to each tenant (colors, etc.)
-
-Requests are performed in real-time (SSR), each request send a GraphQL query (put aside client/server caching)
-
-Overall, we use a hybrid tenancy design that uses both MST and MT approaches, which is due to a compromise between complexity (only one DB/API) and security/performances/risk (multiple servers to avoid massive downtime of all customers at once)
-
-Of course, if the DB itself gets down, all tenants would be impacted (browser cache may help in such scenario, but what we really rely on in order to protect ourselves against such massive outage is [a proxy server cache](https://github.com/UnlyEd/GraphCMS-cache-boilerplate))
-</div>
+{% include presets/demo.md %}
 
 ### Built-in 3rd party vendors
 
-{% include vendors/vendors-table.md preset=preset zeit=true graphcms=true locize=true amplitude=true sentry=true  %}
+{% include vendors/vendors-table.md %}
 
 ### Clone locally
 
@@ -111,13 +94,13 @@ This will create a `nrn-preset-{{preset}}` folder in your current directory and 
 
 ### Local installation guide
 
-{% include installation-guide-full.md preset=preset %}
+{% include installation-guide-full.md %}
 
-#### Advanced configuration
+### Advanced configuration
 
 {% include installation-guide-tips.md %}
 
-#### Want to learn more?
+### Want to learn more?
 
 - Make sure to check our ["How to use" guides](../guides) for any of the vendor used above!
 
