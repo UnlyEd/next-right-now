@@ -323,8 +323,6 @@ const Examples: NextPage<PageProps> = (props: PageProps): JSX.Element => {
                     '</Trans>'}
                   </code>
                 </div>
-                <hr />
-
               </Container>
             </div>
           </Container>

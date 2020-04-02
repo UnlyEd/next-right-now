@@ -49,17 +49,22 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
             <h1>Next Right Now Demo</h1>
 
             <div className={'b'} style={{ color: 'black' }}>
-              The purpose of this demo is to showcase what features are built-in within the selected preset.<br />
+              <Alert
+                color={'warning'}
+              >
+                The purpose of this demo is to showcase what features are built-in within the selected preset.<br />
+                Please note that the documentation is hardcoded in English, so don't expect it to change when switching language.<br />
+              </Alert>
             </div>
 
             <Alert
               color={'info'}
               css={css`
-              a {
-                font-weight: bold;
-                color: blueviolet !important;
-              }
-            `}
+                a {
+                  font-weight: bold;
+                  color: blueviolet !important;
+                }
+              `}
             >
               This demo uses the preset <code>{process.env.NRN_PRESET}</code><br />
               <a
@@ -85,7 +90,6 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
               </a>
             </Alert>
             <div>
-              <span className={'b'}>Please note that the documentation is hardcoded in English, so don't expect it to change when switching language.</span><br />
 
               <div>
                 <div>
@@ -139,6 +143,41 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
                 <div>
                   <h3>Examples</h3>
                   Check out our <Link href={'/examples'}>examples</Link> to learn more and see some code snippets!<br />
+                </div>
+
+                <div>
+                  <h3>Admin site</h3>
+                  Check out our&nbsp;
+                  <a
+                    href={'https://nrn-admin.now.sh'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  >Admin site</a> to edit the data that belong to the customer!<br />
+                  Please do not use NSFW content or anything that is illegal as we don't enforce any rule. Everybody can change pics and text.<br />
+                  <br />
+                  The admin site is based on <a href={'https://github.com/marmelab/react-admin'} target={'_blank'} rel={'noopener'}>react-admin</a>.<br />
+                  The source code&nbsp;
+                  <a
+                    href={'https://github.com/UnlyEd/next-right-now-admin'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  >is available on GitHub</a> as well. <br />
+                  It also relies on&nbsp;
+                  <a
+                    href={'https://github.com/UnlyEd/ra-data-graphql-prisma'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  >our open source data provider</a> for react-admin, using GraphQL.<br />
+                  <br />
+
+                  All the admin site (AKA back-office) uses GraphQL schema definition to build the views and GQL queries/mutations. (but allow override for flexibility)<br />
+                  It's a POC and could use the help of the community. I've started it to build our Back-office but found a better alternative in the meantime that better answers our needs:&nbsp;
+                  <a
+                    href={'https://directus.io/'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  >Directus</a><br />
+                  So, I won't likely bring NRN-Admin to a production-grade level, and it will likely stay in it's current state: a POC.
                 </div>
 
                 <div>
