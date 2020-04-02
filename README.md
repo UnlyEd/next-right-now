@@ -29,7 +29,7 @@ Next Right Now
 
 | Preset | Links | Demo | Features |
 |:-------|:------|:-----|:---------|
-| `v1-ssr-mst-aptd-gcms-lcz-sty` | [Doc](https://unlyed.github.io/next-right-now/getting-started/select-preset#default-v1-ssr-mst-aptd-gcms-lcz-sty----ssr--mst--amplitude--graphcms--locize--sentry) - [Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty) | [Customer 1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) - [Customer 2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) | Analytics (Amplitude), GraphQL (GraphCMS), I18n (GraphCMS + Locize), Monitoring (Sentry) |
+| `v1-ssr-mst-aptd-gcms-lcz-sty` | [Doc](https://unlyed.github.io/next-right-now/getting-started/select-preset#default-v1-ssr-mst-aptd-gcms-lcz-sty----ssr--mst--amplitude--graphcms--locize--sentry) <br /> [Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty) | [Customer 1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> [Customer 2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) | Analytics (Amplitude)<br />GraphQL (GraphCMS)<br />I18n (GraphCMS + Locize)<br />Monitoring (Sentry) |
 
 ---
 
