@@ -11,15 +11,25 @@ Next Right Now
 >
 > NRN is maintained with several purposes in mind:
 > - To be **flexible** and allow for extensive **customisation**.
+> - To be used as an **educational** resource, meant to be used as a **learning/teaching** resource.
+> - Provide various boilerplate [presets](https://unlyed.github.io/next-right-now/concepts/presets), to get started with the preset that matches the closest your needs.
 > - To be used as a **boilerplate** to quickly deploy a **new** project.
 >     - It has been used to build production-grade websites within 2h time during a French COVID-19 hackathon (March 2020)
 >     - It has been used to build [NRN Admin](https://github.com/UnlyEd/next-right-now-admin)
-> - To be used as an **educational** resource, meant to be used as a **learning/teaching** resource.
-> - Provide various boilerplate [presets](https://unlyed.github.io/next-right-now/concepts/presets), to get started with the preset that matches the closest your needs.
 >
 > Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience and your [feedback about opt-in 3rd parties](https://github.com/UnlyEd/next-right-now/issues/13)!
 
 :point_right: [**Overview & benefits**](https://unlyed.github.io/next-right-now/). :point_left:
+
+---
+
+# Overview of available presets
+
+> Make sure to check our [presets doc](https://unlyed.github.io/next-right-now/getting-started/select-preset) for a comprehensive list.
+
+| Preset | Links | Demo | Features |
+|:-------|:------|:-----|:---------|
+| `v1-ssr-mst-aptd-gcms-lcz-sty` | [Doc](https://unlyed.github.io/next-right-now/getting-started/select-preset#default-v1-ssr-mst-aptd-gcms-lcz-sty----ssr--mst--amplitude--graphcms--locize--sentry) - [Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty) | [Customer 1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) - [Customer 2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) | Analytics (Amplitude), GraphQL (GraphCMS), I18n (GraphCMS + Locize), Monitoring (Sentry) |
 
 ---
 

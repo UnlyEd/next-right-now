@@ -75,6 +75,8 @@ vcs.xml
 # Sonarlint plugin
 .idea/sonarlint
 
+.idea/inspectionProfiles/Project_Default.xml
+
 
 # End of https://www.gitignore.io/api/webstorm
 
