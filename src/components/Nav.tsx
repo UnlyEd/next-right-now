@@ -235,6 +235,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                 onClick={() => {
                   logEvent('open-github');
                 }}
+                title={'Github branch preset'}
               >
                 <Col className={'navItemsMenu'}>
                   <Row className={'justify-content-center navItemsLogo'}>
