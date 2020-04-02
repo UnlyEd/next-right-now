@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
-    "@emotion/core": "10.0.27",
+    "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",
     "@fortawesome/fontawesome-svg-core": "1.2.27",
     "@fortawesome/free-brands-svg-icons": "5.12.1",
