@@ -7,7 +7,7 @@
 Next Right Now
 ===
 
-> **Current preset**: [`v1-ssr-mst-aptd-gcms-lcz-sty`](#overview-of-available-presets) (DEFAULT)
+> **Current preset**: [`v1-ssr-mst-aptd-gcms-lcz-sty`](#overview-of-available-presets)
 
 ---
 
