@@ -54,108 +54,67 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
           id={'nav'}
           color="#F5F5F5"
           light
-          css={css`// TODO Copied from proprietary project, change as you will, should be cleaned!
-        background-color: #F5F5F5;
-        align-items: center;
+          css={css`
+            background-color: #F5F5F5;
+            align-items: center;
 
-        @media (min-width: 992px) {
+            @media (min-width: 992px) {
               margin-left: 80px;
               margin-right: 80px;
             }
 
-        @media (max-width: 991.98px) {
-            margin-left: 10px;
-            margin-right: 10px;
-          li{
-            margin: 10px !important;
-          }
-        }
-
-        @media (max-width: 350px) {
-           padding: 0 !important;
-        }
-
-        .brand-logos{
-          min-width: 175px;
-        }
-
-        .brand-logos-separator {
-          margin-left: 10px;
-          margin-right: 10px;
-
-          ::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            border-bottom: 40px solid lightgrey;
-            border-left: 1px solid lightgrey;
-            transform: translateY(-50%);
-          }
-        }
-
-        .navItemsMenu{
-          padding:0 10px;
-
-          :hover{
             @media (max-width: 991.98px) {
-              .navItemsLogo{
-                svg{
-                  color: ${getValue(theme, 'primaryColor')};
+              margin-left: 10px;
+              margin-right: 10px;
+
+              li {
+                margin: 10px !important;
+              }
+            }
+
+            @media (max-width: 350px) {
+              padding: 0 !important;
+            }
+
+            .brand-logo {
+              min-width: 175px;
+            }
+
+            .navItemsMenu {
+              padding:0 10px;
+
+              @media (max-width: 991.98px) {
+                a {
+                  font-size: 12px;
+                  color: rgba(0,0,0,0.30) !important;
                 }
               }
+            }
 
-              a {
+            .navbar-nav {
+              flex-direction: row;
+
+              li {
+                margin: 10px 20px;
+                text-align: center;
+                justify-content: center;
+
+                a {
+                  cursor: pointer;
+                  color: #000 !important;
+                }
+              }
+            }
+
+            .nav-link {
+              &.active {
+                font-weight: bold;
                 color: ${getValue(theme, 'primaryColor')} !important;
               }
             }
-          }
-
-          .navItemsLogo{
-            display: none;
-          }
-
-          @media (max-width: 991.98px) {
-            .navItemsLogo{
-              display: flex;
-
-              svg{
-                color: rgba(0,0,0,0.30);
-                width: 25px;
-                height: 25px;
-              }
-            }
-            a {
-              font-size: 12px;
-              color: rgba(0,0,0,0.30) !important;
-            }
-          }
-        }
-
-        .navbar-nav {
-          flex-direction: row;
-
-          li {
-            margin: 10px 20px;
-            text-align: center;
-            justify-content: center;
-
-            a {
-              cursor: pointer;
-              color: #000 !important;
-            }
-          }
-        }
-
-        .nav-link,
-        .navItemsLogo svg {
-          &.active {
-            font-weight: bold;
-            color: ${getValue(theme, 'primaryColor')} !important;
-          }
-        }
-      `}
+          `}
         >
-          <div className={'brand-logos'}>
+          <div className={'brand-logo'}>
             <Link
               // The Link will only take effect if there is a <a> child
               href={'/'}
@@ -183,6 +142,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                   id={'nav-link-home'}
                   active={isActive(router, '') || isActive(router, 'index')}
                 >
+                  <FontAwesomeIcon icon={['fas', 'home']} />
                   {t('nav.indexPage.link', 'Accueil')}
                 </NavLink>
               </Link>
@@ -197,6 +157,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                   id={'nav-link-examples'}
                   active={isActive(router, 'examples')}
                 >
+                  <FontAwesomeIcon icon={['fas', 'book-reader']} />
                   {t('nav.examplesPage.link', 'Exemples')}
                 </NavLink>
               </Link>
@@ -212,9 +173,6 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                 }}
               >
                 <Col className={'navItemsMenu'}>
-                  <Row className={'justify-content-center navItemsLogo'}>
-                    <i className={classnames('fas fa-balance-scale')} />
-                  </Row>
                   <Row className={'justify-content-center'}>
                     <NavLink
                       id={'nav-link-github-doc'}
@@ -238,15 +196,35 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                 title={'Github branch preset'}
               >
                 <Col className={'navItemsMenu'}>
-                  <Row className={'justify-content-center navItemsLogo'}>
-                    <i className={classnames('fas fa-balance-scale')} />
-                  </Row>
                   <Row className={'justify-content-center'}>
                     <NavLink
                       id={'nav-link-github'}
                     >
                       <FontAwesomeIcon icon={['fab', 'github']} />
                       {t('nav.githubPage.link', 'Github branch')}
+                    </NavLink>
+                  </Row>
+                </Col>
+              </a>
+            </NavItem>
+
+            <NavItem>
+              <a
+                href={`https://nrn-admin.now.sh`}
+                target={'_blank'}
+                rel={'noopener'}
+                onClick={() => {
+                  logEvent('open-admin-site');
+                }}
+                title={'Edit dynamic content using GraphCMS and react-admin!'}
+              >
+                <Col className={'navItemsMenu'}>
+                  <Row className={'justify-content-center'}>
+                    <NavLink
+                      id={'nav-link-admin-site'}
+                    >
+                      <FontAwesomeIcon icon={['fas', 'user-cog']} />
+                      {t('nav.adminSite.link', 'Admin site')}
                     </NavLink>
                   </Row>
                 </Col>
