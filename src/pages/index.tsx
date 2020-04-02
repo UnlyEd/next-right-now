@@ -1,29 +1,15 @@
 /** @jsx jsx */
 import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
-import { QueryResult } from '@apollo/react-common';
-import { useQuery } from '@apollo/react-hooks';
 import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
-import { useTheme } from 'emotion-theming';
-import map from 'lodash.map';
 import { NextPage } from 'next';
 import Link from 'next/link';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { useTranslation, UseTranslationResponse } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
-
-import ErrorDebug from '../components/ErrorDebug';
-import GraphCMSAsset from '../components/GraphCMSAsset';
 import Head from '../components/Head';
-import Loader from '../components/Loader';
-import { INDEX_PAGE_QUERY } from '../gql/pages';
-import { Asset } from '../types/data/Asset';
-import { Customer } from '../types/data/Customer';
-import { Product } from '../types/data/Product';
-import { Theme } from '../types/data/Theme';
 import { PageProps } from '../types/PageProps';
 
 const fileLabel = 'pages/index';
@@ -32,56 +18,11 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 });
 
 const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
-  const {
-    customerRef,
-    gcmsLocales,
-  }: PageProps = props;
-  const { t }: UseTranslationResponse = useTranslation();
-  const theme: Theme = useTheme();
-  const { primaryColor } = theme;
-
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering index page (${isBrowser() ? 'browser' : 'server'})`,
     level: Sentry.Severity.Debug,
   });
-
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
-    displayName: 'INDEX_PAGE_QUERY',
-    variables,
-    context: {
-      headers: {
-        'gcms-locale': gcmsLocales,
-      },
-    },
-  };
-  const {
-    data,
-    loading,
-    error,
-  }: QueryResult<{
-    customer: Customer;
-    products: Product[];
-  }> = useQuery(INDEX_PAGE_QUERY, queryOptions);
-
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return <ErrorDebug error={new Error(JSON.stringify(error, null, 2))} context={{ variables, queryOptions }} />;
-  }
-
-  const {
-    customer,
-    products,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring
-  if (process.env.APP_STAGE !== 'production') {
-    console.log('data', data); // eslint-disable-line no-console
-  }
 
   return (
     <Amplitude
@@ -97,94 +38,157 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
         <>
           <LogOnMount eventType="page-displayed" />
           <Head />
-          <div
+          <Container
+            className={'container-white'}
             css={css`
-              justify-content: center;
-              text-align: center;
-              margin-left: auto;
-              margin-right: auto;
-
-              .product-container {
-                background-color: white;
-                border-radius: 10px;
-                padding: 30px;
-                margin: 30px;
-
-                h2 {
-                  margin-top: 5px;
-                  margin-bottom: 20px;
-                }
+              h2, h3 {
+                margin-top: 30px;
               }
             `}
           >
-            <Alert color={'info'}>
-              <div>
-                This demo features quite a few things, despite it being very simple.<br />
-                <br />
-                Products are fetched from our GraphCMS API, using GraphQL and Apollo.<br />
-                We don't do anything fancy with them, it's just a simple example of data fetching and displaying.<br />
-                Note that the GraphQL API can be auto-completed on the IDE, that's quite useful. We also split our <code>.gql</code> files into reusable fragments to avoid duplicating code.<br />
-                <br />
-                We use a custom component <code>GraphCMSAsset</code> to display images.<br />
-                <br />
-                You can navigate between <Link href={'/examples'}>/examples</Link> and <Link href={'/'}>/</Link> to see CSR in action.<br />
-                You can also disable JS on your browser to see how SSR works.<br />
-                <br />
-                You can also use
-                <a
-                  href={'https://chrome.google.com/webstore/detail/amplitude-instrumentation/acehfjhnmhbmgkedjmjlobpgdicnhkbp'}
-                  target={'_blank'}
-                  rel={'noopener'}
-                > Amplitude Instrumentation Explorer extension
-                </a> to see what analytic events are sent.
-                <br />
-                You can also change the language by clicking on the footer flag icon below. <br />
-                Changing language refresh the whole page, because it was just simpler to do that instead of running the GraphQL query again. But you could implement it without refreshing the whole page if you wanted.
-                <br />
-                <br />
-                Feel free to ask for more examples of what this demo can offer by creating an issue on Github! :)<br />
-                Feel free to make an improvement to this demo as well, though a PR. (if it's big, please let's discuss it first!)
-              </div>
+            <h1>Next Right Now Demo</h1>
+
+            <div className={'b'} style={{ color: 'black' }}>
+              <Alert
+                color={'warning'}
+              >
+                The purpose of this demo is to showcase what features are built-in within the selected preset.<br />
+                Please note that the documentation is hardcoded in English, so don't expect it to change when switching language.<br />
+              </Alert>
+            </div>
+
+            <Alert
+              color={'info'}
+              css={css`
+                a {
+                  font-weight: bold;
+                  color: blueviolet !important;
+                }
+              `}
+            >
+              This demo uses the preset <code>{process.env.NRN_PRESET}</code><br />
+              <a
+                href={'https://unlyed.github.io/next-right-now/concepts/presets'}
+                target={'_blank'}
+                rel={'noopener'}
+                onClick={() => {
+                  logEvent('open-what-is-preset-doc');
+                }}
+              >
+                What's a preset?
+              </a>
+              &nbsp;-&nbsp;
+              <a
+                href={'https://unlyed.github.io/next-right-now/getting-started/select-preset'}
+                target={'_blank'}
+                rel={'noopener'}
+                onClick={() => {
+                  logEvent('open-see-all-presets-doc');
+                }}
+              >
+                See all presets
+              </a>
             </Alert>
-            <h1>{customer?.label} products</h1>
+            <div>
 
-            <Container>
-              {
-                map(products, (product: Product) => {
-                  return (
-                    <div
-                      key={product?.id}
-                      className={'product-container'}
-                    >
-                      {
-                        map(product.images, (image: Asset) => {
-                          return (
-                            <GraphCMSAsset
-                              key={image?.id}
-                              id={image?.id}
-                              asset={image}
-                              transformationsOverride={{
-                                width: 75,
-                                height: 100,
-                              }}
-                            />
-                          );
-                        })
-                      }
+              <div>
+                <div>
+                  <h2>Overview</h2>
+                  You can navigate between <Link href={'/examples'}>/examples</Link> and <Link href={'/'}>/</Link> to see CSR in action.<br />
+                  You can also disable JS on your browser to see how SSR works.<br />
+                  <br />
+                  If you want to know a bit more about what's running this demo beneath the surface, check out our <a href={'/api/status'}><code>/api/status</code> endpoint!</a>
+                </div>
 
-                      <h2>
-                        {product?.title} - ${product?.price || 0}
-                      </h2>
+                <div>
+                  <h3>Analytics overview</h3>
+                  For the purpose of this demo, we are tracking your analytics usage.
+                  <br />
+                  For instance, we know if you've clicked on any link above. That's just basic analytics but it works out-of-the-box.
+                  <br />
 
-                      <div>
-                        {product?.description}
-                      </div>
-                    </div>
-                  );
-                })
-              }
-            </Container>
-          </div>
+                  You can use
+                  <a
+                    href={'https://chrome.google.com/webstore/detail/amplitude-instrumentation/acehfjhnmhbmgkedjmjlobpgdicnhkbp'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  > Amplitude Instrumentation Explorer extension
+                  </a> to see what analytic events are sent and what they contains exactly, it's very powerful!<br />
+                  <br />
+                  Every time you visit a page, analytics are automatically sent (similar to Google Analytics "pageviews").<br />
+                </div>
+
+                <div>
+                  <h3>GraphQL API overview</h3>
+                  We fetched our GraphQL endpoint to display proper theming.<br />
+                  The colors that are used in this demo are defined within the GraphCMS "Customer" model.
+                </div>
+
+                <div>
+                  <h3>Monitoring overview</h3>
+                  Any runtime error is configured to be sent to Sentry, which redirects it into our Slack channel.<br />
+                  This allows us to be notified in real-time about anything that'd go wrong.<br />
+                  <br />
+                  You can test this behaviour by hitting <a href="/api/error"><code>/api/error</code> our error endpoint</a>. Don't worry, alerts have been disabled so you won't bother us for real ;)
+                </div>
+
+                <div>
+                  <h3>I18n overview</h3>
+                  You can change the language by clicking on the footer flag icon below. <br />
+                  Changing language refresh the whole page, because it was just simpler to do that instead of running the GraphQL query again. <br />
+                  But you could implement it without refreshing the whole page if you wanted.
+                  <br />
+                </div>
+
+                <div>
+                  <h3>Examples</h3>
+                  Check out our <Link href={'/examples'}>examples</Link> to learn more and see some code snippets!<br />
+                </div>
+
+                <div>
+                  <h3>Admin site</h3>
+                  Check out our&nbsp;
+                  <a
+                    href={'https://nrn-admin.now.sh'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  >Admin site</a> to edit the data that belong to the customer!<br />
+                  Please do not use NSFW content or anything that is illegal as we don't enforce any rule. Everybody can change pics and text.<br />
+                  <br />
+                  The admin site is based on <a href={'https://github.com/marmelab/react-admin'} target={'_blank'} rel={'noopener'}>react-admin</a>.<br />
+                  The source code&nbsp;
+                  <a
+                    href={'https://github.com/UnlyEd/next-right-now-admin'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  >is available on GitHub</a> as well. <br />
+                  It also relies on&nbsp;
+                  <a
+                    href={'https://github.com/UnlyEd/ra-data-graphql-prisma'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  >our open source data provider</a> for react-admin, using GraphQL.<br />
+                  <br />
+
+                  All the admin site (AKA back-office) uses GraphQL schema definition to build the views and GQL queries/mutations. (but allow override for flexibility)<br />
+                  It's a POC and could use the help of the community. I've started it to build our Back-office but found a better alternative in the meantime that better answers our needs:&nbsp;
+                  <a
+                    href={'https://directus.io/'}
+                    target={'_blank'}
+                    rel={'noopener'}
+                  >Directus</a><br />
+                  So, I won't likely bring NRN-Admin to a production-grade level, and it will likely stay in it's current state: a POC.
+                </div>
+
+                <div>
+                  <Alert color={'success'}>
+                    Feel free to ask for more examples of what this demo can offer by creating an issue on Github! :)<br />
+                    Feel free to make an improvement to this demo as well, though a PR. (if it's big, please let's discuss it first!)
+                  </Alert>
+                </div>
+              </div>
+            </div>
+          </Container>
         </>
       )}
     </Amplitude>

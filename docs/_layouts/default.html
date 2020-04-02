@@ -86,31 +86,6 @@ layout: table_wrappers
             </ul>
           {% endif %}
 
-          {% unless page.comments == false %}
-            <hr />
-            <div id="disqus_thread"></div>
-            <script>
-              /**
-               *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-               *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-               */
-              window.disqus_config = function () {
-                  this.page.url = '{{ page.url }}';
-                  this.page.identifier = '{{ page.url }}';
-              };
-              (function () {
-                var d = document,
-                  s = d.createElement('script');
-
-                s.src = 'https://next-right-now.disqus.com/embed.js';
-
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-              })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-          {% endunless %}
-
           {% if site.footer_content != nil %}
             <hr>
             <footer role="contentinfo">

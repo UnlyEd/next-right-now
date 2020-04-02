@@ -9,6 +9,7 @@ module.exports = withCSS(withSourceMaps({
   env: {
     // XXX Duplication of the environment variables, this is only used locally (See https://github.com/zeit/next.js#build-time-configuration)
     //  while now.json:build:env will be used on the Now platform (See https://zeit.co/docs/v2/build-step/#providing-environment-variables)
+    NRN_PRESET: process.env.NRN_PRESET,
     CUSTOMER_REF: process.env.CUSTOMER_REF,
     APP_STAGE: process.env.APP_STAGE,
     GRAPHQL_API_ENDPOINT: process.env.GRAPHQL_API_ENDPOINT,

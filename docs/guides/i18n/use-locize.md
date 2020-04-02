@@ -23,7 +23,7 @@ The content displayed on NRN is translated using different ways, depending on wh
 
 ## How to use Locize in-context editor?
 
-You can enable **Locize in-context editor mode**, by appending `?locize=true` to the url, see [https://nrn-customer1.now.sh/?locize=true](https://nrn-customer1.now.sh/?locize=true)
+You can enable **Locize in-context editor mode**, by appending `?locize=true` to the url, see [https://nrn-default.now.sh/?locize=true](https://nrn-default.now.sh/?locize=true)
 
 Note that it's only enabled in development and staging stages, not in production.
 

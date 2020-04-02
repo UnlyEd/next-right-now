@@ -5,20 +5,12 @@ import { product } from '../fragments/product';
 import { theme } from '../fragments/theme';
 
 /**
- * Used for /index page
+ * Used for /examples page
  */
-export const INDEX_PAGE_QUERY = gql`
+export const EXAMPLES_PAGE_QUERY = gql`
   query INDEX_PAGE_QUERY($customerRef: String!){
-    customer(where: {
-      ref: $customerRef
-    }){
-      id
-      label
-      theme {
-        ...themeFields
-      }
-    }
     products(where: {
+      status: PUBLISHED
       customer: {
         ref: $customerRef
       }

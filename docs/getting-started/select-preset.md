@@ -42,7 +42,7 @@ You can get metadata at `/api/status` on any demo, because all presets provide t
 
 ---
 
-{% capture preset %}v1-ssr{% endcapture %}
+{% capture version %}v1{% endcapture %}
 {% capture rendering %}ssr{% endcapture %}
 {% capture tenancy %}mst{% endcapture %}
 {% capture hosting %}zeit{% endcapture %}
@@ -50,22 +50,23 @@ You can get metadata at `/api/status` on any demo, because all presets provide t
 {% capture gql-api %}gcms{% endcapture %}
 {% capture monitoring %}sentry{% endcapture %}
 {% capture analytics %}amplitude{% endcapture %}
-## `{{preset}}` - **Default preset**
+{% capture preset %}{{version}}-{{rendering}}-{{tenancy}}{% if include.analytics == amplitude %}-aptd{% endif %}{% if include.gql-api == gcms %}-gcms{% endif %}{% if include.i18n == locize %}-lcz{% endif %}{% if include.monitoring == sentry %}-sty{% endif %}{% endcapture %}
+## **[DEFAULT]** `{{preset}}` - {% include preset/title.md %}
 
 DEFAULT
-{: .label .label-purple }
+{: .label .label-yellow }
 
-STABLE
-{: .label .label-green }
+OFFICIAL
+{: .label .label-purple }
 
 March 2020
 {: .label .label-blue }
 
 ### Overview
 
-| Preset | Branch | Diff PR | Pricing concerns |
-|:--------|:-------|:--------|:-----------------|
-| `{{preset}}` | [`{{preset}}` - Source code](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | Identical | [Not free (Locize)](../reference/vendors) |
+| Preset | Diff PR | Pricing concerns |
+|:-------|:--------|:-----------------|
+| `{{preset}}` - [Branch](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | Identical | [Not free (Locize)](../reference/vendors) |
 
 It is the main preset at this time.
 It is also the most complicated and feature-rich, as it contains all available features built-in.
@@ -78,7 +79,7 @@ The plan is to release simpler presets soon.
 
 ### Demo
 
-{% include presets/demo.md %}
+{% include preset/demo.md %}
 
 ### Built-in 3rd party vendors
 
@@ -87,10 +88,10 @@ The plan is to release simpler presets soon.
 ### Clone locally
 
 ```sh
-git clone https://github.com/UnlyEd/next-right-now.git nrn-preset-{{preset}} && cd nrn-demo && git checkout {{preset}}
+git clone https://github.com/UnlyEd/next-right-now.git nrn-{{preset}} && cd nrn-demo && git checkout {{preset}}
 ```
 
-This will create a `nrn-preset-{{preset}}` folder in your current directory and checkout the `{{preset}}` git branch automatically.
+This will create a `nrn-{{preset}}` folder in your current directory and checkout the `{{preset}}` git branch automatically.
 
 ### Local installation guide
 
