@@ -73,7 +73,7 @@
     "css-to-react-native": "3.0.0",
     "deepmerge": "4.2.2",
     "emotion-theming": "10.0.27",
-    "graphql": "14.6.0",
+    "graphql": "15.0.0",
     "graphql-tag": "2.10.3",
     "i18next": "19.1.0",
     "i18next-locize-backend": "3.0.1",
