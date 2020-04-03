@@ -94,7 +94,7 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
               <div>
                 <div>
                   <h2>Overview</h2>
-                  You can navigate between <Link href={'/examples'}>/examples</Link> and <Link href={'/'}>/</Link> to see CSR in action.<br />
+                  You can navigate between <Link href={'/examples'} passHref={true}><a>/examples</a></Link> and <Link href={'/'} passHref={true}><a>/</a></Link> to see CSR in action.<br />
                   You can also disable JS on your browser to see how SSR works.<br />
                   <br />
                   If you want to know a bit more about what's running this demo beneath the surface, check out our <a href={'/api/status'}><code>/api/status</code> endpoint!</a>
@@ -142,7 +142,7 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
 
                 <div>
                   <h3>Examples</h3>
-                  Check out our <Link href={'/examples'}>examples</Link> to learn more and see some code snippets!<br />
+                  Check out our <Link href={'/examples'} passHref={true}><a>examples</a></Link> to learn more and see some code snippets!<br />
                 </div>
 
                 <div>
