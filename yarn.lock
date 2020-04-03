@@ -1652,10 +1652,10 @@
     merge-deep "^3.0.2"
     svgo "^1.2.2"
 
-"@types/amplitude-js@4.4.5":
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@types/amplitude-js/-/amplitude-js-4.4.5.tgz#055e86e563a20f051cb5b3c4c55082fd506c9dd7"
-  integrity sha512-YR+RiijzRh0Mq3gD1qnRvEzfnuGmDCB5kxj8fEtoNHPOIxlQlx7bz/GMgM4+h7vBAsBDvQLs7AHOFzFkKUFxpw==
+"@types/amplitude-js@5.8.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@types/amplitude-js/-/amplitude-js-5.8.0.tgz#6e4047b0021e73246c00ae6119b47b28ac73859a"
+  integrity sha512-thNXK9K5SDOs21qbYgbRIofIgSV/8PVRmQ5fWD2BcRfat6XJVXRJ69b7P6roAHxMsy6ugd096SsWYjKork+GUA==
 
 "@types/babel__core@^7.1.0":
   version "7.1.6"
