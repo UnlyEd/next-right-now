@@ -7,7 +7,7 @@
 Next Right Now
 ===
 
-> **Current preset**: [`v1-ssr-mst-aptd-gcms-lcz-sty`](#overview-of-available-presets)
+> **Current preset**: [`v1-ssr-mst-aptd-gcms-lcz-sty`](#overview-of-available-presets) (DEFAULT preset)
 
 ---
 
@@ -31,9 +31,9 @@ Next Right Now
 
 > Make sure to check our [presets doc](https://unlyed.github.io/next-right-now/getting-started/select-preset) for a comprehensive list.
 
-| Preset | Links | Demo | Features |
-|:-------|:------|:-----|:---------|
-| **[`DEFAULT`]** `v1-ssr-mst-aptd-gcms-lcz-sty` | [Doc](https://unlyed.github.io/next-right-now/getting-started/select-preset#default-v1-ssr-mst-aptd-gcms-lcz-sty----ssr--mst--amplitude--graphcms--locize--sentry) <br /> [Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty)  <br /> [PR diff](https://github.com/UnlyEd/next-right-now/pull/25) | [Customer 1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> [Customer 2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) | Analytics (Amplitude)<br />GraphQL (GraphCMS)<br />I18n (GraphCMS + Locize)<br />Monitoring (Sentry) |
+| Preset | Links | Demo | Features | Notes |
+|:-------|:------|:-----|:---------|:------|
+| `v1-ssr-mst-aptd-gcms-lcz-sty` | -&nbsp;[Doc](https://unlyed.github.io/next-right-now/getting-started/select-preset#default-v1-ssr-mst-aptd-gcms-lcz-sty----ssr--mst--amplitude--graphcms--locize--sentry) <br /> -&nbsp;[Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Diff `origin`...`target`](https://github.com/UnlyEd/next-right-now/compare/master...v1-ssr-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Diff `target`...`origin`](https://github.com/UnlyEd/next-right-now/compare/v1-ssr-mst-aptd-gcms-lcz-sty...master) | -&nbsp;[Customer&nbsp;1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Customer&nbsp;2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) | -&nbsp;Analytics (Amplitude)<br />-&nbsp;GraphQL (GraphCMS)<br />-&nbsp;I18n (GraphCMS + Locize)<br />-&nbsp;Monitoring (Sentry) | **Default preset**<br />There should be no difference between it and master. |
 
 ---
 
