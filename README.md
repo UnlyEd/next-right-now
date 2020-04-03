@@ -23,7 +23,7 @@ Next Right Now
 >
 > Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience and your [feedback about opt-in 3rd parties](https://github.com/UnlyEd/next-right-now/issues/13)!
 
-:point_right: [**Overview & benefits**](https://unlyed.github.io/next-right-now/). :point_left:
+:point_right: [**Documentation: Overview & benefits (getting started)**](https://unlyed.github.io/next-right-now/). :point_left:
 
 ---
 
