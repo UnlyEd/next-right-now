@@ -5929,17 +5929,17 @@ i18next-browser-languagedetector@4.0.1:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-i18next-locize-backend@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/i18next-locize-backend/-/i18next-locize-backend-3.0.1.tgz#e2d71f2eaca5fca624a086fa8db55be5b324d40f"
-  integrity sha512-H3WU9/APHNqXbAPU81P5kMtsVNyhrtqLV8TFA2se9txWcfOx38yJuziMNd/eQD/ZRaS7JeNMBqEf8pAn3nSR2w==
+i18next-locize-backend@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/i18next-locize-backend/-/i18next-locize-backend-3.1.1.tgz#cf41decbddfaed7216569c39455ea70af2211da5"
+  integrity sha512-eLZUloTOzKmbt0CEYfSG4WysO6Gp6/MIVIR2MXgssaPS3anSl4dz9+YrTA7G6KvkIC5tOmOEbcY/Nt2W7+ah2Q==
   dependencies:
     "@babel/runtime" "^7.7.7"
 
-i18next-node-locize-backend@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/i18next-node-locize-backend/-/i18next-node-locize-backend-3.0.0.tgz#e209404363b4abf19ce8c9739e79dea9ec50bd70"
-  integrity sha512-enIiNYMo65ZyM9918EtH3wCh+mHyb8Doq3NCkL/VGnfKkqMEcsjS0idwRfC5ey0xo13eVhsjr/mo9zMnNaWqLA==
+i18next-node-locize-backend@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/i18next-node-locize-backend/-/i18next-node-locize-backend-3.1.0.tgz#17a0027c8c5d9e731277317ac977f53d67105537"
+  integrity sha512-hYv/ku8Lc+H86SiMqMCpo0vB2zbiBZbWl3siWaGQ+oz2SFn2GQh5eTIxPyaQh7wAeV8OAAVh2L44fvrXtFEd5w==
   dependencies:
     request "^2.88.0"
 
@@ -5950,10 +5950,10 @@ i18next@19.0.2:
   dependencies:
     "@babel/runtime" "^7.3.1"
 
-i18next@19.1.0:
-  version "19.1.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.1.0.tgz#fe1a1da3d208872946307c7d2d115da45d46159f"
-  integrity sha512-ISbmukX4L6Dz0QoH9+EW1AnBw7j+NRLoMu9uLPMaNSSTP9Eie9/oUL0dOyWX15baB3gYOpkHJpGZRHOqcnl0ew==
+i18next@19.3.4:
+  version "19.3.4"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.3.4.tgz#512de50ee6075df825c646e1ce646a104f0938c9"
+  integrity sha512-ef7AxxutzdhBsBNugE9jgqsbwesG1muJOtZ9ZrPARPs/jXegViTp4+8JCeMp8BAyTIo1Zn0giqc8+2UpqFjU0w==
   dependencies:
     "@babel/runtime" "^7.3.1"
 
@@ -9537,10 +9537,10 @@ react-error-overlay@5.1.6:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
 
-react-i18next@11.3.1:
-  version "11.3.1"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.3.1.tgz#9269282c3f566015f0bdf8fdbf46782bbe50f5a7"
-  integrity sha512-S/CWHcnew1lXo8HeniGhBU5kTmPhZ4w4rtA4m/gDN07soCtKKYSAcLNm7zhwjI2OSR4Skd0vOtzNp/FzEEjxIw==
+react-i18next@11.3.4:
+  version "11.3.4"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.3.4.tgz#355df5fe5133e5e30302d166f529678100ffc968"
+  integrity sha512-IRZMD7PAM3C+fJNzRbyLNi1ZD0kc3Z3obBspJjEl+9H+ME41PhVor3BpdIqv/Rm7lUoGhMjmpu42J45ooJ61KA==
   dependencies:
     "@babel/runtime" "^7.3.1"
     html-parse-stringify2 "2.0.1"
