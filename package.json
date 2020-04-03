@@ -142,7 +142,7 @@
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "3.0.0",
     "eslint-watch": "6.0.1",
-    "jest": "25.2.6",
+    "jest": "25.2.7",
     "jest-extended": "0.11.5",
     "node-mocks-http": "1.8.1",
     "now": "17.1.1",
