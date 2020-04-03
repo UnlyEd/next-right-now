@@ -109,8 +109,8 @@
     "winston": "3.2.1"
   },
   "devDependencies": {
-    "@now/node": "1.4.0",
-    "@svgr/cli": "5.1.0",
+    "@now/node": "1.5.0",
+    "@svgr/cli": "5.3.0",
     "@types/amplitude-js": "4.4.5",
     "@types/cookies": "0.7.4",
     "@types/jest": "25.1.1",
@@ -133,7 +133,7 @@
     "@zeit/next-css": "1.0.1",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "concurrently": "5.1.0",
-    "cross-env": "7.0.0",
+    "cross-env": "7.0.2",
     "cypress": "3.8.3",
     "del-cli": "3.0.0",
     "eslint": "6.8.0",
@@ -149,6 +149,6 @@
     "react-test-renderer": "16.12.0",
     "ts-jest": "25.2.0",
     "typescript": "3.7.5",
-    "version-bump-prompt": "6.0.0"
+    "version-bump-prompt": "6.0.3"
   }
 }
