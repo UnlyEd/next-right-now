@@ -4,7 +4,6 @@ import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import classnames from 'classnames';
 import Link from 'next/link';
 import { NextRouter } from 'next/router';
 import React from 'react';
@@ -164,71 +163,62 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
             </NavItem>
 
             <NavItem>
-              <a
-                href={`https://unlyed.github.io/next-right-now/`}
-                target={'_blank'}
-                rel={'noopener'}
-                onClick={() => {
-                  logEvent('open-github-doc');
-                }}
-              >
-                <Col className={'navItemsMenu'}>
-                  <Row className={'justify-content-center'}>
-                    <NavLink
-                      id={'nav-link-github-doc'}
-                    >
-                      <FontAwesomeIcon icon={['fas', 'book']} />
-                      {t('nav.githubDocPage.link', 'Documentation')}
-                    </NavLink>
-                  </Row>
-                </Col>
-              </a>
+              <Col className={'navItemsMenu'}>
+                <Row className={'justify-content-center'}>
+                  <NavLink
+                    id={'nav-link-github-doc'}
+                    href={`https://unlyed.github.io/next-right-now/`}
+                    target={'_blank'}
+                    rel={'noopener'}
+                    onClick={(): void => {
+                      logEvent('open-github-doc');
+                    }}
+                  >
+                    <FontAwesomeIcon icon={['fas', 'book']} />
+                    {t('nav.githubDocPage.link', 'Documentation')}
+                  </NavLink>
+                </Row>
+              </Col>
             </NavItem>
 
             <NavItem>
-              <a
-                href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NRN_PRESET}`}
-                target={'_blank'}
-                rel={'noopener'}
-                onClick={() => {
-                  logEvent('open-github');
-                }}
-                title={'Github branch preset'}
-              >
-                <Col className={'navItemsMenu'}>
-                  <Row className={'justify-content-center'}>
-                    <NavLink
-                      id={'nav-link-github'}
-                    >
-                      <FontAwesomeIcon icon={['fab', 'github']} />
-                      {t('nav.githubPage.link', 'Github branch')}
-                    </NavLink>
-                  </Row>
-                </Col>
-              </a>
+              <Col className={'navItemsMenu'}>
+                <Row className={'justify-content-center'}>
+                  <NavLink
+                    id={'nav-link-github'}
+                    href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NRN_PRESET}`}
+                    target={'_blank'}
+                    rel={'noopener'}
+                    onClick={() => {
+                      logEvent('open-github');
+                    }}
+                    title={'Github branch preset'}
+                  >
+                    <FontAwesomeIcon icon={['fab', 'github']} />
+                    {t('nav.githubPage.link', 'Github branch')}
+                  </NavLink>
+                </Row>
+              </Col>
             </NavItem>
 
             <NavItem>
-              <a
-                href={`https://nrn-admin.now.sh`}
-                target={'_blank'}
-                rel={'noopener'}
-                onClick={() => {
-                  logEvent('open-admin-site');
-                }}
-                title={'Edit dynamic content using GraphCMS and react-admin!'}
-              >
-                <Col className={'navItemsMenu'}>
-                  <Row className={'justify-content-center'}>
-                    <NavLink
-                      id={'nav-link-admin-site'}
-                    >
-                      <FontAwesomeIcon icon={['fas', 'user-cog']} />
-                      {t('nav.adminSite.link', 'Admin site')}
-                    </NavLink>
-                  </Row>
-                </Col>
-              </a>
+              <Col className={'navItemsMenu'}>
+                <Row className={'justify-content-center'}>
+                  <NavLink
+                    id={'nav-link-admin-site'}
+                    href={`https://nrn-admin.now.sh`}
+                    target={'_blank'}
+                    rel={'noopener'}
+                    onClick={() => {
+                      logEvent('open-admin-site');
+                    }}
+                    title={'Edit dynamic content using GraphCMS and react-admin!'}
+                  >
+                    <FontAwesomeIcon icon={['fas', 'user-cog']} />
+                    {t('nav.adminSite.link', 'Admin site')}
+                  </NavLink>
+                </Row>
+              </Col>
             </NavItem>
           </NavStrap>
         </Navbar>

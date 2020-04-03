@@ -63,5 +63,5 @@ module.exports = withCSS(withSourceMaps({
 
     return config;
   },
-  poweredByHeader: 'Unly - With love',
+  poweredByHeader: 'NRN - With love',
 }));

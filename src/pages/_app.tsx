@@ -248,6 +248,7 @@ class NRNApp extends NextApp {
           // XXX See https://github.com/amplitude/Amplitude-JavaScript/issues/223
           visitor.setOnce('initial_lang', pageProps.lang); // DA Helps figuring out if the initial language (auto-detected) is changed afterwards
           // DA This will help track down the users who discovered our platform because of an iframe
+          // @ts-ignore See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/43598
           visitor.setOnce('initial_iframe', isInIframe);
           visitor.setOnce('initial_iframeReferrer', iframeReferrer);
 
@@ -255,6 +256,7 @@ class NRNApp extends NextApp {
           //  Thus, it'd store the first event with an associated user who has not defined "customer.ref", "lang", etc... and that'd break our stats (following events would be correct, only the first event of a new user would be wrong)
           visitor.setOnce('customer.ref', layoutProps.customerRef);
           visitor.setOnce('lang', pageProps.lang);
+          // @ts-ignore See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/43598
           visitor.setOnce('iframe', isInIframe);
           visitor.setOnce('iframeReferrer', iframeReferrer);
 

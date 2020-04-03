@@ -1,3 +1,4 @@
+import { getDataFromTree } from '@apollo/react-ssr';
 import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
@@ -34,5 +35,7 @@ export default withApollo(
       // XXX Very important to provide the initialState, otherwise the client will replay the query upon loading,
       //  which is useless as the data were already fetched by the server (SSR)
       cache: new InMemoryCache().restore(initialState || {}), // rehydrate the cache using the initial data passed from the server
-    }),
+    }), {
+    getDataFromTree,
+  },
 );
