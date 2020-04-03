@@ -42,9 +42,7 @@ const Examples: NextPage<PageProps> = (props: PageProps): JSX.Element => {
     level: Sentry.Severity.Debug,
   });
 
-  if (isBrowser()) {
-    throw new Error('Error sent from browser');
-  }
+  throw new Error('Error sent from server');
 
   const variables = {
     customerRef,
