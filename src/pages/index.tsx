@@ -24,6 +24,10 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
     level: Sentry.Severity.Debug,
   });
 
+  if(isBrowser()){
+    throw new Error('Error sent from browser');
+  }
+
   return (
     <Amplitude
       eventProperties={(inheritedProps): object => ({
