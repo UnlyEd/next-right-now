@@ -51,10 +51,7 @@ You can get metadata at `/api/status` on any demo, because all presets provide t
 {% capture monitoring %}sentry{% endcapture %}
 {% capture analytics %}amplitude{% endcapture %}
 {% capture preset %}{{version}}-{{rendering}}-{{tenancy}}{% if include.analytics == amplitude %}-aptd{% endif %}{% if include.gql-api == gcms %}-gcms{% endif %}{% if include.i18n == locize %}-lcz{% endif %}{% if include.monitoring == sentry %}-sty{% endif %}{% endcapture %}
-## **[DEFAULT]** `{{preset}}` - {% include preset/title.md %}
-
-DEFAULT
-{: .label .label-yellow }
+## `{{preset}}` - {% include preset/title.md %}
 
 OFFICIAL
 {: .label .label-purple }
