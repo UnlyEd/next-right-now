@@ -7,7 +7,11 @@
 Next Right Now
 ===
 
-> **Current preset**: [`v1-ssr-mst-aptd-gcms-lcz-sty`](#overview-of-available-presets) (DEFAULT preset)
+> ## _IMPORTANT NOTE_
+> ### **The `master` branch is _OUTDATED/DEPRECATED_ and not kept up-to-date.**
+> - It is kept only for external link compatibility because there are many external links pointing to this branch from various places and we didn't want to break them all
+> - It is **fine** to use it as a **learning resource**, but bear in mind that it won't contain up-to-date source code.
+> - It is **NOT fine** to use it in order **to get started a new project**, please rather use an official preset as listed on our [default branch](https://github.com/UnlyEd/next-right-now) _(which is up-to-date)_
 
 ---
 
@@ -29,11 +33,7 @@ Next Right Now
 
 # Overview of available presets
 
-> Make sure to check our [presets doc](https://unlyed.github.io/next-right-now/getting-started/select-preset) for a comprehensive list.
-
-| Preset | Links | Demo | Features | Notes |
-|:-------|:------|:-----|:---------|:------|
-| `v1-ssr-mst-aptd-gcms-lcz-sty` | -&nbsp;[Doc](https://unlyed.github.io/next-right-now/getting-started/select-preset#default-v1-ssr-mst-aptd-gcms-lcz-sty----ssr--mst--amplitude--graphcms--locize--sentry) <br /> -&nbsp;[Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Diff `origin`...`target`](https://github.com/UnlyEd/next-right-now/compare/master...v1-ssr-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Diff `target`...`origin`](https://github.com/UnlyEd/next-right-now/compare/v1-ssr-mst-aptd-gcms-lcz-sty...master) | -&nbsp;[Customer&nbsp;1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Customer&nbsp;2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) | -&nbsp;Analytics (Amplitude)<br />-&nbsp;GraphQL (GraphCMS)<br />-&nbsp;I18n (GraphCMS + Locize)<br />-&nbsp;Monitoring (Sentry) | **Default preset**<br />There should be no difference between it and master. |
+[Go to our up-to-date Github documentation](https://github.com/UnlyEd/next-right-now#overview-of-available-presets)
 
 ---
 
