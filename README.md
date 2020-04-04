@@ -7,10 +7,6 @@
 Next Right Now
 ===
 
-> **Current preset**: [`v1-ssr-mst-aptd-gcms-lcz-sty`](#overview-of-available-presets) (DEFAULT preset)
-
----
-
 > Next Right Now (NRN) is meant to be used as a **boilerplate** for quick getting started with a **production-grade** project featuring the **Next.js framework**, hosted on **Zeit** platform.
 >
 > NRN is maintained with several purposes in mind:
@@ -33,7 +29,7 @@ Next Right Now
 
 | Preset | Links | Demo | Features | Notes |
 |:-------|:------|:-----|:---------|:------|
-| `v1-ssr-mst-aptd-gcms-lcz-sty` | -&nbsp;[Doc](https://unlyed.github.io/next-right-now/getting-started/select-preset#default-v1-ssr-mst-aptd-gcms-lcz-sty----ssr--mst--amplitude--graphcms--locize--sentry) <br /> -&nbsp;[Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Diff `origin`...`target`](https://github.com/UnlyEd/next-right-now/compare/master...v1-ssr-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Diff `target`...`origin`](https://github.com/UnlyEd/next-right-now/compare/v1-ssr-mst-aptd-gcms-lcz-sty...master) | -&nbsp;[Customer&nbsp;1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Customer&nbsp;2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) | -&nbsp;Analytics (Amplitude)<br />-&nbsp;GraphQL (GraphCMS)<br />-&nbsp;I18n (GraphCMS + Locize)<br />-&nbsp;Monitoring (Sentry) | **Default preset**<br />There should be no difference between it and master. |
+| `v1-ssr-mst-aptd-gcms-lcz-sty` | -&nbsp;[Doc](https://unlyed.github.io/next-right-now/getting-started/select-preset#default-v1-ssr-mst-aptd-gcms-lcz-sty----ssr--mst--amplitude--graphcms--locize--sentry) <br /> -&nbsp;[Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty)| -&nbsp;[Customer&nbsp;1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Customer&nbsp;2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) | -&nbsp;Analytics (Amplitude)<br />-&nbsp;GraphQL (GraphCMS)<br />-&nbsp;I18n (GraphCMS + Locize)<br />-&nbsp;Monitoring (Sentry) | **Default preset**<br />There should be no difference between it and master. |
 
 ---
 
