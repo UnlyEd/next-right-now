@@ -1,1 +1,0 @@
-| [Zeit](https://zeit.co/pricing?ref=unly-nrn) | Built-in | :x: | :heavy_check_mark: | Friendly pricing for [non-commercial usage](https://spectrum.chat/zeit/general/deploying-on-ziet-now~700e3286-551f-42d1-a289-df4cb52e23ea?m=MTU4MzgzMjg1MzAyOA==) | [Guide](../guides/online-deployment/setup-zeit) |

@@ -1,1 +1,0 @@
-| [GraphCMS](https://graphcms.com/pricing?ref=unly-nrn) | `gmcs` | :heavy_check_mark: 2 weeks on **Growth** plan | :heavy_check_mark: | [15% discount for NRN users](../guides/graphql-api/setup-graphcms) + provides discounts for non-profit organisations | [Guide](../guides/graphql-api/setup-graphcms) |
