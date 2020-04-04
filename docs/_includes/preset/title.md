@@ -1,1 +1,0 @@
-{% if include.rendering == ssr %} SSR {% endif %}{% if include.tenancy == mst %} MST {% endif %}{% if include.analytics == amplitude %} Amplitude {% endif %}{% if include.gql-api == gcms %} GraphCMS {% endif %}{% if include.i18n == locize %} Locize {% endif %}{% if include.monitoring == sentry %} Sentry {% endif %}

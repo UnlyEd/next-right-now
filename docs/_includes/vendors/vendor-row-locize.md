@@ -1,1 +1,0 @@
-| [Locize](https://locize.com/pricing.html?ref=unly-nrn) | `lcz` | :heavy_check_mark: 2 weeks | :x: | May provide discount for non-profit organisations, contact them at [support@locize.com](support@locize.com ) | [Guide](../guides/i18n/setup-locize) |

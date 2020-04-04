@@ -1,1 +1,0 @@
-| [Static i18n](../concepts/i18n#a-few-words-on-static-i18n) support ([Locize](http://localhost:4000/guides/i18n/use-locize)) | :heavy_check_mark: | Content for the platform is localised using Locize (menu, links, etc.) |
