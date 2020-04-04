@@ -1,0 +1,1 @@
+- **Tip**: Using WebStorm? Check out our ["How to setup" Guide](../guides/ide/setup-webstorm)
