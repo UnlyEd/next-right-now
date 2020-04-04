@@ -137,3 +137,9 @@ src/svg/*.tsx
 
 # Zeit
 .now
+
+# Jekyll - Github Pages
+_site
+.sass-cache
+.jekyll-metadata
+
