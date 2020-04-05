@@ -49,7 +49,7 @@ jobs:
           ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 45).now.sh # Zeit alias only allow 45 characters, so we are taking the first 53 characters of this alias
           echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
 
-          # npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
+          npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
