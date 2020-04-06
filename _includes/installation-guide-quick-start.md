@@ -16,6 +16,8 @@ That's it! The project should work on your local computer!
 If it doesn't, read our tips below or ask for help on [github issues](https://github.com/UnlyEd/next-right-now/issues).
 
 **Tips & known issues:**
-- On windows, the symbolic link for `now.json` (which points to another `now.*.json` file, depending on the preset) will not work, and you'll have to create a `now.json` yourself (just copy the content of a staging `now.*.json` file)
+- On **Windows**
+    - We have had no confirmation that NRN works on Windows. Apparently, it doesn't work at all (fails at `yarn start`), but we haven't got enough reports to be sure.
+    - The symbolic link for `now.json` (which points to another `now.*.json` file, depending on the preset) will not work, and you'll have to create a `now.json` yourself (just copy the content of a staging `now.*.json` file)
 - If you've never used `now` before, or if you aren't authenticated, you will need to create an account on Zeit and authenticate using `now login`
 - If you get stuck, read our [full installation guide for Zeit](../guides/online-deployment/setup-zeit)
