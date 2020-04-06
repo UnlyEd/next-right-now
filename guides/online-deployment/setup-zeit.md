@@ -31,7 +31,7 @@ This tutorial assumes you've cloned the project locally.
 
 You need to change the associated Zeit `scope` (it currently uses ours, because it's required for our CI/CD Github Actions)
 
-1. Remove the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `now.*.json` files
+1. Remove the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `now.*.json` files (this `scope` is NRN's scope, and you don't have permissions to access it, so you must remove it manually. We keep it there to make our own CI/CD works)
     - **Tip**: Don't forget `now.json` is a **symlink** and **musn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
 1. Make sure you have `now@17` installed, if you installed `now@16` during "Quick start" - `yarn add -D now`
 1. (Optional) Run `now login` if you aren't authenticated to Zeit from your local machine. Typically, if it's the first time you use Zeit you'll need to do it.

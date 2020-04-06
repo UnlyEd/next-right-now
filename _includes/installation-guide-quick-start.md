@@ -8,7 +8,7 @@
 1. _(Optional)_ `yarn add -D now@16.7.3` - Installs an older `now` CLI that doesn't require you to have a Zeit account when working locally
     - **Tip**: **You don't need to do that if you already have Zeit/Now configured on your computer** _(which may be the case if you're already familiar with Zeit)_
     - **Tip**: `now@17+` requires to be authenticated to Zeit in order to launch the project **locally**, so we recommend to use `now@16` instead in order to avoid unnecessary setup
-1. _(Optional)_ If **you didn't do the previous step**, then you'll need to remove the  the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `now.*.json` files
+1. Remove the  the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `now.*.json` files (this `scope` is NRN's scope, and you don't have permissions to access it, so you must remove it manually. We keep it there to make our own CI/CD works)
     - **Tip**: Don't forget `now.json` is a **symlink** and **musn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
 1. `yarn start` - Starts the app on [http://localhost:8888/](http://localhost:8888/)
 
