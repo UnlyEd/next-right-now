@@ -1,7 +1,7 @@
 ---
 layout: default
 title: How to setup Cypress
-parent: Online deployment
+parent: Testing
 grand_parent: Guides
 nav_order: 10
 ---
