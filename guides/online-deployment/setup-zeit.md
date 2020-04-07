@@ -36,12 +36,12 @@ You need to change the associated Zeit `scope` (it currently uses ours, because 
 1. Make sure you have `now@17` installed, if you installed `now@16` during "Quick start" - `yarn add -D now`
 1. (Optional) Run `now login` if you aren't authenticated to Zeit from your local machine. Typically, if it's the first time you use Zeit you'll need to do it.
 1. `yarn start` - Will create a `.now` folder containing project metadata.
-1. Add a `scope` line in all `now.*.json` files using the `projectId` in `.now/project.json`
+1. Add a `scope` line in all `now.*.json` files using the `orgId` in `.now/project.json`
     - **Tip**: Don't forget `now.json` is a **symlink** and **musn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
 1. `yarn deploy` - Will deploy the project online, and automatically create the Zeit project first, if it doesn't exist already
 1. Go to [Zeit](https://zeit.co/) to see the project being deployed, go through logs, etc.
 
-- **Tip**: Zeit doesn't provide the `projectId` from the Zeit platform itself, even if the project exists already. Running `yarn start` locally is the only way to know what is your `projectId`, AFAIK.
+- **Tip**: Zeit doesn't provide the `orgId` from the Zeit platform itself, even if the project exists already. Running `yarn start` locally is the only way to know what is your `orgId`, AFAIK.
 
 ---
 

@@ -23,7 +23,7 @@ Step by step guide about how to create and properly configure Cypress.
 
 Please create your own account, you can use their [free plan](https://www.cypress.io/pricing/).
 
-Once created, **please change the `projectId`** in your `cypress/config-*.json` to use your own account, **otherwise you'll eat our free recordings** :sweat_smile:
+Once created, **please change the `orgId`** in your `cypress/config-*.json` to use your own account, **otherwise you'll eat our free recordings** :sweat_smile:
 
 ### When using MST tenancy
 

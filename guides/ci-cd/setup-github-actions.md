@@ -75,6 +75,6 @@ Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_RE
     * We use default action provided by cypress (documentation [here](https://github.com/cypress-io/github-action)):
         * _**wait-on**_: Allows us to wait before starting tests. It ping the endpoint until it's up, with a timeout of 60 seconds per default.
         * _**config-file**_: We need to specify a config file because cypress is looking for cypress.json in the main folder.
-            The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+            The config file itself doesn't matter because we will override most settings anyway. We just need `orgId` to run the tests.
         * _**config**_: Overrides some default config, like the `baseUrl` in particular (we use the `ZEIT_DEPLOYMENT_URL` instead)
     * We upload artifacts on tests failure, more documentation [here](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)
