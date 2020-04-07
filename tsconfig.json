@@ -22,7 +22,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": false,
-    "target": "ES2020"
+    "target": "ES2019"
   },
   "exclude": [
     "node_modules"

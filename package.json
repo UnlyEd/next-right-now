@@ -12,11 +12,11 @@
     "deploy:all:production": "yarn deploy:customer1:production && yarn deploy:customer2:production",
     "deploy:all:all": "yarn deploy:all && yarn deploy:all:production",
     "deploy:customer1:all": "yarn deploy:customer1 && yarn deploy:customer1:production",
-    "deploy:customer1": "yarn now:cleanup && now --confirm --local-config=now.customer1.staging.json",
-    "deploy:customer1:production": "yarn now:cleanup && now --confirm --local-config=now.customer1.production.json --prod",
+    "deploy:customer1": "yarn now:cleanup && now --confirm --local-config=now.customer1.staging.json --debug",
+    "deploy:customer1:production": "yarn now:cleanup && now --confirm --local-config=now.customer1.production.json --prod --debug",
     "deploy:customer2:all": "yarn deploy:customer2 && yarn deploy:customer2:production",
-    "deploy:customer2": "yarn now:cleanup && now --confirm --local-config=now.customer2.staging.json",
-    "deploy:customer2:production": "yarn now:cleanup && now --confirm --local-config=now.customer2.production.json --prod",
+    "deploy:customer2": "yarn now:cleanup && now --confirm --local-config=now.customer2.staging.json --debug",
+    "deploy:customer2:production": "yarn now:cleanup && now --confirm --local-config=now.customer2.production.json --prod --debug",
     "now:cleanup": "npx del-cli .now/",
     "e2e": "yarn e2e:run",
     "e2e:all:production": "yarn e2e:customer1:production && yarn e2e:customer2:production",
@@ -149,7 +149,7 @@
     "now": "17.1.1",
     "react-test-renderer": "16.13.1",
     "ts-jest": "25.3.0",
-    "typescript": "3.7.5",
+    "typescript": "3.8.3",
     "version-bump-prompt": "6.0.3"
   }
 }
