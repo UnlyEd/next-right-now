@@ -46,7 +46,7 @@ jobs:
           else
             ZEIT_DEPLOYMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}
           fi
-          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 46 | tr "`(seq 0 47 ; seq 58 64 ; seq 91 94 ; seq 96 96 && seq 123 127) | awk '{printf("%c",$1)}'`" -).now.sh # Zeit alias only allows 53 characters in the domain name, so we are the first 46 characters (because it'll need 7 other chars for ".now.sh") and replace each forbidden characters by '-' to avoid issues with zeit subdomains
+          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 46 | tr "`(seq 0 47 ; seq 58 64 ; seq 91 96 && seq 123 127) | awk '{printf("%c",$1)}'`" -).now.sh # Zeit alias only allows 53 characters in the domain name, so we are the first 46 characters (because it'll need 7 other chars for ".now.sh") and replace each forbidden characters by '-' to avoid issues with zeit subdomains
           echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
 
           npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
