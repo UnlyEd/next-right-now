@@ -35,13 +35,13 @@ Next Right Now
 
 # FAQ
 
-[Go to our community FAQ](https://unlyed.github.io/next-right-now/FAQ).
+[Go to our community FAQ](https://unlyed.github.io/next-right-now/faq).
 
 ---
 
 # Contributing
 
-[Go to our contributing guide](https://unlyed.github.io/next-right-now/CONTRIBUTING).
+[Go to our contributing guide](https://unlyed.github.io/next-right-now/contributing).
 
 ---
 
