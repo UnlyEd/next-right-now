@@ -14,7 +14,7 @@ nav_order: 10
 # Introduction to NRN
 
 <div class="code-example" markdown="1">
-Next Right Now (NRN) is meant to be used as a **boilerplate** for quickly getting started with a **production-grade** project featuring the **Next.js framework** and hosting on the **Zeit** platform.
+Next Right Now (NRN) is meant to be used as a **boilerplate** for quickly getting started with a **production-grade** project featuring the **Next.js framework** and hosting it using the **Zeit** platform.
 
 NRN is maintained with several purposes in mind:
 - To be **flexible** and allow for extensive **customisation**.
@@ -31,8 +31,8 @@ Don't hesitate to share your opinion about your ["getting started"](https://gith
 
 ## Overview
 
-This boilerplate is meant for developers with basic skills in React,who are looking for a way of building **production-grade web applications**.
-We took very special care regarding the **Developer Experience**, because it's _very important to us as developers_ to build quality software.
+This boilerplate is meant for developers with basic skills in React, who are looking for a way of building **production-grade web applications**.
+We took very special care regarding the **Developer Experience**, because it's _very important to us, as developers,_ to build quality software.
 
 Knowing Next.js and Zeit will be **a huge help**, because they are the pillars of this boilerplate and **can't be opted-out**<sup>1</sup>.
 
@@ -43,12 +43,11 @@ Knowing Next.js and Zeit will be **a huge help**, because they are the pillars o
 - **Opt-in** features and 3rd parties vendors: I18n (Locize vendor), GraphQL (GraphCMS vendor), monitoring (Sentry vendor), analytics (Amplitude vendor) and various utilities (cookies, ...) through **presets**.
 
 > Some of these vendors provide large free plans, others only provide short free trials.
-> No worries though, as Zeit is the only **non-free** vendor, and it provides a [large free plan](https://zeit.co/pricing). Additionally Zeit is very comprehensive regarding [non-commercial usage](https://spectrum.chat/zeit/general/deploying-on-ziet-now~700e3286-551f-42d1-a289-df4cb52e23ea?m=MTU4MzgzMjg1MzAyOA==).
 >
 > See our [vendor pricing overview](./getting-started/vendors) to learn more.
 
 <div class="code-example" markdown="1">
-- _<sup>1</sup>: You might be able to use this framework and employ a hosting solution other than Zeit, but **take note**: this would be a non-trivial change that could require extensive reconfiguration._
+- _<sup>1</sup>: You might be able to use this framework and use a hosting solution other than Zeit, but **take note**: this would be a non-trivial change that could require extensive reconfiguration._
 - _<sup>2</sup>: It is possible **not to use** TypeScript. TS support is provided by the [Next.js framework](https://nextjs.org/learn/excel/typescript) and is actually opt-in, but we consider it a better practice than plain JS and it's used extensively in this boilerplate._
 </div>
 
@@ -60,7 +59,7 @@ This boilerplate provides multiple presets, which provide different features and
 
 Simply put, each preset provides different "built-in" features and tools.
 Therefore, you probably want to get an overview of all the [available presets](./getting-started/select-preset) to decide which one best fit your needs.
-Make sure you understand what a [ preset](./concepts/presets) is before you try to select one! :wink:
+Make sure you understand what a [preset](./concepts/presets) is, before you try to select one! :wink:
 
 ---
 
@@ -127,8 +126,8 @@ Here is an overview of all the features included in this boilerplate:
 - Fine-grained frontend **analytics**, react-friendly, flexible, SPA-friendly (thanks to [Amplitude<sup>1</sup>**<sup>2</sup>**](https://amplitude.com/))
 
 <div class="code-example" markdown="1">
-- `advanced support`: this means we took very special care to support this, and that it's not as simple as one might think.
-- <sup>1</sup>: Third parties that provide a free plan that is sufficient to use for a "simple" application, **but** make sure to check that their pricing fits you.
+- `advanced support`: This means we took very special care to support this, and that it's not as simple as one might think.
+- <sup>1</sup>: Third parties that provide a free plan that is sufficient for a "simple" application, **but** make sure to check that their pricing fits you.
 - **<sup>2</sup>**: Beware, there is a huge gap between free and paid plans cost.
 - **<sup>3</sup>**: Does not provide a free plan, only a free trial.
 </div>
