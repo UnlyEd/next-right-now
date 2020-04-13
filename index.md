@@ -44,7 +44,7 @@ Knowing Next.js and Zeit will be **a huge help**, because they are the pillars o
 
 > Some of these vendors provide large free plans, others only provide short free trials.
 >
-> See our [vendor pricing overview](./getting-started/vendors) to learn more.
+> See our [vendor pricing overview](./reference/vendors) to learn more.
 
 <div class="code-example" markdown="1">
 - _<sup>1</sup>: You might be able to use this framework and use a hosting solution other than Zeit, but **take note**: this would be a non-trivial change that could require extensive reconfiguration._
