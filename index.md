@@ -14,7 +14,7 @@ nav_order: 10
 # Introduction to NRN
 
 <div class="code-example" markdown="1">
-Next Right Now (NRN) is meant to be used as a **boilerplate** for quick getting started with a **production-grade** project featuring the **Next.js framework**, hosted on **Zeit** platform.
+Next Right Now (NRN) is meant to be used as a **boilerplate** for quickly getting started with a **production-grade** project featuring the **Next.js framework** and hosting it using the **Zeit** platform.
 
 NRN is maintained with several purposes in mind:
 - To be **flexible** and allow for extensive **customisation**.
@@ -31,25 +31,24 @@ Don't hesitate to share your opinion about your ["getting started"](https://gith
 
 ## Overview
 
-This boilerplate is meant for developers with basic React background, who are looking for a way of building **production-grade web applications**.
-We took a very special care about the **Developer Experience**, because it's very important to build quality software.
+This boilerplate is meant for developers with basic skills in React, who are looking for a way of building **production-grade web applications**.
+We took very special care regarding the **Developer Experience**, because it's _very important to us, as developers,_ to build quality software.
 
-Knowing Next.js and Zeit will be **a huge help**, because they are the pillars of this boilerplate and **can't be opt-out**<sup>1</sup>.
+Knowing Next.js and Zeit will be **a huge help**, because they are the pillars of this boilerplate and **can't be opted-out**<sup>1</sup>.
 
-> We explain how to install them and properly setup them, but **it's your responsibility to go deeper and actually learn how they work**.
+> We carefully explain installation and proper setup, but **it's your responsibility to go deeper and actually learn how they work**.
 
 ### This boilerplate includes:
 - **Built-in** features and 3rd parties vendors: Online hosting (Zeit vendor), React framework with SSR/SSG support (Next.js 9), TypeScript<sup>2</sup>, CI/CD pipeline (Github Actions), unit testing (Jest), end-to-end testing (Cypress), css-in-js (Emotion), css components (Reactstrap/Bootstrap).
 - **Opt-in** features and 3rd parties vendors: I18n (Locize vendor), GraphQL (GraphCMS vendor), monitoring (Sentry vendor), analytics (Amplitude vendor) and various utilities (cookies, ...) through **presets**.
 
-> Some of those vendors provide large free plans, other only provide short free trials.
-> No worries though, as Zeit is the only **non-free** vendor, and it provides a [large free plan](https://zeit.co/pricing), also, they're very comprehensive regarding [non-commercial usage](https://spectrum.chat/zeit/general/deploying-on-ziet-now~700e3286-551f-42d1-a289-df4cb52e23ea?m=MTU4MzgzMjg1MzAyOA==).
+> Some of these vendors provide large free plans, others only provide short free trials.
 >
 > See our [vendor pricing overview](./getting-started/vendors) to learn more.
 
 <div class="code-example" markdown="1">
-- _<sup>1</sup>: You may be able to use a different host than Zeit, but it would be a non-trivial change._
-- _<sup>2</sup>: It's possible **not to use** TypeScript. TS support is provided by the [Next.js framework](https://nextjs.org/learn/excel/typescript) and is actually opt-in, but we consider it a better practice than plain JS and it's used extensively in this boilerplate._
+- _<sup>1</sup>: You might be able to use this framework and use a hosting solution other than Zeit, but **take note**: this would be a non-trivial change that could require extensive reconfiguration._
+- _<sup>2</sup>: It is possible **not to use** TypeScript. TS support is provided by the [Next.js framework](https://nextjs.org/learn/excel/typescript) and is actually opt-in, but we consider it a better practice than plain JS and it's used extensively in this boilerplate._
 </div>
 
 ### Boilerplate presets and opt-in features and 3rd party vendors
@@ -58,15 +57,15 @@ This boilerplate provides multiple presets, which provide different features and
 
 > If you wish to learn more about this design, see the [RFC specifications](https://github.com/UnlyEd/next-right-now/issues/18).
 
-Simply put, each preset provides a different "built-in" features and tools.
+Simply put, each preset provides different "built-in" features and tools.
 Therefore, you probably want to get an overview of all the [available presets](./getting-started/select-preset) to decide which one best fit your needs.
-Make sure to understand [what's a preset](./concepts/presets) first! :wink:
+Make sure you understand what a [preset](./concepts/presets) is, before you try to select one! :wink:
 
 ---
 
 ## Benefits
 
-Here is an overview of all the features covered by this boilerplate:
+Here is an overview of all the features included in this boilerplate:
 
 ### Built-in features (available in all presets):
 - **Stages** (development, staging, production) workflow
@@ -111,8 +110,8 @@ Here is an overview of all the features covered by this boilerplate:
 
 - **B2B multiple single-tenants (MST)**
   - Supports configuration, deployment, testing, monitoring of multiple customers through the same project (identical code base, monorepo design)
-  - Most projects do not need such capability, it's useful for B2B businesses with large/key customer accounts who want to replicate the underlying infrastructure per-customer
-    - To keep things simple, our built-in configuration is a MT/MST hybrid, with only one database for all tenants, but one server per tenant _(it's fairly easy to make it full MST though, as it's just a matter to which API endpoint you'd use)_
+  - Most projects do not need this capability, but it's useful for B2B businesses with large/key customer accounts who want to replicate the underlying infrastructure per-customer
+    - To keep things simple, our built-in configuration is a MT/MST hybrid, with only one database for all tenants, but one server per tenant _(it's fairly easy to make it full MST though, as it's just a matter of which API endpoint you'll use)_
 - **GraphQL** support (thanks to [Apollo](https://github.com/apollographql/apollo-client))
   - **GraphCMS** advanced support, which hosts our GraphQL API (server) and database, fully hosted (thanks to [GraphCMS<sup>1</sup>](https://graphcms.com/?ref=unly-nrn))
   - **GraphQL schema** available in the developer environment (thanks to [GraphQL Config](https://github.com/kamilkisiela/graphql-config))
@@ -127,10 +126,10 @@ Here is an overview of all the features covered by this boilerplate:
 - Fine-grained frontend **analytics**, react-friendly, flexible, SPA-friendly (thanks to [Amplitude<sup>1</sup>**<sup>2</sup>**](https://amplitude.com/))
 
 <div class="code-example" markdown="1">
-- `advanced support`: Means that we took a very special care to support this, and that it's not as simple as one may believe
-- <sup>1</sup>: Third parties that provide a free plan that is enough for a "simple" application, but make sure to check that their pricing fits you.
-- **<sup>2</sup>**: Beware huge gap between free and paid plans cost.
-- **<sup>3</sup>**: Does not provide a free plan, but only a free trial.
+- `advanced support`: This means we took very special care to support this, and that it's not as simple as one might think.
+- <sup>1</sup>: Third parties that provide a free plan that is sufficient for a "simple" application, **but** make sure to check that their pricing fits you.
+- **<sup>2</sup>**: Beware, there is a huge gap between free and paid plans cost.
+- **<sup>3</sup>**: Does not provide a free plan, only a free trial.
 </div>
 
 <div class="fs-8" markdown="1" style="text-align: center">
@@ -141,6 +140,6 @@ Here is an overview of all the features covered by this boilerplate:
 
 ## Want more?
 
-- Having questions? Check out the [FAQ](./faq)! Open a github issue if you don't find your answer.
+- Have questions? Check out the [FAQ](./faq)! Open a github issue if you don't find your answer.
 - Check out our [roadmap](./roadmap) to see what we plan to release next!
-- Check out our [terminology](./reference/terminology) to make sure you understand correctly all acronyms used :wink:
+- Check out our [terminology](./reference/terminology) to make sure you correctly understand all the acronyms we used :wink:
