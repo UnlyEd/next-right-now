@@ -22,6 +22,7 @@ Advices and "must-know" things regarding GraphCMS usage.
 > The "next" version is in beta, **we don't recommend to use it yet as of now (March 2020)**, because it's not stable nor documented
 
 https://graphcms.com/
+
 https://graphcms.com/docs
 
 ---
