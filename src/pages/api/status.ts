@@ -13,6 +13,8 @@ export const status = async (req: NowRequest, res: NowResponse): Promise<void> =
     configureReq(req);
 
     res.json({
+      version: process.env.APP_VERSION,
+      release: process.env.APP_VERSION_RELEASE,
       nodejs: process.version,
       nodejsAWS: process.env.AWS_EXECUTION_ENV,
       regionNOW: process.env.NOW_REGION,
