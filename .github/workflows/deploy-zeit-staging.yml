@@ -46,13 +46,13 @@ jobs:
           else
             ZEIT_DEPLOYMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}
           fi
-          
+
           # Zeit alias only allows 53 characters in the domain name, so we only keep the first 46 characters (because Zeit needs 7 chars for ".now.sh" at the end of the domain name)
-          # Also, in order to remove forbidden characters, we create a sequence from ascii numbers using ranges of numbers (we forbid characters by using `seq X Y` and we add others by using ';'). 
-          # All special characters are converted to `-` (using `tr $0 $1` where $0 is replaced by $1), and only 0-9 and a-Z chars are kept intact. 
+          # Also, in order to remove forbidden characters, we create a sequence from ascii numbers using ranges of numbers (we forbid characters by using `seq X Y` and we add others by using ';').
+          # All special characters are converted to `-` (using `tr $0 $1` where $0 is replaced by $1), and only 0-9 and a-Z chars are kept intact.
           # We then use `awk` to convert "ascii numbers" back into actual characters.
           # You can find the numbers equivalence by tapping `man ascii` and look at the "decimal" set.
-          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 45 | tr "`(seq 0 47 ; seq 58 64 ; seq 91 96 && seq 123 127) | awk '{printf("%c",$1)}'`" -).now.sh
+          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 46 | tr "`(seq 0 47 ; seq 58 64 ; seq 91 96 && seq 123 127) | awk '{printf("%c",$1)}'`" -).now.sh
           echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
 
           npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
