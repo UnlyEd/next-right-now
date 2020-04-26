@@ -54,24 +54,28 @@ export default class UniversalCookiesManager {
    * @param browserOptions
    */
   replaceUserData(newUserData: UserSemiPersistentSession, serverOptions = this.defaultServerOptions, browserOptions: CookieAttributes = this.defaultBrowserOptions): void {
-    if (isBrowser()) {
-      // XXX By default, "js-cookies" apply a "percent encoding" when writing data, which isn't compatible with the "cookies" lib
-      //  We therefore override this behaviour because we need to write proper JSON
-      //  See https://github.com/js-cookie/js-cookie#encoding
-      const browserCookies = BrowserCookies.withConverter({
-        write: function (value: string, name: string) {
-          return value;
-        },
-      });
-      browserCookies.set(USER_LS_KEY, JSON.stringify(newUserData), browserOptions);
-    } else {
-      const serverCookies = new ServerCookies(this.req, this.res);
+    try {
+      if (isBrowser()) {
+        // XXX By default, "js-cookies" apply a "percent encoding" when writing data, which isn't compatible with the "cookies" lib
+        //  We therefore override this behaviour because we need to write proper JSON
+        //  See https://github.com/js-cookie/js-cookie#encoding
+        const browserCookies = BrowserCookies.withConverter({
+          write: function (value: string, name: string) {
+            return value;
+          },
+        });
+        browserCookies.set(USER_LS_KEY, JSON.stringify(newUserData), browserOptions);
+      } else {
+        const serverCookies = new ServerCookies(this.req, this.res);
 
-      // If running on the server side but req or res aren't set, then we don't do anything
-      // It's likely because we're calling this code from a view (that doesn't belong to getInitialProps and doesn't have access to req/res even though if it's running on the server)
-      if (this.req && this.res) {
-        serverCookies.set(USER_LS_KEY, JSON.stringify(newUserData), serverOptions);
+        // If running on the server side but req or res aren't set, then we don't do anything
+        // It's likely because we're calling this code from a view (that doesn't belong to getInitialProps and doesn't have access to req/res even though if it's running on the server)
+        if (this.req && this.res) {
+          serverCookies.set(USER_LS_KEY, JSON.stringify(newUserData), serverOptions);
+        }
       }
+    } catch (e) {
+      Sentry.captureException(e);
     }
   }
 
