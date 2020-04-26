@@ -13,9 +13,9 @@ import { UserSemiPersistentSession } from './UserSemiPersistentSession';
  */
 export declare type AppPageProps = {
   customerRef: string;
-  headers: PublicHeaders; // Headers made public to the client-side
-  readonlyCookies: Cookies; // Cookies retrieved using https://www.npmjs.com/package/next-cookies - Aren't really readonly but don't provide any setter
-  userSession: UserSemiPersistentSession;
+  headers?: PublicHeaders; // SSR only - Headers made public to the client-side
+  readonlyCookies?: Cookies; // SSR only - Cookies retrieved using https://www.npmjs.com/package/next-cookies - Aren't really readonly but don't provide any setter
+  userSession?: UserSemiPersistentSession; // SSR only - User session (cookies)
   bestCountryCodes: string[];
   gcmsLocales: string;
   lang: string;

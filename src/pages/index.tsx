@@ -2,22 +2,29 @@
 import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
+import { universalLanguageDetect } from '@unly/universal-language-detector';
+import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
-import { NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert, Container } from 'reactstrap';
 import Head from '../components/Head';
+import { AppPageProps } from '../types/AppPageProps';
+import { GetStaticPropsContext } from '../types/GetStaticPropsContext';
 import { PageProps } from '../types/PageProps';
+import { prepareGraphCMSLocaleHeader } from '../utils/graphcms';
+import { LANG_EN, resolveFallbackLanguage, SUPPORTED_LANGUAGES } from '../utils/i18n';
+import { fetchTranslations, I18nextResources } from '../utils/i18nextLocize';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
-const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
+const Home: NextPage<PageProps> = (props: AppPageProps): JSX.Element => {
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering index page (${isBrowser() ? 'browser' : 'server'})`,
@@ -94,7 +101,14 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
               <div>
                 <div>
                   <h2>Overview</h2>
-                  You can navigate between <Link href={'/examples'} passHref={true}><a>/examples</a></Link> and <Link href={'/'} passHref={true}><a>/</a></Link> to see CSR in action.<br />
+                  You can navigate between <Link href={'/examples'} passHref={true}><a>/examples</a></Link> and&nbsp;
+                  <Link
+                    href={'/'}
+                    passHref={true}
+                  >
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a>/</a>
+                  </Link> to see CSR in action.<br />
                   You can also disable JS on your browser to see how SSR works.<br />
                   <br />
                   If you want to know a bit more about what's running this demo beneath the surface, check out our <a href={'/api/status'}><code>/api/status</code> endpoint!</a>
@@ -193,7 +207,52 @@ const Home: NextPage<PageProps> = (props: PageProps): JSX.Element => {
       )}
     </Amplitude>
   );
+};
 
+/**
+ * Only executed on the server side at build time.
+ *
+ * When a page uses "getStaticProps", then "_app:getInitialProps" is executed but not actually used by the page,
+ * only the results from getStaticProps are used.
+ *
+ * @param context
+ * @return Props that will be passed to the Page component, as props
+ *
+ * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
+ */
+export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext): Promise<{ props: AppPageProps }> => {
+  console.log('getStaticProps', context);
+
+  const lang: string = universalLanguageDetect({
+    supportedLanguages: SUPPORTED_LANGUAGES, // Whitelist of supported languages, will be used to filter out languages that aren't supported
+    fallbackLanguage: LANG_EN, // Fallback language in case the user's language cannot be resolved
+    acceptLanguageHeader: null,
+    serverCookies: null,
+    errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: object): void => {
+      Sentry.withScope((scope): void => {
+        scope.setExtra('level', level);
+        scope.setExtra('origin', origin);
+        scope.setContext('context', context);
+        Sentry.captureException(error);
+      });
+      logger.error(error.message);
+    },
+  });
+  const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
+  const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+
+  return {
+    props: {
+      customerRef: process.env.CUSTOMER_REF,
+      isSSRReadyToRender: true,
+      lang,
+      bestCountryCodes,
+      gcmsLocales,
+      defaultLocales,
+    },
+  };
 };
 
 export default Home;
