@@ -26,6 +26,17 @@ module.exports = withCSS(withSourceMaps({
     APP_VERSION: packageJson.version,
     UNLY_SIMPLE_LOGGER_ENV: process.env.APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because it believes we're in production
   },
+  experimental: {
+    redirects() {
+      return [
+        {
+          source: "/:lang((?!fr|en))/:path*",
+          destination: "/en/:path*",
+          permanent: true
+        },
+      ];
+    },
+  },
   webpack: (config, { isServer, buildId }) => {
     const APP_VERSION_RELEASE = `${packageJson.version}_${buildId}`;
 
