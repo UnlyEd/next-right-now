@@ -28,6 +28,8 @@ module.exports = withCSS(withSourceMaps({
   },
   experimental: {
     redirects() {
+      // TODO Build "source" based on active locales (instead of hardcoded)
+      // TODO Build "destination" based on "path" and redirect to an API endpoint which will detect the locale based on the request header (browser language) and then redirect to the right page
       return [
         {
           source: "/:lang((?!fr|en))/:path*",
