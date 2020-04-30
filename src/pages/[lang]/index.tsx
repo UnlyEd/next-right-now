@@ -29,7 +29,11 @@ const Home: NextPage<PageProps> = (props: Props): JSX.Element => {
     <div>
       <h1>{lang}</h1>
 
-      <Link href={'/fr/terms'} passHref>
+      <Link
+        href={'/[lang]/terms'}
+        as={'/fr/terms'}
+        passHref
+      >
         <a>Terms</a>
       </Link>
     </div>

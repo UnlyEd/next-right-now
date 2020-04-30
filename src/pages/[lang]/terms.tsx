@@ -21,7 +21,11 @@ const Terms: NextPage<PageProps> = (props: Props): JSX.Element => {
     <div>
       <h1>{lang}</h1>
 
-      <Link href={'/fr'} passHref>
+      <Link
+        href={'/[lang]'}
+        as={'/fr'}
+        passHref
+      >
         <a>Index</a>
       </Link>
     </div>
