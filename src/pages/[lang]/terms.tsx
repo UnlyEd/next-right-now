@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   return {
     paths: [{ params: { lang: 'fr' } }, { params: { lang: 'en' } }],
     fallback: false,
