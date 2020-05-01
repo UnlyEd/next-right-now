@@ -41,17 +41,17 @@ module.exports = withCSS(withSourceMaps({
   //   },
   // },
   experimental: {
-    // redirects() {
-    //   return [
-    //     {
-    //       // XXX Supposedly useful, see https://github.com/zeit/next.js/discussions/10651#discussioncomment-8257
-    //       //  But I haven't noticed any change in behaviour when disabling it
-    //       source: '/:lang/',
-    //       destination: '/:lang',
-    //       permanent: process.env.APP_STAGE === 'production', // Do not use permanent redirect locally to avoid browser caching when working on it
-    //     },
-    //   ];
-    // },
+    redirects() {
+      return [
+        {
+          // XXX Supposedly useful, see https://github.com/zeit/next.js/discussions/10651#discussioncomment-8257
+          //  But I haven't noticed any change in behaviour when disabling it
+          source: '/:lang/',
+          destination: '/:lang',
+          permanent: process.env.APP_STAGE === 'production', // Do not use permanent redirect locally to avoid browser caching when working on it
+        },
+      ];
+    },
     rewrites() {
       return [
         {
