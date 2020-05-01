@@ -26,16 +26,42 @@ module.exports = withCSS(withSourceMaps({
     APP_VERSION: packageJson.version,
     UNLY_SIMPLE_LOGGER_ENV: process.env.APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because it believes we're in production
   },
+  // experimental: {
+  //   redirects() {
+  //     // TODO Build "source" based on active locales (instead of hardcoded)
+  //     // TODO Build "destination" based on "path" and redirect to an API endpoint which will detect the locale based on the request header (browser language) and then redirect to the right page
+  //     return [
+  //       {
+  //         source: '/:lang((?!fr|en))/:path*',
+  //         destination: '/api/autoRedirectToLocalisedPage?path=:path*',
+  //         // Permanent uses 308, otherwise uses 307 - See https://github.com/zeit/next.js/issues/9081
+  //         permanent: process.env.APP_STAGE === 'production', // Do not use permanent redirect locally to avoid browser caching when working on it
+  //       },
+  //     ];
+  //   },
+  // },
   experimental: {
-    redirects() {
-      // TODO Build "source" based on active locales (instead of hardcoded)
-      // TODO Build "destination" based on "path" and redirect to an API endpoint which will detect the locale based on the request header (browser language) and then redirect to the right page
+    // redirects() {
+    //   return [
+    //     {
+    //       // XXX Supposedly useful, see https://github.com/zeit/next.js/discussions/10651#discussioncomment-8257
+    //       //  But I haven't noticed any change in behaviour when disabling it
+    //       source: '/:lang/',
+    //       destination: '/:lang',
+    //       permanent: process.env.APP_STAGE === 'production', // Do not use permanent redirect locally to avoid browser caching when working on it
+    //     },
+    //   ];
+    // },
+    rewrites() {
       return [
         {
-          source: '/:lang((?!fr|en))/:path*',
-          destination: '/api/autoRedirectToLocalisedPage?path=:path*',
-          // Permanent uses 308, otherwise uses 307 - See https://github.com/zeit/next.js/issues/9081
-          permanent: process.env.APP_STAGE === 'production', // Do not use permanent redirect locally to avoid browser caching when working on it
+          source: '/',
+          destination: '/api/autoRedirectToLocalisedPage',
+        },
+        {
+          // TODO Build "source" based on active locales (instead of hardcoded)
+          source: `/:lang((?!${['fr', 'en'].join('|')})[^/]+)(.*)`,
+          destination: '/api/autoRedirectToLocalisedPage',
         },
       ];
     },
