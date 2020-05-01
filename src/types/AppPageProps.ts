@@ -22,4 +22,5 @@ export declare type AppPageProps = {
   defaultLocales: I18nextResources;
   isSSRReadyToRender: boolean;
   isReadyToRender: boolean;
+  statusCode?: number;
 };
