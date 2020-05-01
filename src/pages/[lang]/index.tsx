@@ -9,6 +9,7 @@ import React from 'react';
 import I18nLink from '../../components/I18nLink';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -18,30 +19,24 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 /**
  * Only executed on the server side at build time.
  *
- * When a page uses "getStaticProps", then "_app:getInitialProps" is executed but not actually used by the page,
- * only the results from getStaticProps are used.
+ * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
+ * only the results from getStaticProps are actually injected into the page (as "StaticProps").
  *
- * @return Props that will be passed to the Page component, as props
+ * @return Props (as "StaticProps") that will be passed to the Page component, as props
  *
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props) => {
-  console.log('getStaticProps', props);
-  return {
-    props: {
-      lang: props?.params?.lang,
-      isStaticRendering: true,
-    },
-    // unstable_revalidate: false,
-  };
+  return getCommonStaticProps(props);
 };
 
+/**
+ * Only executed on the server side at build time
+ * Necessary when a page has dynamic routes and uses "getStaticProps"
+ */
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  return {
-    paths: [{ params: { lang: 'fr' } }, { params: { lang: 'en' } }],
-    fallback: false,
-  };
+  return getCommonStaticPaths();
 };
 
 type Props = {

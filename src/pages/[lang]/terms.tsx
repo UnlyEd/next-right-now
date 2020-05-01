@@ -7,28 +7,26 @@ import React from 'react';
 import I18nLink from '../../components/I18nLink';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 
 const fileLabel = 'pages/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
+/**
+ * Only executed on the server side at build time
+ */
 export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props) => {
-  console.log('getStaticProps', props);
-  return {
-    props: {
-      lang: props?.params?.lang,
-      isStaticRendering: true,
-    },
-    // unstable_revalidate: false,
-  };
+  return getCommonStaticProps(props);
 };
 
+/**
+ * Only executed on the server side at build time
+ * Necessary when a page has dynamic routes and uses "getStaticProps"
+ */
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  return {
-    paths: [{ params: { lang: 'fr' } }, { params: { lang: 'en' } }],
-    fallback: false,
-  };
+  return getCommonStaticPaths();
 };
 
 type Props = {
