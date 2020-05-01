@@ -3,7 +3,7 @@ import { StaticParams } from '../types/StaticParams';
 import { StaticProps } from '../types/StaticProps';
 import { prepareGraphCMSLocaleHeader } from './graphcms';
 import { resolveFallbackLanguage } from './i18n';
-import { fetchTranslations, I18nextResources } from './i18nextLocize';
+import i18nextLocize, { fetchTranslations, I18nextResources } from './i18nextLocize';
 
 /**
  * Static props given as inputs for getStaticProps

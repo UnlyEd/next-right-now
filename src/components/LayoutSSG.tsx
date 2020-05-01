@@ -3,12 +3,13 @@ import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
+import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { LayoutPropsSSG, LayoutPropsSSR } from '../types/LayoutProps';
+import { LayoutPropsSSG } from '../types/LayoutProps';
+import i18nextLocize from '../utils/i18nextLocize';
 import { isRunningInIframe } from '../utils/iframe';
-import { useRouter } from 'next/router';
 
 const fileLabel = 'components/Layout';
 const logger = createLogger({
@@ -27,13 +28,13 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
     children,
     customerRef,
     gcmsLocales,
+    defaultLocales,
     lang,
     // amplitudeInstance,
   }: Props = props;
   const router = useRouter();
-
+  const i18nextInstance = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
   const isInIframe: boolean = isRunningInIframe();
-
   const { t, i18n } = useTranslation();
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
@@ -62,7 +63,8 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
         children({
           ...props,
           isInIframe,
-          router
+          router,
+          i18nextInstance,
         })
       }
     </>
