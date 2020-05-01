@@ -32,9 +32,10 @@ module.exports = withCSS(withSourceMaps({
       // TODO Build "destination" based on "path" and redirect to an API endpoint which will detect the locale based on the request header (browser language) and then redirect to the right page
       return [
         {
-          source: "/:lang((?!fr|en))/:path*",
-          destination: "/en/:path*",
-          permanent: true
+          source: '/:lang((?!fr|en))/:path*',
+          destination: '/api/autoRedirectToLocalisedPage?path=:path*',
+          // Permanent uses 308, otherwise uses 307 - See https://github.com/zeit/next.js/issues/9081
+          permanent: process.env.APP_STAGE === 'production', // Do not use permanent redirect locally to avoid browser caching when working on it
         },
       ];
     },
