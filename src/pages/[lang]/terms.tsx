@@ -7,7 +7,7 @@ import React from 'react';
 import I18nLink from '../../components/I18nLink';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
+import { getDefaultStaticPaths, getDefaultStaticProps } from '../../utils/SSG';
 
 const fileLabel = 'pages/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -15,28 +15,32 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 });
 
 /**
- * Only executed on the server side at build time
+ * Only executed on the server side at build time.
+ *
+ * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
+ * only the results from getStaticProps are actually injected into the page (as "StaticProps").
+ *
+ * @return Props (as "StaticProps") that will be passed to the Page component, as props
+ *
+ * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props) => {
-  return await getCommonStaticProps(props);
-};
+export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getDefaultStaticProps;
 
 /**
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  return await getCommonStaticPaths();
-};
+export const getStaticPaths: GetStaticPaths<StaticParams> = getDefaultStaticPaths;
 
 type Props = {
   lang: string;
   isStaticRendering: boolean;
 };
 
-const Terms: NextPage<Props> = (props): JSX.Element => {
+const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const { lang } = props;
-  console.log('Terms props', props);
+  console.log('TermsPage props', props);
   console.log('lang', lang);
 
   return (
@@ -54,4 +58,4 @@ const Terms: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default Terms;
+export default TermsPage;

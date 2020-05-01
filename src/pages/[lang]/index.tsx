@@ -11,7 +11,7 @@ import I18nLink from '../../components/I18nLink';
 import LayoutSSG from '../../components/LayoutSSG';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
+import { getDefaultStaticPaths, getDefaultStaticProps } from '../../utils/SSG';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -29,21 +29,17 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props) => {
-  return await getCommonStaticProps(props);
-};
+export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getDefaultStaticProps;
 
 /**
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  return await getCommonStaticPaths();
-};
+export const getStaticPaths: GetStaticPaths<StaticParams> = getDefaultStaticPaths;
 
 type Props = {} & StaticProps;
 
-const Home: NextPage<Props> = (props): JSX.Element => {
+const HomePage: NextPage<Props> = (props): JSX.Element => {
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering index page (${isBrowser() ? 'browser' : 'server'})`,
@@ -52,7 +48,7 @@ const Home: NextPage<Props> = (props): JSX.Element => {
   const { lang } = props;
   const router = useRouter();
 
-  console.log('Home props', props);
+  console.log('HomePage props', props);
   console.log('lang', lang);
 
   return (
@@ -75,4 +71,4 @@ const Home: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default Home;
+export default HomePage;

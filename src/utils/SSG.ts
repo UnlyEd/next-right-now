@@ -69,6 +69,15 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
 };
 
 /**
+ * Helper shortcut to use for all SSG pages that don't require special "getStaticProps" implementation
+ *
+ * @param props
+ */
+export const getDefaultStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props) => {
+  return await getCommonStaticProps(props);
+};
+
+/**
  * Only executed on the server side at build time.
  * Computes all static paths that should be available for all SSG pages
  * Necessary when a page has dynamic routes and uses "getStaticProps", in order to build the HTML pages
@@ -87,4 +96,11 @@ export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Prom
     paths: [{ params: { lang: 'fr' } }, { params: { lang: 'en' } }],
     fallback: false,
   };
+};
+
+/**
+ * Helper shortcut to use for all SSG pages that don't require special "getStaticPaths" implementation
+ */
+export const getDefaultStaticPaths: GetStaticPaths<StaticParams> = async () => {
+  return await getCommonStaticPaths();
 };
