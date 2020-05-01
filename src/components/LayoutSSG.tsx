@@ -8,6 +8,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LayoutPropsSSG, LayoutPropsSSR } from '../types/LayoutProps';
 import { isRunningInIframe } from '../utils/iframe';
+import { useRouter } from 'next/router';
 
 const fileLabel = 'components/Layout';
 const logger = createLogger({
@@ -26,10 +27,11 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
     children,
     customerRef,
     gcmsLocales,
-    router,
     lang,
     // amplitudeInstance,
   }: Props = props;
+  const router = useRouter();
+
   const isInIframe: boolean = isRunningInIframe();
 
   const { t, i18n } = useTranslation();
@@ -45,7 +47,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
     window['i18n'] = i18n;
     window['t'] = t;
     // window['amplitudeInstance'] = amplitudeInstance;
-    logger.info(`Utilities have been bound to the DOM for quick testing in non-production stages:
+    logger.info(`Utilities have been bound to the DOM for quick testing (only in non-production stages):
     - i18n
     - t
     // - amplitudeInstance
@@ -54,15 +56,13 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
 
   return (
     <>
-      {/* Renders the current "page" in "pages/" */}
       {
-        // Add additional data to every child (a child is a "page" here)
+        // Renders the page with additional/augmented props
         // See https://medium.com/better-programming/passing-data-to-props-children-in-react-5399baea0356
-        React.Children.map(children, (child) => {
-          return React.cloneElement(child, {
-            ...props,
-            isInIframe,
-          });
+        children({
+          ...props,
+          isInIframe,
+          router
         })
       }
     </>
@@ -70,7 +70,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
 };
 
 type Props = {
-  children: React.ReactElement;
-} & (LayoutPropsSSG | LayoutPropsSSR);
+  children: Function;
+} & LayoutPropsSSG;
 
 export default Layout;

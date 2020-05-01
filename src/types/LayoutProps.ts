@@ -14,9 +14,7 @@ export type LayoutPropsSSR = {
   amplitudeInstance?: AmplitudeClient;
 } & AppPageProps;
 
-export type LayoutPropsSSG = {
-  router: NextRouter;
-} & StaticProps;
+export type LayoutPropsSSG = {} & StaticProps;
 
 /**
  * Properties that are provided to the Layout component

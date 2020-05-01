@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import I18nLink from '../../components/I18nLink';
 import LayoutSSG from '../../components/LayoutSSG';
+import { LayoutPageProps } from '../../types/LayoutPageProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
 import { getDefaultStaticPaths, getDefaultStaticProps } from '../../utils/SSG';
@@ -45,28 +46,32 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
     message: `Rendering index page (${isBrowser() ? 'browser' : 'server'})`,
     level: Sentry.Severity.Debug,
   });
-  const { lang } = props;
-  const router = useRouter();
 
   console.log('HomePage props', props);
-  console.log('lang', lang);
 
   return (
     <LayoutSSG
       {...props}
-      router={router}
     >
-      <div>
-        <h1>{lang}</h1>
+      {
+        (layoutPageProps: LayoutPageProps): JSX.Element => {
+          const { lang } = props;
+          console.log('layoutPageProps', layoutPageProps);
+          return (
+            <div>
+              <h1>{lang}</h1>
 
-        <I18nLink
-          lang={lang}
-          href={'/terms'}
-          passHref
-        >
-          <a>Terms</a>
-        </I18nLink>
-      </div>
+              <I18nLink
+                lang={lang}
+                href={'/terms'}
+                passHref
+              >
+                <a>Terms</a>
+              </I18nLink>
+            </div>
+          );
+        }
+      }
     </LayoutSSG>
   );
 };
