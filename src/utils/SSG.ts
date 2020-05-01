@@ -1,5 +1,9 @@
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { StaticParams } from '../types/StaticParams';
 import { StaticProps } from '../types/StaticProps';
+import { prepareGraphCMSLocaleHeader } from './graphcms';
+import { resolveFallbackLanguage } from './i18n';
+import { fetchTranslations, I18nextResources } from './i18nextLocize';
 
 /**
  * Static props given as inputs for getStaticProps
@@ -18,6 +22,9 @@ type StaticPropsOutput = {
   unstable_revalidate?: number | boolean;
 }
 
+/**
+ * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
+ */
 type StaticPathsOutput = {
   paths: {
     params: StaticParams;
@@ -41,10 +48,20 @@ type StaticPathsOutput = {
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getCommonStaticProps = (props: StaticPropsInput): StaticPropsOutput => {
+export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+  const customerRef: string = process.env.CUSTOMER_REF;
+  const lang: string = props?.params?.lang;
+  const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
+  const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+
   return {
     props: {
-      lang: props?.params?.lang,
+      lang,
+      customerRef,
+      bestCountryCodes,
+      gcmsLocales,
+      defaultLocales,
       isStaticRendering: true,
     },
     // unstable_revalidate: false,
@@ -65,7 +82,7 @@ export const getCommonStaticProps = (props: StaticPropsInput): StaticPropsOutput
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getCommonStaticPaths = (): StaticPathsOutput => {
+export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
   return {
     paths: [{ params: { lang: 'fr' } }, { params: { lang: 'en' } }],
     fallback: false,

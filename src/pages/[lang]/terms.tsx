@@ -18,7 +18,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  */
 export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props) => {
-  return getCommonStaticProps(props);
+  return await getCommonStaticProps(props);
 };
 
 /**
@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  return getCommonStaticPaths();
+  return await getCommonStaticPaths();
 };
 
 type Props = {
