@@ -7,7 +7,7 @@ import React from 'react';
 import I18nLink from '../../components/I18nLink';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
-import { getDefaultStaticPaths, getDefaultStaticProps } from '../../utils/SSG';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 
 const fileLabel = 'pages/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -25,13 +25,13 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getDefaultStaticProps;
+export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getCommonStaticProps;
 
 /**
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getDefaultStaticPaths;
+export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
 type Props = {
   lang: string;
