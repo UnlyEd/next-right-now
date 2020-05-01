@@ -44,10 +44,9 @@ module.exports = withCSS(withSourceMaps({
     redirects() {
       return [
         {
-          // XXX Supposedly useful, see https://github.com/zeit/next.js/discussions/10651#discussioncomment-8257
-          //  But I haven't noticed any change in behaviour when disabling it
-          source: '/:lang/',
-          destination: '/:lang',
+          // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/zeit/next.js/discussions/10651#discussioncomment-8270
+          source: '/:path*/',
+          destination: '/:path*',
           permanent: process.env.APP_STAGE === 'production', // Do not use permanent redirect locally to avoid browser caching when working on it
         },
       ];
