@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (
       lang: props?.params?.lang,
       isStaticRendering: true,
     },
-    // revalidate: false,
+    // unstable_revalidate: false,
   };
 };
 
