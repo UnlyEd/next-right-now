@@ -4,7 +4,6 @@ import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import I18nLink from '../../components/I18nLink';

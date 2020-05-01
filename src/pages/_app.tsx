@@ -146,6 +146,23 @@ class NRNApp extends NextApp {
    *
    * @return {JSX.Element}
    */
+  render(): JSX.Element {
+    const { Component, pageProps, apollo, err }: AppRenderProps = this.props;
+    console.log('_app.render.pageProps', pageProps);
+
+    if (pageProps.isReadyToRender) {
+      console.log('_app.render - App is ready, rendering...');
+      return (
+        <ApolloProvider client={apollo}>
+          <Component {...pageProps} err={err} />
+        </ApolloProvider>
+      );
+    } else {
+      console.log('_app.render - App is not ready yet, waiting for isReadyToRender');
+      return null;
+    }
+  }
+
   // render(): JSX.Element {
   //   const {
   //     Component,
@@ -309,6 +326,9 @@ class NRNApp extends NextApp {
   // }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    // eslint-disable-next-line no-console
+    console.debug('_app.componentDidCatch - Unexpected error caught', error, errorInfo);
+
     Sentry.withScope((scope) => {
       Object.keys(errorInfo).forEach((key) => {
         scope.setExtra(key, errorInfo[key]);

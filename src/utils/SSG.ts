@@ -63,6 +63,7 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
       gcmsLocales,
       defaultLocales,
       isStaticRendering: true,
+      isReadyToRender: true,
     },
     // unstable_revalidate: false,
   };
