@@ -1,54 +1,41 @@
 import headerLanguage from './headerLanguage';
 import { DEFAULT_LANG } from './i18n';
 import redirect from './redirect';
+import {allowedLocales} from '../i18nConfig';
 
-export default (req, res) => {
-  const allowedLocales = [
-    { name: 'fr-FR', locale: 'fr' },
-    { name: 'fr', locale: 'fr' },
-    { name: 'en-AU', locale: 'en' },
-    { name: 'en-IN', locale: 'en' },
-    { name: 'en-CA', locale: 'en' },
-    { name: 'en-NZ', locale: 'en' },
-    { name: 'en-US', locale: 'en' },
-    { name: 'en-ZA', locale: 'en' },
-    { name: 'en-GB', locale: 'en' },
-    { name: 'en', locale: 'en' },
-  ];
-
+export default (req, res): void => {
   const detections = headerLanguage(req);
-
-  let found;
+  let languageFound;
 
   if (detections && detections.length) {
     detections.forEach((language) => {
-      if (found || typeof language !== 'string') return;
+      if (languageFound || typeof language !== 'string') return;
 
       const lookedUpLocale = allowedLocales.find(
         (allowedLocale) => allowedLocale.name === language,
       );
 
       if (lookedUpLocale) {
-        found = lookedUpLocale.locale;
+        languageFound = lookedUpLocale.lang;
       }
     });
   }
-  console.log('locale found 1', found);
+  console.log('lang found 1', languageFound);
 
-  if (!found) {
-    found = DEFAULT_LANG;
+  if (!languageFound) {
+    languageFound = DEFAULT_LANG;
   }
 
-  console.log('locale found 2', found);
+  console.log('lang found 2', languageFound);
   console.log('url', req.url);
 
   if (req.url === '/' || req.url === '/api/autoRedirectToLocalisedPage') {
-    return redirect(res, 302, `/${found}`);
+    return redirect(res, 302, `/${languageFound}`);
   }
 
   if (req.url.charAt(0) === '/' && req.url.charAt(1) === '?') {
-    return redirect(res, 302, `/${found}${req.url.slice(1)}`);
+    return redirect(res, 302, `/${languageFound}${req.url.slice(1)}`);
   }
 
-  return redirect(res, 302, `/${found}${req.url}`);
+  return redirect(res, 302, `/${languageFound}${req.url}`);
 };

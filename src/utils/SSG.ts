@@ -1,9 +1,12 @@
+import map from 'lodash.map';
 import { GetStaticPaths, GetStaticProps } from 'next';
+
+import { allowedLocales } from '../i18nConfig';
 import { StaticParams } from '../types/StaticParams';
 import { StaticProps } from '../types/StaticProps';
 import { prepareGraphCMSLocaleHeader } from './graphcms';
 import { resolveFallbackLanguage } from './i18n';
-import i18nextLocize, { fetchTranslations, I18nextResources } from './i18nextLocize';
+import { fetchTranslations, I18nextResources } from './i18nextLocize';
 
 /**
  * Static props given as inputs for getStaticProps
@@ -69,6 +72,15 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
   };
 };
 
+type StaticPath = {
+  params: StaticParams;
+}
+
+type I18nLocale = {
+  name: string;
+  lang: string;
+}
+
 /**
  * Only executed on the server side at build time.
  * Computes all static paths that should be available for all SSG pages
@@ -84,8 +96,16 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
+  const paths: StaticPath[] = map(allowedLocales, (locale: I18nLocale): StaticPath => {
+    return {
+      params: {
+        lang: locale.name,
+      },
+    };
+  });
+
   return {
-    paths: [{ params: { lang: 'fr' } }, { params: { lang: 'en' } }],
+    paths,
     fallback: false,
   };
 };

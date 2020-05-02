@@ -1,4 +1,4 @@
 import localeMiddleware from '../../utils/localeMiddleware';
 
-export default (req, res) => localeMiddleware(req, res);
+export default (req, res): void => localeMiddleware(req, res);
 

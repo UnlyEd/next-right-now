@@ -2,6 +2,10 @@ const withSourceMaps = require('@zeit/next-source-maps')();
 const withCSS = require('@zeit/next-css'); // Allows to import ".css" files, like bootstrap.css
 const packageJson = require('./package');
 const date = new Date();
+const i18nConfig = require('./src/i18nConfig');
+const allowedLocales = i18nConfig.allowedLocales.map((locale) => {
+  return locale.name;
+});
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
 
@@ -30,9 +34,15 @@ module.exports = withCSS(withSourceMaps({
     redirects() {
       const redirects = [
         {
+          // Redirect root link with trailing slash to non-trailing slash, avoids 404 - See https://github.com/zeit/next.js/discussions/10651#discussioncomment-8270
+          source: '/:lang/',
+          destination: '/:lang',
+          permanent: process.env.APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
+        },
+        {
           // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/zeit/next.js/discussions/10651#discussioncomment-8270
-          source: '/:path*/',
-          destination: '/:path*',
+          source: '/:lang/:path*/',
+          destination: '/:lang/:path*',
           permanent: process.env.APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
         },
       ];
@@ -51,7 +61,7 @@ module.exports = withCSS(withSourceMaps({
         },
         {
           // TODO Build "source" based on active locales (instead of hardcoded)
-          source: `/:lang((?!${['fr', 'en'].join('|')})[^/]+)(.*)`,
+          source: `/:lang((?!${allowedLocales.join('|')})[^/]+)(.*)`,
           destination: '/api/autoRedirectToLocalisedPage',
         },
       ];
