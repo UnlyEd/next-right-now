@@ -28,17 +28,23 @@ module.exports = withCSS(withSourceMaps({
   },
   experimental: {
     redirects() {
-      return [
+      const redirects = [
         {
           // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/zeit/next.js/discussions/10651#discussioncomment-8270
           source: '/:path*/',
           destination: '/:path*',
-          permanent: process.env.APP_STAGE === 'production', // Do not use permanent redirect locally to avoid browser caching when working on it
+          permanent: process.env.APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
         },
       ];
+
+      if (process.env.APP_STAGE === 'development') {
+        console.info('Using experimental redirects:', redirects);
+      }
+
+      return redirects;
     },
     rewrites() {
-      return [
+      const rewrites = [
         {
           source: '/',
           destination: '/api/autoRedirectToLocalisedPage',
@@ -49,6 +55,12 @@ module.exports = withCSS(withSourceMaps({
           destination: '/api/autoRedirectToLocalisedPage',
         },
       ];
+
+      if (process.env.APP_STAGE === 'development') {
+        console.info('Using experimental rewrites:', rewrites);
+      }
+
+      return rewrites;
     },
   },
   webpack: (config, { isServer, buildId }) => {
