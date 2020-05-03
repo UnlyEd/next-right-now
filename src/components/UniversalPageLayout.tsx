@@ -1,46 +1,35 @@
 /** @jsx jsx */
-import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { css, Global, jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
-import { isBrowser } from '@unly/utils';
-import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
-import { useRouter } from 'next/router';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
+import { NextRouter } from 'next/router';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button } from 'reactstrap';
-import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR, NRN_DEFAULT_THEME } from '../constants';
-import ErrorPage from '../pages/_error';
 
+import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR } from '../constants';
+import ErrorPage from '../pages/_error';
 import { cookieContext } from '../stores/cookieContext';
 import { Theme } from '../types/data/Theme';
-import { LayoutPageProps } from '../types/LayoutPageProps';
 import { LayoutPropsSSG } from '../types/LayoutProps';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
-import { getAmplitudeInstance } from '../utils/amplitude';
-import i18nextLocize from '../utils/i18nextLocize';
-import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
 import { getValue, STRATEGY_DO_NOTHING } from '../utils/record';
 import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import Footer from './Footer';
 import Nav from './Nav';
 
-const fileLabel = 'components/Layout';
-const logger = createLogger({
-  label: fileLabel,
-});
+type Props = {
+  children: Function;
+  router: NextRouter;
+  i18nextInstance: i18n;
+  isInIframe: boolean;
+  iframeReferrer: string;
+  theme: Theme;
+  cookiesManager: UniversalCookiesManager;
+  userSession: UserSemiPersistentSession;
+} & LayoutPropsSSG;
 
-/**
- * Layout of the whole app. Acts as a wrapper that displays the whole thing (menus, page, etc.)
- *
- * @param {Props} props
- * @return {JSX.Element}
- * @constructor
- */
-const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
+const UniversalPageLayout = (props: Props): JSX.Element => {
   const {
     children,
     customer,
@@ -49,56 +38,20 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
     defaultLocales,
     lang,
     locale,
-    // amplitudeInstance,
-  }: Props = props;
-  const router = useRouter();
-  const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
-  const isInIframe: boolean = isRunningInIframe();
-  const iframeReferrer: string = getIframeReferrer();
-  const { t, i18n } = useTranslation();
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering layout (${isBrowser() ? 'browser' : 'server'})`,
-    level: Sentry.Severity.Debug,
-  });
-
-  // In non-production stages, bind some utilities to the browser's DOM, for ease of quick testing
-  if (isBrowser() && process.env.APP_STAGE !== 'production') {
-    window['i18n'] = i18n;
-    window['t'] = t;
-    // window['amplitudeInstance'] = amplitudeInstance;
-    logger.info(`Utilities have been bound to the DOM for quick testing (only in non-production stages):
-    - i18n
-    - t
-    // - amplitudeInstance
-    `);
-  }
-
-  const theme: Theme = customer?.theme || {};
-
-  // Apply default theming if not specified
-  theme.primaryColor = getValue(theme, 'primaryColor', NRN_DEFAULT_THEME.primaryColor, STRATEGY_DO_NOTHING);
-  logger.debug(JSON.stringify(theme, null, 2));
-
-  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
-  const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
-  const userId = userSession.id;
-  const layoutPageProps: LayoutPageProps = {
-    ...props,
-    isInIframe,
     router,
     i18nextInstance,
+    isInIframe,
+    iframeReferrer,
+    theme,
     cookiesManager,
     userSession,
-  };
+  } = props;
 
-  const UniversalPageLayout = (): JSX.Element => {
-    return (
-      <cookieContext.Provider value={{ userSession, cookiesManager }}>
-        {/* XXX Global styles that applies to all pages within this layout go there */}
-        <Global
-          styles={css`
+  return (
+    <cookieContext.Provider value={{ userSession, cookiesManager }}>
+      {/* XXX Global styles that applies to all pages within this layout go there */}
+      <Global
+        styles={css`
           // Only applied to the main application
           body.nrn {
             background-color: #f5f5f5;
@@ -311,41 +264,41 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
             }
           }
         `}
-        />
+      />
 
-        <ThemeProvider theme={theme}>
-          {/* See https://github.com/mikemaccana/outdated-browser-rework */}
-          <div
-            id="outdated"
-            style={{ display: 'none' }}
-          ></div>
+      <ThemeProvider theme={theme}>
+        {/* See https://github.com/mikemaccana/outdated-browser-rework */}
+        <div
+          id="outdated"
+          style={{ display: 'none' }}
+        ></div>
 
+        {
+          !isInIframe && (
+            <Nav
+              {...props}
+              router={router}
+            />
+          )
+        }
+
+        <div
+          className={classnames('page-container', {
+            'is-iframe': isInIframe,
+            'is-not-iframe': !isInIframe,
+          })}
+        >
           {
-            !isInIframe && (
-              <Nav
-                {...props}
-                router={router}
-              />
-            )
-          }
-
-          <div
-            className={classnames('page-container', {
-              'is-iframe': isInIframe,
-              'is-not-iframe': !isInIframe,
-            })}
-          >
-            {
-              error ? (
-                <>
-                  <ErrorPage
-                    statusCode={500}
-                    isSSRReadyToRender={true}
-                    // @ts-ignore
-                    err={new Error(get(error, 'message', 'No error message provided'))}
-                  >
-                    <div
-                      css={css`
+            error ? (
+              <>
+                <ErrorPage
+                  statusCode={500}
+                  isSSRReadyToRender={true}
+                  // @ts-ignore
+                  err={new Error(get(error, 'message', 'No error message provided'))}
+                >
+                  <div
+                    css={css`
                       text-align: center;
 
                       .title {
@@ -353,116 +306,53 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
                         margin-bottom: 30px;
                       }
                     `}
-                    >
-                      <div className={'title'}>
-                        <h1>Le service est momentanément indisponible</h1>
-                        <pre>Erreur 500. Nos serveurs ont un coup de chaud.</pre>
-                      </div>
-
-                      <div>
-                        <p>
-                          Essayez de recharger la page. Veuillez contacter notre support technique si le problème persiste.
-                        </p>
-                        <Button
-                          color={'primary'}
-                          onClick={(): void =>
-                            // @ts-ignore XXX showReportDialog is not recognised but works fine due to the webpack trick that replaces @sentry/node
-                            Sentry.showReportDialog({ eventId: errorEventId })
-                          }
-                        >
-                          Contacter le support technique
-                        </Button>
-                      </div>
-                      <hr />
+                  >
+                    <div className={'title'}>
+                      <h1>Le service est momentanément indisponible</h1>
+                      <pre>Erreur 500. Nos serveurs ont un coup de chaud.</pre>
                     </div>
-                  </ErrorPage>
-                </>
-              ) : (
-                <>
-                  {
-                    // Renders the page with additional/augmented props
-                    // See https://medium.com/better-programming/passing-data-to-props-children-in-react-5399baea0356
-                    children(layoutPageProps)
-                  }
-                </>
-              )
-            }
-          </div>
 
-          {
-            !isInIframe && (
-              <Footer
-                {...props}
-                router={router}
-              />
+                    <div>
+                      <p>
+                        Essayez de recharger la page. Veuillez contacter notre support technique si le problème persiste.
+                      </p>
+                      <Button
+                        color={'primary'}
+                        onClick={(): void =>
+                          // @ts-ignore XXX showReportDialog is not recognised but works fine due to the webpack trick that replaces @sentry/node
+                          Sentry.showReportDialog({ eventId: errorEventId })
+                        }
+                      >
+                        Contacter le support technique
+                      </Button>
+                    </div>
+                    <hr />
+                  </div>
+                </ErrorPage>
+              </>
+            ) : (
+              <>
+                {
+                  // Renders the page with additional/augmented props
+                  // See https://medium.com/better-programming/passing-data-to-props-children-in-react-5399baea0356
+                  children(props)
+                }
+              </>
             )
           }
-        </ThemeProvider>
-      </cookieContext.Provider>
-    );
-  };
+        </div>
 
-  const BrowserPageLayout = (): JSX.Element => {
-    const amplitudeInstance = getAmplitudeInstance({
-      customerRef,
-      iframeReferrer,
-      isInIframe,
-      lang,
-      locale,
-      userId,
-    });
-    console.log('amplitudeInstance', amplitudeInstance);
-
-    return (
-      <AmplitudeProvider
-        amplitudeInstance={amplitudeInstance}
-        apiKey={process.env.AMPLITUDE_API_KEY}
-        userId={userId}
-      >
-        <Amplitude
-          // DA Event props and user props are sometimes duplicated to ease the data analysis through Amplitude
-          //  Because charts are sometimes easier to build using events props, or user users props
-          eventProperties={{
-            app: {
-              name: process.env.APP_NAME,
-              version: process.env.APP_VERSION,
-              stage: process.env.APP_STAGE,
-            },
-            page: {
-              url: location.href,
-              path: location.pathname,
-              origin: location.origin,
-              name: null,
-            },
-            customer: {
-              ref: customerRef,
-            },
-            lang: lang,
-            locale: locale,
-            iframe: isInIframe,
-            iframeReferrer: iframeReferrer,
-          }}
-          // userProperties={{}} XXX Do not use this, add default user-related properties in getAmplitudeInstance instead
-        >
-          <UniversalPageLayout />
-        </Amplitude>
-      </AmplitudeProvider>
-    );
-  };
-
-  if (isBrowser()) {
-    return (
-      <BrowserPageLayout />
-    );
-  } else {
-    return (
-      <UniversalPageLayout />
-    );
-  }
+        {
+          !isInIframe && (
+            <Footer
+              {...props}
+              router={router}
+            />
+          )
+        }
+      </ThemeProvider>
+    </cookieContext.Provider>
+  );
 };
 
-type Props = {
-  children: Function;
-} & LayoutPropsSSG;
-
-export default Layout;
+export default UniversalPageLayout;

@@ -5,7 +5,7 @@ import { StaticProps } from './StaticProps';
 import { UserSemiPersistentSession } from './UserSemiPersistentSession';
 
 /**
- * Page props provided to pages using the Layout component
+ * Page props provided to pages using the PageLayout component
  *
  * @ts Extends StaticProps by default
  */

@@ -215,13 +215,13 @@ class NRNApp extends NextApp {
   //      */
   //     const UniversalApp = (): JSX.Element => (
   //       <ApolloProvider client={apollo}>
-  //         <Layout
+  //         <PageLayout
   //           {...layoutProps}
   //         >
   //           <Component
   //             // XXX This "Component" is a dynamic Next.js page which depends on the current route
   //           />
-  //         </Layout>
+  //         </PageLayout>
   //       </ApolloProvider>
   //     );
   //

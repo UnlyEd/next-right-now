@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import I18nLink from '../../components/I18nLink';
-import LayoutSSG from '../../components/LayoutSSG';
+import PageLayout from '../../components/PageLayout';
 import { LayoutPageProps } from '../../types/LayoutPageProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
@@ -49,7 +49,7 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
   console.log('HomePage props', props);
 
   return (
-    <LayoutSSG
+    <PageLayout
       {...props}
     >
       {
@@ -77,7 +77,7 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
           );
         }
       }
-    </LayoutSSG>
+    </PageLayout>
   );
 };
 

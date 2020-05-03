@@ -17,9 +17,9 @@ export type LayoutPropsSSR = {
 export type LayoutPropsSSG = {} & StaticProps;
 
 /**
- * Properties that are provided to the Layout component
+ * Properties that are provided to the PageLayout component
  *
  * Some properties will be undefined depending on the runtime engine
- * Extracted outside of the Layout for reusability, as there may be several layouts in the app
+ * Extracted outside of the PageLayout for reusability, as there may be several layouts in the app
  */
 export declare type LayoutProps = LayoutPropsSSR;
