@@ -53,7 +53,8 @@ type StaticPathsOutput = {
  */
 export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const customerRef: string = process.env.CUSTOMER_REF;
-  const lang: string = props?.params?.lang;
+  const locale: string = props?.params?.locale;
+  const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
@@ -61,6 +62,7 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
   return {
     props: {
       lang,
+      locale,
       customerRef,
       bestCountryCodes,
       gcmsLocales,
@@ -99,7 +101,7 @@ export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Prom
   const paths: StaticPath[] = map(allowedLocales, (locale: I18nLocale): StaticPath => {
     return {
       params: {
-        lang: locale.name,
+        locale: locale.name,
       },
     };
   });

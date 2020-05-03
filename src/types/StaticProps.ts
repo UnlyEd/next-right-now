@@ -12,5 +12,6 @@ export type StaticProps = {
   isStaticRendering: boolean;
   isReadyToRender: boolean;
   lang: string;
+  locale: string;
   statusCode?: number;
 };

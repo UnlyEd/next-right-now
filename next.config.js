@@ -35,14 +35,14 @@ module.exports = withCSS(withSourceMaps({
       const redirects = [
         {
           // Redirect root link with trailing slash to non-trailing slash, avoids 404 - See https://github.com/zeit/next.js/discussions/10651#discussioncomment-8270
-          source: '/:lang/',
-          destination: '/:lang',
+          source: '/:locale/',
+          destination: '/:locale',
           permanent: process.env.APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
         },
         {
           // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/zeit/next.js/discussions/10651#discussioncomment-8270
-          source: '/:lang/:path*/',
-          destination: '/:lang/:path*',
+          source: '/:locale/:path*/',
+          destination: '/:locale/:path*',
           permanent: process.env.APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
         },
       ];
@@ -61,7 +61,7 @@ module.exports = withCSS(withSourceMaps({
         },
         {
           // TODO Build "source" based on active locales (instead of hardcoded)
-          source: `/:lang((?!${allowedLocales.join('|')})[^/]+)(.*)`,
+          source: `/:locale((?!${allowedLocales.join('|')})[^/]+)(.*)`,
           destination: '/api/autoRedirectToLocalisedPage',
         },
       ];
