@@ -4,30 +4,24 @@ import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import Link from 'next/link';
 import { NextRouter } from 'next/router';
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
-import { compose } from 'recompose';
 import { LayoutPropsSSG } from '../types/LayoutProps';
 import { getValue } from '../utils/record';
-import { resolveI18nHomePage } from '../utils/router';
+import { isActive, resolveI18nHomePage } from '../utils/router';
 import GraphCMSAsset from './GraphCMSAsset';
+import I18nLink from './I18nLink';
 
 const fileLabel = 'components/Nav';
 
-const isActive = (router, path): boolean => {
-  const currentPaths = router.pathname.split('/');
-
-  return currentPaths[currentPaths.length - 1] === path;
-};
-
 const Nav: React.FunctionComponent<Props> = (props: Props) => {
   const {
-    customer, router, t, locale,
+    customer, router, locale,
   } = props;
   const theme = customer.theme;
+  const { t } = useTranslation();
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -39,15 +33,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
   const serviceLogo = customer?.theme?.logo;
 
   return (
-    <Amplitude
-      eventProperties={(inheritedProps): object => ({
-        ...inheritedProps,
-        page: {
-          ...inheritedProps.page,
-          name: 'index',
-        },
-      })}
-    >
+    <Amplitude>
       {({ logEvent }): JSX.Element => (
         <Navbar
           id={'nav'}
@@ -114,41 +100,37 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
           `}
         >
           <div className={'brand-logo'}>
-            <Link
-              // The Link will only take effect if there is a <a> child
-              href={'/'}
-            >
-              <GraphCMSAsset
-                id={'nav-logo-brand'}
-                asset={serviceLogo}
-                linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
-                transformationsOverride={{
-                  width: 75,
-                  height: 100,
-                }}
-              />
-            </Link>
+            <GraphCMSAsset
+              id={'nav-logo-brand'}
+              asset={serviceLogo}
+              linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
+              transformationsOverride={{
+                width: 75,
+                height: 100,
+              }}
+            />
           </div>
 
           <NavStrap navbar>
             <NavItem>
-              <Link
-                href={`/index`}
-                as={'/'}
+              <I18nLink
+                locale={locale}
+                href={`/`}
                 passHref={true}
               >
                 <NavLink
                   id={'nav-link-home'}
-                  active={isActive(router, '') || isActive(router, 'index')}
+                  active={isActive(router, '')}
                 >
                   <FontAwesomeIcon icon={['fas', 'home']} />
                   {t('nav.indexPage.link', 'Accueil')}
                 </NavLink>
-              </Link>
+              </I18nLink>
             </NavItem>
 
             <NavItem>
-              <Link
+              <I18nLink
+                locale={locale}
                 href={`/examples`}
                 passHref={true}
               >
@@ -159,7 +141,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                   <FontAwesomeIcon icon={['fas', 'book-reader']} />
                   {t('nav.examplesPage.link', 'Exemples')}
                 </NavLink>
-              </Link>
+              </I18nLink>
             </NavItem>
 
             <NavItem>
@@ -209,7 +191,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                     href={`https://nrn-admin.now.sh`}
                     target={'_blank'}
                     rel={'noopener'}
-                    onClick={() => {
+                    onClick={(): void => {
                       logEvent('open-admin-site');
                     }}
                     title={'Edit dynamic content using GraphCMS and react-admin!'}
@@ -228,10 +210,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
 };
 
 type Props = {
-  t: Function;
   router: NextRouter;
 } & LayoutPropsSSG;
 
-export default compose(
-  withTranslation(['common']),
-)(Nav);
+export default Nav;

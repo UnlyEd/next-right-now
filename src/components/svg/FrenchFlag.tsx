@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SvgFrenchFlag = props => {
+const FrenchFlag = props => {
   return (
     <svg
       viewBox="0 0 35 17" {...props}
@@ -20,4 +20,4 @@ const SvgFrenchFlag = props => {
   );
 };
 
-export default SvgFrenchFlag;
+export default FrenchFlag;

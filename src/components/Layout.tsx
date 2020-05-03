@@ -338,15 +338,14 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
           style={{ display: 'none' }}
         ></div>
 
-        {
-          !isInIframe && (
-            <Nav
-              customer={customer}
-              theme={theme}
-              router={router}
-            />
-          )
-        }
+        {/*{*/}
+        {/*  !isInIframe && (*/}
+        {/*    <Nav*/}
+        {/*      customer={customer}*/}
+        {/*      router={router}*/}
+        {/*    />*/}
+        {/*  )*/}
+        {/*}*/}
 
         <div
           className={classnames('page-container', {
@@ -414,16 +413,16 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
           }
         </div>
 
-        {
-          !isInIframe && (
-            <Footer
-              customer={customer}
-              theme={theme}
-              router={router}
-              lang={lang}
-            />
-          )
-        }
+        {/*{*/}
+        {/*  !isInIframe && (*/}
+        {/*    <Footer*/}
+        {/*      customer={customer}*/}
+        {/*      theme={theme}*/}
+        {/*      router={router}*/}
+        {/*      lang={lang}*/}
+        {/*    />*/}
+        {/*  )*/}
+        {/*}*/}
       </ThemeProvider>
     </Amplitude>
   );
