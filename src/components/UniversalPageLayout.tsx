@@ -14,6 +14,7 @@ import { LayoutPageProps } from '../types/LayoutPageProps';
 import { getValue, STRATEGY_DO_NOTHING } from '../utils/record';
 import Footer from './Footer';
 import Nav from './Nav';
+import Head from './Head';
 
 const fileLabel = 'components/UniversalPageLayout';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -39,6 +40,7 @@ const UniversalPageLayout = (props: Props): JSX.Element => {
     i18nextInstance,
     iframeReferrer,
     isInIframe,
+    headProps,
     lang,
     locale,
     pageName,
@@ -60,6 +62,8 @@ const UniversalPageLayout = (props: Props): JSX.Element => {
 
   return (
     <>
+      <Head {...headProps} />
+
       {/* XXX Global styles that applies to all pages within this layout go there */}
       <Global
         styles={css`

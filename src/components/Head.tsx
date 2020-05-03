@@ -4,35 +4,35 @@ import React from 'react';
 
 import { NRN_DEFAULT_SERVICE_LABEL } from '../constants';
 
-const defaultTitle = NRN_DEFAULT_SERVICE_LABEL;
-const defaultDescription = ''; // TODO
-const defaultOGURL = ''; // TODO
-const defaultOGImage = ''; // TODO
-const defaultFavicon = 'https://storage.googleapis.com/the-funding-place/assets/images/default_favicon.ico';
+export type HeadProps = {
+  title?: string;
+  description?: string;
+  url?: string;
+  ogImage?: string;
+  favicon?: string;
+  additionalContent?: React.ReactElement;
+}
 
 /**
  * Custom Head component
  *
  * https://github.com/zeit/next.js#populating-head
- *
- * @param title
- * @param description
- * @param ogImage
- * @param url
- * @param favicon
- * @param lang
- * @constructor
  */
-const Head: React.FunctionComponent<Props> = (
-  {
-    title,
-    description,
-    ogImage,
-    url,
-    favicon,
+const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
+  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript. Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and B2B multiple single-tenants (monorepo) support';
+  const defaultOGURL = 'https://github.com/UnlyEd/next-right-now';
+  const defaultOGImage = 'https://storage.googleapis.com/the-funding-place/assets/images/Logo_TFP_quadri_horizontal.svg';
+  const defaultFavicon = 'https://storage.googleapis.com/the-funding-place/assets/images/default_favicon.ico';
+
+  const {
+    title = NRN_DEFAULT_SERVICE_LABEL,
+    description = defaultDescription,
+    ogImage = defaultOGURL,
+    url = defaultOGImage,
+    favicon = defaultFavicon,
     additionalContent,
-  },
-): JSX.Element => {
+  } = props;
+
   if (isBrowser()) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const WebFontLoader = require('webfontloader');
@@ -52,29 +52,29 @@ const Head: React.FunctionComponent<Props> = (
   return (
     <NextHead>
       <meta charSet="UTF-8" />
-      <title>{title || defaultTitle}</title>
+      <title>{title}</title>
       <meta
         name="description"
-        content={description || defaultDescription}
+        content={description}
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" sizes="192x192" href="/touch-icon.png" />
       <link rel="apple-touch-icon" href="/touch-icon.png" />
       <link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />
-      <link rel="icon" href={favicon || defaultFavicon} />
+      <link rel="icon" href={favicon} />
       <link rel="stylesheet" href="/static/fonts/CircularStd-Book/font.css" media="all" />
       <link rel="stylesheet" href="/static/fonts/NeuzeitGrotesk/font.css" media="all" />
 
-      <meta property="og:url" content={url || defaultOGURL} />
-      <meta property="og:title" content={title || ''} />
+      <meta property="og:url" content={url} />
+      <meta property="og:title" content={title} />
       <meta
         property="og:description"
-        content={description || defaultDescription}
+        content={description}
       />
-      <meta name="twitter:site" content={url || defaultOGURL} />
+      <meta name="twitter:site" content={url} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:image" content={ogImage || defaultOGImage} />
-      <meta property="og:image" content={ogImage || defaultOGImage} />
+      <meta name="twitter:image" content={ogImage} />
+      <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
 
@@ -96,14 +96,5 @@ const Head: React.FunctionComponent<Props> = (
     </NextHead>
   );
 };
-
-type Props = {
-  title?: string;
-  description?: string;
-  url?: string;
-  ogImage?: string;
-  favicon?: string;
-  additionalContent?: React.ReactElement;
-}
 
 export default Head;

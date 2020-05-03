@@ -4,7 +4,9 @@ import React from 'react';
 
 import AnimatedLoader from '../components/svg/AnimatedLoader';
 
-const Loader: React.FunctionComponent<Prop> = (props: Prop): JSX.Element => {
+type Props = {}
+
+const Loader: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
     <div
       css={css`
@@ -18,7 +20,5 @@ const Loader: React.FunctionComponent<Prop> = (props: Prop): JSX.Element => {
     </div>
   );
 };
-
-type Prop = {}
 
 export default Loader;

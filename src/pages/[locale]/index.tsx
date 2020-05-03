@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
-import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -49,6 +48,9 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
   return (
     <PageLayout
       pageName={'index'}
+      headProps={{
+        title: 'Homepage - Next Right Now',
+      }}
       {...props}
     >
       {

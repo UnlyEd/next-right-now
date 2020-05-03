@@ -16,7 +16,11 @@ import I18nLink from './I18nLink';
 
 const fileLabel = 'components/Nav';
 
-const Nav: React.FunctionComponent<Props> = (props: Props) => {
+type Props = {
+  router: NextRouter;
+} & StaticProps;
+
+const Nav: React.FunctionComponent<Props> = (props) => {
   const {
     customer, router, locale,
   } = props;
@@ -208,9 +212,5 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
     </Amplitude>
   );
 };
-
-type Props = {
-  router: NextRouter;
-} & StaticProps;
 
 export default Nav;

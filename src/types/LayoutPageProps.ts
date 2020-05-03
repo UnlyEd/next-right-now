@@ -1,5 +1,6 @@
 import { i18n } from 'i18next';
 import { NextRouter } from 'next/router';
+import { HeadProps } from '../components/Head';
 
 import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import { Theme } from './data/Theme';
@@ -16,6 +17,7 @@ export declare type LayoutPageProps<E extends StaticProps = StaticProps> = {
   i18nextInstance: i18n;
   iframeReferrer?: string; // Only available on the browser side
   isInIframe?: boolean; // Only available on the browser side
+  headProps?: HeadProps;
   router: NextRouter;
   theme: Theme;
   pageName: string;

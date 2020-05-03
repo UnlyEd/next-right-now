@@ -50,6 +50,9 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   return (
     <PageLayout
       pageName={'terms'}
+      headProps={{
+        title: 'Terms - Next Right Now',
+      }}
       {...props}
     >
       {

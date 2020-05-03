@@ -23,7 +23,11 @@ import Tooltip from './Tooltip';
 
 const fileLabel = 'components/Footer';
 
-const Footer: React.FunctionComponent<Props> = (props: Props) => {
+type Props = {
+  router: NextRouter;
+} & StaticProps;
+
+const Footer: React.FunctionComponent<Props> = (props) => {
   const {
     customer, locale, lang, router,
   } = props;
@@ -192,9 +196,5 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
     </div>
   );
 };
-
-type Props = {
-  router: NextRouter;
-} & StaticProps;
 
 export default Footer;

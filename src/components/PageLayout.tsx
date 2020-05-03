@@ -17,6 +17,7 @@ import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
 import { initCustomerTheme } from '../utils/theme';
 import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import BrowserPageLayout from './BrowserPageLayout';
+import { HeadProps } from './Head';
 import UniversalPageLayout from './UniversalPageLayout';
 
 const fileLabel = 'components/PageLayout';
@@ -27,6 +28,7 @@ const logger = createLogger({
 type Props = {
   children: Function;
   pageName: string;
+  headProps?: HeadProps;
 } & StaticProps;
 
 /**
@@ -45,16 +47,15 @@ type Props = {
  * </PageLayout>
  *
  * @param {Props} props
- * @return {JSX.Element}
- * @constructor
  */
 const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     customer,
     customerRef,
-    error,
     defaultLocales,
+    error,
+    headProps,
     lang,
     locale,
     pageName,
@@ -72,11 +73,12 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
   const layoutPageProps: LayoutPageProps = {
     ...props,
-    router,
-    i18nextInstance,
     cookiesManager,
-    theme,
+    i18nextInstance,
+    headProps,
     pageName,
+    router,
+    theme,
   };
 
   if (isBrowser()) {

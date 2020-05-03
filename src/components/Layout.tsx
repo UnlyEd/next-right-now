@@ -34,10 +34,8 @@ const logger = createLogger({
  * Layout of the whole app. Acts as a wrapper that displays the whole thing (menus, page, etc.)
  *
  * @param {Props} props
- * @return {JSX.Element}
- * @constructor
  */
-const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
+const Layout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     customerRef,

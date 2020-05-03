@@ -3,6 +3,14 @@ import { jsx } from '@emotion/core';
 import RCTooltip from 'rc-tooltip';
 import React from 'react';
 
+type Props = {
+  children: React.ReactElement;
+  overlay: React.ReactElement;
+  trigger?: Array<string>;
+  placement?: string;
+  visible?: boolean;
+}
+
 /**
  * Tooltip with sane defaults that improve usability and accessibility.
  *
@@ -10,9 +18,8 @@ import React from 'react';
  * XXX Feel free to add more API options, I've only added what seemed necessary but they support plenty more!
  *
  * @param {Props} props
- * @return {JSX.Element}
  */
-const Tooltip: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
+const Tooltip: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     overlay,
@@ -33,13 +40,5 @@ const Tooltip: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
     </RCTooltip>
   );
 };
-
-type Props = {
-  children: React.ReactElement;
-  overlay: React.ReactElement;
-  trigger?: Array<string>;
-  placement?: string;
-  visible?: boolean;
-}
 
 export default Tooltip;

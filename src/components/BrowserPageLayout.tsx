@@ -36,6 +36,7 @@ const BrowserPageLayout = (props: Props): JSX.Element => {
     i18nextInstance,
     iframeReferrer,
     isInIframe,
+    headProps,
     lang,
     locale,
     pageName,
@@ -93,7 +94,7 @@ const BrowserPageLayout = (props: Props): JSX.Element => {
             url: location.href,
             path: location.pathname,
             origin: location.origin,
-            name: null,
+            name: pageName,
           },
           customer: {
             ref: customerRef,
@@ -103,7 +104,10 @@ const BrowserPageLayout = (props: Props): JSX.Element => {
           iframe: isInIframe,
           iframeReferrer: iframeReferrer,
         }}
-        // userProperties={{}} XXX Do not use this, add default user-related properties in getAmplitudeInstance instead
+        // XXX Do not use "userProperties" here, add default user-related properties in getAmplitudeInstance instead
+        //  Because "event" had priority over "user event" and will be executed before! So, userProperties defined here
+        //  will NOT be applied until the NEXT Amplitude event and this is likely gonna cause analytics issues!
+        // userProperties={{}}
       >
         <cookieContext.Provider value={{ userSession, cookiesManager }}>
           <UniversalPageLayout
