@@ -120,7 +120,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
               >
                 <NavLink
                   id={'nav-link-home'}
-                  active={isActive(router, '') || isActive(router, '')}
+                  active={isActive(router, '')}
                 >
                   <FontAwesomeIcon icon={['fas', 'home']} />
                   {t('nav.indexPage.link', 'Accueil')}
@@ -191,7 +191,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
                     href={`https://nrn-admin.now.sh`}
                     target={'_blank'}
                     rel={'noopener'}
-                    onClick={() => {
+                    onClick={(): void => {
                       logEvent('open-admin-site');
                     }}
                     title={'Edit dynamic content using GraphCMS and react-admin!'}
