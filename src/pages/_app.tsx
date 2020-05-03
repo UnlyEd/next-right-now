@@ -148,10 +148,13 @@ class NRNApp extends NextApp {
    */
   render(): JSX.Element {
     const { Component, pageProps, apollo, err }: AppRenderProps = this.props;
-    console.log('_app.render.pageProps', pageProps);
+
+    if(isBrowser()){ // Avoids log clutter on server
+      console.debug('_app.render.pageProps', pageProps);
+    }
 
     if (pageProps.isReadyToRender || pageProps.isSSRReadyToRender || pageProps.statusCode === 404) {
-      console.log('_app.render - App is ready, rendering...');
+      console.info('_app.render - App is ready, rendering...');
       return (
         <ApolloProvider client={apollo}>
           <Component
@@ -162,7 +165,7 @@ class NRNApp extends NextApp {
         </ApolloProvider>
       );
     } else {
-      console.log('_app.render - App is not ready yet, waiting for isReadyToRender');
+      console.info('_app.render - App is not ready yet, waiting for isReadyToRender');
       return null;
     }
   }

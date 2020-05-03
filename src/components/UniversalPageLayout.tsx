@@ -1,54 +1,65 @@
 /** @jsx jsx */
 import { css, Global, jsx } from '@emotion/core';
+import * as Sentry from '@sentry/node';
+import { isBrowser } from '@unly/utils';
+import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import { ThemeProvider } from 'emotion-theming';
-import { i18n } from 'i18next';
-import { NextRouter } from 'next/router';
 import React from 'react';
 import { Button } from 'reactstrap';
 
 import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR } from '../constants';
 import ErrorPage from '../pages/_error';
-import { cookieContext } from '../stores/cookieContext';
-import { Theme } from '../types/data/Theme';
-import { LayoutPropsSSG } from '../types/LayoutProps';
-import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
+import { LayoutPageProps } from '../types/LayoutPageProps';
 import { getValue, STRATEGY_DO_NOTHING } from '../utils/record';
-import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import Footer from './Footer';
 import Nav from './Nav';
 
+const fileLabel = 'components/UniversalPageLayout';
+const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+  label: fileLabel,
+});
+
 type Props = {
   children: Function;
-  router: NextRouter;
-  i18nextInstance: i18n;
-  isInIframe: boolean;
-  iframeReferrer: string;
-  theme: Theme;
-  cookiesManager: UniversalCookiesManager;
-  userSession: UserSemiPersistentSession;
-} & LayoutPropsSSG;
+} & LayoutPageProps;
 
+/**
+ *
+ * @param props
+ * @constructor
+ */
 const UniversalPageLayout = (props: Props): JSX.Element => {
   const {
-    children,
+    cookiesManager,
     customer,
     customerRef,
-    error,
     defaultLocales,
+    error,
+    i18nextInstance,
+    iframeReferrer,
+    isInIframe,
     lang,
     locale,
+    pageName,
     router,
-    i18nextInstance,
-    isInIframe,
-    iframeReferrer,
-    theme,
-    cookiesManager,
     userSession,
+    theme,
   } = props;
+  const { children, ...layoutPageProps } = props; // Only keep LayoutPageProps variables (remove children)
+
+  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+    category: fileLabel,
+    message: `Rendering ${fileLabel} for page "${pageName}"`,
+    level: Sentry.Severity.Debug,
+  });
+
+  if (isBrowser()) { // Avoids log clutter on server
+    console.debug(`UniversalPageLayout.layoutPageProps`, layoutPageProps);
+  }
 
   return (
-    <cookieContext.Provider value={{ userSession, cookiesManager }}>
+    <>
       {/* XXX Global styles that applies to all pages within this layout go there */}
       <Global
         styles={css`
@@ -308,22 +319,22 @@ const UniversalPageLayout = (props: Props): JSX.Element => {
                     `}
                   >
                     <div className={'title'}>
-                      <h1>Le service est momentanément indisponible</h1>
-                      <pre>Erreur 500. Nos serveurs ont un coup de chaud.</pre>
+                      <h1>Service currently unavailable</h1>
+                      <pre>Error 500.</pre>
                     </div>
 
                     <div>
                       <p>
-                        Essayez de recharger la page. Veuillez contacter notre support technique si le problème persiste.
+                        Try to refresh the page. Please contact our support below if the issue persists.
                       </p>
                       <Button
                         color={'primary'}
                         onClick={(): void =>
-                          // @ts-ignore XXX showReportDialog is not recognised but works fine due to the webpack trick that replaces @sentry/node
+                          // @ts-ignore XXX showReportDialog is not recognised (due to the webpack trick that replaces @sentry/node), but it works fine
                           Sentry.showReportDialog({ eventId: errorEventId })
                         }
                       >
-                        Contacter le support technique
+                        Contact technical support
                       </Button>
                     </div>
                     <hr />
@@ -335,7 +346,7 @@ const UniversalPageLayout = (props: Props): JSX.Element => {
                 {
                   // Renders the page with additional/augmented props
                   // See https://medium.com/better-programming/passing-data-to-props-children-in-react-5399baea0356
-                  children(props)
+                  children(layoutPageProps)
                 }
               </>
             )
@@ -351,7 +362,7 @@ const UniversalPageLayout = (props: Props): JSX.Element => {
           )
         }
       </ThemeProvider>
-    </cookieContext.Provider>
+    </>
   );
 };
 

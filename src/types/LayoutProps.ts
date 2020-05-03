@@ -2,7 +2,6 @@ import { AmplitudeClient } from 'amplitude-js';
 import { i18n } from 'i18next';
 import { NextRouter } from 'next/router';
 import { AppPageProps } from './AppPageProps';
-import { StaticProps } from './StaticProps';
 
 export type LayoutPropsSSR = {
   router: NextRouter;
@@ -13,8 +12,6 @@ export type LayoutPropsSSR = {
   isInIframe?: boolean;
   amplitudeInstance?: AmplitudeClient;
 } & AppPageProps;
-
-export type LayoutPropsSSG = {} & StaticProps;
 
 /**
  * Properties that are provided to the PageLayout component

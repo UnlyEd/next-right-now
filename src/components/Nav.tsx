@@ -8,7 +8,7 @@ import { NextRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
-import { LayoutPropsSSG } from '../types/LayoutProps';
+import { StaticProps } from '../types/StaticProps';
 import { getValue } from '../utils/record';
 import { isActive, resolveI18nHomePage } from '../utils/router';
 import GraphCMSAsset from './GraphCMSAsset';
@@ -211,6 +211,6 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
 
 type Props = {
   router: NextRouter;
-} & LayoutPropsSSG;
+} & StaticProps;
 
 export default Nav;

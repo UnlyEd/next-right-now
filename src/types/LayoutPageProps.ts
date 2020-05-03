@@ -1,6 +1,8 @@
 import { i18n } from 'i18next';
 import { NextRouter } from 'next/router';
+
 import UniversalCookiesManager from '../utils/UniversalCookiesManager';
+import { Theme } from './data/Theme';
 import { StaticProps } from './StaticProps';
 import { UserSemiPersistentSession } from './UserSemiPersistentSession';
 
@@ -12,7 +14,10 @@ import { UserSemiPersistentSession } from './UserSemiPersistentSession';
 export declare type LayoutPageProps<E extends StaticProps = StaticProps> = {
   cookiesManager: UniversalCookiesManager;
   i18nextInstance: i18n;
-  isInIframe: boolean;
+  iframeReferrer?: string; // Only available on the browser side
+  isInIframe?: boolean; // Only available on the browser side
   router: NextRouter;
-  userSession: UserSemiPersistentSession;
+  theme: Theme;
+  pageName: string;
+  userSession?: UserSemiPersistentSession; // Only available on the browser side
 } & E;

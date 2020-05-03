@@ -42,20 +42,19 @@ type Props = {} & StaticProps;
 const HomePage: NextPage<Props> = (props): JSX.Element => {
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
-    message: `Rendering index page (${isBrowser() ? 'browser' : 'server'})`,
+    message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,
   });
 
-  console.log('HomePage props', props);
-
   return (
     <PageLayout
+      pageName={'index'}
       {...props}
     >
       {
         (layoutPageProps: LayoutPageProps): JSX.Element => {
           const { locale, lang, customer } = props;
-          console.log('layoutPageProps', layoutPageProps);
+
           return (
             <div>
               <h1>Page: Home</h1>

@@ -11,7 +11,7 @@ import { Button, Col, Row } from 'reactstrap';
 import EnglishFlag from '../components/svg/EnglishFlag';
 import FrenchFlag from '../components/svg/FrenchFlag';
 import cookieContext, { CookieContext } from '../stores/cookieContext';
-import { LayoutPropsSSG } from '../types/LayoutProps';
+import { StaticProps } from '../types/StaticProps';
 import { LANG_FR } from '../utils/i18n';
 import { SIZE_XS } from '../utils/logo';
 import { getValue, getValueFallback } from '../utils/record';
@@ -118,7 +118,7 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
               title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses cookieContext store provider)'}
             >
               Device id (analytics):<br />
-              <code>{userSession.deviceId}</code>
+              <code>{userSession?.deviceId}</code>
             </i>
           </div>
         </Col>
@@ -195,6 +195,6 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
 
 type Props = {
   router: NextRouter;
-} & LayoutPropsSSG;
+} & StaticProps;
 
 export default Footer;
