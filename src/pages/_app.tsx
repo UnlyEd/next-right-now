@@ -150,7 +150,7 @@ class NRNApp extends NextApp {
     const { Component, pageProps, apollo, err }: AppRenderProps = this.props;
     console.log('_app.render.pageProps', pageProps);
 
-    if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
+    if (pageProps.isReadyToRender || pageProps.isSSRReadyToRender || pageProps.statusCode === 404) {
       console.log('_app.render - App is ready, rendering...');
       return (
         <ApolloProvider client={apollo}>
