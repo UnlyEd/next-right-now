@@ -261,7 +261,7 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
       return (memoizedI18nextResources).resources;
     } else {
       // Memoized cache is too old, we need to fetch from Locize API again
-      logger.info('Translations from in-memory cache are too old (> max age) and thus have been invalidated');
+      logger.info(`Translations from in-memory cache are too old (> ${memoizedCacheMaxAge} seconds) and thus have been invalidated`);
     }
   }
   let commonLocales = {};
