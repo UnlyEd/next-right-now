@@ -299,8 +299,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
         {
           !isInIframe && (
             <Nav
-              customer={customer}
-              theme={theme}
+              {...props}
               router={router}
             />
           )
