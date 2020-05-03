@@ -1,4 +1,5 @@
 import { removeTrailingSlash } from './string';
+import { NextRouter } from 'next/router';
 
 export type Route = {
   locale: string;
@@ -52,4 +53,23 @@ export const resolveI18nHomePage = (locale: string): I18nRoute => {
     i18nAs: '/[locale]',
     i18nHref: `/${locale}`,
   };
+};
+
+/**
+ * Resolves whether the "path" is the current active route
+ *
+ * Doesn't handle multi-nested paths
+ *
+ * @example isActive({pathname: '/[locale]'}, '') => true
+ * @example isActive({pathname: '/[locale]/terms'}, '/terms') => true
+ * @example isActive({pathname: '/[locale]/terms'}, '') => false
+ *
+ * @param router
+ * @param path
+ */
+export const isActive = (router: NextRouter, path: string): boolean => {
+  const route = router.pathname.replace('/[locale]', '');
+  const currentPaths = route.split('/');
+
+  return currentPaths[currentPaths.length - 1] === path;
 };
