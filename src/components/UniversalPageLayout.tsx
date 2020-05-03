@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { LogOnMount } from '@amplitude/react-amplitude';
 import { css, Global, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
@@ -13,8 +14,8 @@ import ErrorPage from '../pages/_error';
 import { LayoutPageProps } from '../types/LayoutPageProps';
 import { getValue, STRATEGY_DO_NOTHING } from '../utils/record';
 import Footer from './Footer';
-import Nav from './Nav';
 import Head from './Head';
+import Nav from './Nav';
 
 const fileLabel = 'components/UniversalPageLayout';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -63,6 +64,7 @@ const UniversalPageLayout = (props: Props): JSX.Element => {
   return (
     <>
       <Head {...headProps} />
+      <LogOnMount eventType="page-displayed" />
 
       {/* XXX Global styles that applies to all pages within this layout go there */}
       <Global
