@@ -33,22 +33,23 @@ export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getComm
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
-type Props = {
-  lang: string;
-  isStaticRendering: boolean;
-};
+type Props = {} & StaticProps;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
-  const { lang } = props;
+  const { locale, lang } = props;
   console.log('TermsPage props', props);
-  console.log('lang', lang);
 
   return (
     <div>
-      <h1>{lang}</h1>
+      <h1>Page: Terms</h1>
+
+      <div>
+        Locale: {locale}<br />
+        Lang: {lang}
+      </div>
 
       <I18nLink
-        lang={lang}
+        locale={locale}
         href={'/'}
         passHref
       >

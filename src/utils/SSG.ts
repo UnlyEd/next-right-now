@@ -79,8 +79,8 @@ type StaticPath = {
 }
 
 type I18nLocale = {
-  name: string;
-  lang: string;
+  name: string; // Locale name (e.g: fr-FR)
+  lang: string; // Locale language (e.g: fr)
 }
 
 /**

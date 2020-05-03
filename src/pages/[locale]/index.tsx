@@ -54,14 +54,19 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
     >
       {
         (layoutPageProps: LayoutPageProps): JSX.Element => {
-          const { lang } = props;
+          const { locale, lang } = props;
           console.log('layoutPageProps', layoutPageProps);
           return (
             <div>
-              <h1>{lang}</h1>
+              <h1>Page: Home</h1>
+
+              <div>
+                Locale: {locale}<br />
+                Lang: {lang}
+              </div>
 
               <I18nLink
-                lang={lang}
+                locale={locale}
                 href={'/terms'}
                 passHref
               >

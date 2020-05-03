@@ -5,37 +5,36 @@ import {allowedLocales} from '../i18nConfig';
 
 export default (req, res): void => {
   const detections = headerLanguage(req);
-  let languageFound;
+  let localeFound; // Will contain the preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
 
   if (detections && detections.length) {
     detections.forEach((language) => {
-      if (languageFound || typeof language !== 'string') return;
+      if (localeFound || typeof language !== 'string') return;
 
       const lookedUpLocale = allowedLocales.find(
         (allowedLocale) => allowedLocale.name === language,
       );
 
       if (lookedUpLocale) {
-        languageFound = lookedUpLocale.lang;
+        localeFound = lookedUpLocale.lang;
       }
     });
   }
-  console.log('lang found 1', languageFound);
+  console.debug('Locale resolved using browser headers:', localeFound, detections);
 
-  if (!languageFound) {
-    languageFound = DEFAULT_LANG;
+  if (!localeFound) {
+    localeFound = DEFAULT_LANG;
   }
 
-  console.log('lang found 2', languageFound);
-  console.log('url', req.url);
+  console.debug('Locale applied:', localeFound);
 
   if (req.url === '/' || req.url === '/api/autoRedirectToLocalisedPage') {
-    return redirect(res, 302, `/${languageFound}`);
+    return redirect(res, 302, `/${localeFound}`);
   }
 
   if (req.url.charAt(0) === '/' && req.url.charAt(1) === '?') {
-    return redirect(res, 302, `/${languageFound}${req.url.slice(1)}`);
+    return redirect(res, 302, `/${localeFound}${req.url.slice(1)}`);
   }
 
-  return redirect(res, 302, `/${languageFound}${req.url}`);
+  return redirect(res, 302, `/${localeFound}${req.url}`);
 };

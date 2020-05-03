@@ -6,7 +6,7 @@ const I18nLink = (props: Props): JSX.Element => {
     children,
     as,
     href,
-    lang,
+    locale,
     ...rest // Should only contain valid next/Link props
   } = props;
   let i18nHref = href;
@@ -20,13 +20,13 @@ const I18nLink = (props: Props): JSX.Element => {
     return string;
   };
 
-  // TODO check is allowed lang
-  if (lang) {
-    i18nHref = removeTrailingSlash(`/[lang]${i18nHref}`);
+  // TODO check is allowed locale
+  if (locale) {
+    i18nHref = removeTrailingSlash(`/[locale]${i18nHref}`);
 
     // Apply default if "as" isn't specified (otherwise, keep provided value)
     if (!as) {
-      i18nAs = removeTrailingSlash(`/${lang}${href}`);
+      i18nAs = removeTrailingSlash(`/${locale}${href}`);
     }
   }
 
@@ -43,7 +43,7 @@ const I18nLink = (props: Props): JSX.Element => {
 
 type Props = {
   children: React.ReactElement;
-  lang: string;
+  locale: string;
   href: string;
   as?: string;
   replace?: boolean;
