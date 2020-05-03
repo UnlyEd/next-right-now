@@ -48,14 +48,15 @@ jobs:
           fi
 
           # Zeit alias only allows 53 characters in the domain name, so we only keep the first 45 characters (because Zeit needs 7 chars for ".now.sh" at the end of the domain name)
-          # Also, in order to remove forbidden characters, we create a sequence from ascii numbers using ranges of numbers (we forbid characters by using `seq X Y` and we add others by using ';').
-          # All special characters are converted to `-` (using `tr $0 $1` where $0 is replaced by $1), and only 0-9 and a-Z chars are kept intact.
-          # We then use `awk` to convert "ascii numbers" back into actual characters.
-          # You can find the numbers equivalence by tapping `man ascii` and look at the "decimal" set.
+          # Also, in order to remove forbidden characters, we transform every characters which are not a "alnum" and \n or \r into '-'
 
-          echo Debug: $ZEIT_DEPLOYMENT_ALIAS
+          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 45 | tr -c '[:alnum:]\r\n' - | tr '[:upper:]' '[:lower:]')
 
-          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 45 | tr -c '[:alnum:]\r\n' - | tr '[:upper:]' '[:lower:]').now.sh
+          # In case the alias ends up - we remove last character
+          while [[ "$ZEIT_DEPLOYMENT_ALIAS" == *- ]]
+          do
+                  ZEIT_DEPLOYMENT_ALIAS=${ZEIT_DEPLOYMENT_ALIAS::-1}
+          done
 
           echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
 
