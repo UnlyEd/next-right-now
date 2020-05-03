@@ -20,7 +20,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  */
 export const localeMiddleware = (req, res): void => {
   logger.debug('Detecting browser locale...');
-  const detections: string[] | undefined = acceptLanguageHeaderLookup(req);
+  const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
 
   if (detections && detections.length) {
@@ -35,8 +35,11 @@ export const localeMiddleware = (req, res): void => {
         localeFound = lookedUpLocale.lang;
       }
     });
+
+    logger.debug(`Locale resolved using browser headers: "${localeFound}", with browser locales: [${detections.join(', ')}]`);
+  } else {
+    logger.debug(`Couldn't detect any locales in "accept-language" header. (This will happens with robots, e.g: Cypress E2E)`);
   }
-  logger.debug(`Locale resolved using browser headers: "${localeFound}", with browser locales: [${detections.join(', ')}]`);
 
   if (!localeFound) {
     localeFound = DEFAULT_LANG;
