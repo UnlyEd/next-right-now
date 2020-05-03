@@ -33,15 +33,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
   const serviceLogo = customer?.theme?.logo;
 
   return (
-    <Amplitude
-      eventProperties={(inheritedProps): object => ({
-        ...inheritedProps,
-        page: {
-          ...inheritedProps.page,
-          name: 'index',
-        },
-      })}
-    >
+    <Amplitude>
       {({ logEvent }): JSX.Element => (
         <Navbar
           id={'nav'}
