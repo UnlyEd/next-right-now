@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { css, Global, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
@@ -19,8 +20,9 @@ import { Theme } from '../types/data/Theme';
 import { LayoutPageProps } from '../types/LayoutPageProps';
 import { LayoutPropsSSG } from '../types/LayoutProps';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
+import { getAmplitudeInstance } from '../utils/amplitude';
 import i18nextLocize from '../utils/i18nextLocize';
-import { isRunningInIframe } from '../utils/iframe';
+import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
 import { getValue, STRATEGY_DO_NOTHING } from '../utils/record';
 import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import Footer from './Footer';
@@ -42,14 +44,17 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
   const {
     children,
     customer,
+    customerRef,
     error,
     defaultLocales,
     lang,
+    locale,
     // amplitudeInstance,
   }: Props = props;
   const router = useRouter();
   const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
   const isInIframe: boolean = isRunningInIframe();
+  const iframeReferrer: string = getIframeReferrer();
   const { t, i18n } = useTranslation();
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
@@ -78,6 +83,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
 
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
+  const userId = userSession.id;
   const layoutPageProps: LayoutPageProps = {
     ...props,
     isInIframe,
@@ -87,11 +93,12 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
     userSession,
   };
 
-  return (
-    <cookieContext.Provider value={{ userSession, cookiesManager }}>
-      {/* XXX Global styles that applies to all pages within this layout go there */}
-      <Global
-        styles={css`
+  const UniversalPageLayout = (): JSX.Element => {
+    return (
+      <cookieContext.Provider value={{ userSession, cookiesManager }}>
+        {/* XXX Global styles that applies to all pages within this layout go there */}
+        <Global
+          styles={css`
           // Only applied to the main application
           body.nrn {
             background-color: #f5f5f5;
@@ -304,41 +311,41 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
             }
           }
         `}
-      />
+        />
 
-      <ThemeProvider theme={theme}>
-        {/* See https://github.com/mikemaccana/outdated-browser-rework */}
-        <div
-          id="outdated"
-          style={{ display: 'none' }}
-        ></div>
+        <ThemeProvider theme={theme}>
+          {/* See https://github.com/mikemaccana/outdated-browser-rework */}
+          <div
+            id="outdated"
+            style={{ display: 'none' }}
+          ></div>
 
-        {
-          !isInIframe && (
-            <Nav
-              {...props}
-              router={router}
-            />
-          )
-        }
-
-        <div
-          className={classnames('page-container', {
-            'is-iframe': isInIframe,
-            'is-not-iframe': !isInIframe,
-          })}
-        >
           {
-            error ? (
-              <>
-                <ErrorPage
-                  statusCode={500}
-                  isSSRReadyToRender={true}
-                  // @ts-ignore
-                  err={new Error(get(error, 'message', 'No error message provided'))}
-                >
-                  <div
-                    css={css`
+            !isInIframe && (
+              <Nav
+                {...props}
+                router={router}
+              />
+            )
+          }
+
+          <div
+            className={classnames('page-container', {
+              'is-iframe': isInIframe,
+              'is-not-iframe': !isInIframe,
+            })}
+          >
+            {
+              error ? (
+                <>
+                  <ErrorPage
+                    statusCode={500}
+                    isSSRReadyToRender={true}
+                    // @ts-ignore
+                    err={new Error(get(error, 'message', 'No error message provided'))}
+                  >
+                    <div
+                      css={css`
                       text-align: center;
 
                       .title {
@@ -346,53 +353,112 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
                         margin-bottom: 30px;
                       }
                     `}
-                  >
-                    <div className={'title'}>
-                      <h1>Le service est momentanément indisponible</h1>
-                      <pre>Erreur 500. Nos serveurs ont un coup de chaud.</pre>
-                    </div>
+                    >
+                      <div className={'title'}>
+                        <h1>Le service est momentanément indisponible</h1>
+                        <pre>Erreur 500. Nos serveurs ont un coup de chaud.</pre>
+                      </div>
 
-                    <div>
-                      <p>
-                        Essayez de recharger la page. Veuillez contacter notre support technique si le problème persiste.
-                      </p>
-                      <Button
-                        color={'primary'}
-                        onClick={(): void =>
-                          // @ts-ignore XXX showReportDialog is not recognised but works fine due to the webpack trick that replaces @sentry/node
-                          Sentry.showReportDialog({ eventId: errorEventId })
-                        }
-                      >
-                        Contacter le support technique
-                      </Button>
+                      <div>
+                        <p>
+                          Essayez de recharger la page. Veuillez contacter notre support technique si le problème persiste.
+                        </p>
+                        <Button
+                          color={'primary'}
+                          onClick={(): void =>
+                            // @ts-ignore XXX showReportDialog is not recognised but works fine due to the webpack trick that replaces @sentry/node
+                            Sentry.showReportDialog({ eventId: errorEventId })
+                          }
+                        >
+                          Contacter le support technique
+                        </Button>
+                      </div>
+                      <hr />
                     </div>
-                    <hr />
-                  </div>
-                </ErrorPage>
-              </>
-            ) : (
-              <>
-                {
-                  // Renders the page with additional/augmented props
-                  // See https://medium.com/better-programming/passing-data-to-props-children-in-react-5399baea0356
-                  children(layoutPageProps)
-                }
-              </>
+                  </ErrorPage>
+                </>
+              ) : (
+                <>
+                  {
+                    // Renders the page with additional/augmented props
+                    // See https://medium.com/better-programming/passing-data-to-props-children-in-react-5399baea0356
+                    children(layoutPageProps)
+                  }
+                </>
+              )
+            }
+          </div>
+
+          {
+            !isInIframe && (
+              <Footer
+                {...props}
+                router={router}
+              />
             )
           }
-        </div>
+        </ThemeProvider>
+      </cookieContext.Provider>
+    );
+  };
 
-        {
-          !isInIframe && (
-            <Footer
-              {...props}
-              router={router}
-            />
-          )
-        }
-      </ThemeProvider>
-    </cookieContext.Provider>
-  );
+  const BrowserPageLayout = (): JSX.Element => {
+    const amplitudeInstance = getAmplitudeInstance({
+      customerRef,
+      iframeReferrer,
+      isInIframe,
+      lang,
+      locale,
+      userId,
+    });
+    console.log('amplitudeInstance', amplitudeInstance);
+
+    return (
+      <AmplitudeProvider
+        amplitudeInstance={amplitudeInstance}
+        apiKey={process.env.AMPLITUDE_API_KEY}
+        userId={userId}
+      >
+        <Amplitude
+          // DA Event props and user props are sometimes duplicated to ease the data analysis through Amplitude
+          //  Because charts are sometimes easier to build using events props, or user users props
+          eventProperties={{
+            app: {
+              name: process.env.APP_NAME,
+              version: process.env.APP_VERSION,
+              stage: process.env.APP_STAGE,
+            },
+            page: {
+              url: location.href,
+              path: location.pathname,
+              origin: location.origin,
+              name: null,
+            },
+            customer: {
+              ref: customerRef,
+            },
+            lang: lang,
+            locale: locale,
+            iframe: isInIframe,
+            iframeReferrer: iframeReferrer,
+          }}
+          // userProperties={{}} XXX Do not use this, add default user-related properties in getAmplitudeInstance instead
+        >
+          <UniversalPageLayout />
+        </Amplitude>
+      </AmplitudeProvider>
+    );
+  };
+
+  if (isBrowser()) {
+    return (
+      <BrowserPageLayout />
+    );
+  } else {
+    return (
+      <UniversalPageLayout />
+    );
+  }
 };
 
 type Props = {
