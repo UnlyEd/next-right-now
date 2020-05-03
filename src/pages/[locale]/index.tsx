@@ -54,11 +54,12 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
     >
       {
         (layoutPageProps: LayoutPageProps): JSX.Element => {
-          const { locale, lang } = props;
+          const { locale, lang, customer } = props;
           console.log('layoutPageProps', layoutPageProps);
           return (
             <div>
               <h1>Page: Home</h1>
+              <h2>Customer: {customer?.label}</h2>
 
               <div>
                 Locale: {locale}<br />

@@ -36,12 +36,13 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
 type Props = {} & StaticProps;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
-  const { locale, lang } = props;
+  const { locale, lang, customer } = props;
   console.log('TermsPage props', props);
 
   return (
     <div>
       <h1>Page: Terms</h1>
+      <h2>Customer: {customer?.label}</h2>
 
       <div>
         Locale: {locale}<br />
