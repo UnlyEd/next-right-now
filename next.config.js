@@ -56,6 +56,7 @@ module.exports = withCSS(withSourceMaps({
     rewrites() {
       const rewrites = [
         {
+          // XXX Doesn't work locally (maybe because of rewrites), but works online
           source: '/',
           destination: '/api/autoRedirectToLocalisedPage',
         },
