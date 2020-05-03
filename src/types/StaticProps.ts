@@ -10,7 +10,7 @@ export type StaticProps = {
   customer: Customer;
   customerRef: string;
   defaultLocales: I18nextResources;
-  err?: Error; // Only defined if there was an error
+  error?: Error; // Only defined if there was an error
   gcmsLocales: string;
   isStaticRendering: boolean;
   isReadyToRender: boolean;

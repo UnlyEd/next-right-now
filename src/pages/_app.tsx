@@ -156,7 +156,7 @@ class NRNApp extends NextApp {
         <ApolloProvider client={apollo}>
           <Component
             {...pageProps}
-            err={err}
+            error={err}
             apollo={apollo}
           />
         </ApolloProvider>
