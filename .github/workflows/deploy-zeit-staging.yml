@@ -47,12 +47,12 @@ jobs:
             ZEIT_DEPLOYMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}
           fi
 
-          # Zeit alias only allows 53 characters in the domain name, so we only keep the first 45 characters (because Zeit needs 7 chars for ".now.sh" at the end of the domain name)
+          # Zeit alias only allows 53 characters in the domain name, so we only keep the first 45 (45 = 53 - 7 - 1) characters (because Zeit needs 7 chars for ".now.sh" at the end of the domain name, and count starts at 1, not 0)
           # Also, in order to remove forbidden characters, we transform every characters which are not a "alnum" and \n or \r into '-'
 
           ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 45 | tr -c '[:alnum:]\r\n' - | tr '[:upper:]' '[:lower:]')
 
-          # In case the alias ends up - we remove last character
+          # Recursively remove any trailing dash ('-')
           while [[ "$ZEIT_DEPLOYMENT_ALIAS" == *- ]]
           do
                   ZEIT_DEPLOYMENT_ALIAS=${ZEIT_DEPLOYMENT_ALIAS::-1}
