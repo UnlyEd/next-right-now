@@ -154,7 +154,11 @@ class NRNApp extends NextApp {
       console.log('_app.render - App is ready, rendering...');
       return (
         <ApolloProvider client={apollo}>
-          <Component {...pageProps} err={err} />
+          <Component
+            {...pageProps}
+            error={err}
+            apollo={apollo}
+          />
         </ApolloProvider>
       );
     } else {

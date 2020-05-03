@@ -1,34 +1,19 @@
 import Link from 'next/link';
 import React from 'react';
+import { I18nRoute, resolveI18nRoute } from '../utils/router';
 
 const I18nLink = (props: Props): JSX.Element => {
   const {
-    children,
     as,
+    children,
     href,
     locale,
     ...rest // Should only contain valid next/Link props
   } = props;
-  let i18nHref = href;
-  let i18nAs = as;
-
-  const removeTrailingSlash = (string): string => {
-    if (string[string.length - 1] === '/') {
-      return string.slice(0, -1);
-    }
-
-    return string;
-  };
-
-  // TODO check is allowed locale
-  if (locale) {
-    i18nHref = removeTrailingSlash(`/[locale]${i18nHref}`);
-
-    // Apply default if "as" isn't specified (otherwise, keep provided value)
-    if (!as) {
-      i18nAs = removeTrailingSlash(`/${locale}${href}`);
-    }
-  }
+  const {
+    i18nHref,
+    i18nAs,
+  }: I18nRoute = resolveI18nRoute({ as, href, locale });
 
   return (
     <Link

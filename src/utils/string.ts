@@ -31,3 +31,18 @@ export const replaceAllOccurrences = (initialString: string, variables: object, 
 
   return initialString;
 };
+
+/**
+ * Remove the trailing slash of a string
+ *
+ * Useful for urls, in particular
+ *
+ * @param string
+ */
+export const removeTrailingSlash = (string): string => {
+  if (string[string.length - 1] === '/') {
+    return string.slice(0, -1);
+  }
+
+  return string;
+};

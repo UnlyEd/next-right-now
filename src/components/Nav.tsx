@@ -10,10 +10,9 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
 import { compose } from 'recompose';
-
-import { Customer } from '../types/data/Customer';
-import { Theme } from '../types/data/Theme';
+import { LayoutPropsSSG } from '../types/LayoutProps';
 import { getValue } from '../utils/record';
+import { resolveI18nHomePage } from '../utils/router';
 import GraphCMSAsset from './GraphCMSAsset';
 
 const fileLabel = 'components/Nav';
@@ -26,8 +25,9 @@ const isActive = (router, path): boolean => {
 
 const Nav: React.FunctionComponent<Props> = (props: Props) => {
   const {
-    customer, theme, router, t,
+    customer, router, t, locale,
   } = props;
+  const theme = customer.theme;
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -121,7 +121,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
               <GraphCMSAsset
                 id={'nav-logo-brand'}
                 asset={serviceLogo}
-                linkOverride={{ id: 'nav-open-app-link', url: '/', target: null }} // Force link to redirect to home
+                linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
                 transformationsOverride={{
                   width: 75,
                   height: 100,
@@ -228,11 +228,9 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
 };
 
 type Props = {
-  customer: Customer;
-  theme: Theme;
   t: Function;
   router: NextRouter;
-}
+} & LayoutPropsSSG;
 
 export default compose(
   withTranslation(['common']),

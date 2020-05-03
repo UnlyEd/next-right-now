@@ -1,10 +1,14 @@
+import { ApolloQueryResult } from 'apollo-client';
 import map from 'lodash.map';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { LAYOUT_QUERY } from '../gql/common/layoutQuery';
 
 import { allowedLocales } from '../i18nConfig';
+import { Customer } from '../types/data/Customer';
 import { StaticParams } from '../types/StaticParams';
 import { StaticProps } from '../types/StaticProps';
 import { prepareGraphCMSLocaleHeader } from './graphcms';
+import { getStandaloneApolloClient } from './graphql';
 import { resolveFallbackLanguage } from './i18n';
 import { fetchTranslations, I18nextResources } from './i18nextLocize';
 
@@ -58,15 +62,50 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+  const apolloClient = getStandaloneApolloClient();
+  const variables = {
+    customerRef,
+  };
+  const queryOptions = {
+    displayName: 'LAYOUT_QUERY',
+    query: LAYOUT_QUERY,
+    variables,
+    context: {
+      headers: {
+        'gcms-locale': gcmsLocales,
+      },
+    },
+  };
+
+  const {
+    data,
+    errors,
+    loading,
+    networkStatus,
+    stale,
+  }: ApolloQueryResult<{
+    customer: Customer;
+  }> = await apolloClient.query(queryOptions);
+
+  if (errors) {
+    console.error(errors);
+    throw new Error('Errors were detected in GraphQL query.');
+  }
+
+  const {
+    customer,
+  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
   return {
     props: {
+      customer,
       lang,
       locale,
       customerRef,
       bestCountryCodes,
       gcmsLocales,
       defaultLocales,
+      apolloStaticCache: apolloClient.cache.extract(),
       isStaticRendering: true,
       isReadyToRender: true,
     },
