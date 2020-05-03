@@ -2,21 +2,21 @@
 import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import Link from 'next/link';
+import startsWith from 'lodash.startswith';
+import { NextRouter } from 'next/router';
 import React from 'react';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Button, Col, Row } from 'reactstrap';
-import { compose } from 'recompose';
 
 import EnglishFlag from '../components/svg/EnglishFlag';
 import FrenchFlag from '../components/svg/FrenchFlag';
-import { Customer } from '../types/data/Customer';
-import { Theme } from '../types/data/Theme';
-import { LANG_EN, LANG_FR } from '../utils/i18n';
+import { LayoutPropsSSG } from '../types/LayoutProps';
+import { LANG_FR } from '../utils/i18n';
 import { SIZE_XS } from '../utils/logo';
 import { getValue, getValueFallback } from '../utils/record';
-import UniversalCookiesManager from '../utils/UniversalCookiesManager';
+import { i18nRedirect } from '../utils/router';
 import GraphCMSAsset from './GraphCMSAsset';
+import I18nLink from './I18nLink';
 import Logo from './Logo';
 import Tooltip from './Tooltip';
 
@@ -24,10 +24,9 @@ const fileLabel = 'components/Footer';
 
 const Footer: React.FunctionComponent<Props> = (props: Props) => {
   const {
-    customer,
-    theme,
-    lang,
+    customer, locale, lang, router,
   } = props;
+  const theme = customer.theme;
   const { t } = useTranslation();
   const logoSizesMultipliers = [
     {
@@ -82,7 +81,8 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
             <br />
             {t('footer.terms.text', 'Tous droits réservés')}
           </p>
-          <Link
+          <I18nLink
+            locale={locale}
             href={`/terms`}
             passHref={true}
           >
@@ -98,14 +98,16 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
                 {t('footer.terms.link', 'Conditions générales d\'utilisation')}
               </div>
             </a>
-          </Link>
+          </I18nLink>
         </Col>
         <Col md={4} xs={12} className={'text-md-right text-center mt-3'}>
           <Button
             onClick={(): void => {
-              const universalCookiesManager = new UniversalCookiesManager();
-              universalCookiesManager.setLanguage(lang === LANG_FR ? LANG_EN : LANG_FR);
-              location.reload();
+              // XXX Implementation is being kept simple for the sake of simplicity
+              //  It doesn't match a real-world use case because there are many possible variations and we can't cover them all
+              //  e.g: with country-based locales (fr-FR, en-GB) or without (fr, en)
+              const newLocale = startsWith(locale, 'fr') ? 'en' : 'fr';
+              i18nRedirect(newLocale, router);
             }}
             css={css`
               background-color: transparent;
@@ -170,12 +172,7 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
 };
 
 type Props = {
-  customer: Customer;
-  theme: Theme;
-  t: Function;
-  lang: string;
-}
+  router: NextRouter;
+} & LayoutPropsSSG;
 
-export default compose(
-  withTranslation(['common']),
-)(Footer);
+export default Footer;

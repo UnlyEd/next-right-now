@@ -3,10 +3,13 @@ import { css, Global, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
+import classnames from 'classnames';
+import { ThemeProvider } from 'emotion-theming';
 import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button } from 'reactstrap';
 import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR, NRN_DEFAULT_THEME } from '../constants';
 import ErrorPage from '../pages/_error';
 import { Theme } from '../types/data/Theme';
@@ -16,9 +19,6 @@ import { isRunningInIframe } from '../utils/iframe';
 import { getValue, STRATEGY_DO_NOTHING } from '../utils/record';
 import Footer from './Footer';
 import Nav from './Nav';
-import { ThemeProvider } from 'emotion-theming';
-import classnames from 'classnames';
-import { Button } from 'reactstrap';
 
 const fileLabel = 'components/Layout';
 const logger = createLogger({
@@ -373,10 +373,8 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
         {
           !isInIframe && (
             <Footer
-              customer={customer}
-              theme={theme}
+              {...props}
               router={router}
-              lang={lang}
             />
           )
         }

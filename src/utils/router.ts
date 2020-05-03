@@ -1,5 +1,5 @@
-import { removeTrailingSlash } from './string';
 import { NextRouter } from 'next/router';
+import { removeTrailingSlash } from './string';
 
 export type Route = {
   locale: string;
@@ -72,4 +72,14 @@ export const isActive = (router: NextRouter, path: string): boolean => {
   const currentPaths = route.split('/');
 
   return currentPaths[currentPaths.length - 1] === path;
+};
+
+/**
+ * Redirects the current page to the "same" page, but for a different locale
+ *
+ * @param locale
+ * @param router
+ */
+export const i18nRedirect = (locale, router: NextRouter): void => {
+  location.href = `${router.pathname.replace('[locale]', locale)}`;
 };

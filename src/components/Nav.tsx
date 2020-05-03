@@ -6,9 +6,8 @@ import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { NextRouter } from 'next/router';
 import React from 'react';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
-import { compose } from 'recompose';
 import { LayoutPropsSSG } from '../types/LayoutProps';
 import { getValue } from '../utils/record';
 import { isActive, resolveI18nHomePage } from '../utils/router';
@@ -19,9 +18,10 @@ const fileLabel = 'components/Nav';
 
 const Nav: React.FunctionComponent<Props> = (props: Props) => {
   const {
-    customer, router, t, locale,
+    customer, router, locale,
   } = props;
   const theme = customer.theme;
+  const { t } = useTranslation();
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -210,10 +210,7 @@ const Nav: React.FunctionComponent<Props> = (props: Props) => {
 };
 
 type Props = {
-  t: Function;
   router: NextRouter;
 } & LayoutPropsSSG;
 
-export default compose(
-  withTranslation(['common']),
-)(Nav);
+export default Nav;

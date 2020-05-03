@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import React from 'react';
 
-const SvgEnglishFlag = props => {
+const EnglishFlag = props => {
   return (
     <svg
       id="EnglishFlag_svg__Calque_3"
@@ -30,4 +30,4 @@ const SvgEnglishFlag = props => {
 };
 
 type Props = {} & React.SVGProps<SVGSVGElement>;
-export default SvgEnglishFlag;
+export default EnglishFlag;
