@@ -61,7 +61,6 @@ module.exports = withCSS(withSourceMaps({
           destination: '/api/autoRedirectToLocalisedPage',
         },
         {
-          // TODO Build "source" based on active locales (instead of hardcoded)
           source: `/:locale((?!${allowedLocales.join('|')})[^/]+)(.*)`,
           destination: '/api/autoRedirectToLocalisedPage',
         },
