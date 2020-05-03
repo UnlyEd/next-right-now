@@ -108,6 +108,10 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
               code {
                 color: white;
               }
+
+              i {
+                cursor: help;
+              }
             `}
           >
             <i
