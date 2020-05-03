@@ -5,6 +5,7 @@ import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import { ThemeProvider } from 'emotion-theming';
+import { i18n } from 'i18next';
 import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
@@ -12,11 +13,16 @@ import { useTranslation } from 'react-i18next';
 import { Button } from 'reactstrap';
 import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR, NRN_DEFAULT_THEME } from '../constants';
 import ErrorPage from '../pages/_error';
+
+import { cookieContext } from '../stores/cookieContext';
 import { Theme } from '../types/data/Theme';
+import { LayoutPageProps } from '../types/LayoutPageProps';
 import { LayoutPropsSSG } from '../types/LayoutProps';
+import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
 import i18nextLocize from '../utils/i18nextLocize';
 import { isRunningInIframe } from '../utils/iframe';
 import { getValue, STRATEGY_DO_NOTHING } from '../utils/record';
+import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import Footer from './Footer';
 import Nav from './Nav';
 
@@ -42,7 +48,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
     // amplitudeInstance,
   }: Props = props;
   const router = useRouter();
-  const i18nextInstance = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
+  const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
   const isInIframe: boolean = isRunningInIframe();
   const { t, i18n } = useTranslation();
 
@@ -70,8 +76,19 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
   theme.primaryColor = getValue(theme, 'primaryColor', NRN_DEFAULT_THEME.primaryColor, STRATEGY_DO_NOTHING);
   logger.debug(JSON.stringify(theme, null, 2));
 
+  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
+  const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
+  const layoutPageProps: LayoutPageProps = {
+    ...props,
+    isInIframe,
+    router,
+    i18nextInstance,
+    cookiesManager,
+    userSession,
+  };
+
   return (
-    <>
+    <cookieContext.Provider value={{ userSession, cookiesManager }}>
       {/* XXX Global styles that applies to all pages within this layout go there */}
       <Global
         styles={css`
@@ -358,12 +375,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
                 {
                   // Renders the page with additional/augmented props
                   // See https://medium.com/better-programming/passing-data-to-props-children-in-react-5399baea0356
-                  children({
-                    ...props,
-                    isInIframe,
-                    router,
-                    i18nextInstance,
-                  })
+                  children(layoutPageProps)
                 }
               </>
             )
@@ -379,7 +391,7 @@ const Layout: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
           )
         }
       </ThemeProvider>
-    </>
+    </cookieContext.Provider>
   );
 };
 

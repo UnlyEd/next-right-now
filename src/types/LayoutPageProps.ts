@@ -1,5 +1,8 @@
-import { StaticProps } from './StaticProps';
+import { i18n } from 'i18next';
 import { NextRouter } from 'next/router';
+import UniversalCookiesManager from '../utils/UniversalCookiesManager';
+import { StaticProps } from './StaticProps';
+import { UserSemiPersistentSession } from './UserSemiPersistentSession';
 
 /**
  * Page props provided to pages using the Layout component
@@ -7,6 +10,9 @@ import { NextRouter } from 'next/router';
  * @ts Extends StaticProps by default
  */
 export declare type LayoutPageProps<E extends StaticProps = StaticProps> = {
-  children: React.ReactElement;
+  cookiesManager: UniversalCookiesManager;
+  i18nextInstance: i18n;
+  isInIframe: boolean;
   router: NextRouter;
+  userSession: UserSemiPersistentSession;
 } & E;

@@ -10,6 +10,7 @@ import { Button, Col, Row } from 'reactstrap';
 
 import EnglishFlag from '../components/svg/EnglishFlag';
 import FrenchFlag from '../components/svg/FrenchFlag';
+import cookieContext, { CookieContext } from '../stores/cookieContext';
 import { LayoutPropsSSG } from '../types/LayoutProps';
 import { LANG_FR } from '../utils/i18n';
 import { SIZE_XS } from '../utils/logo';
@@ -28,6 +29,7 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
   } = props;
   const theme = customer.theme;
   const { t } = useTranslation();
+  const { userSession }: CookieContext = React.useContext(cookieContext) || {};
   const logoSizesMultipliers = [
     {
       size: SIZE_XS,
@@ -99,6 +101,22 @@ const Footer: React.FunctionComponent<Props> = (props: Props) => {
               </div>
             </a>
           </I18nLink>
+          <div
+            css={css`
+              margin-top: 10px;
+
+              code {
+                color: white;
+              }
+            `}
+          >
+            <i
+              title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses cookieContext store provider)'}
+            >
+              Device id (analytics):<br />
+              <code>{userSession.deviceId}</code>
+            </i>
+          </div>
         </Col>
         <Col md={4} xs={12} className={'text-md-right text-center mt-3'}>
           <Button
