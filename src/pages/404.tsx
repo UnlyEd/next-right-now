@@ -30,12 +30,6 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  */
 export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getCommonStaticProps;
 
-/**
- * Only executed on the server side at build time
- * Necessary when a page has dynamic routes and uses "getStaticProps"
- */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
-
 type Props = {} & StaticProps;
 
 const Fr404 = (): JSX.Element => {
@@ -63,7 +57,9 @@ const En404 = (): JSX.Element => {
 };
 
 /**
- * 404 not found page
+ * "404 not found" page, doesn't support i18n
+ *
+ * Doesn't use "getStaticPaths" because it's not supported by Next.js "getStaticPaths can only be used with dynamic pages, not '/404'."
  *
  * XXX The "locale" cannot be resolved properly using SSG on 404 pages, because this file doesn't belong to the "/[locale]" folder and thus doesn't benefit from url rewriting
  *  Therefore, the page will be displayed based on the DEFAULT_LOCALE value and not on the actual end-user locale
