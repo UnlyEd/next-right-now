@@ -1,6 +1,4 @@
 import gql from 'graphql-tag';
-
-import { asset } from '../fragments/asset';
 import { theme } from '../fragments/theme';
 
 /**

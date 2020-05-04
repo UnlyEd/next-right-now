@@ -6,5 +6,5 @@
  * @see next.config.js "experimental.redirects" section for url params
  */
 export type StaticParams = {
-  locale: string; // The first path of the url is the "locale"
+  locale?: string; // The first path of the url is the "locale"
 };

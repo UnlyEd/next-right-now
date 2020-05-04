@@ -12,6 +12,7 @@ export type StaticProps = {
   defaultLocales: I18nextResources;
   error?: Error; // Only defined if there was an error
   gcmsLocales: string;
+  hasLocaleFromUrl: boolean;
   isStaticRendering: boolean;
   isReadyToRender: boolean;
   lang: string;

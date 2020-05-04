@@ -9,7 +9,7 @@ import { StaticParams } from '../types/StaticParams';
 import { StaticProps } from '../types/StaticProps';
 import { prepareGraphCMSLocaleHeader } from './graphcms';
 import { getStandaloneApolloClient } from './graphql';
-import { resolveFallbackLanguage } from './i18n';
+import { DEFAULT_LOCALE, resolveFallbackLanguage } from './i18n';
 import { fetchTranslations, I18nextResources } from './i18nextLocize';
 
 /**
@@ -57,7 +57,8 @@ type StaticPathsOutput = {
  */
 export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const customerRef: string = process.env.CUSTOMER_REF;
-  const locale: string = props?.params?.locale;
+  const hasLocaleFromUrl = !!props?.params?.locale;
+  const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
@@ -99,6 +100,7 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
   return {
     props: {
       customer,
+      hasLocaleFromUrl,
       lang,
       locale,
       customerRef,

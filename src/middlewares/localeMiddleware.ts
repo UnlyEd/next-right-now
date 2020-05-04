@@ -1,6 +1,6 @@
 import { createLogger } from '@unly/utils-simple-logger';
 import { allowedLocales } from '../i18nConfig';
-import { acceptLanguageHeaderLookup, DEFAULT_LANG } from '../utils/i18n';
+import { acceptLanguageHeaderLookup, DEFAULT_LOCALE } from '../utils/i18n';
 import redirect from '../utils/redirect';
 
 const fileLabel = 'utils/localeMiddleware';
@@ -42,7 +42,7 @@ export const localeMiddleware = (req, res): void => {
   }
 
   if (!localeFound) {
-    localeFound = DEFAULT_LANG;
+    localeFound = DEFAULT_LOCALE;
   }
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);

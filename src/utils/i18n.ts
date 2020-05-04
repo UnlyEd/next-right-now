@@ -1,9 +1,11 @@
+import {
+  defaultLocale,
+  allowedLanguages,
+} from '../i18nConfig';
+
 export const LANG_EN = 'en';
 export const LANG_FR = 'fr';
-export const SUPPORTED_LANGUAGES = [
-  LANG_EN,
-  LANG_FR,
-];
+export const SUPPORTED_LANGUAGES = allowedLanguages;
 
 /**
  * Language used by default if no user language can be resolved
@@ -11,7 +13,7 @@ export const SUPPORTED_LANGUAGES = [
  *
  * @type {string}
  */
-export const DEFAULT_LANG: string = LANG_EN;
+export const DEFAULT_LOCALE: string = defaultLocale;
 
 export const resolveFallbackLanguage = (primaryLanguage: string): string => {
   if (primaryLanguage === LANG_FR) {
