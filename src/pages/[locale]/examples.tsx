@@ -12,6 +12,7 @@ import { Trans } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
 import uuid from 'uuid/v1';
 
+import DisplayOnBrowserMount from '../../components/DisplayOnBrowserMount';
 import GraphCMSAsset from '../../components/GraphCMSAsset';
 import PageLayout from '../../components/PageLayout';
 import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
@@ -20,9 +21,10 @@ import { Product } from '../../types/data/Product';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
+import { StaticPropsInput } from '../../types/StaticPropsInput';
+import { StaticPropsOutput } from '../../types/StaticPropsOutput';
 import { getStandaloneApolloClient } from '../../utils/graphql';
-import { getCommonStaticPaths, getCommonStaticProps, StaticPropsInput, StaticPropsOutput } from '../../utils/SSG';
-import DisplayOnBrowserMount from '../../components/DisplayOnBrowserMount';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 
 const fileLabel = 'pages/examples';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

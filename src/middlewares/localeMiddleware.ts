@@ -1,5 +1,5 @@
 import { createLogger } from '@unly/utils-simple-logger';
-import { allowedLocales } from '../i18nConfig';
+import { supportedLocales } from '../i18nConfig';
 import { acceptLanguageHeaderLookup, DEFAULT_LOCALE } from '../utils/i18n';
 import redirect from '../utils/redirect';
 
@@ -27,7 +27,7 @@ export const localeMiddleware = (req, res): void => {
     detections.forEach((language) => {
       if (localeFound || typeof language !== 'string') return;
 
-      const lookedUpLocale = allowedLocales.find(
+      const lookedUpLocale = supportedLocales.find(
         (allowedLocale) => allowedLocale.name === language,
       );
 

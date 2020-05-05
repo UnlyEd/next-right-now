@@ -4,18 +4,18 @@
  */
 
 const defaultLocale = 'en';
-const allowedLocales = [
+const supportedLocales = [
   { name: 'fr-FR', lang: 'fr' },
   { name: 'fr', lang: 'fr' },
   { name: 'en-US', lang: 'en' },
   { name: 'en', lang: 'en' },
 ];
-const allowedLanguages = allowedLocales.map((item) => {
+const supportedLanguages = supportedLocales.map((item) => {
   return item.lang;
 });
 
 module.exports = {
   defaultLocale: defaultLocale,
-  allowedLocales: allowedLocales,
-  allowedLanguages: [...new Set(allowedLanguages)], // Remove duplicates
+  supportedLocales: supportedLocales,
+  supportedLanguages: [...new Set(supportedLanguages)], // Remove duplicates
 };

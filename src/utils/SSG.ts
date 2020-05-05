@@ -3,41 +3,19 @@ import map from 'lodash.map';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { LAYOUT_QUERY } from '../gql/common/layoutQuery';
 
-import { allowedLocales } from '../i18nConfig';
+import { supportedLocales } from '../i18nConfig';
 import { Customer } from '../types/data/Customer';
+import { I18nLocale } from '../types/I18nLocale';
 import { StaticParams } from '../types/StaticParams';
+import { StaticPath } from '../types/StaticPath';
+import { StaticPathsOutput } from '../types/StaticPathsOutput';
 import { StaticProps } from '../types/StaticProps';
+import { StaticPropsInput } from '../types/StaticPropsInput';
+import { StaticPropsOutput } from '../types/StaticPropsOutput';
 import { prepareGraphCMSLocaleHeader } from './graphcms';
 import { getStandaloneApolloClient } from './graphql';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from './i18n';
 import { fetchTranslations, I18nextResources } from './i18nextLocize';
-
-/**
- * Static props given as inputs for getStaticProps
- */
-export type StaticPropsInput = {
-  params?: StaticParams;
-  preview?: boolean;
-  previewData?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
-
-/**
- * Static props returned as outputs for getStaticProps (yielded result)
- */
-export type StaticPropsOutput = {
-  props: StaticProps;
-  unstable_revalidate?: number | boolean;
-}
-
-/**
- * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
- */
-export type StaticPathsOutput = {
-  fallback: boolean; // See https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required
-  paths: {
-    params: StaticParams;
-  }[];
-}
 
 /**
  * Only executed on the server side at build time.
@@ -115,15 +93,6 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
   };
 };
 
-type StaticPath = {
-  params: StaticParams;
-}
-
-type I18nLocale = {
-  lang: string; // Locale language (e.g: fr)
-  name: string; // Locale name (e.g: fr-FR)
-}
-
 /**
  * Only executed on the server side at build time.
  * Computes all static paths that should be available for all SSG pages
@@ -139,10 +108,10 @@ type I18nLocale = {
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
-  const paths: StaticPath[] = map(allowedLocales, (locale: I18nLocale): StaticPath => {
+  const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
     return {
       params: {
-        locale: locale.name,
+        locale: supportedLocale.name,
       },
     };
   });

@@ -14,8 +14,11 @@ import { Customer } from '../../types/data/Customer';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
+
+import { StaticPropsInput } from '../../types/StaticPropsInput';
+import { StaticPropsOutput } from '../../types/StaticPropsOutput';
 import { getStandaloneApolloClient } from '../../utils/graphql';
-import { getCommonStaticPaths, getCommonStaticProps, StaticPropsInput, StaticPropsOutput } from '../../utils/SSG';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 import { replaceAllOccurrences } from '../../utils/string';
 
 const fileLabel = 'pages/terms';

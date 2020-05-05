@@ -3,6 +3,8 @@ import NextHead from 'next/head';
 import React from 'react';
 
 import { NRN_DEFAULT_SERVICE_LABEL } from '../constants';
+import { I18nLocale } from '../types/I18nLocale';
+import { SUPPORTED_LOCALES } from '../utils/i18n';
 
 export type HeadProps = {
   title?: string;
@@ -64,6 +66,18 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <link rel="icon" href={favicon} />
       <link rel="stylesheet" href="/static/fonts/CircularStd-Book/font.css" media="all" />
       <link rel="stylesheet" href="/static/fonts/NeuzeitGrotesk/font.css" media="all" />
+
+      {
+        SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {
+          // Google best practice for SEO https://webmasters.googleblog.com/2011/12/new-markup-for-multilingual-content.html
+          // Google accepts relative links for hreflang
+          // See https://stackoverflow.com/questions/28291574/are-relative-links-valid-in-link-rel-alternate-hreflang-tags
+          // See https://webmasters.googleblog.com/2013/04/5-common-mistakes-with-relcanonical.html
+          return (
+            <link key={supportedLocale?.name} rel="alternate" hrefLang={supportedLocale?.name || 'en'} href={`/${supportedLocale?.name || 'en'}`} />
+          );
+        })
+      }
 
       <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />

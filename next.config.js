@@ -2,8 +2,8 @@ const withSourceMaps = require('@zeit/next-source-maps')();
 const packageJson = require('./package');
 const date = new Date();
 const i18nConfig = require('./src/i18nConfig');
-const allowedLocales = i18nConfig.allowedLocales.map((locale) => {
-  return locale.name;
+const supportedLocales = i18nConfig.supportedLocales.map((supportedLocale) => {
+  return supportedLocale.name;
 });
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
@@ -60,7 +60,7 @@ module.exports = withSourceMaps({
           destination: '/api/autoRedirectToLocalisedPage',
         },
         {
-          source: `/:locale((?!${allowedLocales.join('|')})[^/]+)(.*)`,
+          source: `/:locale((?!${supportedLocales.join('|')})[^/]+)(.*)`,
           destination: '/api/autoRedirectToLocalisedPage',
         },
       ];

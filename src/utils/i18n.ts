@@ -1,11 +1,14 @@
 import {
   defaultLocale,
-  allowedLanguages,
+  supportedLanguages,
+  supportedLocales,
 } from '../i18nConfig';
+import { I18nLocale } from '../types/I18nLocale';
 
 export const LANG_EN = 'en';
 export const LANG_FR = 'fr';
-export const SUPPORTED_LANGUAGES = allowedLanguages;
+export const SUPPORTED_LOCALES: I18nLocale[] = supportedLocales;
+export const SUPPORTED_LANGUAGES: string[] = supportedLanguages;
 
 /**
  * Language used by default if no user language can be resolved
