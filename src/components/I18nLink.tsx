@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { I18nRoute, resolveI18nRoute } from '../utils/router';
 
-const I18nLink = (props: Props): JSX.Element => {
+const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     as,
     children,
