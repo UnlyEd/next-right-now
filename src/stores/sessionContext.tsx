@@ -2,7 +2,7 @@ import React from 'react';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
 import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 
-export type CookieContext = {
+export type SessionContext = {
   userSession?: UserSemiPersistentSession;
   cookiesManager?: UniversalCookiesManager;
 }
@@ -11,12 +11,12 @@ export type CookieContext = {
  * Uses native React Context API
  *
  * @example Usage
- *  import cookieContext from './src/stores/cookieContext';
- *  const { userSession, cookiesManager }: CookieContext = React.useContext(cookieContext) || {};
+ *  import sessionContext from './src/stores/sessionContext';
+ *  const { userSession, cookiesManager }: SessionContext = React.useContext(sessionContext) || {};
  *
  * @see https://reactjs.org/docs/context.html
  * @see https://medium.com/better-programming/react-hooks-usecontext-30eb560999f for useContext hook example (open in anonymous browser #paywall)
  */
-export const cookieContext = React.createContext<CookieContext>(null);
+export const sessionContext = React.createContext<SessionContext>(null);
 
-export default cookieContext;
+export default sessionContext;

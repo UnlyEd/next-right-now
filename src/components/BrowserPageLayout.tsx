@@ -7,7 +7,7 @@ import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { cookieContext } from '../stores/cookieContext';
+import { sessionContext } from '../stores/sessionContext';
 import { PageLayoutProps } from '../types/PageLayoutProps';
 import { getAmplitudeInstance } from '../utils/amplitude';
 import UniversalPageLayout from './UniversalPageLayout';
@@ -109,12 +109,12 @@ const BrowserPageLayout = (props: Props): JSX.Element => {
         //  will NOT be applied until the NEXT Amplitude event and this is likely gonna cause analytics issues!
         // userProperties={{}}
       >
-        <cookieContext.Provider value={{ userSession, cookiesManager }}>
+        <sessionContext.Provider value={{ userSession, cookiesManager }}>
           <UniversalPageLayout
             children={children} // eslint-disable-line react/no-children-prop
             {...layoutPageProps}
           />
-        </cookieContext.Provider>
+        </sessionContext.Provider>
       </Amplitude>
     </AmplitudeProvider>
   );

@@ -8,7 +8,7 @@ import { Button, Col, Row } from 'reactstrap';
 
 import EnglishFlag from '../components/svg/EnglishFlag';
 import FrenchFlag from '../components/svg/FrenchFlag';
-import cookieContext, { CookieContext } from '../stores/cookieContext';
+import sessionContext, { SessionContext } from '../stores/sessionContext';
 import customerContext, { CustomerContext } from '../stores/customerContext';
 import i18nContext, { I18nContext } from '../stores/i18nContext';
 import { LANG_FR } from '../utils/i18n';
@@ -25,7 +25,7 @@ type Props = {};
 const Footer: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router = useRouter();
-  const { userSession }: CookieContext = React.useContext(cookieContext) || {};
+  const { userSession }: SessionContext = React.useContext(sessionContext) || {};
   const customer: CustomerContext = React.useContext(customerContext);
   const { lang, locale }: I18nContext = React.useContext(i18nContext);
   const theme = customer.theme;
@@ -109,7 +109,7 @@ const Footer: React.FunctionComponent<Props> = () => {
             `}
           >
             <i
-              title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses cookieContext store provider)'}
+              title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses sessionContext store provider)'}
             >
               Device id (analytics):<br />
               <code>{userSession?.deviceId}</code>
