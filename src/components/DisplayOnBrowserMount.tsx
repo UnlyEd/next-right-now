@@ -6,7 +6,7 @@ type Props = {
 
 /**
  * Utility component to properly handle expected differences between server and browser rendering.
- * Helps to avoid "Text content did not match" warnings, and helps reconciliate React rehydration.
+ * Helps to avoid "Text content did not match" warnings, during React rehydration.
  *
  * XXX Use this helper to avoid rendering small UI (presentational) components that depend on browser-related data (e.g: localStorage, cookie, session-related data, etc.)
  *  Do not use this helper to avoid rendering big react Providers, or components who define big part of your UI layout

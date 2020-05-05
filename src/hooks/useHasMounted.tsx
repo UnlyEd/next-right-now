@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * Utility hook to properly handle expected differences between server and browser rendering.
- * Helps to avoid "Text content did not match" warnings, and helps reconciliate React rehydration.
+ * Helps to avoid "Text content did not match" warnings, during React rehydration.
  *
  * Similar to "DisplayOnBrowserMount" component, but as a hook.
  *
