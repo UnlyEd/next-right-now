@@ -2,15 +2,20 @@
 import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import { ApolloQueryResult } from 'apollo-client';
+import deepmerge from 'deepmerge';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Container } from 'reactstrap';
 import PageLayout from '../../components/PageLayout';
+import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
+import { Customer } from '../../types/data/Customer';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
+import { getStandaloneApolloClient } from '../../utils/graphql';
+import { getCommonStaticPaths, getCommonStaticProps, StaticPropsInput, StaticPropsOutput } from '../../utils/SSG';
 import { replaceAllOccurrences } from '../../utils/string';
 
 const fileLabel = 'pages/terms';
@@ -29,7 +34,50 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+  const commonStaticProps = await getCommonStaticProps(props);
+  const { customerRef, gcmsLocales } = commonStaticProps.props;
+
+  const apolloClient = getStandaloneApolloClient();
+  const variables = {
+    customerRef,
+  };
+  const queryOptions = {
+    displayName: 'TERMS_PAGE_QUERY',
+    query: TERMS_PAGE_QUERY,
+    variables,
+    context: {
+      headers: {
+        'gcms-locale': gcmsLocales,
+      },
+    },
+  };
+
+  const {
+    data,
+    errors,
+    loading,
+    networkStatus,
+    stale,
+  }: ApolloQueryResult<{
+    customer: Customer;
+  }> = await apolloClient.query(queryOptions);
+
+  if (errors) {
+    console.error(errors);
+    throw new Error('Errors were detected in GraphQL query.');
+  }
+
+  const {
+    customer,
+  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+
+  return deepmerge(commonStaticProps, {
+    props: {
+      customer,
+    },
+  });
+};
 
 /**
  * Only executed on the server side at build time

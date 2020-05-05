@@ -2,6 +2,8 @@
 import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import { ApolloQueryResult } from 'apollo-client';
+import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -12,12 +14,14 @@ import uuid from 'uuid/v1';
 
 import GraphCMSAsset from '../../components/GraphCMSAsset';
 import PageLayout from '../../components/PageLayout';
+import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
+import { getStandaloneApolloClient } from '../../utils/graphql';
+import { getCommonStaticPaths, getCommonStaticProps, StaticPropsInput, StaticPropsOutput } from '../../utils/SSG';
 
 const fileLabel = 'pages/examples';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -35,8 +39,50 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+  const commonStaticProps = await getCommonStaticProps(props);
+  const { customerRef, gcmsLocales } = commonStaticProps.props;
 
+  const apolloClient = getStandaloneApolloClient();
+  const variables = {
+    customerRef,
+  };
+  const queryOptions = {
+    displayName: 'EXAMPLES_PAGE_QUERY',
+    query: EXAMPLES_PAGE_QUERY,
+    variables,
+    context: {
+      headers: {
+        'gcms-locale': gcmsLocales,
+      },
+    },
+  };
+
+  const {
+    data,
+    errors,
+    loading,
+    networkStatus,
+    stale,
+  }: ApolloQueryResult<{
+    products: Product[];
+  }> = await apolloClient.query(queryOptions);
+
+  if (errors) {
+    console.error(errors);
+    throw new Error('Errors were detected in GraphQL query.');
+  }
+
+  const {
+    products,
+  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+
+  return deepmerge(commonStaticProps, {
+    props: {
+      products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
+    },
+  });
+};
 /**
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
@@ -62,7 +108,8 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
     >
       {
         (pageLayoutProps: PageLayoutProps): JSX.Element => {
-          const { t } = pageLayoutProps;
+          // @ts-ignore XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
+          const { t, products } = pageLayoutProps;
 
           return (
             <Container
@@ -135,7 +182,7 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
                 </div>
                 <Container>
                   { // TODO products
-                    map([], (product: Product) => {
+                    map(products, (product: Product) => {
                       return (
                         <div
                           key={product?.id}

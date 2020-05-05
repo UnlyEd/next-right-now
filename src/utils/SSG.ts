@@ -15,7 +15,7 @@ import { fetchTranslations, I18nextResources } from './i18nextLocize';
 /**
  * Static props given as inputs for getStaticProps
  */
-type StaticPropsInput = {
+export type StaticPropsInput = {
   params?: StaticParams;
   preview?: boolean;
   previewData?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -24,7 +24,7 @@ type StaticPropsInput = {
 /**
  * Static props returned as outputs for getStaticProps (yielded result)
  */
-type StaticPropsOutput = {
+export type StaticPropsOutput = {
   props: StaticProps;
   unstable_revalidate?: number | boolean;
 }
@@ -32,11 +32,11 @@ type StaticPropsOutput = {
 /**
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-type StaticPathsOutput = {
+export type StaticPathsOutput = {
+  fallback: boolean; // See https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required
   paths: {
     params: StaticParams;
   }[];
-  fallback: boolean; // See https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required
 }
 
 /**
@@ -99,17 +99,17 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
 
   return {
     props: {
+      apolloStaticCache: apolloClient.cache.extract(),
+      bestCountryCodes,
       customer,
+      customerRef,
+      defaultLocales,
+      gcmsLocales,
       hasLocaleFromUrl,
+      isReadyToRender: true,
+      isStaticRendering: true,
       lang,
       locale,
-      customerRef,
-      bestCountryCodes,
-      gcmsLocales,
-      defaultLocales,
-      apolloStaticCache: apolloClient.cache.extract(),
-      isStaticRendering: true,
-      isReadyToRender: true,
     },
     // unstable_revalidate: false,
   };
@@ -120,8 +120,8 @@ type StaticPath = {
 }
 
 type I18nLocale = {
-  name: string; // Locale name (e.g: fr-FR)
   lang: string; // Locale language (e.g: fr)
+  name: string; // Locale name (e.g: fr-FR)
 }
 
 /**
@@ -148,7 +148,7 @@ export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Prom
   });
 
   return {
-    paths,
     fallback: false,
+    paths,
   };
 };
