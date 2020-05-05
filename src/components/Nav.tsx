@@ -2,39 +2,24 @@
 import { Amplitude } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as Sentry from '@sentry/node';
-import { isBrowser } from '@unly/utils';
-import { NextRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
-import { StaticProps } from '../types/StaticProps';
-import { getValue } from '../utils/record';
+import customerContext, { CustomerContext } from '../stores/customerContext';
+import i18nContext, { I18nContext } from '../stores/i18nContext';
 import { isActive, resolveI18nHomePage } from '../utils/router';
 import GraphCMSAsset from './GraphCMSAsset';
 import I18nLink from './I18nLink';
 
-const fileLabel = 'components/Nav';
+type Props = {};
 
-type Props = {
-  router: NextRouter;
-} & StaticProps;
-
-const Nav: React.FunctionComponent<Props> = (props) => {
-  const {
-    customer, router, locale,
-  } = props;
-  const theme = customer.theme;
+const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering top nav bar (${isBrowser() ? 'browser' : 'server'})`,
-    level: Sentry.Severity.Debug,
-  });
-
-  // Resolve service logo
-  const serviceLogo = customer?.theme?.logo;
+  const router = useRouter();
+  const { theme }: CustomerContext = React.useContext(customerContext);
+  const { locale }: I18nContext = React.useContext(i18nContext);
+  const { primaryColor, logo } = theme;
 
   return (
     <Amplitude>
@@ -98,7 +83,7 @@ const Nav: React.FunctionComponent<Props> = (props) => {
             .nav-link {
               &.active {
                 font-weight: bold;
-                color: ${getValue(theme, 'primaryColor')} !important;
+                color: ${primaryColor} !important;
               }
             }
           `}
@@ -106,7 +91,7 @@ const Nav: React.FunctionComponent<Props> = (props) => {
           <div className={'brand-logo'}>
             <GraphCMSAsset
               id={'nav-logo-brand'}
-              asset={serviceLogo}
+              asset={logo}
               linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
               transformationsOverride={{
                 width: 75,

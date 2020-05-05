@@ -1,9 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
-import { isBrowser } from '@unly/utils';
 import startsWith from 'lodash.startswith';
-import { NextRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Col, Row } from 'reactstrap';
@@ -11,29 +9,27 @@ import { Button, Col, Row } from 'reactstrap';
 import EnglishFlag from '../components/svg/EnglishFlag';
 import FrenchFlag from '../components/svg/FrenchFlag';
 import cookieContext, { CookieContext } from '../stores/cookieContext';
-import { StaticProps } from '../types/StaticProps';
+import customerContext, { CustomerContext } from '../stores/customerContext';
+import i18nContext, { I18nContext } from '../stores/i18nContext';
 import { LANG_FR } from '../utils/i18n';
 import { SIZE_XS } from '../utils/logo';
-import { getValue, getValueFallback } from '../utils/record';
+import { getValueFallback } from '../utils/record';
 import { i18nRedirect } from '../utils/router';
 import GraphCMSAsset from './GraphCMSAsset';
 import I18nLink from './I18nLink';
 import Logo from './Logo';
 import Tooltip from './Tooltip';
 
-const fileLabel = 'components/Footer';
+type Props = {};
 
-type Props = {
-  router: NextRouter;
-} & StaticProps;
-
-const Footer: React.FunctionComponent<Props> = (props) => {
-  const {
-    customer, locale, lang, router,
-  } = props;
-  const theme = customer.theme;
+const Footer: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
+  const router = useRouter();
   const { userSession }: CookieContext = React.useContext(cookieContext) || {};
+  const customer: CustomerContext = React.useContext(customerContext);
+  const { lang, locale }: I18nContext = React.useContext(i18nContext);
+  const theme = customer.theme;
+  const { primaryColor, logo } = theme;
   const logoSizesMultipliers = [
     {
       size: SIZE_XS,
@@ -41,24 +37,18 @@ const Footer: React.FunctionComponent<Props> = (props) => {
     },
   ];
 
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering footer (${isBrowser() ? 'browser' : 'server'})`,
-    level: Sentry.Severity.Debug,
-  });
-
   // Resolve values, handle multiple fallback levels
   const copyrightOwner = getValueFallback([
     { record: customer, key: 'label' },
   ]);
   const currentYear = (new Date()).getFullYear();
-  return (
 
+  return (
     <div
       id="footer"
       className={'footer align-items-center center'}
       css={{
-        background: getValue(theme, 'primaryColor'),
+        background: primaryColor,
         padding: '20px 50px',
         color: 'white',
         a: {
@@ -73,7 +63,7 @@ const Footer: React.FunctionComponent<Props> = (props) => {
         <Col md={4} xs={12} className={'text-md-left text-center mt-4'}>
           <GraphCMSAsset
             id={'footer-logo-organisation-brand'}
-            asset={getValue(customer, 'theme.logo')}
+            asset={logo}
             linkOverride={{ id: 'link-footer-logo-organisation-brand' }}
             transformationsOverride={{
               width: 150,

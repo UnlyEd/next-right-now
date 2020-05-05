@@ -81,6 +81,7 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     theme,
   };
 
+  // TODO this isn't good for rehydration and needs to be re-implemented - see https://joshwcomeau.com/react/the-perils-of-rehydration/
   if (isBrowser()) {
     const isInIframe: boolean = isRunningInIframe();
     const iframeReferrer: string = getIframeReferrer();
