@@ -19,6 +19,7 @@ import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import BrowserPageLayout from './BrowserPageLayout';
 import { HeadProps } from './Head';
 import UniversalPageLayout from './UniversalPageLayout';
+import { useTranslation, UseTranslationResponse } from 'react-i18next';
 
 const fileLabel = 'components/PageLayout';
 const logger = createLogger({
@@ -69,6 +70,7 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   const router = useRouter();
   const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
+  const { t }: UseTranslationResponse = useTranslation();
   const theme: Theme = initCustomerTheme(customer);
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
   const pageLayoutProps: PageLayoutProps = {
@@ -78,6 +80,7 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     headProps,
     pageName,
     router,
+    t,
     theme,
   };
 

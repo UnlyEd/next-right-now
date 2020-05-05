@@ -1,4 +1,4 @@
-import { i18n } from 'i18next';
+import { i18n, TFunction } from 'i18next';
 import { NextRouter } from 'next/router';
 import { HeadProps } from '../components/Head';
 
@@ -19,6 +19,7 @@ export declare type PageLayoutProps<E extends StaticProps = StaticProps> = {
   isInIframe?: boolean; // Only available on the browser side
   headProps?: HeadProps;
   router: NextRouter;
+  t: TFunction;
   theme: Theme;
   pageName: string;
   userSession?: UserSemiPersistentSession; // Only available on the browser side
