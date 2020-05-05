@@ -24,7 +24,7 @@ type Props = {
  * Inside the "useEffect" call, we immediately trigger a re-render, setting hasMounted to true. When this value is true, the "real" content gets rendered.
  * When the React app adapts the DOM during rehydration, useEffect hasn't been called yet, and so we're meeting React's expectation.
  *
- * This process is name "Two pass rendering":
+ * This process is named "Two pass rendering":
  * The first pass, at compile-time, produces all of the static non-personal content, and leaves holes where the dynamic content will go.
  * Then, after the React app has mounted on the user's device, a second pass stamps in all the dynamic bits that depend on client state.
  * The downside to two-pass rendering is that it can delay time-to-interactive.
