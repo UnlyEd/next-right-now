@@ -37,7 +37,6 @@ type Props = {
 const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
   const {
     children,
-    ...delegatedProps
   } = props;
   const [hasMounted, setHasMounted] = React.useState(false);
 
@@ -50,9 +49,9 @@ const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
   }
 
   return (
-    <div {...delegatedProps}>
+    <>
       {children}
-    </div>
+    </>
   );
 };
 
