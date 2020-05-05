@@ -72,10 +72,8 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
   const { t }: UseTranslationResponse = useTranslation();
   const theme: Theme = initCustomerTheme(customer);
-  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
   const pageLayoutProps: PageLayoutProps = {
     ...props,
-    cookiesManager,
     i18nextInstance,
     headProps,
     pageName,
@@ -88,11 +86,13 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   if (isBrowser()) {
     const isInIframe: boolean = isRunningInIframe();
     const iframeReferrer: string = getIframeReferrer();
+    const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
     const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
 
     return (
       <BrowserPageLayout
         children={children} // eslint-disable-line react/no-children-prop
+        cookiesManager={cookiesManager}
         isInIframe={isInIframe}
         iframeReferrer={iframeReferrer}
         userSession={userSession}

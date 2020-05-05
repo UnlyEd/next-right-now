@@ -22,6 +22,7 @@ import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
 import { getStandaloneApolloClient } from '../../utils/graphql';
 import { getCommonStaticPaths, getCommonStaticProps, StaticPropsInput, StaticPropsOutput } from '../../utils/SSG';
+import DisplayOnBrowserMount from '../../components/DisplayOnBrowserMount';
 
 const fileLabel = 'pages/examples';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -292,19 +293,21 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
                   <hr />
 
                   <div>
-                    <Trans
-                      i18nKey={'examples.i18n.dynamicTranslation'}
-                    >
-                      Contenu dynamique : <b>{{ uuid: uuid() }}</b>
-                    </Trans>
-                    <br />
-                    <code>
-                      {'<Trans\n' +
-                      '  i18nKey="{\'examples.i18n.dynamicTranslation\'}"\n' +
-                      '>\n' +
-                      '  Contenu dynamique : <b>{{ uuid: uuid() }}</b>\n' +
-                      '</Trans>'}
-                    </code>
+                    <DisplayOnBrowserMount>
+                      <Trans
+                        i18nKey={'examples.i18n.dynamicTranslation'}
+                      >
+                        Contenu dynamique : <b>{{ uuid: uuid() }}</b>
+                      </Trans>
+                      <br />
+                      <code>
+                        {'<Trans\n' +
+                        '  i18nKey="{\'examples.i18n.dynamicTranslation\'}"\n' +
+                        '>\n' +
+                        '  Contenu dynamique : <b>{{ uuid: uuid() }}</b>\n' +
+                        '</Trans>'}
+                      </code>
+                    </DisplayOnBrowserMount>
                   </div>
                   <hr />
 

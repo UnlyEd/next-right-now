@@ -7,9 +7,6 @@ console.error = (...args): void => {
   if (/Warning.*Function components cannot be given refs/.test(args[0])) {
     // HACK: Muting error, fix as soon as https://github.com/zeit/next.js/issues/7915 gets resolved
     return;
-  } else if (/Warning.*Text content did not match/.test(args[0])) {
-    // HACK: Muting warning (makes no sense with SSG), see https://github.com/zeit/next.js/discussions/12451
-    return;
   }
   originalError.call(console, ...args);
 };

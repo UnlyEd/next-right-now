@@ -8,9 +8,9 @@ import { Button, Col, Row } from 'reactstrap';
 
 import EnglishFlag from '../components/svg/EnglishFlag';
 import FrenchFlag from '../components/svg/FrenchFlag';
-import sessionContext, { SessionContext } from '../stores/sessionContext';
 import customerContext, { CustomerContext } from '../stores/customerContext';
 import i18nContext, { I18nContext } from '../stores/i18nContext';
+import sessionContext, { SessionContext } from '../stores/sessionContext';
 import { LANG_FR } from '../utils/i18n';
 import { SIZE_XS } from '../utils/logo';
 import { getValueFallback } from '../utils/record';
@@ -19,6 +19,7 @@ import GraphCMSAsset from './GraphCMSAsset';
 import I18nLink from './I18nLink';
 import Logo from './Logo';
 import Tooltip from './Tooltip';
+import DisplayOnBrowserMount from './DisplayOnBrowserMount';
 
 type Props = {};
 
@@ -111,7 +112,9 @@ const Footer: React.FunctionComponent<Props> = () => {
               title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses sessionContext store provider)'}
             >
               Device id (analytics):<br />
-              <code>{userSession?.deviceId}</code>
+              <DisplayOnBrowserMount>
+                <code>{userSession?.deviceId}</code>
+              </DisplayOnBrowserMount>
             </i>
           </div>
         </Col>
