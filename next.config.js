@@ -1,5 +1,4 @@
 const withSourceMaps = require('@zeit/next-source-maps')();
-const withCSS = require('@zeit/next-css'); // Allows to import ".css" files, like bootstrap.css
 const packageJson = require('./package');
 const date = new Date();
 const i18nConfig = require('./src/i18nConfig');
@@ -9,7 +8,7 @@ const allowedLocales = i18nConfig.allowedLocales.map((locale) => {
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
 
-module.exports = withCSS(withSourceMaps({
+module.exports = withSourceMaps({
   env: {
     // XXX Duplication of the environment variables, this is only used locally (See https://github.com/zeit/next.js#build-time-configuration)
     //  while now.json:build:env will be used on the Now platform (See https://zeit.co/docs/v2/build-step/#providing-environment-variables)
@@ -111,4 +110,4 @@ module.exports = withCSS(withSourceMaps({
     return config;
   },
   poweredByHeader: 'NRN - With love',
-}));
+});
