@@ -1,16 +1,17 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import I18nLink from '../../components/I18nLink';
+import { Container } from 'reactstrap';
 import PageLayout from '../../components/PageLayout';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
+import { replaceAllOccurrences } from '../../utils/string';
 
 const fileLabel = 'pages/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -55,26 +56,69 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
     >
       {
         (pageLayoutProps: PageLayoutProps): JSX.Element => {
-          const { locale, lang, customer } = pageLayoutProps;
+          const { customer, theme: { primaryColor } } = pageLayoutProps;
 
           return (
-            <div>
-              <h1>Page: Terms</h1>
-              <h2>Customer: {customer?.label}</h2>
+            <Container>
 
-              <div>
-                Locale: {locale}<br />
-                Lang: {lang}
-              </div>
+              <div
+                css={css`
+                  justify-content: center;
+                  text-align: center;
+                  margin-left: auto;
+                  margin-right: auto;
 
-              <I18nLink
-                locale={locale}
-                href={'/'}
-                passHref
+                  .source {
+                    margin: auto;
+                    width: 50%;
+                  }
+                `}
               >
-                <a>Index</a>
-              </I18nLink>
-            </div>
+                <div
+                  css={css`
+                    margin: 50px 150px 150px;
+                    h1 {
+                     color: ${primaryColor};
+                     font-size: 35px;
+                    }
+                    h2 {
+                     font-size: 20px;
+                     margin-top: 35px;
+                    }
+                    h3 {
+                     font-size: 17px;
+                    }
+                    h4 {
+                     font-size: 13px;
+                     font-weight: 300;
+                    }
+                    h5 {
+                     font-size: 13px;
+                     font-weight: 100;
+                    }
+                    h6 {
+                     font-size: 10px;
+                    }
+                  `}
+                  dangerouslySetInnerHTML={{
+                    __html: replaceAllOccurrences(customer?.terms?.html || '', {
+                      customerLabel: `<b>${customer?.label}</b>`,
+                    }),
+                  }}
+                />
+
+                <hr />
+
+                <div className={'source'}>
+                  <h2>HTML source code (fetched from GraphQL API), as <code>RichText</code> field:</h2>
+                  <pre>
+                    <code>
+                      {customer?.terms?.html}
+                    </code>
+                  </pre>
+                </div>
+              </div>
+            </Container>
           );
         }
       }
