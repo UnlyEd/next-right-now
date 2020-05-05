@@ -78,7 +78,6 @@ const Footer: React.FunctionComponent<Props> = () => {
             {t('footer.terms.text', 'Tous droits réservés')}
           </p>
           <I18nLink
-            locale={locale}
             href={`/terms`}
             passHref={true}
           >

@@ -103,7 +103,6 @@ const Nav: React.FunctionComponent<Props> = () => {
           <NavStrap navbar>
             <NavItem>
               <I18nLink
-                locale={locale}
                 href={`/`}
                 passHref={true}
               >
@@ -119,7 +118,6 @@ const Nav: React.FunctionComponent<Props> = () => {
 
             <NavItem>
               <I18nLink
-                locale={locale}
                 href={`/examples`}
                 passHref={true}
               >

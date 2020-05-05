@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import i18nContext, { I18nContext } from '../stores/i18nContext';
 import { I18nRoute, resolveI18nRoute } from '../utils/router';
 
 const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
@@ -7,9 +8,9 @@ const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
     as,
     children,
     href,
-    locale,
     ...rest // Should only contain valid next/Link props
   } = props;
+  const { locale }: I18nContext = React.useContext(i18nContext);
   const {
     i18nHref,
     i18nAs,
@@ -28,7 +29,6 @@ const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
 
 type Props = {
   children: React.ReactElement;
-  locale: string;
   href: string;
   as?: string;
   replace?: boolean;
