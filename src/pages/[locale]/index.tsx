@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import I18nLink from '../../components/I18nLink';
 import PageLayout from '../../components/PageLayout';
-import { LayoutPageProps } from '../../types/LayoutPageProps';
+import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
@@ -54,8 +54,8 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
       {...props}
     >
       {
-        (layoutPageProps: LayoutPageProps): JSX.Element => {
-          const { locale, lang, customer } = props;
+        (pageLayoutProps: PageLayoutProps): JSX.Element => {
+          const { locale, lang, customer } = pageLayoutProps;
 
           return (
             <div>

@@ -12,7 +12,7 @@ import { UserSemiPersistentSession } from './UserSemiPersistentSession';
  *
  * @ts Extends StaticProps by default
  */
-export declare type LayoutPageProps<E extends StaticProps = StaticProps> = {
+export declare type PageLayoutProps<E extends StaticProps = StaticProps> = {
   cookiesManager: UniversalCookiesManager;
   i18nextInstance: i18n;
   iframeReferrer?: string; // Only available on the browser side

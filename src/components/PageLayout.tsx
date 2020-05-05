@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import { Theme } from '../types/data/Theme';
-import { LayoutPageProps } from '../types/LayoutPageProps';
+import { PageLayoutProps } from '../types/PageLayoutProps';
 import { StaticProps } from '../types/StaticProps';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
 import i18nextLocize from '../utils/i18nextLocize';
@@ -40,7 +40,7 @@ type Props = {
  *   {...props}
  * >
  *  {
- *    (layoutPageProps: LayoutPageProps): JSX.Element => {
+ *    (layoutPageProps: PageLayoutProps): JSX.Element => {
  *      => layoutPageProps
  *    }
  *  }
@@ -71,7 +71,7 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
   const theme: Theme = initCustomerTheme(customer);
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
-  const layoutPageProps: LayoutPageProps = {
+  const pageLayoutProps: PageLayoutProps = {
     ...props,
     cookiesManager,
     i18nextInstance,
@@ -92,14 +92,14 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
         isInIframe={isInIframe}
         iframeReferrer={iframeReferrer}
         userSession={userSession}
-        {...layoutPageProps}
+        {...pageLayoutProps}
       />
     );
   } else {
     return (
       <UniversalPageLayout
         children={children} // eslint-disable-line react/no-children-prop
-        {...layoutPageProps}
+        {...pageLayoutProps}
       />
     );
   }

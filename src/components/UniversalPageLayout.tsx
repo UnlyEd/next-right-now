@@ -11,7 +11,7 @@ import { Button } from 'reactstrap';
 
 import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR } from '../constants';
 import ErrorPage from '../pages/_error';
-import { LayoutPageProps } from '../types/LayoutPageProps';
+import { PageLayoutProps } from '../types/PageLayoutProps';
 import { getValue, STRATEGY_DO_NOTHING } from '../utils/record';
 import Footer from './Footer';
 import Head from './Head';
@@ -24,7 +24,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 
 type Props = {
   children: Function;
-} & LayoutPageProps;
+} & PageLayoutProps;
 
 /**
  *
@@ -49,7 +49,7 @@ const UniversalPageLayout = (props: Props): JSX.Element => {
     userSession,
     theme,
   } = props;
-  const { children, ...layoutPageProps } = props; // Only keep LayoutPageProps variables (remove children)
+  const { children, ...layoutPageProps } = props; // Only keep PageLayoutProps variables (remove children)
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -284,7 +284,9 @@ const UniversalPageLayout = (props: Props): JSX.Element => {
       />
 
       <ThemeProvider theme={theme}>
-        {/* See https://github.com/mikemaccana/outdated-browser-rework */}
+        {/*
+          Loaded from components/Head - See https://github.com/mikemaccana/outdated-browser-rework
+        */}
         <div
           id="outdated"
           style={{ display: 'none' }}

@@ -6,7 +6,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import PageLayout from '../components/PageLayout';
-import { LayoutPageProps } from '../types/LayoutPageProps';
+import { PageLayoutProps } from '../types/PageLayoutProps';
 import { StaticParams } from '../types/StaticParams';
 import { StaticProps } from '../types/StaticProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n';
@@ -83,8 +83,8 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
       {...props}
     >
       {
-        (layoutPageProps: LayoutPageProps): JSX.Element => {
-          const { router } = layoutPageProps;
+        (pageLayoutProps: PageLayoutProps): JSX.Element => {
+          const { router } = pageLayoutProps;
           const locale = router?.asPath?.split('/')?.[1] || DEFAULT_LOCALE;
           const lang: string = locale.split('-')?.[0];
 

@@ -8,7 +8,7 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { cookieContext } from '../stores/cookieContext';
-import { LayoutPageProps } from '../types/LayoutPageProps';
+import { PageLayoutProps } from '../types/PageLayoutProps';
 import { getAmplitudeInstance } from '../utils/amplitude';
 import UniversalPageLayout from './UniversalPageLayout';
 
@@ -19,7 +19,7 @@ const logger = createLogger({
 
 type Props = {
   children: Function;
-} & LayoutPageProps;
+} & PageLayoutProps;
 
 /**
  *
@@ -44,7 +44,7 @@ const BrowserPageLayout = (props: Props): JSX.Element => {
     userSession,
     theme,
   } = props;
-  const { children, ...layoutPageProps } = props; // Only keep LayoutPageProps variables (remove children)
+  const { children, ...layoutPageProps } = props; // Only keep PageLayoutProps variables (remove children)
   const userId = userSession.id;
   const { t, i18n } = useTranslation();
 
