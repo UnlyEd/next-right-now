@@ -25,12 +25,8 @@ type Props = {} & PageBootstrapProps;
 const PageBootstrap = (props: Props): JSX.Element => {
   const {
     customer,
-    customerRef,
-    defaultLocales,
-    i18nextInstance,
     lang,
     locale,
-    router,
     theme,
   } = props;
   const {
@@ -52,7 +48,7 @@ const PageBootstrap = (props: Props): JSX.Element => {
   return (
     <i18nContext.Provider value={{ lang, locale }}>
       <customerContext.Provider value={customer}>
-        {/* XXX Global styles that applies to all pages within this layout go there */}
+        {/* XXX Global styles that applies to all pages go there */}
         <UniversalGlobalStyles theme={theme} />
 
         <ThemeProvider theme={theme}>

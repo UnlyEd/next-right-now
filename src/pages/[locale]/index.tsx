@@ -47,8 +47,6 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
     level: Sentry.Severity.Debug,
   });
 
-  console.log('props', props);
-
   return (
     <Layout
       {...props}

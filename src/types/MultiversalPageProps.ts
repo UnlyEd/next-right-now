@@ -1,12 +1,21 @@
-import { UniversalSSGPageProps } from './UniversalSSGPageProps';
-import { UniversalSSRPageProps } from './UniversalSSRPageProps';
+import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { I18nextResources } from '../utils/i18nextLocize';
+import { Customer } from './data/Customer';
 
 /**
- * Page props provided universally to the main app render function by the main app getInitialProps function
- *
- * The exact same properties are provided, whether during a server or client rendering
- *
- * @see _app:getInitialProps - Returns it (consumed by the "render" function)
- * @see _app:render - Use it (as its "pageProps" property)
+ * Page properties available on all pages, whether they're rendered statically, dynamically, from the server or the client
  */
-export declare type MultiversalPageProps = UniversalSSGPageProps | UniversalSSRPageProps;
+export declare type MultiversalPageProps = {
+  apolloState: NormalizedCacheObject;
+  bestCountryCodes: string[];
+  customer: Customer;
+  customerRef: string;
+  defaultLocales: I18nextResources;
+  error?: Error; // Only defined if there was an error
+  gcmsLocales: string;
+  hasLocaleFromUrl: boolean;
+  isReadyToRender: boolean;
+  lang: string;
+  locale: string;
+  statusCode?: number;
+};

@@ -6,24 +6,23 @@ import classnames from 'classnames';
 import React from 'react';
 import { Button } from 'reactstrap';
 import ErrorPage from '../pages/_error';
-import { MultiversalPageBootstrapProps } from '../types/MultiversalPageBootstrapProps';
+import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import Footer from './Footer';
 import Head from './Head';
 import Nav from './Nav';
 
-const fileLabel = 'components/MultiversalPageBootstrap';
+const fileLabel = 'components/MultiversalAppBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });
 
-type Props = {} & MultiversalPageBootstrapProps;
+type Props = {} & MultiversalAppBootstrapProps;
 
 /**
  *
  * @param props
  */
 const Layout: React.FunctionComponent<any> = (props): JSX.Element => {
-  console.log('Layout.props', props);
   const {
     children,
     error,

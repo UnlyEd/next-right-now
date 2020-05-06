@@ -3,15 +3,12 @@ import { NextRouter } from 'next/router';
 import { MultiversalPageProps } from './MultiversalPageProps';
 
 /**
- * Props that are returned by the main getInitialProps and then provided to the render function of the application
+ * Props that are provided to the render function of the application (in _app)
+ * Those props can be consolidated by either getInitialProps, getServerProps or getStaticProps, depending on the page and its configuration
  *
- * The props that are being returned by getInitialProps are enhanced by the Next.js framework
- * Also, our HOC apply at the same moment and enhance even more the properties that the render function will receive
- *
- * @see _app:getInitialProps - Returns it (only pageProps)
- * @see _app:render - Use it (has access to all props)
+ * @see MultiversalAppBootstrap for usage
  */
-export declare type MultiversalPageBootstrapProps = {
+export declare type MultiversalAppBootstrapProps = {
   pageProps: MultiversalPageProps;
   err?: Error; // Only defined if there was an error
 

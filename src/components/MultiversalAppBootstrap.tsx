@@ -5,7 +5,7 @@ import { i18n } from 'i18next';
 import React from 'react';
 import { BrowserPageBootstrapProps } from '../types/BrowserPageBootstrapProps';
 import { Theme } from '../types/data/Theme';
-import { MultiversalPageBootstrapProps } from '../types/MultiversalPageBootstrapProps';
+import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../types/MultiversalPageProps';
 import { PageBootstrapProps } from '../types/PageBootstrapProps';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
@@ -16,18 +16,20 @@ import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import BrowserPageBootstrap from './BrowserPageBootstrap';
 import PageBootstrap from './PageBootstrap';
 
-const fileLabel = 'components/MultiversalPageBootstrap';
+const fileLabel = 'components/MultiversalAppBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });
 
-type Props = {} & MultiversalPageBootstrapProps;
-
 /**
+ * Bootstraps a page and renders it
+ *
+ * Basically does everything a Page component needs to be rendered.
+ * All behaviors defined here are applied across the whole application (they're common to all pages)
  *
  * @param props
  */
-const MultiversalPageBootstrap: React.FunctionComponent<Props> = (props): JSX.Element => {
+const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapProps> = (props): JSX.Element => {
   const {
     Component,
     err,
@@ -43,17 +45,16 @@ const MultiversalPageBootstrap: React.FunctionComponent<Props> = (props): JSX.El
   });
 
   if (isBrowser()) { // Avoids log clutter on server
-    console.debug('MultiversalPageBootstrap.props', props);
+    console.debug('MultiversalAppBootstrap.props', props);
   }
 
   if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
-    console.info('MultiversalPageBootstrap - App is ready, rendering...');
+    console.info('MultiversalAppBootstrap - App is ready, rendering...');
     const {
       customer,
       defaultLocales,
       lang,
     }: MultiversalPageProps = pageProps;
-
     const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
     const theme: Theme = initCustomerTheme(customer);
     const pageBootstrapProps: PageBootstrapProps = {
@@ -63,7 +64,7 @@ const MultiversalPageBootstrap: React.FunctionComponent<Props> = (props): JSX.El
       i18nextInstance,
       router,
       theme,
-      ...rest,
+      ...rest, // Those properties may be handful, but they're mostly non-official properties subject to changes (e.g: __N_SSG)
     };
 
     /*
@@ -76,7 +77,7 @@ const MultiversalPageBootstrap: React.FunctionComponent<Props> = (props): JSX.El
      * What we do here, is to avoid rendering browser-related stuff if we're not running in a browser, because it cannot work properly.
      * (e.g: Generating cookies will work, but they won't be stored on the end-user device, and it would create "Text content did not match" warnings, if generated from the server during SSG)
      *
-     * So, the BrowserPageBootstrap does browser-related stuff and then call the PageBootstrap which takes care of stuff that is isomorphic (identical between browser and server)
+     * So, the BrowserPageBootstrap does browser-related stuff and then call the PageBootstrap which takes care of stuff that is universal (identical between browser and server)
      *
      * XXX If you're concerned regarding React rehydration, read our talk with Josh, author of https://joshwcomeau.com/react/the-perils-of-rehydration/
      *  https://twitter.com/Vadorequest/status/1257658553361408002
@@ -107,9 +108,12 @@ const MultiversalPageBootstrap: React.FunctionComponent<Props> = (props): JSX.El
       );
     }
   } else {
-    console.info('MultiversalPageBootstrap - App is not ready yet, waiting for isReadyToRender');
+    // We wait for out props to contain "isReadyToRender: true", which means they've been set correctly by either getInitialProps/getStaticProps/getServerProps
+    // This helps avoid multiple useless renders (especially in development mode) and thus avoid noisy logs
+    // XXX I've recently tested without it and didn't notice any more logs than expected/usual. Maybe this was from a time where there were multiple full-renders? It may be removed if so (TODO later with proper testing)
+    console.info('MultiversalAppBootstrap - App is not ready yet, waiting for isReadyToRender');
     return null;
   }
 };
 
-export default MultiversalPageBootstrap;
+export default MultiversalAppBootstrap;

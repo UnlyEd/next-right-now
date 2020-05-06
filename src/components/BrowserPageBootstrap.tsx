@@ -9,9 +9,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { sessionContext } from '../stores/sessionContext';
 import { BrowserPageBootstrapProps } from '../types/BrowserPageBootstrapProps';
-import { MultiversalPageBootstrapProps } from '../types/MultiversalPageBootstrapProps';
-import { PageBootstrapProps } from '../types/PageBootstrapProps';
-import { UniversalSSGPageBootstrapProps } from '../types/UniversalSSGPageBootstrapProps';
 import { getAmplitudeInstance } from '../utils/amplitude';
 import PageBootstrap from './PageBootstrap';
 
@@ -20,8 +17,7 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-type Props = {
-} & BrowserPageBootstrapProps;
+type Props = {} & BrowserPageBootstrapProps;
 
 /**
  *
