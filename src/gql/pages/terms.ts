@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import { theme } from '../fragments/theme';
 
 /**
  * Used for /terms page
@@ -16,5 +15,4 @@ export const TERMS_PAGE_QUERY = gql`
       }
     }
   }
-  ${theme.themeFields}
 `;
