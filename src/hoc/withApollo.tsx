@@ -6,7 +6,6 @@ import { WithApolloState } from 'next-with-apollo/lib/types';
 import App from 'next/app';
 import Head from 'next/head';
 import React, { ReactNode } from 'react';
-import { AppRenderProps } from '../types/AppRenderProps';
 import createApolloClient from '../utils/graphql';
 
 // XXX Inspired by https://github.com/zeit/next.js/blob/canary/examples/with-apollo/lib/apollo.js
@@ -18,6 +17,22 @@ type initOnContextProps = {
   ctx: NextPageContext;
   apolloClient?: ApolloClient<NormalizedCacheObject>;
   apolloState?: WithApolloState<NormalizedCacheObject>;
+};
+
+/**
+ * Options of the withApollo HOC
+ */
+type withApolloOptions = {
+  ssr?: boolean; // If set to true, will inject "getInitialProps" into the page and will use SSR mode
+}
+
+/**
+ * Injected by HOC "withApollo" into the page
+ */
+type PageProps = {
+  apolloState?: WithApolloState<NormalizedCacheObject>;
+  apolloClient?: ApolloClient<NormalizedCacheObject>;
+  isReadyToRender: boolean;
 };
 
 /**
@@ -90,8 +105,8 @@ const initApolloClient = (initialState, ctx: NextPageContext): ApolloClient<Norm
  * @param  {Boolean} [withApolloOptions.ssr=false]
  * @returns {(PageComponent: ReactNode) => ReactNode}
  */
-export const withApollo = ({ ssr = false }: { ssr?: boolean } = {}) => (PageComponent) => {
-  const WithApollo = ({ apolloClient, apolloState, ...pageProps }: AppRenderProps): ReactNode => {
+export const withApollo = ({ ssr = false }: withApolloOptions = {}) => (PageComponent) => {
+  const WithApollo = ({ apolloClient, apolloState, ...pageProps }: PageProps): ReactNode => {
     let client: ApolloClient<NormalizedCacheObject>;
     if (apolloClient) {
       // Happens on: getDataFromTree & next.js ssr
@@ -116,7 +131,7 @@ export const withApollo = ({ ssr = false }: { ssr?: boolean } = {}) => (PageComp
   }
 
   if (ssr || PageComponent.getInitialProps) {
-    WithApollo.getInitialProps = async (ctx) => {
+    WithApollo.getInitialProps = async (ctx): Promise<PageProps> | null => {
       const inAppContext = Boolean(ctx.ctx);
       const { apolloClient } = initOnContext(ctx);
 
@@ -134,7 +149,10 @@ export const withApollo = ({ ssr = false }: { ssr?: boolean } = {}) => (PageComp
         // When redirecting, the response is finished.
         // No point in continuing to render
         if (ctx.res && ctx.res.finished) {
-          return pageProps;
+          return {
+            ...pageProps,
+            isReadyToRender: true,
+          };
         }
 
         // Only if dataFromTree is enabled

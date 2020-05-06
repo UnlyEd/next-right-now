@@ -36,7 +36,7 @@ class NRNApp extends NextApp {
    * @return {JSX.Element}
    */
   render(): JSX.Element {
-    const { Component, pageProps, err }: AppRenderProps = this.props;
+    const { Component, err, pageProps, router }: AppRenderProps = this.props;
 
     if (isBrowser()) { // Avoids log clutter on server
       console.debug('_app.render.pageProps', pageProps);

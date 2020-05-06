@@ -21,8 +21,4 @@ export declare type AppRenderProps = {
   //  They're marked as optional because they aren't defined in _app:getInitialProps but will be defined in _app:render
   Component?: Function; // eslint-disable-line @typescript-eslint/no-explicit-any
   router?: NextRouter;
-
-  // Injected by HOC "withApollo"
-  apolloState?: WithApolloState<NormalizedCacheObject>;
-  apolloClient?: ApolloClient<NormalizedCacheObject>;
 };
