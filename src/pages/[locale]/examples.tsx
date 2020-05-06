@@ -16,6 +16,7 @@ import DisplayOnBrowserMount from '../../components/DisplayOnBrowserMount';
 import GraphCMSAsset from '../../components/GraphCMSAsset';
 import PageLayout from '../../components/PageLayout';
 import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
+import withApollo from '../../hoc/withApollo';
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
@@ -357,4 +358,4 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default ExamplesPage;
+export default withApollo()(ExamplesPage);

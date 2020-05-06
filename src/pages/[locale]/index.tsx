@@ -9,6 +9,7 @@ import React from 'react';
 import { Alert, Container } from 'reactstrap';
 import I18nLink from '../../components/I18nLink';
 import PageLayout from '../../components/PageLayout';
+import withApollo from '../../hoc/withApollo';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticProps } from '../../types/StaticProps';
@@ -241,4 +242,4 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default HomePage;
+export default withApollo()(HomePage);

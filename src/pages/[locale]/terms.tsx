@@ -10,6 +10,7 @@ import React from 'react';
 import { Container } from 'reactstrap';
 import PageLayout from '../../components/PageLayout';
 import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
+import withApollo from '../../hoc/withApollo';
 import { Customer } from '../../types/data/Customer';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
@@ -177,4 +178,4 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default TermsPage;
+export default withApollo()(TermsPage);
