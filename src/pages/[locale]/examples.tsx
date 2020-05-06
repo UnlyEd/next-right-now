@@ -1,10 +1,9 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
-import map from 'lodash.map';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
@@ -13,11 +12,10 @@ import { Alert, Container } from 'reactstrap';
 import uuid from 'uuid/v1';
 
 import DisplayOnBrowserMount from '../../components/DisplayOnBrowserMount';
-import GraphCMSAsset from '../../components/GraphCMSAsset';
 import PageLayout from '../../components/PageLayout';
+import Products from '../../components/Products';
 import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
 import withApollo from '../../hoc/withApollo';
-import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
 import { PageLayoutProps } from '../../types/PageLayoutProps';
 import { StaticParams } from '../../types/StaticParams';
@@ -93,7 +91,9 @@ export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
-type Props = {} & StaticProps;
+type Props = {
+  products: Product[];
+} & StaticProps;
 
 const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
@@ -111,8 +111,7 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
     >
       {
-        (pageLayoutProps: PageLayoutProps): JSX.Element => {
-          // @ts-ignore XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
+        (pageLayoutProps: PageLayoutProps & Props): JSX.Element => {
           const { t, products } = pageLayoutProps;
 
           return (
@@ -161,20 +160,7 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
 
               <hr />
 
-              <div
-                css={css`
-                  .product-container {
-                    margin: 30px;
-                    border: 1px solid lightgray;
-                    padding: 10px;
-                    border-radius: 5px;
-
-                    .product-description {
-                       font-style: italic;
-                    }
-                  }
-                `}
-              >
+              <div>
                 <h2 className={'pcolor'}>GraphQL & GraphCMS universal examples</h2>
                 <blockquote>Fetching products from GraphCMS API</blockquote>
                 <div>
@@ -184,42 +170,10 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
                   We also split our <code>.gql</code> files into reusable fragments to avoid duplicating code.<br />
                   We use a custom component <code>GraphCMSAsset</code> to display images.<br />
                 </div>
-                <Container>
-                  { // TODO products
-                    map(products, (product: Product) => {
-                      return (
-                        <div
-                          key={product?.id}
-                          className={'product-container'}
-                        >
-                          {
-                            map(product.images, (image: Asset) => {
-                              return (
-                                <GraphCMSAsset
-                                  key={image?.id}
-                                  id={image?.id}
-                                  asset={image}
-                                  transformationsOverride={{
-                                    width: 75,
-                                    height: 100,
-                                  }}
-                                />
-                              );
-                            })
-                          }
 
-                          <h2 className={'product-title'}>
-                            {product?.title} - ${product?.price || 0}
-                          </h2>
-
-                          <div className={'product-description'}>
-                            {product?.description}
-                          </div>
-                        </div>
-                      );
-                    })
-                  }
-                </Container>
+                <Products
+                  products={products}
+                />
               </div>
 
               <hr />

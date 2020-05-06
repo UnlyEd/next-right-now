@@ -179,6 +179,7 @@ export const withApollo = ({ ssr = false }: { ssr?: boolean } = {}) => (PageComp
         // Provide the client for ssr. As soon as this payload
         // gets JSON.stringified it will remove itself.
         apolloClient: ctx.apolloClient,
+        isReadyToRender: true,
       };
     };
   }
