@@ -9,7 +9,7 @@ import { I18nLocale } from '../types/I18nLocale';
 import { StaticParams } from '../types/StaticParams';
 import { StaticPath } from '../types/StaticPath';
 import { StaticPathsOutput } from '../types/StaticPathsOutput';
-import { StaticProps } from '../types/StaticProps';
+import { UniversalSSGPageProps } from '../types/UniversalSSGPageProps';
 import { StaticPropsInput } from '../types/StaticPropsInput';
 import { StaticPropsOutput } from '../types/StaticPropsOutput';
 import { prepareGraphCMSLocaleHeader } from './graphcms';
@@ -22,18 +22,18 @@ import { fetchTranslations, I18nextResources } from './i18nextLocize';
  * Computes all static props that should be available for all SSG pages
  *
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
- * only the results from getStaticProps are actually injected into the page (as "StaticProps").
+ * only the results from getStaticProps are actually injected into the page (as "UniversalSSGPageProps").
  *
  * Meant to avoid code duplication
  * Can be overridden for per-page customisation (e.g: deepmerge)
  *
  * @param props
- * @return Props (as "StaticProps") that will be passed to the Page component, as props
+ * @return Props (as "UniversalSSGPageProps") that will be passed to the Page component, as props
  *
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getCommonStaticProps: GetStaticProps<UniversalSSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const customerRef: string = process.env.CUSTOMER_REF;
   const hasLocaleFromUrl = !!props?.params?.locale;
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)

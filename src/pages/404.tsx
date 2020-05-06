@@ -2,15 +2,15 @@
 import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetStaticProps, NextPage } from 'next';
+import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import PageLayout from '../components/PageLayout';
-import { PageLayoutProps } from '../types/PageLayoutProps';
+import Layout from '../components/Layout';
 import { StaticParams } from '../types/StaticParams';
-import { StaticProps } from '../types/StaticProps';
+import { UniversalSSGPageProps } from '../types/UniversalSSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n';
-import { getCommonStaticPaths, getCommonStaticProps } from '../utils/SSG';
+import { getCommonStaticProps } from '../utils/SSG';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -21,16 +21,16 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time.
  *
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
- * only the results from getStaticProps are actually injected into the page (as "StaticProps").
+ * only the results from getStaticProps are actually injected into the page (as "UniversalSSGPageProps").
  *
- * @return Props (as "StaticProps") that will be passed to the Page component, as props
+ * @return Props (as "UniversalSSGPageProps") that will be passed to the Page component, as props
  *
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<UniversalSSGPageProps, StaticParams> = getCommonStaticProps;
 
-type Props = {} & StaticProps;
+type Props = {} & UniversalSSGPageProps;
 
 const Fr404 = (): JSX.Element => {
   return (
@@ -68,49 +68,43 @@ const En404 = (): JSX.Element => {
  * @see https://nextjs.org/docs/advanced-features/custom-error-page#404-page
  */
 const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
+  const router: NextRouter = useRouter();
+  const locale = router?.asPath?.split('/')?.[1] || DEFAULT_LOCALE;
+  const lang: string = locale.split('-')?.[0];
+
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Warning, // Use warning
   });
 
+  // We can display a custom message based on the lang, but the other parts of the app won't be translated (nav, footer)
+  // Also, it has to be hardcoded, it cannot be stored on Locize, because we don't have access to translations from other languages
   return (
-    <PageLayout
+    <Layout
       pageName={'404'}
       headProps={{
         title: '404 Not Found - Next Right Now',
       }}
       {...props}
     >
-      {
-        (pageLayoutProps: PageLayoutProps): JSX.Element => {
-          const { router } = pageLayoutProps;
-          const locale = router?.asPath?.split('/')?.[1] || DEFAULT_LOCALE;
-          const lang: string = locale.split('-')?.[0];
-
-          // We can display a custom message based on the lang, but the other parts of the app won't be translated (nav, footer)
-          // Also, it has to be hardcoded, it cannot be stored on Locize, because we don't have access to translations from other languages
-          return (
-            <div
-              css={css`
+      <div
+        css={css`
                 text-align: center;
               `}
-            >
-              {
-                lang === LANG_FR && (
-                  <Fr404 />
-                )
-              }
-              {
-                lang === LANG_EN && (
-                  <En404 />
-                )
-              }
-            </div>
-          );
+      >
+        {
+          lang === LANG_FR && (
+            <Fr404 />
+          )
         }
-      }
-    </PageLayout>
+        {
+          lang === LANG_EN && (
+            <En404 />
+          )
+        }
+      </div>
+    </Layout>
   );
 };
 

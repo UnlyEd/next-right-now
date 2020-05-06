@@ -1,11 +1,12 @@
-import { I18nextResources } from '../utils/i18nextLocize';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { I18nextResources } from '../utils/i18nextLocize';
 import { Customer } from './data/Customer';
 
 /**
  * Static properties returned by getStaticProps for static pages (using SSG)
  */
-export type StaticProps = {
+export type UniversalSSGPageProps = {
+  apolloState: NormalizedCacheObject;
   bestCountryCodes: string[];
   customer: Customer;
   customerRef: string;
@@ -13,10 +14,9 @@ export type StaticProps = {
   error?: Error; // Only defined if there was an error
   gcmsLocales: string;
   hasLocaleFromUrl: boolean;
-  isStaticRendering: boolean;
   isReadyToRender: boolean;
+  isStaticRendering: boolean;
   lang: string;
   locale: string;
   statusCode?: number;
-  apolloState: NormalizedCacheObject,
 };

@@ -10,15 +10,14 @@ import { NextPage, NextPageContext } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Container } from 'reactstrap';
-import PageLayout from '../../components/PageLayout';
+import Layout from '../../components/Layout';
 import Products from '../../components/Products';
 import Text from '../../components/Text';
 import { PRODUCTS_PAGE_QUERY } from '../../gql/pages/products';
 import withApollo from '../../hoc/withApollo';
 import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
-import { PageLayoutProps } from '../../types/PageLayoutProps';
-import { StaticProps } from '../../types/StaticProps';
+import { UniversalSSGPageProps } from '../../types/UniversalSSGPageProps';
 import { prepareGraphCMSLocaleHeader } from '../../utils/graphcms';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../../utils/i18n';
 import { fetchTranslations, I18nextResources } from '../../utils/i18nextLocize';
@@ -30,10 +29,12 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 
 type Props = {
   products: Product[];
-} & StaticProps;
+} & UniversalSSGPageProps;
 
 const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
+  const productsPublished = filter(products, { status: 'PUBLISHED' });
+  const productsDraft = filter(products, { status: 'DRAFT' });
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -42,61 +43,51 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <PageLayout
+    <Layout
       pageName={'products'}
       headProps={{
         title: `${size(products)} products (SSR) - Next Right Now`,
       }}
       {...props}
     >
-      {
-        (pageLayoutProps: PageLayoutProps & Props): JSX.Element => {
-          const { t, products } = pageLayoutProps;
-          const productsPublished = filter(products, { status: 'PUBLISHED' });
-          const productsDraft = filter(products, { status: 'DRAFT' });
+      <Container
+        className={'container-white'}
+      >
+        <h1>Products</h1>
 
-          return (
-            <Container
-              className={'container-white'}
-            >
-              <h1>Products</h1>
-
-              <Text>
-                {`
+        <Text>
+          {`
                   This page uses server side rendering (SSR)
 
                   Each page refresh (either SSR or CSR) queries the GraphQL API and displays products below:
                 `}
-              </Text>
+        </Text>
 
-              <hr />
+        <hr />
 
-              <h2>Published products</h2>
+        <h2>Published products</h2>
 
-              <Products
-                products={productsPublished}
-              />
+        <Products
+          products={productsPublished}
+        />
 
-              <hr />
+        <hr />
 
-              <h2>Draft products</h2>
+        <h2>Draft products</h2>
 
-              <Text>
-                {`
-                  Those products are being created/updated by the NRN community, anybody can manipulate those through <a href='https://nrn-admin.now.sh/#/Product/create' target="_blank">the Admin site</a>.
+        <Text>
+          {`
+                  Those products are being created/updated by the NRN community, anybody can manipulate those through <a href="https://nrn-admin.now.sh/#/Product/create" target="_blank">the Admin site</a>.
 
                   Don't hesitate to give it a try, you'll see the list of products below will update because content is fetched for every page request.
                 `}
-              </Text>
+        </Text>
 
-              <Products
-                products={productsDraft}
-              />
-            </Container>
-          );
-        }
-      }
-    </PageLayout>
+        <Products
+          products={productsDraft}
+        />
+      </Container>
+    </Layout>
   );
 };
 

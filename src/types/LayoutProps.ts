@@ -1,7 +1,7 @@
 import { AmplitudeClient } from 'amplitude-js';
 import { i18n } from 'i18next';
 import { NextRouter } from 'next/router';
-import { AppPageProps } from './AppPageProps';
+import { MultiversalPageProps } from './MultiversalPageProps';
 
 export type LayoutPropsSSR = {
   router: NextRouter;
@@ -11,7 +11,7 @@ export type LayoutPropsSSR = {
   // Only available on the client side
   isInIframe?: boolean;
   amplitudeInstance?: AmplitudeClient;
-} & AppPageProps;
+} & MultiversalPageProps;
 
 /**
  * Properties that are provided to the PageLayout component

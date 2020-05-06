@@ -8,49 +8,49 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { sessionContext } from '../stores/sessionContext';
-import { PageLayoutProps } from '../types/PageLayoutProps';
+import { BrowserPageBootstrapProps } from '../types/BrowserPageBootstrapProps';
+import { MultiversalPageBootstrapProps } from '../types/MultiversalPageBootstrapProps';
+import { PageBootstrapProps } from '../types/PageBootstrapProps';
+import { UniversalSSGPageBootstrapProps } from '../types/UniversalSSGPageBootstrapProps';
 import { getAmplitudeInstance } from '../utils/amplitude';
-import UniversalPageLayout from './UniversalPageLayout';
+import PageBootstrap from './PageBootstrap';
 
-const fileLabel = 'components/BrowserPageLayout';
+const fileLabel = 'components/BrowserPageBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });
 
 type Props = {
-  children: Function;
-} & PageLayoutProps;
+} & BrowserPageBootstrapProps;
 
 /**
  *
  * @param props
  * @constructor
  */
-const BrowserPageLayout = (props: Props): JSX.Element => {
+const BrowserPageBootstrap = (props: Props): JSX.Element => {
   const {
+    Component,
     cookiesManager,
     customer,
     customerRef,
     defaultLocales,
-    error,
+    err,
     i18nextInstance,
     iframeReferrer,
     isInIframe,
-    headProps,
     lang,
     locale,
-    pageName,
     router,
     userSession,
     theme,
   } = props;
-  const { children, ...layoutPageProps } = props; // Only keep PageLayoutProps variables (remove children)
   const userId = userSession.id;
   const { t, i18n } = useTranslation();
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
-    message: `Rendering ${fileLabel} for page "${pageName}"`,
+    message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,
   });
 
@@ -94,7 +94,7 @@ const BrowserPageLayout = (props: Props): JSX.Element => {
             url: location.href,
             path: location.pathname,
             origin: location.origin,
-            name: pageName,
+            name: null,
           },
           customer: {
             ref: customerRef,
@@ -110,9 +110,8 @@ const BrowserPageLayout = (props: Props): JSX.Element => {
         // userProperties={{}}
       >
         <sessionContext.Provider value={{ userSession, cookiesManager }}>
-          <UniversalPageLayout
-            children={children} // eslint-disable-line react/no-children-prop
-            {...layoutPageProps}
+          <PageBootstrap
+            {...props}
           />
         </sessionContext.Provider>
       </Amplitude>
@@ -120,4 +119,4 @@ const BrowserPageLayout = (props: Props): JSX.Element => {
   );
 };
 
-export default BrowserPageLayout;
+export default BrowserPageBootstrap;
