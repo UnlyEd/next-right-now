@@ -2,32 +2,24 @@
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import ApolloClient, { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from 'apollo-client';
 import filter from 'lodash.filter';
 import size from 'lodash.size';
-import { NextPage, NextPageContext } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Container } from 'reactstrap';
-import NextCookies from 'next-cookies';
-import get from 'lodash.get';
-import { IncomingMessage } from 'http';
 
 import Layout from '../../components/Layout';
 import Products from '../../components/Products';
 import Text from '../../components/Text';
 import { PRODUCTS_PAGE_QUERY } from '../../gql/pages/products';
 import withApollo from '../../hoc/withApollo';
-import { Cookies } from '../../types/Cookies';
 import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
+import { GetServerSidePropsContext } from '../../types/GetServerSidePropsContext';
 import { UniversalSSRPageProps } from '../../types/UniversalSSRPageProps';
-import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
-import { prepareGraphCMSLocaleHeader } from '../../utils/graphcms';
-import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../../utils/i18n';
-import { fetchTranslations, I18nextResources } from '../../utils/i18nextLocize';
-import UniversalCookiesManager from '../../utils/UniversalCookiesManager';
+import { getCommonServerSideProps, getCommonServerSidePropsResults } from '../../utils/SSR';
 
 const fileLabel = 'pages/products';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -35,6 +27,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 });
 
 type Props = {
+  [key: string]: any;
   products: Product[];
 } & UniversalSSRPageProps;
 
@@ -98,45 +91,22 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-ProductsPage.getInitialProps = async (context: NextPageContext & { apolloClient: ApolloClient<NormalizedCacheObject> }): Promise<Props> => {
+/**
+ * Fetches all products and customer in one single GQL query
+ *
+ * @param context
+ */
+export const getServerSideProps: GetServerSideProps<Props> = async (context: GetServerSidePropsContext): Promise<{ props: Props }> => {
+  // @ts-ignore
   const {
     apolloClient,
-    AppTree,
-    asPath,
-    err,
-    query,
-    pathname,
-    req,
-    res,
-  } = context;
-  const customerRef: string = process.env.CUSTOMER_REF;
-  const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
-  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res);
-  const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
-  const { headers }: IncomingMessage = req;
-  const publicHeaders = {
-    'accept-language': get(headers, 'accept-language'),
-    'user-agent': get(headers, 'user-agent'),
-    'host': get(headers, 'host'),
-  };
-  const hasLocaleFromUrl = !!query?.locale;
-  const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
-  const lang: string = locale.split('-')?.[0];
-  const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
-  const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
+    layoutQueryOptions,
+    ...propsToForward
+  }: getCommonServerSidePropsResults = await getCommonServerSideProps(context);
+  const queryOptions = { // Override query (keep existing variables and headers)
+    ...layoutQueryOptions,
     displayName: 'PRODUCTS_PAGE_QUERY',
     query: PRODUCTS_PAGE_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locale': gcmsLocales,
-      },
-    },
   };
 
   const {
@@ -161,22 +131,96 @@ ProductsPage.getInitialProps = async (context: NextPageContext & { apolloClient:
   } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
   return {
-    apolloState: apolloClient.cache.extract(),
-    bestCountryCodes,
-    customer,
-    customerRef,
-    defaultLocales,
-    headers: publicHeaders,
-    gcmsLocales,
-    hasLocaleFromUrl,
-    isReadyToRender: true,
-    isServerRendering: true,
-    lang,
-    locale,
-    products,
-    readonlyCookies,
-    userSession,
+    props: {
+      ...propsToForward,
+      apolloState: apolloClient.cache.extract(),
+      customer,
+      products,
+    },
   };
 };
 
-export default withApollo({ ssr: true })(ProductsPage);
+// XXX For educational purposes - Equivalent to above "getServerSideProps"
+//  Note that CSR fails with below code because we didn't check if req/res were available before usage (and I didn't fix it because switching to getServerSideProps looks cleaner and less tricky IMHO)
+// ProductsPage.getInitialProps = async (context: NextPageContext & { apolloClient: ApolloClient<NormalizedCacheObject> }): Promise<Props> => {
+//   const {
+//     apolloClient,
+//     AppTree,
+//     asPath,
+//     err,
+//     query,
+//     pathname,
+//     req,
+//     res,
+//   } = context;
+//   const customerRef: string = process.env.CUSTOMER_REF;
+//   const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
+//   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res);
+//   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
+//   const { headers }: IncomingMessage = req;
+//   const publicHeaders = {
+//     'accept-language': get(headers, 'accept-language'),
+//     'user-agent': get(headers, 'user-agent'),
+//     'host': get(headers, 'host'),
+//   };
+//   const hasLocaleFromUrl = !!query?.locale;
+//   const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
+//   const lang: string = locale.split('-')?.[0];
+//   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+//   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
+//   const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+//   const variables = {
+//     customerRef,
+//   };
+//   const queryOptions = {
+//     displayName: 'PRODUCTS_PAGE_QUERY',
+//     query: PRODUCTS_PAGE_QUERY,
+//     variables,
+//     context: {
+//       headers: {
+//         'gcms-locale': gcmsLocales,
+//       },
+//     },
+//   };
+//
+//   const {
+//     data,
+//     errors,
+//     loading,
+//     networkStatus,
+//     stale,
+//   }: ApolloQueryResult<{
+//     customer: Customer;
+//     products: Product[];
+//   }> = await apolloClient.query(queryOptions);
+//
+//   if (errors) {
+//     console.error(errors);
+//     throw new Error('Errors were detected in GraphQL query.');
+//   }
+//
+//   const {
+//     customer,
+//     products,
+//   } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+//
+//   return {
+//     apolloState: apolloClient.cache.extract(),
+//     bestCountryCodes,
+//     customer,
+//     customerRef,
+//     defaultLocales,
+//     headers: publicHeaders,
+//     gcmsLocales,
+//     hasLocaleFromUrl,
+//     isReadyToRender: true,
+//     isServerRendering: true,
+//     lang,
+//     locale,
+//     products,
+//     readonlyCookies,
+//     userSession,
+//   };
+// };
+
+export default withApollo()(ProductsPage);
