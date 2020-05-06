@@ -22,8 +22,8 @@ describe('Index page', () => {
   /**
    * Navbar section
    */
-  it('should have 5 links in the navigation bar', () => {
-    cy.get('#nav a.nav-link').should('have.length', 5);
+  it('should have 6 links in the navigation bar', () => {
+    cy.get('#nav a.nav-link').should('have.length', 6);
   });
 
   it('should have a link in the navbar that redirects to the examples page', () => {
