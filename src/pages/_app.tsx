@@ -1,7 +1,7 @@
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faBook, faBookReader, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -18,7 +18,7 @@ import '../utils/sentry';
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(
   faGithub,
-  faBook, faBookReader, faHome, faUserCog,
+  faBook, faBookReader, faCoffee, faHome, faUserCog,
 );
 
 const fileLabel = 'pages/_app';

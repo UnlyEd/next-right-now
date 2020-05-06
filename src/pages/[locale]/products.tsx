@@ -33,7 +33,7 @@ type Props = {
 
 const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
-  console.log('ProductsPage.props', props);
+
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
@@ -88,7 +88,6 @@ ProductsPage.getInitialProps = async (context: NextPageContext & { apolloClient:
     req,
     res,
   } = context;
-  console.log('ProductsPage.getInitialProps.context', context);
   const customerRef: string = process.env.CUSTOMER_REF;
   const hasLocaleFromUrl = !!query?.locale;
   const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
