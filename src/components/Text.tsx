@@ -7,6 +7,7 @@ type Props = {
 
 /**
  * Automatically break lines for text
+ * Allow usage of HTML
  *
  * Avoids relying on <br /> for every line break
  *
@@ -24,9 +25,12 @@ export const Text: React.FunctionComponent<Props> = (props) => {
   const { children, Wrapper = 'div' } = props;
 
   return (
-    <Wrapper style={{ whiteSpace: 'pre-line' }}>
-      {children}
-    </Wrapper>
+    <Wrapper
+      style={{ whiteSpace: 'pre-line' }}
+      dangerouslySetInnerHTML={{
+        __html: children,
+      }}
+    />
   );
 };
 

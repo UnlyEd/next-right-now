@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import ApolloClient, { ApolloQueryResult } from 'apollo-client';
+import filter from 'lodash.filter';
 import size from 'lodash.size';
 import { NextPage, NextPageContext } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -51,6 +52,8 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
       {
         (pageLayoutProps: PageLayoutProps & Props): JSX.Element => {
           const { t, products } = pageLayoutProps;
+          const productsPublished = filter(products, { status: 'PUBLISHED' });
+          const productsDraft = filter(products, { status: 'DRAFT' });
 
           return (
             <Container
@@ -66,8 +69,28 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
                 `}
               </Text>
 
+              <hr />
+
+              <h2>Published products</h2>
+
               <Products
-                products={products}
+                products={productsPublished}
+              />
+
+              <hr />
+
+              <h2>Draft products</h2>
+
+              <Text>
+                {`
+                  Those products are being created/updated by the NRN community, anybody can manipulate those through <a href='https://nrn-admin.now.sh/#/Product/create' target="_blank">the Admin site</a>.
+
+                  Don't hesitate to give it a try, you'll see the list of products below will update because content is fetched for every page request.
+                `}
+              </Text>
+
+              <Products
+                products={productsDraft}
               />
             </Container>
           );

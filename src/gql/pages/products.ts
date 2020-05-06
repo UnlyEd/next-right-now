@@ -19,11 +19,12 @@ export const PRODUCTS_PAGE_QUERY = gql`
       }
     }
     products(where: {
-      status: PUBLISHED
       customer: {
         ref: $customerRef
       }
-    }){
+    }
+      orderBy: status_DESC
+    ){
       ...productFields
     }
   }
