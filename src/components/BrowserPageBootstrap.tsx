@@ -8,6 +8,7 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { sessionContext } from '../stores/sessionContext';
+import { BrowserPageProps } from '../types/BrowserPageProps';
 import { Theme } from '../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../types/MultiversalPageProps';
@@ -48,7 +49,7 @@ const BrowserPageBootstrap = (props: Props): JSX.Element => {
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
   const userId = userSession.id;
-  const injectedPageProps = {
+  const injectedPageProps: MultiversalPageProps<BrowserPageProps> = {
     ...props.pageProps,
     isInIframe,
     iframeReferrer,

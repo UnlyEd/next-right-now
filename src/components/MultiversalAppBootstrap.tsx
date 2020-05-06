@@ -6,13 +6,12 @@ import { i18n } from 'i18next';
 import React from 'react';
 import customerContext from '../stores/customerContext';
 import i18nContext from '../stores/i18nContext';
-import { Props as BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import { Theme } from '../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../types/MultiversalPageProps';
 import i18nextLocize from '../utils/i18nextLocize';
 import { initCustomerTheme } from '../utils/theme';
-import BrowserPageBootstrap from './BrowserPageBootstrap';
+import BrowserPageBootstrap, { Props as BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
 
 const fileLabel = 'components/MultiversalAppBootstrap';
@@ -65,7 +64,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapPr
         theme,
       },
     };
-    const injectedPageProps = {
+    const injectedPageProps: MultiversalPageProps = {
       ...browserPageBootstrapProps.pageProps,
     };
 
