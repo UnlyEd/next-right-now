@@ -18,5 +18,5 @@ export type StaticProps = {
   lang: string;
   locale: string;
   statusCode?: number;
-  apolloStaticCache: NormalizedCacheObject,
+  apolloState: NormalizedCacheObject,
 };

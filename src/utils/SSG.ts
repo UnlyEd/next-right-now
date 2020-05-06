@@ -77,7 +77,7 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
 
   return {
     props: {
-      apolloStaticCache: apolloClient.cache.extract(),
+      apolloState: apolloClient.cache.extract(),
       bestCountryCodes,
       customer,
       customerRef,
