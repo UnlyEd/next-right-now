@@ -4,7 +4,7 @@ import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { i18n } from 'i18next';
-import { useRouter } from 'next/router';
+import { useRouter, NextRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
@@ -68,7 +68,7 @@ const PageLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     level: Sentry.Severity.Debug,
   });
 
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
   const { t }: UseTranslationResponse = useTranslation();
   const theme: Theme = initCustomerTheme(customer);

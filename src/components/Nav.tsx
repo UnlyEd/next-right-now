@@ -2,7 +2,7 @@
 import { Amplitude } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRouter } from 'next/router';
+import { useRouter, NextRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
@@ -16,7 +16,7 @@ type Props = {};
 
 const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const { theme }: CustomerContext = React.useContext(customerContext);
   const { locale }: I18nContext = React.useContext(i18nContext);
   const { primaryColor, logo } = theme;

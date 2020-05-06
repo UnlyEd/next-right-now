@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import startsWith from 'lodash.startswith';
-import { useRouter } from 'next/router';
+import { useRouter, NextRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Col, Row } from 'reactstrap';
@@ -25,7 +25,7 @@ type Props = {};
 
 const Footer: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const { userSession }: SessionContext = React.useContext(sessionContext) || {};
   const customer: CustomerContext = React.useContext(customerContext);
   const { lang, locale }: I18nContext = React.useContext(i18nContext);
