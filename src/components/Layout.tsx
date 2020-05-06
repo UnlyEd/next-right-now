@@ -6,9 +6,10 @@ import classnames from 'classnames';
 import React from 'react';
 import { Button } from 'reactstrap';
 import ErrorPage from '../pages/_error';
-import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
+import { BrowserPageProps } from '../types/BrowserPageProps';
+import { MultiversalPageProps } from '../types/MultiversalPageProps';
 import Footer from './Footer';
-import Head from './Head';
+import Head, { HeadProps } from './Head';
 import Nav from './Nav';
 
 const fileLabel = 'components/MultiversalAppBootstrap';
@@ -16,13 +17,22 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-type Props = {} & MultiversalAppBootstrapProps;
+type Props = {
+  headProps: HeadProps;
+  pageName: string;
+} & MultiversalPageProps<BrowserPageProps>;
 
 /**
+ * The layout handle the positioning of elements within the page
+ *
+ * This Layout component adds a Nav/Footer component, and the Page component in between
+ * Also, it automatically track page views (Amplitude)
+ *
+ * It also handle errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
  *
  * @param props
  */
-const Layout: React.FunctionComponent<any> = (props): JSX.Element => {
+const Layout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     error,

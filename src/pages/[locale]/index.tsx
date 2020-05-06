@@ -46,7 +46,6 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,
   });
-  console.log('index.props', props)
 
   return (
     <Layout

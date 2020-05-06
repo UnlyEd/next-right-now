@@ -32,8 +32,6 @@ const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapPr
     Component,
     err,
     pageProps,
-    router,
-    ...rest
   } = props;
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
