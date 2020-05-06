@@ -2,47 +2,59 @@
 import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
-import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
+import { i18n } from 'i18next';
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { sessionContext } from '../stores/sessionContext';
-import { BrowserPageBootstrapProps } from '../types/BrowserPageBootstrapProps';
+import { Theme } from '../types/data/Theme';
+import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
+import { MultiversalPageProps } from '../types/MultiversalPageProps';
+import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../utils/amplitude';
-import PageBootstrap from './PageBootstrap';
+import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
+import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 
 const fileLabel = 'components/BrowserPageBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });
 
-type Props = {} & BrowserPageBootstrapProps;
+export type Props = {} & MultiversalAppBootstrapProps<MultiversalPageProps & {
+  i18nextInstance: i18n;
+  theme: Theme;
+}>;
 
 /**
+ * Bootstraps the page, only when rendered on the browser
  *
  * @param props
- * @constructor
  */
 const BrowserPageBootstrap = (props: Props): JSX.Element => {
   const {
     Component,
-    cookiesManager,
-    customer,
-    customerRef,
-    defaultLocales,
+    pageProps,
     err,
-    i18nextInstance,
-    iframeReferrer,
-    isInIframe,
+  } = props;
+  const {
+    customerRef,
     lang,
     locale,
-    router,
-    userSession,
-    theme,
-  } = props;
-  const userId = userSession.id;
+  } = pageProps;
   const { t, i18n } = useTranslation();
+  const isInIframe: boolean = isRunningInIframe();
+  const iframeReferrer: string = getIframeReferrer();
+  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
+  const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
+  const userId = userSession.id;
+  const injectedPageProps = {
+    ...props.pageProps,
+    isInIframe,
+    iframeReferrer,
+    cookiesManager,
+    userSession,
+  };
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -60,7 +72,7 @@ const BrowserPageBootstrap = (props: Props): JSX.Element => {
   });
 
   // In non-production stages, bind some utilities to the browser's DOM, for ease of quick testing
-  if (isBrowser() && process.env.APP_STAGE !== 'production') {
+  if (process.env.APP_STAGE !== 'production') {
     window['i18n'] = i18n;
     window['t'] = t;
     window['amplitudeInstance'] = amplitudeInstance;
@@ -106,8 +118,10 @@ const BrowserPageBootstrap = (props: Props): JSX.Element => {
         // userProperties={{}}
       >
         <sessionContext.Provider value={{ userSession, cookiesManager }}>
-          <PageBootstrap
-            {...props}
+          <Component
+            {...injectedPageProps}
+            // @ts-ignore
+            error={err}
           />
         </sessionContext.Provider>
       </Amplitude>

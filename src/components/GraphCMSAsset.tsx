@@ -38,7 +38,6 @@ const _defaultLink: Link = {
  *
  * @param props
  * @return {null|*}
- * @constructor
  *
  * @see Transformations https://docs.graphcms.com/developers/assets/transformations/transforming-url-structure
  */

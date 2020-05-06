@@ -1,20 +1,19 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
+import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
 import React from 'react';
-import { BrowserPageBootstrapProps } from '../types/BrowserPageBootstrapProps';
+import customerContext from '../stores/customerContext';
+import i18nContext from '../stores/i18nContext';
+import { Props as BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import { Theme } from '../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../types/MultiversalPageProps';
-import { PageBootstrapProps } from '../types/PageBootstrapProps';
-import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
 import i18nextLocize from '../utils/i18nextLocize';
-import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
 import { initCustomerTheme } from '../utils/theme';
-import UniversalCookiesManager from '../utils/UniversalCookiesManager';
 import BrowserPageBootstrap from './BrowserPageBootstrap';
-import PageBootstrap from './PageBootstrap';
+import UniversalGlobalStyles from './UniversalGlobalStyles';
 
 const fileLabel = 'components/MultiversalAppBootstrap';
 const logger = createLogger({
@@ -54,17 +53,20 @@ const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapPr
       customer,
       defaultLocales,
       lang,
+      locale,
     }: MultiversalPageProps = pageProps;
     const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
     const theme: Theme = initCustomerTheme(customer);
-    const pageBootstrapProps: PageBootstrapProps = {
-      ...pageProps,
-      Component,
-      err,
-      i18nextInstance,
-      router,
-      theme,
-      ...rest, // Those properties may be handful, but they're mostly non-official properties subject to changes (e.g: __N_SSG)
+    const browserPageBootstrapProps: BrowserPageBootstrapProps = {
+      ...props,
+      pageProps: {
+        ...pageProps,
+        i18nextInstance,
+        theme,
+      },
+    };
+    const injectedPageProps = {
+      ...browserPageBootstrapProps.pageProps,
     };
 
     /*
@@ -82,31 +84,31 @@ const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapPr
      * XXX If you're concerned regarding React rehydration, read our talk with Josh, author of https://joshwcomeau.com/react/the-perils-of-rehydration/
      *  https://twitter.com/Vadorequest/status/1257658553361408002
      */
-    if (isBrowser()) {
-      const isInIframe: boolean = isRunningInIframe();
-      const iframeReferrer: string = getIframeReferrer();
-      const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
-      const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
-      const browserPageBootstrapProps: BrowserPageBootstrapProps = {
-        ...pageBootstrapProps,
-        isInIframe,
-        iframeReferrer,
-        cookiesManager,
-        userSession,
-      };
+    return (
+      <i18nContext.Provider value={{ lang, locale }}>
+        <customerContext.Provider value={customer}>
+          {/* XXX Global styles that applies to all pages go there */}
+          <UniversalGlobalStyles theme={theme} />
 
-      return (
-        <BrowserPageBootstrap
-          {...browserPageBootstrapProps}
-        />
-      );
-    } else {
-      return (
-        <PageBootstrap
-          {...pageBootstrapProps}
-        />
-      );
-    }
+          <ThemeProvider theme={theme}>
+            {
+              isBrowser() ? (
+                <BrowserPageBootstrap
+                  {...browserPageBootstrapProps}
+                />
+              ) : (
+                <Component
+                  {...injectedPageProps}
+                  // @ts-ignore
+                  error={err}
+                />
+              )
+            }
+          </ThemeProvider>
+        </customerContext.Provider>
+      </i18nContext.Provider>
+    );
+
   } else {
     // We wait for out props to contain "isReadyToRender: true", which means they've been set correctly by either getInitialProps/getStaticProps/getServerProps
     // This helps avoid multiple useless renders (especially in development mode) and thus avoid noisy logs

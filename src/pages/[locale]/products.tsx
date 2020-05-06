@@ -10,17 +10,24 @@ import { NextPage, NextPageContext } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Container } from 'reactstrap';
+import NextCookies from 'next-cookies';
+import get from 'lodash.get';
+import { IncomingMessage } from 'http';
+
 import Layout from '../../components/Layout';
 import Products from '../../components/Products';
 import Text from '../../components/Text';
 import { PRODUCTS_PAGE_QUERY } from '../../gql/pages/products';
 import withApollo from '../../hoc/withApollo';
+import { Cookies } from '../../types/Cookies';
 import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
-import { UniversalSSGPageProps } from '../../types/UniversalSSGPageProps';
+import { UniversalSSRPageProps } from '../../types/UniversalSSRPageProps';
+import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { prepareGraphCMSLocaleHeader } from '../../utils/graphcms';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../../utils/i18n';
 import { fetchTranslations, I18nextResources } from '../../utils/i18nextLocize';
+import UniversalCookiesManager from '../../utils/UniversalCookiesManager';
 
 const fileLabel = 'pages/products';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -29,7 +36,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 
 type Props = {
   products: Product[];
-} & UniversalSSGPageProps;
+} & UniversalSSRPageProps;
 
 const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
@@ -57,10 +64,10 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
 
         <Text>
           {`
-                  This page uses server side rendering (SSR)
+            This page uses server side rendering (SSR)
 
-                  Each page refresh (either SSR or CSR) queries the GraphQL API and displays products below:
-                `}
+            Each page refresh (either SSR or CSR) queries the GraphQL API and displays products below:
+          `}
         </Text>
 
         <hr />
@@ -77,10 +84,10 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
 
         <Text>
           {`
-                  Those products are being created/updated by the NRN community, anybody can manipulate those through <a href="https://nrn-admin.now.sh/#/Product/create" target="_blank">the Admin site</a>.
+            Those products are being created/updated by the NRN community, anybody can manipulate those through <a href="https://nrn-admin.now.sh/#/Product/create" target="_blank">the Admin site</a>.
 
-                  Don't hesitate to give it a try, you'll see the list of products below will update because content is fetched for every page request.
-                `}
+            Don't hesitate to give it a try, you'll see the list of products below will update because content is fetched for every page request.
+          `}
         </Text>
 
         <Products
@@ -103,6 +110,15 @@ ProductsPage.getInitialProps = async (context: NextPageContext & { apolloClient:
     res,
   } = context;
   const customerRef: string = process.env.CUSTOMER_REF;
+  const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
+  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res);
+  const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
+  const { headers }: IncomingMessage = req;
+  const publicHeaders = {
+    'accept-language': get(headers, 'accept-language'),
+    'user-agent': get(headers, 'user-agent'),
+    'host': get(headers, 'host'),
+  };
   const hasLocaleFromUrl = !!query?.locale;
   const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
@@ -150,13 +166,16 @@ ProductsPage.getInitialProps = async (context: NextPageContext & { apolloClient:
     customer,
     customerRef,
     defaultLocales,
+    headers: publicHeaders,
     gcmsLocales,
     hasLocaleFromUrl,
     isReadyToRender: true,
-    isStaticRendering: true,
+    isServerRendering: true,
     lang,
     locale,
     products,
+    readonlyCookies,
+    userSession,
   };
 };
 

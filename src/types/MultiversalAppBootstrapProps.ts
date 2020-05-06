@@ -8,8 +8,8 @@ import { MultiversalPageProps } from './MultiversalPageProps';
  *
  * @see MultiversalAppBootstrap for usage
  */
-export declare type MultiversalAppBootstrapProps = {
-  pageProps: MultiversalPageProps;
+export declare type MultiversalAppBootstrapProps<PP extends MultiversalPageProps = MultiversalPageProps> = {
+  pageProps: PP;
   err?: Error; // Only defined if there was an error
 
   // XXX Props that are somehow injected by the Next.js framework between _app:getInitialProps and _app:render
