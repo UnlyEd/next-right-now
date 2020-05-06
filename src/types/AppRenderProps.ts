@@ -22,7 +22,7 @@ export declare type AppRenderProps = {
   Component?: Function; // eslint-disable-line @typescript-eslint/no-explicit-any
   router?: NextRouter;
 
-  // Injected by HOC "withUniversalGraphQLDataLoader"
+  // Injected by HOC "withApollo"
   apolloState?: WithApolloState<NormalizedCacheObject>;
-  apollo?: ApolloClient<NormalizedCacheObject>;
+  apolloClient?: ApolloClient<NormalizedCacheObject>;
 };

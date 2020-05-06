@@ -13,7 +13,7 @@ import { StaticProps } from '../types/StaticProps';
 import { StaticPropsInput } from '../types/StaticPropsInput';
 import { StaticPropsOutput } from '../types/StaticPropsOutput';
 import { prepareGraphCMSLocaleHeader } from './graphcms';
-import { getStandaloneApolloClient } from './graphql';
+import { createApolloClient } from './graphql';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from './i18n';
 import { fetchTranslations, I18nextResources } from './i18nextLocize';
 
@@ -41,7 +41,7 @@ export const getCommonStaticProps: GetStaticProps<StaticProps, StaticParams> = a
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const apolloClient = getStandaloneApolloClient();
+  const apolloClient = createApolloClient();
   const variables = {
     customerRef,
   };

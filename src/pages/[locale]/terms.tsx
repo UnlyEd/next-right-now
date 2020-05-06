@@ -17,7 +17,7 @@ import { StaticProps } from '../../types/StaticProps';
 
 import { StaticPropsInput } from '../../types/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/StaticPropsOutput';
-import { getStandaloneApolloClient } from '../../utils/graphql';
+import { createApolloClient } from '../../utils/graphql';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 import { replaceAllOccurrences } from '../../utils/string';
 
@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps<StaticProps, StaticParams> = async (
   const commonStaticProps = await getCommonStaticProps(props);
   const { customerRef, gcmsLocales } = commonStaticProps.props;
 
-  const apolloClient = getStandaloneApolloClient();
+  const apolloClient = createApolloClient();
   const variables = {
     customerRef,
   };

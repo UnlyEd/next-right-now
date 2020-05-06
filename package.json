@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
+    "@apollo/react-hooks": "3.1.5",
     "@apollo/react-ssr": "3.1.4",
     "@emotion/core": "10.0.28",
     "@emotion/styled": "10.0.27",

@@ -21,7 +21,7 @@ import 'rc-tooltip/assets/bootstrap.css';
 import React, { ErrorInfo } from 'react';
 
 import Layout from '../components/Layout';
-import withUniversalGraphQLDataLoader from '../hoc/withUniversalGraphQLDataLoader';
+import withApollo from '../hoc/withApollo';
 import { AppInitialProps } from '../types/AppInitialProps';
 import { AppRenderProps } from '../types/AppRenderProps';
 import { Cookies } from '../types/Cookies';
@@ -147,7 +147,7 @@ class NRNApp extends NextApp {
    * @return {JSX.Element}
    */
   render(): JSX.Element {
-    const { Component, pageProps, apollo, err }: AppRenderProps = this.props;
+    const { Component, pageProps, apolloClient, err }: AppRenderProps = this.props;
 
     if(isBrowser()){ // Avoids log clutter on server
       console.debug('_app.render.pageProps', pageProps);
@@ -156,11 +156,11 @@ class NRNApp extends NextApp {
     if (pageProps.isReadyToRender || pageProps.isSSRReadyToRender || pageProps.statusCode === 404) {
       console.info('_app.render - App is ready, rendering...');
       return (
-        <ApolloProvider client={apollo}>
+        <ApolloProvider client={apolloClient}>
           <Component
             {...pageProps}
             error={err}
-            apollo={apollo}
+            apollo={apolloClient}
           />
         </ApolloProvider>
       );
@@ -350,4 +350,4 @@ class NRNApp extends NextApp {
 }
 
 // Wraps all components in the tree with the data provider
-export default withUniversalGraphQLDataLoader(NRNApp);
+export default withApollo()(NRNApp);
