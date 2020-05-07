@@ -13,6 +13,10 @@ const logger = createLogger({
   label: 'utils/i18nextLocize',
 });
 
+// On the client, we store the i18nextLocize instance in the following variable.
+// This prevents the client from reinitializing between page transitions, which caused infinite loop rendering.
+let globalI18nextInstance: i18n = null;
+
 /**
  * A resource locale can be either using a "flat" format or a "nested" format
  *
@@ -324,7 +328,7 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
  * @param lang
  * @param defaultLocales
  */
-const i18nextLocize = (lang: string, i18nTranslations: I18nextResources): i18n => {
+const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextResources): i18n => {
   // If LOCIZE_PROJECT_ID is not defined then we mustn't init i18next or it'll crash the whole app when running in non-production stage
   // In that case, better crash early with an explicit message
   if (!process.env.LOCIZE_PROJECT_ID) {
@@ -402,6 +406,24 @@ const i18nextLocize = (lang: string, i18nTranslations: I18nextResources): i18n =
   });
 
   return i18nInstance;
+};
+
+/**
+ * Singleton helper
+ *
+ * Return the global globalI18nextInstance if set, or initialize it, if not.
+ *
+ * @param lang
+ * @param i18nTranslations
+ */
+const i18nextLocize = (lang: string, i18nTranslations: I18nextResources): i18n => {
+  if (!globalI18nextInstance) {
+    globalI18nextInstance =  createI18nextLocizeInstance(lang, i18nTranslations);
+
+    return globalI18nextInstance;
+  } else {
+    return globalI18nextInstance;
+  }
 };
 
 export default i18nextLocize;
