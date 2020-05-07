@@ -13,9 +13,9 @@ import { Theme } from '../../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
-import { getAmplitudeInstance } from '../../utils/amplitude';
+import { getAmplitudeInstance } from '../../utils/analytics/amplitude';
 import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';
-import UniversalCookiesManager from '../../utils/UniversalCookiesManager';
+import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
 
 const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
 const logger = createLogger({

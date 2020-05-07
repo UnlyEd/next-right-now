@@ -1,6 +1,6 @@
-import { NRN_DEFAULT_THEME } from '../constants';
-import { Customer } from '../types/data/Customer';
-import { Theme } from '../types/data/Theme';
+import { NRN_DEFAULT_THEME } from '../../constants';
+import { Customer } from '../../types/data/Customer';
+import { Theme } from '../../types/data/Theme';
 
 /**
  * Initialises customer theme, uses default values if not specified

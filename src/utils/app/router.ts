@@ -1,5 +1,5 @@
 import { NextRouter } from 'next/router';
-import { removeTrailingSlash } from './string';
+import { removeTrailingSlash } from '../js/string';
 
 export type Route = {
   locale: string;

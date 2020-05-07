@@ -10,7 +10,7 @@ import { initReactI18next } from 'react-i18next';
 import { LANG_EN, LANG_FR } from './i18n';
 
 const logger = createLogger({
-  label: 'utils/i18nextLocize',
+  label: 'utils/i18n/i18nextLocize',
 });
 
 // On the client, we store the i18nextLocize instance in the following variable.

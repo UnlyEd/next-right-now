@@ -1,5 +1,5 @@
 import map from 'lodash.map';
-import { Logo } from '../types/data/Logo';
+import { Logo } from '../../types/data/Logo';
 
 export const SIZE_XS = 'xs';
 export const SIZE_SM = 'sm';

@@ -1,5 +1,5 @@
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { I18nextResources } from '../../utils/i18nextLocize';
+import { I18nextResources } from '../../utils/i18n/i18nextLocize';
 import { Customer } from '../data/Customer';
 
 /**

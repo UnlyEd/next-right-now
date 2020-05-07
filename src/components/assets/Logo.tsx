@@ -15,7 +15,7 @@ import { Link } from '../../types/data/Link';
 import { Logo as LogoType } from '../../types/data/Logo';
 import {
   DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels
-} from '../../utils/logo';
+} from '../../utils/assets/logo';
 
 /**
  * Display a logo

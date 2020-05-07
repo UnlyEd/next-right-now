@@ -21,8 +21,8 @@ import { StaticParams } from '../../types/nextjs/StaticParams';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
 import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
-import { createApolloClient } from '../../utils/graphql';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
+import { createApolloClient } from '../../utils/gql/graphql';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/examples';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

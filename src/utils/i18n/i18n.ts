@@ -2,8 +2,8 @@ import {
   defaultLocale,
   supportedLanguages,
   supportedLocales,
-} from '../i18nConfig';
-import { I18nLocale } from '../types/i18n/I18nLocale';
+} from '../../i18nConfig';
+import { I18nLocale } from '../../types/i18n/I18nLocale';
 
 export const LANG_EN = 'en';
 export const LANG_FR = 'fr';

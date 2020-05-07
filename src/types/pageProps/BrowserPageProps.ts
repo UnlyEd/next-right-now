@@ -1,4 +1,4 @@
-import UniversalCookiesManager from '../../utils/UniversalCookiesManager';
+import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
 import { UserSemiPersistentSession } from '../UserSemiPersistentSession';
 
 /**

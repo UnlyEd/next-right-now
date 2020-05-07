@@ -6,7 +6,7 @@ import { WithApolloState } from 'next-with-apollo/lib/types';
 import App from 'next/app';
 import Head from 'next/head';
 import React, { ReactNode } from 'react';
-import createApolloClient from '../utils/graphql';
+import createApolloClient from '../utils/gql/graphql';
 
 // XXX Inspired by https://github.com/zeit/next.js/blob/canary/examples/with-apollo/lib/apollo.js
 // On the client, we store the Apollo Client in the following variable.

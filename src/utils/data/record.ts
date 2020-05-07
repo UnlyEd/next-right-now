@@ -9,11 +9,11 @@ import map from 'lodash.map';
 import remove from 'lodash.remove';
 import xOrBy from 'lodash.xorby';
 
-import { GraphCMSSystemFields } from '../types/data/GraphCMSSystemFields';
-import { SerializedRecord } from '../types/SerializedRecord';
+import { GraphCMSSystemFields } from '../../types/data/GraphCMSSystemFields';
+import { SerializedRecord } from '../../types/SerializedRecord';
 
 const logger = createLogger({
-  label: 'utils/record',
+  label: 'utils/data/record',
 });
 
 /**

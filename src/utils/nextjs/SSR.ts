@@ -3,18 +3,18 @@ import { ApolloClient } from 'apollo-client';
 import { IncomingMessage } from 'http';
 import get from 'lodash.get';
 import NextCookies from 'next-cookies';
-import { LAYOUT_QUERY } from '../gql/common/layoutQuery';
-import { ApolloQueryOptions } from '../types/gql/ApolloQueryOptions';
-import { Cookies } from '../types/Cookies';
-import { GetServerSidePropsContext } from '../types/nextjs/GetServerSidePropsContext';
-import { PublicHeaders } from '../types/pageProps/PublicHeaders';
-import { UniversalSSRPageProps } from '../types/pageProps/UniversalSSRPageProps';
-import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
-import { prepareGraphCMSLocaleHeader } from './graphcms';
-import { createApolloClient } from './graphql';
-import { DEFAULT_LOCALE, resolveFallbackLanguage } from './i18n';
-import { fetchTranslations, I18nextResources } from './i18nextLocize';
-import UniversalCookiesManager from './UniversalCookiesManager';
+import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
+import { ApolloQueryOptions } from '../../types/gql/ApolloQueryOptions';
+import { Cookies } from '../../types/Cookies';
+import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
+import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
+import { UniversalSSRPageProps } from '../../types/pageProps/UniversalSSRPageProps';
+import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
+import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
+import { createApolloClient } from '../gql/graphql';
+import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
+import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
+import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
 
 /**
  * getCommonServerSideProps returns only part of the props expected in UniversalSSRPageProps

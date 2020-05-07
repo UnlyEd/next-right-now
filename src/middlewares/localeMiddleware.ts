@@ -1,7 +1,7 @@
 import { createLogger } from '@unly/utils-simple-logger';
 import { supportedLocales } from '../i18nConfig';
-import { acceptLanguageHeaderLookup, DEFAULT_LOCALE } from '../utils/i18n';
-import redirect from '../utils/redirect';
+import { acceptLanguageHeaderLookup, DEFAULT_LOCALE } from '../utils/i18n/i18n';
+import redirect from '../utils/app/redirect';
 
 const fileLabel = 'utils/localeMiddleware';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

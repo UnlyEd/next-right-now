@@ -6,7 +6,7 @@
     "start": "now dev --listen 8888",
     "build": "yarn test:once && next build",
     "next": "next start",
-    "svg": "npx svgr -d src/svg src/svg --ext tsx --template ./src/utils/svgTemplate.ts",
+    "svg": "npx svgr -d src/svg src/svg --ext tsx --template src/utils/svg/svgTemplate.ts",
     "deploy": "yarn deploy:customer1",
     "deploy:all": "yarn deploy:customer1 && yarn deploy:customer2",
     "deploy:all:production": "yarn deploy:customer1:production && yarn deploy:customer2:production",

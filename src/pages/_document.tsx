@@ -12,7 +12,7 @@ import React from 'react';
 
 import { Cookies } from '../types/Cookies';
 import { DocumentInitialProps } from '../types/nextjs/DocumentInitialProps';
-import { LANG_EN, SUPPORTED_LANGUAGES } from '../utils/i18n';
+import { LANG_EN, SUPPORTED_LANGUAGES } from '../utils/i18n/i18n';
 
 const fileLabel = 'pages/_document';
 const logger = createLogger({

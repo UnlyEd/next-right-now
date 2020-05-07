@@ -12,7 +12,7 @@ import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../hocs/withApollo';
 import { StaticParams } from '../../types/nextjs/StaticParams';
 import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

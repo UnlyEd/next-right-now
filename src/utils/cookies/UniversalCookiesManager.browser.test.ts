@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
+import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { deleteAllCookies } from './cookies';
 import UniversalCookiesManager from './UniversalCookiesManager';
 

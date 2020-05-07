@@ -6,9 +6,9 @@ import { IncomingMessage, ServerResponse } from 'http';
 import BrowserCookies, { CookieAttributes } from 'js-cookie';
 import uuid from 'uuid/v1'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
 
-import { Cookies } from '../types/Cookies';
-import { PatchedUserSemiPersistentSession, UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
-import { addYears } from './date';
+import { Cookies } from '../../types/Cookies';
+import { PatchedUserSemiPersistentSession, UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
+import { addYears } from '../js/date';
 
 const USER_LS_KEY = 'user';
 

@@ -9,8 +9,8 @@ import React from 'react';
 import DefaultLayout from '../components/pageLayouts/DefaultLayout';
 import { StaticParams } from '../types/nextjs/StaticParams';
 import { UniversalSSGPageProps } from '../types/pageProps/UniversalSSGPageProps';
-import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n';
-import { getCommonStaticProps } from '../utils/SSG';
+import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n/i18n';
+import { getCommonStaticProps } from '../utils/nextjs/SSG';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

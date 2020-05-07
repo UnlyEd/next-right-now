@@ -19,7 +19,7 @@ import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { UniversalSSRPageProps } from '../../types/pageProps/UniversalSSRPageProps';
-import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/SSR';
+import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/products';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

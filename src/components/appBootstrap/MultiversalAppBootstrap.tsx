@@ -9,8 +9,8 @@ import i18nContext from '../../stores/i18nContext';
 import { Theme } from '../../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
-import i18nextLocize from '../../utils/i18nextLocize';
-import { initCustomerTheme } from '../../utils/theme';
+import i18nextLocize from '../../utils/i18n/i18nextLocize';
+import { initCustomerTheme } from '../../utils/data/theme';
 import BrowserPageBootstrap, { Props as BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
 

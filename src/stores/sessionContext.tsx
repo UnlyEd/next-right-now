@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
-import UniversalCookiesManager from '../utils/UniversalCookiesManager';
+import UniversalCookiesManager from '../utils/cookies/UniversalCookiesManager';
 
 export type SessionContext = {
   userSession?: UserSemiPersistentSession;
