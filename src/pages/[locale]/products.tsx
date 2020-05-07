@@ -14,7 +14,7 @@ import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import Products from '../../components/data/Products';
 import Text from '../../components/utils/Text';
 import { PRODUCTS_PAGE_QUERY } from '../../gql/pages/products';
-import withApollo from '../../hoc/withApollo';
+import withApollo from '../../hocs/withApollo';
 import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
 import { GetServerSidePropsContext } from '../../types/GetServerSidePropsContext';

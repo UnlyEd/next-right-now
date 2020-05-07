@@ -10,7 +10,7 @@ import React from 'react';
 import { Container } from 'reactstrap';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
-import withApollo from '../../hoc/withApollo';
+import withApollo from '../../hocs/withApollo';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { Customer } from '../../types/data/Customer';
 import { StaticParams } from '../../types/StaticParams';

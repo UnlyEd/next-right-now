@@ -15,7 +15,7 @@ import DisplayOnBrowserMount from '../../components/rehydration/DisplayOnBrowser
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import Products from '../../components/data/Products';
 import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
-import withApollo from '../../hoc/withApollo';
+import withApollo from '../../hocs/withApollo';
 import { Product } from '../../types/data/Product';
 import { StaticParams } from '../../types/StaticParams';
 import { StaticPropsInput } from '../../types/StaticPropsInput';
