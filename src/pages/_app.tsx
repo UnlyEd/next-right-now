@@ -10,7 +10,7 @@ import NextApp from 'next/app';
 import 'rc-tooltip/assets/bootstrap.css';
 import React, { ErrorInfo } from 'react';
 import MultiversalAppBootstrap from '../components/appBootstrap/MultiversalAppBootstrap';
-import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
+import { MultiversalAppBootstrapProps } from '../types/nextjs/MultiversalAppBootstrapProps';
 import '../utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
 import '../utils/sentry';
 

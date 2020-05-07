@@ -13,11 +13,11 @@ import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
 import withApollo from '../../hocs/withApollo';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { Customer } from '../../types/data/Customer';
-import { StaticParams } from '../../types/StaticParams';
+import { StaticParams } from '../../types/nextjs/StaticParams';
 
-import { StaticPropsInput } from '../../types/StaticPropsInput';
-import { StaticPropsOutput } from '../../types/StaticPropsOutput';
-import { UniversalSSGPageProps } from '../../types/UniversalSSGPageProps';
+import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
+import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
+import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
 import { createApolloClient } from '../../utils/graphql';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 import { replaceAllOccurrences } from '../../utils/string';

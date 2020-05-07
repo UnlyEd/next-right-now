@@ -10,8 +10,8 @@ import { Alert, Container } from 'reactstrap';
 import I18nLink from '../../components/i18n/I18nLink';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../hocs/withApollo';
-import { StaticParams } from '../../types/StaticParams';
-import { UniversalSSGPageProps } from '../../types/UniversalSSGPageProps';
+import { StaticParams } from '../../types/nextjs/StaticParams';
+import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 
 const fileLabel = 'pages/index';

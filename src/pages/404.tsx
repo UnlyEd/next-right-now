@@ -7,8 +7,8 @@ import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import DefaultLayout from '../components/pageLayouts/DefaultLayout';
-import { StaticParams } from '../types/StaticParams';
-import { UniversalSSGPageProps } from '../types/UniversalSSGPageProps';
+import { StaticParams } from '../types/nextjs/StaticParams';
+import { UniversalSSGPageProps } from '../types/pageProps/UniversalSSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n';
 import { getCommonStaticProps } from '../utils/SSG';
 

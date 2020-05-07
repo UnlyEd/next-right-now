@@ -3,7 +3,7 @@ import NextHead from 'next/head';
 import React from 'react';
 
 import { NRN_DEFAULT_SERVICE_LABEL } from '../../constants';
-import { I18nLocale } from '../../types/I18nLocale';
+import { I18nLocale } from '../../types/i18n/I18nLocale';
 import { SUPPORTED_LOCALES } from '../../utils/i18n';
 
 export type HeadProps = {

@@ -17,10 +17,10 @@ import Products from '../../components/data/Products';
 import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
 import withApollo from '../../hocs/withApollo';
 import { Product } from '../../types/data/Product';
-import { StaticParams } from '../../types/StaticParams';
-import { StaticPropsInput } from '../../types/StaticPropsInput';
-import { StaticPropsOutput } from '../../types/StaticPropsOutput';
-import { UniversalSSGPageProps } from '../../types/UniversalSSGPageProps';
+import { StaticParams } from '../../types/nextjs/StaticParams';
+import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
+import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
+import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
 import { createApolloClient } from '../../utils/graphql';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/SSG';
 

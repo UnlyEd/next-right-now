@@ -8,10 +8,10 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { sessionContext } from '../../stores/sessionContext';
-import { BrowserPageProps } from '../../types/BrowserPageProps';
+import { BrowserPageProps } from '../../types/pageProps/BrowserPageProps';
 import { Theme } from '../../types/data/Theme';
-import { MultiversalAppBootstrapProps } from '../../types/MultiversalAppBootstrapProps';
-import { MultiversalPageProps } from '../../types/MultiversalPageProps';
+import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
+import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../../utils/amplitude';
 import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';

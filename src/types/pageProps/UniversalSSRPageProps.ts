@@ -1,7 +1,7 @@
-import { Cookies } from './Cookies';
+import { Cookies } from '../Cookies';
 import { MultiversalPageProps } from './MultiversalPageProps';
 import { PublicHeaders } from './PublicHeaders';
-import { UserSemiPersistentSession } from './UserSemiPersistentSession';
+import { UserSemiPersistentSession } from '../UserSemiPersistentSession';
 
 /**
  * Dynamic (server) properties returned by getInitialProps or getServerProps for server-side rendered pages (using SSR)

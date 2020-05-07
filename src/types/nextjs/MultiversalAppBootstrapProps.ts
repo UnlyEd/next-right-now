@@ -1,6 +1,6 @@
 import { NextComponentType, NextPageContext } from 'next';
 import { NextRouter } from 'next/router';
-import { MultiversalPageProps } from './MultiversalPageProps';
+import { MultiversalPageProps } from '../pageProps/MultiversalPageProps';
 
 /**
  * Props that are provided to the render function of the application (in _app)

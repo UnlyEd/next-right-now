@@ -1,4 +1,4 @@
-import { UniversalSSGPageProps } from './UniversalSSGPageProps';
+import { UniversalSSGPageProps } from '../pageProps/UniversalSSGPageProps';
 
 /**
  * Static props returned as outputs for getStaticProps (yielded result)
