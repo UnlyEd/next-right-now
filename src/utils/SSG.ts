@@ -40,7 +40,7 @@ export const getCommonStaticProps: GetStaticProps<UniversalSSGPageProps, StaticP
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
-  const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+  const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
   const apolloClient = createApolloClient();
   const variables = {
     customerRef,
@@ -81,7 +81,7 @@ export const getCommonStaticProps: GetStaticProps<UniversalSSGPageProps, StaticP
       bestCountryCodes,
       customer,
       customerRef,
-      defaultLocales,
+      i18nTranslations,
       gcmsLocales,
       hasLocaleFromUrl,
       isReadyToRender: true,

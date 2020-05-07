@@ -48,11 +48,11 @@ const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapPr
     console.info('MultiversalAppBootstrap - App is ready, rendering...');
     const {
       customer,
-      defaultLocales,
+      i18nTranslations,
       lang,
       locale,
     }: MultiversalPageProps = pageProps;
-    const i18nextInstance: i18n = i18nextLocize(lang, defaultLocales); // Apply i18next configuration with Locize backend
+    const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
     const theme: Theme = initCustomerTheme(customer);
     const browserPageBootstrapProps: BrowserPageBootstrapProps = {
       ...props,

@@ -61,7 +61,7 @@ export const getCommonServerSideProps = async (context: GetServerSidePropsContex
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
-  const defaultLocales: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+  const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
   const apolloClient = createApolloClient();
   const variables = {
     customerRef,
@@ -83,7 +83,7 @@ export const getCommonServerSideProps = async (context: GetServerSidePropsContex
     apolloClient,
     bestCountryCodes,
     customerRef,
-    defaultLocales,
+    i18nTranslations,
     headers: publicHeaders,
     gcmsLocales,
     hasLocaleFromUrl,

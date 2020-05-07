@@ -324,7 +324,7 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
  * @param lang
  * @param defaultLocales
  */
-const i18nextLocize = (lang: string, defaultLocales: I18nextResources): i18n => {
+const i18nextLocize = (lang: string, i18nTranslations: I18nextResources): i18n => {
   // If LOCIZE_PROJECT_ID is not defined then we mustn't init i18next or it'll crash the whole app when running in non-production stage
   // In that case, better crash early with an explicit message
   if (!process.env.LOCIZE_PROJECT_ID) {
@@ -369,7 +369,7 @@ const i18nextLocize = (lang: string, defaultLocales: I18nextResources): i18n => 
   map(plugins, (plugin) => i18nInstance.use(plugin));
   // @ts-ignore
   i18nInstance.init({ // XXX See https://www.i18next.com/overview/configuration-options
-    resources: defaultLocales,
+    resources: i18nTranslations,
     // preload: ['fr', 'en'], // XXX Supposed to preload languages, doesn't work with Next
     cleanCode: true, // language will be lowercased EN --> en while leaving full locales like en-US
     debug: process.env.APP_STAGE === 'development' && isBrowser(), // Only enable locally on browser, too much noise otherwise
