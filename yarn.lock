@@ -976,7 +976,7 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2":
   version "7.8.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.4.tgz#d79f5a2040f7caa24d53e563aad49cbc05581308"
   integrity sha512-neAp3zt80trRVBI1x0azq6c57aNBqYZH8KhMm3TaB7wEI5Q4A2SHfBHE8w9gOhI/lrqxtEbXZgQIrHP+wvSGwQ==
@@ -5753,19 +5753,12 @@ i18next-browser-languagedetector@4.0.1:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-i18next-locize-backend@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/i18next-locize-backend/-/i18next-locize-backend-3.1.1.tgz#cf41decbddfaed7216569c39455ea70af2211da5"
-  integrity sha512-eLZUloTOzKmbt0CEYfSG4WysO6Gp6/MIVIR2MXgssaPS3anSl4dz9+YrTA7G6KvkIC5tOmOEbcY/Nt2W7+ah2Q==
+i18next-locize-backend@4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/i18next-locize-backend/-/i18next-locize-backend-4.0.7.tgz#fa1c3f13cf4b5befc5036b98e6ff90eff6df7de2"
+  integrity sha512-SiH7a5UukkTpWaR/yaWti52+LCrnHfgwQ4kjJ/6miXJRO0/NKqxn/asACSyJEqizvLwfrvwmLYPyBZD3ULk8jQ==
   dependencies:
-    "@babel/runtime" "^7.7.7"
-
-i18next-node-locize-backend@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/i18next-node-locize-backend/-/i18next-node-locize-backend-3.1.0.tgz#17a0027c8c5d9e731277317ac977f53d67105537"
-  integrity sha512-hYv/ku8Lc+H86SiMqMCpo0vB2zbiBZbWl3siWaGQ+oz2SFn2GQh5eTIxPyaQh7wAeV8OAAVh2L44fvrXtFEd5w==
-  dependencies:
-    request "^2.88.0"
+    node-fetch "2.6.0"
 
 i18next@19.0.2:
   version "19.0.2"

@@ -6,6 +6,7 @@ import fetch from 'isomorphic-unfetch';
 import get from 'lodash.get';
 import map from 'lodash.map';
 import { initReactI18next } from 'react-i18next';
+import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github.com/locize/i18next-locize-backend/issues/323#issuecomment-619625571
 
 import { LANG_EN, LANG_FR } from './i18n';
 
@@ -338,18 +339,14 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
   // Plugins will be dynamically added at runtime, depending on the runtime engine (node or browser)
   const plugins = [ // XXX Only plugins that are common to all runtimes should be defined by default
     initReactI18next, // passes i18next down to react-i18next
+    i18nextLocizeBackend, // loads translations, saves new keys to it (saveMissing: true) - https://github.com/locize/i18next-locize-backend
   ];
   logger.info(`Using "react-i18next" plugin`);
+  logger.info(`Using "i18next-locize-backend" plugin`);
 
   // Dynamically load different modules depending on whether we're running node or browser engine
   if (!isBrowser()) {
     // XXX Use "__non_webpack_require__" on the server
-    // loads translations, saves new keys to it (saveMissing: true)
-    // https://github.com/locize/i18next-node-locize-backend
-    const i18nextNodeLocizeBackend = __non_webpack_require__('i18next-node-locize-backend');
-    plugins.push(i18nextNodeLocizeBackend);
-    logger.info(`Using "i18next-node-locize-backend" plugin`);
-
     // sets a timestamp of last access on every translation segment on locize
     // -> safely remove the ones not being touched for weeks/months
     // https://github.com/locize/locize-node-lastused
@@ -359,13 +356,6 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
 
   } else {
     // XXX Use "require" on the browser, always take the "default" export specifically
-    // loads translations, saves new keys to it (saveMissing: true)
-    // https://github.com/locize/i18next-locize-backend
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const i18nextLocizeBackend = require('i18next-locize-backend').default;
-    plugins.push(i18nextLocizeBackend);
-    logger.info(`Using "i18next-locize-backend" plugin`);
-
     // InContext Editor of locize ?locize=true to show it
     // https://github.com/locize/locize-editor
     // eslint-disable-next-line @typescript-eslint/no-var-requires
