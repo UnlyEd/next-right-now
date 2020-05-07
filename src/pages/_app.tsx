@@ -9,10 +9,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See 
 import NextApp from 'next/app';
 import 'rc-tooltip/assets/bootstrap.css';
 import React, { ErrorInfo } from 'react';
-import MultiversalAppBootstrap from '../components/appBootstrap/MultiversalAppBootstrap';
-import { MultiversalAppBootstrapProps } from '../types/nextjs/MultiversalAppBootstrapProps';
-import '../utils/app/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
-import '../utils/monitoring/sentry';
+import MultiversalAppBootstrap from '../common/components/appBootstrap/MultiversalAppBootstrap';
+import { MultiversalAppBootstrapProps } from '../common/types/nextjs/MultiversalAppBootstrapProps';
+import '../common/utils/app/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
+import '../common/utils/monitoring/sentry';
 
 // See https://github.com/FortAwesome/react-fontawesome#integrating-with-other-tools-and-frameworks
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above

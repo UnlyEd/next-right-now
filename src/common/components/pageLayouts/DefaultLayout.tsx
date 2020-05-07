@@ -5,7 +5,7 @@ import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import React from 'react';
 import { Button } from 'reactstrap';
-import ErrorPage from '../../pages/_error';
+import ErrorPage from '../../../pages/_error';
 import { BrowserPageProps } from '../../types/pageProps/BrowserPageProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import Footer from './Footer';

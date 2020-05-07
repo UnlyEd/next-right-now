@@ -10,9 +10,9 @@ import NextCookies from 'next-cookies';
 import Document, { DocumentContext, DocumentProps, Head, Main, NextScript } from 'next/document';
 import React from 'react';
 
-import { Cookies } from '../types/Cookies';
-import { DocumentInitialProps } from '../types/nextjs/DocumentInitialProps';
-import { LANG_EN, SUPPORTED_LANGUAGES } from '../utils/i18n/i18n';
+import { Cookies } from '../common/types/Cookies';
+import { DocumentInitialProps } from '../common/types/nextjs/DocumentInitialProps';
+import { LANG_EN, SUPPORTED_LANGUAGES } from '../common/utils/i18n/i18n';
 
 const fileLabel = 'pages/_document';
 const logger = createLogger({

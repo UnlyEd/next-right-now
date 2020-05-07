@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AnimatedLoader = props => {
+const AnimatedLoader = (props) => {
   return (
     <svg
       viewBox="0 0 200 200"

@@ -1,6 +1,6 @@
 import { NowRequest, NowResponse } from '@now/node/dist';
 
-import { mockRequest, mockResponse } from '../../utils/testing/tests-mocks';
+import { mockRequest, mockResponse } from '../../common/utils/testing/tests-mocks';
 import status from './status';
 
 describe('status', () => {

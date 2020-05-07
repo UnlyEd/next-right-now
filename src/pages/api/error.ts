@@ -1,7 +1,7 @@
 import { NowRequest, NowResponse } from '@now/node';
 import { createLogger } from '@unly/utils-simple-logger';
 
-import Sentry, { configureReq } from '../../utils/monitoring/sentry';
+import Sentry, { configureReq } from '../../common/utils/monitoring/sentry';
 
 const fileLabel = 'api/error';
 const logger = createLogger({
