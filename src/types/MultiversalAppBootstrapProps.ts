@@ -20,4 +20,5 @@ export declare type MultiversalAppBootstrapProps<PP extends MultiversalPageProps
   // See https://github.com/zeit/next.js/discussions/12558#discussioncomment-9177
   __N_SSG?: boolean;
   __N_SSR?: boolean;
+  __N_SSP?: boolean;
 };
