@@ -339,6 +339,7 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
   const plugins = [ // XXX Only plugins that are common to all runtimes should be defined by default
     initReactI18next, // passes i18next down to react-i18next
   ];
+  logger.info(`Using "react-i18next" plugin`);
 
   // Dynamically load different modules depending on whether we're running node or browser engine
   if (!isBrowser()) {
@@ -347,12 +348,14 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     // https://github.com/locize/i18next-node-locize-backend
     const i18nextNodeLocizeBackend = __non_webpack_require__('i18next-node-locize-backend');
     plugins.push(i18nextNodeLocizeBackend);
+    logger.info(`Using "i18next-node-locize-backend" plugin`);
 
     // sets a timestamp of last access on every translation segment on locize
     // -> safely remove the ones not being touched for weeks/months
     // https://github.com/locize/locize-node-lastused
     const locizeNodeLastUsed = __non_webpack_require__('locize-node-lastused');
     plugins.push(locizeNodeLastUsed);
+    logger.info(`Using "locize-node-lastused" plugin`);
 
   } else {
     // XXX Use "require" on the browser, always take the "default" export specifically
@@ -361,15 +364,18 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const i18nextLocizeBackend = require('i18next-locize-backend').default;
     plugins.push(i18nextLocizeBackend);
+    logger.info(`Using "i18next-locize-backend" plugin`);
 
     // InContext Editor of locize ?locize=true to show it
     // https://github.com/locize/locize-editor
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const locizeEditor = require('locize-editor').default;
     plugins.push(locizeEditor);
+    logger.info(`Using "locize-editor" plugin`);
   }
 
   const i18nInstance = i18next;
+  logger.info(`Using ${plugins.length} plugins in total`);
   map(plugins, (plugin) => i18nInstance.use(plugin));
   // @ts-ignore
   i18nInstance.init({ // XXX See https://www.i18next.com/overview/configuration-options
