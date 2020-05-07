@@ -20,7 +20,7 @@ import UniversalCookiesManager from './UniversalCookiesManager';
  * getCommonServerSideProps returns only part of the props expected in UniversalSSRPageProps
  * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
-export type getCommonServerSidePropsResults = Omit<UniversalSSRPageProps, 'apolloState' | 'customer'> & {
+export type GetCommonServerSidePropsResults = Omit<UniversalSSRPageProps, 'apolloState' | 'customer'> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
@@ -39,7 +39,7 @@ export type getCommonServerSidePropsResults = Omit<UniversalSSRPageProps, 'apoll
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCommonServerSideProps = async (context: GetServerSidePropsContext): Promise<getCommonServerSidePropsResults> => {
+export const getCommonServerSideProps = async (context: GetServerSidePropsContext): Promise<GetCommonServerSidePropsResults> => {
   const {
     query,
     params,

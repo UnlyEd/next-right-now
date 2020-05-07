@@ -19,7 +19,7 @@ import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
 import { GetServerSidePropsContext } from '../../types/GetServerSidePropsContext';
 import { UniversalSSRPageProps } from '../../types/UniversalSSRPageProps';
-import { getCommonServerSideProps, getCommonServerSidePropsResults } from '../../utils/SSR';
+import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/SSR';
 
 const fileLabel = 'pages/products';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -102,7 +102,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context: Get
     apolloClient,
     layoutQueryOptions,
     ...propsToForward
-  }: getCommonServerSidePropsResults = await getCommonServerSideProps(context);
+  }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
     displayName: 'PRODUCTS_PAGE_QUERY',
