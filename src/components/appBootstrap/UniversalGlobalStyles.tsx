@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { css, Global, jsx } from '@emotion/core';
 
-import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR } from '../constants';
-import { Theme } from '../types/data/Theme';
+import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR } from '../../constants';
+import { Theme } from '../../types/data/Theme';
 
 type Props = {
   theme: Theme;

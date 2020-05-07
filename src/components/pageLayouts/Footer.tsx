@@ -6,20 +6,20 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Col, Row } from 'reactstrap';
 
-import EnglishFlag from '../components/svg/EnglishFlag';
-import FrenchFlag from '../components/svg/FrenchFlag';
-import customerContext, { CustomerContext } from '../stores/customerContext';
-import i18nContext, { I18nContext } from '../stores/i18nContext';
-import sessionContext, { SessionContext } from '../stores/sessionContext';
-import { LANG_FR } from '../utils/i18n';
-import { SIZE_XS } from '../utils/logo';
-import { getValueFallback } from '../utils/record';
-import { i18nRedirect } from '../utils/router';
-import GraphCMSAsset from './GraphCMSAsset';
-import I18nLink from './I18nLink';
-import Logo from './Logo';
-import Tooltip from './Tooltip';
-import DisplayOnBrowserMount from './DisplayOnBrowserMount';
+import EnglishFlag from '../svg/EnglishFlag';
+import FrenchFlag from '../svg/FrenchFlag';
+import customerContext, { CustomerContext } from '../../stores/customerContext';
+import i18nContext, { I18nContext } from '../../stores/i18nContext';
+import sessionContext, { SessionContext } from '../../stores/sessionContext';
+import { LANG_FR } from '../../utils/i18n';
+import { SIZE_XS } from '../../utils/logo';
+import { getValueFallback } from '../../utils/record';
+import { i18nRedirect } from '../../utils/router';
+import GraphCMSAsset from '../assets/GraphCMSAsset';
+import I18nLink from '../i18n/I18nLink';
+import Logo from '../assets/Logo';
+import Tooltip from '../utils/Tooltip';
+import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
 
 type Props = {};
 

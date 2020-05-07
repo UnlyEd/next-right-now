@@ -7,8 +7,8 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert, Container } from 'reactstrap';
-import I18nLink from '../../components/I18nLink';
-import Layout from '../../components/Layout';
+import I18nLink from '../../components/i18n/I18nLink';
+import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../hoc/withApollo';
 import { StaticParams } from '../../types/StaticParams';
 import { UniversalSSGPageProps } from '../../types/UniversalSSGPageProps';
@@ -48,7 +48,7 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <Layout
+    <DefaultLayout
       {...props}
       pageName={'index'}
       headProps={{
@@ -230,7 +230,7 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
         }
       </Amplitude>
 
-    </Layout>
+    </DefaultLayout>
   );
 };
 

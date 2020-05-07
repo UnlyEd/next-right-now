@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import React from 'react';
 
-import AnimatedLoader from '../components/svg/AnimatedLoader';
+import AnimatedLoader from '../svg/AnimatedLoader';
 
 type Props = {}
 

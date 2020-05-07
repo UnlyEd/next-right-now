@@ -8,7 +8,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Container } from 'reactstrap';
-import Layout from '../../components/Layout';
+import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
 import withApollo from '../../hoc/withApollo';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
@@ -102,7 +102,7 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <Layout
+    <DefaultLayout
       {...props}
       pageName={'terms'}
       headProps={{
@@ -168,7 +168,7 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
           </div>
         </div>
       </Container>
-    </Layout>
+    </DefaultLayout>
   );
 };
 

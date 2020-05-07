@@ -5,14 +5,14 @@ import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import React from 'react';
 import { Button } from 'reactstrap';
-import ErrorPage from '../pages/_error';
-import { BrowserPageProps } from '../types/BrowserPageProps';
-import { MultiversalPageProps } from '../types/MultiversalPageProps';
+import ErrorPage from '../../pages/_error';
+import { BrowserPageProps } from '../../types/BrowserPageProps';
+import { MultiversalPageProps } from '../../types/MultiversalPageProps';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
 
-const fileLabel = 'components/MultiversalAppBootstrap';
+const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
   label: fileLabel,
 });
@@ -32,7 +32,7 @@ type Props = {
  *
  * @param props
  */
-const Layout: React.FunctionComponent<Props> = (props): JSX.Element => {
+const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     error,
@@ -131,4 +131,4 @@ const Layout: React.FunctionComponent<Props> = (props): JSX.Element => {
   );
 };
 
-export default Layout;
+export default DefaultLayout;

@@ -7,17 +7,17 @@ import { i18n } from 'i18next';
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { sessionContext } from '../stores/sessionContext';
-import { BrowserPageProps } from '../types/BrowserPageProps';
-import { Theme } from '../types/data/Theme';
-import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
-import { MultiversalPageProps } from '../types/MultiversalPageProps';
-import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
-import { getAmplitudeInstance } from '../utils/amplitude';
-import { getIframeReferrer, isRunningInIframe } from '../utils/iframe';
-import UniversalCookiesManager from '../utils/UniversalCookiesManager';
+import { sessionContext } from '../../stores/sessionContext';
+import { BrowserPageProps } from '../../types/BrowserPageProps';
+import { Theme } from '../../types/data/Theme';
+import { MultiversalAppBootstrapProps } from '../../types/MultiversalAppBootstrapProps';
+import { MultiversalPageProps } from '../../types/MultiversalPageProps';
+import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
+import { getAmplitudeInstance } from '../../utils/amplitude';
+import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';
+import UniversalCookiesManager from '../../utils/UniversalCookiesManager';
 
-const fileLabel = 'components/BrowserPageBootstrap';
+const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });

@@ -11,9 +11,9 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
 import uuid from 'uuid/v1';
 
-import DisplayOnBrowserMount from '../../components/DisplayOnBrowserMount';
-import Layout from '../../components/Layout';
-import Products from '../../components/Products';
+import DisplayOnBrowserMount from '../../components/rehydration/DisplayOnBrowserMount';
+import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
+import Products from '../../components/data/Products';
 import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
 import withApollo from '../../hoc/withApollo';
 import { Product } from '../../types/data/Product';
@@ -105,7 +105,7 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <Layout
+    <DefaultLayout
       pageName={'examples'}
       headProps={{
         title: 'Examples - Next Right Now',
@@ -302,7 +302,7 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
           </Container>
         </div>
       </Container>
-    </Layout>
+    </DefaultLayout>
   );
 };
 

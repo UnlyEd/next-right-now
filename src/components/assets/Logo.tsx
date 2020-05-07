@@ -10,12 +10,12 @@ import React from 'react';
 import stylePropType from 'react-style-proptype';
 import compose from 'recompose/compose';
 
-import LogoPropTypes from '../propTypes/LogoPropTypes';
-import { Link } from '../types/data/Link';
-import { Logo as LogoType } from '../types/data/Logo';
+import LogoPropTypes from '../../propTypes/LogoPropTypes';
+import { Link } from '../../types/data/Link';
+import { Logo as LogoType } from '../../types/data/Logo';
 import {
-  DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels 
-} from '../utils/logo';
+  DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels
+} from '../../utils/logo';
 
 /**
  * Display a logo

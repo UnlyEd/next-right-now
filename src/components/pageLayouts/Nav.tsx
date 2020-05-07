@@ -6,11 +6,11 @@ import { useRouter, NextRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
-import customerContext, { CustomerContext } from '../stores/customerContext';
-import i18nContext, { I18nContext } from '../stores/i18nContext';
-import { isActive, resolveI18nHomePage } from '../utils/router';
-import GraphCMSAsset from './GraphCMSAsset';
-import I18nLink from './I18nLink';
+import customerContext, { CustomerContext } from '../../stores/customerContext';
+import i18nContext, { I18nContext } from '../../stores/i18nContext';
+import { isActive, resolveI18nHomePage } from '../../utils/router';
+import GraphCMSAsset from '../assets/GraphCMSAsset';
+import I18nLink from '../i18n/I18nLink';
 
 type Props = {};
 

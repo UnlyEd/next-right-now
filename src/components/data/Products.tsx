@@ -4,9 +4,9 @@ import map from 'lodash.map';
 import React from 'react';
 import { Container } from 'reactstrap';
 
-import { Asset } from '../types/data/Asset';
-import { Product } from '../types/data/Product';
-import GraphCMSAsset from './GraphCMSAsset';
+import { Asset } from '../../types/data/Asset';
+import { Product } from '../../types/data/Product';
+import GraphCMSAsset from '../assets/GraphCMSAsset';
 
 type Props = {
   products: Product[];

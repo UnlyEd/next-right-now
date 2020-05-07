@@ -4,17 +4,17 @@ import { createLogger } from '@unly/utils-simple-logger';
 import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
 import React from 'react';
-import customerContext from '../stores/customerContext';
-import i18nContext from '../stores/i18nContext';
-import { Theme } from '../types/data/Theme';
-import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
-import { MultiversalPageProps } from '../types/MultiversalPageProps';
-import i18nextLocize from '../utils/i18nextLocize';
-import { initCustomerTheme } from '../utils/theme';
+import customerContext from '../../stores/customerContext';
+import i18nContext from '../../stores/i18nContext';
+import { Theme } from '../../types/data/Theme';
+import { MultiversalAppBootstrapProps } from '../../types/MultiversalAppBootstrapProps';
+import { MultiversalPageProps } from '../../types/MultiversalPageProps';
+import i18nextLocize from '../../utils/i18nextLocize';
+import { initCustomerTheme } from '../../utils/theme';
 import BrowserPageBootstrap, { Props as BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
 
-const fileLabel = 'components/MultiversalAppBootstrap';
+const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });

@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See 
 import NextApp from 'next/app';
 import 'rc-tooltip/assets/bootstrap.css';
 import React, { ErrorInfo } from 'react';
-import MultiversalAppBootstrap from '../components/MultiversalAppBootstrap';
+import MultiversalAppBootstrap from '../components/appBootstrap/MultiversalAppBootstrap';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import '../utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
 import '../utils/sentry';

@@ -10,9 +10,9 @@ import { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import { Container } from 'reactstrap';
 
-import Layout from '../../components/Layout';
-import Products from '../../components/Products';
-import Text from '../../components/Text';
+import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
+import Products from '../../components/data/Products';
+import Text from '../../components/utils/Text';
 import { PRODUCTS_PAGE_QUERY } from '../../gql/pages/products';
 import withApollo from '../../hoc/withApollo';
 import { Customer } from '../../types/data/Customer';
@@ -43,7 +43,7 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <Layout
+    <DefaultLayout
       pageName={'products'}
       headProps={{
         title: `${size(products)} products (SSR) - Next Right Now`,
@@ -87,7 +87,7 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
           products={productsDraft}
         />
       </Container>
-    </Layout>
+    </DefaultLayout>
   );
 };
 

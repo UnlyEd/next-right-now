@@ -7,12 +7,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import stylePropType from 'react-style-proptype';
 
-import GraphCMSAssetPropTypes from '../propTypes/GraphCMSAssetPropTypes';
-import GraphCMSAssetTransformationsPropTypes from '../propTypes/GraphCMSAssetTransformationsPropTypes';
-import { Asset } from '../types/data/Asset';
-import { AssetTransformations } from '../types/data/AssetTransformations';
-import { Link } from '../types/data/Link';
-import { cssToReactStyle } from '../utils/css';
+import GraphCMSAssetPropTypes from '../../propTypes/GraphCMSAssetPropTypes';
+import GraphCMSAssetTransformationsPropTypes from '../../propTypes/GraphCMSAssetTransformationsPropTypes';
+import { Asset } from '../../types/data/Asset';
+import { AssetTransformations } from '../../types/data/AssetTransformations';
+import { Link } from '../../types/data/Link';
+import { cssToReactStyle } from '../../utils/css';
 
 const _defaultAsset = {
   id: null,

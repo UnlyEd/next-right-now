@@ -6,7 +6,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import Layout from '../components/Layout';
+import DefaultLayout from '../components/pageLayouts/DefaultLayout';
 import { StaticParams } from '../types/StaticParams';
 import { UniversalSSGPageProps } from '../types/UniversalSSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n';
@@ -81,7 +81,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
   // We can display a custom message based on the lang, but the other parts of the app won't be translated (nav, footer)
   // Also, it has to be hardcoded, it cannot be stored on Locize, because we don't have access to translations from other languages
   return (
-    <Layout
+    <DefaultLayout
       pageName={'404'}
       headProps={{
         title: '404 Not Found - Next Right Now',
@@ -104,7 +104,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
           )
         }
       </div>
-    </Layout>
+    </DefaultLayout>
   );
 };
 

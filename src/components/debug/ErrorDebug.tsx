@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Button } from 'reactstrap';
 
 const logger = createLogger({
-  label: 'pages/error',
+  label: 'pages/debug/ErrorDebug',
 });
 
 /**
