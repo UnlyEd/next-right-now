@@ -9,15 +9,20 @@ import i18nContext from '../../stores/i18nContext';
 import { Theme } from '../../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
-import i18nextLocize from '../../utils/i18n/i18nextLocize';
+import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
+import { UniversalSSRPageProps } from '../../types/pageProps/UniversalSSRPageProps';
 import { initCustomerTheme } from '../../utils/data/theme';
-import BrowserPageBootstrap, { Props as BrowserPageBootstrapProps } from './BrowserPageBootstrap';
+import i18nextLocize from '../../utils/i18n/i18nextLocize';
+import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
+import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });
+
+export type Props = MultiversalAppBootstrapProps<UniversalSSGPageProps> | MultiversalAppBootstrapProps<UniversalSSRPageProps>;
 
 /**
  * Bootstraps a page and renders it
@@ -27,7 +32,7 @@ const logger = createLogger({
  *
  * @param props
  */
-const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapProps> = (props): JSX.Element => {
+const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     Component,
     err,
@@ -54,17 +59,29 @@ const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapPr
     }: MultiversalPageProps = pageProps;
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
     const theme: Theme = initCustomerTheme(customer);
-    const browserPageBootstrapProps: BrowserPageBootstrapProps = {
-      ...props,
-      pageProps: {
-        ...pageProps,
-        i18nextInstance,
-        theme,
-      },
-    };
-    const injectedPageProps: MultiversalPageProps = {
-      ...browserPageBootstrapProps.pageProps,
-    };
+
+    let browserPageBootstrapProps: BrowserPageBootstrapProps;
+    let serverPageBootstrapProps: ServerPageBootstrapProps;
+
+    if (isBrowser()) {
+      browserPageBootstrapProps = {
+        ...props,
+        pageProps: {
+          ...pageProps,
+          i18nextInstance,
+          theme,
+        },
+      };
+    } else {
+      serverPageBootstrapProps = {
+        ...props,
+        pageProps: {
+          ...pageProps,
+          i18nextInstance,
+          theme,
+        },
+      };
+    }
 
     /*
      * We split the rendering between server and browser
@@ -94,10 +111,8 @@ const MultiversalAppBootstrap: React.FunctionComponent<MultiversalAppBootstrapPr
                   {...browserPageBootstrapProps}
                 />
               ) : (
-                <Component
-                  {...injectedPageProps}
-                  // @ts-ignore
-                  error={err}
+                <ServerPageBootstrap
+                  {...serverPageBootstrapProps}
                 />
               )
             }

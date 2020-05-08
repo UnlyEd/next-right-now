@@ -3,36 +3,32 @@ import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
-import { i18n } from 'i18next';
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { userSessionContext } from '../../stores/userSessionContext';
-import { BrowserPageProps } from '../../types/pageProps/BrowserPageProps';
-import { Theme } from '../../types/data/Theme';
+import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
+import { BrowserPageProps } from '../../types/pageProps/BrowserPageProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../../utils/analytics/amplitude';
-import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';
 import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
+import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';
 
 const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });
 
-export type Props = {} & MultiversalAppBootstrapProps<MultiversalPageProps & {
-  i18nextInstance: i18n;
-  theme: Theme;
-}>;
+export type BrowserPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalPageProps & MultiversalAppBootstrapPageProps>;
 
 /**
  * Bootstraps the page, only when rendered on the browser
  *
  * @param props
  */
-const BrowserPageBootstrap = (props: Props): JSX.Element => {
+const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => {
   const {
     Component,
     pageProps,
@@ -46,7 +42,7 @@ const BrowserPageBootstrap = (props: Props): JSX.Element => {
   const { t, i18n } = useTranslation();
   const isInIframe: boolean = isRunningInIframe();
   const iframeReferrer: string = getIframeReferrer();
-  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager();
+  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(); // On browser, we can access cookies directly (doesn't need req/res or page context)
   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
   const userId = userSession.id;
   const injectedPageProps: MultiversalPageProps<BrowserPageProps> = {
