@@ -11,7 +11,7 @@
       "GRAPHQL_API_ENDPOINT": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",
       "GRAPHQL_API_KEY": "@nrn-graphql-api-key",
       "LOCIZE_PROJECT_ID": "@nrn-locize-project-id",
-      "LOCIZE_API_KEY": "@nrn-locize-api-key",
+      "LOCIZE_API_KEY": "@nrn-locize-api-key-staging",
       "AMPLITUDE_API_KEY": "@nrn-amplitude-api-key-staging",
       "SENTRY_DSN": "@nrn-sentry-dsn"
     }
