@@ -101,7 +101,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context: Get
   const {
     apolloClient,
     layoutQueryOptions,
-    ...propsToForward
+    ...pageData
   }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
@@ -131,8 +131,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context: Get
   } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
   return {
+    // Props returned here will be available as page properties (pageProps)
     props: {
-      ...propsToForward,
+      ...pageData,
       apolloState: apolloClient.cache.extract(),
       customer,
       products,

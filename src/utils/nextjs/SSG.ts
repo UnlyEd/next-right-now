@@ -76,6 +76,7 @@ export const getCommonStaticProps: GetStaticProps<UniversalSSGPageProps, StaticP
   } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
   return {
+    // Props returned here will be available as page properties (pageProps)
     props: {
       apolloState: apolloClient.cache.extract(),
       bestCountryCodes,
