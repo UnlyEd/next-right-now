@@ -115,6 +115,8 @@ const Footer: React.FunctionComponent<Props> = () => {
               <DisplayOnBrowserMount
                 // When using SSR, we want to render the deviceId immediately because we have access to it through server cookies
                 // When using SSG, we need to wait for the browser render because we don't have access to the cookies when generating the static page
+                // To test the different behaviours, refresh the both /examples and /products page with JS disabled
+                // and notice how the deviceId is properly included in the HTML with SSR (/products), unlike SSG (/examples) where it's empty
                 deps={[deviceId]}
               >
                 <code>{deviceId}</code>
