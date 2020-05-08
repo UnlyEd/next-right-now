@@ -269,7 +269,7 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
       logger.info(`Translations from in-memory cache are too old (> ${memoizedCacheMaxAge} seconds) and thus have been invalidated`);
     }
   }
-  let commonLocales = {};
+  let commonLocales: I18nextResources = {};
 
   try {
     // Fetching locales for i18next, for the "common" namespace
@@ -278,7 +278,7 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
     //  On the other hand, it seems that once the i18next "resources" are set, they don't change,
     //  so this workaround could cause sync issue if we were using multiple namespaces, but we aren't and probably won't
     logger.info(`Pre-fetching translations from ${locizeAPIEndpoint}`);
-    const defaultLocalesResponse = await fetch(locizeAPIEndpoint);
+    const defaultLocalesResponse: Response = await fetch(locizeAPIEndpoint);
 
     try {
       commonLocales = await defaultLocalesResponse.json();
