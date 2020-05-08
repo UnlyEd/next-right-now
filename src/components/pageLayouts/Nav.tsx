@@ -160,6 +160,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                   >
                     <FontAwesomeIcon icon={['fas', 'book']} />
                     {t('nav.githubDocPage.link', 'Documentation')}
+                    {t('nav.faker.link', 'faker')}
                   </NavLink>
                 </Row>
               </Col>
