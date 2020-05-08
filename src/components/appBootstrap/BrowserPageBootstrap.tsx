@@ -7,7 +7,7 @@ import { i18n } from 'i18next';
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { sessionContext } from '../../stores/sessionContext';
+import { userSessionContext } from '../../stores/userSessionContext';
 import { BrowserPageProps } from '../../types/pageProps/BrowserPageProps';
 import { Theme } from '../../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
@@ -118,13 +118,13 @@ const BrowserPageBootstrap = (props: Props): JSX.Element => {
         //  will NOT be applied until the NEXT Amplitude event and this is likely gonna cause analytics issues!
         // userProperties={{}}
       >
-        <sessionContext.Provider value={{ userSession, cookiesManager }}>
+        <userSessionContext.Provider value={{ userSession }}>
           <Component
             {...injectedPageProps}
             // @ts-ignore
             error={err}
           />
-        </sessionContext.Provider>
+        </userSessionContext.Provider>
       </Amplitude>
     </AmplitudeProvider>
   );

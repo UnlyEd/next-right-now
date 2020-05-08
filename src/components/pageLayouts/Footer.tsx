@@ -10,7 +10,7 @@ import EnglishFlag from '../svg/EnglishFlag';
 import FrenchFlag from '../svg/FrenchFlag';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import i18nContext, { I18nContext } from '../../stores/i18nContext';
-import sessionContext, { SessionContext } from '../../stores/sessionContext';
+import userSessionContext, { UserSessionContext } from '../../stores/userSessionContext';
 import { LANG_FR } from '../../utils/i18n/i18n';
 import { SIZE_XS } from '../../utils/assets/logo';
 import { getValueFallback } from '../../utils/data/record';
@@ -26,7 +26,7 @@ type Props = {};
 const Footer: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
-  const { userSession }: SessionContext = React.useContext(sessionContext) || {};
+  const { userSession }: UserSessionContext = React.useContext(userSessionContext) || {};
   const customer: CustomerContext = React.useContext(customerContext);
   const { lang, locale }: I18nContext = React.useContext(i18nContext);
   const theme = customer.theme;
@@ -109,7 +109,7 @@ const Footer: React.FunctionComponent<Props> = () => {
             `}
           >
             <i
-              title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses sessionContext store provider)'}
+              title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses userSessionContext store provider)'}
             >
               Device id (analytics):<br />
               <DisplayOnBrowserMount>
