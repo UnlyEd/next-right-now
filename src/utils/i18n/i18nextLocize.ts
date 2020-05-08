@@ -339,7 +339,7 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
   // Plugins will be dynamically added at runtime, depending on the runtime engine (node or browser)
   const plugins = [ // XXX Only plugins that are common to all runtimes should be defined by default
     initReactI18next, // passes i18next down to react-i18next
-    i18nextLocizeBackend, // loads translations, saves new keys to it (saveMissing: true) - https://github.com/locize/i18next-locize-backend
+    i18nextLocizeBackend, // loads translations, saves new keys to it (when saveMissing: true) - https://github.com/locize/i18next-locize-backend
   ];
   logger.info(`Using "react-i18next" plugin`);
   logger.info(`Using "i18next-locize-backend" plugin`);
@@ -347,8 +347,10 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
   // Dynamically load different modules depending on whether we're running node or browser engine
   if (!isBrowser()) {
     // XXX Use "__non_webpack_require__" on the server
-    // sets a timestamp of last access on every translation segment on locize
-    // -> safely remove the ones not being touched for weeks/months
+    // Sets a timestamp of last access on every translation segment on locize
+    // -> Helps to safely remove the ones not being touched for weeks/months
+    // N.B: It doesn't delete anything on its own, it just a helper to help you know when a translation was last used
+    // XXX We only enable this server side because it's only used in development and there is no point increasing the browser bundle size
     // https://github.com/locize/locize-node-lastused
     const locizeNodeLastUsed = __non_webpack_require__('locize-node-lastused');
     plugins.push(locizeNodeLastUsed);
