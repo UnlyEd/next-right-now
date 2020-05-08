@@ -373,7 +373,7 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     // preload: ['fr', 'en'], // XXX Supposed to preload languages, doesn't work with Next
     cleanCode: true, // language will be lowercased EN --> en while leaving full locales like en-US
     debug: process.env.APP_STAGE === 'development' && isBrowser(), // Only enable locally on browser, too much noise otherwise
-    saveMissing: process.env.APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
+    saveMissing: process.env.APP_STAGE !== 'production', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
     saveMissingTo: defaultNamespace,
     lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language, which must behave identically for both GraphCMS I18n and react-I18n
     fallbackLng: lang === LANG_FR ? LANG_EN : LANG_FR,
