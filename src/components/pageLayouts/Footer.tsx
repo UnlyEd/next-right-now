@@ -112,7 +112,11 @@ const Footer: React.FunctionComponent<Props> = () => {
               title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses userSessionContext store provider)'}
             >
               Device id (analytics):<br />
-              <DisplayOnBrowserMount>
+              <DisplayOnBrowserMount
+                // When using SSR, we want to render the deviceId immediately because we have access to it through server cookies
+                // When using SSG, we need to wait for the browser render because we don't have access to the cookies when generating the static page
+                deps={[deviceId]}
+              >
                 <code>{deviceId}</code>
               </DisplayOnBrowserMount>
             </i>

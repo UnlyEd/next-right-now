@@ -1,12 +1,25 @@
-import React from 'react';
+import some from 'lodash.some';
+import React, { DependencyList } from 'react';
 
 type Props = {
   children: React.ReactElement | React.ReactElement[];
+  deps?: DependencyList;
 };
 
 /**
  * Utility component to properly handle expected differences between server and browser rendering.
  * Helps to avoid "Text content did not match" warnings, during React rehydration.
+ *
+ * Optionally accepts a "deps" array of dependencies.
+ * It can be used to optimize behaviour to support both SSG/SSR universally with a different behaviour based on the rendering mode.
+ * If any deps is provided, then it'll check if any is null-ish (undefined/null)
+ *  If so, it will render "null" and trigger a re-render, because in such case we consider the deps aren't fulfilled
+ *  If all deps are defined, then we render the children directly because we consider we don't need to wait (optimisation, no unnecessary re-render)
+ *
+ * @example If you want to display a cookie's value universally:
+ *  - If you use SSR, you'll have access to the cookie's value from the server and want to render it immediately
+ *  - If you use SSG, you won't have access to the cookie's value until the browser renders the page, so you want to render "null" and then trigger a re-render to display the actual value
+ *
  *
  * XXX Use this helper to avoid rendering small UI (presentational) components that depend on browser-related data (e.g: localStorage, cookie, session-related data, etc.)
  *  Do not use this helper to avoid rendering big react Providers, or components who define big part of your UI layout
@@ -37,12 +50,23 @@ type Props = {
 const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
   const {
     children,
+    deps = [],
   } = props;
-  const [hasMounted, setHasMounted] = React.useState(false);
+  // If any dep isn't defined, then it will render "null" first, and then trigger a re-render
+  const isAnyDepsNullish = deps.length ?
+    // If any deps was provided, check if any is null-ish
+    some(deps, (dependency: any): boolean => {
+      return dependency === null || typeof dependency === 'undefined';
+    })
+    // If no dep is provided, then it should render "null" first anyway, and then trigger a re-render
+    : true;
+  const [hasMounted, setHasMounted] = React.useState(!isAnyDepsNullish);
 
   React.useEffect(() => {
-    setHasMounted(true);
-  }, []);
+    if (isAnyDepsNullish) {
+      setHasMounted(true);
+    }
+  }, [isAnyDepsNullish]);
 
   if (!hasMounted) {
     return null;
