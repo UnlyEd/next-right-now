@@ -352,7 +352,7 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     // N.B: It doesn't delete anything on its own, it just a helper to help you know when a translation was last used
     // XXX We only enable this server side because it's only used in development and there is no point increasing the browser bundle size
     // https://github.com/locize/locize-node-lastused
-    const locizeNodeLastUsed = __non_webpack_require__('locize-lastused');
+    const locizeNodeLastUsed = __non_webpack_require__('locize-lastused/cjs');
     plugins.push(locizeNodeLastUsed);
     logger.info(`Using "locize-lastused" plugin`);
 
