@@ -2,12 +2,12 @@
 import { Amplitude } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useRouter, NextRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
+import useI18n, { I18n } from '../../hooks/useI18n';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
-import i18nContext, { I18nContext } from '../../stores/i18nContext';
 import { isActive, resolveI18nHomePage } from '../../utils/app/router';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
 import I18nLink from '../i18n/I18nLink';
@@ -18,7 +18,7 @@ const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const { theme }: CustomerContext = React.useContext(customerContext);
-  const { locale }: I18nContext = React.useContext(i18nContext);
+  const { locale }: I18n = useI18n();
   const { primaryColor, logo } = theme;
 
   return (

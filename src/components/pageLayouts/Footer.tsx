@@ -5,9 +5,9 @@ import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Col, Row } from 'reactstrap';
+import useI18n, { I18n } from '../../hooks/useI18n';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
-import i18nContext, { I18nContext } from '../../stores/i18nContext';
 import { i18nRedirect } from '../../utils/app/router';
 import { SIZE_XS } from '../../utils/assets/logo';
 import { getValueFallback } from '../../utils/data/record';
@@ -28,7 +28,7 @@ const Footer: React.FunctionComponent<Props> = () => {
   const router: NextRouter = useRouter();
   const { deviceId }: UserSession = useUserSession();
   const customer: CustomerContext = React.useContext(customerContext);
-  const { lang, locale }: I18nContext = React.useContext(i18nContext);
+  const { lang, locale }: I18n = useI18n();
   const theme = customer.theme;
   const { primaryColor, logo } = theme;
   const logoSizesMultipliers = [

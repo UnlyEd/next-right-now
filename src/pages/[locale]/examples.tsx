@@ -84,6 +84,7 @@ export const getStaticProps: GetStaticProps<UniversalSSGPageProps, StaticParams>
     },
   });
 };
+
 /**
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
