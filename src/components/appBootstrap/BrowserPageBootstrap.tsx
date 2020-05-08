@@ -118,7 +118,7 @@ const BrowserPageBootstrap = (props: Props): JSX.Element => {
         //  will NOT be applied until the NEXT Amplitude event and this is likely gonna cause analytics issues!
         // userProperties={{}}
       >
-        <userSessionContext.Provider value={{ userSession }}>
+        <userSessionContext.Provider value={{ ...userSession }}>
           <Component
             {...injectedPageProps}
             // @ts-ignore

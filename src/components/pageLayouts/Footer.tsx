@@ -1,32 +1,32 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import startsWith from 'lodash.startswith';
-import { useRouter, NextRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Col, Row } from 'reactstrap';
+import useUserSession, { UserSession } from '../../hooks/useUserSession';
+import customerContext, { CustomerContext } from '../../stores/customerContext';
+import i18nContext, { I18nContext } from '../../stores/i18nContext';
+import { i18nRedirect } from '../../utils/app/router';
+import { SIZE_XS } from '../../utils/assets/logo';
+import { getValueFallback } from '../../utils/data/record';
+import { LANG_FR } from '../../utils/i18n/i18n';
+import GraphCMSAsset from '../assets/GraphCMSAsset';
+import Logo from '../assets/Logo';
+import I18nLink from '../i18n/I18nLink';
+import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
 
 import EnglishFlag from '../svg/EnglishFlag';
 import FrenchFlag from '../svg/FrenchFlag';
-import customerContext, { CustomerContext } from '../../stores/customerContext';
-import i18nContext, { I18nContext } from '../../stores/i18nContext';
-import userSessionContext, { UserSessionContext } from '../../stores/userSessionContext';
-import { LANG_FR } from '../../utils/i18n/i18n';
-import { SIZE_XS } from '../../utils/assets/logo';
-import { getValueFallback } from '../../utils/data/record';
-import { i18nRedirect } from '../../utils/app/router';
-import GraphCMSAsset from '../assets/GraphCMSAsset';
-import I18nLink from '../i18n/I18nLink';
-import Logo from '../assets/Logo';
 import Tooltip from '../utils/Tooltip';
-import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
 
 type Props = {};
 
 const Footer: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
-  const { userSession }: UserSessionContext = React.useContext(userSessionContext) || {};
+  const { deviceId }: UserSession = useUserSession();
   const customer: CustomerContext = React.useContext(customerContext);
   const { lang, locale }: I18nContext = React.useContext(i18nContext);
   const theme = customer.theme;
@@ -113,7 +113,7 @@ const Footer: React.FunctionComponent<Props> = () => {
             >
               Device id (analytics):<br />
               <DisplayOnBrowserMount>
-                <code>{userSession?.deviceId}</code>
+                <code>{deviceId}</code>
               </DisplayOnBrowserMount>
             </i>
           </div>
