@@ -71,6 +71,19 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
   const router: NextRouter = useRouter();
   const locale = router?.asPath?.split('/')?.[1] || DEFAULT_LOCALE;
   const lang: string = locale.split('-')?.[0];
+  let content: JSX.Element;
+
+  switch (lang) {
+    case LANG_FR:
+      content = <Fr404 />;
+      break;
+    case LANG_EN:
+      content = <En404 />;
+      break;
+    default:
+      content = <En404 />;
+      break;
+  }
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -90,19 +103,10 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
     >
       <div
         css={css`
-                text-align: center;
-              `}
+          text-align: center;
+        `}
       >
-        {
-          lang === LANG_FR && (
-            <Fr404 />
-          )
-        }
-        {
-          lang === LANG_EN && (
-            <En404 />
-          )
-        }
+        {content}
       </div>
     </DefaultLayout>
   );
