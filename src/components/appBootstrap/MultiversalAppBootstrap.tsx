@@ -60,6 +60,23 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
     const theme: Theme = initCustomerTheme(customer);
 
+    /*
+     * We split the rendering between server and browser
+     * There are actually 3 rendering modes, each of them has its own set of limitations
+     *  1. SSR (doesn't have access to browser-related features (LocalStorage), but it does have access to request-related data (cookies, HTTP headers))
+     *  2. Server during SSG (doesn't have access to browser-related features (LocalStorage), nor to request-related data (cookies, localStorage, HTTP headers))
+     *  3. Static rendering (doesn't have access to server-related features (HTTP headers), but does have access to request-related data (cookie) and browser-related features (LocalStorage))
+     *
+     * What we do here, is to avoid rendering browser-related stuff if we're not running in a browser, because it cannot work properly.
+     * (e.g: Generating cookies will work, but they won't be stored on the end-user device, and it would create "Text content did not match" warnings, if generated from the server during SSG)
+     *
+     * So, the BrowserPageBootstrap does browser-related stuff and then call the PageBootstrap which takes care of stuff that is universal (identical between browser and server)
+     *
+     * XXX If you're concerned regarding React rehydration, read our talk with Josh, author of https://joshwcomeau.com/react/the-perils-of-rehydration/
+     *  https://twitter.com/Vadorequest/status/1257658553361408002
+     *
+     * XXX There may be more rendering modes - See https://github.com/zeit/next.js/discussions/12558#discussioncomment-12303
+     */
     let browserPageBootstrapProps: BrowserPageBootstrapProps;
     let serverPageBootstrapProps: ServerPageBootstrapProps;
 
@@ -83,21 +100,6 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       };
     }
 
-    /*
-     * We split the rendering between server and browser
-     * There are actually 3 rendering modes, each of them has its own set of limitations
-     *  1. SSR (doesn't have access to browser-related features (LocalStorage), but it does have access to request-related data (cookies, HTTP headers))
-     *  2. Server during SSG (doesn't have access to browser-related features (LocalStorage), nor to request-related data (cookies, localStorage, HTTP headers))
-     *  3. Static rendering (doesn't have access to server-related features (HTTP headers), but does have access to request-related data (cookie) and browser-related features (LocalStorage))
-     *
-     * What we do here, is to avoid rendering browser-related stuff if we're not running in a browser, because it cannot work properly.
-     * (e.g: Generating cookies will work, but they won't be stored on the end-user device, and it would create "Text content did not match" warnings, if generated from the server during SSG)
-     *
-     * So, the BrowserPageBootstrap does browser-related stuff and then call the PageBootstrap which takes care of stuff that is universal (identical between browser and server)
-     *
-     * XXX If you're concerned regarding React rehydration, read our talk with Josh, author of https://joshwcomeau.com/react/the-perils-of-rehydration/
-     *  https://twitter.com/Vadorequest/status/1257658553361408002
-     */
     return (
       <i18nContext.Provider value={{ lang, locale }}>
         <customerContext.Provider value={customer}>

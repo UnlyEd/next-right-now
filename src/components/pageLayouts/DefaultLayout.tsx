@@ -3,6 +3,7 @@ import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
+import get from 'lodash.get';
 import React from 'react';
 import { Button } from 'reactstrap';
 import ErrorPage from '../../pages/_error';
@@ -67,18 +68,16 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       }
 
       <div
-        className={classnames('page-container', {
-          'is-iframe': isInIframe,
-          'is-not-iframe': !isInIframe,
-        })}
+        className={classnames('page-container', isInIframe ? 'is-iframe' : 'is-not-iframe')}
       >
         {
+          // TODO explain why we do that, and extract this as a standalone component + explain i18n hardcoded is preferred
           error ? (
             <>
               <ErrorPage
                 statusCode={500}
                 isSSRReadyToRender={true}
-                // @ts-ignore
+                // @ts-ignore TODO check this, seems wrong (should err be a Next.js Error or JS Error?)
                 err={new Error(get(error, 'message', 'No error message provided'))}
               >
                 <div
