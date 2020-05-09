@@ -10,10 +10,10 @@ export declare type MultiversalPageProps<E extends {} = {}> = {
   bestCountryCodes: string[];
   customer: Customer;
   customerRef: string;
-  i18nTranslations: I18nextResources;
   error?: Error; // Only defined if there was an error
   gcmsLocales: string;
   hasLocaleFromUrl: boolean;
+  i18nTranslations: I18nextResources;
   isReadyToRender: boolean;
   lang: string;
   locale: string;

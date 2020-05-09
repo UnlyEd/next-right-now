@@ -9,15 +9,12 @@ import { MultiversalPageProps } from '../pageProps/MultiversalPageProps';
  * @see MultiversalAppBootstrap for usage
  */
 export declare type MultiversalAppBootstrapProps<PP extends MultiversalPageProps = MultiversalPageProps> = {
-  pageProps: PP;
+  Component?: NextComponentType<NextPageContext>; // Page component, not provided if pageProps.statusCode is 3xx or 4xx
   err?: Error; // Only defined if there was an error
-
-  // XXX Props that are somehow injected by the Next.js framework between _app:getInitialProps and _app:render
-  //  They're marked as optional because they aren't defined in _app:getInitialProps but will be defined in _app:render
-  Component?: NextComponentType<NextPageContext>; // Page component
+  pageProps?: PP; // Props forwarded to the Page component
   router?: NextRouter;
 
-  // See https://github.com/zeit/next.js/discussions/12558#discussioncomment-9177
+  // XXX Next.js internals (unstable API) - See https://github.com/zeit/next.js/discussions/12558#discussioncomment-9177
   __N_SSG?: boolean;
   __N_SSR?: boolean;
   __N_SSP?: boolean;
