@@ -8,6 +8,7 @@ import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import DefaultLayout from '../components/pageLayouts/DefaultLayout';
 import { StaticParams } from '../types/nextjs/StaticParams';
+import { PageProps } from '../types/pageProps/PageProps';
 import { SSGPageProps } from '../types/pageProps/SSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n/i18n';
 import { getCommonStaticProps } from '../utils/nextjs/SSG';
@@ -30,7 +31,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
 
-type Props = {} & SSGPageProps;
+type Props = {} & PageProps;
 
 const Fr404 = (): JSX.Element => {
   return (

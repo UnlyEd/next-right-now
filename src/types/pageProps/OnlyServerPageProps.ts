@@ -8,5 +8,5 @@ import { PublicHeaders } from './PublicHeaders';
 export type OnlyServerPageProps = {
   headers: PublicHeaders; // Headers made public to the client-side
   readonlyCookies: Cookies; // Cookies retrieved using https://www.npmjs.com/package/next-cookies - Aren't really readonly but don't provide any setter
-  userSession: UserSemiPersistentSession; // User session (cookies)
+  userSession: UserSemiPersistentSession; // User session (from server cookies)
 };

@@ -17,10 +17,11 @@ import { StaticParams } from '../../types/nextjs/StaticParams';
 
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
+import { PageProps } from '../../types/pageProps/PageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../utils/gql/graphql';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 import { replaceAllOccurrences } from '../../utils/js/string';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -89,7 +90,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
-type Props = {} & SSGPageProps;
+type Props = {} & PageProps;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: CustomerContext = React.useContext(customerContext);

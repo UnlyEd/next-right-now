@@ -11,6 +11,7 @@ import I18nLink from '../../components/i18n/I18nLink';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../hocs/withApollo';
 import { StaticParams } from '../../types/nextjs/StaticParams';
+import { PageProps } from '../../types/pageProps/PageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 
@@ -38,7 +39,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCom
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
-type Props = {} & SSGPageProps;
+type Props = PageProps;
 
 const HomePage: NextPage<Props> = (props): JSX.Element => {
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
@@ -46,6 +47,8 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,
   });
+
+  console.log('home.props', props);
 
   return (
     <DefaultLayout

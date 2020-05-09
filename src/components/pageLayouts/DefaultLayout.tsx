@@ -7,8 +7,7 @@ import get from 'lodash.get';
 import React from 'react';
 import { Button } from 'reactstrap';
 import ErrorPage from '../../pages/_error';
-import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
+import { PageProps } from '../../types/pageProps/PageProps';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
@@ -21,7 +20,7 @@ const logger = createLogger({
 type Props = {
   headProps: HeadProps;
   pageName: string;
-} & MultiversalPageProps<BrowserPageProps>;
+} & PageProps;
 
 /**
  * The layout handle the positioning of elements within the page
@@ -37,7 +36,7 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     error,
-    isInIframe,
+    isInIframe = false, // Won't be defined server-side
     headProps = {},
     pageName,
   } = props;

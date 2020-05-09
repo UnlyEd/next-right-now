@@ -10,16 +10,17 @@ import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
 import uuid from 'uuid/v1';
+import Products from '../../components/data/Products';
+import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 
 import DisplayOnBrowserMount from '../../components/rehydration/DisplayOnBrowserMount';
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import Products from '../../components/data/Products';
 import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
 import withApollo from '../../hocs/withApollo';
 import { Product } from '../../types/data/Product';
 import { StaticParams } from '../../types/nextjs/StaticParams';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
+import { PageProps } from '../../types/pageProps/PageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../utils/gql/graphql';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
@@ -93,7 +94,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
 
 type Props = {
   products: Product[];
-} & SSGPageProps;
+} & PageProps;
 
 const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;

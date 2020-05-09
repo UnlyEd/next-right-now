@@ -1,5 +1,5 @@
-import { Theme } from '../data/Theme';
 import { i18n } from 'i18next';
+import { Theme } from '../data/Theme';
 
 /**
  * Additional props that are injected by MultiversalAppBootstrap to all pages
