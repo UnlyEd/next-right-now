@@ -7,7 +7,7 @@ import get from 'lodash.get';
 import React from 'react';
 import { Button } from 'reactstrap';
 import ErrorPage from '../../pages/_error';
-import { PageProps } from '../../types/pageProps/PageProps';
+import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
@@ -20,7 +20,7 @@ const logger = createLogger({
 type Props = {
   headProps: HeadProps;
   pageName: string;
-} & PageProps;
+} & SoftPageProps;
 
 /**
  * The layout handle the positioning of elements within the page

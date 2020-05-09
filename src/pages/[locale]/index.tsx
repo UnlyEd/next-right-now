@@ -11,7 +11,7 @@ import I18nLink from '../../components/i18n/I18nLink';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../hocs/withApollo';
 import { StaticParams } from '../../types/nextjs/StaticParams';
-import { PageProps } from '../../types/pageProps/PageProps';
+import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 
@@ -39,7 +39,15 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCom
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
-type Props = PageProps;
+/**
+ * SSG pages are first rendered by the server (during static bundling)
+ * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
+ * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
+ * To represent this behaviour, we use the native Partial TS keyword to make all OnlyBrowserPageProps optional
+ *
+ * Beware props in OnlyBrowserPageProps are not available on the server
+ */
+type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const HomePage: NextPage<Props> = (props): JSX.Element => {
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
@@ -47,8 +55,6 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,
   });
-
-  console.log('home.props', props);
 
   return (
     <DefaultLayout

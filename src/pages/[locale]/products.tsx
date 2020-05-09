@@ -18,7 +18,9 @@ import withApollo from '../../hocs/withApollo';
 import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
-import { PageProps } from '../../types/pageProps/PageProps';
+import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
+import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/products';
@@ -26,10 +28,23 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
   label: fileLabel,
 });
 
-type Props = {
+/**
+ * Props that are only available for this page
+ */
+type CustomPageProps = {
   [key: string]: any;
   products: Product[];
-} & PageProps;
+}
+
+/**
+ * SSR pages are first rendered by the server
+ * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
+ * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
+ * To represent this behaviour, we use the native Partial TS keyword to make all OnlyBrowserPageProps optional
+ *
+ * Beware props in OnlyBrowserPageProps are not available on the server
+ */
+type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
@@ -91,12 +106,14 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
+type GetServerSidePageProps = CustomPageProps & SSRPageProps
+
 /**
  * Fetches all products and customer in one single GQL query
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<Props> = async (context: GetServerSidePropsContext): Promise<{ props: Props }> => {
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<{ props: GetServerSidePageProps }> => {
   // @ts-ignore
   const {
     apolloClient,

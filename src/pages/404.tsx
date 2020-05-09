@@ -8,7 +8,7 @@ import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import DefaultLayout from '../components/pageLayouts/DefaultLayout';
 import { StaticParams } from '../types/nextjs/StaticParams';
-import { PageProps } from '../types/pageProps/PageProps';
+import { SoftPageProps } from '../types/pageProps/SoftPageProps';
 import { SSGPageProps } from '../types/pageProps/SSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n/i18n';
 import { getCommonStaticProps } from '../utils/nextjs/SSG';
@@ -31,7 +31,15 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
 
-type Props = {} & PageProps;
+/**
+ * SSG pages are first rendered by the server (during static bundling)
+ * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
+ * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
+ * To represent this behaviour, we use the native Partial TS keyword to make all OnlyBrowserPageProps optional
+ *
+ * Beware props in OnlyBrowserPageProps are not available on the server
+ */
+type Props = {} & SoftPageProps;
 
 const Fr404 = (): JSX.Element => {
   return (

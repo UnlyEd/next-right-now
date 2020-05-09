@@ -17,7 +17,7 @@ import { StaticParams } from '../../types/nextjs/StaticParams';
 
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
-import { PageProps } from '../../types/pageProps/PageProps';
+import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../utils/gql/graphql';
 import { replaceAllOccurrences } from '../../utils/js/string';
@@ -90,7 +90,15 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
-type Props = {} & PageProps;
+/**
+ * SSG pages are first rendered by the server (during static bundling)
+ * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
+ * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
+ * To represent this behaviour, we use the native Partial TS keyword to make all OnlyBrowserPageProps optional
+ *
+ * Beware props in OnlyBrowserPageProps are not available on the server
+ */
+type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: CustomerContext = React.useContext(customerContext);
