@@ -9,7 +9,7 @@ import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/Multiversal
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { BrowserPageProps } from '../../types/pageProps/BrowserPageProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
-import { UniversalSSRPageProps } from '../../types/pageProps/UniversalSSRPageProps';
+import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 
 const fileLabel = 'components/appBootstrap/ServerPageBootstrap';
 const logger = createLogger({
@@ -32,7 +32,7 @@ const ServerPageBootstrap = (props: ServerPageBootstrapProps): JSX.Element => {
   // When the page is served by the server, additional properties are available
   const {
     userSession,
-  } = pageProps as unknown as UniversalSSRPageProps;
+  } = pageProps as unknown as SSRPageProps;
   const injectedPageProps: MultiversalPageProps<BrowserPageProps> = {
     ...props.pageProps,
     // cookiesManager,

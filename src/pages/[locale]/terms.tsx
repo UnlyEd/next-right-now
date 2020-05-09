@@ -17,7 +17,7 @@ import { StaticParams } from '../../types/nextjs/StaticParams';
 
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
-import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
+import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../utils/gql/graphql';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 import { replaceAllOccurrences } from '../../utils/js/string';
@@ -31,14 +31,14 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time.
  *
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
- * only the results from getStaticProps are actually injected into the page (as "UniversalSSGPageProps").
+ * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
  *
- * @return Props (as "UniversalSSGPageProps") that will be passed to the Page component, as props
+ * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<UniversalSSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const commonStaticProps = await getCommonStaticProps(props);
   const { customerRef, gcmsLocales } = commonStaticProps.props;
 
@@ -89,7 +89,7 @@ export const getStaticProps: GetStaticProps<UniversalSSGPageProps, StaticParams>
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
-type Props = {} & UniversalSSGPageProps;
+type Props = {} & SSGPageProps;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: CustomerContext = React.useContext(customerContext);

@@ -8,7 +8,7 @@ import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import DefaultLayout from '../components/pageLayouts/DefaultLayout';
 import { StaticParams } from '../types/nextjs/StaticParams';
-import { UniversalSSGPageProps } from '../types/pageProps/UniversalSSGPageProps';
+import { SSGPageProps } from '../types/pageProps/SSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n/i18n';
 import { getCommonStaticProps } from '../utils/nextjs/SSG';
 
@@ -21,16 +21,16 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time.
  *
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
- * only the results from getStaticProps are actually injected into the page (as "UniversalSSGPageProps").
+ * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
  *
- * @return Props (as "UniversalSSGPageProps") that will be passed to the Page component, as props
+ * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<UniversalSSGPageProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
 
-type Props = {} & UniversalSSGPageProps;
+type Props = {} & SSGPageProps;
 
 const Fr404 = (): JSX.Element => {
   return (

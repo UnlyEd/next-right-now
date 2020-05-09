@@ -18,7 +18,7 @@ import withApollo from '../../hocs/withApollo';
 import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
-import { UniversalSSRPageProps } from '../../types/pageProps/UniversalSSRPageProps';
+import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/products';
@@ -29,7 +29,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 type Props = {
   [key: string]: any;
   products: Product[];
-} & UniversalSSRPageProps;
+} & SSRPageProps;
 
 const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;

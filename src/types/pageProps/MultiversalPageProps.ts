@@ -4,6 +4,10 @@ import { Customer } from '../data/Customer';
 
 /**
  * Page properties available on all pages, whether they're rendered statically, dynamically, from the server or the client
+ *
+ * Multiversal page props are listed in MultiversalPageProps
+ * Server-side page props are listed in SSRPageProps
+ * Client-side page props are listed in SSGPageProps
  */
 export declare type MultiversalPageProps<E extends {} = {}> = {
   apolloState: NormalizedCacheObject;

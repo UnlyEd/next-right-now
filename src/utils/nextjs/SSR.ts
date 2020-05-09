@@ -8,7 +8,7 @@ import { ApolloQueryOptions } from '../../types/gql/ApolloQueryOptions';
 import { Cookies } from '../../types/Cookies';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
-import { UniversalSSRPageProps } from '../../types/pageProps/UniversalSSRPageProps';
+import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
 import { createApolloClient } from '../gql/graphql';
@@ -17,10 +17,10 @@ import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
 
 /**
- * getCommonServerSideProps returns only part of the props expected in UniversalSSRPageProps
+ * getCommonServerSideProps returns only part of the props expected in SSRPageProps
  * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
-export type GetCommonServerSidePropsResults = Omit<UniversalSSRPageProps, 'apolloState' | 'customer'> & {
+export type GetCommonServerSidePropsResults = Omit<SSRPageProps, 'apolloState' | 'customer'> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
@@ -77,7 +77,7 @@ export const getCommonServerSideProps = async (context: GetServerSidePropsContex
     },
   };
 
-  // Most props returned here will be necessary for the app to work properly (see "UniversalSSRPageProps")
+  // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
   return {
     apolloClient,

@@ -9,8 +9,8 @@ import i18nContext from '../../stores/i18nContext';
 import { Theme } from '../../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
-import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
-import { UniversalSSRPageProps } from '../../types/pageProps/UniversalSSRPageProps';
+import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
+import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { initCustomerTheme } from '../../utils/data/theme';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
@@ -22,7 +22,7 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-export type Props = MultiversalAppBootstrapProps<UniversalSSGPageProps> | MultiversalAppBootstrapProps<UniversalSSRPageProps>;
+export type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;
 
 /**
  * Bootstraps a page and renders it

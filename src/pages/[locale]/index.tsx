@@ -11,7 +11,7 @@ import I18nLink from '../../components/i18n/I18nLink';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../hocs/withApollo';
 import { StaticParams } from '../../types/nextjs/StaticParams';
-import { UniversalSSGPageProps } from '../../types/pageProps/UniversalSSGPageProps';
+import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/index';
@@ -23,14 +23,14 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time.
  *
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
- * only the results from getStaticProps are actually injected into the page (as "UniversalSSGPageProps").
+ * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
  *
- * @return Props (as "UniversalSSGPageProps") that will be passed to the Page component, as props
+ * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<UniversalSSGPageProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
 
 /**
  * Only executed on the server side at build time
@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps<UniversalSSGPageProps, StaticParams>
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
-type Props = {} & UniversalSSGPageProps;
+type Props = {} & SSGPageProps;
 
 const HomePage: NextPage<Props> = (props): JSX.Element => {
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs

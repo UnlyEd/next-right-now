@@ -1,9 +1,9 @@
-import { UniversalSSGPageProps } from '../pageProps/UniversalSSGPageProps';
+import { SSGPageProps } from '../pageProps/SSGPageProps';
 
 /**
  * Static props returned as outputs for getStaticProps (yielded result)
  */
 export type StaticPropsOutput = {
-  props: UniversalSSGPageProps;
+  props: SSGPageProps;
   unstable_revalidate?: number | boolean;
 }
