@@ -117,6 +117,9 @@ const Footer: React.FunctionComponent<Props> = () => {
                 // When using SSG, we need to wait for the browser render because we don't have access to the cookies when generating the static page
                 // To test the different behaviours, refresh the both /examples and /products page with JS disabled
                 // and notice how the deviceId is properly included in the HTML with SSR (/products), unlike SSG (/examples) where it's empty
+
+                // XXX This example showcase this complex behaviour. You may want to do something similar for a "Profile" section in <Nav>,
+                //  that can be rendered using both SSG/SSR depending on the page, where SSR should render the component but SSG should wait for browser re-render
                 deps={[deviceId]}
               >
                 <code>{deviceId}</code>
