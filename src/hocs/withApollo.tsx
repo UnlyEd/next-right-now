@@ -23,7 +23,7 @@ type initOnContextProps = {
  * Options of the withApollo HOC
  */
 type withApolloOptions = {
-  ssr?: boolean; // If set to true, will inject "getInitialProps" into the page and will use SSR mode
+  useGetInitialProps?: boolean; // If set to true, will inject "getInitialProps" into the page and will use SSR mode
 }
 
 /**
@@ -44,7 +44,7 @@ type PageProps = {
 export const initOnContext = (ctx: initOnContextProps) => {
   const inAppContext = Boolean(ctx.ctx);
 
-  // We consider installing `withApollo({ ssr: true })` on global App level
+  // We consider installing `withApollo({ useGetInitialProps: true })` on global App level
   // as antipattern since it disables project wide Automatic Static Optimization.
   if (process.env.NODE_ENV === 'development') {
     if (inAppContext) {
@@ -102,10 +102,10 @@ const initApolloClient = (initialState, ctx: NextPageContext): ApolloClient<Norm
  * Creates a withApollo HOC that provides the apolloContext to a next.js Page or AppTree.
  *
  * @param  {Object} withApolloOptions
- * @param  {Boolean} [withApolloOptions.ssr=false]
+ * @param  {Boolean} [withApolloOptions.useGetInitialProps=false]
  * @returns {(PageComponent: ReactNode) => ReactNode}
  */
-export const withApollo = ({ ssr = false }: withApolloOptions = {}) => (PageComponent) => {
+export const withApollo = ({ useGetInitialProps = false }: withApolloOptions = {}) => (PageComponent) => {
   const WithApollo = ({ apolloClient, apolloState, ...pageProps }: PageProps): ReactNode => {
     let client: ApolloClient<NormalizedCacheObject>;
     if (apolloClient) {
@@ -130,7 +130,8 @@ export const withApollo = ({ ssr = false }: withApolloOptions = {}) => (PageComp
     WithApollo.displayName = `withApollo(${displayName})`;
   }
 
-  if (ssr || PageComponent.getInitialProps) {
+  // If we specifically want to use getInitialProps, or if the component already uses it
+  if (useGetInitialProps || PageComponent.getInitialProps) {
     WithApollo.getInitialProps = async (ctx): Promise<PageProps> | null => {
       const inAppContext = Boolean(ctx.ctx);
       const { apolloClient } = initOnContext(ctx);
@@ -156,7 +157,7 @@ export const withApollo = ({ ssr = false }: withApolloOptions = {}) => (PageComp
         }
 
         // Only if dataFromTree is enabled
-        if (ssr && AppTree) {
+        if (useGetInitialProps && AppTree) {
           try {
             // Import `@apollo/react-ssr` dynamically.
             // We don't want to have this in our client bundle.
