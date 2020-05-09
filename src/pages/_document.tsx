@@ -1,23 +1,28 @@
 import * as Sentry from '@sentry/node';
-import universalLanguageDetect from '@unly/universal-language-detector';
-import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
-import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
-import get from 'lodash.get';
-import { NextPageContext } from 'next';
-import NextCookies from 'next-cookies';
+import { DocumentInitialProps } from 'next/dist/next-server/lib/utils';
 import Document, { DocumentContext, DocumentProps, Head, Main, NextScript } from 'next/document';
 import React from 'react';
-
-import { Cookies } from '../types/Cookies';
-import { DocumentInitialProps } from '../types/nextjs/DocumentInitialProps';
-import { LANG_EN, SUPPORTED_LANGUAGES } from '../utils/i18n/i18n';
+import { DEFAULT_LOCALE } from '../utils/i18n/i18n';
 
 const fileLabel = 'pages/_document';
 const logger = createLogger({
   label: fileLabel,
 });
+
+/**
+ * Additional props depending on our App
+ *
+ * Must be returned by getInitialProps and will be available in render function
+ */
+type Props = {
+  locale: string;
+  lang: string;
+}
+
+type DocumentGetInitialPropsOutput = Props & DocumentInitialProps
+type DocumentRenderProps = Props & DocumentProps
 
 /**
  * Send to Sentry all unhandled rejections.
@@ -46,52 +51,37 @@ process.on('uncaughtException', (e: Error): void => {
  *
  * See https://github.com/zeit/next.js/#custom-document
  */
-class NRNDocument extends Document<Props> {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
-    try {
-      Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-        category: fileLabel,
-        message: `Preparing document (${isBrowser() ? 'browser' : 'server'})`,
-        level: Sentry.Severity.Debug,
-      });
+class AppDocument extends Document<DocumentRenderProps> {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentGetInitialPropsOutput> {
+    Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+      category: fileLabel,
+      message: `Rendering _document`,
+      level: Sentry.Severity.Debug,
+    });
 
-      const initialProps: DocumentInitialProps = await Document.getInitialProps(ctx);
-      const { req }: NextPageContext = ctx;
-      const cookies: Cookies = NextCookies(ctx); // Parses Next.js cookies in a universal way (server + client)
-      const lang: string = universalLanguageDetect({
-        supportedLanguages: SUPPORTED_LANGUAGES, // Whitelist of supported languages, will be used to filter out languages that aren't supported
-        fallbackLanguage: LANG_EN, // Fallback language in case the user's language cannot be resolved
-        acceptLanguageHeader: get(req, 'headers.accept-language'), // Optional - Accept-language header will be used when resolving the language on the server side
-        serverCookies: cookies, // Optional - Cookie "i18next" takes precedence over navigator configuration (ex: "i18next: fr"), will only be used on the server side
-        errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: object): void => {
-          Sentry.withScope((scope): void => {
-            scope.setExtra('level', level);
-            scope.setExtra('origin', origin);
-            scope.setContext('context', context);
-            Sentry.captureException(error);
-          });
-          logger.error(error.message);
-        },
-      });
+    const initialProps: DocumentInitialProps = await Document.getInitialProps(ctx);
+    const { query } = ctx;
+    const hasLocaleFromUrl = !!query?.locale;
+    const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
+    const lang: string = locale.split('-')?.[0];
 
-      return { ...initialProps, lang };
-    } catch (e) {
-      // If an error happens, log it and then try to render the page again with minimal processing
-      // This way, it'll render something on the client. (otherwise, it'd completely crash the server and render "Internal Server Error" on the client)
-      Sentry.captureException(e);
-
-      const initialProps: DocumentInitialProps = await Document.getInitialProps(ctx);
-      return { ...initialProps };
-    }
+    return {
+      ...initialProps,
+      locale,
+      lang,
+    };
   }
 
   render(): JSX.Element {
-    const { lang }: DocumentProps & { lang: string } = this.props;
+    const {
+      lang,
+      locale,
+    }: DocumentRenderProps = this.props;
 
     return (
-      <html lang={this.props.lang}>
+      <html lang={lang}>
         <Head />
-        <body className={classnames('nrn', `lang-${lang}`)}>
+        <body className={classnames('nrn', `locale-${locale}`, `lang-${lang}`)}>
           <Main />
           <NextScript />
         </body>
@@ -100,8 +90,4 @@ class NRNDocument extends Document<Props> {
   }
 }
 
-type Props = {
-  lang: string;
-} & DocumentProps
-
-export default NRNDocument;
+export default AppDocument;
