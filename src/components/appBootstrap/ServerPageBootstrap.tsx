@@ -7,9 +7,8 @@ import React from 'react';
 import { userSessionContext } from '../../stores/userSessionContext';
 import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
-import { BrowserPageProps } from '../../types/pageProps/BrowserPageProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
-import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
+import { OnlyServerPageProps } from '../../types/pageProps/OnlyServerPageProps';
 
 const fileLabel = 'components/appBootstrap/ServerPageBootstrap';
 const logger = createLogger({
@@ -26,18 +25,16 @@ export type ServerPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalP
 const ServerPageBootstrap = (props: ServerPageBootstrapProps): JSX.Element => {
   const {
     Component,
-    pageProps,
     err,
   } = props;
-  // When the page is served by the server, additional properties are available
+  // When the page is served by the server, some server-only properties are available
+  const pageProps = props.pageProps as unknown as MultiversalPageProps<OnlyServerPageProps>;
+  const injectedPageProps: MultiversalPageProps<OnlyServerPageProps> = {
+    ...pageProps,
+  };
   const {
     userSession,
-  } = pageProps as unknown as SSRPageProps;
-  const injectedPageProps: MultiversalPageProps<BrowserPageProps> = {
-    ...props.pageProps,
-    // cookiesManager,
-    userSession,
-  };
+  } = pageProps;
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,

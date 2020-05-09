@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { userSessionContext } from '../../stores/userSessionContext';
 import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
-import { BrowserPageProps } from '../../types/pageProps/BrowserPageProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
+import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../../utils/analytics/amplitude';
 import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
@@ -31,9 +31,10 @@ export type BrowserPageBootstrapProps = MultiversalAppBootstrapProps<Multiversal
 const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => {
   const {
     Component,
-    pageProps,
     err,
   } = props;
+  // When the page is served by the browser, some browser-only properties are available
+  const pageProps = props.pageProps as unknown as MultiversalPageProps<OnlyBrowserPageProps>;
   const {
     customerRef,
     lang,
@@ -45,7 +46,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(); // On browser, we can access cookies directly (doesn't need req/res or page context)
   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
   const userId = userSession.id;
-  const injectedPageProps: MultiversalPageProps<BrowserPageProps> = {
+  const injectedPageProps: MultiversalPageProps<OnlyBrowserPageProps> = {
     ...props.pageProps,
     isInIframe,
     iframeReferrer,

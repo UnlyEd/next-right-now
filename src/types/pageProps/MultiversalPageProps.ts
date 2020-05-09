@@ -21,5 +21,5 @@ export declare type MultiversalPageProps<E extends {} = {}> = {
   isReadyToRender: boolean;
   lang: string;
   locale: string;
-  statusCode?: number;
+  statusCode?: number; // Provided by Next.js framework, sometimes
 } & E;

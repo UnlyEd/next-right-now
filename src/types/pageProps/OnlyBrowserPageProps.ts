@@ -2,9 +2,9 @@ import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager
 import { UserSemiPersistentSession } from '../UserSemiPersistentSession';
 
 /**
- * Props only available on the browser side
+ * Props only available on the browser side, for all pages
  */
-export type BrowserPageProps = {
+export type OnlyBrowserPageProps = {
   cookiesManager?: UniversalCookiesManager;
   iframeReferrer?: string;
   isInIframe?: boolean;
