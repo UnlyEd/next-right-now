@@ -63,7 +63,6 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
       headProps={{
         title: 'Homepage - Next Right Now',
       }}
-      error={new Error('Homepage')}
     >
       <Amplitude>
         {
