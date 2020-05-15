@@ -1,13 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
 import * as React from 'react';
 import { Button } from 'reactstrap';
-
-const logger = createLogger({
-  label: 'components/errors/DefaultErrorLayout',
-});
+import ErrorDebug from './ErrorDebug';
 
 type Props = {
   error: Error;
@@ -18,8 +14,7 @@ type Props = {
  * Default error layout, used by DefaultLayout to display errors instead of the page's content, when an error is caught
  *
  * Displays a report dialog modal allowing end-users to provide a manual feedback about what happened.
- *
- * TODO make content dynamic (props)
+ * You may want to customise this component to display different error messages to the end users, based on statusCode or other information.
  *
  * @param props
  */
@@ -56,9 +51,17 @@ const DefaultErrorLayout = (props: Props): JSX.Element => {
             Sentry.showReportDialog({ eventId: errorEventId })
           }
         >
-          Contact technical support
+          Contact support
         </Button>
       </div>
+
+      {
+        process.env.APP_STAGE !== 'production' && (
+          <ErrorDebug
+            error={error}
+          />
+        )
+      }
     </div>
   );
 };

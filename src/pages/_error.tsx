@@ -1,8 +1,8 @@
 import * as Sentry from '@sentry/node';
+import get from 'lodash.get';
 import { NextPageContext } from 'next';
 import NextError, { ErrorProps as NextErrorProps } from 'next/error';
 import React from 'react';
-import get from 'lodash.get';
 
 export type ErrorPageProps = {
   err: Error;
@@ -16,7 +16,7 @@ export type ErrorProps = {
 } & NextErrorProps;
 
 /**
- * We override the native Next.js _error page in order to handle more use-cases, and display our own errors, with our own HTML layout in particular.
+ * We override the native Next.js _error page in order to handle more use-cases, and display errors using our own error layout.
  *
  * This implementation is backward-compatible with the native implementation.
  * It'll capture all exception and forward them to Sentry.
@@ -63,7 +63,7 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
   return (
     <>
       {
-        // Render the children if provided, or return the native Error component from Next
+        // Render the children if provided, or return the native NextError component from Next
         children ? (
           children
         ) : (
@@ -103,10 +103,10 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
     // Next.js will pass an err on the server if a page's `getInitialProps`
     // threw or returned a Promise that rejected
 
-    if (res.statusCode === 404) {
-      // XXX Opinionated: do not record an exception in Sentry for 404
-      return { statusCode: 404, isReadyToRender: true };
-    }
+    // XXX Opinionated: Record an exception in Sentry for 404, if you don't want this then uncomment the below code
+    // if (res.statusCode === 404) {
+    //   return { statusCode: 404, isReadyToRender: true };
+    // }
 
     if (err) {
       Sentry.captureException(err);
