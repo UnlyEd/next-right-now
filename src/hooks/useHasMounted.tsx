@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /**
  * Utility hook to properly handle expected differences between server and browser rendering.
@@ -9,7 +9,7 @@ import React from 'react';
  * @see https://joshwcomeau.com/react/the-perils-of-rehydration/#abstractions Strongly inspired from useHasMounted
  */
 const useHasMounted = (): boolean => {
-  const [hasMounted, setHasMounted] = React.useState<boolean>(false);
+  const [hasMounted, setHasMounted] = useState<boolean>(false);
 
   React.useEffect(() => {
     setHasMounted(true);

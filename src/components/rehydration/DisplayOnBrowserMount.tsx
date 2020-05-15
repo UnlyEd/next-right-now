@@ -1,5 +1,5 @@
 import some from 'lodash.some';
-import React, { DependencyList } from 'react';
+import React, { DependencyList, useState } from 'react';
 
 type Props = {
   children: React.ReactElement | React.ReactElement[];
@@ -60,7 +60,7 @@ const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
     })
     // If no dep is provided, then it should render "null" first anyway, and then trigger a re-render
     : true;
-  const [hasMounted, setHasMounted] = React.useState(!isAnyDepsNullish);
+  const [hasMounted, setHasMounted] = useState<boolean>(!isAnyDepsNullish);
 
   React.useEffect(() => {
     if (isAnyDepsNullish) {
