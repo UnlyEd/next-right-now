@@ -1,29 +1,23 @@
 import * as Sentry from '@sentry/node';
-import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import * as React from 'react';
-import { Button } from 'reactstrap';
 
 const logger = createLogger({
-  label: 'pages/debug/ErrorDebug',
+  label: 'components/errors/ErrorDebug',
 });
 
-/**
- * We don't want to log errors when running in the browser in production environment.
- * In any other circumstances, we should log the debug message to help debug the issue. (dev, staging, and from prod server)
- *
- * @return {boolean}
- */
-export const shouldLog = (): boolean => {
-  if (process.env.APP_STAGE === 'production') {
-    return !isBrowser();
-  } else {
-    return true;
-  }
-};
+type Props = {
+  error?: Error;
+  context?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  t?: Function;
+}
 
+/**
+ * TODO Not used at the moment, was used to help debug GraphCMS back in the days, still need some refactoring
+ *
+ * @param props
+ */
 const ErrorDebug = (props: Props): JSX.Element => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { error, context }: Props = props;
   const { message, stack } = error;
 
@@ -37,44 +31,15 @@ const ErrorDebug = (props: Props): JSX.Element => {
   Sentry.configureScope((scope) => {
     scope.setExtra('context', stringifiedContext);
   });
-  const errorEventId = Sentry.captureException(error);
 
-  if (shouldLog()) {
+  if (process.env.APP_STAGE !== 'production') {
     logger.error(message);
     logger.error(stack, 'stack');
     logger.error(stringifiedContext, 'context');
   }
 
-  // @ts-ignore
   return (
     <>
-      <div>
-        Service unavailable.
-      </div>
-
-      <div>
-        <p>
-          <Button
-            color={'primary'}
-            onClick={(): void =>
-              // @ts-ignore XXX showReportDialog is not recognised but works fine due to the webpack trick that replaces @sentry/node
-              Sentry.showReportDialog({ eventId: errorEventId })
-            }
-          >
-            Send a report
-          </Button>
-        </p>
-        <p>
-          <Button
-            onClick={(): void => {
-              window.location.reload(true);
-            }}
-          >
-            Refresh the page
-          </Button>
-        </p>
-      </div>
-
       {
         process.env.APP_STAGE !== 'production' && (
           <pre
@@ -107,11 +72,5 @@ const ErrorDebug = (props: Props): JSX.Element => {
     </>
   );
 };
-
-type Props = {
-  error?: Error;
-  context?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-  t?: Function;
-}
 
 export default ErrorDebug;

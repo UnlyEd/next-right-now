@@ -112,8 +112,7 @@ class MultiversalPageEntryPoint extends NextApp<MultiversalAppBootstrapProps, Mu
       Sentry.captureException(error);
     });
 
-    // This is needed to render errors correctly in development / production
-    super.componentDidCatch(error, errorInfo); // XXX This seems to be deprecated in v9.3.7
+    throw error;
   }
 }
 

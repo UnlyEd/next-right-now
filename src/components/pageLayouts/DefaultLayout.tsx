@@ -1,13 +1,12 @@
 /** @jsx jsx */
 import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
-import get from 'lodash.get';
 import React from 'react';
-import { Button } from 'reactstrap';
 import ErrorPage from '../../pages/_error';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
+import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
@@ -70,48 +69,18 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
         className={classnames('page-container', isInIframe ? 'is-iframe' : 'is-not-iframe')}
       >
         {
-          // TODO explain why we do that, and extract this as a standalone component + explain i18n hardcoded is preferred
+          // If an error happened, we display it instead of displaying the page
+          // We display a custom error instead of the native Next.js error by providing children (removing children will display the native Next.js error)
           error ? (
-            <>
-              <ErrorPage
-                statusCode={500}
-                isSSRReadyToRender={true}
-                // @ts-ignore TODO check this, seems wrong (should err be a Next.js Error or JS Error?)
-                err={new Error(get(error, 'message', 'No error message provided'))}
-              >
-                <div
-                  css={css`
-                      text-align: center;
-
-                      .title {
-                        margin-top: 30px;
-                        margin-bottom: 30px;
-                      }
-                    `}
-                >
-                  <div className={'title'}>
-                    <h1>Service currently unavailable</h1>
-                    <pre>Error 500.</pre>
-                  </div>
-
-                  <div>
-                    <p>
-                      Try to refresh the page. Please contact our support below if the issue persists.
-                    </p>
-                    <Button
-                      color={'primary'}
-                      onClick={(): void =>
-                        // @ts-ignore XXX showReportDialog is not recognised (due to the webpack trick that replaces @sentry/node), but it works fine
-                        Sentry.showReportDialog({ eventId: errorEventId })
-                      }
-                    >
-                      Contact technical support
-                    </Button>
-                  </div>
-                  <hr />
-                </div>
-              </ErrorPage>
-            </>
+            <ErrorPage
+              statusCode={500}
+              isReadyToRender={true}
+              err={error}
+            >
+              <DefaultErrorLayout
+                error={error}
+              />
+            </ErrorPage>
           ) : (
             <>
               {children}

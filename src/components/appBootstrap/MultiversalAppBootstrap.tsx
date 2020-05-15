@@ -34,8 +34,6 @@ export type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppB
  */
 const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
-    Component,
-    err,
     pageProps,
   } = props;
 
@@ -45,7 +43,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     level: Sentry.Severity.Debug,
   });
 
-  if (isBrowser()) { // Avoids log clutter on server
+  if (isBrowser() && process.env.APP_STAGE !== 'production') { // Avoids log clutter on server
     console.debug('MultiversalAppBootstrap.props', props);
   }
 
