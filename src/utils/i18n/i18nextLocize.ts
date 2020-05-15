@@ -2,12 +2,11 @@ import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import i18next, { i18n } from 'i18next';
+import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github.com/locize/i18next-locize-backend/issues/323#issuecomment-619625571
 import fetch from 'isomorphic-unfetch';
 import get from 'lodash.get';
 import map from 'lodash.map';
 import { initReactI18next } from 'react-i18next';
-import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github.com/locize/i18next-locize-backend/issues/323#issuecomment-619625571
-
 import { LANG_EN, LANG_FR } from './i18n';
 
 const logger = createLogger({
@@ -410,13 +409,15 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
  * Singleton helper
  *
  * Return the global globalI18nextInstance if set, or initialize it, if not.
+ * This prevents the client from reinitializing between page transitions, which caused infinite loop rendering.
  *
  * @param lang
  * @param i18nTranslations
  */
 const i18nextLocize = (lang: string, i18nTranslations: I18nextResources): i18n => {
-  if (!globalI18nextInstance) {
-    globalI18nextInstance =  createI18nextLocizeInstance(lang, i18nTranslations);
+  // If the singleton isn't init yet, or if the requested language is different from the singleton, then we create a new instance
+  if (!globalI18nextInstance || lang !== get(globalI18nextInstance, 'language', lang)) {
+    globalI18nextInstance = createI18nextLocizeInstance(lang, i18nTranslations);
 
     return globalI18nextInstance;
   } else {
