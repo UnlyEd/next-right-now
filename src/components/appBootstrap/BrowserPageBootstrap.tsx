@@ -32,6 +32,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const {
     Component,
     err,
+    router
   } = props;
   // When the page is served by the browser, some browser-only properties are available
   const pageProps = props.pageProps as unknown as MultiversalPageProps<OnlyBrowserPageProps>;
@@ -71,13 +72,15 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
 
   // In non-production stages, bind some utilities to the browser's DOM, for ease of quick testing
   if (process.env.APP_STAGE !== 'production') {
-    window['i18n'] = i18n;
-    window['t'] = t;
     window['amplitudeInstance'] = amplitudeInstance;
+    window['i18n'] = i18n;
+    window['router'] = router;
+    window['t'] = t;
     logger.info(`Utilities have been bound to the DOM for quick testing (only in non-production stages):
-        - i18n
-        - t
         - amplitudeInstance
+        - i18n
+        - router
+        - t
     `);
   }
 
