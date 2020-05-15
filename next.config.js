@@ -77,11 +77,13 @@ module.exports = withSourceMaps({
   },
   webpack: (config, { isServer, buildId }) => {
     const APP_VERSION_RELEASE = `${packageJson.version}_${buildId}`;
-    const DefinePluginIndex = isServer ? 1 : 2;
-
-    // Dynamically add some "env" variables that will be replaced during the build in "DefinePlugin"
-    config.plugins[DefinePluginIndex].definitions['process.env.APP_RELEASE'] = JSON.stringify(buildId);
-    config.plugins[DefinePluginIndex].definitions['process.env.APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
+    config.plugins.map((plugin, i) => {
+      if (plugin.definitions) { // If it has a "definitions" key, then we consider it's the DefinePlugin where ENV vars are stored
+        // Dynamically add some "env" variables that will be replaced during the build in "DefinePlugin"
+        plugin.definitions['process.env.APP_RELEASE'] = JSON.stringify(buildId);
+        plugin.definitions['process.env.APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
+      }
+    });
 
     if (isServer) { // Trick to only log once
       console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}"`);
