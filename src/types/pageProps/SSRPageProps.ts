@@ -1,3 +1,4 @@
+import { MultiversalAppBootstrapPageProps } from '../nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalPageProps } from './MultiversalPageProps';
 import { OnlyServerPageProps } from './OnlyServerPageProps';
 
@@ -11,4 +12,4 @@ import { OnlyServerPageProps } from './OnlyServerPageProps';
  */
 export type SSRPageProps<E extends OnlyServerPageProps = OnlyServerPageProps> = {
   isServerRendering: boolean;
-} & MultiversalPageProps & E;
+} & MultiversalPageProps & MultiversalAppBootstrapPageProps & E;

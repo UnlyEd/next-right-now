@@ -1,3 +1,4 @@
+import { MultiversalAppBootstrapPageProps } from '../nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalPageProps } from './MultiversalPageProps';
 
 /**
@@ -12,4 +13,4 @@ import { MultiversalPageProps } from './MultiversalPageProps';
  */
 export type SSGPageProps<E extends {} = {}> = {
   isStaticRendering: boolean;
-} & MultiversalPageProps & E;
+} & MultiversalPageProps & MultiversalAppBootstrapPageProps &E;
