@@ -2,15 +2,14 @@ import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
-import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
 import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css
 import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
-import NextApp from 'next/app';
 import 'rc-tooltip/assets/bootstrap.css';
-import React, { ErrorInfo } from 'react';
+import React from 'react';
 import MultiversalAppBootstrap from '../components/appBootstrap/MultiversalAppBootstrap';
 import { MultiversalAppBootstrapProps } from '../types/nextjs/MultiversalAppBootstrapProps';
+import { SSGPageProps } from '../types/pageProps/SSGPageProps';
+import { SSRPageProps } from '../types/pageProps/SSRPageProps';
 import '../utils/app/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
 import '../utils/monitoring/sentry';
 
@@ -21,12 +20,11 @@ library.add(
   faBook, faBookReader, faCoffee, faHome, faUserCog,
 );
 
-const fileLabel = 'pages/_app';
-const logger = createLogger({
-  label: fileLabel,
-});
-
-type AppState = {}
+/**
+ * "props.pageProps" will depend on whether the page is served by server or client, SSG or SSR
+ * (MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>) is basically a superset of AppProps (from 'next/app')
+ */
+type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;
 
 /**
  * This file is the entry point for all pages, it initialize all pages.
@@ -34,7 +32,7 @@ type AppState = {}
  * It can be executed server side or browser side.
  * It can be executed from a static build (SSG) or dynamically per request (SSR).
  *
- * We use "_app" to handle root errors and configure common behaviours and configurations across all pages.
+ * We use "_app" to handle root errors and configure common behaviours and configurations across all pages. (it inits sentry, by importing our helper)
  * Some of those behaviours/config are applied based on the runtime engine (browser vs server) and on the rendering mode (dynamic vs static)
  *
  * NRN Definitions:
@@ -56,43 +54,41 @@ type AppState = {}
  * @see https://nextjs.org/docs/basic-features/typescript#custom-app TypeScript for _app
  * @see https://stackoverflow.com/a/43862885/2391795 Some "Universal" definition (feel free to disagree)
  */
-class MultiversalPageEntryPoint extends NextApp<MultiversalAppBootstrapProps, MultiversalAppBootstrapProps, AppState> {
 
-  /**
-   * XXX We have disabled the use of getInitialProps by default with NRN, because it's what's recommended since v9.3,
-   *  feel free to use it if needed, but beware you'll opt-out of automated static optimization for all pages by doing so.
-   *
-   * By default, all pages will be served statically (using automated static optimization)
-   * If the page uses "getStaticProps", then it will use SSG. (a static build will be generated in production, in development it'll simulate a static build)
-   * If the page uses "getServerSideProps" or "getInitialProps", then it will use SSR. (your request will be served dynamically by a Serverless Function (AKA AWS Lambda))
-   *
-   * From the official doc:
-   * If you're using Next.js 9.3 or newer, we recommend that you use getStaticProps or getServerSideProps instead of getInitialProps.
-   * These new data fetching methods allow you to have a granular choice between static generation and server-side rendering.
-   *
-   * @see https://nextjs.org/docs/api-reference/data-fetching/getInitialProps Recommendations regarding "getInitialProps"
-   * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation "getStaticProps" doc
-   * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering "getServerSideProps" doc
-   */
-  // static async getInitialProps(props: AppInitialProps): Promise<MultiversalAppBootstrapProps> {}
+/**
+ * Renders the whole page
+ * For the sake of readability/maintainability, we have decoupled what happens in the "render" to our "MultiversalAppBootstrap" component.
+ *
+ * All props returned by "getInitialProps", "getServerSideProps" or "getStaticProps" are available in "props.pageProps".
+ * The "Component" prop within "props.pageProps" contains the page that is being rendered.
+ *
+ * XXX Multiversal - Executed in any case
+ *  req, res are NOT accessible here
+ *
+ * @return {JSX.Element}
+ */
+export const MultiversalPageEntryPoint: React.FunctionComponent<Props> = (props): JSX.Element => {
+  return (
+    <MultiversalAppBootstrap {...props} />
+  );
+};
 
-  /**
-   * Renders the whole page
-   * For the sake of readability/maintainability, we have decoupled what happens in the "render" to our "MultiversalAppBootstrap" component.
-   *
-   * All props returned by "getInitialProps", "getServerSideProps" or "getStaticProps" are available in "this.props.pageProps".
-   * The "Component" prop within "this.props.pageProps" contains the page that is being rendered.
-   *
-   * XXX Multiversal - Executed in any case
-   *  req, res are not accessible here
-   *
-   * @return {JSX.Element}
-   */
-  render(): JSX.Element {
-    return (
-      <MultiversalAppBootstrap {...this.props} />
-    );
-  }
-}
+/**
+ * XXX We have disabled the use of getInitialProps by default with NRN, because it's what's recommended since v9.3,
+ *  feel free to use it if needed, but beware you'll opt-out of automated static optimization for all pages by doing so.
+ *
+ * By default, all pages will be served statically (using automated static optimization)
+ * If the page uses "getStaticProps", then it will use SSG. (a static build will be generated in production, in development it'll simulate a static build)
+ * If the page uses "getServerSideProps" or "getInitialProps", then it will use SSR. (your request will be served dynamically by a Serverless Function (AKA AWS Lambda))
+ *
+ * From the official doc:
+ * If you're using Next.js 9.3 or newer, we recommend that you use getStaticProps or getServerSideProps instead of getInitialProps.
+ * These new data fetching methods allow you to have a granular choice between static generation and server-side rendering.
+ *
+ * @see https://nextjs.org/docs/api-reference/data-fetching/getInitialProps Recommendations regarding "getInitialProps"
+ * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation "getStaticProps" doc
+ * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering "getServerSideProps" doc
+ */
+// MultiversalPageEntryPoint.getInitialProps = async (props: AppInitialProps): Promise<MultiversalAppBootstrapProps> {}
 
 export default MultiversalPageEntryPoint;
