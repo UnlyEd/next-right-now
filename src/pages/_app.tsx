@@ -97,10 +97,14 @@ const globalWebVitalsMetric: NextWebVitalsMetricsReport = {
  * @see https://nextjs.org/blog/next-9-4#integrated-web-vitals-reporting Initial release notes
  */
 export function reportWebVitals(metrics: NextWebVitalsMetrics): void {
+  if (process.env.APP_Stage !== 'production') {
+    console.debug(metrics);
+  }
+
   const { name } = metrics;
   const count = globalWebVitalsMetric.reportedCount;
-  const keysLength = Object.keys(globalWebVitalsMetric.metrics).length;
   globalWebVitalsMetric.metrics[name] = metrics;
+  const keysLength = Object.keys(globalWebVitalsMetric.metrics).length;
 
   // Temporise analytics API calls by waiting for at least 5 metrics to be received before sending the first report
   // (because 3 metrics will be received upon initial page load, and then 2 more upon first click)
@@ -112,7 +116,6 @@ export function reportWebVitals(metrics: NextWebVitalsMetrics): void {
     globalWebVitalsMetric.metrics = {};
     globalWebVitalsMetric.reportedCount++;
   }
-  console.debug(metrics);
 }
 
 /**
