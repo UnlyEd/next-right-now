@@ -89,6 +89,6 @@ export const i18nRedirect = (locale, router: NextRouter, pageReload = false): vo
   if (pageReload) {
     location.href = newUrl;
   } else {
-    router.push(newUrl);
+    router.push(router.pathname, newUrl);
   }
 };
