@@ -67,7 +67,7 @@ type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstra
  *
  * @return {JSX.Element}
  */
-export const MultiversalPageEntryPoint: React.FunctionComponent<Props> = (props): JSX.Element => {
+const MultiversalPageEntryPoint: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
     <MultiversalAppBootstrap {...props} />
   );
