@@ -1,4 +1,4 @@
-import Router, { NextRouter } from 'next/router';
+import { NextRouter } from 'next/router';
 import { removeTrailingSlash } from '../js/string';
 
 export type Route = {
@@ -89,6 +89,6 @@ export const i18nRedirect = (locale, router: NextRouter, pageReload = false): vo
   if (pageReload) {
     location.href = newUrl;
   } else {
-    Router.push(newUrl);
+    router.push(newUrl);
   }
 };
