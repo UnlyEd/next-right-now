@@ -93,27 +93,6 @@ class MultiversalPageEntryPoint extends NextApp<MultiversalAppBootstrapProps, Mu
       <MultiversalAppBootstrap {...this.props} />
     );
   }
-
-  /**
-   * TODO See https://github.com/zeit/next.js/discussions/12562 to know if this needs to be reimplemented - I'm not confident with the quality of the current implementation (works, but may be done better)
-   *
-   * @param error
-   * @param errorInfo
-   */
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    // eslint-disable-next-line no-console
-    console.debug('_app.componentDidCatch - Unexpected error caught', error, errorInfo);
-
-    Sentry.withScope((scope) => {
-      Object.keys(errorInfo).forEach((key) => {
-        scope.setExtra(key, errorInfo[key]);
-      });
-
-      Sentry.captureException(error);
-    });
-
-    throw error;
-  }
 }
 
 export default MultiversalPageEntryPoint;
