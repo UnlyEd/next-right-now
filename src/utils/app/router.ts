@@ -1,4 +1,4 @@
-import { NextRouter } from 'next/router';
+import Router, { NextRouter } from 'next/router';
 import { removeTrailingSlash } from '../js/string';
 
 export type Route = {
@@ -79,7 +79,16 @@ export const isActive = (router: NextRouter, path: string): boolean => {
  *
  * @param locale
  * @param router
+ * @param pageReload
+ * @see https://nextjs.org/docs/routing/imperatively Programmatic usage of Next Router
+ * @see https://nextjs.org/docs/api-reference/next/router#router-api Router API
  */
-export const i18nRedirect = (locale, router: NextRouter): void => {
-  location.href = `${router.pathname.replace('[locale]', locale)}`;
+export const i18nRedirect = (locale, router: NextRouter, pageReload = false): void => {
+  const newUrl = `${router.pathname.replace('[locale]', locale)}`;
+
+  if (pageReload) {
+    location.href = newUrl;
+  } else {
+    Router.push(newUrl);
+  }
 };

@@ -16,9 +16,8 @@ import GraphCMSAsset from '../assets/GraphCMSAsset';
 import Logo from '../assets/Logo';
 import I18nLink from '../i18n/I18nLink';
 import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
-
-import EnglishFlag from '../svg/EnglishFlag';
 import FrenchFlag from '../svg/FrenchFlag';
+import EnglishFlag from '../svg/EnglishFlag';
 import Tooltip from '../utils/Tooltip';
 
 type Props = {};
@@ -130,7 +129,7 @@ const Footer: React.FunctionComponent<Props> = () => {
         <Col md={4} xs={12} className={'text-md-right text-center mt-3'}>
           <Button
             onClick={(): void => {
-              // XXX Implementation is being kept simple for the sake of simplicity
+              // XXX Implementation is being kept simple for the sake of simplicity (it toggles selected language between fr/en)
               //  It doesn't match a real-world use case because there are many possible variations and we can't cover them all
               //  e.g: with country-based locales (fr-FR, en-GB) or without (fr, en)
               const newLocale = startsWith(locale, 'fr') ? 'en' : 'fr';
