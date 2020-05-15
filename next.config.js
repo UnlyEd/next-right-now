@@ -77,11 +77,11 @@ module.exports = withSourceMaps({
   },
   webpack: (config, { isServer, buildId }) => {
     const APP_VERSION_RELEASE = `${packageJson.version}_${buildId}`;
+    const DefinePluginIndex = isServer ? 1 : 2;
 
-    // TODO Disabled until a proper fix is found for https://github.com/zeit/next.js/issues/12944 (monkeypatch is possible)
     // Dynamically add some "env" variables that will be replaced during the build in "DefinePlugin"
-    // config.plugins[2].definitions['process.env.APP_RELEASE'] = JSON.stringify(buildId);
-    // config.plugins[2].definitions['process.env.APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
+    config.plugins[DefinePluginIndex].definitions['process.env.APP_RELEASE'] = JSON.stringify(buildId);
+    config.plugins[DefinePluginIndex].definitions['process.env.APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
 
     if (isServer) { // Trick to only log once
       console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}"`);
