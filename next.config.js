@@ -5,6 +5,8 @@ const i18nConfig = require('./src/i18nConfig');
 const supportedLocales = i18nConfig.supportedLocales.map((supportedLocale) => {
   return supportedLocale.name;
 });
+const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folders, files) under /public directory should be added there, to avoid redirection when an asset isn't found
+const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
 
@@ -61,7 +63,7 @@ module.exports = withSourceMaps({
           destination: '/api/autoRedirectToLocalisedPage',
         },
         {
-          source: `/:locale((?!${supportedLocales.join('|')})[^/]+)(.*)`,
+          source: `/:locale((?!${noRedirectBasePaths.join('|')})[^/]+)(.*)`,
           destination: '/api/autoRedirectToLocalisedPage',
         },
       ];
