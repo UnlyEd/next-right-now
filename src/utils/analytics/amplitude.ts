@@ -1,6 +1,9 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { AmplitudeClient, Identify } from 'amplitude-js';
+import { NextWebVitalsMetricsReport } from '../../types/nextjs/NextWebVitalsMetricsReport';
+import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
+import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
 
 /**
  * Event actions
@@ -94,5 +97,61 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
 
   } else {
     return null;
+  }
+};
+
+/**
+ * Initialise Amplitude and send web-vitals metrics report.
+ *
+ * @param report
+ * @see https://web.dev/vitals/ Essential metrics for a healthy site
+ * @see https://nextjs.org/blog/next-9-4#integrated-web-vitals-reporting
+ */
+export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
+  try {
+    const amplitude = require('amplitude-js'); // eslint-disable-line @typescript-eslint/no-var-requires
+    const amplitudeInstance: AmplitudeClient = amplitude.getInstance();
+    const universalCookiesManager = new UniversalCookiesManager();
+    const userData: UserSemiPersistentSession = universalCookiesManager.getUserData();
+
+    // https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
+    amplitudeInstance.init(process.env.AMPLITUDE_API_KEY, null, {
+      // userId: null,
+      userId: userData.id,
+      logLevel: process.env.APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
+      includeGclid: true,
+      includeReferrer: true, // https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
+      includeUtm: true,
+      // @ts-ignore XXX onError should be allowed, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/42005
+      onError: (error): void => {
+        Sentry.captureException(error);
+        console.error(error); // eslint-disable-line no-console
+      },
+    });
+
+    amplitudeInstance.setVersionName(process.env.APP_VERSION); // e.g: 1.0.0
+
+    // Sen metrics to our analytics service
+    amplitudeInstance.logEvent(`report-web-vitals`, {
+      app: {
+        name: process.env.APP_NAME,
+        version: process.env.APP_VERSION,
+        stage: process.env.APP_STAGE,
+      },
+      page: {
+        url: location.href,
+        path: location.pathname,
+        origin: location.origin,
+        name: null,
+      },
+      customer: {
+        ref: process.env.CUSTOMER_REF,
+      },
+      report,
+    });
+    console.debug('report-web-vitals report sent to Amplitude');
+  } catch (e) {
+    Sentry.captureException(e);
+    console.error(e);// eslint-disable-line no-console
   }
 };
