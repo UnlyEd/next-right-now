@@ -64,7 +64,6 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <link rel="apple-touch-icon" href="/touch-icon.png" />
       <link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />
       <link rel="icon" href={favicon} />
-      <link rel="stylesheet" href="/static/fonts/CircularStd-Book/font.css" media="all" />
       <link rel="stylesheet" href="/static/fonts/NeuzeitGrotesk/font.css" media="all" />
 
       {
