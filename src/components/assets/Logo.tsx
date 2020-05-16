@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import React from 'react';
 import stylePropType from 'react-style-proptype';
-import compose from 'recompose/compose';
 
 import LogoPropTypes from '../../propTypes/LogoPropTypes';
 import { Link } from '../../types/data/Link';
@@ -143,5 +142,4 @@ type Props = {
   onClick: Function;
 }
 
-export default compose(
-)(Logo);
+export default Logo;
