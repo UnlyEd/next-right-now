@@ -137,6 +137,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
         name: process.env.APP_NAME,
         version: process.env.APP_VERSION,
         stage: process.env.APP_STAGE,
+        preset: process.env.NRN_PRESET,
       },
       page: {
         url: location.href,

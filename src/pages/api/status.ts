@@ -23,6 +23,7 @@ export const status = async (req: NowRequest, res: NowResponse): Promise<void> =
       memory: process.env.AWS_LAMBDA_FUNCTION_MEMORY_SIZE,
       environment: process.env.NODE_ENV,
       stage: process.env.APP_STAGE,
+      preset: process.env.NRN_PRESET,
       buildTime: process.env.BUILD_TIME,
       buildTimestamp: process.env.BUILD_TIMESTAMP,
       customer: process.env.CUSTOMER_REF,
