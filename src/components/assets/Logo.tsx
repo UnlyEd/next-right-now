@@ -106,6 +106,7 @@ const Logo = (props: Props): JSX.Element => {
         id={link.id}
         href={resolvedLogoProps.link.url}
         target={resolvedLogoProps.link.target}
+        rel={resolvedLogoProps.link.target === '_blank' ? 'noopener' : null}
         className={classnames(resolvedLogoProps.link.classes, link.className)}
         // @ts-ignore
         style={deepmerge(resolvedLogoProps.link.style || {}, link.style || {})}
