@@ -29,6 +29,26 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
   return (
     <Global
       styles={css`
+        html {
+          // Until our custom font hasn't been applied, use those fallback fonts
+          &:not(.wf-active) {
+            body.nrn {
+              * {
+                font-family: sans-serif;
+              }
+            }
+          }
+
+          // Once our font has been applied, use it
+          &.wf-active {
+            body.nrn {
+              * {
+                font-family: "${primaryFont}", sans-serif !important;
+              }
+            }
+          }
+        }
+
         // Only applied to the main application
         body.nrn {
           background-color: #f5f5f5;
@@ -43,10 +63,6 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
 
         // Applied to all containers marked with ".nrn" - XXX could be grouped with the other one above?
         .nrn {
-          * {
-            font-family: "${primaryFont}", sans-serif !important;
-          }
-
           .container {
             justify-content: center;
             text-align: center;

@@ -39,14 +39,14 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const WebFontLoader = require('webfontloader');
 
-    // Load our fonts. Until they're loaded, their fallback fonts will be used
+    // Load our fonts. Until they're loaded, fallback fonts will be used (configured in UniversalGlobalStyles)
     // This fixed an issue when loading fonts from external sources that don't show the text until the font is loaded
     // With this, instead of not showing any text, it'll show the text using its fallback font, and then show the font once loaded
-    // Note that we must load the font file synchronously to avoid a FOUT effect (see <link> below)
-    // XXX See https://www.npmjs.com/package/webfontloader#custom
+    // XXX See https://github.com/typekit/webfontloader#custom
     WebFontLoader.load({
       custom: {
         families: ['neuzeit-grotesk'],
+        urls: ['/static/fonts/NeuzeitGrotesk/font.css']
       },
     });
   }
@@ -64,7 +64,6 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <link rel="apple-touch-icon" href="/touch-icon.png" />
       <link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />
       <link rel="icon" href={favicon} />
-      <link rel="stylesheet" href="/static/fonts/NeuzeitGrotesk/font.css" media="all" />
 
       {
         SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {
