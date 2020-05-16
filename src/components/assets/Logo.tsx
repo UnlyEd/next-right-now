@@ -16,6 +16,20 @@ import {
   DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels
 } from '../../utils/assets/logo';
 
+type Props = {
+  id: string;
+  logo: LogoType;
+  width?: number | string;
+  height?: number | string;
+  defaults?: LogoType;
+  override?: LogoType;
+  sizesMultipliers?: SizeMultiplier[];
+  className?: string;
+  style?: object;
+  link?: Link;
+  onClick?: Function;
+}
+
 /**
  * Display a logo
  */
@@ -76,7 +90,7 @@ const Logo = (props: Props): JSX.Element => {
         id={id}
         src={resolvedLogoProps.url}
         title={resolvedLogoProps.title}
-        alt={resolvedLogoProps.alt}
+        alt={resolvedLogoProps.alt || resolvedLogoProps.title || resolvedLogoProps.url}
         className={classnames(`logo-${id}`, className, resolvedLogoProps.classes)}
         style={deepmerge(style || {}, resolvedLogoProps.style || {})}
         // @ts-ignore
@@ -127,19 +141,5 @@ Logo.propTypes = {
   link: PropTypes.object,
   onClick: PropTypes.func, // Support for usage within <Link> component (from Next.js)
 };
-
-type Props = {
-  id: string;
-  logo: LogoType;
-  width: number | string;
-  height: number | string;
-  defaults: LogoType;
-  override: LogoType;
-  sizesMultipliers: SizeMultiplier[];
-  className: string;
-  style: object;
-  link: Link;
-  onClick: Function;
-}
 
 export default Logo;
