@@ -52,7 +52,7 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
     onClick = null,
     linkOverride = {},
     transformationsOverride = null,
-    forcePNGOutput = true,
+    forcePNGOutput = false,
   }: Props = props;
   if (isEmpty(asset)) {
     return null;
@@ -108,7 +108,9 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
       }
 
       // Once all transformations have been resolved, update the asset url
-      resolvedAssetProps.url = `${assetBaseUrl}${transformationsToApply}/${assetFileHandle}`;
+      // XXX Using "auto_image" will automatically select the image type (WebP, etc.) based on the browser (reduces size by 20-80%, compared to png)
+      //  See https://www.filestack.com/docs/api/processing/#auto-image-conversion
+      resolvedAssetProps.url = `${assetBaseUrl}${transformationsToApply}/auto_image/${assetFileHandle}`;
     }
   }
 
