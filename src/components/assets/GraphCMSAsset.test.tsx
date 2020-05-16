@@ -22,7 +22,7 @@ describe('GraphCMSAsset', () => {
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
         expect(img.props.title).toEqual('');
-        expect(img.props.alt).toEqual('');
+        expect(img.props.alt).toEqual(defaultLogoUrl);
         expect(img.props.className).toEqual(`asset-${id}`);
         expect(img.props.style).toEqual({});
         expect(img).toMatchSnapshot();
@@ -175,7 +175,7 @@ describe('GraphCMSAsset', () => {
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/output=format:png/resize=width:500,height:300/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=width:500,height:300/auto_image/88YmsSFsSEGI9i0qcH0V');
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -205,7 +205,7 @@ describe('GraphCMSAsset', () => {
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/output=format:png/resize=width:500/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=width:500/auto_image/88YmsSFsSEGI9i0qcH0V');
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -238,7 +238,7 @@ describe('GraphCMSAsset', () => {
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/output=format:png/resize=height:300/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=height:300/auto_image/88YmsSFsSEGI9i0qcH0V');
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -266,7 +266,7 @@ describe('GraphCMSAsset', () => {
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
       expect(img.props.title).toEqual('');
-      expect(img.props.alt).toEqual('');
+      expect(img.props.alt).toEqual(defaultLogoUrl);
       expect(img.props.className).toEqual(`asset-${id}`);
       expect(img.props.style).toEqual({});
       expect(img.props).toMatchSnapshot();

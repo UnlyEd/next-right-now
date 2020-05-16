@@ -2,7 +2,7 @@
 
 exports[`GraphCMSAsset should properly render an asset from GraphCMS when the asset is used as an image (<img>) when relying on default "logo" property, it should apply the internal default properties 1`] = `
 <img
-  alt=""
+  alt="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
   className="asset-test"
   id="test"
   src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
@@ -31,7 +31,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   alt="Test asset"
   className="asset-test test-class1 test-class2"
   id="test"
-  src="https://media.graphcms.com/quality=value:100/output=format:png/resize=height:300/88YmsSFsSEGI9i0qcH0V"
+  src="https://media.graphcms.com/quality=value:100/resize=height:300/auto_image/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
       "paddingTop": 5,
@@ -46,7 +46,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   alt="Test asset"
   className="asset-test test-class1 test-class2"
   id="test"
-  src="https://media.graphcms.com/quality=value:100/output=format:png/resize=width:500/88YmsSFsSEGI9i0qcH0V"
+  src="https://media.graphcms.com/quality=value:100/resize=width:500/auto_image/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
       "paddingTop": 5,
@@ -106,7 +106,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   alt="Test asset"
   className="asset-test test-class1 test-class2"
   id="test"
-  src="https://media.graphcms.com/quality=value:100/output=format:png/resize=width:500,height:300/88YmsSFsSEGI9i0qcH0V"
+  src="https://media.graphcms.com/quality=value:100/resize=width:500,height:300/auto_image/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
       "paddingTop": 5,
@@ -118,7 +118,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
 
 exports[`GraphCMSAsset when the asset is used as a link(<a>) containing an image (<img>) when relying on default "logo" property 1`] = `
 Object {
-  "alt": "",
+  "alt": "https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V",
   "className": "asset-test",
   "id": "test",
   "src": "https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V",
@@ -137,7 +137,7 @@ exports[`GraphCMSAsset when the asset is used as a link(<a>) containing an image
   target="_blank"
 >
   <img
-    alt=""
+    alt="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
     className="asset-test"
     id="test"
     src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
