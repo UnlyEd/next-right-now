@@ -10,7 +10,7 @@ describe('status', () => {
 
   test('should return expected variables', async () => {
     // @ts-ignore
-    const req: NowRequest = mockRequest({}, {param1: 'test-sentry-reporting-context'});
+    const req: NowRequest = mockRequest({}, { param1: 'test-sentry-reporting-context' });
     const res: NowResponse = mockResponse();
     await status(req, res);
 
