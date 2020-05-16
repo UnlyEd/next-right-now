@@ -13,8 +13,8 @@ export type NextWebVitalsMetricsReport = {
   reportId: string; // ID of the "report", helps grouping reports with different data but same reportId together when analysing data
   metrics: {
     FCP?: NextWebVitalsMetrics; // First contentful paint, triggers on page load
-    FID?: NextWebVitalsMetrics; // First input delay, trigger on first click
-    LCP?: NextWebVitalsMetrics; // Largest contentful paint, triggers on page load
+    FID?: NextWebVitalsMetrics; // First input delay, trigger on first end-user interaction (click)
+    LCP?: NextWebVitalsMetrics; // Largest contentful paint, triggers on first end-user interaction (sometimes doesn't trigger)
     'Next.js-hydration'?: NextWebVitalsMetrics; // Triggers on page load
     'Next.js-render'?: NextWebVitalsMetrics; // Triggers on client-side redirection (<Link>)
     'Next.js-route-change-to-render'?: NextWebVitalsMetrics; // Triggers on client-side redirection (<Link>)
