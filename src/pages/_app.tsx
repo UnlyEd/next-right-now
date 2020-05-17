@@ -97,7 +97,7 @@ const globalWebVitalsMetric: NextWebVitalsMetricsReport = {
  * @see https://nextjs.org/blog/next-9-4#integrated-web-vitals-reporting Initial release notes
  */
 export function reportWebVitals(metrics: NextWebVitalsMetrics): void {
-  if (process.env.APP_Stage !== 'production') {
+  if (process.env.APP_STAGE !== 'production') {
     console.debug(metrics);
   }
 
