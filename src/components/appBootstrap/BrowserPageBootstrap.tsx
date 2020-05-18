@@ -2,7 +2,6 @@
 import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -13,13 +12,12 @@ import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../../utils/analytics/amplitude';
+import { createLogger } from '../../utils/app/logger';
 import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
 import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';
 
 const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
-const logger = createLogger({
-  label: fileLabel,
-});
+const logger = createLogger(fileLabel);
 
 export type BrowserPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalPageProps & MultiversalAppBootstrapPageProps>;
 
@@ -32,7 +30,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const {
     Component,
     err,
-    router
+    router,
   } = props;
   // When the page is served by the browser, some browser-only properties are available
   const pageProps = props.pageProps as unknown as MultiversalPageProps<OnlyBrowserPageProps>;
@@ -76,6 +74,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     window['i18n'] = i18n;
     window['router'] = router;
     window['t'] = t;
+    window['logger'] = logger;
     logger.info(`Utilities have been bound to the DOM for quick testing (only in non-production stages):
         - amplitudeInstance
         - i18n

@@ -110,6 +110,7 @@
     "react-style-proptype": "3.2.2",
     "reactstrap": "8.4.1",
     "recompose": "0.30.0",
+    "ulog": "2.0.0-beta.6",
     "webfontloader": "1.6.28",
     "winston": "3.2.1"
   },

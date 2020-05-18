@@ -1,6 +1,5 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { createLogger } from '@unly/utils-simple-logger';
 import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
 import React from 'react';
@@ -11,6 +10,7 @@ import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppB
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
+import { createLogger } from '../../utils/app/logger';
 import { initCustomerTheme } from '../../utils/data/theme';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
@@ -18,9 +18,7 @@ import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBoots
 import UniversalGlobalStyles from './UniversalGlobalStyles';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
-const logger = createLogger({
-  label: fileLabel,
-});
+const logger = createLogger(fileLabel);
 
 export type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;
 
@@ -44,8 +42,9 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   });
 
   if (isBrowser() && process.env.APP_STAGE !== 'production') { // Avoids log clutter on server
-    console.debug('MultiversalAppBootstrap.props', props);
+    // console.debug('MultiversalAppBootstrap.props', props);
   }
+  logger(props);
 
   if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
     console.info('MultiversalAppBootstrap - App is ready, rendering...');
