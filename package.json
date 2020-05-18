@@ -70,7 +70,7 @@
     "apollo-cache-inmemory": "1.6.5",
     "apollo-client": "2.6.8",
     "apollo-link-http": "1.5.16",
-    "bootstrap": "4.4.1",
+    "bootstrap": "4.5.0",
     "classnames": "2.2.6",
     "cookies": "0.8.0",
     "css-to-react-native": "3.0.0",
