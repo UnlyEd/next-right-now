@@ -7,7 +7,7 @@ const supportedLocales = i18nConfig.supportedLocales.map((supportedLocale) => {
 });
 const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folders, files) under /public directory should be added there, to avoid redirection when an asset isn't found
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+const withBundleAnalyzer = require('@next/bundle-analyzer')({ // Run with "yarn next:bundle" - See https://www.npmjs.com/package/@next/bundle-analyzer
   enabled: process.env.ANALYZE_BUNDLE === 'true',
 })
 
