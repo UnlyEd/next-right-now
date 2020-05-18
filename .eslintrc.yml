@@ -44,9 +44,7 @@ rules: # See https://eslint.org/docs/rules
   strict: 'off'
   no-console: 1 # Shouldn't use "console", but "logger" instead
   allowArrowFunctions: 0
-  no-unused-vars:
-    - warn # Warn otherwise it false-positive with needed React imports
-    - args: none # Allow to declare unused variables in function arguments, meant to be used later
+  no-unused-vars: 0 # Disabled, already handled by @typescript-eslint/no-unused-vars
   import/prefer-default-export: 0 # When there is only a single export from a module, don't enforce a default export, but rather let developer choose what's best
   no-else-return: 0 # Don't enforce, let developer choose. Sometimes we like to specifically use "return" for the sake of comprehensibility and avoid ambiguity
   no-underscore-dangle: 0 # Allow _ before/after variables and functions, convention for something meant to be "private"
