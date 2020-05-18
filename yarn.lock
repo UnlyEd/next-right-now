@@ -6025,10 +6025,10 @@ i18next-browser-languagedetector@4.0.1:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-i18next-locize-backend@4.0.7:
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/i18next-locize-backend/-/i18next-locize-backend-4.0.7.tgz#fa1c3f13cf4b5befc5036b98e6ff90eff6df7de2"
-  integrity sha512-SiH7a5UukkTpWaR/yaWti52+LCrnHfgwQ4kjJ/6miXJRO0/NKqxn/asACSyJEqizvLwfrvwmLYPyBZD3ULk8jQ==
+i18next-locize-backend@4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/i18next-locize-backend/-/i18next-locize-backend-4.0.8.tgz#4f1a021da71984ac815bba510f87bb816e4a3fdd"
+  integrity sha512-uPSNlAjGbTgmZqs4Har2W/zw0JUOPXFkz8kqe+H3iQ3VjNglykC8MyKHzrmQtv6RMelnm0c5Qb00EqpzGCS8Cg==
   dependencies:
     node-fetch "2.6.0"
 
@@ -6039,10 +6039,10 @@ i18next@19.0.2:
   dependencies:
     "@babel/runtime" "^7.3.1"
 
-i18next@19.3.4:
-  version "19.3.4"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.3.4.tgz#512de50ee6075df825c646e1ce646a104f0938c9"
-  integrity sha512-ef7AxxutzdhBsBNugE9jgqsbwesG1muJOtZ9ZrPARPs/jXegViTp4+8JCeMp8BAyTIo1Zn0giqc8+2UpqFjU0w==
+i18next@19.4.4:
+  version "19.4.4"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.4.4.tgz#c0a18bc2f2be554da636e67bfbf5200c7948b60d"
+  integrity sha512-ofaHtdsDdX3A5nYur1HWblB7J4hIcjr2ACdnwTAJgc8hTfPbyzZfGX0hVkKpI3vzDIgO6Uzc4v1ffW2W6gG6zw==
   dependencies:
     "@babel/runtime" "^7.3.1"
 
@@ -7407,10 +7407,10 @@ locize-editor@3.0.0:
   dependencies:
     "@babel/runtime" "^7.4.5"
 
-locize-lastused@3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/locize-lastused/-/locize-lastused-3.0.3.tgz#f73cb63d100a0617a461fc3daac79c205716d5dc"
-  integrity sha512-rEV/2XhZFoR8MhQeEv77QmeMmfVv6UwusnY0GM68zbZLWr6qEjHYo4qn6Hjn2c2L3JlT36MVjRzRxOXdcrfoYQ==
+locize-lastused@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/locize-lastused/-/locize-lastused-3.0.4.tgz#62980dfc91aefae1d8207b92ab20974cf45cb34d"
+  integrity sha512-GZn9xObIAUswtOZIbM+BrM8JSH9Nk+IcNJIXu+DKLV/R2i1LDmnwKLmcd8ZeKIVQiBOUmiGqHqfI0KEBZz/sww==
   dependencies:
     node-fetch "2.6.0"
 
@@ -9421,10 +9421,10 @@ react-dom@16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-i18next@11.3.4:
-  version "11.3.4"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.3.4.tgz#355df5fe5133e5e30302d166f529678100ffc968"
-  integrity sha512-IRZMD7PAM3C+fJNzRbyLNi1ZD0kc3Z3obBspJjEl+9H+ME41PhVor3BpdIqv/Rm7lUoGhMjmpu42J45ooJ61KA==
+react-i18next@11.4.0:
+  version "11.4.0"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.4.0.tgz#dde6bf3a695910af7a4270fea2e111bc331cf151"
+  integrity sha512-lyOZSSQkif4H9HnHN3iEKVkryLI+WkdZSEw3VAZzinZLopfYRMHVY5YxCopdkXPLEHs6S5GjKYPh3+j0j336Fg==
   dependencies:
     "@babel/runtime" "^7.3.1"
     html-parse-stringify2 "2.0.1"
