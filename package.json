@@ -65,7 +65,7 @@
     "@unly/utils": "1.0.3",
     "@unly/utils-simple-logger": "1.4.0",
     "amplitude-js": "6.2.0",
-    "animate.css": "3.7.2",
+    "animate.css": "4.1.0",
     "apollo-boost": "0.4.7",
     "apollo-cache-inmemory": "1.6.5",
     "apollo-client": "2.6.8",
