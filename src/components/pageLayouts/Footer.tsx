@@ -16,8 +16,8 @@ import GraphCMSAsset from '../assets/GraphCMSAsset';
 import Logo from '../assets/Logo';
 import I18nLink from '../i18n/I18nLink';
 import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
-import FrenchFlag from '../svg/FrenchFlag';
 import EnglishFlag from '../svg/EnglishFlag';
+import FrenchFlag from '../svg/FrenchFlag';
 import Tooltip from '../utils/Tooltip';
 
 type Props = {};
@@ -79,20 +79,17 @@ const Footer: React.FunctionComponent<Props> = () => {
           </p>
           <I18nLink
             href={`/terms`}
-            passHref={true}
           >
-            <a>
-              <div
-                css={{
-                  marginTop: '20px',
-                  textDecoration: 'underline',
-                  cursor: 'pointer',
-                  color: 'white',
-                }}
-              >
-                {t('footer.terms.link', 'Conditions générales d\'utilisation')}
-              </div>
-            </a>
+            <div
+              css={{
+                marginTop: '20px',
+                textDecoration: 'underline',
+                cursor: 'pointer',
+                color: 'white',
+              }}
+            >
+              {t('footer.terms.link', 'Conditions générales d\'utilisation')}
+            </div>
           </I18nLink>
           <div
             css={css`

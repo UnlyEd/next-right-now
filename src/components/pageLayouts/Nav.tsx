@@ -104,7 +104,7 @@ const Nav: React.FunctionComponent<Props> = () => {
             <NavItem>
               <I18nLink
                 href={`/`}
-                passHref={true}
+                wrapChildrenAsLink={false}
               >
                 <NavLink
                   id={'nav-link-home'}
@@ -119,7 +119,7 @@ const Nav: React.FunctionComponent<Props> = () => {
             <NavItem>
               <I18nLink
                 href={`/examples`}
-                passHref={true}
+                wrapChildrenAsLink={false}
               >
                 <NavLink
                   id={'nav-link-examples'}
@@ -134,7 +134,7 @@ const Nav: React.FunctionComponent<Props> = () => {
             <NavItem>
               <I18nLink
                 href={`/products`}
-                passHref={true}
+                wrapChildrenAsLink={false}
               >
                 <NavLink
                   id={'nav-link-products'}
