@@ -63,6 +63,7 @@ export const initOnContext = (ctx: initOnContextProps) => {
   // Otherwise, the component would have to call initApollo() again but this
   // time without the context. Once that happens, the following code will make sure we send
   // the prop as `null` to the browser.
+  // @ts-ignore XXX Ignored because it crashed when upgrading TypeScript from 3.8.3 to 3.9.2 (is this method undefined and it wasn't detected before?)
   apolloClient.toJSON = (): void => null;
 
   // Add apolloClient to NextPageContext & NextAppContext.
