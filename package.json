@@ -6,6 +6,7 @@
     "start": "now dev --listen 8888",
     "build": "yarn test:once && next build",
     "next": "next start",
+    "next:bundle": "ANALYZE_BUNDLE=true yarn start",
     "svg": "npx svgr -d src/svg src/svg --ext tsx --template src/utils/svg/svgTemplate.ts",
     "deploy": "yarn deploy:customer1",
     "deploy:all": "yarn deploy:customer1 && yarn deploy:customer2",
@@ -114,6 +115,7 @@
     "winston": "3.2.1"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "9.4.1",
     "@now/node": "1.6.1",
     "@svgr/cli": "5.4.0",
     "@types/amplitude-js": "5.11.0",

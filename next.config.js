@@ -7,10 +7,13 @@ const supportedLocales = i18nConfig.supportedLocales.map((supportedLocale) => {
 });
 const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folders, files) under /public directory should be added there, to avoid redirection when an asset isn't found
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE_BUNDLE === 'true',
+})
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
 
-module.exports = withSourceMaps({
+module.exports = withBundleAnalyzer(withSourceMaps({
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel - See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
   env: {
     // XXX Duplication of the environment variables, this is only used locally (See https://github.com/zeit/next.js#build-time-configuration)
@@ -116,4 +119,4 @@ module.exports = withSourceMaps({
     return config;
   },
   poweredByHeader: 'NRN - With love',
-});
+}));
