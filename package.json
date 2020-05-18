@@ -155,7 +155,7 @@
     "now": "17.1.1",
     "react-test-renderer": "16.13.1",
     "ts-jest": "25.3.0",
-    "typescript": "3.8.3",
+    "typescript": "3.9.2",
     "version-bump-prompt": "6.0.3"
   }
 }
