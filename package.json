@@ -114,7 +114,7 @@
     "winston": "3.2.1"
   },
   "devDependencies": {
-    "@now/node": "1.5.0",
+    "@now/node": "1.6.1",
     "@svgr/cli": "5.3.0",
     "@types/amplitude-js": "5.8.0",
     "@types/cookies": "0.7.4",
