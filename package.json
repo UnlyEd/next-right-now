@@ -64,7 +64,7 @@
     "@unly/universal-language-detector": "2.0.3",
     "@unly/utils": "1.0.3",
     "@unly/utils-simple-logger": "1.4.0",
-    "amplitude-js": "5.10.0",
+    "amplitude-js": "6.2.0",
     "animate.css": "3.7.2",
     "apollo-boost": "0.4.7",
     "apollo-cache-inmemory": "1.6.5",
@@ -116,7 +116,7 @@
   "devDependencies": {
     "@now/node": "1.6.1",
     "@svgr/cli": "5.3.0",
-    "@types/amplitude-js": "5.8.0",
+    "@types/amplitude-js": "5.11.0",
     "@types/cookies": "0.7.4",
     "@types/jest": "25.1.5",
     "@types/js-cookie": "2.2.5",
