@@ -1,3 +1,5 @@
+const withPlugins = require('next-compose-plugins');
+const withOptimizedImages = require('next-optimized-images');
 const withSourceMaps = require('@zeit/next-source-maps')();
 const packageJson = require('./package');
 const date = new Date();
@@ -13,7 +15,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({ // Run with "yarn 
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
 
-module.exports = withBundleAnalyzer(withSourceMaps({
+// Define here next.js config options.
+const nextJsConfig = {
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel - See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
   env: {
     // XXX Duplication of the environment variables, this is only used locally (See https://github.com/zeit/next.js#build-time-configuration)
@@ -119,4 +122,9 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     return config;
   },
   poweredByHeader: 'NRN - With love',
-}));
+};
+
+module.exports = withPlugins(
+  [withBundleAnalyzer, withSourceMaps, withOptimizedImages],
+  nextJsConfig,
+);
