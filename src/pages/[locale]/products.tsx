@@ -23,7 +23,7 @@ import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
 
-const fileLabel = 'pages/products';
+const fileLabel = 'pages/[locale]/products';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -114,7 +114,6 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<{ props: GetServerSidePageProps }> => {
-  // @ts-ignore
   const {
     apolloClient,
     layoutQueryOptions,
@@ -138,6 +137,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
   }> = await apolloClient.query(queryOptions);
 
   if (errors) {
+    // eslint-disable-next-line no-console
     console.error(errors);
     throw new Error('Errors were detected in GraphQL query.');
   }

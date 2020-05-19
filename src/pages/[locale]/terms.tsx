@@ -23,7 +23,7 @@ import { createApolloClient } from '../../utils/gql/graphql';
 import { replaceAllOccurrences } from '../../utils/js/string';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/terms';
+const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

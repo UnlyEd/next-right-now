@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
-import { jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import React from 'react';
+import { Container } from 'reactstrap';
 import ErrorPage from '../../pages/_error';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
@@ -82,9 +83,14 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
               />
             </ErrorPage>
           ) : (
-            <>
+            <Container
+              css={css`
+                margin-top: 50px;
+                margin-bottom: 50px;
+              `}
+            >
               {children}
-            </>
+            </Container>
           )
         }
       </div>
