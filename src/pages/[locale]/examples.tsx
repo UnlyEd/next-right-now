@@ -292,6 +292,8 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
                 '</Trans>'}
               </code>
             </div>
+            <hr />
+
             <div>
               <Trans
                 i18nKey={'examples.i18n.dynamicPluralTranslation'}
@@ -309,8 +311,33 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
                 '</Trans>'}
               </code>
             </div>
+            <div>
+              <h2>Image optimisation</h2>
+
+              <div>
+                Image from web:<br />
+                <img
+                  src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg'}
+                  alt={'paysage'}
+                  width={'800px'}
+                  height={'600px'}
+                />
+              </div>
+
+              <div>
+                Image from /public:<br />
+                <img
+                  src={'/static/images/Fronalpstock_big.jpg'}
+                  alt={'paysage'}
+                  width={'800px'}
+                  height={'600px'}
+                />
+              </div>
+            </div>
           </Container>
         </div>
+
+
       </Container>
     </DefaultLayout>
   );
