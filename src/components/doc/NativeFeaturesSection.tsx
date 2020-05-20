@@ -38,7 +38,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
             <CardText tag={'div'}>
               <Alert color={'info'}>
                 Next.js has always supported SSR, and it was the main way to render pages until
-                <ExternalLink href={'https://nextjs.org/blog/next-9-4'} suffix={null}>v9.4 came out</ExternalLink>.
+                <ExternalLink href={'https://nextjs.org/blog/next-9-3'} suffix={null}>v9.3 came out</ExternalLink>.
               </Alert>
 
               <p>
@@ -63,7 +63,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
               </p>
 
               <p>
-                <Button color={'primary'} size={'lg'}>Example with getServerSideProps</Button>
+                <Button color={'primary'} block>Example with getServerSideProps</Button>
               </p>
             </CardText>
           </CardBody>
@@ -73,11 +73,43 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
           <CardBody>
             <CardTitle><h3>SSG</h3></CardTitle>
             <CardSubtitle>&ldquo;Static Site Generation&rdquo; / &ldquo;Server-Side Generated&rdquo;</CardSubtitle>
-            <CardText>
+            <CardText tag={'div'}>
               <Alert color={'info'}>
-                x
+                Next.js supports SSG since <ExternalLink href={'https://nextjs.org/blog/next-9-3'} suffix={null}>v9.3</ExternalLink>.<br />
+                This is the <b>officially recommended</b> way to build apps since then.
               </Alert>
 
+              <p>
+                We also strongly recommend using SSG, whenever possible.<br />
+                SSG can only be used using <code>getStaticProps</code>, NRN provides a <code>getCommonStaticProps</code> helper
+                to configure common stuff between all SSG-based pages and reduce code duplication.
+              </p>
+
+              <p>
+                There are currently 3 different usage options for SSG:
+
+                <ul
+                  css={css`
+                    text-align: left;
+                  `}
+                >
+                  <li>
+                    <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation'}>Static app</ExternalLink> (without any option)
+                  </li>
+                  <li>
+                    <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required'}>Using fallback</ExternalLink> (on-the-fly static builds)
+                  </li>
+                  <li>
+                    <ExternalLink href={'https://nextjs.org/blog/next-9-4#incremental-static-regeneration-beta'}>Using revalidate</ExternalLink> (incremental static regeneration)
+                  </li>
+                </ul>
+              </p>
+
+              <p>
+                <Button color={'primary'} block>Simple example</Button>
+                <Button color={'primary'} block>Example with fallback</Button>
+                <Button color={'primary'} block>Example with revalidate</Button>
+              </p>
             </CardText>
           </CardBody>
         </Card>
