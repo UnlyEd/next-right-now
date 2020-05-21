@@ -14,7 +14,12 @@ import map from 'lodash.map';
  * @param {string} suffix
  * @return {string}
  */
-export const replaceAllOccurrences = (initialString: string, variables: object, prefix = '{', suffix = '}'): string => {
+export const replaceAllOccurrences = (
+  initialString: string,
+  variables: object,
+  prefix = '{',
+  suffix = '}',
+): string => {
   if (isPlainObject(variables) && Object.keys(variables).length) {
     let replacedString = initialString;
 

@@ -14,7 +14,9 @@ const logger = createLogger({
 export const isMobileDevice = (): boolean => {
   if (isBrowser()) {
     try {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+      );
     } catch (e) {
       logger.error(e.message);
       Sentry.captureException(e);

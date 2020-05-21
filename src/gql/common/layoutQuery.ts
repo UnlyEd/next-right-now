@@ -6,10 +6,8 @@ import { theme } from '../fragments/theme';
  * Used in all pages
  */
 export const LAYOUT_QUERY = gql`
-  query LAYOUT_QUERY($customerRef: String!){
-    customer(where: {
-      ref: $customerRef,
-    }){
+  query LAYOUT_QUERY($customerRef: String!) {
+    customer(where: { ref: $customerRef }) {
       id
       label
       theme {

@@ -38,10 +38,8 @@ const Footer: React.FunctionComponent<Props> = () => {
   ];
 
   // Resolve values, handle multiple fallback levels
-  const copyrightOwner = getValueFallback([
-    { record: customer, key: 'label' },
-  ]);
-  const currentYear = (new Date()).getFullYear();
+  const copyrightOwner = getValueFallback([{ record: customer, key: 'label' }]);
+  const currentYear = new Date().getFullYear();
 
   return (
     <div
@@ -77,9 +75,7 @@ const Footer: React.FunctionComponent<Props> = () => {
             <br />
             {t('footer.terms.text', 'Tous droits réservés')}
           </p>
-          <I18nLink
-            href={`/terms`}
-          >
+          <I18nLink href={`/terms`}>
             <div
               css={{
                 marginTop: '20px',
@@ -88,7 +84,7 @@ const Footer: React.FunctionComponent<Props> = () => {
                 color: 'white',
               }}
             >
-              {t('footer.terms.link', 'Conditions générales d\'utilisation')}
+              {t('footer.terms.link', "Conditions générales d'utilisation")}
             </div>
           </I18nLink>
           <div
@@ -105,9 +101,12 @@ const Footer: React.FunctionComponent<Props> = () => {
             `}
           >
             <i
-              title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses userSessionContext store provider)'}
+              title={
+                'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses userSessionContext store provider)'
+              }
             >
-              Device id (analytics):<br />
+              Device id (analytics):
+              <br />
               <DisplayOnBrowserMount
                 // When using SSR, we want to render the deviceId immediately because we have access to it through server cookies
                 // When using SSG, we need to wait for the browser render because we don't have access to the cookies when generating the static page
@@ -138,10 +137,10 @@ const Footer: React.FunctionComponent<Props> = () => {
               margin-bottom: 20px;
               transition: 0.5s ease-in-out;
 
-              :hover{
+              :hover {
                 background-color: transparent;
                 border: none;
-                box-shadow: 0px 2px 30px -2px rgba(0,0,0,0.66);
+                box-shadow: 0px 2px 30px -2px rgba(0, 0, 0, 0.66);
                 cursor: pointer;
               }
 
@@ -152,22 +151,28 @@ const Footer: React.FunctionComponent<Props> = () => {
           >
             {lang === LANG_FR ? (
               <Tooltip
-                overlay={<span><EnglishFlag />English</span>}
+                overlay={
+                  <span>
+                    <EnglishFlag />
+                    English
+                  </span>
+                }
               >
-                <span
-                  className={'small-text'}
-                >
+                <span className={'small-text'}>
                   <FrenchFlag />
                   FR
                 </span>
               </Tooltip>
             ) : (
               <Tooltip
-                overlay={<span><FrenchFlag />Français</span>}
+                overlay={
+                  <span>
+                    <FrenchFlag />
+                    Français
+                  </span>
+                }
               >
-                <span
-                  className={'small-text'}
-                >
+                <span className={'small-text'}>
                   <EnglishFlag />
                   EN
                 </span>

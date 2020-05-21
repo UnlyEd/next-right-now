@@ -1,7 +1,7 @@
 import React from 'react';
 import i18nContext, { I18nContext } from '../stores/i18nContext';
 
-export type I18n = I18nContext
+export type I18n = I18nContext;
 
 /**
  * Hook to access i18n/localisation data

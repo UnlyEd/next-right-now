@@ -12,7 +12,9 @@ describe(`utils/graphcms.ts`, () => {
       });
 
       test(`when using 3 languages`, async () => {
-        expect(prepareGraphCMSLocaleHeader(['fr', 'en', 'es'])).toEqual(`FR, EN, ES`);
+        expect(prepareGraphCMSLocaleHeader(['fr', 'en', 'es'])).toEqual(
+          `FR, EN, ES`,
+        );
       });
     });
   });

@@ -10,7 +10,7 @@ import GraphCMSAsset from '../assets/GraphCMSAsset';
 
 type Props = {
   products: Product[];
-}
+};
 
 const Products: React.FunctionComponent<Props> = (props) => {
   const { products } = props;
@@ -25,45 +25,36 @@ const Products: React.FunctionComponent<Props> = (props) => {
           border-radius: 5px;
 
           .product-description {
-             font-style: italic;
+            font-style: italic;
           }
         }
       `}
     >
-      {
-        map(products, (product: Product) => {
-          return (
-            <div
-              key={product?.id}
-              className={'product-container'}
-            >
-              {
-                map(product.images, (image: Asset) => {
-                  return (
-                    <GraphCMSAsset
-                      key={image?.id}
-                      id={image?.id}
-                      asset={image}
-                      transformationsOverride={{
-                        width: 75,
-                        height: 100,
-                      }}
-                    />
-                  );
-                })
-              }
+      {map(products, (product: Product) => {
+        return (
+          <div key={product?.id} className={'product-container'}>
+            {map(product.images, (image: Asset) => {
+              return (
+                <GraphCMSAsset
+                  key={image?.id}
+                  id={image?.id}
+                  asset={image}
+                  transformationsOverride={{
+                    width: 75,
+                    height: 100,
+                  }}
+                />
+              );
+            })}
 
-              <h2 className={'product-title'}>
-                {product?.title} - ${product?.price || 0}
-              </h2>
+            <h2 className={'product-title'}>
+              {product?.title} - ${product?.price || 0}
+            </h2>
 
-              <div className={'product-description'}>
-                {product?.description}
-              </div>
-            </div>
-          );
-        })
-      }
+            <div className={'product-description'}>{product?.description}</div>
+          </div>
+        );
+      })}
     </Container>
   );
 };

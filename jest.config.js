@@ -10,7 +10,5 @@ module.exports = {
       tsConfig: 'tsconfig.jest.json',
     },
   },
-  modulePathIgnorePatterns: [
-    'cypress'
-  ]
+  modulePathIgnorePatterns: ['cypress'],
 };

@@ -21,10 +21,14 @@ import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../utils/gql/graphql';
 import { replaceAllOccurrences } from '../../utils/js/string';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
+import {
+  getCommonStaticPaths,
+  getCommonStaticProps,
+} from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/terms';
-const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+const logger = createLogger({
+  // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
@@ -39,7 +43,10 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getStaticProps: GetStaticProps<
+  SSGPageProps,
+  StaticParams
+> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const commonStaticProps = await getCommonStaticProps(props);
   const { customerRef, gcmsLocales } = commonStaticProps.props;
 
@@ -73,9 +80,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
     throw new Error('Errors were detected in GraphQL query.');
   }
 
-  const {
-    customer,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+  const { customer } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
   return deepmerge(commonStaticProps, {
     props: {
@@ -102,9 +107,12 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: CustomerContext = React.useContext(customerContext);
-  const { theme: { primaryColor } } = customer;
+  const {
+    theme: { primaryColor },
+  } = customer;
 
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+  Sentry.addBreadcrumb({
+    // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,
@@ -136,26 +144,26 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
             css={css`
               margin: 50px 150px 150px;
               h1 {
-               color: ${primaryColor};
-               font-size: 35px;
+                color: ${primaryColor};
+                font-size: 35px;
               }
               h2 {
-               font-size: 20px;
-               margin-top: 35px;
+                font-size: 20px;
+                margin-top: 35px;
               }
               h3 {
-               font-size: 17px;
+                font-size: 17px;
               }
               h4 {
-               font-size: 13px;
-               font-weight: 300;
+                font-size: 13px;
+                font-weight: 300;
               }
               h5 {
-               font-size: 13px;
-               font-weight: 100;
+                font-size: 13px;
+                font-weight: 100;
               }
               h6 {
-               font-size: 10px;
+                font-size: 10px;
               }
             `}
             dangerouslySetInnerHTML={{
@@ -168,11 +176,12 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
           <hr />
 
           <div className={'source'}>
-            <h2>HTML source code (fetched from GraphQL API), as <code>RichText</code> field:</h2>
+            <h2>
+              HTML source code (fetched from GraphQL API), as{' '}
+              <code>RichText</code> field:
+            </h2>
             <pre>
-              <code>
-                {customer?.terms?.html}
-              </code>
+              <code>{customer?.terms?.html}</code>
             </pre>
           </div>
         </div>

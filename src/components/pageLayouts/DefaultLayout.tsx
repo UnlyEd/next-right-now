@@ -54,46 +54,30 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       <LogOnMount eventType="page-displayed" />
 
       {/* Loaded from components/Head - See https://github.com/mikemaccana/outdated-browser-rework */}
-      <div
-        id="outdated"
-        style={{ display: 'none' }}
-      ></div>
+      <div id="outdated" style={{ display: 'none' }}></div>
 
-      {
-        !isInIframe && (
-          <Nav />
-        )
-      }
+      {!isInIframe && <Nav />}
 
       <div
-        className={classnames('page-container', isInIframe ? 'is-iframe' : 'is-not-iframe')}
+        className={classnames(
+          'page-container',
+          isInIframe ? 'is-iframe' : 'is-not-iframe',
+        )}
       >
         {
           // If an error happened, we display it instead of displaying the page
           // We display a custom error instead of the native Next.js error by providing children (removing children will display the native Next.js error)
           error ? (
-            <ErrorPage
-              statusCode={500}
-              isReadyToRender={true}
-              err={error}
-            >
-              <DefaultErrorLayout
-                error={error}
-              />
+            <ErrorPage statusCode={500} isReadyToRender={true} err={error}>
+              <DefaultErrorLayout error={error} />
             </ErrorPage>
           ) : (
-            <>
-              {children}
-            </>
+            <>{children}</>
           )
         }
       </div>
 
-      {
-        !isInIframe && (
-          <Footer />
-        )
-      }
+      {!isInIframe && <Footer />}
     </Amplitude>
   );
 };

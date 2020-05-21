@@ -14,7 +14,10 @@ import includes from 'lodash.includes';
 export const isRunningInIframe = (): boolean => {
   if (isBrowser()) {
     try {
-      return window.self !== window.top || includes(document.location.search, 'iframe=true');
+      return (
+        window.self !== window.top ||
+        includes(document.location.search, 'iframe=true')
+      );
     } catch (e) {
       return null; // Can't tell
     }

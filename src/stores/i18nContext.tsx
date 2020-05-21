@@ -3,7 +3,7 @@ import React from 'react';
 export type I18nContext = {
   locale: string; // e.g: fr, fr-FR, en, en-US, en-GB
   lang: string; // e.g: fr, en
-}
+};
 
 /**
  * Uses native React Context API

@@ -1,5 +1,13 @@
 import {
-  FallbackConfig, FallbackConfigTransformProps, filterSelectedRecords, getValue, getValueFallback, hasValue, NOT_FOUND, Record, STRATEGY_DO_NOTHING,
+  FallbackConfig,
+  FallbackConfigTransformProps,
+  filterSelectedRecords,
+  getValue,
+  getValueFallback,
+  hasValue,
+  NOT_FOUND,
+  Record,
+  STRATEGY_DO_NOTHING,
 } from './record';
 
 describe('utils/record.ts', () => {
@@ -69,8 +77,12 @@ describe('utils/record.ts', () => {
         0: 0,
       };
 
-      expect(getValue(item, 'notThere', null, STRATEGY_DO_NOTHING)).toEqual(null);
-      expect(getValue(item, 'notThereEither', null, STRATEGY_DO_NOTHING)).toEqual(null);
+      expect(getValue(item, 'notThere', null, STRATEGY_DO_NOTHING)).toEqual(
+        null,
+      );
+      expect(
+        getValue(item, 'notThereEither', null, STRATEGY_DO_NOTHING),
+      ).toEqual(null);
       expect(getValue(item, '1', null, STRATEGY_DO_NOTHING)).toEqual(null);
       expect(getValue(item, '_', null, STRATEGY_DO_NOTHING)).toEqual(null);
       expect(getValue(item, '', null, STRATEGY_DO_NOTHING)).toEqual(null);
@@ -134,7 +146,7 @@ describe('utils/record.ts', () => {
         array2: [-1],
         htmlParagraph: '<p>a</p>',
         htmlParagraphEmpty: '<p></p>',
-        objectDeep1: { 'a': { a: 2 } },
+        objectDeep1: { a: { a: 2 } },
         objectDeep2: { 1: { a: [0] } },
         objectDeep3: { '-99': { a: [{ b: { c: 5 } }] } },
       };
@@ -307,7 +319,7 @@ describe('utils/record.ts', () => {
       expect(getValueFallback({ a: 5 })).toEqual(null);
       expect(console.log).toBeCalled();
       // @ts-ignore
-      expect(getValueFallback(-42.00)).toEqual(null);
+      expect(getValueFallback(-42.0)).toEqual(null);
       expect(console.log).toBeCalled();
       // @ts-ignore
       expect(getValueFallback(NaN)).toEqual(null);
@@ -333,7 +345,7 @@ describe('utils/record.ts', () => {
       expect(getValueFallback({ a: 5 }, { a: 5 })).toMatchObject({ a: 5 });
       expect(console.log).toBeCalled();
       // @ts-ignore
-      expect(getValueFallback(-42.00, [6])).toEqual([6]);
+      expect(getValueFallback(-42.0, [6])).toEqual([6]);
       expect(console.log).toBeCalled();
       // @ts-ignore
       expect(getValueFallback(NaN, NaN)).toEqual(NaN);
@@ -367,7 +379,10 @@ describe('utils/record.ts', () => {
             a: 1, // XXX Should be considered as valid value and stop the loop
           },
           key: 'a',
-          transform(value: string | object | any, props: FallbackConfigTransformProps): any {
+          transform(
+            value: string | object | any,
+            props: FallbackConfigTransformProps,
+          ): any {
             return {
               value: value + 'x',
               ...props,
@@ -378,7 +393,9 @@ describe('utils/record.ts', () => {
 
       expect(getValueFallback(fallbacks, 55).value).toEqual('1x');
       expect(getValueFallback(fallbacks, 55).record).toMatchObject({ a: 1 });
-      expect(getValueFallback(fallbacks, 55).fallbacks).toMatchObject(fallbacks);
+      expect(getValueFallback(fallbacks, 55).fallbacks).toMatchObject(
+        fallbacks,
+      );
       expect(getValueFallback(fallbacks, 55).defaultValue).toEqual(55);
       expect(getValueFallback(fallbacks, 55).key).toEqual('a');
       expect(console.log).not.toBeCalled();
@@ -386,11 +403,7 @@ describe('utils/record.ts', () => {
   });
 
   describe('filterSelectedRecords', () => {
-    const allRecords: Record[] = [
-      { id: '1' },
-      { id: '2' },
-      { id: '3' },
-    ];
+    const allRecords: Record[] = [{ id: '1' }, { id: '2' }, { id: '3' }];
 
     describe('should filter an array of records', () => {
       test('when there is no selected records', async () => {
@@ -398,17 +411,27 @@ describe('utils/record.ts', () => {
       });
 
       test('when there is one selected records', async () => {
-        expect(filterSelectedRecords(allRecords, [{ id: '1' }])).toEqual([{ id: '2' }, { id: '3' }]);
+        expect(filterSelectedRecords(allRecords, [{ id: '1' }])).toEqual([
+          { id: '2' },
+          { id: '3' },
+        ]);
       });
 
       test('when there is many selected records', async () => {
-        expect(filterSelectedRecords(allRecords, [{ id: '1' }, { id: '2' }])).toEqual([{ id: '3' }]);
+        expect(
+          filterSelectedRecords(allRecords, [{ id: '1' }, { id: '2' }]),
+        ).toEqual([{ id: '3' }]);
       });
 
       test('when all records are selected', async () => {
-        expect(filterSelectedRecords(allRecords, [{ id: '1' }, { id: '2' }, { id: '3' }])).toEqual([]);
+        expect(
+          filterSelectedRecords(allRecords, [
+            { id: '1' },
+            { id: '2' },
+            { id: '3' },
+          ]),
+        ).toEqual([]);
       });
     });
   });
-
 });

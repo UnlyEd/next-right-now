@@ -12,7 +12,7 @@ type Props = {
   onClick?: (any) => void;
   prefix?: string;
   suffix?: string;
-}
+};
 
 /**
  * Link that point to an external website
@@ -36,10 +36,12 @@ const ExternalLink: React.FunctionComponent<Props> = (props): JSX.Element => {
     <a
       href={href}
       target={'_blank'} // eslint-disable-line react/jsx-no-target-blank
-      rel={`${nofollow ? 'nofollow': ''} ${noreferrer ? 'noreferrer': ''}`}
+      rel={`${nofollow ? 'nofollow' : ''} ${noreferrer ? 'noreferrer' : ''}`}
       {...rest}
     >
-      {prefix}{children}{suffix}
+      {prefix}
+      {children}
+      {suffix}
     </a>
   );
 };

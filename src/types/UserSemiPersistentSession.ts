@@ -9,7 +9,7 @@
 export declare type UserSemiPersistentSession = {
   id: string;
   deviceId: string;
-}
+};
 
 /**
  * Patched user data
@@ -20,4 +20,4 @@ export declare type UserSemiPersistentSession = {
 export declare type PatchedUserSemiPersistentSession = {
   // Remove all properties that aren't meant to be overridden
   // Optionally override required properties to make them optional in the patch
-} & Omit<UserSemiPersistentSession, 'id'|'deviceId'>
+} & Omit<UserSemiPersistentSession, 'id' | 'deviceId'>;

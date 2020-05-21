@@ -20,11 +20,14 @@ import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
  * getCommonServerSideProps returns only part of the props expected in SSRPageProps
  * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
-export type GetCommonServerSidePropsResults = Omit<SSRPageProps, 'apolloState' | 'customer'> & {
+export type GetCommonServerSidePropsResults = Omit<
+  SSRPageProps,
+  'apolloState' | 'customer'
+> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
-}
+};
 
 /**
  * Only executed on the server side, for every request.
@@ -39,25 +42,27 @@ export type GetCommonServerSidePropsResults = Omit<SSRPageProps, 'apolloState' |
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCommonServerSideProps = async (context: GetServerSidePropsContext): Promise<GetCommonServerSidePropsResults> => {
-  const {
-    query,
-    params,
-    req,
-    res,
-  } = context;
+export const getCommonServerSideProps = async (
+  context: GetServerSidePropsContext,
+): Promise<GetCommonServerSidePropsResults> => {
+  const { query, params, req, res } = context;
   const customerRef: string = process.env.CUSTOMER_REF;
   const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
-  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res); // Cannot be forwarded as pageProps, because contains circular refs
+  const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(
+    req,
+    res,
+  ); // Cannot be forwarded as pageProps, because contains circular refs
   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
   const { headers }: IncomingMessage = req;
   const publicHeaders: PublicHeaders = {
     'accept-language': get(headers, 'accept-language'),
     'user-agent': get(headers, 'user-agent'),
-    'host': get(headers, 'host'),
+    host: get(headers, 'host'),
   };
   const hasLocaleFromUrl = !!query?.locale;
-  const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
+  const locale: string = hasLocaleFromUrl
+    ? (query?.locale as string)
+    : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);

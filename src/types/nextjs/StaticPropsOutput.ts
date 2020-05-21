@@ -6,4 +6,4 @@ import { SSGPageProps } from '../pageProps/SSGPageProps';
 export type StaticPropsOutput = {
   props: SSGPageProps;
   unstable_revalidate?: number | boolean;
-}
+};

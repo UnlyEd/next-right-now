@@ -3,4 +3,4 @@ export declare type RichText = {
   markdown?: string;
   raw?: object;
   text?: string;
-}
+};

@@ -9,7 +9,7 @@ import { UserSemiPersistentSession } from '../types/UserSemiPersistentSession';
  * @see https://stackoverflow.com/a/40076355/2391795
  * @see https://github.com/Microsoft/TypeScript/blob/ee25cdecbca49b2b5a290ecd65224f425b1d6a9c/lib/lib.es5.d.ts#L1354
  */
-export type UserSessionContext = Partial<UserSemiPersistentSession>
+export type UserSessionContext = Partial<UserSemiPersistentSession>;
 
 const initialContext = {};
 
@@ -26,6 +26,8 @@ const initialContext = {};
  * @see https://reactjs.org/docs/context.html
  * @see https://medium.com/better-programming/react-hooks-usecontext-30eb560999f for useContext hook example (open in anonymous browser #paywall)
  */
-export const userSessionContext = React.createContext<UserSessionContext>(initialContext);
+export const userSessionContext = React.createContext<UserSessionContext>(
+  initialContext,
+);
 
 export default userSessionContext;

@@ -5,7 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
+import {
+  Col,
+  Nav as NavStrap,
+  Navbar,
+  NavItem,
+  NavLink,
+  Row,
+} from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { isActive, resolveI18nHomePage } from '../../utils/app/router';
@@ -29,7 +36,7 @@ const Nav: React.FunctionComponent<Props> = () => {
           color="#F5F5F5"
           light
           css={css`
-            background-color: #F5F5F5;
+            background-color: #f5f5f5;
             align-items: center;
 
             @media (min-width: 992px) {
@@ -55,12 +62,12 @@ const Nav: React.FunctionComponent<Props> = () => {
             }
 
             .navItemsMenu {
-              padding:0 10px;
+              padding: 0 10px;
 
               @media (max-width: 991.98px) {
                 a {
                   font-size: 12px;
-                  color: rgba(0,0,0,0.30) !important;
+                  color: rgba(0, 0, 0, 0.3) !important;
                 }
               }
             }
@@ -92,7 +99,11 @@ const Nav: React.FunctionComponent<Props> = () => {
             <GraphCMSAsset
               id={'nav-logo-brand'}
               asset={logo}
-              linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
+              linkOverride={{
+                id: 'nav-open-app-link',
+                url: resolveI18nHomePage(locale)?.i18nHref || '/',
+                target: null,
+              }} // Force link to redirect to home
               transformationsOverride={{
                 width: 75,
                 height: 100,
@@ -102,14 +113,8 @@ const Nav: React.FunctionComponent<Props> = () => {
 
           <NavStrap navbar>
             <NavItem>
-              <I18nLink
-                href={`/`}
-                wrapChildrenAsLink={false}
-              >
-                <NavLink
-                  id={'nav-link-home'}
-                  active={isActive(router, '')}
-                >
+              <I18nLink href={`/`} wrapChildrenAsLink={false}>
+                <NavLink id={'nav-link-home'} active={isActive(router, '')}>
                   <FontAwesomeIcon icon={['fas', 'home']} />
                   {t('nav.indexPage.link', 'Accueil')}
                 </NavLink>
@@ -117,10 +122,7 @@ const Nav: React.FunctionComponent<Props> = () => {
             </NavItem>
 
             <NavItem>
-              <I18nLink
-                href={`/examples`}
-                wrapChildrenAsLink={false}
-              >
+              <I18nLink href={`/examples`} wrapChildrenAsLink={false}>
                 <NavLink
                   id={'nav-link-examples'}
                   active={isActive(router, 'examples')}
@@ -132,10 +134,7 @@ const Nav: React.FunctionComponent<Props> = () => {
             </NavItem>
 
             <NavItem>
-              <I18nLink
-                href={`/products`}
-                wrapChildrenAsLink={false}
-              >
+              <I18nLink href={`/products`} wrapChildrenAsLink={false}>
                 <NavLink
                   id={'nav-link-products'}
                   active={isActive(router, 'products')}
@@ -196,7 +195,9 @@ const Nav: React.FunctionComponent<Props> = () => {
                     onClick={(): void => {
                       logEvent('open-admin-site');
                     }}
-                    title={'Edit dynamic content using GraphCMS and react-admin!'}
+                    title={
+                      'Edit dynamic content using GraphCMS and react-admin!'
+                    }
                   >
                     <FontAwesomeIcon icon={['fas', 'user-cog']} />
                     {t('nav.adminSite.link', 'Admin site')}

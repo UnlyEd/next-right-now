@@ -14,7 +14,8 @@ import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n/i18n';
 import { getCommonStaticProps } from '../utils/nextjs/SSG';
 
 const fileLabel = 'pages/404';
-const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+const logger = createLogger({
+  // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
@@ -29,7 +30,10 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<
+  SSGPageProps,
+  StaticParams
+> = getCommonStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -46,9 +50,7 @@ const Fr404 = (): JSX.Element => {
     <>
       <h1>Page non trouvée</h1>
 
-      <p>
-        La page que vous recherchez n'existe pas
-      </p>
+      <p>La page que vous recherchez n'existe pas</p>
     </>
   );
 };
@@ -58,9 +60,7 @@ const En404 = (): JSX.Element => {
     <>
       <h1>Page not found</h1>
 
-      <p>
-        The page you're looking for doesn't exist
-      </p>
+      <p>The page you're looking for doesn't exist</p>
     </>
   );
 };
@@ -94,7 +94,8 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
       break;
   }
 
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+  Sentry.addBreadcrumb({
+    // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Warning, // Use warning

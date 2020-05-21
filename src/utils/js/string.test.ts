@@ -4,11 +4,18 @@ describe(`utils/string.ts`, () => {
   describe(`replaceAllOccurrences`, () => {
     describe(`should replace all occurrences`, () => {
       test(`when replacing one variable`, async () => {
-        expect(replaceAllOccurrences('Hello {name}', { name: 'Unly' })).toBe('Hello Unly');
+        expect(replaceAllOccurrences('Hello {name}', { name: 'Unly' })).toBe(
+          'Hello Unly',
+        );
       });
 
       test(`when replacing many variables`, async () => {
-        expect(replaceAllOccurrences('Hello {name}, {intro}', { name: 'Unly', intro: 'How are you?' })).toBe('Hello Unly, How are you?');
+        expect(
+          replaceAllOccurrences('Hello {name}, {intro}', {
+            name: 'Unly',
+            intro: 'How are you?',
+          }),
+        ).toBe('Hello Unly, How are you?');
       });
     });
 

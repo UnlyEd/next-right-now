@@ -21,26 +21,24 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-export type BrowserPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalPageProps & MultiversalAppBootstrapPageProps>;
+export type BrowserPageBootstrapProps = MultiversalAppBootstrapProps<
+  MultiversalPageProps & MultiversalAppBootstrapPageProps
+>;
 
 /**
  * Bootstraps the page, only when rendered on the browser
  *
  * @param props
  */
-const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => {
-  const {
-    Component,
-    err,
-    router
-  } = props;
+const BrowserPageBootstrap = (
+  props: BrowserPageBootstrapProps,
+): JSX.Element => {
+  const { Component, err, router } = props;
   // When the page is served by the browser, some browser-only properties are available
-  const pageProps = props.pageProps as unknown as MultiversalPageProps<OnlyBrowserPageProps>;
-  const {
-    customerRef,
-    lang,
-    locale,
-  } = pageProps;
+  const pageProps = (props.pageProps as unknown) as MultiversalPageProps<
+    OnlyBrowserPageProps
+  >;
+  const { customerRef, lang, locale } = pageProps;
   const { t, i18n } = useTranslation();
   const isInIframe: boolean = isRunningInIframe();
   const iframeReferrer: string = getIframeReferrer();
@@ -55,7 +53,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     userSession,
   };
 
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+  Sentry.addBreadcrumb({
+    // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,

@@ -5,4 +5,4 @@ export declare type Link = {
   style?: string | object;
   className?: string;
   classes?: string;
-}
+};

@@ -2,13 +2,13 @@ import React from 'react';
 import { wrapDisplayName } from 'recompose';
 
 // Props you want the resulting component to take (besides the props of the wrapped component)
-type ExternalProps = {}
+type ExternalProps = {};
 
 // Props the HOC adds to the wrapped component
-export type InjectedProps = {}
+export type InjectedProps = {};
 
 // Options for the HOC factory that are not dependent on props values
-type Options = {}
+type Options = {};
 
 /**
  * HOC template meant to be duplicated to build your custom HOC
@@ -23,14 +23,15 @@ const withHOCTemplate = ({}: Options = {}) => <OriginalProps extends {}>(
     render(): JSX.Element {
       console.log('WithHOCTemplate props', this.props);
 
-      return (
-        <WrappedComponent {...this.props} />
-      );
+      return <WrappedComponent {...this.props} />;
     }
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    (WithHOCTemplate as any).displayName = wrapDisplayName(WrappedComponent, 'withoutNoisySSG');
+    (WithHOCTemplate as any).displayName = wrapDisplayName(
+      WrappedComponent,
+      'withoutNoisySSG',
+    );
   }
 
   return WithHOCTemplate;

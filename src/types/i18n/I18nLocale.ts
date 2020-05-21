@@ -16,4 +16,4 @@
 export type I18nLocale = {
   lang: string; // Locale language (e.g: fr)
   name: string; // Locale name (e.g: fr-FR)
-}
+};

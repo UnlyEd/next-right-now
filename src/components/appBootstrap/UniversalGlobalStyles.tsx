@@ -6,7 +6,7 @@ import { Theme } from '../../types/data/Theme';
 
 type Props = {
   theme: Theme;
-}
+};
 
 /**
  * Those styles are applied
@@ -19,7 +19,9 @@ type Props = {
  *
  * @param props
  */
-const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Element => {
+const UniversalGlobalStyles: React.FunctionComponent<Props> = (
+  props,
+): JSX.Element => {
   const { theme } = props;
   const { primaryColor } = theme;
   const primaryAltColor = primaryColor; // Helper for "primary alternative color", for customers with 2 primary colors (currently unused)

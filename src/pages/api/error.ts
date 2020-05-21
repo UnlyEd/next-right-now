@@ -8,7 +8,10 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-export const error = async (req: NowRequest, res: NowResponse): Promise<void> => {
+export const error = async (
+  req: NowRequest,
+  res: NowResponse,
+): Promise<void> => {
   try {
     configureReq(req);
 

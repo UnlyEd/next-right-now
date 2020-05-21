@@ -7,4 +7,4 @@ import { Theme } from '../data/Theme';
 export type MultiversalAppBootstrapPageProps = {
   i18nextInstance: i18n;
   theme: Theme;
-}
+};

@@ -8,7 +8,7 @@ import ErrorDebug from './ErrorDebug';
 type Props = {
   error: Error;
   context?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
+};
 
 /**
  * Default error layout, used by DefaultLayout to display errors instead of the page's content, when an error is caught
@@ -42,7 +42,8 @@ const DefaultErrorLayout = (props: Props): JSX.Element => {
 
       <div>
         <p>
-          Try to refresh the page. Please contact our support below if the issue persists.
+          Try to refresh the page. Please contact our support below if the issue
+          persists.
         </p>
         <Button
           color={'primary'}
@@ -55,13 +56,7 @@ const DefaultErrorLayout = (props: Props): JSX.Element => {
         </Button>
       </div>
 
-      {
-        process.env.APP_STAGE !== 'production' && (
-          <ErrorDebug
-            error={error}
-          />
-        )
-      }
+      {process.env.APP_STAGE !== 'production' && <ErrorDebug error={error} />}
     </div>
   );
 };

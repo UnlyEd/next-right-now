@@ -8,23 +8,15 @@ import { theme } from '../fragments/theme';
  * Used for /products page
  */
 export const PRODUCTS_PAGE_QUERY = gql`
-  query PRODUCTS_PAGE_QUERY($customerRef: String!){
-    customer(where: {
-      ref: $customerRef,
-    }){
+  query PRODUCTS_PAGE_QUERY($customerRef: String!) {
+    customer(where: { ref: $customerRef }) {
       id
       label
       theme {
         ...themeFields
       }
     }
-    products(where: {
-      customer: {
-        ref: $customerRef
-      }
-    }
-      orderBy: status_DESC
-    ){
+    products(where: { customer: { ref: $customerRef } }, orderBy: status_DESC) {
       ...productFields
     }
   }

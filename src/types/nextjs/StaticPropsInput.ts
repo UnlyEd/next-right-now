@@ -7,4 +7,4 @@ export type StaticPropsInput = {
   params?: StaticParams;
   preview?: boolean;
   previewData?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
+};

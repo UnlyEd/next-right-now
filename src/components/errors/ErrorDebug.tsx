@@ -5,7 +5,7 @@ import * as React from 'react';
 type Props = {
   error?: Error;
   context?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-}
+};
 
 /**
  * Displays a given error on screen
@@ -34,8 +34,10 @@ const ErrorDebug = (props: Props): JSX.Element => {
     >
       <hr />
       <i>
-        The below "debug info" are only displayed on non-production stages.<br />
-        Note that debug information about the error are also available on the server/browser console.
+        The below "debug info" are only displayed on non-production stages.
+        <br />
+        Note that debug information about the error are also available on the
+        server/browser console.
       </i>
 
       <h2>Debug information:</h2>
@@ -57,17 +59,13 @@ const ErrorDebug = (props: Props): JSX.Element => {
         <b>Error message</b>:<br />
         <code>{message}</code>
         <hr />
-
-        {
-          context && (
-            <>
-              <b>Error additional context</b>:<br />
-              <code>{stringifiedContext}</code>
-              <hr />
-            </>
-          )
-        }
-
+        {context && (
+          <>
+            <b>Error additional context</b>:<br />
+            <code>{stringifiedContext}</code>
+            <hr />
+          </>
+        )}
         <b>Stack trace</b>:<br />
         <code>{stack}</code>
       </pre>

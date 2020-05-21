@@ -1,7 +1,9 @@
 import React from 'react';
-import userSessionContext, { UserSessionContext } from '../stores/userSessionContext';
+import userSessionContext, {
+  UserSessionContext,
+} from '../stores/userSessionContext';
 
-export type UserSession = UserSessionContext
+export type UserSession = UserSessionContext;
 
 /**
  * Hook to access the user session data

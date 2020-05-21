@@ -2,7 +2,10 @@ import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 
-export const createApolloClient = (initialState = {}, ctx = undefined): ApolloClient<NormalizedCacheObject> => {
+export const createApolloClient = (
+  initialState = {},
+  ctx = undefined,
+): ApolloClient<NormalizedCacheObject> => {
   // The `ctx` (NextPageContext) will only be present on the server.
   // use it to extract auth headers (ctx.req) or similar.
   return new ApolloClient({
@@ -13,7 +16,7 @@ export const createApolloClient = (initialState = {}, ctx = undefined): ApolloCl
       // See the use of the "options" when running a graphQL query to specify options per-request at https://www.apollographql.com/docs/react/api/react-hooks/#options
       headers: {
         'gcms-locale-no-default': false,
-        'authorization': `Bearer ${process.env.GRAPHQL_API_KEY}`,
+        authorization: `Bearer ${process.env.GRAPHQL_API_KEY}`,
       },
       credentials: 'same-origin', // XXX See https://www.apollographql.com/docs/react/recipes/authentication#cookie
       fetch, // Switches between unfetch & node-fetch for client & server.

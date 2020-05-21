@@ -14,7 +14,7 @@ type Props = {
   prefetch?: boolean;
   locale?: string; // The locale can be specified, but it'll fallback to the current locale if unspecified
   wrapChildrenAsLink?: boolean; // Helper to avoid writing redundant code
-}
+};
 
 /**
  * Wrapper around the native Next.js <Link> component. Handles localised links.
@@ -51,24 +51,20 @@ const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
     wrapChildrenAsLink = true,
     ...rest // Should only contain valid next/Link props
   } = props;
-  const {
-    i18nHref,
-    i18nAs,
-  }: I18nRoute = resolveI18nRoute({ as, href, locale });
+  const { i18nHref, i18nAs }: I18nRoute = resolveI18nRoute({
+    as,
+    href,
+    locale,
+  });
 
   return (
-    <Link
-      href={i18nHref}
-      as={i18nAs}
-      {...rest}
-      passHref={passHref}
-    >
-      {
-        wrapChildrenAsLink ? (
-          // eslint-disable-next-line jsx-a11y/anchor-is-valid
-          <a>{children}</a>
-        ) : React.cloneElement(children as React.ReactElement)
-      }
+    <Link href={i18nHref} as={i18nAs} {...rest} passHref={passHref}>
+      {wrapChildrenAsLink ? (
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid
+        <a>{children}</a>
+      ) : (
+        React.cloneElement(children as React.ReactElement)
+      )}
     </Link>
   );
 };

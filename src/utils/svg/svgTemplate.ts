@@ -10,9 +10,7 @@
 function template(
   { template },
   opts,
-  {
-    imports, componentName, props, jsx, exports,
-  },
+  { imports, componentName, props, jsx, exports },
 ) {
   const typeScriptTpl = template.smart({ plugins: ['typescript'] });
 

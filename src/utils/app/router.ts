@@ -5,12 +5,12 @@ export type Route = {
   locale: string;
   href: string;
   as?: string;
-}
+};
 
 export type I18nRoute = {
   i18nHref: string;
   i18nAs: string;
-}
+};
 
 /**
  * Resolve the i18n route based on the route
@@ -83,7 +83,11 @@ export const isActive = (router: NextRouter, path: string): boolean => {
  * @see https://nextjs.org/docs/routing/imperatively Programmatic usage of Next Router
  * @see https://nextjs.org/docs/api-reference/next/router#router-api Router API
  */
-export const i18nRedirect = (locale, router: NextRouter, pageReload = false): void => {
+export const i18nRedirect = (
+  locale,
+  router: NextRouter,
+  pageReload = false,
+): void => {
   const newUrl = `${router.pathname.replace('[locale]', locale)}`;
 
   if (pageReload) {

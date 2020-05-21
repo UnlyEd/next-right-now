@@ -11,14 +11,8 @@ export default {
   }),
   title: PropTypes.string,
   alt: PropTypes.string,
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  height: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   classes: PropTypes.string,
   style: stylePropType,
   sizes: PropTypes.shape({

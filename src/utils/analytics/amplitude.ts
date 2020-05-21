@@ -29,9 +29,11 @@ type GetAmplitudeInstanceProps = {
   lang: string;
   locale: string;
   userId: string;
-}
+};
 
-export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): AmplitudeClient | null => {
+export const getAmplitudeInstance = (
+  props: GetAmplitudeInstanceProps,
+): AmplitudeClient | null => {
   // XXX Amplitude is disabled on the server side, it's only used on the client side
   //  (avoids duplicated events, and amplitude-js isn't server-side compatible anyway)
   if (isBrowser()) {
@@ -44,7 +46,8 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       userId,
     } = props;
 
-    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+    Sentry.configureScope((scope) => {
+      // See https://www.npmjs.com/package/@sentry/node
       scope.setTag('iframe', `${isInIframe}`);
       scope.setExtra('iframe', isInIframe);
       scope.setExtra('iframeReferrer', iframeReferrer);
@@ -94,7 +97,6 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
     }
 
     return amplitudeInstance;
-
   } else {
     return null;
   }
@@ -153,6 +155,6 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
     console.debug('report-web-vitals report sent to Amplitude');
   } catch (e) {
     Sentry.captureException(e);
-    console.error(e);// eslint-disable-line no-console
+    console.error(e); // eslint-disable-line no-console
   }
 };

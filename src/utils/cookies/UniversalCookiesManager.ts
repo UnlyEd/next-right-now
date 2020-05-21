@@ -7,7 +7,10 @@ import BrowserCookies, { CookieAttributes } from 'js-cookie';
 import uuid from 'uuid/v1'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
 
 import { Cookies } from '../../types/Cookies';
-import { PatchedUserSemiPersistentSession, UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
+import {
+  PatchedUserSemiPersistentSession,
+  UserSemiPersistentSession,
+} from '../../types/UserSemiPersistentSession';
 import { addYears } from '../js/date';
 
 const USER_LS_KEY = 'user';
@@ -25,11 +28,13 @@ export default class UniversalCookiesManager {
   private readonly req?: IncomingMessage;
   private readonly res?: ServerResponse;
   private readonly readonlyCookies?: Cookies;
-  private readonly defaultServerOptions: SetOption = { // See https://www.npmjs.com/package/cookies#cookiesset-name--value---options--
+  private readonly defaultServerOptions: SetOption = {
+    // See https://www.npmjs.com/package/cookies#cookiesset-name--value---options--
     httpOnly: false, // Force cookies to be sent to the browser
     expires: addYears(new Date(), 10), // Force cookies to expire in 10 years
   };
-  private readonly defaultBrowserOptions: CookieAttributes = { // See https://github.com/js-cookie/js-cookie#cookie-attributes
+  private readonly defaultBrowserOptions: CookieAttributes = {
+    // See https://github.com/js-cookie/js-cookie#cookie-attributes
     expires: 365 * 10, // Force cookies to expire in 10 years
   };
 
@@ -40,7 +45,11 @@ export default class UniversalCookiesManager {
    * @param {ServerResponse} res
    * @param {Cookies} readonlyCookies - Useful if req/res aren't accessible (CSR, or SSR outside of _app), will allow to read cookie (but won't allow writes)
    */
-  constructor(req?: IncomingMessage, res?: ServerResponse, readonlyCookies?: Cookies) {
+  constructor(
+    req?: IncomingMessage,
+    res?: ServerResponse,
+    readonlyCookies?: Cookies,
+  ) {
     this.req = req || null;
     this.res = res || null;
     this.readonlyCookies = readonlyCookies || null;
@@ -53,7 +62,11 @@ export default class UniversalCookiesManager {
    * @param serverOptions See https://www.npmjs.com/package/cookies#cookiesset-name--value---options--
    * @param browserOptions
    */
-  replaceUserData(newUserData: UserSemiPersistentSession, serverOptions = this.defaultServerOptions, browserOptions: CookieAttributes = this.defaultBrowserOptions): void {
+  replaceUserData(
+    newUserData: UserSemiPersistentSession,
+    serverOptions = this.defaultServerOptions,
+    browserOptions: CookieAttributes = this.defaultBrowserOptions,
+  ): void {
     try {
       if (isBrowser()) {
         // XXX By default, "js-cookies" apply a "percent encoding" when writing data, which isn't compatible with the "cookies" lib
@@ -64,14 +77,22 @@ export default class UniversalCookiesManager {
             return value;
           },
         });
-        browserCookies.set(USER_LS_KEY, JSON.stringify(newUserData), browserOptions);
+        browserCookies.set(
+          USER_LS_KEY,
+          JSON.stringify(newUserData),
+          browserOptions,
+        );
       } else {
         const serverCookies = new ServerCookies(this.req, this.res);
 
         // If running on the server side but req or res aren't set, then we don't do anything
         // It's likely because we're calling this code from a view (that doesn't belong to getInitialProps and doesn't have access to req/res even though if it's running on the server)
         if (this.req && this.res) {
-          serverCookies.set(USER_LS_KEY, JSON.stringify(newUserData), serverOptions);
+          serverCookies.set(
+            USER_LS_KEY,
+            JSON.stringify(newUserData),
+            serverOptions,
+          );
         }
       }
     } catch (e) {
@@ -108,7 +129,6 @@ export default class UniversalCookiesManager {
 
     if (isBrowser()) {
       rawUserData = BrowserCookies.get(USER_LS_KEY);
-
     } else {
       const serverCookies = new ServerCookies(this.req, this.res);
 
@@ -121,7 +141,9 @@ export default class UniversalCookiesManager {
         rawUserData = this.readonlyCookies?.[USER_LS_KEY];
       } else {
         // eslint-disable-next-line no-console
-        console.warn(`Calling "getUserData" from the server side, but neither req/res nor readonlyCookies are provided. The server can't read any cookie and will therefore initialise a temporary user session (which won't override actual cookies since we can't access them)`);
+        console.warn(
+          `Calling "getUserData" from the server side, but neither req/res nor readonlyCookies are provided. The server can't read any cookie and will therefore initialise a temporary user session (which won't override actual cookies since we can't access them)`,
+        );
       }
     }
 
@@ -138,7 +160,6 @@ export default class UniversalCookiesManager {
       } else {
         return userData;
       }
-
     } catch (e) {
       Sentry.withScope((scope) => {
         scope.setExtra('rawUserData', rawUserData);
@@ -177,7 +198,10 @@ export default class UniversalCookiesManager {
    * @param {string} lang
    * @param serverOptions
    */
-  setLanguage(lang: string, serverOptions: SetOption = this.defaultServerOptions): void {
+  setLanguage(
+    lang: string,
+    serverOptions: SetOption = this.defaultServerOptions,
+  ): void {
     if (isBrowser()) {
       BrowserCookies.set(COOKIE_LOOKUP_KEY_LANG, lang);
     } else {

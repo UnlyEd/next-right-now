@@ -33,10 +33,15 @@ import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getCommonStaticProps: GetStaticProps<
+  SSGPageProps,
+  StaticParams
+> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const customerRef: string = process.env.CUSTOMER_REF;
   const hasLocaleFromUrl = !!props?.params?.locale;
-  const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
+  const locale: string = hasLocaleFromUrl
+    ? props?.params?.locale
+    : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
@@ -71,9 +76,7 @@ export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = 
     throw new Error('Errors were detected in GraphQL query.');
   }
 
-  const {
-    customer,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+  const { customer } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
   return {
     // Props returned here will be available as page properties (pageProps)
@@ -108,14 +111,19 @@ export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = 
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
-  const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
-    return {
-      params: {
-        locale: supportedLocale.name,
-      },
-    };
-  });
+export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<
+  StaticPathsOutput
+> => {
+  const paths: StaticPath[] = map(
+    supportedLocales,
+    (supportedLocale: I18nLocale): StaticPath => {
+      return {
+        params: {
+          locale: supportedLocale.name,
+        },
+      };
+    },
+  );
 
   return {
     fallback: false,

@@ -57,7 +57,12 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
   if (isEmpty(asset)) {
     return null;
   }
-  const resolvedAssetProps: Asset = deepmerge.all([_defaultAsset, defaults, asset || {}, override]);
+  const resolvedAssetProps: Asset = deepmerge.all([
+    _defaultAsset,
+    defaults,
+    asset || {},
+    override,
+  ]);
   const resolvedLinkProps: Link = deepmerge.all([
     _defaultLink,
     {
@@ -66,7 +71,8 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
     },
     linkOverride,
   ]);
-  const transformations: AssetTransformations = transformationsOverride || asset.defaultTransformations;
+  const transformations: AssetTransformations =
+    transformationsOverride || asset.defaultTransformations;
 
   // Convert "style" if it is a string, to a react style object (won't modify if already an object)
   resolvedAssetProps.style = cssToReactStyle(resolvedAssetProps.style);
@@ -82,7 +88,6 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
       if (transformations.height) {
         resolvedAssetProps.style.height = transformations.height;
       }
-
     } else {
       const _urlSplitted = resolvedAssetProps.url.split('/'); // TODO will break if url ends with '/'
       const assetFileHandle = _urlSplitted[_urlSplitted.length - 1];
@@ -102,9 +107,11 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
       }
 
       if (!isEmpty(resize)) {
-        transformationsToApply += 'resize=' + map(resize, (value: string, transformation: string) => {
-          return transformation + ':' + value;
-        }).join(',');
+        transformationsToApply +=
+          'resize=' +
+          map(resize, (value: string, transformation: string) => {
+            return transformation + ':' + value;
+          }).join(',');
       }
 
       // Once all transformations have been resolved, update the asset url
@@ -121,8 +128,16 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
         id={id}
         src={resolvedAssetProps.url}
         title={resolvedAssetProps.title}
-        alt={resolvedAssetProps.alt || resolvedAssetProps.title || resolvedAssetProps.url}
-        className={classnames(`asset-${id}`, className, resolvedAssetProps.classes)}
+        alt={
+          resolvedAssetProps.alt ||
+          resolvedAssetProps.title ||
+          resolvedAssetProps.url
+        }
+        className={classnames(
+          `asset-${id}`,
+          className,
+          resolvedAssetProps.classes,
+        )}
         style={deepmerge(style || {}, resolvedAssetProps.style || {})}
       />
     );
@@ -136,8 +151,15 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
         id={resolvedLinkProps.id}
         href={resolvedLinkProps.url}
         target={resolvedLinkProps.target}
-        className={classnames(`asset-link-${id}`, resolvedLinkProps.classes, resolvedLinkProps.className)}
-        style={deepmerge(resolvedLinkProps.style || {}, resolvedLinkProps.style || {})}
+        className={classnames(
+          `asset-link-${id}`,
+          resolvedLinkProps.classes,
+          resolvedLinkProps.className,
+        )}
+        style={deepmerge(
+          resolvedLinkProps.style || {},
+          resolvedLinkProps.style || {},
+        )}
         // @ts-ignore
         onClick={onClick} // Support for usage within <Link> component (from Next.js)
       >
@@ -145,22 +167,23 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
       </a>
     );
   } else {
-    return (
-      <Image />
-    );
+    return <Image />;
   }
 };
 
 GraphCMSAsset.propTypes = {
   id: PropTypes.string.isRequired,
   asset: PropTypes.shape(GraphCMSAssetPropTypes).isRequired,
-  transformationsOverride: PropTypes.shape(GraphCMSAssetTransformationsPropTypes),
+  transformationsOverride: PropTypes.shape(
+    GraphCMSAssetTransformationsPropTypes,
+  ),
   defaults: PropTypes.shape(GraphCMSAssetPropTypes), // Merged with the asset, takes lowest priority
   override: PropTypes.shape(GraphCMSAssetPropTypes), // Merged with the asset, takes highest priority
   className: PropTypes.string,
   style: stylePropType,
   onClick: PropTypes.func, // Support for usage within <Link> component (from Next.js)
-  linkOverride: PropTypes.shape({ // Merged with the default link and the asset link attributes, takes highest priority
+  linkOverride: PropTypes.shape({
+    // Merged with the default link and the asset link attributes, takes highest priority
     id: PropTypes.string.isRequired,
     url: PropTypes.string,
     target: PropTypes.string,
@@ -187,6 +210,6 @@ type Props = {
     classes?: string;
   };
   forcePNGOutput?: boolean;
-}
+};
 
 export default GraphCMSAsset;

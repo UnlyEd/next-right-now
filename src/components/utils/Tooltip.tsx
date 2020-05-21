@@ -9,7 +9,7 @@ type Props = {
   trigger?: Array<string>;
   placement?: string;
   visible?: boolean;
-}
+};
 
 /**
  * Tooltip with sane defaults that improve usability and accessibility.

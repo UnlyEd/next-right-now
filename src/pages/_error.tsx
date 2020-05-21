@@ -9,7 +9,7 @@ export type ErrorPageProps = {
   statusCode: number;
   isReadyToRender: boolean;
   children?: React.ReactElement;
-}
+};
 
 export type ErrorProps = {
   isReadyToRender: boolean;
@@ -50,7 +50,10 @@ export type ErrorProps = {
 const ErrorPage = (props: ErrorPageProps): JSX.Element => {
   const { statusCode, isReadyToRender, err, children = null } = props;
   if (process.env.APP_STAGE !== 'production') {
-    console.debug('ErrorPage - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);
+    console.debug(
+      'ErrorPage - Unexpected error caught, it was captured and sent to Sentry. Error details:',
+      err,
+    );
   }
 
   // TODO rename to "forceLogTopLevelError" = true and provide false in "DefaultErrorLayout"
@@ -71,7 +74,11 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
             statusCode={statusCode}
             // Only display title in non-production stages, to avoid leaking debug information to end-users
             // When "null" is provided, it'll fallback to Next.js default message (based on the statusCode)
-            title={process.env.APP_STAGE !== 'production' ? get(err, 'message', null) : null}
+            title={
+              process.env.APP_STAGE !== 'production'
+                ? get(err, 'message', null)
+                : null
+            }
           />
         )
       }
@@ -85,12 +92,20 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
  *
  * @param props
  */
-ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> => {
+ErrorPage.getInitialProps = async (
+  props: NextPageContext,
+): Promise<ErrorProps> => {
   const { res, err, asPath } = props;
   // @ts-ignore
-  const errorInitialProps: ErrorProps = await NextError.getInitialProps({ res, err });
+  const errorInitialProps: ErrorProps = await NextError.getInitialProps({
+    res,
+    err,
+  });
   if (process.env.APP_STAGE !== 'production') {
-    console.debug('ErrorPage.getInitialProps - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);
+    console.debug(
+      'ErrorPage.getInitialProps - Unexpected error caught, it was captured and sent to Sentry. Error details:',
+      err,
+    );
   }
 
   // Workaround for https://github.com/zeit/next.js/issues/8592, mark when

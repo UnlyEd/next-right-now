@@ -13,7 +13,11 @@ import LogoPropTypes from '../../propTypes/LogoPropTypes';
 import { Link } from '../../types/data/Link';
 import { Logo as LogoType } from '../../types/data/Logo';
 import {
-  DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels
+  DEFAULT_SIZES_MULTIPLIERS,
+  generateSizes,
+  resolveSize,
+  SizeMultiplier,
+  toPixels,
 } from '../../utils/assets/logo';
 
 type Props = {
@@ -28,7 +32,7 @@ type Props = {
   style?: object;
   link?: Link;
   onClick?: Function;
-}
+};
 
 /**
  * Display a logo
@@ -51,8 +55,19 @@ const Logo = (props: Props): JSX.Element => {
     style = {},
     onClick = null,
   }: Props = props;
-  let resolvedLogoProps: LogoType = deepmerge.all([defaults, logo || {}, override]);
-  resolvedLogoProps = deepmerge.all([resolvedLogoProps, resolveSize({ logo: resolvedLogoProps, width: toPixels(width), height: toPixels(height) })]);
+  let resolvedLogoProps: LogoType = deepmerge.all([
+    defaults,
+    logo || {},
+    override,
+  ]);
+  resolvedLogoProps = deepmerge.all([
+    resolvedLogoProps,
+    resolveSize({
+      logo: resolvedLogoProps,
+      width: toPixels(width),
+      height: toPixels(height),
+    }),
+  ]);
 
   // Handle v2 structure (graphcms)
   if (resolvedLogoProps.linkUrl) {
@@ -90,8 +105,16 @@ const Logo = (props: Props): JSX.Element => {
         id={id}
         src={resolvedLogoProps.url}
         title={resolvedLogoProps.title}
-        alt={resolvedLogoProps.alt || resolvedLogoProps.title || resolvedLogoProps.url}
-        className={classnames(`logo-${id}`, className, resolvedLogoProps.classes)}
+        alt={
+          resolvedLogoProps.alt ||
+          resolvedLogoProps.title ||
+          resolvedLogoProps.url
+        }
+        className={classnames(
+          `logo-${id}`,
+          className,
+          resolvedLogoProps.classes,
+        )}
         style={deepmerge(style || {}, resolvedLogoProps.style || {})}
         // @ts-ignore
         onClick={onClick}
@@ -117,23 +140,15 @@ const Logo = (props: Props): JSX.Element => {
       </a>
     );
   } else {
-    return (
-      <Image />
-    );
+    return <Image />;
   }
 };
 
 Logo.propTypes = {
   id: PropTypes.string.isRequired,
   logo: PropTypes.shape(LogoPropTypes),
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  height: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   defaults: PropTypes.shape(LogoPropTypes), // Merged with the logo, takes lowest priority
   override: PropTypes.shape(LogoPropTypes), // Merged with the logo, takes highest priority
   sizesMultipliers: PropTypes.array,

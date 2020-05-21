@@ -2,8 +2,8 @@ const baseUrl = Cypress.config().baseUrl;
 
 describe('Index page', () => {
   /*
-  * Visits the page before each test
-  */
+   * Visits the page before each test
+   */
   beforeEach(() => {
     cy.visit('/');
   });
@@ -28,9 +28,7 @@ describe('Index page', () => {
 
   it('should have a link in the navbar that redirects to the examples page', () => {
     cy.url().should('eq', `${baseUrl}/en`);
-    cy.get('#nav-link-examples')
-      .should('have.text', 'Examples')
-      .click();
+    cy.get('#nav-link-examples').should('have.text', 'Examples').click();
     cy.url().should('eq', `${baseUrl}/en/examples`);
   });
 });

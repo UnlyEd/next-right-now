@@ -31,7 +31,9 @@ describe(`utils/UniversalCookiesManager.ts`, () => {
           deviceId: 'device-1',
         });
 
-        expect(document.cookie).toEqual('user={"id":"user-1","deviceId":"device-1"}');
+        expect(document.cookie).toEqual(
+          'user={"id":"user-1","deviceId":"device-1"}',
+        );
       });
     });
 
@@ -42,7 +44,9 @@ describe(`utils/UniversalCookiesManager.ts`, () => {
 
         expect(userSession.id).toBeDefined();
         expect(userSession.deviceId).toBeDefined();
-        expect(document.cookie).toEqual(`user={"id":"${userSession.id}","deviceId":"${userSession.deviceId}"}`);
+        expect(document.cookie).toEqual(
+          `user={"id":"${userSession.id}","deviceId":"${userSession.deviceId}"}`,
+        );
       });
     });
 
@@ -53,7 +57,9 @@ describe(`utils/UniversalCookiesManager.ts`, () => {
 
         expect(userSession.id).toBeDefined();
         expect(userSession.deviceId).toBeDefined();
-        expect(document.cookie).toEqual(`user={"id":"${userSession.id}","deviceId":"${userSession.deviceId}"}`);
+        expect(document.cookie).toEqual(
+          `user={"id":"${userSession.id}","deviceId":"${userSession.deviceId}"}`,
+        );
       });
 
       test(`should return the existing user data when they already exist`, async () => {
@@ -64,7 +70,9 @@ describe(`utils/UniversalCookiesManager.ts`, () => {
 
         expect(userSession.id).toBeDefined();
         expect(userSession.deviceId).toBeDefined();
-        expect(document.cookie).toEqual(`user={"id":"user-2","deviceId":"device-2"}`);
+        expect(document.cookie).toEqual(
+          `user={"id":"user-2","deviceId":"device-2"}`,
+        );
       });
     });
 
@@ -81,7 +89,9 @@ describe(`utils/UniversalCookiesManager.ts`, () => {
         expect(userSessionPatched.id).toBeDefined();
         expect(userSessionPatched.deviceId).toBeDefined();
         // @ts-ignore
-        expect(document.cookie).toEqual(`user={"id":"${userSessionPatched.id}","deviceId":"${userSessionPatched.deviceId}","persona":"${userSessionPatched.persona}"}`);
+        expect(document.cookie).toEqual(
+          `user={"id":"${userSessionPatched.id}","deviceId":"${userSessionPatched.deviceId}","persona":"${userSessionPatched.persona}"}`,
+        );
       });
     });
 

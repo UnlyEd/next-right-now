@@ -2,7 +2,13 @@ import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import { DocumentInitialProps } from 'next/dist/next-server/lib/utils';
-import Document, { DocumentContext, DocumentProps, Head, Main, NextScript } from 'next/document';
+import Document, {
+  DocumentContext,
+  DocumentProps,
+  Head,
+  Main,
+  NextScript,
+} from 'next/document';
 import React from 'react';
 import { DEFAULT_LOCALE } from '../utils/i18n/i18n';
 
@@ -19,10 +25,10 @@ const logger = createLogger({
 type Props = {
   locale: string;
   lang: string;
-}
+};
 
-type DocumentGetInitialPropsOutput = Props & DocumentInitialProps
-type DocumentRenderProps = Props & DocumentProps
+type DocumentGetInitialPropsOutput = Props & DocumentInitialProps;
+type DocumentRenderProps = Props & DocumentProps;
 
 /**
  * Send to Sentry all unhandled rejections.
@@ -52,17 +58,24 @@ process.on('uncaughtException', (e: Error): void => {
  * See https://github.com/zeit/next.js/#custom-document
  */
 class AppDocument extends Document<DocumentRenderProps> {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentGetInitialPropsOutput> {
-    Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+  static async getInitialProps(
+    ctx: DocumentContext,
+  ): Promise<DocumentGetInitialPropsOutput> {
+    Sentry.addBreadcrumb({
+      // See https://docs.sentry.io/enriching-error-data/breadcrumbs
       category: fileLabel,
       message: `Rendering _document`,
       level: Sentry.Severity.Debug,
     });
 
-    const initialProps: DocumentInitialProps = await Document.getInitialProps(ctx);
+    const initialProps: DocumentInitialProps = await Document.getInitialProps(
+      ctx,
+    );
     const { query } = ctx;
     const hasLocaleFromUrl = !!query?.locale;
-    const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
+    const locale: string = hasLocaleFromUrl
+      ? (query?.locale as string)
+      : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
     const lang: string = locale.split('-')?.[0];
 
     return {
@@ -73,10 +86,7 @@ class AppDocument extends Document<DocumentRenderProps> {
   }
 
   render(): JSX.Element {
-    const {
-      lang,
-      locale,
-    }: DocumentRenderProps = this.props;
+    const { lang, locale }: DocumentRenderProps = this.props;
 
     return (
       <html lang={lang}>

@@ -1,7 +1,13 @@
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBook,
+  faBookReader,
+  faCoffee,
+  faHome,
+  faUserCog,
+} from '@fortawesome/free-solid-svg-icons';
 // import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css - XXX Disabled because not used at the moment (used by Loader/AnimatedLoader)
 import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
 import 'rc-tooltip/assets/bootstrap.css';
@@ -19,16 +25,15 @@ import '../utils/monitoring/sentry';
 
 // See https://github.com/FortAwesome/react-fontawesome#integrating-with-other-tools-and-frameworks
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-library.add(
-  faGithub,
-  faBook, faBookReader, faCoffee, faHome, faUserCog,
-);
+library.add(faGithub, faBook, faBookReader, faCoffee, faHome, faUserCog);
 
 /**
  * "props.pageProps" will depend on whether the page is served by server or client, SSG or SSR
  * (MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>) is basically a superset of AppProps (from 'next/app')
  */
-type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;
+type Props =
+  | MultiversalAppBootstrapProps<SSGPageProps>
+  | MultiversalAppBootstrapProps<SSRPageProps>;
 
 /**
  * This file is the entry point for all pages, it initialize all pages.
@@ -71,10 +76,10 @@ type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstra
  *
  * @return {JSX.Element}
  */
-const MultiversalPageEntryPoint: React.FunctionComponent<Props> = (props): JSX.Element => {
-  return (
-    <MultiversalAppBootstrap {...props} />
-  );
+const MultiversalPageEntryPoint: React.FunctionComponent<Props> = (
+  props,
+): JSX.Element => {
+  return <MultiversalAppBootstrap {...props} />;
 };
 
 /**

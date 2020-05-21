@@ -3,7 +3,7 @@ import React from 'react';
 type Props = {
   children: string;
   Wrapper?: any;
-}
+};
 
 /**
  * Automatically break lines for text

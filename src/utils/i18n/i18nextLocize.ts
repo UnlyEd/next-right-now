@@ -36,7 +36,7 @@ let globalI18nextInstance: i18n = null;
  */
 export declare type I18nextResourceLocale = {
   [i18nKey: string]: string | I18nextResourceLocale; // The value can either be a string, or a nested object, itself containing either a string, or a nest object, etc.
-}
+};
 
 /**
  * One or more i18next resources, indexed by lang
@@ -53,7 +53,7 @@ export declare type I18nextResourceLocale = {
  */
 export declare type I18nextResources = {
   [lang: string]: I18nextResourceLocale;
-}
+};
 
 /**
  * Memoized i18next resources are timestamped, to allow for cache invalidation strategies
@@ -62,7 +62,7 @@ export declare type I18nextResources = {
 export declare type MemoizedI18nextResources = {
   resources: I18nextResources;
   ts: number; // Timestamp in milliseconds
-}
+};
 
 /**
  * In-memory cache of the i18next resources
@@ -139,7 +139,8 @@ const defaultNamespace = 'common';
  */
 export const locizeOptions = {
   projectId: process.env.LOCIZE_PROJECT_ID || undefined,
-  apiKey: process.env.APP_STAGE === 'production' ? null : process.env.LOCIZE_API_KEY, // XXX Only define the API key on non-production environments (allows to use saveMissing from server)
+  apiKey:
+    process.env.APP_STAGE === 'production' ? null : process.env.LOCIZE_API_KEY, // XXX Only define the API key on non-production environments (allows to use saveMissing from server)
   version: process.env.APP_STAGE === 'production' ? 'production' : 'latest', // XXX On production, use a dedicated production version
   referenceLng: 'fr',
 };
@@ -245,14 +246,19 @@ export const locizeBackendOptions = {
  * @param {string} lang
  * @return {Promise<string>}
  */
-export const fetchTranslations = async (lang: string): Promise<I18nextResources> => {
-  const locizeAPIEndpoint: string = locizeBackendOptions
-    .loadPath
+export const fetchTranslations = async (
+  lang: string,
+): Promise<I18nextResources> => {
+  const locizeAPIEndpoint: string = locizeBackendOptions.loadPath
     .replace('{{projectId}}', locizeBackendOptions.projectId)
     .replace('{{version}}', locizeBackendOptions.version)
     .replace('{{lng}}', lang)
     .replace('{{ns}}', defaultNamespace);
-  const memoizedI18nextResources: MemoizedI18nextResources = get(_memoizedI18nextResources, locizeAPIEndpoint, null);
+  const memoizedI18nextResources: MemoizedI18nextResources = get(
+    _memoizedI18nextResources,
+    locizeAPIEndpoint,
+    null,
+  );
 
   if (memoizedI18nextResources) {
     const date = new Date();
@@ -261,10 +267,12 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
     if (+date - memoizedI18nextResources.ts < 1000 * memoizedCacheMaxAge) {
       // If the i18next resources have been fetched previously, they're therefore available in the memory and we return them untouched to avoid network calls
       logger.info('Translations were resolved from in-memory cache');
-      return (memoizedI18nextResources).resources;
+      return memoizedI18nextResources.resources;
     } else {
       // Memoized cache is too old, we need to fetch from Locize API again
-      logger.info(`Translations from in-memory cache are too old (> ${memoizedCacheMaxAge} seconds) and thus have been invalidated`);
+      logger.info(
+        `Translations from in-memory cache are too old (> ${memoizedCacheMaxAge} seconds) and thus have been invalidated`,
+      );
     }
   }
   let commonLocales: I18nextResources = {};
@@ -282,7 +290,10 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
       commonLocales = await defaultLocalesResponse.json();
     } catch (e) {
       // TODO Load the locales from local JSON files if ever the API fails, to still display i18n translation even if it's not the most up-to-date?
-      logger.error(e.message, 'Failed to extract JSON data from locize API response');
+      logger.error(
+        e.message,
+        'Failed to extract JSON data from locize API response',
+      );
       Sentry.captureException(e);
     }
   } catch (e) {
@@ -295,7 +306,9 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
       [defaultNamespace]: commonLocales,
     },
   };
-  logger.info('Translations were resolved from Locize API and are now being memoized for subsequent calls');
+  logger.info(
+    'Translations were resolved from Locize API and are now being memoized for subsequent calls',
+  );
 
   _memoizedI18nextResources[locizeAPIEndpoint] = {
     resources: i18nextResources,
@@ -327,15 +340,21 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
  * @param lang
  * @param defaultLocales
  */
-const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextResources): i18n => {
+const createI18nextLocizeInstance = (
+  lang: string,
+  i18nTranslations: I18nextResources,
+): i18n => {
   // If LOCIZE_PROJECT_ID is not defined then we mustn't init i18next or it'll crash the whole app when running in non-production stage
   // In that case, better crash early with an explicit message
   if (!process.env.LOCIZE_PROJECT_ID) {
-    throw new Error('Env var "LOCIZE_PROJECT_ID" is not defined. Please add it to you .env.build file (development) or now*.json (staging/production)');
+    throw new Error(
+      'Env var "LOCIZE_PROJECT_ID" is not defined. Please add it to you .env.build file (development) or now*.json (staging/production)',
+    );
   }
 
   // Plugins will be dynamically added at runtime, depending on the runtime engine (node or browser)
-  const plugins = [ // XXX Only plugins that are common to all runtimes should be defined by default
+  const plugins = [
+    // XXX Only plugins that are common to all runtimes should be defined by default
     initReactI18next, // passes i18next down to react-i18next
     i18nextLocizeBackend, // loads translations, saves new keys to it (when saveMissing: true) - https://github.com/locize/i18next-locize-backend
   ];
@@ -353,7 +372,6 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     const locizeNodeLastUsed = __non_webpack_require__('locize-lastused/cjs');
     plugins.push(locizeNodeLastUsed);
     logger.info(`Using "locize-lastused" plugin`);
-
   } else {
     // XXX Use "require" on the browser, always take the "default" export specifically
     // InContext Editor of locize ?locize=true to show it
@@ -368,7 +386,8 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
   logger.info(`Using ${plugins.length} plugins in total`);
   map(plugins, (plugin) => i18nInstance.use(plugin));
   // @ts-ignore
-  i18nInstance.init({ // XXX See https://www.i18next.com/overview/configuration-options
+  i18nInstance.init({
+    // XXX See https://www.i18next.com/overview/configuration-options
     resources: i18nTranslations,
     // preload: ['fr', 'en'], // XXX Supposed to preload languages, doesn't work with Next
     cleanCode: true, // language will be lowercased EN --> en while leaving full locales like en-US
@@ -413,9 +432,15 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
  * @param lang
  * @param i18nTranslations
  */
-const i18nextLocize = (lang: string, i18nTranslations: I18nextResources): i18n => {
+const i18nextLocize = (
+  lang: string,
+  i18nTranslations: I18nextResources,
+): i18n => {
   // If the singleton isn't init yet, or if the requested language is different from the singleton, then we create a new instance
-  if (!globalI18nextInstance || lang !== get(globalI18nextInstance, 'language', lang)) {
+  if (
+    !globalI18nextInstance ||
+    lang !== get(globalI18nextInstance, 'language', lang)
+  ) {
     globalI18nextInstance = createI18nextLocizeInstance(lang, i18nTranslations);
 
     return globalI18nextInstance;
@@ -425,4 +450,3 @@ const i18nextLocize = (lang: string, i18nTranslations: I18nextResources): i18n =
 };
 
 export default i18nextLocize;
-

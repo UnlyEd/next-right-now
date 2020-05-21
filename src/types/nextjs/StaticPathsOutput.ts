@@ -8,4 +8,4 @@ export type StaticPathsOutput = {
   paths: {
     params: StaticParams;
   }[];
-}
+};

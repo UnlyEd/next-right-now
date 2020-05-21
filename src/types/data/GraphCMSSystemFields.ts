@@ -10,4 +10,4 @@ export declare type GraphCMSSystemFields = {
   status?: string;
   updatedAt?: string;
   __typename?: string;
-}
+};

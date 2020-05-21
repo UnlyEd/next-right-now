@@ -12,4 +12,4 @@ export type NextWebVitalsMetrics = {
   name: string;
   startTime: number;
   value: number;
-}
+};

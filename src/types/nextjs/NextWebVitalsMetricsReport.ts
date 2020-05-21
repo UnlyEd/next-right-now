@@ -19,5 +19,5 @@ export type NextWebVitalsMetricsReport = {
     'Next.js-render'?: NextWebVitalsMetrics; // Triggers on client-side redirection (<Link>)
     'Next.js-route-change-to-render'?: NextWebVitalsMetrics; // Triggers on client-side redirection (<Link>)
     TTFB?: NextWebVitalsMetrics; // Time to first byte, triggers on page load
-  }
-}
+  };
+};

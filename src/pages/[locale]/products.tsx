@@ -21,10 +21,14 @@ import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSideProps
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
+import {
+  getCommonServerSideProps,
+  GetCommonServerSidePropsResults,
+} from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/products';
-const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+const logger = createLogger({
+  // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
@@ -34,7 +38,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 type CustomPageProps = {
   [key: string]: any;
   products: Product[];
-}
+};
 
 /**
  * SSR pages are first rendered by the server
@@ -44,14 +48,16 @@ type CustomPageProps = {
  *
  * Beware props in OnlyBrowserPageProps are not available on the server
  */
-type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
+type Props = CustomPageProps &
+  (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
   const productsPublished = filter(products, { status: 'PUBLISHED' });
   const productsDraft = filter(products, { status: 'DRAFT' });
 
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+  Sentry.addBreadcrumb({
+    // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,
@@ -65,9 +71,7 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
       }}
       {...props}
     >
-      <Container
-        className={'container-white'}
-      >
+      <Container className={'container-white'}>
         <h1>Products</h1>
 
         <Text>
@@ -82,9 +86,7 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
 
         <h2>Published products</h2>
 
-        <Products
-          products={productsPublished}
-        />
+        <Products products={productsPublished} />
 
         <hr />
 
@@ -98,29 +100,30 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
           `}
         </Text>
 
-        <Products
-          products={productsDraft}
-        />
+        <Products products={productsDraft} />
       </Container>
     </DefaultLayout>
   );
 };
 
-type GetServerSidePageProps = CustomPageProps & SSRPageProps
+type GetServerSidePageProps = CustomPageProps & SSRPageProps;
 
 /**
  * Fetches all products and customer in one single GQL query
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<{ props: GetServerSidePageProps }> => {
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (
+  context: GetServerSidePropsContext,
+): Promise<{ props: GetServerSidePageProps }> => {
   // @ts-ignore
   const {
     apolloClient,
     layoutQueryOptions,
     ...pageData
   }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
-  const queryOptions = { // Override query (keep existing variables and headers)
+  const queryOptions = {
+    // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
     displayName: 'PRODUCTS_PAGE_QUERY',
     query: PRODUCTS_PAGE_QUERY,
@@ -142,10 +145,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
     throw new Error('Errors were detected in GraphQL query.');
   }
 
-  const {
-    customer,
-    products,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+  const { customer, products } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
   return {
     // Props returned here will be available as page properties (pageProps)

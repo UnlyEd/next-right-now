@@ -13,7 +13,7 @@ export type HeadProps = {
   ogImage?: string;
   favicon?: string;
   additionalContent?: React.ReactElement;
-}
+};
 
 /**
  * Custom Head component
@@ -21,10 +21,13 @@ export type HeadProps = {
  * https://github.com/zeit/next.js#populating-head
  */
 const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
-  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript. Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and B2B multiple single-tenants (monorepo) support';
+  const defaultDescription =
+    'Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript. Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and B2B multiple single-tenants (monorepo) support';
   const defaultOGURL = 'https://github.com/UnlyEd/next-right-now';
-  const defaultOGImage = 'https://storage.googleapis.com/the-funding-place/assets/images/Logo_TFP_quadri_horizontal.svg';
-  const defaultFavicon = 'https://storage.googleapis.com/the-funding-place/assets/images/default_favicon.ico';
+  const defaultOGImage =
+    'https://storage.googleapis.com/the-funding-place/assets/images/Logo_TFP_quadri_horizontal.svg';
+  const defaultFavicon =
+    'https://storage.googleapis.com/the-funding-place/assets/images/default_favicon.ico';
 
   const {
     title = NRN_DEFAULT_SERVICE_LABEL,
@@ -46,7 +49,7 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
     WebFontLoader.load({
       custom: {
         families: ['neuzeit-grotesk'],
-        urls: ['/static/fonts/NeuzeitGrotesk/font.css']
+        urls: ['/static/fonts/NeuzeitGrotesk/font.css'],
       },
     });
   }
@@ -55,34 +58,31 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
     <NextHead>
       <meta charSet="UTF-8" />
       <title>{title}</title>
-      <meta
-        name="description"
-        content={description}
-      />
+      <meta name="description" content={description} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" sizes="192x192" href="/touch-icon.png" />
       <link rel="apple-touch-icon" href="/touch-icon.png" />
       <link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />
       <link rel="icon" href={favicon} />
 
-      {
-        SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {
-          // Google best practice for SEO https://webmasters.googleblog.com/2011/12/new-markup-for-multilingual-content.html
-          // Google accepts relative links for hreflang
-          // See https://stackoverflow.com/questions/28291574/are-relative-links-valid-in-link-rel-alternate-hreflang-tags
-          // See https://webmasters.googleblog.com/2013/04/5-common-mistakes-with-relcanonical.html
-          return (
-            <link key={supportedLocale?.name} rel="alternate" hrefLang={supportedLocale?.name || 'en'} href={`/${supportedLocale?.name || 'en'}`} />
-          );
-        })
-      }
+      {SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {
+        // Google best practice for SEO https://webmasters.googleblog.com/2011/12/new-markup-for-multilingual-content.html
+        // Google accepts relative links for hreflang
+        // See https://stackoverflow.com/questions/28291574/are-relative-links-valid-in-link-rel-alternate-hreflang-tags
+        // See https://webmasters.googleblog.com/2013/04/5-common-mistakes-with-relcanonical.html
+        return (
+          <link
+            key={supportedLocale?.name}
+            rel="alternate"
+            hrefLang={supportedLocale?.name || 'en'}
+            href={`/${supportedLocale?.name || 'en'}`}
+          />
+        );
+      })}
 
       <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
-      <meta
-        property="og:description"
-        content={description}
-      />
+      <meta property="og:description" content={description} />
       <meta name="twitter:site" content={url} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={ogImage} />
@@ -99,12 +99,7 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       {/*<script async={true} src="https://storage.googleapis.com/the-funding-place/assets/libs/outdated-browser-rework/outdated-browser-rework.min.js" />*/}
       {/*<link rel="stylesheet" href="https://storage.googleapis.com/the-funding-place/assets/libs/outdated-browser-rework/outdated-browser-rework.css" />*/}
 
-      {
-        additionalContent && (
-          additionalContent
-        )
-      }
-
+      {additionalContent && additionalContent}
     </NextHead>
   );
 };

@@ -15,7 +15,8 @@ export const findPreviousItem = <T>(currentItem: T, items: T[]): T => {
   const currentItemIndex: number = items.indexOf(currentItem);
   let previousItemIndex = currentItemIndex - 1;
 
-  if (previousItemIndex < 0) { // Handles array overflow
+  if (previousItemIndex < 0) {
+    // Handles array overflow
     previousItemIndex = items.length - 1;
   }
 
@@ -37,7 +38,8 @@ export const findNextItem = <T>(currentItem: T, items: T[]): T => {
   const currentItemIndex: number = items.indexOf(currentItem);
   let nextItemIndex = currentItemIndex + 1;
 
-  if (nextItemIndex >= items.length) { // Handles array overflow
+  if (nextItemIndex >= items.length) {
+    // Handles array overflow
     nextItemIndex = 0;
   }
 

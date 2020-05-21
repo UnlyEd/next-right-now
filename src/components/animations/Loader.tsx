@@ -4,7 +4,7 @@ import React from 'react';
 
 import AnimatedLoader from '../svg/AnimatedLoader';
 
-type Props = {}
+type Props = {};
 
 const Loader: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (

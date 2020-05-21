@@ -24,7 +24,7 @@ type initOnContextProps = {
  */
 type withApolloOptions = {
   useGetInitialProps?: boolean; // If set to true, will inject "getInitialProps" into the page and will use SSR mode
-}
+};
 
 /**
  * Injected by HOC "withApollo" into the page
@@ -50,14 +50,16 @@ export const initOnContext = (ctx: initOnContextProps) => {
     if (inAppContext) {
       console.warn(
         'Warning: You have opted-out of Automatic Static Optimization due to `withApollo` in `pages/_app`.\n' +
-        'Read more: https://err.sh/next.js/opt-out-auto-static-optimization\n',
+          'Read more: https://err.sh/next.js/opt-out-auto-static-optimization\n',
       );
     }
   }
 
   // Initialize ApolloClient if not already done
   // @ts-ignore
-  const apolloClient = ctx.apolloClient || initApolloClient(ctx.apolloState || {}, inAppContext ? ctx.ctx : ctx);
+  const apolloClient =
+    ctx.apolloClient ||
+    initApolloClient(ctx.apolloState || {}, inAppContext ? ctx.ctx : ctx);
 
   // We send the Apollo Client as a prop to the component to avoid calling initApollo() twice in the server.
   // Otherwise, the component would have to call initApollo() again but this
@@ -84,7 +86,10 @@ export const initOnContext = (ctx: initOnContextProps) => {
  * @param  {NormalizedCacheObject} initialState
  * @param  {NextPageContext} ctx
  */
-const initApolloClient = (initialState, ctx: NextPageContext): ApolloClient<NormalizedCacheObject> => {
+const initApolloClient = (
+  initialState,
+  ctx: NextPageContext,
+): ApolloClient<NormalizedCacheObject> => {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (typeof window === 'undefined') {
@@ -106,8 +111,14 @@ const initApolloClient = (initialState, ctx: NextPageContext): ApolloClient<Norm
  * @param  {Boolean} [withApolloOptions.useGetInitialProps=false]
  * @returns {(PageComponent: ReactNode) => ReactNode}
  */
-export const withApollo = ({ useGetInitialProps = false }: withApolloOptions = {}) => (PageComponent) => {
-  const WithApollo = ({ apolloClient, apolloState, ...pageProps }: PageProps): ReactNode => {
+export const withApollo = ({
+  useGetInitialProps = false,
+}: withApolloOptions = {}) => (PageComponent) => {
+  const WithApollo = ({
+    apolloClient,
+    apolloState,
+    ...pageProps
+  }: PageProps): ReactNode => {
     let client: ApolloClient<NormalizedCacheObject>;
     if (apolloClient) {
       // Happens on: getDataFromTree & next.js ssr

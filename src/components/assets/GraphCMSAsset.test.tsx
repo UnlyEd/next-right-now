@@ -10,13 +10,14 @@ describe('GraphCMSAsset', () => {
     describe('when the asset is used as an image (<img>)', () => {
       test('when relying on default "logo" property, it should apply the internal default properties', () => {
         const id = 'test';
-        const renderer = TestRenderer
-          .create(<GraphCMSAsset
+        const renderer = TestRenderer.create(
+          <GraphCMSAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
             }}
-          />);
+          />,
+        );
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
@@ -33,8 +34,8 @@ describe('GraphCMSAsset', () => {
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
         const style = { paddingTop: 5 };
-        const renderer = TestRenderer
-          .create(<GraphCMSAsset
+        const renderer = TestRenderer.create(
+          <GraphCMSAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -43,7 +44,8 @@ describe('GraphCMSAsset', () => {
               classes: classes,
               style: style,
             }}
-          />);
+          />,
+        );
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
@@ -61,8 +63,8 @@ describe('GraphCMSAsset', () => {
           const title = 'Test asset';
           const classes = 'test-class1 test-class2';
           const style = { paddingTop: 5 };
-          const renderer = TestRenderer
-            .create(<GraphCMSAsset
+          const renderer = TestRenderer.create(
+            <GraphCMSAsset
               id={id}
               asset={{
                 url: defaultLogoUrl,
@@ -73,7 +75,8 @@ describe('GraphCMSAsset', () => {
                 classes: classes,
                 style: style,
               }}
-            />);
+            />,
+          );
           const img = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
@@ -92,8 +95,8 @@ describe('GraphCMSAsset', () => {
           const title = 'Test asset';
           const classes = 'test-class1 test-class2';
           const style = { paddingTop: 5 };
-          const renderer = TestRenderer
-            .create(<GraphCMSAsset
+          const renderer = TestRenderer.create(
+            <GraphCMSAsset
               id={id}
               asset={{
                 url: defaultLogoUrl,
@@ -104,7 +107,8 @@ describe('GraphCMSAsset', () => {
                 classes: classes,
                 style: style,
               }}
-            />);
+            />,
+          );
           const img = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
@@ -121,8 +125,8 @@ describe('GraphCMSAsset', () => {
           const title = 'Test asset';
           const classes = 'test-class1 test-class2';
           const style = { paddingTop: 5 };
-          const renderer = TestRenderer
-            .create(<GraphCMSAsset
+          const renderer = TestRenderer.create(
+            <GraphCMSAsset
               id={id}
               asset={{
                 url: defaultLogoUrl,
@@ -139,7 +143,8 @@ describe('GraphCMSAsset', () => {
                 classes: classes,
                 style: style,
               }}
-            />);
+            />,
+          );
           const img = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
@@ -157,8 +162,8 @@ describe('GraphCMSAsset', () => {
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
         const style = { paddingTop: 5 };
-        const renderer = TestRenderer
-          .create(<GraphCMSAsset
+        const renderer = TestRenderer.create(
+          <GraphCMSAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -171,11 +176,14 @@ describe('GraphCMSAsset', () => {
                 height: 300,
               },
             }}
-          />);
+          />,
+        );
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=width:500,height:300/auto_image/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual(
+          'https://media.graphcms.com/quality=value:100/resize=width:500,height:300/auto_image/88YmsSFsSEGI9i0qcH0V',
+        );
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -188,8 +196,8 @@ describe('GraphCMSAsset', () => {
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
         const style = { paddingTop: 5 };
-        const renderer = TestRenderer
-          .create(<GraphCMSAsset
+        const renderer = TestRenderer.create(
+          <GraphCMSAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -201,11 +209,14 @@ describe('GraphCMSAsset', () => {
                 width: 500,
               },
             }}
-          />);
+          />,
+        );
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=width:500/auto_image/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual(
+          'https://media.graphcms.com/quality=value:100/resize=width:500/auto_image/88YmsSFsSEGI9i0qcH0V',
+        );
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -218,8 +229,8 @@ describe('GraphCMSAsset', () => {
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
         const style = { paddingTop: 5 };
-        const renderer = TestRenderer
-          .create(<GraphCMSAsset
+        const renderer = TestRenderer.create(
+          <GraphCMSAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -232,13 +243,16 @@ describe('GraphCMSAsset', () => {
               },
             }}
             transformationsOverride={{
-              height: 300
+              height: 300,
             }}
-          />);
+          />,
+        );
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=height:300/auto_image/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual(
+          'https://media.graphcms.com/quality=value:100/resize=height:300/auto_image/88YmsSFsSEGI9i0qcH0V',
+        );
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -252,14 +266,15 @@ describe('GraphCMSAsset', () => {
     test('when relying on default "logo" property', () => {
       const id = 'test';
       const linkUrl = 'https://google.com';
-      const renderer = TestRenderer
-        .create(<GraphCMSAsset
+      const renderer = TestRenderer.create(
+        <GraphCMSAsset
           id={id}
           asset={{
             url: defaultLogoUrl,
             linkUrl: linkUrl,
           }}
-        />);
+        />,
+      );
       const link = renderer.toJSON();
       const img = renderer.root.findByType('img');
 
@@ -285,8 +300,8 @@ describe('GraphCMSAsset', () => {
       const linkId = 'link-test';
       const linkUrl = 'https://google.com';
 
-      const renderer = TestRenderer
-        .create(<GraphCMSAsset
+      const renderer = TestRenderer.create(
+        <GraphCMSAsset
           id={id}
           asset={{
             url: defaultLogoUrl,
@@ -301,7 +316,8 @@ describe('GraphCMSAsset', () => {
             classes: classes,
             style: style,
           }}
-        />);
+        />,
+      );
       const link = renderer.toJSON();
       const img = renderer.root.findByType('img');
 
@@ -330,8 +346,8 @@ describe('GraphCMSAsset', () => {
       const linkUrl = 'https://google.com';
       const overriddenLinkUrl = 'https://overridden.com';
 
-      const renderer = TestRenderer
-        .create(<GraphCMSAsset
+      const renderer = TestRenderer.create(
+        <GraphCMSAsset
           id={id}
           asset={{
             url: defaultLogoUrl,
@@ -347,7 +363,8 @@ describe('GraphCMSAsset', () => {
             classes: classes,
             style: style,
           }}
-        />);
+        />,
+      );
       const link = renderer.toJSON();
       const img = renderer.root.findByType('img');
 
@@ -377,8 +394,8 @@ describe('GraphCMSAsset', () => {
       const overriddenLinkUrl = 'https://overridden.com';
       const onClick = () => 'clicked';
 
-      const renderer = TestRenderer
-        .create(<GraphCMSAsset
+      const renderer = TestRenderer.create(
+        <GraphCMSAsset
           id={id}
           asset={{
             url: defaultLogoUrl,
@@ -395,7 +412,8 @@ describe('GraphCMSAsset', () => {
             style: style,
           }}
           onClick={onClick}
-        />);
+        />,
+      );
       const link = renderer.toJSON();
       const img = renderer.root.findByType('img');
 
@@ -416,6 +434,5 @@ describe('GraphCMSAsset', () => {
       expect(link.props.onClick()).toEqual('clicked');
       expect(link).toMatchSnapshot();
     });
-
   });
 });

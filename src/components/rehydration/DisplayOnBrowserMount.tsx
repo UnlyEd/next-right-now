@@ -48,18 +48,15 @@ type Props = {
  * @see https://twitter.com/Vadorequest/status/1257658553361408002 Discussion with Josh regarding advanced usage
  */
 const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
-  const {
-    children,
-    deps = [],
-  } = props;
+  const { children, deps = [] } = props;
   // If any dep isn't defined, then it will render "null" first, and then trigger a re-render
-  const isAnyDepsNullish = deps.length ?
-    // If any deps was provided, check if any is null-ish
-    some(deps, (dependency: any): boolean => {
-      return dependency === null || typeof dependency === 'undefined';
-    })
-    // If no dep is provided, then it should render "null" first anyway, and then trigger a re-render
-    : true;
+  const isAnyDepsNullish = deps.length
+    ? // If any deps was provided, check if any is null-ish
+      some(deps, (dependency: any): boolean => {
+        return dependency === null || typeof dependency === 'undefined';
+      })
+    : // If no dep is provided, then it should render "null" first anyway, and then trigger a re-render
+      true;
   const [hasMounted, setHasMounted] = useState<boolean>(!isAnyDepsNullish);
 
   React.useEffect(() => {
@@ -72,11 +69,7 @@ const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
     return null;
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };
 
 export default DisplayOnBrowserMount;

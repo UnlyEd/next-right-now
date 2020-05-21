@@ -6,13 +6,7 @@ export const SIZE_SM = 'sm';
 export const SIZE_MD = 'md';
 export const SIZE_LG = 'lg';
 export const SIZE_XL = 'xl';
-export const SIZES = [
-  SIZE_XS,
-  SIZE_SM,
-  SIZE_MD,
-  SIZE_LG,
-  SIZE_XL,
-];
+export const SIZES = [SIZE_XS, SIZE_SM, SIZE_MD, SIZE_LG, SIZE_XL];
 
 export const DEFAULT_SIZES_MULTIPLIERS: SizeMultiplier[] = [
   {
@@ -32,12 +26,12 @@ export const DEFAULT_SIZES_MULTIPLIERS: SizeMultiplier[] = [
 export type Size = {
   width: number | string;
   height: number | string;
-}
+};
 
 export type SizeMultiplier = {
   size: string;
   multiplier: number;
-}
+};
 
 /**
  * Convert a number to pixels, left strings untouched
@@ -68,7 +62,15 @@ export const toPixels = (value: number | string): string => {
  * @param sizesMultipliers
  * @returns {object}
  */
-export const generateSizes = ({ baseWidth, baseHeight, sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS }: { baseWidth: number; baseHeight: number; sizesMultipliers?: SizeMultiplier[] }): object => {
+export const generateSizes = ({
+  baseWidth,
+  baseHeight,
+  sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS,
+}: {
+  baseWidth: number;
+  baseHeight: number;
+  sizesMultipliers?: SizeMultiplier[];
+}): object => {
   const sizes = {};
 
   map(sizesMultipliers, (sizeMultiplier) => {
@@ -90,17 +92,26 @@ export const generateSizes = ({ baseWidth, baseHeight, sizesMultipliers = DEFAUL
  * @param height
  * @returns {{width:}}
  */
-export const resolveRatio = ({ baseWidth, baseHeight, width, height }): Size => {
+export const resolveRatio = ({
+  baseWidth,
+  baseHeight,
+  width,
+  height,
+}): Size => {
   if (width) {
     // Need to resolve the height
     return {
       width,
-      height: toPixels(parseFloat(width) * parseFloat(baseHeight) / parseFloat(baseWidth)),
+      height: toPixels(
+        (parseFloat(width) * parseFloat(baseHeight)) / parseFloat(baseWidth),
+      ),
     };
   } else {
     // Need to resolve the width
     return {
-      width: toPixels(parseFloat(height) * parseFloat(baseWidth) / parseFloat(baseHeight)),
+      width: toPixels(
+        (parseFloat(height) * parseFloat(baseWidth)) / parseFloat(baseHeight),
+      ),
       height,
     };
   }
@@ -117,7 +128,11 @@ export const resolveRatio = ({ baseWidth, baseHeight, width, height }): Size => 
  * @param logo
  * @returns {{width: *, height: *}}
  */
-export const resolveSize = ({ width, height, logo }: Size & { logo: Logo }): Size => {
+export const resolveSize = ({
+  width,
+  height,
+  logo,
+}: Size & { logo: Logo }): Size => {
   if (width && height) {
     // Both width and height provided, which means we force the logo's size
     return {
@@ -128,12 +143,22 @@ export const resolveSize = ({ width, height, logo }: Size & { logo: Logo }): Siz
     // Only the width is provided, therefore only the width should be set
     return {
       width: width,
-      height: resolveRatio({ baseHeight: logo.height, baseWidth: logo.width, width, height }).height,
+      height: resolveRatio({
+        baseHeight: logo.height,
+        baseWidth: logo.width,
+        width,
+        height,
+      }).height,
     };
   } else if (height) {
     // Only the height is provided, therefore only the height should be set
     return {
-      width: resolveRatio({ baseHeight: logo.height, baseWidth: logo.width, width, height }).width,
+      width: resolveRatio({
+        baseHeight: logo.height,
+        baseWidth: logo.width,
+        width,
+        height,
+      }).width,
       height: height,
     };
   } else {

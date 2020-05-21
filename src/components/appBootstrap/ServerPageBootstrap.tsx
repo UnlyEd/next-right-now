@@ -15,7 +15,9 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-export type ServerPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalPageProps & MultiversalAppBootstrapPageProps>;
+export type ServerPageBootstrapProps = MultiversalAppBootstrapProps<
+  MultiversalPageProps & MultiversalAppBootstrapPageProps
+>;
 
 /**
  * Bootstraps the page, only when rendered on the browser
@@ -23,20 +25,18 @@ export type ServerPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalP
  * @param props
  */
 const ServerPageBootstrap = (props: ServerPageBootstrapProps): JSX.Element => {
-  const {
-    Component,
-    err,
-  } = props;
+  const { Component, err } = props;
   // When the page is served by the server, some server-only properties are available
-  const pageProps = props.pageProps as unknown as MultiversalPageProps<OnlyServerPageProps>;
+  const pageProps = (props.pageProps as unknown) as MultiversalPageProps<
+    OnlyServerPageProps
+  >;
   const injectedPageProps: MultiversalPageProps<OnlyServerPageProps> = {
     ...pageProps,
   };
-  const {
-    userSession,
-  } = pageProps;
+  const { userSession } = pageProps;
 
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+  Sentry.addBreadcrumb({
+    // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,

@@ -5,4 +5,4 @@ export declare type PublicHeaders = {
   'accept-language'?: string;
   'user-agent'?: string;
   host?: string;
-}
+};

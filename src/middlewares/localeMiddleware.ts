@@ -4,7 +4,8 @@ import { acceptLanguageHeaderLookup, DEFAULT_LOCALE } from '../utils/i18n/i18n';
 import redirect from '../utils/app/redirect';
 
 const fileLabel = 'utils/localeMiddleware';
-const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+const logger = createLogger({
+  // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
@@ -36,9 +37,15 @@ export const localeMiddleware = (req, res): void => {
       }
     });
 
-    logger.debug(`Locale resolved using browser headers: "${localeFound}", with browser locales: [${detections.join(', ')}]`);
+    logger.debug(
+      `Locale resolved using browser headers: "${localeFound}", with browser locales: [${detections.join(
+        ', ',
+      )}]`,
+    );
   } else {
-    logger.debug(`Couldn't detect any locales in "accept-language" header. (This will happens with robots, e.g: Cypress E2E)`);
+    logger.debug(
+      `Couldn't detect any locales in "accept-language" header. (This will happens with robots, e.g: Cypress E2E)`,
+    );
   }
 
   if (!localeFound) {

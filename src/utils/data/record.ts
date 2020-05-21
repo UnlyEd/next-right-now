@@ -49,7 +49,8 @@ export enum LOGGING_STRATEGY {
 }
 
 export const STRATEGY_LOG_ERROR: LOGGING_STRATEGY = LOGGING_STRATEGY.LOG_ERROR;
-export const STRATEGY_DO_NOTHING: LOGGING_STRATEGY = LOGGING_STRATEGY.DO_NOTHING;
+export const STRATEGY_DO_NOTHING: LOGGING_STRATEGY =
+  LOGGING_STRATEGY.DO_NOTHING;
 
 /**
  * Find a record using the given field:value set
@@ -60,7 +61,11 @@ export const STRATEGY_DO_NOTHING: LOGGING_STRATEGY = LOGGING_STRATEGY.DO_NOTHING
  * @param {string} field
  * @return {T}
  */
-export const findRecordByField = <T extends Record>(records: Array<T>, value: string, field = 'id'): T => {
+export const findRecordByField = <T extends Record>(
+  records: Array<T>,
+  value: string,
+  field = 'id',
+): T => {
   return find(records, { [field]: value } as any); // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
@@ -70,7 +75,7 @@ export type FallbackConfigTransformProps = {
   defaultValue: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   key: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-}
+};
 
 /**
  * Fallback record
@@ -82,8 +87,11 @@ export type FallbackConfig = {
   record: Record;
   key: string; // Key to find within the "record", same as lodash.get "path"
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  transform?(value: string | object | any, props: FallbackConfigTransformProps): any; // Transformation applied if that fallback is selected (key found in record)
-}
+  transform?(
+    value: string | object | any,
+    props: FallbackConfigTransformProps,
+  ): any; // Transformation applied if that fallback is selected (key found in record)
+};
 
 /**
  * Attempts to resolve the type of a given record
@@ -104,7 +112,11 @@ export const resolveRecordType = (record: Record): string => {
   if (get(record, '__typename', false)) {
     return record.__typename;
   } else {
-    const warning = `No identifier found for ${JSON.stringify(record, null, 2)}, returning "${NO_TYPE_FOUND}"`;
+    const warning = `No identifier found for ${JSON.stringify(
+      record,
+      null,
+      2,
+    )}, returning "${NO_TYPE_FOUND}"`;
     logger.warn(warning, 'resolveRecordType');
     Sentry.captureMessage(warning, Sentry.Severity.Warning);
     return NO_TYPE_FOUND;
@@ -119,7 +131,10 @@ export const resolveRecordType = (record: Record): string => {
  * @param applyFallbackIfNotFound
  * @returns {*}
  */
-export const resolvedIdentifiableProperties = (record: Record, applyFallbackIfNotFound = true): Record => {
+export const resolvedIdentifiableProperties = (
+  record: Record,
+  applyFallbackIfNotFound = true,
+): Record => {
   const identifiableItem = {};
   // List of properties that are meaningful to developers and can help find "which data is causing issues"
   const meaningfulProperties = [
@@ -154,8 +169,14 @@ export const resolvedIdentifiableProperties = (record: Record, applyFallbackIfNo
  * @param {string} propertyPath
  * @param {string} caller
  */
-export const warnMissingProp = (record: Record, propertyPath: string, caller: string): void => {
-  const errorMessage = `Unable to resolve the property "${propertyPath}" in GraphQL object "${resolveRecordType(record)}" for ${JSON.stringify(resolvedIdentifiableProperties(record), null, 2)}`;
+export const warnMissingProp = (
+  record: Record,
+  propertyPath: string,
+  caller: string,
+): void => {
+  const errorMessage = `Unable to resolve the property "${propertyPath}" in GraphQL object "${resolveRecordType(
+    record,
+  )}" for ${JSON.stringify(resolvedIdentifiableProperties(record), null, 2)}`;
   logger.warn(errorMessage, caller);
 
   if (process.env.NODE_ENV !== 'test') {
@@ -183,7 +204,12 @@ export const warnMissingProp = (record: Record, propertyPath: string, caller: st
  * @returns {*}
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getValue = (record: Record, propertyPath: string, defaultValue: null | any = null, missingPropStrategy: LOGGING_STRATEGY = STRATEGY_LOG_ERROR): string | object | any => {
+export const getValue = (
+  record: Record,
+  propertyPath: string,
+  defaultValue: null | any = null,
+  missingPropStrategy: LOGGING_STRATEGY = STRATEGY_LOG_ERROR,
+): string | object | any => {
   if (typeof propertyPath !== 'string') {
     propertyPath = null; // Force null if property path is not of the expected type to avoid edge cases (0 would be an edge case)
   }
@@ -198,7 +224,6 @@ export const getValue = (record: Record, propertyPath: string, defaultValue: nul
   if (value === NOT_FOUND) {
     if (defaultValue !== null) {
       value = defaultValue;
-
     } else {
       value = null; // Clean value which has been changed to NOT_FOUND
     }
@@ -227,7 +252,14 @@ export const getValue = (record: Record, propertyPath: string, defaultValue: nul
 export const hasValue = (record: Record, propertyPath: string): boolean => {
   const value = get(record, propertyPath, NOT_FOUND);
 
-  if ((value === NOT_FOUND || value === '' || value === '<p></p>' || (typeof value === 'object' && isEmpty(value))) && value !== 0 && value !== false) {
+  if (
+    (value === NOT_FOUND ||
+      value === '' ||
+      value === '<p></p>' ||
+      (typeof value === 'object' && isEmpty(value))) &&
+    value !== 0 &&
+    value !== false
+  ) {
     return false;
   } else {
     return !!value;
@@ -248,7 +280,11 @@ export const hasValue = (record: Record, propertyPath: string): boolean => {
  * @return {any}
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getValueFallback = (fallbacks: Array<FallbackConfig>, defaultValue: null | any = null, missingPropStrategy: LOGGING_STRATEGY = STRATEGY_LOG_ERROR): any => {
+export const getValueFallback = (
+  fallbacks: Array<FallbackConfig>,
+  defaultValue: null | any = null,
+  missingPropStrategy: LOGGING_STRATEGY = STRATEGY_LOG_ERROR,
+): any => {
   let value = defaultValue;
   let foundFallback;
 
@@ -258,10 +294,20 @@ export const getValueFallback = (fallbacks: Array<FallbackConfig>, defaultValue:
       const key = fallback.key;
       const transform = fallback.transform || null;
 
-      if (record !== null && record !== undefined && key !== null && key !== undefined) {
+      if (
+        record !== null &&
+        record !== undefined &&
+        key !== null &&
+        key !== undefined
+      ) {
         if (hasValue(record, key)) {
           if (transform) {
-            value = transform(getValue(record, key, defaultValue), { fallbacks, record, key, defaultValue });
+            value = transform(getValue(record, key, defaultValue), {
+              fallbacks,
+              record,
+              key,
+              defaultValue,
+            });
           } else {
             value = getValue(record, key, defaultValue);
           }
@@ -272,9 +318,12 @@ export const getValueFallback = (fallbacks: Array<FallbackConfig>, defaultValue:
         // Invalid fallback, try next one
       }
     }
-
   } else {
-    const errorMessage = `Unable to resolve the fallback value (expecting array, got "${typeof fallbacks}") for ${JSON.stringify(fallbacks, null, 2)}`;
+    const errorMessage = `Unable to resolve the fallback value (expecting array, got "${typeof fallbacks}") for ${JSON.stringify(
+      fallbacks,
+      null,
+      2,
+    )}`;
     logger.warn(errorMessage, 'getValueFallback');
 
     if (process.env.NODE_ENV !== 'test') {
@@ -283,7 +332,11 @@ export const getValueFallback = (fallbacks: Array<FallbackConfig>, defaultValue:
   }
 
   if (!foundFallback && missingPropStrategy === STRATEGY_LOG_ERROR) {
-    const errorMessage = `Unable to resolve any fallback value for ${JSON.stringify(fallbacks, null, 2)}`;
+    const errorMessage = `Unable to resolve any fallback value for ${JSON.stringify(
+      fallbacks,
+      null,
+      2,
+    )}`;
     logger.warn(errorMessage, 'getValueFallback');
 
     if (process.env.NODE_ENV !== 'test') {
@@ -316,7 +369,8 @@ export const filterSelectedRecords = (
 
   // In case we want to force keep a record in the list, we remove it from the selected list so that it doesn't get removed by the xOr operation (kinda ignored)
   if (forceKeepRecord) {
-    remove(clonedSelectedRecords, (record: Record) => { // XXX "remove" mutates the array
+    remove(clonedSelectedRecords, (record: Record) => {
+      // XXX "remove" mutates the array
       return record.id === forceKeepRecord.id;
     });
   }
@@ -332,7 +386,10 @@ export const filterSelectedRecords = (
  * @param {string} field
  * @return {SerializedRecord}
  */
-export const serializeRecord = <T extends Record>(record: T, field = 'name'): SerializedRecord => {
+export const serializeRecord = <T extends Record>(
+  record: T,
+  field = 'name',
+): SerializedRecord => {
   return getValue(record, field, undefined, STRATEGY_LOG_ERROR);
 };
 
@@ -346,6 +403,10 @@ export const serializeRecord = <T extends Record>(record: T, field = 'name'): Se
  * @param {string} field
  * @return {T}
  */
-export const deserializeRecord = <T extends Record>(serializedRecord: SerializedRecord, records: T[], field = 'name'): T => {
+export const deserializeRecord = <T extends Record>(
+  serializedRecord: SerializedRecord,
+  records: T[],
+  field = 'name',
+): T => {
   return findRecordByField(records, serializedRecord, field);
 };
