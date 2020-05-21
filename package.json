@@ -106,6 +106,7 @@
     "rc-tooltip": "4.0.3",
     "react": "16.13.1",
     "react-apollo": "3.1.5",
+    "react-code-blocks": "0.0.7",
     "react-dom": "16.13.1",
     "react-i18next": "11.4.0",
     "react-style-proptype": "3.2.2",

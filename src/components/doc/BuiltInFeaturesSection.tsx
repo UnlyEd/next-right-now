@@ -27,7 +27,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/i18n.html'}>
-                  <Button color={'link'}>Read NRN documentation</Button>
+                  <Button color={'link'}>Learn more about the "i18n" concept</Button>
                 </ExternalLink>
                 <I18nLink href={'/examples/static-i18n'}>
                   <Button color={'link'}>See usage examples</Button>
@@ -44,9 +44,29 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/monitoring.html'}>
-                  <Button color={'link'}>Read NRN documentation</Button>
+                  <Button color={'link'}>Learn more about the "Monitoring" concept</Button>
                 </ExternalLink>
                 <I18nLink href={'/examples/monitoring'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>GraphQL</h3></CardTitle>
+            <CardSubtitle>&ldquo;GraphQL API fetching using GraphCMS vendor and Apollo&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/graphql.html'}>
+                  <Button color={'link'}>Learn more about the "GraphQL" concept</Button>
+                </ExternalLink>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/graphql-api/use-graphcms.html'}>
+                  <Button color={'link'}>Learn how to use the "GraphCMS" vendor</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/graphql'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
