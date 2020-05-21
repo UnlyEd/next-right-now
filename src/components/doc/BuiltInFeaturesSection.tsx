@@ -4,6 +4,7 @@ import React from 'react';
 import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
 import I18nLink from '../i18n/I18nLink';
 import Cards from '../utils/Cards';
+import ExternalLink from '../utils/ExternalLink';
 import DocSection from './DocSection';
 
 type Props = {}
@@ -21,14 +22,17 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
       <Cards>
         <Card>
           <CardBody>
-            <CardTitle><h3>Static I18n</h3></CardTitle>
+            <CardTitle><h3>Static i18n</h3></CardTitle>
             <CardSubtitle>&ldquo;Internationalisation/Localisation&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
-              <p>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/i18n.html'}>
+                  <Button color={'link'}>Read NRN documentation</Button>
+                </ExternalLink>
                 <I18nLink href={'/examples/static-i18n'}>
-                  <Button color={'primary'} block>See usage examples</Button>
+                  <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
-              </p>
+              </div>
             </CardText>
           </CardBody>
         </Card>
@@ -38,11 +42,14 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardTitle><h3>Monitoring</h3></CardTitle>
             <CardSubtitle>&ldquo;Realtime app monitoring using Sentry&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
-              <p>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/monitoring.html'}>
+                  <Button color={'link'}>Read NRN documentation</Button>
+                </ExternalLink>
                 <I18nLink href={'/examples/monitoring'}>
-                  <Button color={'primary'} block>See usage examples</Button>
+                  <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
-              </p>
+              </div>
             </CardText>
           </CardBody>
         </Card>

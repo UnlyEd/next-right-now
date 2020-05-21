@@ -50,9 +50,9 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 because it will be executed from the server (SSR) and the browser (CSR), and it usually leads to increased complexity and tougher bugs.
               </p>
 
-              <p>
-                <Button color={'primary'} block>Example with getServerSideProps</Button>
-              </p>
+              <div className={'buttons'}>
+                <Button color={'link'}>Example with getServerSideProps</Button>
+              </div>
             </CardText>
           </CardBody>
         </Card>
@@ -93,11 +93,11 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 </ul>
               </div>
 
-              <p>
-                <Button color={'primary'} block>Simple example</Button>
-                <Button color={'primary'} block>Example with fallback</Button>
-                <Button color={'primary'} block>Example with revalidate</Button>
-              </p>
+              <div className={'buttons'}>
+                <Button color={'link'}>Simple example</Button>
+                <Button color={'link'}>Example with fallback</Button>
+                <Button color={'link'}>Example with revalidate</Button>
+              </div>
             </CardText>
           </CardBody>
         </Card>

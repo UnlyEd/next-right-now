@@ -24,8 +24,13 @@ const Cards: React.FunctionComponent<Props> = (props): JSX.Element => {
             text-transform: uppercase;
           }
 
-          .card-text{
+          .card-text {
             margin-top: 10px;
+          }
+
+          .buttons {
+            display: flex;
+            flex-direction: column;
           }
         }
       `}
