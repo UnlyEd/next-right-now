@@ -33,6 +33,20 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Hooks</h3></CardTitle>
+            <CardSubtitle>&ldquo;Help manage i18n links with breeze&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/hooks'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );
