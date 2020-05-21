@@ -46,7 +46,8 @@
     "test:once": "NODE_ENV=test jest",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "security:audit": "yarn audit",
-    "packages:upgrade": "yarn upgrade-interactive --latest"
+    "packages:upgrade": "yarn upgrade-interactive --latest",
+    "commit": "npx git-cz"
   },
   "jest": {
     "setupFilesAfterEnv": [
