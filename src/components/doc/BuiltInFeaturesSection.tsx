@@ -178,7 +178,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Button color={'link'}>See all available Reactstrap components</Button>
                 </ExternalLink>
                 <I18nLink href={'/examples/ui-components'}>
-                  <Button color={'link'}>See NRN components examples</Button>
+                  <Button color={'link'}>See components examples</Button>
                 </I18nLink>
               </div>
             </CardText>

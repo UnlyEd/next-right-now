@@ -14,6 +14,7 @@ import { StaticParams } from '../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
+import ExternalFeaturesSection from '../../../components/doc/ExternalFeaturesSection';
 
 const fileLabel = 'pages/[locale]/docs/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -69,6 +70,7 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
 
                 <NativeFeaturesSection />
                 <BuiltInFeaturesSection />
+                <ExternalFeaturesSection />
               </>
               //   <div>
               //
