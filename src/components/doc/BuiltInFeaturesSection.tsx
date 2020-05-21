@@ -167,6 +167,23 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>UI components library</h3></CardTitle>
+            <CardSubtitle>&ldquo;React components using Reactstrap and Bootstrap&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://reactstrap.github.io/components'}>
+                  <Button color={'link'}>See all available Reactstrap components</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/ui-components'}>
+                  <Button color={'link'}>See NRN components examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );
