@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import filter from 'lodash.filter';
@@ -50,12 +49,6 @@ const ProductsPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
   const productsPublished = filter(products, { status: 'PUBLISHED' });
   const productsDraft = filter(products, { status: 'DRAFT' });
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering ${fileLabel}`,
-    level: Sentry.Severity.Debug,
-  });
 
   return (
     <DefaultLayout

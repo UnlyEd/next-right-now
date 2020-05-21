@@ -1,19 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { Alert, Container } from 'reactstrap';
-import uuid from 'uuid/v1';
+import { Container } from 'reactstrap';
 import Products from '../../components/data/Products';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-
-import DisplayOnBrowserMount from '../../components/rehydration/DisplayOnBrowserMount';
 import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
 import withApollo from '../../hocs/withApollo';
 import { Product } from '../../types/data/Product';
@@ -106,13 +101,6 @@ type Props = {
 
 const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
-  const { t } = useTranslation();
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering ${fileLabel}`,
-    level: Sentry.Severity.Debug,
-  });
 
   return (
     <DefaultLayout
@@ -185,159 +173,32 @@ const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
 
         <hr />
 
-        <div>
-          <h2 className={'pcolor'}>Monitoring universal examples</h2>
-
-          Log runtime exception<br />
-          <code>
-            {`try{throw new Error('test')}catch(e){Sentry.captureException(e)}`}
-          </code>
-          <br />
-          <br />
-
-          Log message<br />
-          <code>
-            {`Sentry.captureMessage(warning, Sentry.Severity.Warning);`}
-          </code>
-          <br />
-          <br />
-
-          Severity examples<br />
-          <code>Severity.Fatal</code>
-          <code>Severity.Error</code>
-          <code>Severity.Warning</code>
-          <code>Severity.Log</code>
-          <code>Severity.Info</code>
-          <code>Severity.Debug</code>
-          <code>Severity.Critical</code>
-          <br />
-          <br />
-
-          <a
-            href={'https://docs.sentry.io/enriching-error-data/breadcrumbs'}
-            target={'_blank'}
-            rel={'noopener'}
-          >
-            Breadcrumbs documentation
-          </a><br />
-          <code>
-            {`Sentry.addBreadcrumb({category: fileLabel, message: 'Rendering'})`}
-          </code>
-        </div>
 
         <hr />
 
         <div>
-          <h2 className={'pcolor'}>I18n universal examples <small>(using Locize 3rd party vendor)</small></h2>
-          <Alert color={'info'}>
-            <div>
-              Each example shows the rendered version and its code snippet.<br />
-              The goal is to showcase real-world examples to help you get started faster and give a wider overview of what's possible.<br />
-              <a href={'https://react.i18next.com/'} target="blank" rel={'nofollow noreferrer'}>
-                Check the official documentation
-              </a>
-            </div>
-          </Alert>
+          <h2>Image optimisation</h2>
 
-          <Container>
-            <div>
-              {t('examples.i18n.simpleTranslation', 'Traduction simple')}<br />
-              <code>{'{t(\'examples.i18n.simpleTranslation\', \'Traduction simple\')}'}</code>
-            </div>
-            <hr />
+          <div>
+            Image from web:<br />
+            <img
+              src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg'}
+              alt={'paysage'}
+              width={'800px'}
+              height={'600px'}
+            />
+          </div>
 
-            <div>
-              {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 1 })}<br />
-              <code>{'{t(\'examples.i18n.pluralTranslation\', \'Traduction avec gestion du pluriel\', { count: 1 })}'}</code>
-            </div>
-            <div>
-              {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 2 })}<br />
-              <code>{'{t(\'examples.i18n.pluralTranslation\', \'Traduction avec gestion du pluriel\', { count: 2 })}'}</code>
-            </div>
-            <hr />
-
-            <div>
-              <DisplayOnBrowserMount>
-                <Trans
-                  i18nKey={'examples.i18n.dynamicTranslation'}
-                >
-                  Contenu dynamique : <b>{{ uuid: uuid() }}</b>
-                </Trans>
-                <br />
-                <code>
-                  {'<Trans\n' +
-                  '  i18nKey="{\'examples.i18n.dynamicTranslation\'}"\n' +
-                  '>\n' +
-                  '  Contenu dynamique : <b>{{ uuid: uuid() }}</b>\n' +
-                  '</Trans>'}
-                </code>
-              </DisplayOnBrowserMount>
-            </div>
-            <hr />
-
-            <div>
-              <Trans
-                i18nKey={'examples.i18n.dynamicPluralTranslation'}
-                count={1}
-              >
-                Nous avons trouvé {{ count: 1 }} solution pour vous.
-              </Trans>
-              <br />
-              <code>
-                {'<Trans\n' +
-                '  i18nKey="{\'examples.i18n.dynamicPluralTranslation\'}"\n' +
-                '  count="{1}"\n' +
-                '>\n' +
-                '  Nous avons trouvé {{ count: 1 }} solution pour vous.\n' +
-                '</Trans>'}
-              </code>
-            </div>
-            <hr />
-
-            <div>
-              <Trans
-                i18nKey={'examples.i18n.dynamicPluralTranslation'}
-                count={2}
-              >
-                Nous avons trouvé {{ count: 2 }} solution pour vous.
-              </Trans>
-              <br />
-              <code>
-                {'<Trans\n' +
-                '  i18nKey="{\'examples.i18n.dynamicPluralTranslation\'}"\n' +
-                '  count="{2}"\n' +
-                '>\n' +
-                '  Nous avons trouvé {{ count: 2 }} solution pour vous.\n' +
-                '</Trans>'}
-              </code>
-            </div>
-            <div>
-              <h2>Image optimisation</h2>
-
-              <div>
-                Image from web:<br />
-                <img
-                  src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg'}
-                  alt={'paysage'}
-                  width={'800px'}
-                  height={'600px'}
-                />
-              </div>
-
-              <div>
-                Image from /public:<br />
-                <img
-                  src={'/static/images/Fronalpstock_big.jpg'}
-                  alt={'paysage'}
-                  width={'800px'}
-                  height={'600px'}
-                />
-              </div>
-            </div>
-          </Container>
+          <div>
+            Image from /public:<br />
+            <img
+              src={'/static/images/Fronalpstock_big.jpg'}
+              alt={'paysage'}
+              width={'800px'}
+              height={'600px'}
+            />
+          </div>
         </div>
-
-
       </Container>
     </DefaultLayout>
   );

@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import React from 'react';
-import { Alert, Card, CardBody, CardDeck, CardSubtitle, CardText, CardTitle, Button } from 'reactstrap';
-
+import { Alert, Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
+import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
+import DocSection from './DocSection';
 
 type Props = {}
 
@@ -14,23 +15,10 @@ type Props = {}
  */
 const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
-    <>
+    <DocSection>
       <h2>Next.js native features</h2>
 
-      <CardDeck
-        css={css`
-          .card {
-            .card-subtitle {
-              font-style: italic;
-              text-transform: uppercase;
-            }
-
-            .card-text{
-              margin-top: 10px;
-            }
-          }
-        `}
-      >
+      <Cards>
         <Card>
           <CardBody>
             <CardTitle><h3>SSR</h3></CardTitle>
@@ -85,7 +73,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 to configure common stuff between all SSG-based pages and reduce code duplication.
               </p>
 
-              <p>
+              <div>
                 There are currently 3 different usage options for SSG:
 
                 <ul
@@ -103,7 +91,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                     <ExternalLink href={'https://nextjs.org/blog/next-9-4#incremental-static-regeneration-beta'}>Using revalidate</ExternalLink> (incremental static regeneration)
                   </li>
                 </ul>
-              </p>
+              </div>
 
               <p>
                 <Button color={'primary'} block>Simple example</Button>
@@ -113,8 +101,8 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
             </CardText>
           </CardBody>
         </Card>
-      </CardDeck>
-    </>
+      </Cards>
+    </DocSection>
   );
 };
 

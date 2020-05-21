@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
@@ -103,12 +102,6 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: CustomerContext = React.useContext(customerContext);
   const { theme: { primaryColor } } = customer;
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering ${fileLabel}`,
-    level: Sentry.Severity.Debug,
-  });
 
   return (
     <DefaultLayout

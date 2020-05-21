@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticProps, NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
@@ -93,12 +92,6 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
       content = <En404 />;
       break;
   }
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering ${fileLabel}`,
-    level: Sentry.Severity.Warning, // Use warning
-  });
 
   // We can display a custom message based on the lang, but the other parts of the app won't be translated (nav, footer)
   // Also, it has to be hardcoded, it cannot be stored on Locize, because we don't have access to translations from other languages

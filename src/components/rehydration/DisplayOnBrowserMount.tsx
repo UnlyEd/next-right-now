@@ -2,7 +2,7 @@ import some from 'lodash.some';
 import React, { DependencyList, useState } from 'react';
 
 type Props = {
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactNode;
   deps?: DependencyList;
 };
 

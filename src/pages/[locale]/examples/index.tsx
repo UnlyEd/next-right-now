@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { Amplitude } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
+import BuiltInFeaturesSection from '../../../components/doc/BuiltInFeaturesSection';
 import IntroductionSection from '../../../components/doc/IntroductionSection';
 import NativeFeaturesSection from '../../../components/doc/NativeFeaturesSection';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
@@ -50,12 +50,6 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const HomePage: NextPage<Props> = (props): JSX.Element => {
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering ${fileLabel}`,
-    level: Sentry.Severity.Debug,
-  });
-
   return (
     <DefaultLayout
       {...props}
@@ -74,6 +68,7 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
                 />
 
                 <NativeFeaturesSection />
+                <BuiltInFeaturesSection />
               </>
               //   <div>
               //

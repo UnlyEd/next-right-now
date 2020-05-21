@@ -11,6 +11,7 @@ import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
+import Sentry from '../../utils/monitoring/sentry';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
@@ -40,6 +41,12 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     headProps = {},
     pageName,
   } = props;
+
+  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+    category: fileLabel,
+    message: `Rendering ${fileLabel} for page ${pageName}`,
+    level: Sentry.Severity.Debug,
+  });
 
   return (
     <Amplitude

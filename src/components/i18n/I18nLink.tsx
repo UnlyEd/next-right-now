@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { I18nRoute, resolveI18nRoute } from '../../utils/app/router';
 
 type Props = {
-  children: React.ReactElement | string;
+  children: ReactNode;
   href: string;
   as?: string;
   replace?: boolean;

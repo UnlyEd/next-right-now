@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import { GetServerSideProps, NextPage } from 'next';
@@ -41,12 +40,6 @@ type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps
 
 const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
   const { customer } = props;
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering ${fileLabel}`,
-    level: Sentry.Severity.Debug,
-  });
 
   return (
     <DefaultLayout
