@@ -133,6 +133,23 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Icons</h3></CardTitle>
+            <CardSubtitle>&ldquo;Using Font-Awesome&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://fontawesome.com/icons'}>
+                  <Button color={'link'}>See all available FA icons</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/icons'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );
