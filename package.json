@@ -36,12 +36,12 @@
     "doc:gem:install": "cd docs/ && bundle install",
     "lint": "esw src/ -w --ext .ts --ext .tsx",
     "lint:once": "eslint src/ --ext .ts --ext .tsx",
-    "lint:fix": "eslint src/ --ext .ts --ext .tsx --fix",
+    "lint:fix": "eslint src/ --ext .ts --ext .tsx --cache --fix",
     "lint:fix:preview": "eslint src/ --ext .ts --ext .tsx --fix-dry-run",
     "tsclint": "npx tsc --noEmit --skipLibCheck",
     "prettier:base": "npx prettier --parser typescript",
     "prettier:fix": "yarn prettier:base --write \"./**/*.{ts,tsx,js}\" --ignore-path .gitignore",
-    "format": "yarn tsclint && yarn eslint:fix && yarn prettier:write",
+    "format": "yarn tsclint && yarn lint:fix && yarn prettier:fix",
     "test": "NODE_ENV=test jest --watchAll",
     "test:once": "NODE_ENV=test jest",
     "test:coverage": "NODE_ENV=test jest --coverage",
@@ -120,6 +120,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "9.4.1",
+    "@nordnet/cz-conventional-changelog": "^1.1.0",
     "@now/node": "1.6.1",
     "@svgr/cli": "5.4.0",
     "@types/amplitude-js": "5.11.0",
@@ -147,6 +148,7 @@
     "@typescript-eslint/eslint-plugin": "2.33.0",
     "@typescript-eslint/parser": "2.33.0",
     "@zeit/next-source-maps": "0.0.4-canary.1",
+    "commitizen": "^4.1.2",
     "concurrently": "5.2.0",
     "cross-env": "7.0.2",
     "cypress": "4.5.0",
@@ -159,8 +161,10 @@
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "4.0.2",
     "eslint-watch": "6.0.1",
+    "husky": ">=4",
     "jest": "26.0.1",
     "jest-extended": "0.11.5",
+    "lint-staged": ">=10",
     "node-mocks-http": "1.8.1",
     "now": "17.1.1",
     "prettier": "2.0.5",
@@ -168,5 +172,18 @@
     "ts-jest": "26.0.0",
     "typescript": "3.9.2",
     "version-bump-prompt": "6.0.3"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "yarn format"
   }
 }
