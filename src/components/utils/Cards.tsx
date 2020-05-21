@@ -19,6 +19,9 @@ const Cards: React.FunctionComponent<Props> = (props): JSX.Element => {
     <CardDeck
       css={css`
         .card {
+          min-width: 30%;
+          margin-top: 10px;
+
           .card-subtitle {
             font-style: italic;
             text-transform: uppercase;

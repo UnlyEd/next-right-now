@@ -116,6 +116,23 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Testing</h3></CardTitle>
+            <CardSubtitle>&ldquo;Unit tests using Jest and E2E tests using Cypress&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/testing.html'}>
+                  <Button color={'link'}>Learn more about the "Testing" concept</Button>
+                </ExternalLink>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/testing/use-cypress.html'}>
+                  <Button color={'link'}>Learn how to use the "Cypress" library (E2E)</Button>
+                </ExternalLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );
