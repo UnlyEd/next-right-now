@@ -76,7 +76,7 @@ rules: # See https://eslint.org/docs/rules
   react-hooks/exhaustive-deps: warn
   react/jsx-no-target-blank: warn # Not using "noreferrer" is not a security risk, but "noopener" should always be used indeed
   react/prop-types: warn # Should be handled with TS instead
-  react/no-unescaped-entities: warn # Causes text mismatch when enabled
+  react/no-unescaped-entities: 0 # Causes text mismatch when enabled
   jsx-a11y/anchor-is-valid: warn
   linebreak-style:
     - error
