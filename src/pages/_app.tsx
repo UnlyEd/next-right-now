@@ -2,7 +2,7 @@ import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
-// import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css - XXX Disabled because not used at the moment (used by Loader/AnimatedLoader)
+import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css
 import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
 import 'rc-tooltip/assets/bootstrap.css';
 import React from 'react';
