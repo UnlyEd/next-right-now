@@ -49,7 +49,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const StaticI18n: NextPage<Props> = (props): JSX.Element => {
+const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
@@ -226,4 +226,4 @@ const StaticI18n: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(StaticI18n);
+export default withApollo()(ExampleAnalyticsPage);

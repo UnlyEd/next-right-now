@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { Jumbotron } from 'reactstrap';
+import { Jumbotron, Alert } from 'reactstrap';
 
 import I18nLink from '../i18n/I18nLink';
+import ExternalLink from '../utils/ExternalLink';
 import Text from '../utils/Text';
 
 type Props = {
@@ -26,38 +27,42 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
       className={'center'}
     >
       <h1>Next Right Now Demo</h1>
-      <h3> This demo uses the preset <code>{process.env.NRN_PRESET}</code></h3>
+      <h3>
+        This demo uses the preset
+        <ExternalLink href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NRN_PRESET}`}>
+          <code>{process.env.NRN_PRESET}</code>
+        </ExternalLink>
+      </h3>
 
-      <a
+      <ExternalLink
         href={'https://unlyed.github.io/next-right-now/concepts/presets'}
-        target={'_blank'} // eslint-disable-line react/jsx-no-target-blank
-        rel={'noopener'}
-        onClick={(): void => {
-          logEvent('open-what-is-preset-doc');
-        }}
+        onClick={(): void => logEvent('open-what-is-preset-doc')}
       >
         What is a preset?
-      </a>
+      </ExternalLink>
       &nbsp;-&nbsp;
-      <a
+      <ExternalLink
         href={'https://unlyed.github.io/next-right-now/getting-started/select-preset'}
-        target={'_blank'} // eslint-disable-line react/jsx-no-target-blank
-        rel={'noopener'}
-        onClick={(): void => {
-          logEvent('open-see-all-presets-doc');
-        }}
+        onClick={(): void => logEvent('open-see-all-presets-doc')}
       >
         See all presets
-      </a>
+      </ExternalLink>
 
       <hr />
 
+      <Alert color={'info'}>
+        Next Right Now (NRN) is a flexible production-grade boilerplate featuring Next.js framework.<br />
+        It can be used as a boilerplate to get started your own project, or as a learning resource.
+      </Alert>
+
       <Text>
         {`
-          The purpose of this demo is to showcase what features are built-in <b>within the selected preset</b>.
+          This demo showcases what features/utilities are built-in <b>within the selected preset</b>.
 
-          Please note that the documentation is <b>hardcoded in English</b>, so don't expect it to change when switching language.
-          Nav/Footer component are localised, as well as dynamic content and i18n examples.
+          <i>
+            Please note that the documentation is <b>hardcoded in English</b>, so don't expect it to change when switching language.
+            Nav/Footer component are localised, as well as dynamic content and i18n examples.
+          </i>
         `}
       </Text>
 

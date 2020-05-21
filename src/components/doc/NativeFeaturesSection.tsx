@@ -9,7 +9,7 @@ import DocSection from './DocSection';
 type Props = {}
 
 /**
- * Documentation section that highlight native Next.js features
+ * Documentation section that showcases native Next.js features
  *
  * @param props
  */
@@ -17,6 +17,11 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
   return (
     <DocSection>
       <h2>Next.js native features</h2>
+
+      <Alert color={'info'}>
+        Only a small subset of Next.js features (rendering modes, mostly) is covered here.<br />
+        Make sure to check <ExternalLink href={'https://nextjs.org/docs/getting-started'}>the official documentation</ExternalLink> to learn more about it (routing, etc.)
+      </Alert>
 
       <Cards>
         <Card>

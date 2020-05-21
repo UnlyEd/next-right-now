@@ -10,7 +10,7 @@ import DocSection from './DocSection';
 type Props = {}
 
 /**
- * Documentation section that highlight native Next.js features
+ * Documentation section that showcases features that are built-in into NRN
  *
  * @param props
  */

@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
 import DocPage from '../../../components/doc/DocPage';
+import I18nLink from '../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../components/utils/Code';
 import withApollo from '../../../hocs/withApollo';
@@ -15,7 +15,7 @@ import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPagePr
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/docs/icons';
+const fileLabel = 'pages/[locale]/docs/i18nLink-component';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -49,80 +49,54 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ExampleIconsPage: NextPage<Props> = (props): JSX.Element => {
+const ExampleI18nLinkComponentPage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
-      pageName={'icons'}
+      pageName={'i18nLink-component'}
       headProps={{
-        title: 'Icons examples - Next Right Now',
+        title: 'I18nLink component examples - Next Right Now',
       }}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Icons using Font-Awesome</h2>
+        <h2 className={'pcolor'}>I18nLink component examples</h2>
 
-        <Alert color={'warning'}>
-          FA provides a free icons set, and paid ones. NRN only comes with the free set.<br />
-          But it is completely possible to use a paid icon set, if you wish so (we do in our Enterprise apps).
+        <Alert color={'info'}>
+          <code>{`<I18nLink />`}</code> component is based on Next.js native <code>{`<Link />`}</code> component.<br />
+          It's an utility that automatically handles localisation and acts as a wrapper for <code>{`<Link />`}</code>. <br />
+          If you'd use the <code>{`<Link />`}</code> component, you'd have to provide which locale is the current locale, and build the link accordingly.<br />
+          That's basically what <code>{`<I18nLink />`}</code> does.
         </Alert>
 
-        <hr />
-
         <p>
-          In order to make FA icons usable in both server-side and client-side, you need to manually import those you want to use in the <code>_app</code> component, as follow:
+          <I18nLink href={'/examples/i18nLink-component'}>
+            This is a link going to the same page (keeps the current locale)
+          </I18nLink><br />
+          <I18nLink href={'/examples/i18nLink-component'} locale={'fr-FR'}>
+            This is a link going to the same page (forces to switch to <code>fr-FR</code> locale)
+          </I18nLink><br />
+          <I18nLink href={'/examples/i18nLink-component'} locale={'en-US'}>
+            This is a link going to the same page (forces to switch to <code>en-US</code> locale)
+          </I18nLink><br />
         </p>
 
         <Code
           text={`
-            import { config, library } from '@fortawesome/fontawesome-svg-core';
-            import '@fortawesome/fontawesome-svg-core/styles.css';
-
-            // Import your icons, and then add them to the libary
-            import { faGithub } from '@fortawesome/free-brands-svg-icons';
-            import { faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
-
-            // See https://github.com/FortAwesome/react-fontawesome#integrating-with-other-tools-and-frameworks
-            config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-            library.add(
-              faGithub,
-              faBook, faBookReader, faCoffee, faHome, faUserCog,
-            );
+            <I18nLink href={'/examples/i18nLink-component'}>
+              This is a link going to the same page (keeps the current locale)
+            </I18nLink>
+            <I18nLink href={'/examples/i18nLink-component'} locale={'fr-FR'}>
+              This is a link going to the same page (forces to switch to <code>fr-FR</code> locale)
+            </I18nLink>
+            <I18nLink href={'/examples/i18nLink-component'} locale={'en-US'}>
+              This is a link going to the same page (forces to switch to <code>en-US</code> locale)
+            </I18nLink>
           `}
         />
-
-        <hr />
-
-        <p>
-          You can then use FA icons like this:<br />
-          <br />
-          <FontAwesomeIcon icon={['fab', 'github']} />
-          <br />
-          <FontAwesomeIcon icon={['fas', 'home']} />
-        </p>
-
-        <p>
-          Using the below code:
-        </p>
-
-        <Code
-          text={`
-            <FontAwesomeIcon icon={['fab', 'github']} /> // fab stands for FontAwesome "Brand"
-            <FontAwesomeIcon icon={['fas', 'home']} /> // fas stands for FontAwesome "Solid"
-          `}
-        />
-
-        <br />
-
-        <Alert color={'success'}>
-          TypeScript support will guide you when writing{' '}
-          <code>
-            {`<FontAwesomeIcon icon={['fab', 'github']} />`}
-          </code>, by telling you if the icon is valid.
-        </Alert>
 
       </DocPage>
     </DefaultLayout>
   );
 };
 
-export default withApollo()(ExampleIconsPage);
+export default withApollo()(ExampleI18nLinkComponentPage);

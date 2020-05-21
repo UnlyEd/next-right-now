@@ -6,6 +6,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import BuiltInFeaturesSection from '../../../components/doc/BuiltInFeaturesSection';
+import BuiltInUtilitiesSection from '../../../components/doc/BuiltInUtilitiesSection';
 import IntroductionSection from '../../../components/doc/IntroductionSection';
 import NativeFeaturesSection from '../../../components/doc/NativeFeaturesSection';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
@@ -50,7 +51,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const HomePage: NextPage<Props> = (props): JSX.Element => {
+const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
@@ -70,6 +71,7 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
 
                 <NativeFeaturesSection />
                 <BuiltInFeaturesSection />
+                <BuiltInUtilitiesSection />
                 <ExternalFeaturesSection />
               </>
               //   <div>
@@ -194,4 +196,4 @@ const HomePage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(HomePage);
+export default withApollo()(ExampleHomePage);

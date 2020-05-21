@@ -9,7 +9,7 @@ import DocSection from './DocSection';
 type Props = {}
 
 /**
- * Documentation section that highlight features that aren't directly related to NRN
+ * Documentation section that showcases features that aren't directly related to NRN
  *
  * @param props
  */
@@ -19,7 +19,7 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
       <h2>External features</h2>
 
       <Alert color={'info'}>
-        This section showcase features that <b>aren't built-in</b> within NRN.
+        This section showcases features that <b>aren't built-in</b> within NRN.
       </Alert>
 
       <Cards>
