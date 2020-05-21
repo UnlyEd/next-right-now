@@ -62,9 +62,12 @@ const StaticI18n: NextPage<Props> = (props): JSX.Element => {
 
         <Alert color={'warning'}>
           Fetching APIs works slightly differently depending on whether you use SSG or SSR.<br />
+          <br />
           When you're using SSG, all queries are executed from the server side, during build generation, on your computer or your CI server.<br />
-          When using SSR, queries are executed on the fly, from the client or from the server depending on how the page is served (CSR vs SSR).
-          Therefore, you need to be careful about tokens and other credentials you might use. And you also need to consider performances (e.g: running all queries at once)<br />
+          When using SSR, queries are executed on the fly, from the client or from the server depending on how the page is served (CSR vs SSR).<br />
+          <br />
+          Therefore, you need to be careful about tokens and other <b>credentials</b> you might use.
+          And you also need to consider performances (e.g: running all queries at once)<br />
           <br />
           The below examples will focus on SSG, because that's what we recommend to use. But know that you may use both.<br />
           Also, you might want to run GraphQL queries from the browser even when using SSG, it's also possible but we don't provide such example at this time.
@@ -79,9 +82,11 @@ const StaticI18n: NextPage<Props> = (props): JSX.Element => {
               displayName: 'LAYOUT_QUERY', // Naming queries makes debugging easier
               query: LAYOUT_QUERY, // This is our actual GQL query (see /gql folder)
               variables,
-              context: {
+              context: { // Per-request context override/overload
                 headers: {
-                  'gcms-locale': gcmsLocales, // This is how we handle "Dynamic i18n", by only fetching content for this language
+                  // This is how we handle "Dynamic i18n", by only fetching content for one language
+                  // With languages fallback if content isn't available (e.g: ['FR', 'DE', 'EN']
+                  'gcms-locale': gcmsLocales,
                 },
               },
             };
@@ -120,21 +125,22 @@ const StaticI18n: NextPage<Props> = (props): JSX.Element => {
             export const LAYOUT_QUERY = gql\`
               query LAYOUT_QUERY($customerRef: String!){
                 customer(where: {
-                  ref: $customerRef,
-                }){
+                  ref: $customerRef, // Use the variables that were provided to the GQL query
+                }){ // Fields that are being fetched
                   id
                   label
                   theme {
-                    ...themeFields
+                    ...themeFields // This uses a GQL fragment (code reusability)
                   }
                 }
               }
-              \${theme.themeFields}
+              \${theme.themeFields} // Fragment(s) import
             \`;
           `}
         />
+
         <p>
-          Note that it uses the <code>theme.themeFields</code> fragment.
+          All our pages fetch some data from GraphCMS, because we need those in shared components (i.e: Footer, Nav)
         </p>
 
       </DocPage>

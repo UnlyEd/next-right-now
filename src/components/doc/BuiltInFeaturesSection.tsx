@@ -29,6 +29,9 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/i18n.html'}>
                   <Button color={'link'}>Learn more about the "i18n" concept</Button>
                 </ExternalLink>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/i18n/use-locize.html'}>
+                  <Button color={'link'}>Learn how to use the "Locize" vendor</Button>
+                </ExternalLink>
                 <I18nLink href={'/examples/static-i18n'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
@@ -45,6 +48,9 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/monitoring.html'}>
                   <Button color={'link'}>Learn more about the "Monitoring" concept</Button>
+                </ExternalLink>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/monitoring/use-sentry.html'}>
+                  <Button color={'link'}>Learn how to use the "Sentry" vendor</Button>
                 </ExternalLink>
                 <I18nLink href={'/examples/monitoring'}>
                   <Button color={'link'}>See usage examples</Button>
@@ -67,6 +73,23 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Button color={'link'}>Learn how to use the "GraphCMS" vendor</Button>
                 </ExternalLink>
                 <I18nLink href={'/examples/graphql'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>CSS-in-JS</h3></CardTitle>
+            <CardSubtitle>&ldquo;Styling components with Emotion&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/css-in-js/use-emotion.html'}>
+                  <Button color={'link'}>Learn how to use the "Emotion" library</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/css-in-js'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>

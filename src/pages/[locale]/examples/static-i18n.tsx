@@ -88,9 +88,8 @@ const StaticI18n: NextPage<Props> = (props): JSX.Element => {
             <ExternalLink href={'https://github.com/i18next/react-i18next'}><code>react-i18next</code> package</ExternalLink>: What we actually use in NRN, mostly throught the <code>t</code> and <code>Trans</code> component.
           </li>
           <li>
-            <ExternalLink href={'https://locize.com/'}>Locize vendor packages (paid)</ExternalLink>: Vendor meant to help with static content localisation. <ExternalLink
-            href={'https://unlyed.github.io/next-right-now/guides/i18n/use-locize.html'}
-          >Read our "How to use" and learn more about what benefits it brings</ExternalLink>
+            <ExternalLink href={'https://locize.com/'}>Locize vendor packages (paid)</ExternalLink>: Vendor meant to help with static content localisation.
+            <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/i18n/use-locize.html'}>Read our "How to use" and learn more about what benefits it brings</ExternalLink>
           </li>
         </ul>
 

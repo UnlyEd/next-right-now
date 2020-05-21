@@ -83,20 +83,17 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 >
                   <li>
                     <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation'}>Static app</ExternalLink> (without any option)
+                    {' - '}<Button color={'link'}>See example</Button>
                   </li>
                   <li>
                     <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required'}>Using fallback</ExternalLink> (on-the-fly static builds)
+                    {' - '}<Button color={'link'}>See example</Button>
                   </li>
                   <li>
                     <ExternalLink href={'https://nextjs.org/blog/next-9-4#incremental-static-regeneration-beta'}>Using revalidate</ExternalLink> (incremental static regeneration)
+                    {' - '}<Button color={'link'}>See example</Button>
                   </li>
                 </ul>
-              </div>
-
-              <div className={'buttons'}>
-                <Button color={'link'}>Simple example</Button>
-                <Button color={'link'}>Example with fallback</Button>
-                <Button color={'link'}>Example with revalidate</Button>
               </div>
             </CardText>
           </CardBody>
