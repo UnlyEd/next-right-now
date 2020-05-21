@@ -96,6 +96,26 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Analytics</h3></CardTitle>
+            <CardSubtitle>&ldquo;Analytics using Amplitude vendor&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/analytics.html'}>
+                  <Button color={'link'}>Learn more about the "Analytics" concept</Button>
+                </ExternalLink>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/analytics/use-amplitude.html'}>
+                  <Button color={'link'}>Learn how to use the "Amplitude" vendor</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/analytics'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );

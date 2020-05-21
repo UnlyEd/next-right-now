@@ -53,12 +53,12 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
     const amplitude = require('amplitude-js'); // eslint-disable-line @typescript-eslint/no-var-requires
     const amplitudeInstance: AmplitudeClient = amplitude.getInstance();
 
-    // https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
+    // See https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
     amplitudeInstance.init(process.env.AMPLITUDE_API_KEY, null, {
       userId,
       logLevel: process.env.APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
       includeGclid: true,
-      includeReferrer: true, // https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
+      includeReferrer: true, // See https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
       includeUtm: true,
       // @ts-ignore XXX onError should be allowed, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/42005
       onError: (error): void => {
@@ -73,20 +73,17 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
     if (amplitudeInstance.isNewSession()) {
       // Store whether the visitor originally came from an iframe (and from where)
       const visitor: Identify = new amplitudeInstance.Identify();
-      // XXX See https://github.com/amplitude/Amplitude-JavaScript/issues/223
+      // XXX Learn more about "setOnce" at https://github.com/amplitude/Amplitude-JavaScript/issues/223
       visitor.setOnce('initial_lang', lang); // DA Helps figuring out if the initial language (auto-detected) is changed afterwards
       visitor.setOnce('initial_locale', locale);
       // DA This will help track down the users who discovered our platform because of an iframe
-      // @ts-ignore See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/43598
       visitor.setOnce('initial_iframe', isInIframe);
       visitor.setOnce('initial_iframeReferrer', iframeReferrer);
 
-      // XXX We must set all other "must-have" properties here (instead of below, as userProperties), because react-amplitude will send the next "page-displayed" event BEFORE sending the $identify event
-      //  Thus, it'd store the first event with an associated user who has not defined "customer.ref", "lang", etc... and that'd break our stats (following events would be correct, only the first event of a new user would be wrong)
+      // XXX We set all "must-have" properties here (instead of doing it in the "AmplitudeProvider", as userProperties), because react-amplitude will send the next "page-displayed" event BEFORE sending the $identify event
       visitor.setOnce('customer.ref', customerRef);
       visitor.setOnce('lang', lang);
       visitor.setOnce('locale', locale);
-      // @ts-ignore See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/43598
       visitor.setOnce('iframe', isInIframe);
       visitor.setOnce('iframeReferrer', iframeReferrer);
 

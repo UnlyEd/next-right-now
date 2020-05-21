@@ -62,11 +62,11 @@ const StaticI18n: NextPage<Props> = (props): JSX.Element => {
         <h2 className={'pcolor'}>CSS-in-JS using Emotion library</h2>
 
         <Alert color={'info'}>
-          Emotion allows to use both the <code>styled component</code> and JSX-like ways of writing your CSS styles.<br />
-          <br />
           A lot of research has been done to select the most robust css-in-js library, and we eventually chose
           <ExternalLink href={'https://emotion.sh/docs/introduction'} suffix={null}>Emotion</ExternalLink>.<br />
           After more than a year working with it at a production-grade level, we haven't noticed any drawbacks.
+          <br />
+          Emotion allows to use both the <code>styled component</code> and JSX-like ways of writing your CSS styles, as showcased below.<br />
         </Alert>
 
         <Alert color={'warning'}>
