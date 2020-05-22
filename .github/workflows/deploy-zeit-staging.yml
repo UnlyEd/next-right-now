@@ -30,6 +30,13 @@ jobs:
     needs: setup-environment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: chrnorm/deployment-action@releases/v1
+        name: "Create GitHub deployment for staging"
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          target_urls: https://vercel.com/dashboard # Sadly, we don't know the deployment url at this time
+          environment: staging
       - name: Deploying on Zeit
         # Workflow:
         #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, what we are looking for)
@@ -67,7 +74,7 @@ jobs:
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
       - name: Update deployment status (success) # On success, it sets the good deployment url and the state as a success
         if: success()
-        uses: chrnorm/deployment-status@releases/v1w
+        uses: chrnorm/deployment-status@releases/v1
         with:
           token: "${{ github.token }}"
           target_url: "${{ env.ZEIT_DEPLOYMENT_URL }}"
