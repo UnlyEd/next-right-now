@@ -30,6 +30,13 @@ jobs:
     needs: setup-environment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: chrnorm/deployment-action@releases/v1
+          name: Create GitHub deployment
+          id: deployment
+          with:
+            token: "${{ github.token }}"
+            target_url: http://test_url.net
+            environment: staging
       - name: Deploying on Zeit
         # Workflow:
         #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, what we are looking for)
@@ -65,6 +72,23 @@ jobs:
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: ${{ env.ZEIT_DEPLOYMENT_URL }}
+          state: "success"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@releases/v1
+        with:
+          token: "${{ github.token }}"
+          target_url: ${{ env.ZEIT_DEPLOYMENT_URL }}
+          state: "failure"
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
