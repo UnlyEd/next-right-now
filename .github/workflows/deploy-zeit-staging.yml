@@ -35,7 +35,7 @@ jobs:
         id: deployment
         with:
           token: "${{ github.token }}"
-          target_url: http://test_url.net
+          target_urls: https://vercel.com/dashboard # Sadly, we don't know the deployment url at this time
           environment: staging
       - name: Deploying on Zeit
         # Workflow:
@@ -72,15 +72,15 @@ jobs:
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
-      - name: Update deployment status (success)
+      - name: Update deployment status (success) # On success, it sets the good deployment url and the state as a success
         if: success()
-        uses: chrnorm/deployment-status@releases/v1
+        uses: chrnorm/deployment-status@releases/v1w
         with:
           token: "${{ github.token }}"
           target_url: "${{ env.ZEIT_DEPLOYMENT_URL }}"
           state: "success"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-      - name: Update deployment status (failure)
+      - name: Update deployment status (failure) # On failure, it sets a deployment url and the state as a failure
         if: failure()
         uses: chrnorm/deployment-status@releases/v1
         with:
