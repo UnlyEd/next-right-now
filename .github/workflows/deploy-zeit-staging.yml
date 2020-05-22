@@ -31,12 +31,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - uses: chrnorm/deployment-action@releases/v1
-          name: "Create GitHub deployment for staging"
-          id: deployment
-          with:
-            token: "${{ github.token }}"
-            target_url: http://test_url.net
-            environment: staging
+        name: "Create GitHub deployment for staging"
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: http://test_url.net
+          environment: staging
       - name: Deploying on Zeit
         # Workflow:
         #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, what we are looking for)
