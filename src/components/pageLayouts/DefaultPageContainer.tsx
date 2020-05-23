@@ -35,9 +35,9 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
   const headingTopOffset = 50;
   const spacingAroundContainers = 20;
   const containerCss = css`
-      margin-top: ${headingTopOffset}px;
-      margin-bottom: ${headingTopOffset}px;
-    `;
+    margin-top: ${headingTopOffset}px;
+    margin-bottom: ${headingTopOffset}px;
+  `;
 
   if (typeof Sidebar === 'undefined') {
     return (
