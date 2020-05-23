@@ -61,7 +61,7 @@ const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Animations using Font-Awesome</h2>
+        <h2 className={'pcolor'}>CSS animations examples, using Animate.css</h2>
 
         <p>
           We decided to use <ExternalLink href={'https://animate.style/'}>animate.css</ExternalLink> because it's very easy to get started with,

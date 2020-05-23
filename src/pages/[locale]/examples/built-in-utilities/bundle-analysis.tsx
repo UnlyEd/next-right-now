@@ -14,7 +14,7 @@ import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPag
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/examples/built-in-utilities/analyse-bundle';
+const fileLabel = 'pages/[locale]/examples/built-in-utilities/bundle-analysis';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -52,7 +52,7 @@ const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
-      pageName={'analyse-bundle'}
+      pageName={'bundle-analysis'}
       headProps={{
         title: 'Bundle analysis examples - Next Right Now',
       }}

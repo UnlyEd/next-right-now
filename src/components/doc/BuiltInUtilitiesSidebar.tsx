@@ -1,7 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import map from 'lodash.map';
+import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
-import { Nav, NavItem } from 'reactstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import { SidebarLink } from '../../types/SidebarLink';
+import { isActive } from '../../utils/app/router';
 import I18nLink from '../i18n/I18nLink';
 import { SidebarProps } from '../pageLayouts/DefaultLayout';
 import SidebarFooter from './SidebarFooter';
@@ -17,6 +21,42 @@ type Props = SidebarProps;
  */
 const BuiltInUtilitiesSidebar: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { className } = props;
+  const router: NextRouter = useRouter();
+
+  const links: SidebarLink[] = [
+    {
+      href: '/examples/built-in-utilities/i18nLink-component',
+      label: '<code>I18nLink</code> component',
+    },
+    {
+      href: '/examples/built-in-utilities/hooks',
+      label: 'Hooks',
+    },
+    {
+      href: '/examples/built-in-utilities/hocs',
+      label: 'HOCs',
+    },
+    {
+      href: '/examples/built-in-utilities/api',
+      label: 'API',
+    },
+    {
+      href: '/examples/built-in-utilities/errors-handling',
+      label: 'Errors handling',
+    },
+    {
+      href: '/examples/built-in-utilities/bundle-analysis',
+      label: 'Bundle analysis',
+    },
+    {
+      href: '/examples/built-in-utilities/svg-to-react',
+      label: 'SVG to React',
+    },
+    {
+      href: '/examples/built-in-utilities/security-audit',
+      label: 'Security audit',
+    },
+  ];
 
   return (
     <div
@@ -27,33 +67,21 @@ const BuiltInUtilitiesSidebar: React.FunctionComponent<Props> = (props): JSX.Ele
       <Nav
         vertical
       >
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/i18nLink-component'}><code>I18nLink</code> component</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/hooks'}>Hooks</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/hocs'}>HOCs</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/api'}>API</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/errors-handling'}>Errors handling</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/analyse-bundle'}>Bundle analysis</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/svg-to-react'}>SVG to React</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/security-audit'}>Security audit</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-utilities/packages-upgrade'}>Packages upgrade</I18nLink>
-        </NavItem>
+        {
+          map(links, (link: SidebarLink) => {
+            const { label, href } = link;
+
+            return (
+              <NavItem key={href}>
+                <I18nLink href={href} wrapChildrenAsLink={false}>
+                  <NavLink active={router.pathname.replace('/[locale]', '') === href}>
+                    {label}
+                  </NavLink>
+                </I18nLink>
+              </NavItem>
+            );
+          })
+        }
       </Nav>
 
       <hr />

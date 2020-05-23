@@ -96,7 +96,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Know how big your bundle is&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/built-in-utilities/analyse-bundle'}>
+                <I18nLink href={'/examples/built-in-utilities/bundle-analysis'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>

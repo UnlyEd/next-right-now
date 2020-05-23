@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import classnames from 'classnames';
+import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { Container } from 'reactstrap';
 import SidebarToggle from '../doc/SidebarToggle';
@@ -30,6 +31,7 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
     setIsSidebarOpen,
     Sidebar,
   } = props;
+  const { primaryColor } = useTheme();
 
   const sidebarWidth = 300;
   const headingTopOffset = 50;
@@ -100,6 +102,16 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
             > .sidebar-container {
               position: fixed; // Sidebar follows scroll
               z-index: 1;
+            }
+          }
+
+          .sidebar {
+            .nav-link {
+              color: black !important;
+
+              &.active {
+                color: ${primaryColor} !important;
+              }
             }
           }
         `}

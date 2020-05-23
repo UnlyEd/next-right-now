@@ -1,7 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import map from 'lodash.map';
+import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
-import { Nav, NavItem } from 'reactstrap';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+import { SidebarLink } from '../../types/SidebarLink';
 import I18nLink from '../i18n/I18nLink';
 import { SidebarProps } from '../pageLayouts/DefaultLayout';
 import SidebarFooter from './SidebarFooter';
@@ -17,6 +20,42 @@ type Props = SidebarProps;
  */
 const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { className } = props;
+  const router: NextRouter = useRouter();
+
+  const links: SidebarLink[] = [
+    {
+      href: '/examples/built-in-features/static-i18n',
+      label: 'Static i18n',
+    },
+    {
+      href: '/examples/built-in-features/monitoring',
+      label: 'Monitoring',
+    },
+    {
+      href: '/examples/built-in-features/graphql',
+      label: 'GraphQL',
+    },
+    {
+      href: '/examples/built-in-features/css-in-js',
+      label: 'CSS-in-JS',
+    },
+    {
+      href: '/examples/built-in-features/analytics',
+      label: 'Analytics',
+    },
+    {
+      href: '/examples/built-in-features/icons',
+      label: 'Icons',
+    },
+    {
+      href: '/examples/built-in-features/animations',
+      label: 'CSS Animations',
+    },
+    {
+      href: '/examples/built-in-features/ui-components',
+      label: 'UI components library',
+    },
+  ];
 
   return (
     <div
@@ -27,30 +66,21 @@ const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Elem
       <Nav
         vertical
       >
-        <NavItem>
-          <I18nLink href={'/examples/built-in-features/static-i18n'}>Static i18n</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-features/monitoring'}>Monitoring</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-features/graphql'}>GraphQL</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-features/css-in-js'}>CSS-in-JS</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-features/analytics'}>Analytics</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-features/icons'}>Icons</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-features/animations'}>CSS Animations</I18nLink>
-        </NavItem>
-        <NavItem>
-          <I18nLink href={'/examples/built-in-features/ui-components'}>UI components library</I18nLink>
-        </NavItem>
+        {
+          map(links, (link: SidebarLink) => {
+            const { label, href } = link;
+
+            return (
+              <NavItem key={href}>
+                <I18nLink href={href} wrapChildrenAsLink={false}>
+                  <NavLink active={router.pathname.replace('/[locale]', '') === href}>
+                    {label}
+                  </NavLink>
+                </I18nLink>
+              </NavItem>
+            );
+          })
+        }
       </Nav>
 
       <hr />

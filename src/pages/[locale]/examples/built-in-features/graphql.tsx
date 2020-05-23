@@ -60,7 +60,7 @@ const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>GraphQL using GraphCMS vendor</h2>
+        <h2 className={'pcolor'}>GraphQL examples, using GraphCMS vendor</h2>
 
         <Alert color={'warning'}>
           Fetching APIs works slightly differently depending on whether you use SSG or SSR.<br />

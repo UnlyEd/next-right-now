@@ -62,7 +62,7 @@ const ExampleUIComponentsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>UI components using Reactstrap and Bootstrap</h2>
+        <h2 className={'pcolor'}>UI components examples, using Reactstrap and Bootstrap</h2>
 
         <Alert color={'info'}>
           <ExternalLink href={'https://reactstrap.github.io/'}>Reactstrap</ExternalLink>

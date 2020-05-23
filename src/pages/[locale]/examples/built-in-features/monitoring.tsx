@@ -60,7 +60,7 @@ const ExampleMonitoringPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Monitoring using Sentry</h2>
+        <h2 className={'pcolor'}>Monitoring examples, using Sentry</h2>
 
         <Alert color={'info'}>
           Monitoring works universally, both on the browser and the server.<br />
