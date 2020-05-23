@@ -5,6 +5,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert, Button } from 'reactstrap';
+import BuiltInFeaturesSidebar from '../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../components/doc/DocPage';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../components/utils/Code';
@@ -58,6 +59,7 @@ const ExampleUIComponentsPage: NextPage<Props> = (props): JSX.Element => {
       headProps={{
         title: 'UI components examples - Next Right Now',
       }}
+      Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
         <h2 className={'pcolor'}>UI components using Reactstrap and Bootstrap</h2>

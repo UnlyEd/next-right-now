@@ -4,6 +4,7 @@ import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
+import BuiltInFeaturesSidebar from '../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../components/doc/DocPage';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
 import AnimatedLoader from '../../../components/svg/AnimatedLoader';
@@ -57,6 +58,7 @@ const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
       headProps={{
         title: 'Animations examples - Next Right Now',
       }}
+      Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
         <h2 className={'pcolor'}>Animations using Font-Awesome</h2>

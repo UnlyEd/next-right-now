@@ -3,15 +3,16 @@ import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import { Container } from 'reactstrap';
 import ErrorPage from '../../pages/_error';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
+import Sentry from '../../utils/monitoring/sentry';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
-import Sentry from '../../utils/monitoring/sentry';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
@@ -21,6 +22,7 @@ const logger = createLogger({
 type Props = {
   headProps: HeadProps;
   pageName: string;
+  Sidebar?: React.FunctionComponent;
 } & SoftPageProps;
 
 /**
@@ -40,13 +42,127 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     isInIframe = false, // Won't be defined server-side
     headProps = {},
     pageName,
+    Sidebar,
   } = props;
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // Todo make default value depend on viewport size
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel} for page ${pageName}`,
     level: Sentry.Severity.Debug,
   });
+
+  const SidebarToggle: React.FunctionComponent = (): JSX.Element => {
+    return (
+      <div
+        role={'button'}
+        tabIndex={0}
+        onClick={(): void => setIsSidebarOpen(!isSidebarOpen)}
+        onKeyPress={(): void => setIsSidebarOpen(!isSidebarOpen)}
+        css={css`
+          .close-sidebar {
+            position: absolute;
+            padding: 10px;
+            right: 10px;
+            top: 10px;
+          }
+
+          .open-sidebar {
+            padding: 10px;
+            background-color: white;
+          }
+        `}
+      >
+        {
+          isSidebarOpen ? (
+            <div className={'close-sidebar'}>
+              <FontAwesomeIcon icon={['far', 'times-circle']} />
+            </div>
+          ) : (
+            <div className={'open-sidebar'}>
+              <FontAwesomeIcon icon={['fas', 'arrow-circle-right']} />
+            </div>
+          )
+        }
+      </div>
+    );
+  };
+
+  const PageContainer: React.FunctionComponent = (): JSX.Element => {
+    const sidebarWidth = 300;
+    const headingTopOffset = 50;
+    const spacingAroundContainers = 20;
+    const containerCss = css`
+      margin-top: ${headingTopOffset}px;
+      margin-bottom: ${headingTopOffset}px;
+    `;
+
+    if (typeof Sidebar === 'undefined') {
+      return (
+        <Container
+          className={'page-container'}
+          css={containerCss}
+        >
+          {children}
+        </Container>
+      );
+
+    } else {
+      return (
+        <div
+          className={classnames('page-container', isSidebarOpen ? 'sidebar-is-open' : 'sidebar-is-close')}
+          css={css`
+            ${containerCss};
+            position: relative;
+
+            &.sidebar-is-open {
+              > .sidebar-container {
+                position: fixed; // Sidebar follows scroll
+                z-index: 1;
+                width: ${sidebarWidth}px;
+                padding-top: ${headingTopOffset}px;
+                padding-bottom: calc(${headingTopOffset}px + 20px);
+                padding-left: ${spacingAroundContainers}px;
+                padding-right: ${spacingAroundContainers}px;
+                background-color: white;
+                border-radius: 5px;
+              }
+
+              > .content-container {
+                width: calc(100vw - ${spacingAroundContainers}px * 2 - ${sidebarWidth}px);
+                margin-left: calc(${spacingAroundContainers}px + ${sidebarWidth}px);
+                margin-right: ${spacingAroundContainers}px;
+              }
+            }
+
+            &.sidebar-is-close {
+              > .sidebar-container {
+                position: fixed; // Sidebar follows scroll
+                z-index: 1;
+              }
+            }
+          `}
+        >
+          <div className={classnames('sidebar-container')}>
+            {
+              isSidebarOpen ? (
+                <>
+                  <SidebarToggle />
+                  <Sidebar />
+                </>
+              ) : (
+                <SidebarToggle />
+              )
+            }
+          </div>
+
+          <div className={classnames('content-container')}>
+            {children}
+          </div>
+        </div>
+      );
+    }
+  };
 
   return (
     <Amplitude
@@ -74,7 +190,7 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       }
 
       <div
-        className={classnames('page-container', isInIframe ? 'is-iframe' : 'is-not-iframe')}
+        className={classnames('page-wrapper', isInIframe ? 'is-in-iframe' : 'not-in-iframe')}
       >
         {
           // If an error happened, we display it instead of displaying the page
@@ -90,14 +206,7 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
               />
             </ErrorPage>
           ) : (
-            <Container
-              css={css`
-                margin-top: 50px;
-                margin-bottom: 50px;
-              `}
-            >
-              {children}
-            </Container>
+            <PageContainer />
           )
         }
       </div>

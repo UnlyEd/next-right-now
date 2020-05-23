@@ -16,6 +16,7 @@ import { StaticParams } from '../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
+import BuiltInFeaturesSidebar from '../../../components/doc/BuiltInFeaturesSidebar';
 
 const fileLabel = 'pages/[locale]/examples/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -61,6 +62,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
       headProps={{
         title: 'Static i18n examples - Next Right Now',
       }}
+      Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
         <h2 className={'pcolor'}>I18n universal examples <small>(using Locize 3rd party vendor)</small></h2>
