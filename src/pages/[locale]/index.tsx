@@ -4,7 +4,7 @@ import React from 'react';
 
 import { StaticParams } from '../../types/nextjs/StaticParams';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import DocsHomePage, { getStaticPaths as getStaticPathsHomePage, getStaticProps as getStaticPropsHomePage } from './examples/index';
+import DocsHomePage, { getStaticPaths as getStaticPathsHomePage, getStaticProps as getStaticPropsHomePage } from './examples/';
 
 /*
   XXX This page is an "alias", it basically imports the whole /examples/index page and export it back

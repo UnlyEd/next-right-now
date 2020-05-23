@@ -63,7 +63,7 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
               z-index: 1;
               width: ${sidebarWidth}px;
               padding-top: ${headingTopOffset}px;
-              padding-bottom: calc(${headingTopOffset}px + 20px);
+              padding-bottom: 20px;
               padding-left: ${spacingAroundContainers}px;
               padding-right: ${spacingAroundContainers}px;
               background-color: white;

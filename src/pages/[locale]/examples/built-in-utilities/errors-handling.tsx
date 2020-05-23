@@ -5,18 +5,19 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import DocPage from '../../../components/doc/DocPage';
-import I18nLink from '../../../components/i18n/I18nLink';
-import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../components/utils/Code';
-import ExternalLink from '../../../components/utils/ExternalLink';
-import withApollo from '../../../hocs/withApollo';
-import { StaticParams } from '../../../types/nextjs/StaticParams';
-import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
+import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
+import DocPage from '../../../../components/doc/DocPage';
+import I18nLink from '../../../../components/i18n/I18nLink';
+import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
+import Code from '../../../../components/utils/Code';
+import ExternalLink from '../../../../components/utils/ExternalLink';
+import withApollo from '../../../../hocs/withApollo';
+import { StaticParams } from '../../../../types/nextjs/StaticParams';
+import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/examples/errors-handling';
+const fileLabel = 'pages/[locale]/examples/built-in-utilities/errors-handling';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -58,6 +59,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
       headProps={{
         title: 'Errors handling examples - Next Right Now',
       }}
+      Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
         <h2 className={'pcolor'}>Errors handling examples</h2>

@@ -91,6 +91,7 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
 
           .page-container {
             background-color: #f5f5f5;
+            min-height: 400px; // Avoids sidebar to display on top of the footer low height pages
 
             @media (max-width: 991.98px) {
               min-height: 300px;

@@ -4,16 +4,17 @@ import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import DocPage from '../../../components/doc/DocPage';
-import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../components/utils/Code';
-import withApollo from '../../../hocs/withApollo';
-import { StaticParams } from '../../../types/nextjs/StaticParams';
-import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
+import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
+import DocPage from '../../../../components/doc/DocPage';
+import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
+import Code from '../../../../components/utils/Code';
+import withApollo from '../../../../hocs/withApollo';
+import { StaticParams } from '../../../../types/nextjs/StaticParams';
+import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/examples/analyse-bundle';
+const fileLabel = 'pages/[locale]/examples/built-in-utilities/analyse-bundle';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -55,6 +56,7 @@ const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
       headProps={{
         title: 'Bundle analysis examples - Next Right Now',
       }}
+      Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
         <h2 className={'pcolor'}>Bundle analysis examples</h2>

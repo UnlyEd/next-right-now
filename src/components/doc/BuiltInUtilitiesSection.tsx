@@ -26,7 +26,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Help manage i18n links with breeze&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/i18nLink-component'}>
+                <I18nLink href={'/examples/built-in-utilities/i18nLink-component'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -40,7 +40,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Helpful hooks&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/hooks'}>
+                <I18nLink href={'/examples/built-in-utilities/hooks'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -54,7 +54,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Helpful high order components&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/hocs'}>
+                <I18nLink href={'/examples/built-in-utilities/hocs'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -68,7 +68,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;API endpoints&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/api'}>
+                <I18nLink href={'/examples/built-in-utilities/api'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -82,7 +82,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Properly handling errors, to provide good UX and system observability&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/errors-handling'}>
+                <I18nLink href={'/examples/built-in-utilities/errors-handling'}>
                   <Button color={'link'}>See how errors are handled</Button>
                 </I18nLink>
               </div>
@@ -96,7 +96,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Know how big your bundle is&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/analyse-bundle'}>
+                <I18nLink href={'/examples/built-in-utilities/analyse-bundle'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -110,7 +110,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Convert your SVGs to React components using SVGR&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/svg-to-react'}>
+                <I18nLink href={'/examples/built-in-utilities/svg-to-react'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -124,7 +124,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Run packages security audit using yarn&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/security-audit'}>
+                <I18nLink href={'/examples/built-in-utilities/security-audit'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -138,7 +138,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardSubtitle>&ldquo;Visually upgrade your packages, with confidence&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <I18nLink href={'/examples/packages-upgrade'}>
+                <I18nLink href={'/examples/built-in-utilities/packages-upgrade'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>

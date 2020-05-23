@@ -32,7 +32,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/i18n/use-locize.html'}>
                   <Button color={'link'}>Learn how to use the "Locize" vendor</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/static-i18n'}>
+                <I18nLink href={'/examples/built-in-features/static-i18n'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -52,7 +52,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/monitoring/use-sentry.html'}>
                   <Button color={'link'}>Learn how to use the "Sentry" vendor</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/monitoring'}>
+                <I18nLink href={'/examples/built-in-features/monitoring'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -72,7 +72,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/graphql-api/use-graphcms.html'}>
                   <Button color={'link'}>Learn how to use the "GraphCMS" vendor</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/graphql'}>
+                <I18nLink href={'/examples/built-in-features/graphql'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -89,7 +89,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/css-in-js/use-emotion.html'}>
                   <Button color={'link'}>Learn how to use the "Emotion" library</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/css-in-js'}>
+                <I18nLink href={'/examples/built-in-features/css-in-js'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -109,7 +109,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/analytics/use-amplitude.html'}>
                   <Button color={'link'}>Learn how to use the "Amplitude" vendor</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/analytics'}>
+                <I18nLink href={'/examples/built-in-features/analytics'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -143,7 +143,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://fontawesome.com/icons'}>
                   <Button color={'link'}>See all available FA icons</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/icons'}>
+                <I18nLink href={'/examples/built-in-features/icons'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -160,7 +160,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://animate.style/'}>
                   <Button color={'link'}>See all available animations</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/animations'}>
+                <I18nLink href={'/examples/built-in-features/animations'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -177,7 +177,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://reactstrap.github.io/components'}>
                   <Button color={'link'}>See all available Reactstrap components</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/ui-components'}>
+                <I18nLink href={'/examples/built-in-features/ui-components'}>
                   <Button color={'link'}>See components examples</Button>
                 </I18nLink>
               </div>

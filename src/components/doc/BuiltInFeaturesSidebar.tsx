@@ -28,35 +28,35 @@ const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Elem
         vertical
       >
         <NavItem>
-          <I18nLink href={'/examples/static-i18n'}>Static i18n</I18nLink>
+          <I18nLink href={'/examples/built-in-features/static-i18n'}>Static i18n</I18nLink>
         </NavItem>
         <NavItem>
-          <I18nLink href={'/examples/monitoring'}>Monitoring</I18nLink>
+          <I18nLink href={'/examples/built-in-features/monitoring'}>Monitoring</I18nLink>
         </NavItem>
         <NavItem>
-          <I18nLink href={'/examples/graphql'}>GraphQL</I18nLink>
+          <I18nLink href={'/examples/built-in-features/graphql'}>GraphQL</I18nLink>
         </NavItem>
         <NavItem>
-          <I18nLink href={'/examples/css-in-js'}>CSS-in-JS</I18nLink>
+          <I18nLink href={'/examples/built-in-features/css-in-js'}>CSS-in-JS</I18nLink>
         </NavItem>
         <NavItem>
-          <I18nLink href={'/examples/analytics'}>Analytics</I18nLink>
+          <I18nLink href={'/examples/built-in-features/analytics'}>Analytics</I18nLink>
         </NavItem>
         <NavItem>
-          <I18nLink href={'/examples/icons'}>Icons</I18nLink>
+          <I18nLink href={'/examples/built-in-features/icons'}>Icons</I18nLink>
         </NavItem>
         <NavItem>
-          <I18nLink href={'/examples/animations'}>CSS Animations</I18nLink>
+          <I18nLink href={'/examples/built-in-features/animations'}>CSS Animations</I18nLink>
         </NavItem>
         <NavItem>
-          <I18nLink href={'/examples/ui-components'}>UI components library</I18nLink>
+          <I18nLink href={'/examples/built-in-features/ui-components'}>UI components library</I18nLink>
         </NavItem>
       </Nav>
 
       <hr />
 
       <SidebarFooter
-        nextSectionHref={'/examples/i18nLink-component'}
+        nextSectionHref={'/examples/built-in-utilities/i18nLink-component'}
       />
     </div>
   );
