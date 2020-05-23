@@ -11,51 +11,51 @@ import SidebarFooter from './SidebarFooter';
 
 type Props = SidebarProps;
 
+export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
+  {
+    href: '/examples/built-in-features/static-i18n',
+    label: 'Static i18n',
+  },
+  {
+    href: '/examples/built-in-features/monitoring',
+    label: 'Monitoring',
+  },
+  {
+    href: '/examples/built-in-features/graphql',
+    label: 'GraphQL',
+  },
+  {
+    href: '/examples/built-in-features/css-in-js',
+    label: 'CSS-in-JS',
+  },
+  {
+    href: '/examples/built-in-features/analytics',
+    label: 'Analytics',
+  },
+  {
+    href: '/examples/built-in-features/icons',
+    label: 'Icons',
+  },
+  {
+    href: '/examples/built-in-features/animations',
+    label: 'CSS Animations',
+  },
+  {
+    href: '/examples/built-in-features/ui-components',
+    label: 'UI components library',
+  },
+];
+
 /**
  * Sidebar meant to be used on all pages related to the "Built-in features" section
  *
- * Display all links towards pages related to this section
+ * Display all BUILT_IN_FEATURES_SIDEBAR_LINKS towards pages related to this section
  *
  * @param props
  */
 const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { className } = props;
   const router: NextRouter = useRouter();
-
-  const links: SidebarLink[] = [
-    {
-      href: '/examples/built-in-features/static-i18n',
-      label: 'Static i18n',
-    },
-    {
-      href: '/examples/built-in-features/monitoring',
-      label: 'Monitoring',
-    },
-    {
-      href: '/examples/built-in-features/graphql',
-      label: 'GraphQL',
-    },
-    {
-      href: '/examples/built-in-features/css-in-js',
-      label: 'CSS-in-JS',
-    },
-    {
-      href: '/examples/built-in-features/analytics',
-      label: 'Analytics',
-    },
-    {
-      href: '/examples/built-in-features/icons',
-      label: 'Icons',
-    },
-    {
-      href: '/examples/built-in-features/animations',
-      label: 'CSS Animations',
-    },
-    {
-      href: '/examples/built-in-features/ui-components',
-      label: 'UI components library',
-    },
-  ];
 
   return (
     <div
@@ -67,7 +67,7 @@ const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Elem
         vertical
       >
         {
-          map(links, (link: SidebarLink) => {
+          map(BUILT_IN_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
             const { label, href } = link;
 
             return (
