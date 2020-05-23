@@ -61,7 +61,7 @@ const BuiltInUtilitiesSidebar: React.FunctionComponent<Props> = (props): JSX.Ele
     <div
       className={className}
     >
-      <h2>Built-in features</h2>
+      <h2>Built-in utilities</h2>
 
       <Nav
         vertical
