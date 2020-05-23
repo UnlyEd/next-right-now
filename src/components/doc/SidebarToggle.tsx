@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import React from 'react';
-import Text from '../utils/Text';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 
 type Props = {
   isSidebarOpen: boolean;
@@ -10,7 +9,9 @@ type Props = {
 }
 
 /**
- * This component is a template meant to be duplicated to quickly get started with new React components.
+ * Sidebar toggle "button"
+ *
+ * Toggles between open/close states
  *
  * @param props
  */
@@ -27,18 +28,18 @@ const SidebarToggle: React.FunctionComponent<Props> = (props): JSX.Element => {
       onClick={(): void => setIsSidebarOpen(!isSidebarOpen)}
       onKeyPress={(): void => setIsSidebarOpen(!isSidebarOpen)}
       css={css`
-          .close-sidebar {
-            position: absolute;
-            padding: 10px;
-            right: 10px;
-            top: 10px;
-          }
+        .close-sidebar {
+          position: absolute;
+          padding: 10px;
+          right: 10px;
+          top: 10px;
+        }
 
-          .open-sidebar {
-            padding: 10px;
-            background-color: white;
-          }
-        `}
+        .open-sidebar {
+          padding: 10px;
+          background-color: white;
+        }
+      `}
     >
       {
         isSidebarOpen ? (

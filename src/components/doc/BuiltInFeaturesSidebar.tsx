@@ -3,17 +3,22 @@ import { css, jsx } from '@emotion/core';
 import React from 'react';
 import { Nav, NavItem } from 'reactstrap';
 import I18nLink from '../i18n/I18nLink';
+import { SidebarProps } from '../pageLayouts/DefaultLayout';
 
-type Props = {}
+type Props = SidebarProps;
 
 /**
+ * Sidebar meant to be used on all pages related to the "Built-in features" section
  *
+ * Display all links towards pages related to this section
  *
  * @param props
  */
 const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Element => {
+  const { className } = props;
+
   return (
-    <>
+    <div className={className}>
       <h2>Built-in features</h2>
 
       <Nav
@@ -47,7 +52,7 @@ const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Elem
           <I18nLink href={'/examples/ui-components'}>UI components library</I18nLink>
         </NavItem>
       </Nav>
-    </>
+    </div>
   );
 };
 

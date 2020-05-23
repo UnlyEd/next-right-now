@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import React, { useState } from 'react';
-import { Container } from 'reactstrap';
 import ErrorPage from '../../pages/_error';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
 import Sentry from '../../utils/monitoring/sentry';
@@ -12,27 +11,32 @@ import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SidebarToggle from './SidebarToggle';
+import DefaultPageContainer from './DefaultPageContainer';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
   label: fileLabel,
 });
 
+export type SidebarProps = {
+  className: string;
+}
+
 type Props = {
+  children: React.ReactNode;
   headProps: HeadProps;
   pageName: string;
-  Sidebar?: React.FunctionComponent;
+  Sidebar?: React.FunctionComponent<SidebarProps>;
 } & SoftPageProps;
 
 /**
- * The layout handle the positioning of elements within the page
+ * Handles the positioning of top-level elements within the page
  *
- * This Layout component adds a Nav/Footer component, and the Page component in between
- * Also, it automatically track page views (Amplitude)
- *
- * It also handle errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
+ * It does the following:
+ *  - Adds a Nav/Footer component, and the dynamic Next.js "Page" component in between
+ *  - Optionally, it can also display a left sidebar (i.e: used within examples sections)
+ *  - Automatically track page views (Amplitude)
+ *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
  *
  * @param props
  */
@@ -52,88 +56,6 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     message: `Rendering ${fileLabel} for page ${pageName}`,
     level: Sentry.Severity.Debug,
   });
-
-  const PageContainer: React.FunctionComponent = (): JSX.Element => {
-    const sidebarWidth = 300;
-    const headingTopOffset = 50;
-    const spacingAroundContainers = 20;
-    const containerCss = css`
-      margin-top: ${headingTopOffset}px;
-      margin-bottom: ${headingTopOffset}px;
-    `;
-
-    if (typeof Sidebar === 'undefined') {
-      return (
-        <Container
-          className={'page-container'}
-          css={containerCss}
-        >
-          {children}
-        </Container>
-      );
-
-    } else {
-      return (
-        <div
-          className={classnames('page-container', isSidebarOpen ? 'sidebar-is-open' : 'sidebar-is-close')}
-          css={css`
-            ${containerCss};
-            position: relative;
-
-            &.sidebar-is-open {
-              > .sidebar-container {
-                position: fixed; // Sidebar follows scroll
-                z-index: 1;
-                width: ${sidebarWidth}px;
-                padding-top: ${headingTopOffset}px;
-                padding-bottom: calc(${headingTopOffset}px + 20px);
-                padding-left: ${spacingAroundContainers}px;
-                padding-right: ${spacingAroundContainers}px;
-                background-color: white;
-                border-radius: 5px;
-              }
-
-              > .content-container {
-                width: calc(100vw - ${spacingAroundContainers}px * 2 - ${sidebarWidth}px);
-                margin-left: calc(${spacingAroundContainers}px + ${sidebarWidth}px);
-                margin-right: ${spacingAroundContainers}px;
-              }
-            }
-
-            &.sidebar-is-close {
-              > .sidebar-container {
-                position: fixed; // Sidebar follows scroll
-                z-index: 1;
-              }
-            }
-          `}
-        >
-          <div className={classnames('sidebar-container')}>
-            {
-              isSidebarOpen ? (
-                <>
-                  <SidebarToggle
-                    isSidebarOpen={isSidebarOpen}
-                    setIsSidebarOpen={setIsSidebarOpen}
-                  />
-                  <Sidebar />
-                </>
-              ) : (
-                <SidebarToggle
-                  isSidebarOpen={isSidebarOpen}
-                  setIsSidebarOpen={setIsSidebarOpen}
-                />
-              )
-            }
-          </div>
-
-          <div className={classnames('content-container')}>
-            {children}
-          </div>
-        </div>
-      );
-    }
-  };
 
   return (
     <Amplitude
@@ -177,7 +99,13 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
               />
             </ErrorPage>
           ) : (
-            <PageContainer />
+            <DefaultPageContainer
+              isSidebarOpen={isSidebarOpen}
+              setIsSidebarOpen={setIsSidebarOpen}
+              Sidebar={Sidebar}
+            >
+              {children}
+            </DefaultPageContainer>
           )
         }
       </div>
