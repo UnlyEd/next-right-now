@@ -15,7 +15,7 @@ import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPagePr
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/docs/i18nLink-component';
+const fileLabel = 'pages/[locale]/examples/i18nLink-component';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

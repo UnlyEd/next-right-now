@@ -17,7 +17,7 @@ import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
 import ExternalFeaturesSection from '../../../components/doc/ExternalFeaturesSection';
 
-const fileLabel = 'pages/[locale]/docs/index';
+const fileLabel = 'pages/[locale]/examples/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

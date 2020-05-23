@@ -6,16 +6,14 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import DocPage from '../../../components/doc/DocPage';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
-import AnimatedLoader from '../../../components/svg/AnimatedLoader';
 import Code from '../../../components/utils/Code';
-import ExternalLink from '../../../components/utils/ExternalLink';
 import withApollo from '../../../hocs/withApollo';
 import { StaticParams } from '../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/examples/animations';
+const fileLabel = 'pages/[locale]/examples/analyse-bundle';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -49,54 +47,26 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
+const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
-      pageName={'animations'}
+      pageName={'analyse-bundle'}
       headProps={{
-        title: 'Animations examples - Next Right Now',
+        title: 'Bundle analysis examples - Next Right Now',
       }}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Animations using Font-Awesome</h2>
+        <h2 className={'pcolor'}>Bundle analysis examples</h2>
 
         <p>
-          We decided to use <ExternalLink href={'https://animate.style/'}>animate.css</ExternalLink> because it's very easy to get started with,
-          <ExternalLink href={'https://bundlephobia.com/result?p=animate.css@4.1.0'}>and very lightweight</ExternalLink> too.
+          You're most likely concerned about how big your client-side bundle is, because it'll impact your end-users experience.<br />
+          NRN provides a utility script, which will start the development server locally and open 2 browser tabs automatically.<br />
+          One for the front-end bundle, and one for the back-end.
         </p>
 
-        <AnimatedLoader />
-        <br />
-        <br />
-
         <Code
-          text={`
-            const AnimatedLoader = props => {
-              return (
-                <svg
-                  viewBox="0 0 200 200"
-                  style={{
-                    width: '6%',
-                    minWidth: 150,
-                  }}
-                  {...props}
-                >
-                  <circle
-                    cx={100.112}
-                    cy={139.165}
-                    r={11.27}
-                    fill={'#0028FF'}
-                    // Look at the animate.css classes below, that's what performs the animation
-                    className={'animate__animated animate__bounce animate__infinite animate__slower'}
-                   />
-                  <path d="M100.885 189.549c-21.767 0-40.771-17.789-40.771-38.12v-43.313h20.883v43.423c0 8.839 9.613 17.237 19.778 17.237 9.834 0 18.342-8.066 18.342-17.237v-43.423H140v43.423c.11 20.552-17.9 38.01-39.115 38.01z" />
-                </svg>
-              );
-            };
-
-            <AnimatedLoader />
-          `}
+          text={`yarn next:bundle`}
         />
 
       </DocPage>
@@ -104,4 +74,4 @@ const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ExampleAnimationPage);
+export default withApollo()(AnalyseBundlePage);

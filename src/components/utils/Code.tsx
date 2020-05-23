@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import React from 'react';
 import { CodeBlock, dracula } from 'react-code-blocks';
 
@@ -27,7 +27,6 @@ const Code: React.FunctionComponent<Props> = (props): JSX.Element => {
       showLineNumbers={true}
       theme={dracula}
       wrapLines
-      style={{ textAlign: 'left' }}
     />
   );
 };

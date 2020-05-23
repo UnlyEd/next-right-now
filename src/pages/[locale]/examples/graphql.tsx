@@ -14,7 +14,7 @@ import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPagePr
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/docs/graphql';
+const fileLabel = 'pages/[locale]/examples/graphql';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

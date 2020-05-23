@@ -6,7 +6,8 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import DocPage from '../../../components/doc/DocPage';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
-import AnimatedLoader from '../../../components/svg/AnimatedLoader';
+import EnglishFlag from '../../../components/svg/EnglishFlag';
+import FrenchFlag from '../../../components/svg/FrenchFlag';
 import Code from '../../../components/utils/Code';
 import ExternalLink from '../../../components/utils/ExternalLink';
 import withApollo from '../../../hocs/withApollo';
@@ -14,8 +15,9 @@ import { StaticParams } from '../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
+import { Alert } from 'reactstrap';
 
-const fileLabel = 'pages/[locale]/examples/animations';
+const fileLabel = 'pages/[locale]/examples/svg-to-react';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -49,59 +51,49 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
+const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
-      pageName={'animations'}
+      pageName={'svg-to-react'}
       headProps={{
-        title: 'Animations examples - Next Right Now',
+        title: 'Bundle analysis examples - Next Right Now',
       }}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Animations using Font-Awesome</h2>
+        <h2 className={'pcolor'}>SVG to react component examples</h2>
 
         <p>
-          We decided to use <ExternalLink href={'https://animate.style/'}>animate.css</ExternalLink> because it's very easy to get started with,
-          <ExternalLink href={'https://bundlephobia.com/result?p=animate.css@4.1.0'}>and very lightweight</ExternalLink> too.
+          If you use SVGs, you may want to easily convert those as React components so that they're easier to work with (custom props, dynamic colors/size, etc.).<br />
+          That's what we did with the country flags:<br />
+          <FrenchFlag />
+          <EnglishFlag />
+          <br />
+          It'd be very easy to update those components to add some additional capabilities, such as resizing them through props, because they're React components.
         </p>
 
-        <AnimatedLoader />
-        <br />
-        <br />
+        <p>
+          Usually, our designer make SVGs on their own, and then they send them to us developers, and we have to integrate them within our app.<br />
+          That can be tricky and a tiresome process. We use the awesome
+          <ExternalLink href={'https://github.com/gregberge/svgr'}>SVGR</ExternalLink> library, which basically converts our SVG into React components.
+        </p>
 
         <Code
-          text={`
-            const AnimatedLoader = props => {
-              return (
-                <svg
-                  viewBox="0 0 200 200"
-                  style={{
-                    width: '6%',
-                    minWidth: 150,
-                  }}
-                  {...props}
-                >
-                  <circle
-                    cx={100.112}
-                    cy={139.165}
-                    r={11.27}
-                    fill={'#0028FF'}
-                    // Look at the animate.css classes below, that's what performs the animation
-                    className={'animate__animated animate__bounce animate__infinite animate__slower'}
-                   />
-                  <path d="M100.885 189.549c-21.767 0-40.771-17.789-40.771-38.12v-43.313h20.883v43.423c0 8.839 9.613 17.237 19.778 17.237 9.834 0 18.342-8.066 18.342-17.237v-43.423H140v43.423c.11 20.552-17.9 38.01-39.115 38.01z" />
-                </svg>
-              );
-            };
-
-            <AnimatedLoader />
-          `}
+          text={`yarn svg`}
         />
+        <br />
+
+        <Alert color={'info'}>
+          Running this script will convert all <code>.svg</code> files in the <code>src/svg</code> folder.<br />
+          Only SVGs are git tracked within this folder, because the generated React components are supposed to be temporary there.<br />
+          They're meant to be copied/moved into the <code>src/components</code> folder once they'eve been generated, and to be used/customised from there.<br />
+          <br />
+          Personally, we like to move them to <code>src/components/svg</code>, but feel free to do as you like.
+        </Alert>
 
       </DocPage>
     </DefaultLayout>
   );
 };
 
-export default withApollo()(ExampleAnimationPage);
+export default withApollo()(SvgToReactPage);

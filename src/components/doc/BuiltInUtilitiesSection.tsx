@@ -37,10 +37,24 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
         <Card>
           <CardBody>
             <CardTitle><h3>Hooks</h3></CardTitle>
-            <CardSubtitle>&ldquo;Help manage i18n links with breeze&rdquo;</CardSubtitle>
+            <CardSubtitle>&ldquo;Helpful hooks&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/hooks'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>HOCs</h3></CardTitle>
+            <CardSubtitle>&ldquo;Helpful high order components&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/hocs'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>
@@ -61,6 +75,77 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Errors handling</h3></CardTitle>
+            <CardSubtitle>&ldquo;Properly handling errors, to provide good UX and system observability&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/errors-handling'}>
+                  <Button color={'link'}>See how errors are handled</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Bundle analysis</h3></CardTitle>
+            <CardSubtitle>&ldquo;Know how big your bundle is&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/analyse-bundle'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>SVG to React</h3></CardTitle>
+            <CardSubtitle>&ldquo;Convert your SVGs to React components using SVGR&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/svg-to-react'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Security audit</h3></CardTitle>
+            <CardSubtitle>&ldquo;Run packages security audit using yarn&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/security-audit'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Packages upgrade</h3></CardTitle>
+            <CardSubtitle>&ldquo;Visually upgrade your packages, with confidence&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/packages-upgrade'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
       </Cards>
     </DocSection>
   );

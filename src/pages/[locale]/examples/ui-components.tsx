@@ -16,7 +16,7 @@ import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../utils/nextjs/SSG';
 import Tooltip from '../../../components/utils/Tooltip';
 
-const fileLabel = 'pages/[locale]/docs/ui-components';
+const fileLabel = 'pages/[locale]/examples/ui-components';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
