@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import map from 'lodash.map';
+import kebabCase from 'lodash.kebabcase';
 import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -144,7 +145,7 @@ const Nav: React.FunctionComponent<Props> = () => {
 
             <NavItem>
               <UncontrolledDropdown>
-                <DropdownToggle tag={'span'} className={classnames({ active: isActive(router, 'examples') })} caret>
+                <DropdownToggle id={'nav-link-examples'} tag={'span'} className={classnames({ active: isActive(router, 'examples') })} caret>
                   <FontAwesomeIcon icon={['fas', 'book-reader']} />
                   {t('nav.examplesPage.link', 'Exemples')}
                 </DropdownToggle>
@@ -164,7 +165,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                       return (
                         <DropdownItem tag={'span'} key={href}>
                           <I18nLink href={href} wrapChildrenAsLink={false}>
-                            <NavLink active={router.pathname.replace('/[locale]', '') === href}>
+                            <NavLink id={`nav-link-examples-${kebabCase(label)}`} active={router.pathname.replace('/[locale]', '') === href}>
                               {label}
                             </NavLink>
                           </I18nLink>
