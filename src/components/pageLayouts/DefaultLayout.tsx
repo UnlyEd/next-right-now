@@ -13,6 +13,7 @@ import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SidebarToggle from './SidebarToggle';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
@@ -51,42 +52,6 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     message: `Rendering ${fileLabel} for page ${pageName}`,
     level: Sentry.Severity.Debug,
   });
-
-  const SidebarToggle: React.FunctionComponent = (): JSX.Element => {
-    return (
-      <div
-        role={'button'}
-        tabIndex={0}
-        onClick={(): void => setIsSidebarOpen(!isSidebarOpen)}
-        onKeyPress={(): void => setIsSidebarOpen(!isSidebarOpen)}
-        css={css`
-          .close-sidebar {
-            position: absolute;
-            padding: 10px;
-            right: 10px;
-            top: 10px;
-          }
-
-          .open-sidebar {
-            padding: 10px;
-            background-color: white;
-          }
-        `}
-      >
-        {
-          isSidebarOpen ? (
-            <div className={'close-sidebar'}>
-              <FontAwesomeIcon icon={['far', 'times-circle']} />
-            </div>
-          ) : (
-            <div className={'open-sidebar'}>
-              <FontAwesomeIcon icon={['fas', 'arrow-circle-right']} />
-            </div>
-          )
-        }
-      </div>
-    );
-  };
 
   const PageContainer: React.FunctionComponent = (): JSX.Element => {
     const sidebarWidth = 300;
@@ -147,11 +112,17 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
             {
               isSidebarOpen ? (
                 <>
-                  <SidebarToggle />
+                  <SidebarToggle
+                    isSidebarOpen={isSidebarOpen}
+                    setIsSidebarOpen={setIsSidebarOpen}
+                  />
                   <Sidebar />
                 </>
               ) : (
-                <SidebarToggle />
+                <SidebarToggle
+                  isSidebarOpen={isSidebarOpen}
+                  setIsSidebarOpen={setIsSidebarOpen}
+                />
               )
             }
           </div>
