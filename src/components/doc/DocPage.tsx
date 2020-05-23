@@ -23,6 +23,13 @@ const DocPage: React.FunctionComponent<Props> = (props): JSX.Element => {
         border-radius: 5px;
         margin: 50px;
         padding: 50px;
+
+        @media (max-width: 991.98px) {
+          margin-left: 0;
+          margin-right: 0;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
       `}
     >
       {children}

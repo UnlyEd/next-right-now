@@ -57,6 +57,12 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
           ${containerCss};
           position: relative;
 
+          // Display sidebar below page content on mobile
+          @media (max-width: 991.98px) {
+            display: flex;
+            flex-direction: column-reverse;
+          }
+
           &.sidebar-is-open {
             > .sidebar-container {
               position: fixed; // Sidebar follows scroll
@@ -68,12 +74,25 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
               padding-right: ${spacingAroundContainers}px;
               background-color: white;
               border-radius: 5px;
+
+              // Display sidebar below page content on mobile
+              @media (max-width: 991.98px) {
+                position: relative;
+                width: 100vw;
+              }
             }
 
             > .content-container {
               width: calc(100vw - ${spacingAroundContainers}px * 2 - ${sidebarWidth}px);
               margin-left: calc(${spacingAroundContainers}px + ${sidebarWidth}px);
               margin-right: ${spacingAroundContainers}px;
+
+              // Display sidebar below page content on mobile
+              @media (max-width: 991.98px) {
+                position: relative;
+                width: 100vw;
+                margin-left: 0; // Reset offset
+              }
             }
           }
 
