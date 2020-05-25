@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { Jumbotron, Alert } from 'reactstrap';
+import { Alert, Jumbotron } from 'reactstrap';
 
 import I18nLink from '../i18n/I18nLink';
 import ExternalLink from '../utils/ExternalLink';
@@ -55,18 +55,20 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
         It can be used as a boilerplate to get started your own project, or as a learning resource.
       </Alert>
 
-      <Text>
-        {`
-          This demo showcases what features/utilities are built-in <b>within the selected preset</b>.
+      <p>
+        General documentation about NRN is available at
+        <ExternalLink href={'https://unlyed.github.io/next-right-now/'} suffix={null}>https://unlyed.github.io/next-right-now/</ExternalLink>.<br />
+        The role of this demo is to showcase what's built-in <b>within the selected preset only</b>.<br />
+      </p>
 
-          <i>
-            Please note that the documentation is <b>hardcoded in English</b>, so don't expect it to change when switching language.
-            Nav/Footer component are localised, as well as dynamic content and i18n examples.
-          </i>
-        `}
-      </Text>
+      <Alert color={'warning'}>
+        Please note that the documentation is <b>hardcoded in English</b>, so don't expect it to change when switching language.
+        Nav/Footer component are localised, as well as dynamic content and i18n examples.<br />
+        <br />
+        You can switch locale from the footer or by clicking on{' '}
+        <I18nLink href={`/`} locale={'fr-FR'}>fr-FR</I18nLink> or <I18nLink href={`/`} locale={'en-US'}>en-US</I18nLink>.
+      </Alert>
 
-      You can switch locale from the footer or by clicking on <I18nLink href={`/`} locale={'fr-FR'}>fr-FR</I18nLink> or <I18nLink href={`/`} locale={'en-US'}>en-US</I18nLink>.
     </Jumbotron>
   );
 };

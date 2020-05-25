@@ -135,12 +135,12 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
             <CardSubtitle>&ldquo;Step-by-step tutorial for beginners&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <Alert color={'info'}>
-                Quickly learn how the basic concepts of a Next.js app, such as navigation, the different rendering modes, routing, API routes and deploying to Vercel.<br />
+                Quickly learn the basic concepts of a Next.js app, such as navigation, the different rendering modes, routing, API routes and deploying to Vercel.<br />
               </Alert>
 
               <p>
                 We strongly recommend doing this tutorial if you're not familiar with Next.js, it'll help you get an overview of what the framework can help you achieve.<br />
-                NRN is meant to help you develop faster, but basic Next.js knowledge will be necessary.
+                NRN is meant to help you, but basic Next.js knowledge will be necessary as we don't focus on the basics here but mostly on the difficult/advanced stuff.
               </p>
 
               <p>
