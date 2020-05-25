@@ -2,7 +2,7 @@ import { NowRequest, NowResponse } from '@now/node';
 
 export const mockRequest = (sessionData, body): NowRequest => ({
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
+  // @ts-expect-error
   session: { data: sessionData },
   body,
 });

@@ -25,8 +25,7 @@ const logger = createLogger({
 export const cssToReactStyle = (css: string | object): object => {
   // If object is given, return object (could be react style object mistakenly provided)
   if (isPlainObject(css)) {
-    // @ts-ignore
-    return css;
+    return css as object;
   }
 
   // If falsy, then probably empty string or null, nothing to be done there
