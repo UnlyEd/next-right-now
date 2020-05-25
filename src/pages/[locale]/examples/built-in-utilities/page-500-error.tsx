@@ -46,7 +46,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
+const Page500ErrorPage: NextPage<Props> = (props): JSX.Element => {
   useEffect(() => {
     throw new Error('Page 500 error example');
   }, []);
@@ -65,4 +65,4 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ErrorsHandlingPage);
+export default withApollo()(Page500ErrorPage);

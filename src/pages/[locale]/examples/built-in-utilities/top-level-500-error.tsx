@@ -44,8 +44,9 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
+const TopLevel500ErrorPage: NextPage<Props> = (props): JSX.Element => {
+  // @ts-error XXX TS directive necessary, otherwise build fails on Vercel
   throw new Error('Top level 500 error example');
 };
 
-export default withApollo()(ErrorsHandlingPage);
+export default withApollo()(TopLevel500ErrorPage);
