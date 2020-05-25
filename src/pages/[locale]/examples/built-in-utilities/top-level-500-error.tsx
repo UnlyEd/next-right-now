@@ -1,9 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
+import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
+import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
@@ -45,8 +48,23 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const TopLevel500ErrorPage: NextPage<Props> = (props): JSX.Element => {
-  // @ts-error XXX TS directive necessary, otherwise build fails on Vercel
-  throw new Error('Top level 500 error example');
+  if (isBrowser()) {
+    // Only throw on browser, otherwise it fails when building the app on Vercel and deployment fails altogether
+    throw new Error('Top level 500 error example');
+  }
+
+  return (
+    <DefaultLayout
+      {...props}
+      pageName={'page-500-error'}
+      headProps={{
+        title: 'Top-level 500 error example - Next Right Now',
+      }}
+      Sidebar={BuiltInUtilitiesSidebar}
+    >
+      Top-level 500 error example
+    </DefaultLayout>
+  );
 };
 
 export default withApollo()(TopLevel500ErrorPage);

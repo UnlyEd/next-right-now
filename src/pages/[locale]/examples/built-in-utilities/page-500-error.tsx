@@ -60,7 +60,7 @@ const Page500ErrorPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      Some content
+      Page 500 error example
     </DefaultLayout>
   );
 };
