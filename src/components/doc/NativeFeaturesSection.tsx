@@ -120,11 +120,32 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 This can be overwhelming for TS beginners, even though you shouldn't have anything to configure by yourself, you'll still need to understand the concepts and be aware of the features we use.
               </p>
 
-              <div>
+              <p>
                 We strongly recommend you to take a look at the
                 <ExternalLink href={'https://react-typescript-cheatsheet.netlify.app/docs/basic/setup'} suffix={null}>React TypeScript Cheatsheets</ExternalLink>
                 , which is amazing for both beginners and experienced TS users.<br />
-              </div>
+              </p>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>New to Next.js?</h3></CardTitle>
+            <CardSubtitle>&ldquo;Step-by-step tutorial for beginners&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <Alert color={'info'}>
+                Quickly learn how the basic concepts of a Next.js app, such as navigation, the different rendering modes, routing, API routes and deploying to Vercel.<br />
+              </Alert>
+
+              <p>
+                We strongly recommend doing this tutorial if you're not familiar with Next.js, it'll help you get an overview of what the framework can help you achieve.<br />
+                NRN is meant to help you develop faster, but basic Next.js knowledge will be necessary.
+              </p>
+
+              <p>
+                <ExternalLink href={'https://nextjs.org/learn/basics/create-nextjs-app'} suffix={null}>Go to the tutorial</ExternalLink>.
+              </p>
             </CardText>
           </CardBody>
         </Card>

@@ -13,6 +13,10 @@ type Props = SidebarProps;
 
 export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
   {
+    href: '/examples/built-in-features/hosting',
+    label: 'Hosting on Vercel vendor',
+  },
+  {
     href: '/examples/built-in-features/stages-and-secrets',
     label: 'Stages & secrets',
   },

@@ -20,6 +20,25 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
       <h2>Built-in features</h2>
 
       <Cards>
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Hosting on Vercel vendor</h3></CardTitle>
+            <CardSubtitle>&ldquo;Deploy your app online in a breeze&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://vercel.com/docs'}>
+                  <Button color={'link'}>Learn more about the Vercel cloud platform</Button>
+                </ExternalLink>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/online-deployment/'}>
+                  <Button color={'link'}>Learn how to configure and use Vercel</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/built-in-features/hosting'}>
+                  <Button color={'link'}>Learn why we chose Vercel</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
 
         <Card>
           <CardBody>
