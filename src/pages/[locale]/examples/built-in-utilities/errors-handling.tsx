@@ -149,39 +149,9 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
 
         <hr />
 
-        <h2>500 - Page error using CSR</h2>
+        <h2>500 - Interactive error</h2>
 
-        <Alert color={'info'}>
-          This page throws an error once the Page component has loaded (using <code>useEffect</code>) and should display a 500 page error without anything else (no footer/header).
-        </Alert>
-
-        <Code
-          text={`
-            const Page500ErrorPage: NextPage<Props> = (props): JSX.Element => {
-              return (
-                <DefaultLayout
-                  {...props}
-                  pageName={'page-500-error'}
-                  headProps={{
-                    title: 'Page 500 error example - Next Right Now',
-                  }}
-                  Sidebar={BuiltInUtilitiesSidebar}
-                >
-                  Page 500 error example<br />
-                  <Button onClick={(): void => {
-                    throw new Error('Page 500 error example');
-                  }}>Crash the app</Button>
-                </DefaultLayout>
-              );
-            };
-          `}
-        />
-        <br />
-
-        <p>
-          <I18nLink href={'/examples/built-in-utilities/page-500-error'}>This is a client-side navigation (CSR)</I18nLink><br />
-          <a href={'/examples/built-in-utilities/page-500-error'}>This is a normal navigation</a>
-        </p>
+        <I18nLink href={'/examples/built-in-utilities/interactive-error'}>Go to interactive error page</I18nLink><br />
 
         <br />
 
