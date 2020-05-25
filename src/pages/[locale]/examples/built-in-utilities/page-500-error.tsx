@@ -3,7 +3,8 @@ import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Button } from 'reactstrap';
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../../../hocs/withApollo';
@@ -47,10 +48,6 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const Page500ErrorPage: NextPage<Props> = (props): JSX.Element => {
-  useEffect(() => {
-    throw new Error('Page 500 error example');
-  }, []);
-
   return (
     <DefaultLayout
       {...props}
@@ -60,7 +57,12 @@ const Page500ErrorPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      Page 500 error example
+      Page 500 error example<br />
+      <Button
+        onClick={(): void => {
+          throw new Error('Page 500 error example');
+        }}
+      >Crash the app</Button>
     </DefaultLayout>
   );
 };

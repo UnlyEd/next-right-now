@@ -158,10 +158,6 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
         <Code
           text={`
             const Page500ErrorPage: NextPage<Props> = (props): JSX.Element => {
-              useEffect(() => {
-                throw new Error('Page 500 error example');
-              }, []);
-
               return (
                 <DefaultLayout
                   {...props}
@@ -171,7 +167,10 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
                   }}
                   Sidebar={BuiltInUtilitiesSidebar}
                 >
-                  Page 500 error example
+                  Page 500 error example<br />
+                  <Button onClick={(): void => {
+                    throw new Error('Page 500 error example');
+                  }}>Crash the app</Button>
                 </DefaultLayout>
               );
             };
