@@ -23,7 +23,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
         Make sure to check <ExternalLink href={'https://nextjs.org/docs/getting-started'}>the official documentation</ExternalLink> to learn more about it (routing, etc.)
       </Alert>
 
-      <Cards>
+      <Cards maxCards={2}>
         <Card>
           <CardBody>
             <CardTitle><h3>SSR</h3></CardTitle>

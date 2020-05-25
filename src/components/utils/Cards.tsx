@@ -2,9 +2,11 @@
 import { css, jsx } from '@emotion/core';
 import React, { ReactNode } from 'react';
 import { CardDeck } from 'reactstrap';
+import classnames from 'classnames';
 
 type Props = {
   children: ReactNode;
+  maxCards?: number; // Max cards per row
 }
 
 /**
@@ -13,14 +15,23 @@ type Props = {
  * @param props
  */
 const Cards: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { children } = props;
+  const { children, maxCards = 3 } = props;
 
   return (
     <CardDeck
+      className={classnames(`max-cards-${maxCards}`)}
       css={css`
-        .card {
+        &.max-cards-2 .card {
+          min-width: 47%;
+          max-width: 47%;
+        }
+
+        &.max-cards-3 .card {
           min-width: 30%;
           max-width: 30%;
+        }
+
+        .card {
           margin-top: 10px;
 
           .card-subtitle {
