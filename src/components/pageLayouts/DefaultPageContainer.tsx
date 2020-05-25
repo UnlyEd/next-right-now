@@ -69,6 +69,7 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
             > .sidebar-container {
               position: fixed; // Sidebar follows scroll
               z-index: 1;
+              overflow: auto;
               width: ${sidebarWidth}px;
               padding-top: ${headingTopOffset}px;
               padding-bottom: 20px;
@@ -81,6 +82,14 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
               @media (max-width: 991.98px) {
                 position: relative;
                 width: 100vw;
+              }
+
+              .nav-item {
+                height: 25px;
+
+                &:hover {
+                  opacity: 0.5;
+                }
               }
             }
 

@@ -14,11 +14,15 @@ type Props = SidebarProps;
 export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
   {
     href: '/examples/built-in-features/hosting',
-    label: 'Hosting on Vercel vendor',
+    label: 'Hosting',
   },
   {
     href: '/examples/built-in-features/stages-and-secrets',
     label: 'Stages & secrets',
+  },
+  {
+    href: '/examples/built-in-features/manual-deployments',
+    label: 'CI/CD',
   },
   {
     href: '/examples/built-in-features/static-i18n',
@@ -53,8 +57,8 @@ export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'UI components library',
   },
   {
-    href: '/examples/built-in-features/manual-deployments',
-    label: 'CI/CD',
+    href: '/examples/built-in-features/docs-site',
+    label: 'Docs site',
   },
 ];
 

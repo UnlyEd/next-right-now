@@ -79,6 +79,26 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
 
         <Card>
           <CardBody>
+            <CardTitle><h3>CI/CD</h3></CardTitle>
+            <CardSubtitle>&ldquo;Continuous Integrations and Continuous Deployments made free and easy, using Github Actions&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/ci-cd.html'}>
+                  <Button color={'link'}>Learn more about the "CI/CD" concept</Button>
+                </ExternalLink>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/ci-cd/setup-github-actions.html'}>
+                  <Button color={'link'}>Learn how to setup CI/CD</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/built-in-features/manual-deployments'}>
+                  <Button color={'link'}>See how to bypass automated CI/CD and deploy manually</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
             <CardTitle><h3>Static i18n</h3></CardTitle>
             <CardSubtitle>&ldquo;Content internationalisation using i18next and Locize vendor&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
@@ -244,18 +264,18 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
 
         <Card>
           <CardBody>
-            <CardTitle><h3>CI/CD</h3></CardTitle>
-            <CardSubtitle>&ldquo;Continuous Integrations and Continuous Deployments made free and easy, using Github Actions&rdquo;</CardSubtitle>
+            <CardTitle><h3>Docs site</h3></CardTitle>
+            <CardSubtitle>&ldquo;Dedicated GitHub pages website, using Jekyll&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/ci-cd.html'}>
-                  <Button color={'link'}>Learn more about the "CI/CD" concept</Button>
+                <ExternalLink href={'https://pages.github.com/'}>
+                  <Button color={'link'}>Learn more about "GitHub pages"</Button>
                 </ExternalLink>
-                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/ci-cd/setup-github-actions.html'}>
-                  <Button color={'link'}>Learn how to setup CI/CD</Button>
+                <ExternalLink href={'https://pmarsceill.github.io/just-the-docs/'}>
+                  <Button color={'link'}>Learn more about "just-the-docs" built-in template</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/built-in-features/manual-deployments'}>
-                  <Button color={'link'}>See how to bypass automated CI/CD and deploy manually</Button>
+                <I18nLink href={'/examples/built-in-features/docs-site'}>
+                  <Button color={'link'}>Learn how to use it</Button>
                 </I18nLink>
               </div>
             </CardText>

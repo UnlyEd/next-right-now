@@ -4,7 +4,7 @@ title: Introduction
 nav_order: 10
 ---
 
-# Your docs site
+# My GitHub Pages docs site
 
 Hello! Welcome to your docs site that comes built-in with NRN :smiley:
 
@@ -17,6 +17,11 @@ If you want to look at a more complex example, take a look at the [NRN docs sour
 One small difference though, NRN docs lives at the / folder, because it uses gh-pages, but the built-in docs that comes with a NRN preset are in the `docs/` folder instead.
 
 Using a `gh-pages` or `master` dedicated branch, or using your `master` branch `docs` folder really is up to you, you can choose what option you want on your GitHub Settings pages, in the **GitHub Pages** section.
+
+By default, GitHub won't use your `/docs` folder, until you manually configure it.
+
+> You can definitely leave this folder be for now on, and keep it around for a later use, or remove it altogether.
+> It's completely unrelated to the rest of this boilerplate and won't have any side effect.
 
 ---
 
