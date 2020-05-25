@@ -66,7 +66,7 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
         `}
       </Text>
 
-      You can switch locale from the footer or by on <I18nLink href={`/`} locale={'fr-FR'}>fr-FR</I18nLink> or <I18nLink href={`/`} locale={'en-US'}>en-US</I18nLink>.
+      You can switch locale from the footer or by clicking on <I18nLink href={`/`} locale={'fr-FR'}>fr-FR</I18nLink> or <I18nLink href={`/`} locale={'en-US'}>en-US</I18nLink>.
     </Jumbotron>
   );
 };

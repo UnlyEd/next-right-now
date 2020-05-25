@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
+import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Alert } from 'reactstrap';
 import I18nLink from '../i18n/I18nLink';
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
@@ -55,6 +55,23 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <I18nLink href={'/examples/built-in-features/stages-and-secrets'}>
                   <Button color={'link'}>Learn more about their usage and differences</Button>
                 </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>B2B MST</h3></CardTitle>
+            <CardSubtitle>&ldquo;Multi Single Tenancy for B2B businesses who need it&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <Alert color={'info'}>
+                <code>MST</code> is similar to the <code>monorepo</code> design, where the same source code can be used to deploy multiple instances.
+              </Alert>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/tenancy.html'}>
+                  <Button color={'link'}>Learn more about the "tenancy" concept and what <code>MST</code> means</Button>
+                </ExternalLink>
               </div>
             </CardText>
           </CardBody>
