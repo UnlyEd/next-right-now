@@ -13,6 +13,10 @@ type Props = SidebarProps;
 
 export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
   {
+    href: '/examples/built-in-features/stages-and-secrets',
+    label: 'Stages & secrets',
+  },
+  {
     href: '/examples/built-in-features/static-i18n',
     label: 'Static i18n',
   },

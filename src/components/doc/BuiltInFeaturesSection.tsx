@@ -20,10 +20,31 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
       <h2>Built-in features</h2>
 
       <Cards>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Stages & secrets</h3></CardTitle>
+            <CardSubtitle>&ldquo;How to deal with secrets, using Vercel vendor&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/env-and-stages.html'}>
+                  <Button color={'link'}>Learn more about the "env and stages" concept</Button>
+                </ExternalLink>
+                <ExternalLink href={'https://vercel.com/docs/cli?#commands/secrets'}>
+                  <Button color={'link'}>Learn how to configure Vercel secrets, using the CLI</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/built-in-features/stages-and-secrets'}>
+                  <Button color={'link'}>Learn more about their usage and differences</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
         <Card>
           <CardBody>
             <CardTitle><h3>Static i18n</h3></CardTitle>
-            <CardSubtitle>&ldquo;Internationalisation/Localisation&rdquo;</CardSubtitle>
+            <CardSubtitle>&ldquo;Content internationalisation using i18next and Locize vendor&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/i18n.html'}>
@@ -43,7 +64,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
         <Card>
           <CardBody>
             <CardTitle><h3>Monitoring</h3></CardTitle>
-            <CardSubtitle>&ldquo;Realtime app monitoring using Sentry&rdquo;</CardSubtitle>
+            <CardSubtitle>&ldquo;Realtime app monitoring using Sentry vendor&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/monitoring.html'}>
