@@ -20,6 +20,7 @@ const Cards: React.FunctionComponent<Props> = (props): JSX.Element => {
       css={css`
         .card {
           min-width: 30%;
+          max-width: 30%;
           margin-top: 10px;
 
           .card-subtitle {

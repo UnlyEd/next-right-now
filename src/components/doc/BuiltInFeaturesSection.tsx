@@ -184,6 +184,26 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>CI/CD</h3></CardTitle>
+            <CardSubtitle>&ldquo;Continuous Integrations and Continuous Deployments made free and easy, using Github Actions&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/ci-cd.html'}>
+                  <Button color={'link'}>Learn more about the "CI/CD" concept</Button>
+                </ExternalLink>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/ci-cd/setup-github-actions.html'}>
+                  <Button color={'link'}>Learn how to setup CI/CD</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/built-in-features/manual-deployments'}>
+                  <Button color={'link'}>See how to bypass automated CI/CD and deploy manually</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );

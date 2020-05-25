@@ -44,6 +44,10 @@ export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
     href: '/examples/built-in-features/ui-components',
     label: 'UI components library',
   },
+  {
+    href: '/examples/built-in-features/manual-deployments',
+    label: 'CI/CD',
+  },
 ];
 
 /**
