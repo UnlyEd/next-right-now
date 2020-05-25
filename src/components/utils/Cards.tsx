@@ -22,8 +22,8 @@ const Cards: React.FunctionComponent<Props> = (props): JSX.Element => {
       className={classnames(`max-cards-${maxCards}`)}
       css={css`
         &.max-cards-2 .card {
-          min-width: 47%;
-          max-width: 47%;
+          min-width: 46%;
+          max-width: 46%;
         }
 
         &.max-cards-3 .card {
@@ -33,6 +33,11 @@ const Cards: React.FunctionComponent<Props> = (props): JSX.Element => {
 
         .card {
           margin-top: 10px;
+
+          @media (max-width: 991.98px) {
+            min-width: 100% !important;
+            max-width: 100% !important;
+          }
 
           .card-subtitle {
             font-style: italic;

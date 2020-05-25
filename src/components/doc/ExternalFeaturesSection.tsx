@@ -31,7 +31,7 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
               <Alert color={'info'}>
                 You have the ability to update this demo dynamic content using NRN-Admin.<br />
                 It's basically an admin site (POC/experimental), for managing content, based on
-                <ExternalLink href={'https://github.com/marmelab/react-admin'} suffix={null}><code>react-admin</code></ExternalLink>.
+                <ExternalLink href={'https://github.com/marmelab/react-admin'} suffix={null}><code>react-admin</code></ExternalLink>, built with NRN.
               </Alert>
 
               <div className={'buttons'}>
