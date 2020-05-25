@@ -25,7 +25,13 @@
     "target": "ES2019"
   },
   "exclude": [
-    "node_modules"
+    ".github",
+    ".next",
+    "_site",
+    "coverage",
+    "cypress",
+    "node_modules",
+    "public"
   ],
   "include": [
     "next-env.d.ts",
