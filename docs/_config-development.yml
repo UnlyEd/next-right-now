@@ -1,0 +1,48 @@
+# XXX This file is only used when working on your local machine, in development
+# Checkout https://pages.github.com/versions/ for the list of Github Pages built-in plugins
+
+# XXX --------- Specific to local config ------------
+theme: 'just-the-docs' # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
+
+# XXX --------- Common to all configs (local + GHP) --------------
+
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Next Right Now
+description: >- # this means to ignore newlines until "baseurl:"
+  Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript.
+  Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing,
+  Internationalization, CI/CD and B2B multiple single-tenants (monorepo) support
+#baseurl: "" # the subpath of your site, e.g. /blog
+#url: "" # the base hostname & protocol for your site, e.g. http://example.com XXX Auto-resolved by GitHub
+
+# Aux links for the upper right navigation
+aux_links:
+  "Home": "/"
+  "Github": "https://github.com/UnlyEd/next-right-now"
+  "About us": "https://github.com/UnlyEd/Unly"
+
+footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd/next-right-now/blob/master/LICENSE\">MIT license.</a>"
+#color_scheme: "dark"
+
+plugins:
+  - jekyll-sitemap
+  - jemoji
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
