@@ -103,6 +103,31 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>TS</h3></CardTitle>
+            <CardSubtitle>&ldquo;TypeScript support and helpful tips&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <Alert color={'info'}>
+                Next.js supports TS natively out of the box.<br />
+                But, there are special considerations to support TS for testing, code linting, etc.
+              </Alert>
+
+              <p>
+                TS is treated as first-class citizen, we do our best to make the TS experience as smooth and simple as possible.<br />
+                We use TS a lot, and type everything. You could say NRN comes with an advanced TS usage.<br />
+                This can be overwhelming for TS beginners, even though you shouldn't have anything to configure by yourself, you'll still need to understand the concepts and be aware of the features we use.
+              </p>
+
+              <div>
+                We strongly recommend you to take a look at the
+                <ExternalLink href={'https://react-typescript-cheatsheet.netlify.app/docs/basic/setup'} suffix={null}>React TypeScript Cheatsheets</ExternalLink>
+                , which is amazing for both beginners and experienced TS users.<br />
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );
