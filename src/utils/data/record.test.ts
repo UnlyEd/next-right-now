@@ -122,7 +122,6 @@ describe('utils/record.ts', () => {
 
     test('should return the expected value when the given value is defined (with multi depths)', async () => {
       const item: Record = {
-        // @ts-expect-error
         string: 'string',
         string2: '0',
         string3: '-1',
@@ -175,7 +174,6 @@ describe('utils/record.ts', () => {
     });
 
     test('should return the expected value when given a proper "fallbacks" to fallback from (2 fallbacks)', async () => {
-      // @ts-expect-error
       const fallbacks: Array<FallbackConfig> = [
         {
           record: {
@@ -196,7 +194,6 @@ describe('utils/record.ts', () => {
     });
 
     test('should return the expected value when given a proper "fallbacks" to fallback from (3 fallbacks)', async () => {
-      // @ts-expect-error
       const fallbacks: Array<FallbackConfig> = [
         {
           record: {
@@ -223,7 +220,6 @@ describe('utils/record.ts', () => {
     });
 
     test('should return the expected value when given a proper "fallbacks" to fallback from (4 fallbacks)', async () => {
-      // @ts-expect-error
       const fallbacks: Array<FallbackConfig> = [
         {
           record: {
@@ -256,7 +252,6 @@ describe('utils/record.ts', () => {
     });
 
     test('should return the expected value when given a proper "fallbacks" to fallback from (4 fallbacks bis)', async () => {
-      // @ts-expect-error
       const fallbacks: Array<FallbackConfig> = [
         {
           record: {
