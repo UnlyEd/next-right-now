@@ -110,38 +110,41 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
 
         <hr />
 
-        <h2>500 - Top-level error using CSR</h2>
+        <h2>500 - Top-level error</h2>
 
         <Alert color={'info'}>
           This page throws an error right from the Page component and should display a 500 page error without anything else (no footer/header).
         </Alert>
 
-        <p>
-          <I18nLink href={'/examples/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink>
-        </p>
-
         <Code
           text={`
-            <I18nLink href={'/examples/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink>
+            const TopLevel500ErrorPage: NextPage<Props> = (props): JSX.Element => {
+              if (isBrowser()) {
+                // Only throw on browser, otherwise it fails when building the app on Vercel and deployment fails altogether
+                throw new Error('Top level 500 error example');
+              }
+
+              return (
+                <DefaultLayout
+                  {...props}
+                  pageName={'page-500-error'}
+                  headProps={{
+                    title: 'Top-level 500 error example - Next Right Now',
+                  }}
+                  Sidebar={BuiltInUtilitiesSidebar}
+                >
+                  Top-level 500 error example
+                </DefaultLayout>
+              );
+            };
           `}
         />
         <br />
 
-        <h2>500 - Top-level error using full page reload</h2>
-
-        <Alert color={'info'}>
-          This page throws an error right from the Page component and should display a 500 page error without anything else (no footer/header).
-        </Alert>
-
         <p>
+          <I18nLink href={'/examples/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink><br />
           <a href={'/examples/built-in-utilities/top-level-500-error'}>This is a normal navigation</a>
         </p>
-
-        <Code
-          text={`
-            <a href={'/examples/built-in-utilities/top-level-500-error'}>This is a normal navigation</a>
-          `}
-        />
         <br />
 
         <hr />
@@ -152,32 +155,35 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
           This page throws an error once the Page component has loaded (using <code>useEffect</code>) and should display a 500 page error without anything else (no footer/header).
         </Alert>
 
-        <p>
-          <I18nLink href={'/examples/built-in-utilities/page-500-error'}>This is a client-side navigation (CSR)</I18nLink>
-        </p>
-
         <Code
           text={`
-            <I18nLink href={'/examples/built-in-utilities/page-500-error'}>This is a client-side navigation (CSR)</I18nLink>
+            const Page500ErrorPage: NextPage<Props> = (props): JSX.Element => {
+              useEffect(() => {
+                throw new Error('Page 500 error example');
+              }, []);
+
+              return (
+                <DefaultLayout
+                  {...props}
+                  pageName={'page-500-error'}
+                  headProps={{
+                    title: 'Page 500 error example - Next Right Now',
+                  }}
+                  Sidebar={BuiltInUtilitiesSidebar}
+                >
+                  Page 500 error example
+                </DefaultLayout>
+              );
+            };
           `}
         />
         <br />
 
-        <h2>500 - Page error using full page reload</h2>
-
-        <Alert color={'info'}>
-          This page throws an error once the Page component has loaded (using <code>useEffect</code>) and should display a 500 page error without anything else (no footer/header).
-        </Alert>
-
         <p>
+          <I18nLink href={'/examples/built-in-utilities/page-500-error'}>This is a client-side navigation (CSR)</I18nLink><br />
           <a href={'/examples/built-in-utilities/page-500-error'}>This is a normal navigation</a>
         </p>
 
-        <Code
-          text={`
-            <a href={'/examples/built-in-utilities/page-500-error'}>This is a normal navigation</a>
-          `}
-        />
         <br />
 
       </DocPage>
