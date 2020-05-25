@@ -78,7 +78,7 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
               //
               //     <div>
               //       <div>
-              //         <h2>Overview</h2>
+              //         <h1>Overview</h1>
               //         You can navigate between <I18nLink href={'/examples'}>/examples</I18nLink> and{' '}
               //         <I18nLink
               //           href={'/'}

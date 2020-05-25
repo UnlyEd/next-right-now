@@ -60,7 +60,7 @@ const SecurityAuditPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Security audit examples</h2>
+        <h1 className={'pcolor'}>Security audit examples</h1>
 
         <p>
           Security is a big thing, and quite a complicated topic.<br />

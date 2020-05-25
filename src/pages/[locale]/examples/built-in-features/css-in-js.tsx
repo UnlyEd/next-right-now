@@ -61,7 +61,7 @@ const ExampleCssInJsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>CSS-in-JS examples, using Emotion library</h2>
+        <h1 className={'pcolor'}>CSS-in-JS examples, using Emotion library</h1>
 
         <Alert color={'info'}>
           A lot of research has been done to select the most robust css-in-js library, and we eventually chose

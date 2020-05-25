@@ -59,7 +59,7 @@ const ApiPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Api examples</h2>
+        <h1 className={'pcolor'}>Api examples</h1>
 
         <div>
           A few API endpoints are provided as utilities:<br />

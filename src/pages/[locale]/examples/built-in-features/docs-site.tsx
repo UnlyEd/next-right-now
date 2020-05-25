@@ -60,7 +60,7 @@ const DocsSiteExamplePage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Docs site, using GitHub Pages</h2>
+        <h1 className={'pcolor'}>Docs site, using GitHub Pages</h1>
 
         <Alert color={'info'}>
           GitHub Pages is a great and simple way to host documentation about your app.<br />

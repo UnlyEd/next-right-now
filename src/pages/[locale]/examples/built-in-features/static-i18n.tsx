@@ -65,7 +65,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Static i18n examples, using i18next and Locize vendor</h2>
+        <h1 className={'pcolor'}>Static i18n examples, using i18next and Locize vendor</h1>
 
         <Alert color={'info'}>
           <code>i18n</code> refers to both <b>static content</b> and <b>dynamic content</b>, even though both are handled very differently.<br />

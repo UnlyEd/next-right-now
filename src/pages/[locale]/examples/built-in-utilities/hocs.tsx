@@ -60,7 +60,7 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>HOCs examples</h2>
+        <h1 className={'pcolor'}>HOCs examples</h1>
 
         <Alert color={'info'}>
           A few HOCs are provided as utilities:<br />
@@ -80,7 +80,7 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
           </ul>
         </Alert>
 
-        <h3>withApollo</h3>
+        <h2>withApollo</h2>
 
         <p>
           This HOC is necessary for all pages in the demo, because all pages need data that are used by shared component (i.e: Nav, Footer).<br />
@@ -100,9 +100,8 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
         <br />
 
         <Alert color={'info'}>
-          We don't actually use <code>useGetInitialProps</code> in this demo, because we don't use <code>getInitialProps</code> anymore.
+          We don't actually use the <code>useGetInitialProps</code> option anywhere in this demo, because we don't use <code>getInitialProps</code> anymore.
         </Alert>
-
 
       </DocPage>
     </DefaultLayout>

@@ -60,7 +60,7 @@ const ManualDeploymentsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Manual-deployments examples, using the CLI</h2>
+        <h1 className={'pcolor'}>Manual-deployments examples, using the CLI</h1>
 
         <Alert color={'info'}>
           CI/CD is great, but sometimes you need to manually deploy stuff from your computer.<br />

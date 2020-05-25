@@ -61,7 +61,7 @@ const ExampleI18nLinkComponentPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>I18nLink component examples</h2>
+        <h1 className={'pcolor'}>I18nLink component examples</h1>
 
         <Alert color={'info'}>
           <code>{`<I18nLink />`}</code> component is based on Next.js native <code>{`<Link />`}</code> component.<br />

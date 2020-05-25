@@ -62,7 +62,7 @@ const ExampleUIComponentsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>UI components examples, using Reactstrap and Bootstrap</h2>
+        <h1 className={'pcolor'}>UI components examples, using Reactstrap and Bootstrap</h1>
 
         <Alert color={'info'}>
           <ExternalLink href={'https://reactstrap.github.io/'}>Reactstrap</ExternalLink>
@@ -87,7 +87,7 @@ const ExampleUIComponentsPage: NextPage<Props> = (props): JSX.Element => {
           Below, we will showcase a few components built-in with NRN:
         </p>
 
-        <h3>Tooltip</h3>
+        <h2>Tooltip</h2>
 
         <p>
           The native Reactstrap tooltip is disappointing. Not only it's hard to use, but it can also crash your whole app under particular circumstances.<br />

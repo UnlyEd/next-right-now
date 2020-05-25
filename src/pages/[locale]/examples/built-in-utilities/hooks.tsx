@@ -62,7 +62,7 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Hooks examples</h2>
+        <h1 className={'pcolor'}>Hooks examples</h1>
 
         <Alert color={'info'}>
           A few hooks are provided as utilities:<br />
@@ -84,7 +84,7 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
           </ul>
         </Alert>
 
-        <h3>useHasMounted</h3>
+        <h2>useHasMounted</h2>
 
         <p>
           This hook helps rendering content only when the component has mounted (client-side).<br />
@@ -115,7 +115,7 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
 
         <hr />
 
-        <h3>useI18n</h3>
+        <h2>useI18n</h2>
 
         <p>
           This hook helps access i18n data in any functional component.
@@ -129,7 +129,7 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
 
         <hr />
 
-        <h3>useUserSession</h3>
+        <h2>useUserSession</h2>
 
         <p>
           This hook helps access user data in any functional component.

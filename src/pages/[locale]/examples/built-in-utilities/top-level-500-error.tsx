@@ -4,18 +4,13 @@ import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Alert } from 'reactstrap';
-import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
-import DocPage from '../../../../components/doc/DocPage';
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import ExternalLink from '../../../../components/utils/ExternalLink';
 import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/examples/built-in-features/monitoring';
+const fileLabel = 'pages/[locale]/examples/built-in-utilities/top-level-500-error';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -49,62 +44,8 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ExampleMonitoringPage: NextPage<Props> = (props): JSX.Element => {
-  return (
-    <DefaultLayout
-      {...props}
-      pageName={'monitoring'}
-      headProps={{
-        title: 'Monitoring examples - Next Right Now',
-      }}
-      Sidebar={BuiltInFeaturesSidebar}
-    >
-      <DocPage>
-        <h1 className={'pcolor'}>Monitoring examples, using Sentry</h1>
-
-        <Alert color={'info'}>
-          Monitoring works universally, both on the browser and the server.<br />
-          The errors and stacktrace will be slightly different.<br />
-          Also, source maps support is built-in. Beware that it <b>doesn't work during development</b>.
-        </Alert>
-
-        <div>
-          <p>
-            Log runtime exception<br />
-            <code>
-              {`
-            try {
-              throw new Error('test');
-            } catch(e) {
-              Sentry.captureException(e);
-            }
-            `}
-            </code>
-          </p>
-
-          <p>
-            Log message<br />
-            <code>
-              {`
-              Sentry.captureMessage(warning, Sentry.Severity.Warning);
-            `}
-            </code>
-          </p>
-
-          <p>
-            <ExternalLink href={'https://docs.sentry.io/enriching-error-data/breadcrumbs'}>
-              Breadcrumbs
-            </ExternalLink>
-            (tracing that is only used in case an error happens)
-            <br />
-            <code>
-              {`Sentry.addBreadcrumb({category: fileLabel, message: 'Rendering'})`}
-            </code>
-          </p>
-        </div>
-      </DocPage>
-    </DefaultLayout>
-  );
+const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
+  throw new Error('Top level 500 error example');
 };
 
-export default withApollo()(ExampleMonitoringPage);
+export default withApollo()(ErrorsHandlingPage);

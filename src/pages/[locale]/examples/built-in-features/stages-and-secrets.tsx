@@ -61,7 +61,7 @@ const StagesAndSecretsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Stages & secrets, using the best of both Next.js and Vercel vendor</h2>
+        <h1 className={'pcolor'}>Stages & secrets, using the best of both Next.js and Vercel vendor</h1>
 
         <Alert color={'info'}>
           Next.js doesn't come with a built-in stages configuration. It doesn't know about the concept of "stage". <br />

@@ -63,7 +63,7 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>SVG to react component examples</h2>
+        <h1 className={'pcolor'}>SVG to react component examples</h1>
 
         <p>
           If you use SVGs, you may want to easily convert those as React components so that they're easier to work with (custom props, dynamic colors/size, etc.).<br />

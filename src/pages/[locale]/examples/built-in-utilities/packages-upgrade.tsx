@@ -61,7 +61,7 @@ const PackagesUpgradePage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Packages upgrade examples</h2>
+        <h1 className={'pcolor'}>Packages upgrade examples</h1>
 
         <Alert color={'warning'}>
           Upgrading packages is a necessary step in any non-trivial application.<br />

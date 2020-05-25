@@ -59,7 +59,7 @@ const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Bundle analysis examples</h2>
+        <h1 className={'pcolor'}>Bundle analysis examples</h1>
 
         <p>
           You're most likely concerned about how big your client-side bundle is, because it'll impact your end-users experience.<br />

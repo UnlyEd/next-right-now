@@ -61,7 +61,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Analytics examples, using Amplitude vendor</h2>
+        <h1 className={'pcolor'}>Analytics examples, using Amplitude vendor</h1>
 
         <Alert color={'danger'}>
           Before investing time in Amplitude, make sure to check

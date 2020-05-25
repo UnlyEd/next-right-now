@@ -62,21 +62,123 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Errors handling examples</h2>
+        <h1 className={'pcolor'}>Errors handling examples</h1>
 
         <Alert color={'info'}>
+          It's interesting to know how your app will behave when unexpected things happen.<br />
+          That's the point of the below examples, they're meant to showcase how the apps behaves in such situations.<br />
+          <br />
+          Note that it's also interesting to experiment those behaviours in different environments, because they will differ.
+        </Alert>
 
+        <hr />
+
+        <h2>404 - Using CSR</h2>
+
+        <Alert color={'info'}>
+          This page doesn't exist and should display a 404 page.
         </Alert>
 
         <p>
-
+          <I18nLink href={'/404-csr'}>This is a client-side navigation (CSR)</I18nLink>
         </p>
 
         <Code
           text={`
-
+            <I18nLink href={'/404-csr'}>This is a client-side navigation (CSR)</I18nLink>
           `}
         />
+        <br />
+
+        <h2>400 - Using full page reload</h2>
+
+        <Alert color={'info'}>
+          This page doesn't exist and should display a 404 page.
+        </Alert>
+
+        <p>
+          <i>This is not CSR, it's not necessarily SSR either, it can be either static rendering or SSR.</i><br />
+          <a href={'/404-static'}>This is a normal navigation</a>
+        </p>
+
+        <Code
+          text={`
+            <a href={'/404-static'}>This is a normal navigation</a>
+          `}
+        />
+        <br />
+
+        <hr />
+
+        <h2>500 - Top-level error using CSR</h2>
+
+        <Alert color={'info'}>
+          This page throws an error right from the Page component and should display a 500 page error without anything else (no footer/header).
+        </Alert>
+
+        <p>
+          <I18nLink href={'/examples/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink>
+        </p>
+
+        <Code
+          text={`
+            <I18nLink href={'/examples/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink>
+          `}
+        />
+        <br />
+
+        <h2>500 - Top-level error using full page reload</h2>
+
+        <Alert color={'info'}>
+          This page throws an error right from the Page component and should display a 500 page error without anything else (no footer/header).
+        </Alert>
+
+        <p>
+          <a href={'/examples/built-in-utilities/top-level-500-error'}>This is a normal navigation</a>
+        </p>
+
+        <Code
+          text={`
+            <a href={'/examples/built-in-utilities/top-level-500-error'}>This is a normal navigation</a>
+          `}
+        />
+        <br />
+
+        <hr />
+
+        <h2>500 - Page error using CSR</h2>
+
+        <Alert color={'info'}>
+          This page throws an error once the Page component has loaded (using <code>useEffect</code>) and should display a 500 page error without anything else (no footer/header).
+        </Alert>
+
+        <p>
+          <I18nLink href={'/examples/built-in-utilities/page-500-error'}>This is a client-side navigation (CSR)</I18nLink>
+        </p>
+
+        <Code
+          text={`
+            <I18nLink href={'/examples/built-in-utilities/page-500-error'}>This is a client-side navigation (CSR)</I18nLink>
+          `}
+        />
+        <br />
+
+        <h2>500 - Page error using full page reload</h2>
+
+        <Alert color={'info'}>
+          This page throws an error once the Page component has loaded (using <code>useEffect</code>) and should display a 500 page error without anything else (no footer/header).
+        </Alert>
+
+        <p>
+          <a href={'/examples/built-in-utilities/page-500-error'}>This is a normal navigation</a>
+        </p>
+
+        <Code
+          text={`
+            <a href={'/examples/built-in-utilities/page-500-error'}>This is a normal navigation</a>
+          `}
+        />
+        <br />
 
       </DocPage>
     </DefaultLayout>

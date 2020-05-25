@@ -61,7 +61,7 @@ const ExampleIconsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <DocPage>
-        <h2 className={'pcolor'}>Icons examples, using Font-Awesome</h2>
+        <h1 className={'pcolor'}>Icons examples, using Font-Awesome</h1>
 
         <Alert color={'warning'}>
           FA provides a free icons set, and paid ones. NRN only comes with the free set.<br />
