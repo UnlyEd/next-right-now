@@ -44,6 +44,10 @@ export const BUILT_IN_UTILITIES_SIDEBAR_LINKS: SidebarLink[] = [
     href: '/examples/built-in-utilities/security-audit',
     label: 'Security audit',
   },
+  {
+    href: '/examples/built-in-utilities/tracking-useless-re-renders',
+    label: 'Tracking useless re-renders',
+  },
 ];
 
 /**

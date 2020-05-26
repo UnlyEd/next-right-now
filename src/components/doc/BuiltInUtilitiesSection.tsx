@@ -146,6 +146,23 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
           </CardBody>
         </Card>
 
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Tracking useless re-renders</h3></CardTitle>
+            <CardSubtitle>&ldquo;Visualise useless re-renders that slow down your app&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://medium.com/hootsuite-engineering/react-re-render-optimization-7d369e0bf701'}>
+                  <Button color={'link'}>Learn how to use the React Profiler</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/built-in-utilities/tracking-useless-re-renders'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
       </Cards>
     </DocSection>
   );

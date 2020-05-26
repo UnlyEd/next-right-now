@@ -4,10 +4,11 @@ import React from 'react';
 import { CodeBlock, dracula } from 'react-code-blocks';
 
 type Props = {
+  codeBlockStyle?: object;
   text: string;
 }
 
-const codeBlockStyle = {
+const defaultCodeBlockStyle = {
   textAlign: 'left',
 };
 
@@ -19,11 +20,11 @@ const codeBlockStyle = {
  * @param props
  */
 const Code: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { text } = props;
+  const { codeBlockStyle, text } = props;
 
   return (
     <CodeBlock
-      codeBlockStyle={codeBlockStyle}
+      codeBlockStyle={codeBlockStyle || defaultCodeBlockStyle}
       text={text}
       language={'tsx'}
       showLineNumbers={true}
