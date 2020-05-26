@@ -1,8 +1,8 @@
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css
 import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
 import 'rc-tooltip/assets/bootstrap.css';
@@ -39,6 +39,9 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   console.debug('Applying whyDidYouRender, to help you locate unnecessary re-renders during development. See https://github.com/welldone-software/why-did-you-render');
   whyDidYouRender(React, {
     trackAllPureComponents: true,
+    trackHooks: true,
+    logOwnerReasons: true,
+    collapseGroups: true,
   });
 }
 
