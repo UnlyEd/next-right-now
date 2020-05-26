@@ -146,6 +146,7 @@
     "@types/webpack-env": "1.15.2",
     "@typescript-eslint/eslint-plugin": "2.33.0",
     "@typescript-eslint/parser": "2.33.0",
+    "@welldone-software/why-did-you-render": "4.2.2",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "concurrently": "5.2.0",
     "cross-env": "7.0.2",
