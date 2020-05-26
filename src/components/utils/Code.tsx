@@ -1,11 +1,15 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { CodeBlock, dracula } from 'react-code-blocks';
 
 type Props = {
   text: string;
 }
+
+const codeBlockStyle = {
+  textAlign: 'left',
+};
 
 /**
  * Documentation page
@@ -19,9 +23,7 @@ const Code: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <CodeBlock
-      codeBlockStyle={{
-        textAlign: 'left',
-      }}
+      codeBlockStyle={codeBlockStyle}
       text={text}
       language={'tsx'}
       showLineNumbers={true}
