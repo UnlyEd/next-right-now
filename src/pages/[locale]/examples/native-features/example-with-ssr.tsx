@@ -34,54 +34,6 @@ type CustomPageProps = {
   products: Product[];
 }
 
-/**
- * SSR pages are first rendered by the server
- * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
- * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
- * To represent this behaviour, we use the native Partial TS keyword to make all OnlyBrowserPageProps optional
- *
- * Beware props in OnlyBrowserPageProps are not available on the server
- */
-type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
-
-const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
-  const { products } = props;
-
-  return (
-    <DefaultLayout
-      pageName={'example-with-ssr'}
-      headProps={{
-        title: `${size(products)} products (SSR) - Next Right Now`,
-      }}
-      {...props}
-    >
-      <Container
-        className={'container-white'}
-      >
-        <h1>Products, using SSR</h1>
-
-        <Alert color={'info'}>
-          This page uses server side rendering (SSR) because it uses <code>getServerSideProps</code>.<br />
-          <br />
-          When this page is loaded through a client-side rendering (AKA "transition") (using <code>next/link</code> or <code>I18nLink</code>){' '}
-          then Next.js sends an API request to the server which runs the <code>getServerSideProps</code> and returns the result as JSON.<br />
-          <br />
-          <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#only-runs-on-server-side'}>Learn more about the technical details</ExternalLink><br />
-          <br />
-          Each page refresh (either SSR or CSR) queries the GraphQL API and displays products below.<br />
-          <br />
-          If you use <ExternalLink href={'https://nrn-admin.now.sh/'}>NRN Admin</ExternalLink> and update the products there,{' '}
-          then the products below will be updated immediately, because each page refresh will fetch the latest content.<br />
-        </Alert>
-
-        <hr />
-
-        <AllProducts products={products} />
-      </Container>
-    </DefaultLayout>
-  );
-};
-
 type GetServerSidePageProps = CustomPageProps & SSRPageProps
 
 /**
@@ -132,6 +84,54 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       products,
     },
   };
+};
+
+/**
+ * SSR pages are first rendered by the server
+ * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
+ * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
+ * To represent this behaviour, we use the native Partial TS keyword to make all OnlyBrowserPageProps optional
+ *
+ * Beware props in OnlyBrowserPageProps are not available on the server
+ */
+type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
+
+const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
+  const { products } = props;
+
+  return (
+    <DefaultLayout
+      pageName={'example-with-ssr'}
+      headProps={{
+        title: `${size(products)} products (SSR) - Next Right Now`,
+      }}
+      {...props}
+    >
+      <Container
+        className={'container-white'}
+      >
+        <h1>Products, using SSR</h1>
+
+        <Alert color={'info'}>
+          This page uses server side rendering (SSR) because it uses <code>getServerSideProps</code>.<br />
+          <br />
+          When this page is loaded through a client-side rendering (AKA "transition") (using <code>next/link</code> or <code>I18nLink</code>){' '}
+          then Next.js sends an API request to the server which runs the <code>getServerSideProps</code> and returns the result as JSON.<br />
+          <br />
+          <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#only-runs-on-server-side'}>Learn more about the technical details</ExternalLink><br />
+          <br />
+          Each page refresh (either SSR or CSR) queries the GraphQL API and displays products below.<br />
+          <br />
+          If you use <ExternalLink href={'https://nrn-admin.now.sh/'}>NRN Admin</ExternalLink> and update the products there,{' '}
+          then the products below will be updated immediately, because each page refresh will fetch the latest content.<br />
+        </Alert>
+
+        <hr />
+
+        <AllProducts products={products} />
+      </Container>
+    </DefaultLayout>
+  );
 };
 
 // XXX For educational purposes - Equivalent to above "getServerSideProps"

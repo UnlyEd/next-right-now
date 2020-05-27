@@ -11,7 +11,6 @@ import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../../components/utils/ExternalLink';
 import withApollo from '../../../../../hocs/withApollo';
-import useI18n from '../../../../../hooks/useI18n';
 import { StaticParams } from '../../../../../types/nextjs/StaticParams';
 import { StaticPath } from '../../../../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../../../../types/nextjs/StaticPathsOutput';
@@ -115,7 +114,6 @@ type Props = {
 
 const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element => {
   const { albumId, album, isSSGFallbackInitialBuild } = props;
-  const { locale } = useI18n();
   const { id, title, awaitedForMs } = album;
 
   return (
