@@ -15,7 +15,7 @@ export declare type MultiversalAppBootstrapProps<PP extends MultiversalPageProps
   router?: NextRouter;
 
   // XXX Next.js internals (unstable API) - See https://github.com/zeit/next.js/discussions/12558#discussioncomment-9177
-  __N_SSG?: boolean;
-  __N_SSR?: boolean;
-  __N_SSP?: boolean;
+  __N_SSG?: boolean; // Stands for "server-side generated" or "static site generation", indicates the page was generated through getStaticProps
+  __N_SSR?: boolean; // Stands for "server-side rendering", indicates the page was generated through getServerSideProps
+  __N_SSP?: boolean; // Stands for "server-side props"
 };

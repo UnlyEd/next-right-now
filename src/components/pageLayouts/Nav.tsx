@@ -195,21 +195,6 @@ const Nav: React.FunctionComponent<Props> = () => {
             </NavItem>
 
             <NavItem>
-              <I18nLink
-                href={`/products`}
-                wrapChildrenAsLink={false}
-              >
-                <NavLink
-                  id={'nav-link-products'}
-                  active={isActive(router, 'products')}
-                >
-                  <FontAwesomeIcon icon={['fas', 'coffee']} />
-                  {t('nav.productsPage.link', 'Produits')}
-                </NavLink>
-              </I18nLink>
-            </NavItem>
-
-            <NavItem>
               <Col className={'navItemsMenu'}>
                 <Row className={'justify-content-center'}>
                   <NavLink

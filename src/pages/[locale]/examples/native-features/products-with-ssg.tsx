@@ -3,24 +3,27 @@ import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
+import size from 'lodash.size';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Container } from 'reactstrap';
-import Products from '../../components/data/Products';
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import { EXAMPLES_PAGE_QUERY } from '../../gql/pages/examples';
-import withApollo from '../../hocs/withApollo';
-import { Product } from '../../types/data/Product';
-import { StaticParams } from '../../types/nextjs/StaticParams';
-import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
-import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { createApolloClient } from '../../utils/gql/graphql';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
+import { Alert, Container } from 'reactstrap';
+import AllProducts from '../../../../components/data/AllProducts';
+import I18nLink from '../../../../components/i18n/I18nLink';
+import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
+import ExternalLink from '../../../../components/utils/ExternalLink';
+import { EXAMPLES_PAGE_QUERY } from '../../../../gql/pages/examples';
+import withApollo from '../../../../hocs/withApollo';
+import { Product } from '../../../../types/data/Product';
+import { StaticParams } from '../../../../types/nextjs/StaticParams';
+import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
+import { StaticPropsOutput } from '../../../../types/nextjs/StaticPropsOutput';
+import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import { createApolloClient } from '../../../../utils/gql/graphql';
+import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/examples';
+const fileLabel = 'pages/[locale]/examples/native-features/products-with-ssg';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -99,109 +102,43 @@ type Props = {
   products: Product[];
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ExamplesPage: NextPage<Props> = (props): JSX.Element => {
+const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
 
   return (
     <DefaultLayout
       pageName={'examples'}
       headProps={{
-        title: 'Examples - Next Right Now',
+        title: `${size(products)} products (SSG) - Next Right Now`,
       }}
       {...props}
     >
       <Container
         className={'container-white'}
       >
-        <h1>Examples</h1>
+        <h1>Products, using SSR</h1>
+
+        <Alert color={'info'}>
+          This page uses static site generation (SSG) because it uses <code>getStaticProps</code> (<i>it also uses <code>getStaticPaths</code>,{' '}
+          because it's necessary for i18n support, to generate a different page, per available locale</i>).<br />
+          <br />
+          <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation'}>Learn more about the technical details</ExternalLink><br />
+          <br />
+          Each page refresh (either static or CSR) fetches the static bundle and displays products below.<br />
+          <br />
+          If you use <ExternalLink href={'https://nrn-admin.now.sh/'}>NRN Admin</ExternalLink> and update the products there,{' '}
+          then the products below will <b>NOT</b> be updated, because each page refresh will still fetch the static content, which was generated at build time.<br />
+          Therefore, changes there won't be reflected here. (but they'll be reflected <I18nLink href={'/examples/native-features/products-with-ssr'}>on the SSR version though</I18nLink>)
+          <br />
+          <b>N.B</b>: During development, the static page is automatically rebuilt when refreshing, so the above behaviour is only valid in staging/production stages.
+        </Alert>
 
         <hr />
 
-        <div>
-          <h2 className={'pcolor'}>Analytics front-end examples</h2>
-
-          Log event on&nbsp;
-          <a
-            href={'https://github.com/amplitude/react-amplitude#children'}
-            target={'_blank'}
-            rel={'noopener'}
-          >
-            link click
-          </a>
-          <br />
-          <code>
-            {`
-              <a href="{'/examples'}" onClick={() => { logEvent('open-examples'); }}>Open</a>
-            `}
-          </code>
-          <br />
-          <br />
-
-          Log event on&nbsp;
-          <a
-            href={'https://github.com/amplitude/react-amplitude#logonmount-props'}
-            target={'_blank'}
-            rel={'noopener'}
-          >
-            component mount
-          </a> (once only)
-          <br />
-          <code>
-            {`
-              <LogOnMount eventType="page-displayed" />
-            `}
-          </code>
-        </div>
-
-        <hr />
-
-        <div>
-          <h2 className={'pcolor'}>GraphQL & GraphCMS universal examples</h2>
-          <blockquote>Fetching products from GraphCMS API</blockquote>
-          <div>
-            The below products are fetched from GraphCMS API, using GraphQL and Apollo.<br />
-            We don't do anything fancy with them, it's just a simple example of data fetching and displaying.<br />
-            Note that the GraphQL API can be auto-completed on the IDE, that's quite useful. <br />
-            We also split our <code>.gql</code> files into reusable fragments to avoid duplicating code.<br />
-            We use a custom component <code>GraphCMSAsset</code> to display images.<br />
-          </div>
-
-          <Products
-            products={products}
-          />
-        </div>
-
-        <hr />
-
-
-        <hr />
-
-        <div>
-          <h2>Image optimisation</h2>
-
-          <div>
-            Image from web:<br />
-            <img
-              src={'https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg'}
-              alt={'paysage'}
-              width={'800px'}
-              height={'600px'}
-            />
-          </div>
-
-          <div>
-            Image from /public:<br />
-            <img
-              src={'/static/images/Fronalpstock_big.jpg'}
-              alt={'paysage'}
-              width={'800px'}
-              height={'600px'}
-            />
-          </div>
-        </div>
+        <AllProducts products={products} />
       </Container>
     </DefaultLayout>
   );
 };
 
-export default withApollo()(ExamplesPage);
+export default withApollo()(ProductsWithSSGPage);
