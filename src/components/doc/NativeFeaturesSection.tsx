@@ -139,7 +139,6 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 The <code>revalidate</code> option is strongly related to the <b>Incremental Static Regeneration</b> concept.<br />
                 Basically, it's the ability to regenerate parts of your apps based on your own business rules.<br />
                 Currently, it only supports a time-based regeneration (similar to TTL), thus when your page is too old, it gets regenerated.<br />
-                API-based regeneration (e.g: regenerate pages based on a CMS update) is still discussed in the below RFC.
               </p>
 
               <div className={'buttons'}>
@@ -153,7 +152,8 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
 
               <Alert color={'warning'}>
                 Be aware that this feature is still in beta (as of v9.4), and the prop name is <code>unstable_revalidate</code> to make this obvious.<br />
-                The <ExternalLink href={'https://github.com/zeit/next.js/discussions/11552'}>RFC</ExternalLink> is still being discussed, don't hesitate to participate!
+                The <ExternalLink href={'https://github.com/zeit/next.js/discussions/11552'}>RFC</ExternalLink> is still being discussed, don't hesitate to participate!<br />
+                API-based regeneration (e.g: regenerate pages based on a CMS update) is still being discussed in the RFC.
               </Alert>
             </CardText>
           </CardBody>
