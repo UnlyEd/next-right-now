@@ -22,7 +22,6 @@ export const EXAMPLE_WITH_SSR_QUERY = gql`
     ...layoutFields
   }
   ${layout.layoutFields}
-  ${theme.themeFields}
   ${asset.assetFields}
   ${product.productFields}
 `;
