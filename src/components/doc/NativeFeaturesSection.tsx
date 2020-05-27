@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import { Alert, Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
+import useI18n from '../../hooks/useI18n';
 import I18nLink from '../i18n/I18nLink';
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
@@ -15,6 +16,8 @@ type Props = {}
  * @param props
  */
 const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
+  const { locale } = useI18n();
+
   return (
     <DocSection>
       <h2>Next.js native features</h2>
@@ -117,7 +120,10 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required'}>
                   <Button color={'link'}>Learn more about <code>getStaticProps</code> with <code>fallback</code> option</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/native-features/products-with-ssg-and-fallback'}>
+                <I18nLink
+                  href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+                  as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/1`}
+                >
                   <Button color={'link'}>Example with <code>getStaticProps</code> and <code>fallback</code></Button>
                 </I18nLink>
               </div>

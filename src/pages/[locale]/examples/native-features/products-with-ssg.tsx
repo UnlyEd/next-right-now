@@ -23,7 +23,6 @@ import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { getSamePageI18nUrl } from '../../../../utils/app/router';
 import { createApolloClient } from '../../../../utils/gql/graphql';
 import { SUPPORTED_LOCALES } from '../../../../utils/i18n/i18n';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
