@@ -1,12 +1,11 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-import React, { useState } from 'react';
+import React from 'react';
 import { Alert, Button } from 'reactstrap';
 import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
@@ -49,6 +48,8 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
   let songId = parseInt(albumId);
 
   if (songId > songs.length - 1) { // Handle overflow
+    songId = 0;
+  } else if (songId < 0) {
     songId = 0;
   }
 
@@ -112,10 +113,8 @@ type Props = {
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element => {
-  const { albumId, album } = props;
-  const router: NextRouter = useRouter();
+  const { albumId, album, isSSGFallbackInitialBuild } = props;
   const { locale } = useI18n();
-  const [hasUsedFallbackRendering] = useState<boolean>(router.isFallback);
   const { id, title, awaitedForMs } = album;
 
   return (
@@ -123,13 +122,22 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
       {...props}
       pageName={'example-with-ssg-and-fallback/[albumId]'}
       headProps={{
-        title: `Album N°${albumId} (SSG, ${hasUsedFallbackRendering ? 'using fallback' : 'not using fallback'}) - Next Right Now`,
+        title: `Album N°${albumId} (SSG, ${isSSGFallbackInitialBuild ? 'using fallback' : 'not using fallback'}) - Next Right Now`,
       }}
     >
+      <h1>Example, using SSG with fallback option</h1>
+
       <div>
         <Alert color={'info'} tag={'div'}>
+          This page will always be rendered statically, but the static bundle may be built either when deploying the website (AKA "pre-built"), or on-demand.<br />
+          <br />
+          This example has been made such as the main page (at /1) is pre-built, while all other pages are built on-demand, dynamically.<br />
+          Once the static page has been generated, it'll use the static version for all upcoming requests. Only the first user suffers from the waiting due to the build.<br />
+          When the page hasn't been rendered before (no static build available), then we display the <code>Loader</code> component so that the user can see something is happening instead of a white page.<br />
+          <br />
+
           {
-            hasUsedFallbackRendering ? (
+            isSSGFallbackInitialBuild ? (
               <p>
                 This page <b>has</b> used fallback rendering (it <b>hadn't</b> been generated previously).
               </p>
@@ -152,12 +160,16 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
             justify-content: center;
           `}
         >
-          <I18nLink
-            href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
-            as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id - 1}`}
-          >
-            <Button color={'link'}>Go to previous album</Button>
-          </I18nLink>
+          {
+            id > 0 && (
+              <I18nLink
+                href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+                as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id - 1}`}
+              >
+                <Button color={'link'}>Go to previous album</Button>
+              </I18nLink>
+            )
+          }
 
           <I18nLink
             href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
@@ -175,9 +187,13 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
         <br />
         <br />
 
+        <Alert color={'success'}>
+          In order to simplify things, NRN sets the <code>isSSGFallbackInitialBuild</code> variable, available in all pages as props.
+        </Alert>
+
         <Alert color={'warning'}>
           In development mode, it is not possible to simulate <code>fallback</code> mode properly.<br />
-          Each page refresh will completely refresh the page, any previous build will be ignored.
+          Each page refresh will completely refresh the page, any previous build will be ignored, and all page refresh will have <code>isSSGFallbackInitialBuild: true</code>.
         </Alert>
       </div>
 

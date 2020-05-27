@@ -3,7 +3,8 @@ import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
-import React from 'react';
+import isEmpty from 'lodash.isempty';
+import React, { useState } from 'react';
 import ErrorPage from '../../pages/_error';
 import customerContext from '../../stores/customerContext';
 import i18nContext from '../../stores/i18nContext';
@@ -14,6 +15,7 @@ import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { initCustomerTheme } from '../../utils/data/theme';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
+import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
@@ -37,7 +39,10 @@ export type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppB
 const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     pageProps,
+    router,
   } = props;
+  // When using SSG with "fallback: true" and the page hasn't been generated yet then isSSGFallbackInitialBuild is true
+  const [isSSGFallbackInitialBuild] = useState<boolean>(isEmpty(pageProps) && router?.isFallback === true);
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -47,6 +52,13 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
   if (isBrowser() && process.env.APP_STAGE !== 'production') { // Avoids log clutter on server
     console.debug('MultiversalAppBootstrap.props', props);
+  }
+
+  // Display a loader (we could use a skeleton too) when this happens, so that the user doesn't face a white page until the page is generated and displayed
+  if (isSSGFallbackInitialBuild && router.isFallback) { // When router.isFallback becomes "false", then it'll mean the page has been generated and rendered and we can display it, instead of the loader
+    return (
+      <Loader />
+    );
   }
 
   if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
@@ -109,18 +121,22 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     if (isBrowser()) {
       browserPageBootstrapProps = {
         ...props,
+        router,
         pageProps: {
           ...pageProps,
           i18nextInstance,
+          isSSGFallbackInitialBuild: isSSGFallbackInitialBuild,
           theme,
         },
       };
     } else {
       serverPageBootstrapProps = {
         ...props,
+        router,
         pageProps: {
           ...pageProps,
           i18nextInstance,
+          isSSGFallbackInitialBuild: isSSGFallbackInitialBuild,
           theme,
         },
       };
