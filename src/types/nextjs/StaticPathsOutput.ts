@@ -5,7 +5,7 @@ import { StaticParams } from './StaticParams';
  */
 export type StaticPathsOutput = {
   fallback: boolean; // See https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required
-  paths: {
+  paths: (string | {
     params: StaticParams;
-  }[];
+  })[];
 }
