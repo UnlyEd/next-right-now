@@ -58,10 +58,10 @@ export const resolveI18nHomePage = (locale: string): I18nRoute => {
 /**
  * Resolves whether the "path" is the current active route
  *
- * Doesn't handle multi-nested paths
+ * Only consider the base path, will match nested paths if base matches
  *
  * @example isActive({pathname: '/[locale]'}, '') => true
- * @example isActive({pathname: '/[locale]/terms'}, '/terms') => true
+ * @example isActive({pathname: '/[locale]/terms'}, 'terms') => true
  * @example isActive({pathname: '/[locale]/terms'}, '') => false
  *
  * @param router
@@ -71,7 +71,17 @@ export const isActive = (router: NextRouter, path: string): boolean => {
   const route = router.pathname.replace('/[locale]', '');
   const currentPaths = route.split('/');
 
-  return currentPaths[currentPaths.length - 1] === path;
+  return (currentPaths?.[1] || currentPaths?.[0]) === path;
+};
+
+/**
+ * Returns the current page url, but for a different locale
+ *
+ * @param locale
+ * @param router
+ */
+export const getSamePageI18nUrl = (locale, router: NextRouter): string => {
+  return `${router.pathname.replace('[locale]', locale)}`;
 };
 
 /**
@@ -84,7 +94,7 @@ export const isActive = (router: NextRouter, path: string): boolean => {
  * @see https://nextjs.org/docs/api-reference/next/router#router-api Router API
  */
 export const i18nRedirect = (locale, router: NextRouter, pageReload = false): void => {
-  const newUrl = `${router.pathname.replace('[locale]', locale)}`;
+  const newUrl = getSamePageI18nUrl(locale, router);
 
   if (pageReload) {
     location.href = newUrl;

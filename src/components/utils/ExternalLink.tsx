@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 
 type Props = {
-  children: React.ReactElement | string;
+  children: React.ReactNode;
   className?: string;
   href: string;
   id?: string;
@@ -36,7 +36,7 @@ const ExternalLink: React.FunctionComponent<Props> = (props): JSX.Element => {
     <a
       href={href}
       target={'_blank'} // eslint-disable-line react/jsx-no-target-blank
-      rel={`${nofollow ? 'nofollow': ''} ${noreferrer ? 'noreferrer': ''}`}
+      rel={`${nofollow ? 'nofollow' : ''} ${noreferrer ? 'noreferrer' : ''}`}
       {...rest}
     >
       {prefix}{children}{suffix}

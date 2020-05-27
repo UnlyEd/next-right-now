@@ -3,31 +3,40 @@ import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 import ErrorPage from '../../pages/_error';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
+import Sentry from '../../utils/monitoring/sentry';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
+import DefaultPageContainer from './DefaultPageContainer';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
   label: fileLabel,
 });
 
+export type SidebarProps = {
+  className: string;
+}
+
 type Props = {
+  children: React.ReactNode;
   headProps: HeadProps;
   pageName: string;
+  Sidebar?: React.FunctionComponent<SidebarProps>;
 } & SoftPageProps;
 
 /**
- * The layout handle the positioning of elements within the page
+ * Handles the positioning of top-level elements within the page
  *
- * This Layout component adds a Nav/Footer component, and the Page component in between
- * Also, it automatically track page views (Amplitude)
- *
- * It also handle errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
+ * It does the following:
+ *  - Adds a Nav/Footer component, and the dynamic Next.js "Page" component in between
+ *  - Optionally, it can also display a left sidebar (i.e: used within examples sections)
+ *  - Automatically track page views (Amplitude)
+ *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
  *
  * @param props
  */
@@ -38,7 +47,15 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     isInIframe = false, // Won't be defined server-side
     headProps = {},
     pageName,
+    Sidebar,
   } = props;
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // Todo make default value depend on viewport size
+
+  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+    category: fileLabel,
+    message: `Rendering ${fileLabel} for page ${pageName}`,
+    level: Sentry.Severity.Debug,
+  });
 
   return (
     <Amplitude
@@ -66,7 +83,7 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       }
 
       <div
-        className={classnames('page-container', isInIframe ? 'is-iframe' : 'is-not-iframe')}
+        className={classnames('page-wrapper', isInIframe ? 'is-in-iframe' : 'not-in-iframe')}
       >
         {
           // If an error happened, we display it instead of displaying the page
@@ -82,9 +99,13 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
               />
             </ErrorPage>
           ) : (
-            <>
+            <DefaultPageContainer
+              isSidebarOpen={isSidebarOpen}
+              setIsSidebarOpen={setIsSidebarOpen}
+              Sidebar={Sidebar}
+            >
               {children}
-            </>
+            </DefaultPageContainer>
           )
         }
       </div>

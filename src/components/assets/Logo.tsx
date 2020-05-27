@@ -27,7 +27,7 @@ type Props = {
   className?: string;
   style?: object;
   link?: Link;
-  onClick?: Function;
+  onClick?: () => void;
 }
 
 /**
@@ -93,7 +93,6 @@ const Logo = (props: Props): JSX.Element => {
         alt={resolvedLogoProps.alt || resolvedLogoProps.title || resolvedLogoProps.url}
         className={classnames(`logo-${id}`, className, resolvedLogoProps.classes)}
         style={deepmerge(style || {}, resolvedLogoProps.style || {})}
-        // @ts-ignore
         onClick={onClick}
       />
     );
@@ -110,7 +109,6 @@ const Logo = (props: Props): JSX.Element => {
         className={classnames(resolvedLogoProps.link.classes, link.className)}
         // @ts-ignore
         style={deepmerge(resolvedLogoProps.link.style || {}, link.style || {})}
-        // @ts-ignore
         onClick={onClick}
       >
         <Image />

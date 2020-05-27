@@ -3,7 +3,9 @@ import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
-import React from 'react';
+import isEmpty from 'lodash.isempty';
+import React, { useState } from 'react';
+import ErrorPage from '../../pages/_error';
 import customerContext from '../../stores/customerContext';
 import i18nContext from '../../stores/i18nContext';
 import { Theme } from '../../types/data/Theme';
@@ -13,6 +15,8 @@ import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { initCustomerTheme } from '../../utils/data/theme';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
+import Loader from '../animations/Loader';
+import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
@@ -35,7 +39,10 @@ export type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppB
 const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     pageProps,
+    router,
   } = props;
+  // When using SSG with "fallback: true" and the page hasn't been generated yet then isSSGFallbackInitialBuild is true
+  const [isSSGFallbackInitialBuild] = useState<boolean>(isEmpty(pageProps) && router?.isFallback === true);
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -47,6 +54,13 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     console.debug('MultiversalAppBootstrap.props', props);
   }
 
+  // Display a loader (we could use a skeleton too) when this happens, so that the user doesn't face a white page until the page is generated and displayed
+  if (isSSGFallbackInitialBuild && router.isFallback) { // When router.isFallback becomes "false", then it'll mean the page has been generated and rendered and we can display it, instead of the loader
+    return (
+      <Loader />
+    );
+  }
+
   if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
     console.info('MultiversalAppBootstrap - App is ready, rendering...');
     const {
@@ -55,6 +69,32 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       lang,
       locale,
     }: MultiversalPageProps = pageProps;
+
+    if (!customer || !i18nTranslations || !lang || !locale) {
+      // Unrecoverable error, we can't even display the layout because we don't have the minimal required information to properly do so
+      // This most likely means something went wrong, and we must display the error page in such case
+      if (!props.err) {
+        // If the error wasn't detected by Next, then we log it to Sentry to make sure we'll be notified
+
+        Sentry.withScope((scope): void => {
+          scope.setContext('props', props);
+          Sentry.captureMessage(`Unexpected fatal error happened, the app cannot render properly, fallback to the Error page. Check props.`, Sentry.Severity.Warning);
+        });
+
+      } else {
+        // If an error was detected by Next, then it means the current state is due to a top-level that was caught before
+        // We don't have anything to do, as it's automatically logged into Sentry
+      }
+
+      return (
+        <ErrorPage err={props.err} statusCode={500} isReadyToRender={true}>
+          <DefaultErrorLayout
+            error={props.err}
+          />
+        </ErrorPage>
+      );
+    }
+
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
     const theme: Theme = initCustomerTheme(customer);
 
@@ -81,18 +121,22 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     if (isBrowser()) {
       browserPageBootstrapProps = {
         ...props,
+        router,
         pageProps: {
           ...pageProps,
           i18nextInstance,
+          isSSGFallbackInitialBuild: isSSGFallbackInitialBuild,
           theme,
         },
       };
     } else {
       serverPageBootstrapProps = {
         ...props,
+        router,
         pageProps: {
           ...pageProps,
           i18nextInstance,
+          isSSGFallbackInitialBuild: isSSGFallbackInitialBuild,
           theme,
         },
       };

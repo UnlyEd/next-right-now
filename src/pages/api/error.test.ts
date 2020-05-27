@@ -6,7 +6,7 @@ import error from './error';
 describe('error', () => {
   beforeEach(() => {
     // Silent console log (used by logger.warn)
-    // @ts-ignore
+    // @ts-expect-error
     global.console = { warn: jest.fn(), log: jest.fn() };
   });
 
@@ -15,7 +15,6 @@ describe('error', () => {
   });
 
   test('should return expected variables', async () => {
-    // @ts-ignore
     const req: NowRequest = mockRequest({}, {});
     const res: NowResponse = mockResponse();
     await error(req, res);

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 /**
- * Used for /terms page
+ * Used by /src/pages/[locale]/terms page
  */
 export const TERMS_PAGE_QUERY = gql`
   query TERMS_PAGE_QUERY($customerRef: String!){

@@ -2,7 +2,7 @@ import some from 'lodash.some';
 import React, { DependencyList, useState } from 'react';
 
 type Props = {
-  children: React.ReactElement | React.ReactElement[];
+  children: React.ReactNode;
   deps?: DependencyList;
 };
 
@@ -40,7 +40,7 @@ type Props = {
  * This process is named "Two pass rendering":
  * The first pass, at compile-time, produces all of the static non-personal content, and leaves holes where the dynamic content will go.
  * Then, after the React app has mounted on the user's device, a second pass stamps in all the dynamic bits that depend on client state.
- * The downside to two-pass rendering is that it can delay time-to-interactive.
+ * The downside to two-pass rendering is that it can waitFor time-to-interactive.
  *
  * @param props
  * @see https://joshwcomeau.com/react/the-perils-of-rehydration/#abstractions Strongly inspired by "ClientOnly" abstraction

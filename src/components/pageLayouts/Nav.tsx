@@ -2,14 +2,20 @@
 import { Amplitude } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classnames from 'classnames';
+import map from 'lodash.map';
+import kebabCase from 'lodash.kebabcase';
 import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Col, Nav as NavStrap, Navbar, NavItem, NavLink, Row } from 'reactstrap';
+import { Col, DropdownItem, DropdownMenu, DropdownToggle, Nav as NavStrap, Navbar, NavItem, NavLink, Row, UncontrolledDropdown } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
+import { SidebarLink } from '../../types/SidebarLink';
 import { isActive, resolveI18nHomePage } from '../../utils/app/router';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
+import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '../doc/BuiltInFeaturesSidebar';
+import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '../doc/BuiltInUtilitiesSidebar';
 import I18nLink from '../i18n/I18nLink';
 
 type Props = {};
@@ -86,6 +92,27 @@ const Nav: React.FunctionComponent<Props> = () => {
                 color: ${primaryColor} !important;
               }
             }
+
+            .dropdown {
+              padding-top: 8px;
+              padding-bottom: 8px;
+              cursor: pointer;
+
+              .dropdown-toggle {
+                &.active {
+                  color: ${primaryColor};
+                }
+              }
+
+              .dropdown-item {
+                max-height: 30px;
+              }
+            }
+
+            .dropdown-header,
+            .dropdown-divider {
+              cursor: initial;
+            }
           `}
         >
           <div className={'brand-logo'}>
@@ -117,33 +144,54 @@ const Nav: React.FunctionComponent<Props> = () => {
             </NavItem>
 
             <NavItem>
-              <I18nLink
-                href={`/examples`}
-                wrapChildrenAsLink={false}
-              >
-                <NavLink
-                  id={'nav-link-examples'}
-                  active={isActive(router, 'examples')}
-                >
+              <UncontrolledDropdown>
+                <DropdownToggle id={'nav-link-examples'} tag={'span'} className={classnames({ active: isActive(router, 'examples') })} caret>
                   <FontAwesomeIcon icon={['fas', 'book-reader']} />
                   {t('nav.examplesPage.link', 'Exemples')}
-                </NavLink>
-              </I18nLink>
-            </NavItem>
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem header>Native features</DropdownItem>
+                  {/*<DropdownItem tag={'span'}>*/}
+                  {/*  <I18nLink href={'/'}>*/}
+                  {/*    Native features*/}
+                  {/*  </I18nLink>*/}
+                  {/*</DropdownItem>*/}
+                  <DropdownItem divider />
 
-            <NavItem>
-              <I18nLink
-                href={`/products`}
-                wrapChildrenAsLink={false}
-              >
-                <NavLink
-                  id={'nav-link-products'}
-                  active={isActive(router, 'products')}
-                >
-                  <FontAwesomeIcon icon={['fas', 'coffee']} />
-                  {t('nav.productsPage.link', 'Produits')}
-                </NavLink>
-              </I18nLink>
+                  <DropdownItem header>Built-in features</DropdownItem>
+                  {
+                    map(BUILT_IN_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
+                      const { label, href } = link;
+                      return (
+                        <DropdownItem tag={'span'} key={href}>
+                          <I18nLink href={href} wrapChildrenAsLink={false}>
+                            <NavLink id={`nav-link-examples-${kebabCase(label)}`} active={router.pathname.replace('/[locale]', '') === href}>
+                              {label}
+                            </NavLink>
+                          </I18nLink>
+                        </DropdownItem>
+                      );
+                    })
+                  }
+                  <DropdownItem divider />
+
+                  <DropdownItem header>Built-in utilities</DropdownItem>
+                  {
+                    map(BUILT_IN_UTILITIES_SIDEBAR_LINKS, (link: SidebarLink) => {
+                      const { label, href } = link;
+                      return (
+                        <DropdownItem tag={'span'} key={href}>
+                          <I18nLink href={href} wrapChildrenAsLink={false}>
+                            <NavLink active={router.pathname.replace('/[locale]', '') === href}>
+                              {label}
+                            </NavLink>
+                          </I18nLink>
+                        </DropdownItem>
+                      );
+                    })
+                  }
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </NavItem>
 
             <NavItem>

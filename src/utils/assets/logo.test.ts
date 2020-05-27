@@ -10,7 +10,7 @@ describe('toPixels', () => {
   // Edge cases, not handled yet
   test('should convert to pixels incorrectly (edge cases)', async () => {
     expect(toPixels(null)).toEqual(null);
-    // @ts-ignore
+    // @ts-expect-error
     expect(toPixels()).toEqual(undefined);
     expect(toPixels('string')).toEqual('string');
     expect(toPixels('50')).toEqual('50');
