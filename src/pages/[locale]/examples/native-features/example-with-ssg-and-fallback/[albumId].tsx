@@ -44,12 +44,16 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
       Sentry.captureException(error);
     });
 
-  return deepmerge(commonStaticProps, {
+  const staticProps: StaticPropsOutput = deepmerge(commonStaticProps, {
     props: {
       album,
       albumId,
     },
   });
+
+  console.debug('getStaticProps.staticProps', staticProps);
+
+  return staticProps;
 };
 
 /**
@@ -67,10 +71,14 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<St
     });
   });
 
-  return {
+  const staticPaths: StaticPathsOutput = {
     ...commonStaticPaths,
     fallback: true,
   };
+
+  console.debug('getStaticPaths.staticPaths', getStaticPaths);
+
+  return staticPaths;
 };
 
 /**

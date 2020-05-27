@@ -6,7 +6,6 @@ import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert, Container } from 'reactstrap';
@@ -105,7 +104,6 @@ type Props = {
 
 const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
-  const router: NextRouter = useRouter();
 
   return (
     <DefaultLayout
