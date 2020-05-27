@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
+import { jsx, css } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
@@ -8,9 +7,11 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { useState } from 'react';
-import { Alert } from 'reactstrap';
+import { Alert, Button } from 'reactstrap';
+import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../../../../hocs/withApollo';
+import useI18n from '../../../../../hooks/useI18n';
 import { StaticParams } from '../../../../../types/nextjs/StaticParams';
 import { StaticPath } from '../../../../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../../../../types/nextjs/StaticPathsOutput';
@@ -18,7 +19,9 @@ import { StaticPropsInput } from '../../../../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../../types/pageProps/SSGPageProps';
+import { getRandomInt } from '../../../../../utils/math/random';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../../../utils/nextjs/SSG';
+import waitFor from '../../../../../utils/timers/waitFor';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-fallback/[albumId]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -36,13 +39,25 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const commonStaticProps: StaticPropsOutput = await getCommonStaticProps(props);
   const { params: { albumId } } = props;
-  console.log('getStaticProps.props.params', props.params);
-  const album = await fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}`)
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error(error); // eslint-disable-line no-console
-      Sentry.captureException(error);
-    });
+
+  // Simulate API call by awaiting
+  const awaitForMs = getRandomInt(500, 4000);
+  await waitFor(awaitForMs);
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const songs = require('../../../../../mocks/songs').default;
+  let songId = parseInt(albumId);
+
+  if (songId > songs.length - 1) { // Handle overflow
+    songId = 0;
+  }
+
+  // Simulates an API response
+  const album: Album = {
+    id: songId,
+    title: songs[songId],
+    awaitedForMs: awaitForMs,
+  };
 
   const staticProps: StaticPropsOutput = deepmerge(commonStaticProps, {
     props: {
@@ -50,8 +65,6 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
       albumId,
     },
   });
-
-  console.debug('getStaticProps.staticProps', staticProps);
 
   return staticProps;
 };
@@ -76,9 +89,13 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<St
     fallback: true,
   };
 
-  console.debug('getStaticPaths.staticPaths', getStaticPaths);
-
   return staticPaths;
+};
+
+type Album = {
+  id: number;
+  title: string;
+  awaitedForMs: number;
 };
 
 /**
@@ -91,13 +108,15 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<St
  */
 type Props = {
   albumId: string;
-  album: any;
+  album: Album;
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element => {
   const { albumId, album } = props;
   const router: NextRouter = useRouter();
+  const { locale } = useI18n();
   const [hasUsedFallbackRendering] = useState<boolean>(router.isFallback);
+  const { id, title, awaitedForMs } = album;
 
   return (
     <DefaultLayout
@@ -122,11 +141,44 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
           }
         </Alert>
 
-        <h1>Album N°{albumId || 'Unknown'}</h1>
+        <h1>Album N°{albumId}</h1>
         <div>
-          Title: {album?.title || 'Unknown'}<br />
-          User Id: {album?.userId || 'Unknown'}<br />
+          Title: {title}<br />
         </div>
+
+        <div
+          css={css`
+            display: flex;
+            justify-content: center;
+          `}
+        >
+          <I18nLink
+            href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+            as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id - 1}`}
+          >
+            <Button color={'link'}>Go to previous album</Button>
+          </I18nLink>
+
+          <I18nLink
+            href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+            as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id + 1}`}
+          >
+            <Button color={'link'}>Go to next album</Button>
+          </I18nLink>
+        </div>
+
+        <div>
+          <br />
+          <i>The request was slowed by <b>{awaitedForMs}ms</b> before being sent to the browser, to simulate a real API call.</i>
+        </div>
+
+        <br />
+        <br />
+
+        <Alert color={'warning'}>
+          In development mode, it is not possible to simulate <code>fallback</code> mode properly.<br />
+          Each page refresh will completely refresh the page, any previous build will be ignored.
+        </Alert>
       </div>
 
     </DefaultLayout>
