@@ -20,9 +20,6 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 /**
  * Only executed on the server side at build time.
  *
- * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
- * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
- *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
  * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
