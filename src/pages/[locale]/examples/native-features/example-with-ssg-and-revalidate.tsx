@@ -16,6 +16,7 @@ import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnB
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssg';
 import withApollo from '../../../../hocs/withApollo';
+import useI18n, { I18n } from '../../../../hooks/useI18n';
 import { Product } from '../../../../types/data/Product';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
@@ -109,6 +110,7 @@ type Props = {
 
 const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
   const { products, builtAt } = props;
+  const { locale }: I18n = useI18n();
 
   return (
     <DefaultLayout
@@ -146,7 +148,7 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
           <DisplayOnBrowserMount>
             The page was built at: {builtAt} ({timeDifference(new Date(), new Date(builtAt))})
             {' - '}
-            <I18nLink href={'/examples/native-features/example-with-ssg-and-revalidate'}>Refresh</I18nLink>
+            <a href={`/${locale}/examples/native-features/example-with-ssg-and-revalidate`}>Refresh</a>
           </DisplayOnBrowserMount>
         </Alert>
 
