@@ -75,6 +75,16 @@ export const isActive = (router: NextRouter, path: string): boolean => {
 };
 
 /**
+ * Returns the current page url, but for a different locale
+ *
+ * @param locale
+ * @param router
+ */
+export const getSamePageI18nUrl = (locale, router: NextRouter): string => {
+  return `${router.pathname.replace('[locale]', locale)}`;
+};
+
+/**
  * Redirects the current page to the "same" page, but for a different locale
  *
  * @param locale
@@ -84,7 +94,7 @@ export const isActive = (router: NextRouter, path: string): boolean => {
  * @see https://nextjs.org/docs/api-reference/next/router#router-api Router API
  */
 export const i18nRedirect = (locale, router: NextRouter, pageReload = false): void => {
-  const newUrl = `${router.pathname.replace('[locale]', locale)}`;
+  const newUrl = getSamePageI18nUrl(locale, router);
 
   if (pageReload) {
     location.href = newUrl;

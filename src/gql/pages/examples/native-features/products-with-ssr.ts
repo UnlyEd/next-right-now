@@ -1,14 +1,14 @@
 import gql from 'graphql-tag';
 
-import { asset } from '../fragments/asset';
-import { product } from '../fragments/product';
-import { theme } from '../fragments/theme';
+import { asset } from '../../../fragments/asset';
+import { product } from '../../../fragments/product';
+import { theme } from '../../../fragments/theme';
 
 /**
- * Used for /products page
+ * Used by /src/pages/[locale]/examples/native-features/products-with-ssr page
  */
-export const PRODUCTS_PAGE_QUERY = gql`
-  query PRODUCTS_PAGE_QUERY($customerRef: String!){
+export const PRODUCTS_WITH_SSR_QUERY = gql`
+  query PRODUCTS_WITH_SSR_QUERY($customerRef: String!){
     customer(where: {
       ref: $customerRef,
     }){

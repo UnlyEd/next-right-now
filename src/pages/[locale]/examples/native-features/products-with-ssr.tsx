@@ -11,7 +11,7 @@ import AllProducts from '../../../../components/data/AllProducts';
 
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import { PRODUCTS_PAGE_QUERY } from '../../../../gql/pages/products';
+import { PRODUCTS_WITH_SSR_QUERY } from '../../../../gql/pages/examples/native-features/products-with-ssr';
 import withApollo from '../../../../hocs/withApollo';
 import { Customer } from '../../../../types/data/Customer';
 import { Product } from '../../../../types/data/Product';
@@ -98,7 +98,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
     displayName: 'PRODUCTS_PAGE_QUERY',
-    query: PRODUCTS_PAGE_QUERY,
+    query: PRODUCTS_WITH_SSR_QUERY,
   };
 
   const {
@@ -167,8 +167,8 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
 //     customerRef,
 //   };
 //   const queryOptions = {
-//     displayName: 'PRODUCTS_PAGE_QUERY',
-//     query: PRODUCTS_PAGE_QUERY,
+//     displayName: 'PRODUCTS_WITH_SSR_QUERY',
+//     query: PRODUCTS_WITH_SSR_QUERY,
 //     variables,
 //     context: {
 //       headers: {
