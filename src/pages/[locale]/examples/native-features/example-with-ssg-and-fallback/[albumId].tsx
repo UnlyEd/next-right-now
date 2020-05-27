@@ -35,7 +35,6 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const commonStaticProps: StaticPropsOutput = await getCommonStaticProps(props);
-  console.log('getStaticProps.props', props);
   const { params: { albumId } } = props;
   const album = await fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}`)
     .then((response) => response.json())
@@ -67,8 +66,6 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<St
     });
   });
 
-  console.log('commonStaticPaths', commonStaticPaths)
-
   return {
     ...commonStaticPaths,
     fallback: true,
@@ -92,9 +89,6 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
   const { albumId, album } = props;
   const router: NextRouter = useRouter();
   const [hasUsedFallbackRendering] = useState<boolean>(router.isFallback);
-
-  console.debug('ExampleWithSSGAndFallbackAlbumPage.props', props);
-  console.debug('router.isFallback', router.isFallback);
 
   return (
     <DefaultLayout
