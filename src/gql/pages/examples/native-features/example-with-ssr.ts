@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
-import { asset } from '../fragments/asset';
-import { product } from '../fragments/product';
-import { theme } from '../fragments/theme';
-import { layout } from '../fragments/layout'
+import { asset } from '../../../fragments/asset';
+import { product } from '../../../fragments/product';
+import { theme } from '../../../fragments/theme';
+import { layout } from '../../../fragments/layout'
 
 /**
  * Used by /src/pages/[locale]/examples/native-features/example-with-ssr page
