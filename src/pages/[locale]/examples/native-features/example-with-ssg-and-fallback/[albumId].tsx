@@ -9,6 +9,7 @@ import React from 'react';
 import { Alert, Button } from 'reactstrap';
 import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
+import ExternalLink from '../../../../../components/utils/ExternalLink';
 import withApollo from '../../../../../hocs/withApollo';
 import useI18n from '../../../../../hooks/useI18n';
 import { StaticParams } from '../../../../../types/nextjs/StaticParams';
@@ -40,7 +41,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
   const { params: { albumId } } = props;
 
   // Simulate API call by awaiting
-  const awaitForMs = getRandomInt(500, 4000);
+  const awaitForMs = getRandomInt(1000, 4000);
   await waitFor(awaitForMs);
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -149,39 +150,58 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
           }
         </Alert>
 
-        <h1>Album N°{albumId}</h1>
-        <div>
-          Title: {title}<br />
-        </div>
+        <Alert color={'warning'}>
+          If you use the below "previous"/"next" button, it'll make you believe pages were pre-rendered, but it's not true.<br />
+          Next is so smart that it optimize this kind of stuff, using the <code>next/link</code> (or <code>I18nLink</code>) component preload pages and build them before you click on them.<br />
+          If you want to check for sure if a page has been pre-rendered, you better use the "next +2" link, which uses a <code>a</code> which doesn't have such optimizations.
+        </Alert>
 
         <div
           css={css`
+            background-color: white;
+            border-radius: 5px;
+            padding: 30px;
+          `}
+        >
+          <h1>Album N°{albumId}</h1>
+          <div>
+            Title: {title}<br />
+          </div>
+
+          <div
+            css={css`
             display: flex;
             justify-content: center;
           `}
-        >
-          {
-            id > 0 && (
-              <I18nLink
-                href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
-                as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id - 1}`}
-              >
-                <Button color={'link'}>Go to previous album</Button>
-              </I18nLink>
-            )
-          }
-
-          <I18nLink
-            href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
-            as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id + 1}`}
           >
-            <Button color={'link'}>Go to next album</Button>
-          </I18nLink>
-        </div>
+            {
+              id > 0 && (
+                <I18nLink
+                  href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+                  as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id - 1}`}
+                >
+                  <Button color={'link'}>Go to previous album</Button>
+                </I18nLink>
+              )
+            }
 
-        <div>
-          <br />
-          <i>The request was slowed by <b>{awaitedForMs}ms</b> before being sent to the browser, to simulate a real API call.</i>
+            <I18nLink
+              href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+              as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id + 1}`}
+            >
+              <Button color={'link'}>Go to next album</Button>
+            </I18nLink>
+
+          </div>
+
+          <ExternalLink href={`/examples/native-features/example-with-ssg-and-fallback/${id + 2}`}>
+            <Button color={'link'}>Go to next+2 album (opens new tab)</Button>
+          </ExternalLink>
+
+          <div>
+            <br />
+            <i>The request was slowed by <b>{awaitedForMs}ms</b> before being sent to the browser, to simulate a real API call.</i>
+          </div>
         </div>
 
         <br />
