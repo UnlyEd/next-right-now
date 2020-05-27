@@ -122,7 +122,9 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 </ExternalLink>
                 <I18nLink
                   href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
-                  as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/1`}
+                  params={{
+                    albumId: 1,
+                  }}
                 >
                   <Button color={'link'}>Example with <code>getStaticProps</code> and <code>fallback</code></Button>
                 </I18nLink>

@@ -1,18 +1,21 @@
+import isEmpty from 'lodash.isempty';
+import map from 'lodash.map';
 import Link from 'next/link';
 import React, { ReactNode } from 'react';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { I18nRoute, resolveI18nRoute } from '../../utils/app/router';
 
 type Props = {
+  as?: string;
   children: ReactNode;
   href: string;
-  as?: string;
+  locale?: string; // The locale can be specified, but it'll fallback to the current locale if unspecified
+  params?: { [key: string]: string | number };
+  passHref?: boolean;
+  prefetch?: boolean;
   replace?: boolean;
   scroll?: boolean;
   shallow?: boolean;
-  passHref?: boolean;
-  prefetch?: boolean;
-  locale?: string; // The locale can be specified, but it'll fallback to the current locale if unspecified
   wrapChildrenAsLink?: boolean; // Helper to avoid writing redundant code
 }
 
@@ -38,6 +41,16 @@ type Props = {
  *      <NavLink>Homepage</NavLink>
  *   </I18nLink>
  *
+ * @example When using route params (other than "locale")
+ *   <I18nLink
+ *     href={'/products/[id]'}
+ *     params={{
+ *       id: 5,
+ *     }}
+ *   >
+ *      Go to product 5
+ *   </I18nLink>
+ *
  * @param props
  */
 const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
@@ -47,14 +60,22 @@ const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
     children,
     href,
     locale = currentLocale,
+    params,
     passHref = true,
     wrapChildrenAsLink = true,
     ...rest // Should only contain valid next/Link props
   } = props;
-  const {
-    i18nHref,
+  let {
+    i18nHref, // eslint-disable-line prefer-const
     i18nAs,
   }: I18nRoute = resolveI18nRoute({ as, href, locale });
+
+  if (!isEmpty(params)) {
+    // If any params are provided, replace their name by the provided value
+    map(params, (value: string, key: string | number) => {
+      i18nAs = i18nAs.replace(`[${key}]`, value);
+    });
+  }
 
   return (
     <Link

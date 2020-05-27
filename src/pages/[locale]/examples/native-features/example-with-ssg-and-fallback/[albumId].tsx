@@ -178,7 +178,9 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
               id > 0 && (
                 <I18nLink
                   href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
-                  as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id - 1}`}
+                  params={{
+                    albumId: id - 1,
+                  }}
                 >
                   <Button color={'link'}>Go to previous album</Button>
                 </I18nLink>
@@ -187,7 +189,9 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
 
             <I18nLink
               href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
-              as={`/${locale}/examples/native-features/example-with-ssg-and-fallback/${id + 1}`}
+              params={{
+                albumId: id + 1,
+              }}
             >
               <Button color={'link'}>Go to next album</Button>
             </I18nLink>
