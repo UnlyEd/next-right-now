@@ -9,6 +9,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import { Alert, Container } from 'reactstrap';
 import AllProducts from '../../../../components/data/AllProducts';
+import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
 import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
@@ -111,11 +112,12 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
 
   return (
     <DefaultLayout
+      {...props}
       pageName={'examples'}
       headProps={{
-        title: `${size(products)} products (SSG) - Next Right Now`,
+        title: `${size(products)} products (SSG with revalidate) - Next Right Now`,
       }}
-      {...props}
+      Sidebar={NativeFeaturesSidebar}
     >
       <Container
         className={'container-white'}

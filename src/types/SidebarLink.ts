@@ -4,4 +4,5 @@
 export type SidebarLink = {
   href: string;
   label: string;
+  params?: { [key: string]: string | number }
 }

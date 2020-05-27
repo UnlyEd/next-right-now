@@ -7,6 +7,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert, Button } from 'reactstrap';
+import NativeFeaturesSidebar from '../../../../../components/doc/NativeFeaturesSidebar';
 import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../../components/utils/ExternalLink';
@@ -123,6 +124,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
       headProps={{
         title: `Album N°${albumId} (SSG, ${isSSGFallbackInitialBuild ? 'using fallback' : 'not using fallback'}) - Next Right Now`,
       }}
+      Sidebar={NativeFeaturesSidebar}
     >
       <h1>Example, using SSG with fallback option</h1>
 

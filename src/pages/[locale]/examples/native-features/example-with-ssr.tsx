@@ -8,6 +8,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import React from 'react';
 import { Alert, Container } from 'reactstrap';
 import AllProducts from '../../../../components/data/AllProducts';
+import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
 
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
@@ -101,16 +102,17 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 
   return (
     <DefaultLayout
+      {...props}
       pageName={'example-with-ssr'}
       headProps={{
         title: `${size(products)} products (SSR) - Next Right Now`,
       }}
-      {...props}
+      Sidebar={NativeFeaturesSidebar}
     >
       <Container
         className={'container-white'}
       >
-        <h1>Products, using SSR</h1>
+        <h1>Example, using SSR</h1>
 
         <Alert color={'info'}>
           This page uses server side rendering (SSR) because it uses <code>getServerSideProps</code>.<br />

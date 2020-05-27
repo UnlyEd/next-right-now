@@ -94,11 +94,11 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
   // Also, it has to be hardcoded, it cannot be stored on Locize, because we don't have access to translations from other languages
   return (
     <DefaultLayout
+      {...props}
       pageName={'404'}
       headProps={{
         title: '404 Not Found - Next Right Now',
       }}
-      {...props}
     >
       <div
         css={css`

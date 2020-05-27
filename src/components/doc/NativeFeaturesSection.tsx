@@ -2,7 +2,6 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import { Alert, Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
-import useI18n from '../../hooks/useI18n';
 import I18nLink from '../i18n/I18nLink';
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
@@ -16,8 +15,6 @@ type Props = {}
  * @param props
  */
 const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { locale } = useI18n();
-
   return (
     <DocSection>
       <h2>Next.js native features</h2>

@@ -90,11 +90,11 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
 
   return (
     <DefaultLayout
+      {...props}
       pageName={'products'}
       headProps={{
         title: `Page template SSR - Next Right Now`,
       }}
-      {...props}
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSR pages</b>.
