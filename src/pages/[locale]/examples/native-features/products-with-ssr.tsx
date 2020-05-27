@@ -11,7 +11,7 @@ import AllProducts from '../../../../components/data/AllProducts';
 
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import { PRODUCTS_WITH_SSR_QUERY } from '../../../../gql/pages/examples/native-features/products-with-ssr';
+import { EXAMPLE_WITH_SSR_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssr';
 import withApollo from '../../../../hocs/withApollo';
 import { Customer } from '../../../../types/data/Customer';
 import { Product } from '../../../../types/data/Product';
@@ -21,7 +21,7 @@ import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../../../types/pageProps/SSRPageProps';
 import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../../../utils/nextjs/SSR';
 
-const fileLabel = 'pages/[locale]/examples/native-features/products-with-ssr';
+const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -49,7 +49,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 
   return (
     <DefaultLayout
-      pageName={'products-with-ssr'}
+      pageName={'example-with-ssr'}
       headProps={{
         title: `${size(products)} products (SSR) - Next Right Now`,
       }}
@@ -97,8 +97,8 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
   }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
-    displayName: 'PRODUCTS_PAGE_QUERY',
-    query: PRODUCTS_WITH_SSR_QUERY,
+    displayName: 'EXAMPLE_WITH_SSR_QUERY',
+    query: EXAMPLE_WITH_SSR_QUERY,
   };
 
   const {
@@ -167,8 +167,8 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
 //     customerRef,
 //   };
 //   const queryOptions = {
-//     displayName: 'PRODUCTS_WITH_SSR_QUERY',
-//     query: PRODUCTS_WITH_SSR_QUERY,
+//     displayName: 'EXAMPLE_WITH_SSR_QUERY',
+//     query: EXAMPLE_WITH_SSR_QUERY,
 //     variables,
 //     context: {
 //       headers: {

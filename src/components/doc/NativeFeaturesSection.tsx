@@ -53,7 +53,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering'}>
                   <Button color={'link'}>Learn more about <code>getServerSideProps</code></Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/native-features/products-with-ssr'}>
+                <I18nLink href={'/examples/native-features/example-with-ssr'}>
                   <Button color={'link'}>Example with <code>getServerSideProps</code></Button>
                 </I18nLink>
               </div>
@@ -89,7 +89,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation'}>
                   <Button color={'link'}>Learn more about <code>getStaticProps</code></Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/native-features/products-with-ssg'}>
+                <I18nLink href={'/examples/native-features/example-with-ssg'}>
                   <Button color={'link'}>Example with <code>getStaticProps</code></Button>
                 </I18nLink>
               </div>
@@ -153,7 +153,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 <ExternalLink href={'https://nextjs.org/blog/next-9-4#incremental-static-regeneration-beta'}>
                   <Button color={'link'}>Learn more about <code>getStaticProps</code> with <code>revalidate</code> option</Button>
                 </ExternalLink>
-                <I18nLink href={'/examples/native-features/products-with-ssg-and-revalidate'}>
+                <I18nLink href={'/examples/native-features/example-with-ssg-and-revalidate'}>
                   <Button color={'link'}>Example with <code>getStaticProps</code> and <code>revalidate</code></Button>
                 </I18nLink>
               </div>
