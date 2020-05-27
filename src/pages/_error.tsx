@@ -50,7 +50,8 @@ export type ErrorProps = {
 const ErrorPage = (props: ErrorPageProps): JSX.Element => {
   const { statusCode, isReadyToRender, err, children = null } = props;
   if (process.env.APP_STAGE !== 'production') {
-    console.debug('ErrorPage - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);
+    console.debug('ErrorPage - Unexpected error caught, it was captured and sent to Sentry. Error details:'); // eslint-disable-line no-console
+    console.error(err); // eslint-disable-line no-console
   }
 
   // TODO rename to "forceLogTopLevelError" = true and provide false in "DefaultErrorLayout"

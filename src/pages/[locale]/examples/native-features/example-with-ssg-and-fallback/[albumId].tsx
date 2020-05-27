@@ -8,6 +8,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { useState } from 'react';
+import { Alert } from 'reactstrap';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
 import withApollo from '../../../../../hocs/withApollo';
 import { StaticParams } from '../../../../../types/nextjs/StaticParams';
@@ -18,7 +19,6 @@ import { StaticPropsOutput } from '../../../../../types/nextjs/StaticPropsOutput
 import { OnlyBrowserPageProps } from '../../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../../types/pageProps/SSGPageProps';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../../../../utils/nextjs/SSG';
-import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-fallback/[albumId]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -36,6 +36,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const commonStaticProps: StaticPropsOutput = await getCommonStaticProps(props);
   const { params: { albumId } } = props;
+  console.log('getStaticProps.props.params', props.params);
   const album = await fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}`)
     .then((response) => response.json())
     .catch((error) => {
