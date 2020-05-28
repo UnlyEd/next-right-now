@@ -89,7 +89,9 @@ const BuiltInUtilitiesSidebar: React.FunctionComponent<Props> = (props): JSX.Ele
 
       <hr />
 
-      <SidebarFooter />
+      <SidebarFooter
+        previousSectionHref={'/examples/built-in-features'}
+      />
     </div>
   );
 };

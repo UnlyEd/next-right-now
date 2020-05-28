@@ -103,7 +103,7 @@ type Props = {
   products: Product[];
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
+const ExampleWithSSGPage: NextPage<Props> = (props): JSX.Element => {
   const { products } = props;
 
   return (
@@ -160,4 +160,4 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ProductsWithSSGPage);
+export default withApollo()(ExampleWithSSGPage);

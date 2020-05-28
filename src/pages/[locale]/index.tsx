@@ -1,6 +1,4 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-import React from 'react';
 
 import { StaticParams } from '../../types/nextjs/StaticParams';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';

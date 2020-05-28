@@ -6,7 +6,41 @@ import { useTranslation } from 'react-i18next';
 import I18nLink from '../i18n/I18nLink';
 
 type Props = {
+  previousSectionHref?: string; // If not defined, then won't show the previous section link
   nextSectionHref?: string; // If not defined, then won't show the next section link
+};
+
+const HomePageLink: React.FunctionComponent = () => {
+  const { t } = useTranslation();
+
+  return (
+    <I18nLink href={'/'}>
+      <FontAwesomeIcon icon={['fas', 'home']} />
+      {t('nav.indexPage.link', 'Accueil')}
+    </I18nLink>
+  );
+};
+
+const NextSectionLink: React.FunctionComponent<{ nextSectionHref: string }> = (props) => {
+  const { nextSectionHref } = props;
+
+  return (
+    <I18nLink href={nextSectionHref}>
+      <FontAwesomeIcon icon={['fas', 'arrow-circle-right']} />
+      Next section
+    </I18nLink>
+  );
+};
+
+const PreviousSectionLink: React.FunctionComponent<{ previousSectionHref: string }> = (props) => {
+  const { previousSectionHref } = props;
+
+  return (
+    <I18nLink href={previousSectionHref}>
+      <FontAwesomeIcon icon={['fas', 'arrow-circle-left']} />
+      Previous section
+    </I18nLink>
+  );
 };
 
 /**
@@ -17,8 +51,10 @@ type Props = {
  * @param props
  */
 const SidebarFooter: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { nextSectionHref } = props;
-  const { t } = useTranslation();
+  const {
+    nextSectionHref,
+    previousSectionHref,
+  } = props;
 
   return (
     <div
@@ -26,21 +62,36 @@ const SidebarFooter: React.FunctionComponent<Props> = (props): JSX.Element => {
       css={css`
         display: flex;
         justify-content: space-around;
+        flex-wrap: wrap;
       `}
     >
-      <I18nLink href={'/'}>
-        <FontAwesomeIcon icon={['fas', 'home']} />
-        {t('nav.indexPage.link', 'Accueil')}
-      </I18nLink>
+      {
+        previousSectionHref && nextSectionHref && (
+          <>
+            <PreviousSectionLink previousSectionHref={previousSectionHref} />
+            {' - '}
+            <NextSectionLink nextSectionHref={nextSectionHref} />
+            <HomePageLink />
+          </>
+        )
+      }
 
       {
-        nextSectionHref && (
+        !previousSectionHref && nextSectionHref && (
           <>
+            <HomePageLink />
             {' - '}
-            <I18nLink href={nextSectionHref}>
-              <FontAwesomeIcon icon={['fas', 'arrow-circle-right']} />
-              Next section
-            </I18nLink>
+            <NextSectionLink nextSectionHref={nextSectionHref} />
+          </>
+        )
+      }
+
+      {
+        previousSectionHref && !nextSectionHref && (
+          <>
+            <PreviousSectionLink previousSectionHref={previousSectionHref} />
+            {' - '}
+            <HomePageLink />
           </>
         )
       }
