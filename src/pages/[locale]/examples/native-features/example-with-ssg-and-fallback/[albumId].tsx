@@ -12,6 +12,7 @@ import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../../components/utils/ExternalLink';
 import withApollo from '../../../../../hocs/withApollo';
+import songs from '../../../../../mocks/songs';
 import { StaticParams } from '../../../../../types/nextjs/StaticParams';
 import { StaticPath } from '../../../../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../../../../types/nextjs/StaticPathsOutput';
@@ -44,8 +45,6 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
   const awaitForMs = getRandomInt(1000, 4000);
   await waitFor(awaitForMs);
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const songs = require('../../../../../mocks/songs').default;
   let songId = parseInt(albumId);
 
   if (songId > songs.length - 1) { // Handle overflow
@@ -161,6 +160,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
             background-color: white;
             border-radius: 5px;
             padding: 30px;
+            text-align: center;
           `}
         >
           <h1>Album N°{albumId}</h1>
