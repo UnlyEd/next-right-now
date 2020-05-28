@@ -76,6 +76,11 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
           This page doesn't exist and should display a 404 page.
         </Alert>
 
+        <Alert color={'danger'}>
+          Clicking on the link doesn't do anything, I don't know if it's meant to be a feature, but
+          <ExternalLink href={'https://github.com/vercel/next.js/issues/13516'} suffix={null}>this is probably a bug</ExternalLink>.
+        </Alert>
+
         <p>
           <I18nLink href={'/404-csr'}>This is a client-side navigation (CSR)</I18nLink>
         </p>
@@ -87,7 +92,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
         />
         <br />
 
-        <h2>400 - Using full page reload</h2>
+        <h2>404 - Using full page reload</h2>
 
         <Alert color={'info'}>
           This page doesn't exist and should display a 404 page.
