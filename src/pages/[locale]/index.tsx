@@ -11,7 +11,7 @@ import DocsHomePage, { getStaticPaths as getStaticPathsHomePage, getStaticProps 
    Check out /pageTemplateSSG for getting started with your own index page and override this one
  */
 
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getStaticPropsHomePage;
 export const getStaticPaths: GetStaticPaths<StaticParams> = getStaticPathsHomePage;
+export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getStaticPropsHomePage;
 
 export default DocsHomePage;

@@ -35,6 +35,12 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 const regenerationDelay = 30; // Seconds
 
 /**
+ * Only executed on the server side at build time
+ * Necessary when a page has dynamic routes and uses "getStaticProps"
+ */
+export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
+
+/**
  * Only executed on the server side at build time.
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
@@ -88,12 +94,6 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
     unstable_revalidate: regenerationDelay, // eslint-disable-line @typescript-eslint/camelcase
   });
 };
-
-/**
- * Only executed on the server side at build time
- * Necessary when a page has dynamic routes and uses "getStaticProps"
- */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)

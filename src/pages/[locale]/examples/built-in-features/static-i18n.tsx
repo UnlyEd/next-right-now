@@ -24,6 +24,12 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 });
 
 /**
+ * Only executed on the server side at build time
+ * Necessary when a page has dynamic routes and uses "getStaticProps"
+ */
+export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
+
+/**
  * Only executed on the server side at build time.
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
@@ -32,12 +38,6 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
-
-/**
- * Only executed on the server side at build time
- * Necessary when a page has dynamic routes and uses "getStaticProps"
- */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)

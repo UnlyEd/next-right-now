@@ -30,6 +30,29 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 });
 
 /**
+ * Only executed on the server side at build time
+ * Necessary when a page has dynamic routes and uses "getStaticProps"
+ */
+export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
+  const commonStaticPaths: StaticPathsOutput = await getCommonStaticPaths();
+  const { paths } = commonStaticPaths;
+  const albumIdsToPreBuild = ['1']; // Only '/album-1-with-ssg-and-fallback' is generated at build time, other will be generated on-demand
+
+  map(albumIdsToPreBuild, (albumId: string): void => {
+    map(paths, (path: StaticPath) => {
+      path.params.albumId = albumId;
+    });
+  });
+
+  const staticPaths: StaticPathsOutput = {
+    ...commonStaticPaths,
+    fallback: true,
+  };
+
+  return staticPaths;
+};
+
+/**
  * Only executed on the server side at build time.
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
@@ -68,29 +91,6 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
   });
 
   return staticProps;
-};
-
-/**
- * Only executed on the server side at build time
- * Necessary when a page has dynamic routes and uses "getStaticProps"
- */
-export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
-  const commonStaticPaths: StaticPathsOutput = await getCommonStaticPaths();
-  const { paths } = commonStaticPaths;
-  const albumIdsToPreBuild = ['1']; // Only '/album-1-with-ssg-and-fallback' is generated at build time, other will be generated on-demand
-
-  map(albumIdsToPreBuild, (albumId: string): void => {
-    map(paths, (path: StaticPath) => {
-      path.params.albumId = albumId;
-    });
-  });
-
-  const staticPaths: StaticPathsOutput = {
-    ...commonStaticPaths,
-    fallback: true,
-  };
-
-  return staticPaths;
 };
 
 type Album = {
