@@ -255,7 +255,7 @@ Marked as alpha-3 version but stable. **Much better than Reactstrap Tooltip comp
 - [`react-style-proptype`](https://www.npmjs.com/package/react-style-proptype): Validates style objects by ensuring the keys are valid css property names (in camelcase form).
 - [`prop-types`](https://www.npmjs.com/package/prop-types): Runtime type checking for React props and similar objects.
 
-> **N.B**: `react` and `react-dom` must always use the same version.
+> **Tip**: `react` and `react-dom` must always use the same version.
 
 ---
 

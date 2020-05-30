@@ -51,7 +51,7 @@ For each customer instance, we create a different Vercel project.
 
 A project is itself composed of multiple staging deployments (called "previews" on Vercel) and one production deployment.
 
-_**N.B**: If you want to learn more about what happens (on the technical level) when pushing a commit to the repository, read the [CI/CD section](../ci-cd/use-github-actions)_
+_**Tip**: If you want to learn more about what happens (on the technical level) when pushing a commit to the repository, read the [CI/CD section](../ci-cd/use-github-actions)_
 
 #### Staging deployments
 

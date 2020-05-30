@@ -55,7 +55,7 @@ Changing the symlink allows to change which "CUSTOMER_REF" gets automatically de
 _**production**_ (see [`deploy-vercel-production`](./deploy-vercel-production.yml)):
 Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_REF" specified in `now.json` to Vercel, but will use it's production configuration.
 
-> N.B: Those events are triggered by pushed commit, but also merged branches.
+> Tip: Those events are triggered by any pushed commit, but also merged branches.
 
 ### GitHub Actions Jobs workflow
 

@@ -43,7 +43,6 @@ Those are non-trivial features, and they can't always be build using open source
 They are non-trivial to build from scratch, and the use of established standards and worldwide known vendors sometimes helps a lot.
 
 Presets are meant to provide various possibilities of recommended "base code". For instance, you may want to use:
-- SSG or SSR
 - Multi-tenants or Multiple Single-Tenants or Single Tenant
 - Static i18n using a vendor (e.g: Locize), or implemented using static files (no vendor), or maybe you don't need this feature at all
 - Sentry to monitor your app (client + server sides), but maybe you already use another different vendor and would like to stick with it
@@ -68,11 +67,13 @@ Presets were discussed [in a RFC](https://github.com/UnlyEd/next-right-now/issue
 ## Which presets **are** being considered?
 
 Here is a short list of all presets that **we consider to support in the future**:
-- ST (as an alternative to current MST)
-- SSG (as an alternative to current SSR)
-- Static i18n without Locize provider (as an alternative to current Locize provider, which isn't free)
-- No static i18n and no dynamic i18n support
-    (completely remove any i18n support as an alternative for those who don't need related i18n complexity and prefer to keep things simpler)
+- Airtable instead of GraphCMS vendor, which will help towards making NRN "free" (no built-in paid vendor)
+    - [A GraphCMS alternative has been asked by the community](https://github.com/UnlyEd/next-right-now/issues/16)
+- ST (as an alternative to current MST), for people who don't need the extra tenancy complexity
+    - Basically, only deploy one site, not several (no monorepo design)
+    - Simplifies config, scripts, CI
+- In-app static i18n instead of Locize vendor, which will help towards making NRN "free" (no built-in paid vendor)
+    - [A Locize alternative has been asked by the community](https://github.com/UnlyEd/next-right-now/issues/16)
 
 ---
 
@@ -81,32 +82,33 @@ Here is a short list of all presets that **we consider to support in the future*
 We **do not plan** on providing presets for:
 - Different monitoring tool than Sentry, as it is one of the best out there, provides a generous free plan, and does the job really well.
 - Different analytics tool than Amplitude, as it is the most flexible analytics tool we've experienced.
-    For instance, Google Analytics feels like some stuff invented during Stone age in comparison, and GA doesn't play well at all with CSR rendering.
+    For instance, Google Analytics feels like some stuff invented during Stone age in comparison, and GA doesn't even play well at all with CSR rendering.
 - Different css-in-js tool than Emotion, as we've studied the market quite intensively before picking Emotion, and it's very flexible about usage and covers lots of needs.
-    We haven't been limited by Emotion in any way, in 4 months.
-- Different CI/CD tool than Github Actions, as it is becoming quite used worldwide and very powerful, for free. There is nothing that matches it, and we don't plan on using GitLab or BitBucket in a foreseen future.
+    _We haven't been limited by Emotion in any way, within a year!_
+- Different CI/CD tools than Github Actions, as it is becoming quite used worldwide and very powerful, for free. There is nothing that matches it, and we don't plan on using GitLab or BitBucket in a foreseen future.
 
-> We will therefore not provide any preset for those tools, but the community is free to open a Github issue and discuss needs and eventually propose a contribution through PR.
+> We will therefore not provide any preset for those tools, but the **community is free to open a Github issue** and discuss needs and eventually propose a contribution through PR.
 >
 > We are therefore open to add more/new tooling, but we must discuss it together first! :wink:
 
 ## How do I know which preset is best for me?
 
-A preset is nothing more than a preset of features that are built-in within.
+A "preset" is nothing more than a pre-configured set of features that are built-in within.
 
 So, to decide which one you need, you must compare what features are available versus what features you actually need.
-Also, some presets include non-free vendors, or vendors that only provide a limited plan. Depending on those things, you may chose one preset over another.
+Also, some presets include non-free vendors, or vendors that only provide a limited plan.
+Depending on those things, you may choose one preset over another.
 
 Here is a summary of all features that are provided through presets:
-- **Manage multiple B2B single-tenants**: Do you need to deploy different sites (one per customer) through the same code base (monorepo design)? If so, we've got you covered.
+- **Manage multiple B2B single-tenants**: Do you need to deploy different sites (one per customer) through the same code base (monorepo design)? If so, we've got you covered with MST design.
 - **I18n**: Do you need to display your app in multiple languages?
     If so, you should start with a preset that allows both ["dynamic i18n" and "static i18n"](../reference/terminology#nrn-terms).
     - Also, depending on your needs, you may want to rely on a professional vendor to store, provide and help with i18n.
         - For instance, our team love Locize for its [in-context editor](https://docs.locize.com/more/incontext-editor), because it really helps translators understand the context of a sentence, and our marketing/product team can make small changes without having to bother developers.
 - **Connect with external APIs**: Do you need to use external APIs? It's very much likely for any app nowadays.
-    If so, you should start with a preset that provides built-in support. Make sure to select one that fits your needs, we only provide built-in support for GraphQL at the moment.
-- **Monitoring**: Do you need to monitor what happens on your server and be warned about bugs and crashes? We bet you do.
-- **Analytics**: Do you need to track usage of your features and know how many users visited your site this month? We bet you do.
+    If so, you should start with a preset that provides built-in support. Make sure to select one fitting your needs, we only provide built-in support for GraphQL at the moment.
+- **Monitoring**: Do you need to monitor what happens on your server and be warned about bugs and crashes? **We bet you do**.
+- **Analytics**: Do you need to track usage of your features and know how many users visited your site this month? **We bet you do**.
 
 - **Tip**: Read our [**Vendors overview**](../reference/vendors)
 

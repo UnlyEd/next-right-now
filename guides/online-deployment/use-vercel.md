@@ -28,5 +28,16 @@ Note that your code will be deployed on Vercel servers, which are running **AWS 
 
 ## Resources
 
-- https://vercel.com/docs
-- https://vercel.com/blog
+- [https://vercel.com/docs](https://vercel.com/docs)
+- [https://vercel.com/blog](https://vercel.com/blog)
+
+## Personal notes
+
+We love Vercel, and it's really a great help to build web apps.
+
+But, we are a bit wary about recent changes and decisions made by the Vercel team, in particular regarding their [2020 April Pricing changes](https://github.com/vercel/vercel/discussions/4029), and we led a discussion about it.
+
+Currently, the most controversial decision they've made is about the [12-24 max serverless functions](https://github.com/vercel/vercel/discussions/4029#discussioncomment-8449).
+We suggest you learn heavily about that if you're considering Vercel.
+
+> Have no fear if you [think you need more than 12-24 serverless functions](https://github.com/vercel/vercel/discussions/4029#discussioncomment-12534), contact the support if you think Vercel isn't for you.

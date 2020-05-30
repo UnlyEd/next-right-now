@@ -36,7 +36,7 @@ When deploying an instance to the Vercel's platform, the variables used are the 
 >
 > **The `environment` is defined by the `NODE_ENV` environment variable.**
 >
-> **N.B**: It is **not** possible to use any other value, [as enforced by Next](https://github.com/vercel/next.js/blob/master/errors/env-key-not-allowed.md)
+> **Tip**: It is **not** possible to use any other value, [as enforced by Next](https://github.com/vercel/next.js/blob/master/errors/env-key-not-allowed.md)
 
 When working on your local computer, you automatically use `NODE_ENV=developement`.
 
@@ -53,7 +53,7 @@ The environment affects how the application **is bundled**, it is defined at **b
 >
 > **The `stage` is defined by the `APP_STAGE` environment variable.**
 >
-> **N.B**: You can use any stage name you like, there is no restriction.
+> **Tip**: You can use any stage name you like, there is no restriction.
 
 - When working on your local computer, NRN automatically uses `APP_STAGE=developement` _(as defined in `.env.build`)_.
 - When creating a Vercel preview deployment (e.g: when pushing a commit/branch (CD), or when using `yarn deploy`, etc.), NRN automatically uses `APP_STAGE=staging` _(as defined in `now.customer1.staging.json`)_.

@@ -41,7 +41,7 @@ Jekyll configuration uses 2 different files.
 There are a few, but important differences between both. The custom configuration must be written at the top of each config file.
 The shared configuration must be written below.
 
-> **N.B**: If you add custom/shared configuration, don't forget update both config files, as needed.
+> **Tip**: If you add custom/shared configuration, don't forget to update both config files, as needed.
 
 ---
 
