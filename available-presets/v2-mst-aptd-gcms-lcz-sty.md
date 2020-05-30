@@ -27,7 +27,7 @@ May 2020
 
 | Preset | Diff PR | Pricing concerns |
 |:-------|:--------|:-----------------|
-| `{{preset}}` - [Branch](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | Identical | [Not free (Locize)](../reference/vendors) |
+| `{{preset}}` - [Branch](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | [Compared to `v1-ssr-mst-aptd-gcms-lcz-sty`](https://github.com/UnlyEd/next-right-now/pull/68) | [Not free (Locize)](../reference/vendors) |
 
 It is the main preset at this time.
 It is also the most complicated and feature-rich, as it contains all available features built-in.
@@ -47,10 +47,12 @@ It is also the most complicated and feature-rich, as it contains all available f
 ### Clone locally
 
 ```sh
-git clone https://github.com/UnlyEd/next-right-now.git nrn-{{preset}} && cd nrn-demo && git checkout {{preset}}
+git clone https://github.com/UnlyEd/next-right-now.git nrn-{{preset}} && cd nrn-{{preset}} && git checkout {{preset}}
 ```
 
 This will create a `nrn-{{preset}}` folder in your current directory and checkout the `{{preset}}` git branch automatically.
+
+Cloning it once is enough, but it may be simpler to use one clone per preset if you're trying out multiple presets locally :wink:
 
 ### Local installation guide
 

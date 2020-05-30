@@ -24,14 +24,26 @@ Don't hesitate to share your opinion about your ["getting started"](https://gith
 
 ---
 
+# Documentation
+
+There are several sources of documentation:
+- [**General documentation**](https://unlyed.github.io/next-right-now/) contains general documentation about the NRN project.
+    - Great to learn about our concepts and get an overview of all features NRN has to offer
+- **Demo documentation**, which is different for each preset and showcases built-in features within that preset.
+    - Great to see code usage examples
+
+Both documentations are related and there are many links from the demos toward the general doc.
+
+---
+
 # Overview of available presets
 
-> Make sure to check our [available presets](https://unlyed.github.io/next-right-now/available-presets) for a comprehensive list.
+> Make sure to check the **Doc** link of each preset below, to better understand what are the built-in features within each preset.
 
 | Preset | Links | Demo | Features | Notes |
 |:-------|:------|:-----|:---------|:------|
-| `v2-mst-aptd-gcms-lcz-sty` | -&nbsp;[Doc](https://unlyed.github.io/next-right-now/available-presets/v2-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Branch](https://github.com/UnlyEd/next-right-now/tree/v2-mst-aptd-gcms-lcz-sty)| -&nbsp;[Customer&nbsp;1](https://nrn-v2-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Customer&nbsp;2](https://nrn-v2-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Admin site](https://nrn-admin.unly.now.sh/) | -&nbsp;Analytics (Amplitude)<br />-&nbsp;GraphQL (GraphCMS)<br />-&nbsp;I18n (GraphCMS + Locize)<br />-&nbsp;Monitoring (Sentry) | -&nbsp;Features a very rich (and complex) application with lots of tooling. <br />-&nbsp;Beware Locize [static i18n](https://unlyed.github.io/next-right-now/concepts/i18n#a-few-words-on-static-i18n) support doesn't come for free. |
-| `v1-ssr-mst-aptd-gcms-lcz-sty` (**deprecated**) | -&nbsp;[Doc](https://unlyed.github.io/next-right-now/available-presets/v1-ssr-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty)| -&nbsp;[Customer&nbsp;1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Customer&nbsp;2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) <br /> -&nbsp;[Admin site](https://nrn-admin.unly.now.sh/) | -&nbsp;Analytics (Amplitude)<br />-&nbsp;GraphQL (GraphCMS)<br />-&nbsp;I18n (GraphCMS + Locize)<br />-&nbsp;Monitoring (Sentry) | -&nbsp;Features a very rich (and complex) application with lots of tooling. <br />-&nbsp;Beware Locize [static i18n](https://unlyed.github.io/next-right-now/concepts/i18n#a-few-words-on-static-i18n) support doesn't come for free. |
+| `v2-mst-aptd-gcms-lcz-sty` | -&nbsp;[Doc](https://unlyed.github.io/next-right-now/available-presets/v2-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Branch](https://github.com/UnlyEd/next-right-now/tree/v2-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[PR](https://github.com/UnlyEd/next-right-now/pull/68) | -&nbsp;[Customer&nbsp;1](https://nrn-v2-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Customer&nbsp;2](https://nrn-v2-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Admin site](https://nrn-admin.unly.now.sh/) | -&nbsp;Analytics (Amplitude)<br />-&nbsp;GraphQL (GraphCMS)<br />-&nbsp;I18n (GraphCMS + Locize)<br />-&nbsp;Monitoring (Sentry) | -&nbsp;Features a very rich (and complex) application with lots of tooling. <br />-&nbsp;Beware Locize [static i18n](https://unlyed.github.io/next-right-now/concepts/i18n#a-few-words-on-static-i18n) support doesn't come for free. |
+| `v1-ssr-mst-aptd-gcms-lcz-sty` (**deprecated**) | -&nbsp;[Doc](https://unlyed.github.io/next-right-now/available-presets/v1-ssr-mst-aptd-gcms-lcz-sty) <br /> -&nbsp;[Branch](https://github.com/UnlyEd/next-right-now/tree/v1-ssr-mst-aptd-gcms-lcz-sty) | -&nbsp;[Customer&nbsp;1](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c1.now.sh/) <br /> -&nbsp;[Customer&nbsp;2](https://nrn-v1-ssr-mst-aptd-gcms-lcz-sty-c2.now.sh/) <br /> -&nbsp;[Admin site](https://nrn-admin.unly.now.sh/) | -&nbsp;Analytics (Amplitude)<br />-&nbsp;GraphQL (GraphCMS)<br />-&nbsp;I18n (GraphCMS + Locize)<br />-&nbsp;Monitoring (Sentry) | -&nbsp;Features a very rich (and complex) application with lots of tooling. <br />-&nbsp;Beware Locize [static i18n](https://unlyed.github.io/next-right-now/concepts/i18n#a-few-words-on-static-i18n) support doesn't come for free. |
 
 ---
 
