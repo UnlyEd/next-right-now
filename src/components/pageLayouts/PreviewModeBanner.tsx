@@ -25,6 +25,9 @@ const ExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
       <ExternalLink href={'https://nextjs.org/docs/advanced-features/preview-mode'}>Learn more</ExternalLink><br />
       <br />
       Disabling <b>preview mode</b> will make SSG pages go back to their normal behaviour.<br />
+      <br />
+      <i><b>Tip</b>: Make sure to hard refresh the page (<code>cmd+shift+r</code> on MacOs) after enabling it, to refresh the browser cache.</i><br />
+      <i><b>Tip</b>: We enabled <b>preview mode</b> on the <code>production</code> stage for showcase purpose</i><br />
     </span>
   );
 };
@@ -63,6 +66,10 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
             right: 20px;
           }
         }
+
+        [class*="fa-"] {
+          margin-bottom: 1px
+        }
       `}
     >
       {
@@ -74,7 +81,7 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
                 overlay={<ExplanationTooltipOverlay />}
                 placement={'bottom'}
               >
-                <FontAwesomeIcon icon={['fas', 'question']} size={'xs'} />
+                <FontAwesomeIcon icon={['fas', 'question-circle']} size={'xs'} />
               </Tooltip>
             </span>
             <span className={'right'}>
@@ -85,13 +92,7 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
                 onClick={stopPreviewMode}
                 onKeyPress={stopPreviewMode}
               >
-                Leave preview mode&nbsp;
-                <Tooltip
-                  overlay={<span>This is a tooltip</span>}
-                  placement={'bottom'}
-                >
-                  <FontAwesomeIcon icon={['fas', 'question']} size={'xs'} />
-                </Tooltip>
+                Leave preview mode
               </a>
             </span>
           </div>
@@ -103,7 +104,7 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
                 overlay={<ExplanationTooltipOverlay />}
                 placement={'bottom'}
               >
-                <FontAwesomeIcon icon={['fas', 'question']} />
+                <FontAwesomeIcon icon={['fas', 'question-circle']} size={'xs'} />
               </Tooltip>
             </span>
             <span className={'right'}>
