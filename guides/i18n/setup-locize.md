@@ -35,7 +35,7 @@ The app will throw an error if the `LOCIZE_PROJECT_ID` is not valid.
     - The `LOCIZE_PROJECT_ID` is required for the app to fetch the translations
     - The `LOCIZE_API_KEY` is required for the app to automatically create missing keys to Locize, when working locally (See `src/utils/i18nextLocize.ts:saveMissing` option)
         **This key is sensitive and must not be shared publicly, as it would allow anyone to update your translations through the API.** (it's not injected in the DOM when not working locally, so you're safe for now)
-- If you have already configured Zeit, and if you want to deploy your app online, you must also configure Zeit secrets
+- If you have already configured Vercel, and if you want to deploy your app online, you must also configure Vercel secrets
     - `now secrets add nrn-locize-project-id YOUR_PROJECT_ID`
     - `now secrets add nrn-locize-api-key YOUR_API_KEY`
 

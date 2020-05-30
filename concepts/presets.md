@@ -57,7 +57,7 @@ We don't intend of supporting all possible variations though, but we'll try to f
 
 The more presets we will offer, and the easiest it will be for any newcomer to get started quickly with a preset that matches their needs as closely as possible.
 
-> For instance, when creating [NRN Admin](https://github.com/UnlyEd/next-right-now-admin), we got started from the `v1-ssr` preset and **had to manually remove MST and i18n** because we didn't need those.
+> For instance, when creating [NRN Admin](https://github.com/UnlyEd/next-right-now-admin), we got started from the `v1-ssr-mst-aptd-gcms-lcz-sty` preset and **had to manually remove MST and i18n** because we didn't need those.
 >
 > **It's a waste of time if everybody has to do that on their own**, and it strongly limits the boilerplate **re-usability**.
 

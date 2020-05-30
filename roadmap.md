@@ -10,7 +10,7 @@ nav_order: 60
 
 - **Static Site Generation (SSG)**
     - This feature has been [officially released](https://nextjs.org/blog/next-9-3) and we plan on building a SSG preset ASAP.
-    ~~This feature is currently in [RFC draft](https://github.com/zeit/next.js/issues/9524) and being developed on the Zeit framework.
+    ~~This feature is currently in [RFC draft](https://github.com/zeit/next.js/issues/9524) and being developed on the Vercel framework.
     It's gonna be a huge game changer for Next.js, because it will allow statically generated apps that are still dynamic.
     It's similar of what Gatbsy allows, but it will be much more powerful and flexible, as we will be able to enable SSG on a page basis.
     This means that on the same app, some page may use SSR, other may use SSG, etc.

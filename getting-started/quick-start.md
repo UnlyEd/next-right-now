@@ -15,13 +15,13 @@ nav_order: 20
 
 This short tutorial will explain how to perform a super quick local installation (for local-only testing purpose, without deploying anything online)
 
-This tutorial uses the [**`v1-ssr`**](../getting-started/select-preset) preset, which is the ~~simplest~~ _only one_ available at this time.
+This tutorial uses the [**`{{ site.nrn_default_preset }}`**](../getting-started/select-preset) preset.
 
 > It doesn't really matter if the selected preset fits your needs, the goal here is to give your a tour of what NRN can do for you, as quickly as possible.
 
 ## Step by step installation
 
-{% include installation-guide-quick-start.md preset=v1-ssr %}
+{% include installation-guide-quick-start.md preset=site.nrn_default_preset %}
 
 ### Advanced configuration
 

@@ -18,11 +18,11 @@ Unit tests and end-to-end (E2E) tests workflow.
 
 ## CI tests Workflow
 
-Zeit will automatically run the tests before deploying, as configured in the `yarn build` command.
+Vercel will automatically run the tests before deploying, as configured in the `yarn build` command.
 
 > If any test fail, the deployment will be aborted. This ensures that any code that doesn't pass the tests never get deployed online.
 
-Once a deployment has been deployed on Zeit, **Github Actions** will run our **E2E tests**, to make sure that the app behaves as expected.
+Once a deployment has been deployed on Vercel, **Github Actions** will run our **E2E tests**, to make sure that the app behaves as expected.
 This can also be considered as an integration tests suite.
 
 ## Running tests manually (locally)

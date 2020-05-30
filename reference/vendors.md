@@ -36,7 +36,7 @@ Comprehensive overview of all vendors available with focus on what to be aware o
 
 We have worked with all those vendors over months, if not years. Here is our feedback to help you consider them.
 - GraphCMS/Locize: Awesome people, quick to reply, helpful, very nice customer success teams. Solutions/answers are given very quickly. We just love working with them. Big kuddos to them.
-- Zeit: Awesome product, support is great though slower. Custom requests are not their priority if you aren't in Enterprise plan. Overall we're really glad we switched to Zeit from AWS.
+- Vercel: Awesome product, support is great though slower. Custom requests are not their priority if you aren't in Enterprise plan. Overall we're really glad we switched to Vercel from AWS.
 - Sentry: Good product, good support, not much issue with the product nor contact with their team.
 - Amplitude: Big business, lots of people there, you definitely feel less important than other customers, they kinda target the startup market but their plans aren't suitable for us as soon as free plan is limiting growth
     - Gap between free and paid is so huge, it's crazy

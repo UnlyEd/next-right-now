@@ -99,10 +99,10 @@ So, it's not really a new way of designing a tenancy system, but rather an **arc
 Using NRN, this design allows you to quickly deploy a new tenant by writing a few scripts:
 - Create `deploy:customerX`: Deploy the new customer to staging
 - Create `deploy:customerX:production`: Deploy the new customer to production
-- Create `now.customerX.staging.json`: Zeit config for staging environment
-- Create `now.customerX.production.json`: Zeit config for production environment
+- Create `now.customerX.staging.json`: Vercel config for staging environment
+- Create `now.customerX.production.json`: Vercel config for production environment
 
-Those scripts and config files would automatically generate a whole new Zeit project the first time you'd run the deploy scripts.
+Those scripts and config files would automatically generate a whole new Vercel project the first time you'd run the deploy scripts.
 This new project would run on its own server and own domain name.
 
 It would be completely **isolated** from other tenants, only the database would be **shared**.

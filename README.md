@@ -7,17 +7,18 @@
 Next Right Now
 ===
 
-> Next Right Now (NRN) is meant to be used as a **boilerplate** for quick getting started with a **production-grade** project featuring the **Next.js framework**, hosted on **Zeit** platform.
->
-> NRN is maintained with several purposes in mind:
-> - To be **flexible** and allow for extensive **customisation**.
-> - To be used as an **educational** resource, meant to be used as a **learning/teaching** resource.
-> - Provide various boilerplate [presets](https://unlyed.github.io/next-right-now/concepts/presets), to get started with the preset that matches the closest your needs.
-> - To be used as a **boilerplate** to quickly deploy a **new** project.
->     - It has been used to build production-grade websites within 2h time during a French COVID-19 hackathon (March 2020)
->     - It has been used to build [NRN Admin](https://github.com/UnlyEd/next-right-now-admin)
->
-> Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience and your [feedback about opt-in 3rd parties](https://github.com/UnlyEd/next-right-now/issues/13)!
+Next Right Now (NRN) is meant to help you build **production-grade** projects using the **Next.js framework**.
+
+NRN is maintained with several purposes in mind:
+- To be used as a **boilerplate** to quickly deploy a **new** project.
+    - It is used in production by ourselves, and thus covers enterprise-grade features and needs.
+    - It has been used to build production-grade websites within 2h time during a French COVID-19 hackathon. (March 2020)
+    - It has been used to build [NRN Admin](https://github.com/UnlyEd/next-right-now-admin)
+- To be used as an **educational** resource, meant to be used as a **learning/teaching** resource, even if you don't use it as a boilerplate.
+- Provide various boilerplate [presets](./concepts/presets), to get started with the preset that matches the closest your needs.
+- To be **flexible** and allow for extensive **customisation**, based on your own needs and use-cases.
+
+Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience and your [feedback about opt-in 3rd parties](https://github.com/UnlyEd/next-right-now/issues/13)!
 
 :point_right: [**Documentation: Overview & benefits (getting started)**](https://unlyed.github.io/next-right-now/). :point_left:
 

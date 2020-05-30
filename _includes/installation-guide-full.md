@@ -1,11 +1,11 @@
 - This assumes you've cloned the NRN repository locally (cloning it once is enough, no need to clone it multiple times, but it may be simpler to use one clone per preset if you're trying out multiple presets locally :wink:)
-- This assumes you're already authenticated to Zeit (you should, if you've followed the [quick start](./quick-start), or if you're familiar with Zeit already)
+- This assumes you're already authenticated to Vercel (you should, if you've followed the [quick start](./quick-start), or if you're familiar with Vercel already)
 
 1. `cp .env.build.example .env.build` - Duplicates the `.env.build.example` as `.env.build`
     - **Tip**: `.env.build` is only used when working locally
 1. Create an account for all required 3rd party vendors below
 {% if include.hosting == zeit %}
-    - [Learn how to setup Zeit](../guides/online-deployment/setup-zeit)
+    - [Learn how to setup Vercel](../guides/online-deployment/setup-zeit)
 {% endif %}
 {% if include.gql-api == gcms %}
     - [Learn how to setup GraphCMS](../guides/graphql-api/setup-graphcms)

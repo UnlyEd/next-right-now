@@ -12,8 +12,6 @@ nav_order: 10
 NRN relies on environment variables to function correctly.
 
 Those variables are provided differently depending on the environment.
-
-> The following examples use the [`v1-ssr`](../getting-started/select-preset#v1-ssr---default-preset) preset, which uses a MST design.
 </div>
 
 {% include page-toc.md %}
@@ -23,18 +21,18 @@ Those variables are provided differently depending on the environment.
 When working on the `development` environment (localhost), the variables from `.env.build` are used by [the webpack configuration](./next.config.js),
 also, the [`now.json`](./now.json) configuration file is used _(it's always a symlink to another staging `now.*.json` file, e.g: `now.customer1.staging.json`)_, but the variable defined in `.env.build` take precedence.
 
-When deploying an instance to the Zeit's platform, the variables used are the one that belong to that instance, such as:
+When deploying an instance to the Vercel's platform, the variables used are the one that belong to that instance, such as:
 - `yarn deploy:customer1`: This script will deploy an instance using the `now.customer1.staging.json` file.
 - `yarn deploy:customer1:production`: This script will deploy an instance using the `now.customer1.production.json` file.
 
-> In those files, it's the `build.env` part that is used at build time (build is done on Zeit), which basically replaces all references of every environment variable by the actual value (string replace at build time).
+> In those files, it's the `build.env` part that is used at build time (build is done on Vercel), which basically replaces all references of every environment variable by the actual value (string replace at build time).
 
 ---
 
 ## What is an **environment**?
 
 > An environment is "where" the application is running.
-> It can be either "development" (localhost) or "production" (on Zeit's servers).
+> It can be either "development" (localhost) or "production" (on Vercel's servers).
 >
 > **The `environment` is defined by the `NODE_ENV` environment variable.**
 >
@@ -51,15 +49,15 @@ The environment affects how the application **is bundled**, it is defined at **b
 ## What is a **stage**?
 
 > A stage is "how" the application is running.
-> It can be either "development" (localhost), "staging" or "production" (on Zeit's servers) - _You can even add more if you need_
+> It can be either "development" (localhost), "staging" or "production" (on Vercel's servers) - _You can even add more if you need_
 >
 > **The `stage` is defined by the `APP_STAGE` environment variable.**
 >
 > **N.B**: You can use any stage name you like, there is no restriction.
 
 - When working on your local computer, NRN automatically uses `APP_STAGE=developement` _(as defined in `.env.build`)_.
-- When creating a Zeit preview deployment (e.g: when pushing a commit/branch (CD), or when using `yarn deploy`, etc.), NRN automatically uses `APP_STAGE=staging` _(as defined in `now.customer1.staging.json`)_.
-- When creating a Zeit production deployment (e.g: when using `yarn deploy:customer1:production`, or when merging a PR to `master`, etc.), NRN automatically uses `APP_STAGE=production` _(as defined in `now.customer1.production.json`)_.
+- When creating a Vercel preview deployment (e.g: when pushing a commit/branch (CD), or when using `yarn deploy`, etc.), NRN automatically uses `APP_STAGE=staging` _(as defined in `now.customer1.staging.json`)_.
+- When creating a Vercel production deployment (e.g: when using `yarn deploy:customer1:production`, or when merging a PR to `master`, etc.), NRN automatically uses `APP_STAGE=production` _(as defined in `now.customer1.production.json`)_.
 
 The stage changes the behaviour of the application, because we sometimes need the application to behave differently depending on the stage.
 

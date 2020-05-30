@@ -315,9 +315,9 @@ Development dependencies that are required to run the program locally (the bundl
 >
 > They are meant to make the development process easier/faster.
 
-### Now & Zeit
+### Now & Vercel
 
-> Official packages from Zeit/Now, the company hosting our application
+> Official packages from Vercel/Now, the company hosting our application
 
 - [`@now/node`](https://zeit.co/docs/runtimes#official-runtimes/node-js): Used as a dev dependency, it's useful to provide [TypeScript support](https://zeit.co/docs/v2/serverless-functions/supported-languages/#node.js-typescript-support:).
   Such as for `import { NowRequest, NowResponse } from '@now/node'`.
