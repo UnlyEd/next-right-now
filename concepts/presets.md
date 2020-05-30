@@ -117,7 +117,7 @@ Here is a summary of all features that are provided through presets:
     [< Concepts](./){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Find your preset](../getting-started/select-preset){: .btn .btn-blue }
+    [Find your preset](../available-presets){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
     [Environments and Stages >](./env-and-stages){: .btn .btn-purple }

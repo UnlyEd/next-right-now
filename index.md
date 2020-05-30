@@ -49,7 +49,7 @@ This boilerplate provides multiple presets, which provide different features tha
 Don't hesitate to check out our ["What's a preset?"](./concepts/presets) section for more information.
 
 Each preset provides different "built-in" features and utilities.
-Therefore, you probably want to get an overview of all the [available presets](./getting-started/select-preset) to decide which one best fit your needs.
+Therefore, you probably want to get an overview of all the [available presets](./available-presets) to decide which one best fit your needs.
 
 > If you wish to learn more about this design, see our [RFC specifications](https://github.com/UnlyEd/next-right-now/issues/18).
 
