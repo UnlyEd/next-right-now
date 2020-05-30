@@ -2,4 +2,4 @@
 >
 > If you create a secret with a wrong value, you will have to delete it and create it again (there is no update feature). See `now secrets --help`
 >
-> **Tip**: If you ever need to store files as secrets (such as ssh keys), see [this solution](https://github.com/zeit/now/issues/749#issuecomment-533873759)
+> **Tip**: If you ever need to store files as secrets (such as ssh keys), see [this solution](https://github.com/vercel/vercel/issues/749#issuecomment-533873759)

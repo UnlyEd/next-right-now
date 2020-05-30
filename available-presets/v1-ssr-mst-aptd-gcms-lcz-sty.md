@@ -6,8 +6,19 @@ nav_order: 20
 ---
 
 {% capture preset %}{{ page.title }}{% endcapture %}
+{% assign rendering = 'ssr' %}
+{% assign tenancy = 'mst' %}
+{% assign hosting = 'vercel' %}
+{% assign i18n = 'locize' %}
+{% assign gql-api = 'gcms' %}
+{% assign monitoring = 'sentry' %}
+{% assign analytics = 'amplitude' %}
 
-## `{{preset}}` - {% include preset/title.md %}
+## `{{preset}}`
+{% include preset/title.md %}
+
+DEPRECATED
+{: .label .label-red }
 
 OFFICIAL
 {: .label .label-purple }
@@ -17,14 +28,11 @@ March 2020
 
 ### Overview
 
+> **This preset has been deprecated** in favor of [`v2-mst-aptd-gcms-lcz-sty`](./v2-mst-aptd-gcms-lcz-sty)
+
 | Preset | Diff PR | Pricing concerns |
 |:-------|:--------|:-----------------|
 | `{{preset}}` - [Branch](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | Identical | [Not free (Locize)](../reference/vendors) |
-
-It is the main preset at this time.
-It is also the most complicated and feature-rich, as it contains all available features built-in.
-
-The plan is to release simpler presets soon.
 
 ### Built-in features
 

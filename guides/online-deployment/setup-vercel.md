@@ -21,7 +21,7 @@ Step by step guide about how to create and properly configure your Vercel accoun
 
 > Creating a Vercel account is **necessary** to deploy the application online (staging/production stages)
 
-- [Create a free account on Vercel](https://zeit.co/signup?ref=unly-nrn)
+- [Create a free account on Vercel](https://vercel.com/signup?ref=unly-nrn)
 
 ---
 
@@ -39,7 +39,7 @@ You need to change the associated Vercel `scope` (it currently uses ours, becaus
 1. Add a `scope` line in all `now.*.json` files using the `orgId` in `.now/project.json`
     - **Tip**: Don't forget `now.json` is a **symlink** and **musn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
 1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already
-1. Go to [Vercel](https://zeit.co/) to see the project being deployed, go through logs, etc.
+1. Go to [Vercel](https://vercel.com/) to see the project being deployed, go through logs, etc.
 
 - **Tip**: Vercel doesn't provide the `orgId` from the Vercel platform itself, even if the project exists already. Running `yarn start` locally is the only way to know what is your `orgId`, AFAIK.
 
@@ -118,6 +118,6 @@ You may want to deploy Vercel to multiple regions in the world, depending on you
 
 By default (if not specified), it will only deploy to the closest region, which is probably **not** what you want to do!
 
-Please see the [official documentation](https://zeit.co/docs/v2/network/regions-and-providers#routing).
+Please see the [official documentation](https://vercel.com/docs/v2/network/regions-and-providers#routing).
 
 - **Tip**: Note that this is an advanced feature which requires a paying account, it's not available for free

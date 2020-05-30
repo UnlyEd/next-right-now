@@ -13,7 +13,7 @@ NRN expects the following to be already installed on your computer:
 
 - (optional) [NVM](https://github.com/nvm-sh/nvm) to manage installed Nodejs versions (allows switching between versions)
     - It's not really a requirement, but a good practice for any developer working on multiple projects (which eventually leads to working on different nodejs versions).
-    - **If you don't use NVM**, then please use node `v12` for the next steps. [Because that's what's used by Vercel hosting](../guides/online-deployment/use-zeit)
+    - **If you don't use NVM**, then please use node `v12` for the next steps. [Because that's what's used by Vercel hosting](../guides/online-deployment/use-vercel)
 - Node.js should be installed (it's installed by NVM, so you're probably already covered)
 - [Git](https://git-scm.com/downloads) will be necessary to clone the repository on your computer.
 

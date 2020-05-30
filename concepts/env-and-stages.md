@@ -36,7 +36,7 @@ When deploying an instance to the Vercel's platform, the variables used are the 
 >
 > **The `environment` is defined by the `NODE_ENV` environment variable.**
 >
-> **N.B**: It is **not** possible to use any other value, [as enforced by Next](https://github.com/zeit/next.js/blob/master/errors/env-key-not-allowed.md)
+> **N.B**: It is **not** possible to use any other value, [as enforced by Next](https://github.com/vercel/next.js/blob/master/errors/env-key-not-allowed.md)
 
 When working on your local computer, you automatically use `NODE_ENV=developement`.
 

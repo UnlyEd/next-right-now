@@ -22,6 +22,6 @@ The demo should run locally, and you can start playing around.
     - We have had no confirmation that NRN works on Windows. Apparently, it doesn't work at all (fails at `yarn start`), but we haven't got enough reports to be sure.
     - The symbolic link for `now.json` (which points to another `now.*.json` file, depending on the preset) will not work, and you'll have to create a `now.json` yourself (just copy the content of a staging `now.*.json` file)
 - If you've never used `now` before, or if you aren't authenticated, you will need to create an account on Vercel and authenticate using `now login`
-- If you get stuck, read our [full installation guide for Vercel](../guides/online-deployment/setup-zeit)
+- If you get stuck, read our [full installation guide for Vercel](../guides/online-deployment/setup-vercel)
 - "Vercel" is the new brand name of the former "Zeit" company. They've rebranded everything around April 2020.
     - The former [`now` CLI](https://www.npmjs.com/package/now) is now named [`vercel`](https://www.npmjs.com/package/vercel), but NRN still uses the `now` version.

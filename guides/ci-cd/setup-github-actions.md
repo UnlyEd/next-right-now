@@ -37,7 +37,7 @@ This documentation explains how our GitHub actions integrate themselves with the
     - `user:email`
   - `workflow`
 
-- `ZEIT_TOKEN`: Allows to trigger deployments - See [https://zeit.co/account/tokens](https://zeit.co/account/tokens)
+- `ZEIT_TOKEN`: Allows to trigger deployments - See [https://vercel.com/account/tokens](https://vercel.com/account/tokens)
   Vercel personal token
 
 ---
@@ -47,12 +47,12 @@ This documentation explains how our GitHub actions integrate themselves with the
 
 > We use two different stages. Each stage is meant to use a different configuration.
 
-_**staging**_ (see [`deploy-zeit-staging`](./deploy-zeit-staging.yml)):
+_**staging**_ (see [`deploy-vercel-staging`](./deploy-vercel-staging.yml)):
 Every pushed commit, (except those made on `master`) automatically starts a new Vercel deployment, using the related staging configuration file.
 You can choose which client you deploy by changing the symbolic link `now.json` file.
 Changing the symlink allows to change which "CUSTOMER_REF" gets automatically deployed.
 
-_**production**_ (see [`deploy-zeit-production`](./deploy-zeit-production.yml)):
+_**production**_ (see [`deploy-vercel-production`](./deploy-vercel-production.yml)):
 Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_REF" specified in `now.json` to Vercel, but will use it's production configuration.
 
 > N.B: Those events are triggered by pushed commit, but also merged branches.

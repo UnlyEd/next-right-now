@@ -48,5 +48,5 @@ We have worked with all those vendors over months, if not years. Here is our fee
 
 ## Pricing overview
 
-{% include vendors/vendors-table.md preset=preset zeit=true graphcms=true locize=true amplitude=true sentry=true  %}
+{% include vendors/vendors-table.md preset=preset vercel=true graphcms=true locize=true amplitude=true sentry=true  %}
 

@@ -4,8 +4,8 @@
 1. `cp .env.build.example .env.build` - Duplicates the `.env.build.example` as `.env.build`
     - **Tip**: `.env.build` is only used when working locally
 1. Create an account for all required 3rd party vendors below
-{% if include.hosting == zeit %}
-    - [Learn how to setup Vercel](../guides/online-deployment/setup-zeit)
+{% if include.hosting == vecerl %}
+    - [Learn how to setup Vercel](../guides/online-deployment/setup-vercel)
 {% endif %}
 {% if include.gql-api == gcms %}
     - [Learn how to setup GraphCMS](../guides/graphql-api/setup-graphcms)

@@ -40,7 +40,6 @@ You can get metadata at `/api/status` on any demo, because all presets provide t
 
 > We don't have examples using SSG at this time, but it is planned soon, don't hesitate to contribute!
 
-
 ---
 
 <div class="pagination-section">

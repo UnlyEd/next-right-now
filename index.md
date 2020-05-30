@@ -75,7 +75,7 @@ Here is an overview of all the features included in this boilerplate:
   - Other tests, such as unit tests, etc. (thanks to [Jest](https://jestjs.io/), [Jest extended](https://github.com/jest-community/jest-extended))
 - Powerful **CSS-in-JS** styles, SSR & CSR friendly, JSX-friendly, styled-component friendly (thanks to [Emotion](https://github.com/emotion-js/emotion))
 - **Font** support (SSR/CSR friendly, no FOUT effect) (thanks to [WebFontLoader](https://github.com/typekit/webfontloader))
-- **Integrated CI/CD pipeline**, automated deployments to preview domains and production domains (thanks to the [Vercel](https://zeit.co/), [GitHub Actions](https://github.com/features/actions))
+- **Integrated CI/CD pipeline**, automated deployments to preview domains and production domains (thanks to the [Vercel](https://vercel.com/), [GitHub Actions](https://github.com/features/actions))
   - Including a dedicated "per-deployment domain", for fast feedback loop and testing means, in an online environment (staging)
   - Including a dedicated "per-branch domain", for fast feedback loop and testing means, in an online environment with a url which is automatically updated as new pushed commits are being deployed (staging)
 - Built-in **utilities**
@@ -85,7 +85,7 @@ Here is an overview of all the features included in this boilerplate:
   - Node debug mode for the server side
   - NPM security audit (script)
   - NPM developer-friendly outdated packages (script)
-  - Proper handling of sensitive information _(e.g: token)_ using [Vercel secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets)
+  - Proper handling of sensitive information _(e.g: token)_ using [Vercel secrets](https://vercel.com/docs/v2/serverless-functions/env-and-secrets)
 - Documented usage of [NRN own dependencies](./reference/dependencies)
 - Jekyll site for [online documentation using Github Pages](https://help.github.com/en/github/working-with-github-pages/about-github-pages-and-jekyll)
   - Check out [`jekyll-auth` plugin](https://github.com/benbalter/jekyll-auth) if you need to release a non-public version
