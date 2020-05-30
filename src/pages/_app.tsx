@@ -2,7 +2,7 @@ import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import { faArrowCircleLeft, faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
+import { faArrowCircleLeft, faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faQuestionCircle, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css
 import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
 import 'rc-tooltip/assets/bootstrap.css';
@@ -22,7 +22,7 @@ import '../utils/monitoring/sentry';
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(
   faGithub,
-  faArrowCircleLeft, faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faUserCog,
+  faArrowCircleLeft, faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faQuestionCircle, faUserCog,
   faTimesCircle,
 );
 

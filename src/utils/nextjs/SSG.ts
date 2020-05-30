@@ -6,12 +6,13 @@ import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import { supportedLocales } from '../../i18nConfig';
 import { Customer } from '../../types/data/Customer';
 import { I18nLocale } from '../../types/i18n/I18nLocale';
+import { PreviewData } from '../../types/nextjs/PreviewData';
 import { StaticParams } from '../../types/nextjs/StaticParams';
 import { StaticPath } from '../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../types/nextjs/StaticPathsOutput';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
+import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
 import { createApolloClient } from '../gql/graphql';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
@@ -35,6 +36,8 @@ import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
  */
 export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const customerRef: string = process.env.CUSTOMER_REF;
+  const preview: boolean = props?.preview || false;
+  const previewData: PreviewData = props?.previewData || null;
   const hasLocaleFromUrl = !!props?.params?.locale;
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
@@ -89,6 +92,8 @@ export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = 
       isStaticRendering: true,
       lang,
       locale,
+      preview,
+      previewData,
     },
     // unstable_revalidate: false,
   };

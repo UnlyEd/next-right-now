@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
   const awaitForMs = getRandomInt(1000, 4000);
   await waitFor(awaitForMs);
 
-  let songId = parseInt(albumId);
+  let songId = parseInt(albumId, 10);
 
   if (songId > songs.length - 1) { // Handle overflow
     songId = 0;

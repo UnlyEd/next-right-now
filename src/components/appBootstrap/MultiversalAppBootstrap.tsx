@@ -10,7 +10,6 @@ import customerContext from '../../stores/customerContext';
 import i18nContext from '../../stores/i18nContext';
 import { Theme } from '../../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
-import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { initCustomerTheme } from '../../utils/data/theme';
@@ -20,6 +19,7 @@ import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
+import previewModeContext from '../../stores/previewModeContext';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
@@ -68,7 +68,19 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       i18nTranslations,
       lang,
       locale,
-    }: MultiversalPageProps = pageProps;
+    }: SSGPageProps | SSRPageProps = pageProps;
+    let preview,
+      previewData;
+
+    if ('preview' in pageProps) {
+      // SSG
+      preview = pageProps.preview;
+      previewData = pageProps.previewData;
+    } else {
+      // SSR
+      preview = false;
+      previewData = null;
+    }
 
     if (!customer || !i18nTranslations || !lang || !locale) {
       // Unrecoverable error, we can't even display the layout because we don't have the minimal required information to properly do so
@@ -143,26 +155,28 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     return (
-      <i18nContext.Provider value={{ lang, locale }}>
-        <customerContext.Provider value={customer}>
-          {/* XXX Global styles that applies to all pages go there */}
-          <UniversalGlobalStyles theme={theme} />
+      <previewModeContext.Provider value={{ preview, previewData }}>
+        <i18nContext.Provider value={{ lang, locale }}>
+          <customerContext.Provider value={customer}>
+            {/* XXX Global styles that applies to all pages go there */}
+            <UniversalGlobalStyles theme={theme} />
 
-          <ThemeProvider theme={theme}>
-            {
-              isBrowser() ? (
-                <BrowserPageBootstrap
-                  {...browserPageBootstrapProps}
-                />
-              ) : (
-                <ServerPageBootstrap
-                  {...serverPageBootstrapProps}
-                />
-              )
-            }
-          </ThemeProvider>
-        </customerContext.Provider>
-      </i18nContext.Provider>
+            <ThemeProvider theme={theme}>
+              {
+                isBrowser() ? (
+                  <BrowserPageBootstrap
+                    {...browserPageBootstrapProps}
+                  />
+                ) : (
+                  <ServerPageBootstrap
+                    {...serverPageBootstrapProps}
+                  />
+                )
+              }
+            </ThemeProvider>
+          </customerContext.Provider>
+        </i18nContext.Provider>
+      </previewModeContext.Provider>
     );
 
   } else {

@@ -8,10 +8,11 @@ import ErrorPage from '../../pages/_error';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
 import Sentry from '../../utils/monitoring/sentry';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
+import DefaultPageContainer from './DefaultPageContainer';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
-import DefaultPageContainer from './DefaultPageContainer';
+import PreviewModeBanner from './PreviewModeBanner';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
@@ -75,6 +76,13 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
         id="outdated"
         style={{ display: 'none' }}
       ></div>
+
+      {
+        // XXX You may want to enable preview mode during non-production stages only
+        // process.env.APP_STAGE !== 'production' && (
+        <PreviewModeBanner />
+        // )
+      }
 
       {
         !isInIframe && (
