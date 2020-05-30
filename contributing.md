@@ -72,6 +72,9 @@ See [just-the-docs documentation](https://pmarsceill.github.io/just-the-docs/doc
 
 If you mean to contribute on any preset by adding a new feature, or update existing ones, etc. please see our [open RFC about contributing](https://github.com/UnlyEd/next-right-now/issues/57).
 
+Please open an issue first before contributing, so that we may discuss your contribution beforehand.
+This isn't necessary for small changes, but non-trivial changes should be agreed upon first.
+
 Also, if you provide a PR, please [configure CI on your GitHub repository](./guides/ci-cd/setup-github-actions.html) first, otherwise we'll need to "fork" (apply patch) your PR into NRN to test it first, and that takes extra time on us.
 
 Additionally, please allow us to update your PR's code for easier collaboration.

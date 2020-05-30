@@ -17,7 +17,7 @@ This changelog is mostly used as a preset release history, but it is not meant t
 
 ---
 
-- v1.1.0 - 2020-02-28
+- v2.0.0 - 2020-02-30
     - Added [`v2-mst-aptd-gcms-lcz-sty`](https://github.com/UnlyEd/next-right-now/tree/v2-mst-aptd-gcms-lcz-sty) preset
         - Uses Next v9.4+
         - Supports hybrid SSG/SSR rendering modes

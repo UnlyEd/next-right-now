@@ -23,6 +23,10 @@ nav_order: 70
 
 [See original question](https://github.com/UnlyEd/next-right-now/issues/14#issuecomment-601557549)
 
+## Can I use NRN on Windows?
+
+Apparently, `wsl2` may help. [See answer](https://github.com/UnlyEd/next-right-now/issues/55#issuecomment-631278055)
+
 ---
 
 <div class="pagination-section space-even">
