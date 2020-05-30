@@ -1,5 +1,7 @@
-import { NowRequest, NowResponse } from '@now/node';
+import { NowRequest, NowRequestQuery, NowResponse } from '@now/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import { PreviewData } from '../../types/nextjs/PreviewData';
+import { filterExternalAbsoluteUrl } from '../../utils/js/url';
 
 import Sentry, { configureReq } from '../../utils/monitoring/sentry';
 
@@ -8,19 +10,56 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-export const error = async (req: NowRequest, res: NowResponse & { setPreviewData: (any) => void }): Promise<void> => {
+/**
+ * Those types should be part of @now/node but aren't yet.
+ */
+type NextPreview = {
+  clearPreviewData: () => void;
+  setPreviewData: (previewData: PreviewData) => void;
+}
+
+type PreviewModeAPIQuery = {
+  stop: string;
+  redirectTo: string;
+}
+
+/**
+ * Preview Mode API
+ *
+ * Enables and disables preview mode
+ *
+ * @param req
+ * @param res
+ *
+ * @see https://nextjs.org/docs/advanced-features/preview-mode#step-1-create-and-access-a-preview-api-route
+ * @see https://nextjs.org/docs/advanced-features/preview-mode#clear-the-preview-mode-cookies
+ */
+export const preview = async (req: NowRequest, res: NowResponse & NextPreview): Promise<void> => {
   try {
     configureReq(req);
 
-    if (process.env.APP_STAGE !== 'production') {
-      res.setPreviewData({});
+    const {
+      stop = 'false',
+      redirectTo = '/',
+    }: PreviewModeAPIQuery = req.query as NowRequestQuery & PreviewModeAPIQuery;
+    const safeRedirectUrl = filterExternalAbsoluteUrl(redirectTo as string);
 
-      console.log('Preview mode enabled'); // eslint-disable-line no-console
+    if (process.env.APP_STAGE !== 'production') {
+      if (stop === 'true') {
+        res.clearPreviewData();
+
+        logger.info('Preview mode stopped');
+      } else {
+        res.setPreviewData({});
+
+        logger.info('Preview mode enabled');
+      }
     } else {
-      console.error('Preview mode is not allowed in production'); // eslint-disable-line no-console
+      logger.error('Preview mode is not allowed in production');
+      Sentry.captureMessage('Preview mode is not allowed in production', Sentry.Severity.Warning);
     }
 
-    res.writeHead(307, { Location: '/' });
+    res.writeHead(307, { Location: safeRedirectUrl });
     res.end();
   } catch (e) {
     logger.error(e.message);
@@ -37,4 +76,4 @@ export const error = async (req: NowRequest, res: NowResponse & { setPreviewData
   }
 };
 
-export default error;
+export default preview;

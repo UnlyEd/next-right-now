@@ -1,0 +1,127 @@
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import Alert from 'reactstrap/lib/Alert';
+import usePreviewMode from '../../hooks/usePreviewMode';
+import ExternalLink from '../utils/ExternalLink';
+import Tooltip from '../utils/Tooltip';
+
+type Props = {}
+
+const stopPreviewMode = async (): Promise<void> => {
+  window.location.href = `/api/preview?stop=true&redirectTo=${window.location.pathname}`;
+};
+
+const startPreviewMode = async (): Promise<void> => {
+  window.location.href = `/api/preview?redirectTo=${window.location.pathname}`;
+};
+
+const ExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
+  return (
+    <span>
+      When <b>preview mode</b> is enabled, SSG is by-passed and all pages behave as if they were using SSR.<br />
+      It's a great feature when you want to preview content on staging without having to rebuild your whole application.<br />
+      <ExternalLink href={'https://nextjs.org/docs/advanced-features/preview-mode'}>Learn more</ExternalLink><br />
+      <br />
+      Disabling <b>preview mode</b> will make SSG pages go back to their normal behaviour.<br />
+    </span>
+  );
+};
+
+/**
+ * Displays the banner that warns about whether preview mode is enabled or disabled
+ *
+ * Display a link to enable/disable it
+ *
+ * @param props
+ */
+const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element => {
+  const { preview } = usePreviewMode();
+
+  return (
+    <Alert
+      color={'warning'}
+      css={css`
+        display: flex;
+        position: relative;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+
+        @media (max-width: 991.98px) {
+          flex-direction: column;
+
+          .right {
+            display: block;
+          }
+        }
+
+        @media (min-width: 992px) {
+          .right {
+            position: absolute;
+            right: 20px;
+          }
+        }
+      `}
+    >
+      {
+        preview ? (
+          <div>
+            <span>
+              Preview mode is enabled&nbsp;
+              <Tooltip
+                overlay={<ExplanationTooltipOverlay />}
+                placement={'bottom'}
+              >
+                <FontAwesomeIcon icon={['fas', 'question']} size={'xs'} />
+              </Tooltip>
+            </span>
+            <span className={'right'}>
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                role={'button'}
+                tabIndex={0}
+                onClick={stopPreviewMode}
+                onKeyPress={stopPreviewMode}
+              >
+                Leave preview mode&nbsp;
+                <Tooltip
+                  overlay={<span>This is a tooltip</span>}
+                  placement={'bottom'}
+                >
+                  <FontAwesomeIcon icon={['fas', 'question']} size={'xs'} />
+                </Tooltip>
+              </a>
+            </span>
+          </div>
+        ) : (
+          <div>
+            <span>
+              Preview mode is disabled&nbsp;
+              <Tooltip
+                overlay={<ExplanationTooltipOverlay />}
+                placement={'bottom'}
+              >
+                <FontAwesomeIcon icon={['fas', 'question']} />
+              </Tooltip>
+            </span>
+            <span className={'right'}>
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                role={'button'}
+                tabIndex={0}
+                onClick={startPreviewMode}
+                onKeyPress={startPreviewMode}
+              >
+                Start preview mode
+              </a>
+            </span>
+          </div>
+        )
+      }
+    </Alert>
+  );
+};
+
+export default PreviewModeBanner;
