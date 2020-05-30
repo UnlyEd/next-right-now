@@ -78,9 +78,10 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       ></div>
 
       {
-        process.env.APP_STAGE !== 'production' && (
-          <PreviewModeBanner />
-        )
+        // XXX You may want to enable preview mode during non-production stages only
+        // process.env.APP_STAGE !== 'production' && (
+        <PreviewModeBanner />
+        // )
       }
 
       {
