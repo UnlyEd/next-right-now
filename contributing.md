@@ -13,9 +13,9 @@ nav_order: 90
 
 ## Contributing about documentation
 
-Our documentation lives in the `docs/` folder. It is generated and hosted by Github Pages.
+Our documentation lives in the `docs/` folder. It is generated and hosted on Github Pages.
 
-Only the `master` branch generates the online documentation.
+Only the [`gh-pages`](https://github.com/UnlyEd/next-right-now/tree/gh-pages) branch generates the online documentation. (it's our default branch)
 
 It uses [Jekyll](https://jekyllrb.com/) behind the wheel, and [`just-the-docs`](https://pmarsceill.github.io/just-the-docs/) theme for Jekyll.
 
@@ -41,7 +41,7 @@ Jekyll configuration uses 2 different files.
 There are a few, but important differences between both. The custom configuration must be written at the top of each config file.
 The shared configuration must be written below.
 
-> **N.B**: If you add custom/shared configuration, don't forget update both config files, as needed.
+> **Tip**: If you add custom/shared configuration, don't forget to update both config files, as needed.
 
 ---
 
@@ -63,14 +63,22 @@ See [just-the-docs documentation](https://pmarsceill.github.io/just-the-docs/doc
 
 ### Known issues
 
-- Using `yarn doc:start` will rebuild the whole documentation but it's slower. Using `yarn doc:start:fast` won't rebuild the whole thing and it's faster.
-  If you're working on the navigation menu, be warned the fast mode won't apply changes and your menu links won't update.
+- Using `yarn doc:start` will rebuild the whole documentation, but it's slower. Using `yarn doc:start:fast` won't rebuild the whole thing, and it's faster.
+  If you're working on the navigation menu, be warned the fast mode won't apply changes, and your menu links won't update.
 
 ---
 
+## Contributing about the source code
+
+If you mean to contribute on any preset by adding a new feature, or update existing ones, etc. please see our [open RFC about contributing](https://github.com/UnlyEd/next-right-now/issues/57).
+
+Also, if you provide a PR, please [configure CI on your GitHub repository](./guides/ci-cd/setup-github-actions.html) first, otherwise we'll need to "fork" (apply patch) your PR into NRN to test it first, and that takes extra time on us.
+
+Additionally, please allow us to update your PR's code for easier collaboration.
+
 ## Requesting a new Preset
 
-If you need a preset that isn't supported yet, you can request one through Github issues.
+If you need a preset that isn't supported yet, you can request one through [Github issues](https://github.com/UnlyEd/next-right-now/issues/new).
 
 - Please check first if there isn't an **existing request**, you can use the [Github label `"request preset"`](https://github.com/UnlyEd/next-right-now/issues?q=is%3Aopen+is%3Aissue+label%3A%22request+preset%22) to filter them out.
 - Please check first which presets [**won't be worked on by the NRN team**](./concepts/presets.html#which-presets-arent-being-considered) and must come from contributions.

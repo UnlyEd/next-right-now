@@ -21,7 +21,7 @@ Advices and "must-know" things regarding Emotion usage.
 
 > Emotion is a library designed for writing css styles with JavaScript. [https://emotion.sh/docs/introduction](https://emotion.sh/docs/introduction)
 
-Next.js provides CSS-in-js using [`styled-jsx`](https://github.com/zeit/styled-jsx), but we dislike it for several reasons.
+Next.js provides CSS-in-js using [`styled-jsx`](https://github.com/vercel/styled-jsx), but we dislike it for several reasons.
 It's not very intuitive to write styles that way and it needs extra dependencies/configuration to work with nested components and such.
 
 Instead, we use [Emotion](https://emotion.sh/docs/introduction) in this project,

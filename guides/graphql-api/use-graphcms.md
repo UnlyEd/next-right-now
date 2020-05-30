@@ -127,6 +127,6 @@ There is two locales defined in this example _(there can be more, but we only ha
 
 See the [official documentation](https://docs.graphcms.com/docs/api/content-api/?ref=unly-nrn#passing-a-header-flag) to learn more.
 
-> **N.B:** Even though it is possible to also specify the language `per field`, our **default approach** is to translate all content at once based on the header,
+> **Tip:** Even though it is possible to also specify the language `per field`, our **default approach** is to translate all content at once based on the header,
 > because it's so much simpler, and handles automated fallback, which is very useful if the content is not defined in the primary requested language.
 

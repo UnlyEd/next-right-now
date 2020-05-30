@@ -92,7 +92,7 @@ Feel free not to use them.
 
 - [`bootstrap`](https://www.npmjs.com/package/bootstrap): Necessary to load bootstrap.css file, which provides the styles
 - [`reactstrap`](https://www.npmjs.com/package/reactstrap):
-- [`@zeit/next-css`](https://github.com/zeit/next-plugins/tree/master/packages/next-css): [Additional Next configuration](https://stackoverflow.com/a/50002905/2391795) necessary to gain the ability to `import` `.css` files.
+- [`@zeit/next-css`](https://github.com/vercel/next-plugins/tree/master/packages/next-css): [Additional Next configuration](https://stackoverflow.com/a/50002905/2391795) necessary to gain the ability to `import` `.css` files.
 
 #### Notes about Bootstrap/Reactstrap usage
 
@@ -255,7 +255,7 @@ Marked as alpha-3 version but stable. **Much better than Reactstrap Tooltip comp
 - [`react-style-proptype`](https://www.npmjs.com/package/react-style-proptype): Validates style objects by ensuring the keys are valid css property names (in camelcase form).
 - [`prop-types`](https://www.npmjs.com/package/prop-types): Runtime type checking for React props and similar objects.
 
-> **N.B**: `react` and `react-dom` must always use the same version.
+> **Tip**: `react` and `react-dom` must always use the same version.
 
 ---
 
@@ -315,14 +315,14 @@ Development dependencies that are required to run the program locally (the bundl
 >
 > They are meant to make the development process easier/faster.
 
-### Now & Zeit
+### Now & Vercel
 
-> Official packages from Zeit/Now, the company hosting our application
+> Official packages from Vercel/Now, the company hosting our application
 
-- [`@now/node`](https://zeit.co/docs/runtimes#official-runtimes/node-js): Used as a dev dependency, it's useful to provide [TypeScript support](https://zeit.co/docs/v2/serverless-functions/supported-languages/#node.js-typescript-support:).
+- [`@now/node`](https://vercel.com/docs/runtimes#official-runtimes/node-js): Used as a dev dependency, it's useful to provide [TypeScript support](https://vercel.com/docs/v2/serverless-functions/supported-languages/#node.js-typescript-support:).
   Such as for `import { NowRequest, NowResponse } from '@now/node'`.
-- [`now`](https://www.npmjs.com/package/now): The Now CLI [https://github.com/zeit/now](https://github.com/zeit/now) [https://www.npmjs.com/package/now](https://www.npmjs.com/package/now)
-- [`@zeit/next-css`](https://github.com/zeit/next-plugins/tree/master/packages/next-css): [Additional Next configuration](https://stackoverflow.com/a/50002905/2391795) necessary to gain the ability to `import` `.css` files.
+- [`now`](https://www.npmjs.com/package/now): The Now CLI [https://github.com/vercel/vercel](https://github.com/vercel/vercel) [https://www.npmjs.com/package/now](https://www.npmjs.com/package/now)
+- [`@zeit/next-css`](https://github.com/vercel/next-plugins/tree/master/packages/next-css): [Additional Next configuration](https://stackoverflow.com/a/50002905/2391795) necessary to gain the ability to `import` `.css` files.
   Used to import other libs such as `bootstrap.css`.
 - [`@zeit/next-source-maps`](https://www.npmjs.com/package/@zeit/next-source-maps): Generate source maps during production build in your Next.js project
 

@@ -3,7 +3,7 @@
 
 # XXX --------- Specific to GHP config ------------
 remote_theme: pmarsceill/just-the-docs # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
-ga_tracking: UA-89785688-8
+ga_tracking: UA-89785688-8 # See https://pmarsceill.github.io/just-the-docs/docs/configuration/#google-analytics
 
 # XXX --------- Common to all configs (local + GHP) --------------
 
@@ -17,7 +17,7 @@ ga_tracking: UA-89785688-8
 # in the templates via {{ site.myvariable }}.
 title: Next Right Now
 description: >- # this means to ignore newlines until "baseurl:"
-  Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript.
+  Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript.
   Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing,
   Internationalization, CI/CD and B2B multiple single-tenants (monorepo) support
 #baseurl: "" # the subpath of your site, e.g. /blog
@@ -31,6 +31,7 @@ aux_links:
 
 footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd/next-right-now/blob/master/LICENSE\">MIT license.</a>"
 #color_scheme: "dark"
+nrn_default_preset: v2-mst-aptd-gcms-lcz-sty # Default NRN preset, used as quick start preset
 
 plugins:
   - jekyll-sitemap
@@ -39,11 +40,19 @@ plugins:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+  # Custom
+  - .idea/
+  - .github/
+  - .next/
+  - .now/
+  - coverage/
+  - cypress/

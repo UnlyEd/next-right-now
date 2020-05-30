@@ -11,8 +11,8 @@ nav_order: 20
 
 <div class="code-example" markdown="1">
 The content displayed on NRN is translated using different ways, depending on where the translations are stored:
-- Dynamic content - GraphCMS (fetched from the DB, through GraphCMS API). This content can be updated through GraphCMS backoffice.
-- Static content - Locize (fetched from Locize API). This content can be updated through Locize backoffice, or when using in-context editor.
+1. **Dynamic** i18n - Content-related (e.g: Post title in FR + EN). It will depend on your data and how you fetch those data (real-time SSR, SSG, etc.)
+1. **Static** content - Locize (fetched from Locize API). This content can be updated through Locize backoffice, or when using in-context editor.
 </div>
 
 {% include page-toc.md %}

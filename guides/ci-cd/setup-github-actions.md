@@ -6,13 +6,13 @@ grand_parent: Guides
 nav_order: 10
 ---
 
-# Github Actions <> Zeit integrations
+# Github Actions <> Vercel integrations
 {: .no_toc }
 
 <div class="code-example" markdown="1">
 Automated actions configured through GitHub Actions
 
-This documentation explains how our GitHub actions integrate themselves with the Zeit platform
+This documentation explains how our GitHub actions integrate themselves with the Vercel platform
 </div>
 
 {% include page-toc.md %}
@@ -23,7 +23,7 @@ This documentation explains how our GitHub actions integrate themselves with the
 
 ### Requirements
 
-> List of necessary requirements for the `Github Actions <> Zeit` to work properly.
+> List of necessary requirements for the `Github Actions <> Vercel` to work properly.
 
 #### Required GitHub secrets:
 
@@ -37,8 +37,8 @@ This documentation explains how our GitHub actions integrate themselves with the
     - `user:email`
   - `workflow`
 
-- `ZEIT_TOKEN`: Allows to trigger deployments - See [https://zeit.co/account/tokens](https://zeit.co/account/tokens)
-  Zeit personal token
+- `ZEIT_TOKEN`: Allows to trigger deployments - See [https://vercel.com/account/tokens](https://vercel.com/account/tokens)
+  Vercel personal token
 
 ---
 
@@ -47,15 +47,15 @@ This documentation explains how our GitHub actions integrate themselves with the
 
 > We use two different stages. Each stage is meant to use a different configuration.
 
-_**staging**_ (see [`deploy-zeit-staging`](./deploy-zeit-staging.yml)):
-Every pushed commit, (except those made on `master`) automatically starts a new Zeit deployment, using the related staging configuration file.
+_**staging**_ (see [`deploy-vercel-staging`](./deploy-vercel-staging.yml)):
+Every pushed commit, (except those made on `master`) automatically starts a new Vercel deployment, using the related staging configuration file.
 You can choose which client you deploy by changing the symbolic link `now.json` file.
 Changing the symlink allows to change which "CUSTOMER_REF" gets automatically deployed.
 
-_**production**_ (see [`deploy-zeit-production`](./deploy-zeit-production.yml)):
-Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_REF" specified in `now.json` to Zeit, but will use it's production configuration.
+_**production**_ (see [`deploy-vercel-production`](./deploy-vercel-production.yml)):
+Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_REF" specified in `now.json` to Vercel, but will use it's production configuration.
 
-> N.B: Those events are triggered by pushed commit, but also merged branches.
+> Tip: Those events are triggered by any pushed commit, but also merged branches.
 
 ### GitHub Actions Jobs workflow
 
@@ -71,7 +71,7 @@ Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_RE
     * We parse current `now.json` config file to get `CUSTOMER_REF`, which corresponding to customer project to deploy, and then we run `yarn deploy:CUSTOMER_REF` or in production `yarn deploy:CUSTOMER_REF:production`
 * Run 2e2 tests:
     * We need to checkout again (because the code is not persistent)
-    * We ask to Zeit api for the last deployment data, retrieve the url and then set it as environment variable as `ZEIT_DEPLOYMENT_URL` (to be able to use it afterwards)
+    * We ask to Vercel api for the last deployment data, retrieve the url and then set it as environment variable as `ZEIT_DEPLOYMENT_URL` (to be able to use it afterwards)
     * We use default action provided by cypress (documentation [here](https://github.com/cypress-io/github-action)):
         * _**wait-on**_: Allows us to wait before starting tests. It ping the endpoint until it's up, with a timeout of 60 seconds per default.
         * _**config-file**_: We need to specify a config file because cypress is looking for cypress.json in the main folder.

@@ -26,7 +26,7 @@ Guide about how to properly configure Sentry.
     - Select "React" as project type
     - **Tip**: You **should** create only one project, even if you use a multi-tenants setup, because all customers will be using the same error monitoring project
 - You can find your Sentry DSN at [https://sentry.io/settings/TEAM_NAME/projects/PROJECT_NAME/keys/](https://sentry.io/settings/TEAM_NAME/projects/PROJECT_NAME/keys/)
-- If you have already configured Zeit, and if you want to deploy your app online, you must also configure Zeit secrets
+- If you have already configured Vercel, and if you want to deploy your app online, you must also configure Vercel secrets
     - `now secrets add nrn-sentry-dsn YOUR_SENTRY_DSN`
 
 That's it! Your Sentry account is ready to use!
