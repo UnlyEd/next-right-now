@@ -1,24 +1,42 @@
 /**
- * Declare our interesting environment variables.
+ * Declare known environment variables.
  * Enables auto-completion when using "process.env.".
+ * Makes it easier to find env vars, and helps avoid typo mistakes.
+ *
+ * Unlisted env vars will still be usable.
  *
  * @see https://stackoverflow.com/a/53981706/2391795
  */
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      NODE_ENV: 'development' | 'production';
-      NEXT_PUBLIC_APP_STAGE: 'development' | 'staging' | 'production';
-      NEXT_PUBLIC_NRN_PRESET: string;
-      NEXT_PUBLIC_CUSTOMER_REF: string;
-      NEXT_PUBLIC_LOCIZE_PROJECT_ID: string;
-      NEXT_PUBLIC_AMPLITUDE_API_KEY: string;
+      // NRN env variables
       GRAPHQL_API_ENDPOINT: string;
       GRAPHQL_API_KEY: string;
       LOCIZE_API_KEY: string;
+      NODE_ENV: 'development' | 'production';
+      NEXT_PUBLIC_AMPLITUDE_API_KEY: string;
+      NEXT_PUBLIC_APP_BUILD_ID: string;
+      NEXT_PUBLIC_APP_NAME: string;
+      NEXT_PUBLIC_APP_VERSION: string;
+      NEXT_PUBLIC_APP_VERSION_RELEASE: string;
+      NEXT_PUBLIC_APP_STAGE: 'development' | 'staging' | 'production';
+      NEXT_PUBLIC_BUILD_TIME: string;
+      NEXT_PUBLIC_BUILD_TIMESTAMP: string;
+      NEXT_PUBLIC_CUSTOMER_REF: string;
+      NEXT_PUBLIC_LOCIZE_PROJECT_ID: string;
+      NEXT_PUBLIC_NRN_PRESET: string;
       SENTRY_DSN: string;
-      ANALYZE_BUNDLE: string;
       UNLY_SIMPLE_LOGGER_ENV: NEXT_PUBLIC_APP_STAGE;
+
+      // Vendor env variables
+      AWS_EXECUTION_ENV: string;
+      AWS_LAMBDA_FUNCTION_MEMORY_SIZE: string;
+      AWS_REGION: string;
+      NOW_REGION: string;
+
+      // Other
+      TZ: string; // TimeZone (":UTC")
     }
   }
 }

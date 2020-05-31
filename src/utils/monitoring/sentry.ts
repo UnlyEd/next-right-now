@@ -15,7 +15,7 @@ if (process.env.SENTRY_DSN) {
     dsn: process.env.SENTRY_DSN,
     enabled: process.env.NODE_ENV !== 'test',
     environment: process.env.NEXT_PUBLIC_APP_STAGE,
-    release: process.env.APP_VERSION_RELEASE,
+    release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
   });
 
   if (!process.env.SENTRY_DSN && process.env.NODE_ENV !== 'test') {

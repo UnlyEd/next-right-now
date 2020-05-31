@@ -32,10 +32,6 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_NAME: packageJson.name,
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
-
-    // Provided by vercel (?)
-    VERCEL_URL: process.env.VERCEL_URL,
-    VERCEL_GITHUB_DEPLOYMENT: process.env.VERCEL_GITHUB_DEPLOYMENT,
   },
   experimental: {
     redirects() {
@@ -85,8 +81,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     config.plugins.map((plugin, i) => {
       if (plugin.definitions) { // If it has a "definitions" key, then we consider it's the DefinePlugin where ENV vars are stored
         // Dynamically add some "env" variables that will be replaced during the build in "DefinePlugin"
-        plugin.definitions['process.env.APP_RELEASE'] = JSON.stringify(buildId);
-        plugin.definitions['process.env.APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
+        plugin.definitions['process.env.NEXT_PUBLIC_APP_BUILD_ID'] = JSON.stringify(buildId);
+        plugin.definitions['process.env.NEXT_PUBLIC_APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
       }
     });
 

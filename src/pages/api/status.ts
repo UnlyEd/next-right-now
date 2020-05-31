@@ -14,7 +14,8 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
 
     res.json({
       version: process.env.NEXT_PUBLIC_APP_VERSION,
-      release: process.env.APP_VERSION_RELEASE,
+      buildId: process.env.NEXT_PUBLIC_APP_BUILD_ID,
+      release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
       nodejs: process.version,
       nodejsAWS: process.env.AWS_EXECUTION_ENV,
       regionNOW: process.env.NOW_REGION,
@@ -27,8 +28,6 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       buildTime: process.env.NEXT_PUBLIC_BUILD_TIME,
       buildTimestamp: process.env.NEXT_PUBLIC_BUILD_TIMESTAMP,
       customer: process.env.NEXT_PUBLIC_CUSTOMER_REF,
-      deploymentUrl: process.env.VERCEL_URL,
-      isGitHubDeployment: process.env.VERCEL_GITHUB_DEPLOYMENT,
     });
   } catch (e) {
     logger.error(e.message);
