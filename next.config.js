@@ -17,19 +17,21 @@ console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC
 module.exports = withBundleAnalyzer(withSourceMaps({
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel - See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
   env: {
-    // XXX Duplication of the environment variables, this is only used locally (See https://github.com/zeit/next.js#build-time-configuration)
+    // XXX All env variables defined in ".env*" files that aren't public (don't start with "NEXT_PUBLIC_") must manually be made available at build time below
+    //  See https://nextjs.org/docs/api-reference/next.config.js/environment-variables
+    // XXX Duplication of the environment variables, this is only used locally
     //  while now.json:build:env will be used on the Now platform (See https://zeit.co/docs/v2/build-step/#providing-environment-variables)
     GRAPHQL_API_ENDPOINT: process.env.GRAPHQL_API_ENDPOINT,
     GRAPHQL_API_KEY: process.env.GRAPHQL_API_KEY,
     LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,
     SENTRY_DSN: process.env.SENTRY_DSN,
 
-    // Non duplicated environment variables (automatically resolved, must not be specified in the .env.build file)
-    BUILD_TIME: date.toString(),
-    BUILD_TIMESTAMP: +date,
-    APP_NAME: packageJson.name,
-    APP_VERSION: packageJson.version,
-    UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because it believes we're in production
+    // Dynamic env variables
+    NEXT_PUBLIC_BUILD_TIME: date.toString(),
+    NEXT_PUBLIC_BUILD_TIMESTAMP: +date,
+    NEXT_PUBLIC_APP_NAME: packageJson.name,
+    NEXT_PUBLIC_APP_VERSION: packageJson.version,
+    UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
   },
   experimental: {
     redirects() {

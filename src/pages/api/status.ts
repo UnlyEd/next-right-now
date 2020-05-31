@@ -13,7 +13,7 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
     configureReq(req);
 
     res.json({
-      version: process.env.APP_VERSION,
+      version: process.env.NEXT_PUBLIC_APP_VERSION,
       release: process.env.APP_VERSION_RELEASE,
       nodejs: process.version,
       nodejsAWS: process.env.AWS_EXECUTION_ENV,
@@ -24,8 +24,8 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       environment: process.env.NODE_ENV,
       stage: process.env.NEXT_PUBLIC_APP_STAGE,
       preset: process.env.NEXT_PUBLIC_NRN_PRESET,
-      buildTime: process.env.BUILD_TIME,
-      buildTimestamp: process.env.BUILD_TIMESTAMP,
+      buildTime: process.env.NEXT_PUBLIC_BUILD_TIME,
+      buildTimestamp: process.env.NEXT_PUBLIC_BUILD_TIMESTAMP,
       customer: process.env.NEXT_PUBLIC_CUSTOMER_REF,
     });
   } catch (e) {

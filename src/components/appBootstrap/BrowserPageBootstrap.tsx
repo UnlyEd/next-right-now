@@ -96,8 +96,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
         //  Duplicating them facilitates the data analysis and grants more flexibility regarding how to create charts
         eventProperties={{
           app: {
-            name: process.env.APP_NAME,
-            version: process.env.APP_VERSION,
+            name: process.env.NEXT_PUBLIC_APP_NAME,
+            version: process.env.NEXT_PUBLIC_APP_VERSION,
             stage: process.env.NEXT_PUBLIC_APP_STAGE,
             preset: process.env.NEXT_PUBLIC_NRN_PRESET,
           },

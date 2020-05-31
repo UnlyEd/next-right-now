@@ -25,12 +25,12 @@ if (process.env.SENTRY_DSN) {
 
   // Scope configured by default, subsequent calls to "configureScope" will add additional data
   Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
-    scope.setTag('appVersion', process.env.APP_VERSION);
+    scope.setTag('appVersion', process.env.NEXT_PUBLIC_APP_VERSION);
     scope.setTag('nodejs', process.version);
     scope.setTag('nodejsAWS', process.env.AWS_EXECUTION_ENV || null); // Optional - Available on production environment only
     scope.setTag('memory', process.env.AWS_LAMBDA_FUNCTION_MEMORY_SIZE || null); // Optional - Available on production environment only
     scope.setTag('runtimeEngine', isBrowser() ? 'browser' : 'server');
-    scope.setTag('buildTime', process.env.BUILD_TIME);
+    scope.setTag('buildTime', process.env.NEXT_PUBLIC_BUILD_TIME);
   });
 }
 
