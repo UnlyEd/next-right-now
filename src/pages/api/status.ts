@@ -27,6 +27,8 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       buildTime: process.env.NEXT_PUBLIC_BUILD_TIME,
       buildTimestamp: process.env.NEXT_PUBLIC_BUILD_TIMESTAMP,
       customer: process.env.NEXT_PUBLIC_CUSTOMER_REF,
+      deploymentUrl: process.env.VERCEL_URL,
+      isGitHubDeployment: process.env.VERCEL_GITHUB_DEPLOYMENT,
     });
   } catch (e) {
     logger.error(e.message);
