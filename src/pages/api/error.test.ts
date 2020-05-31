@@ -21,7 +21,7 @@ describe('error', () => {
 
     expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ // https://stackoverflow.com/a/55569458/2391795
       error: true,
-      message: process.env.APP_STAGE === 'production' ? undefined : 'Fake error - Sentry test from /api/error',
+      message: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? undefined : 'Fake error - Sentry test from /api/error',
     }));
   });
 });

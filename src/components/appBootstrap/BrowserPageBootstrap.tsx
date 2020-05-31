@@ -71,7 +71,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   });
 
   // In non-production stages, bind some utilities to the browser's DOM, for ease of quick testing
-  if (process.env.APP_STAGE !== 'production') {
+  if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
     window['amplitudeInstance'] = amplitudeInstance;
     window['i18n'] = i18n;
     window['router'] = router;
@@ -98,7 +98,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
           app: {
             name: process.env.APP_NAME,
             version: process.env.APP_VERSION,
-            stage: process.env.APP_STAGE,
+            stage: process.env.NEXT_PUBLIC_APP_STAGE,
             preset: process.env.NRN_PRESET,
           },
           page: {

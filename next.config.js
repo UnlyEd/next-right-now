@@ -12,7 +12,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({ // Run with "yarn 
   enabled: process.env.ANALYZE_BUNDLE === 'true',
 })
 
-console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" APP_STAGE="${process.env.APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
+console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
 
 module.exports = withBundleAnalyzer(withSourceMaps({
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel - See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
@@ -28,7 +28,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     BUILD_TIMESTAMP: +date,
     APP_NAME: packageJson.name,
     APP_VERSION: packageJson.version,
-    UNLY_SIMPLE_LOGGER_ENV: process.env.APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because it believes we're in production
+    UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because it believes we're in production
   },
   experimental: {
     redirects() {
@@ -37,17 +37,17 @@ module.exports = withBundleAnalyzer(withSourceMaps({
           // Redirect root link with trailing slash to non-trailing slash, avoids 404 - See https://github.com/zeit/next.js/discussions/10651#discussioncomment-8270
           source: '/:locale/',
           destination: '/:locale',
-          permanent: process.env.APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
+          permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
         },
         {
           // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/zeit/next.js/discussions/10651#discussioncomment-8270
           source: '/:locale/:path*/',
           destination: '/:locale/:path*',
-          permanent: process.env.APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
+          permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
         },
       ];
 
-      if (process.env.APP_STAGE === 'development') {
+      if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
         console.info('Using experimental redirects:', redirects);
       }
 
@@ -66,7 +66,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
         },
       ];
 
-      if (process.env.APP_STAGE === 'development') {
+      if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
         console.info('Using experimental rewrites:', rewrites);
       }
 

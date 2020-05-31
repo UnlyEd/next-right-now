@@ -56,7 +56,7 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
     // See https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
     amplitudeInstance.init(process.env.AMPLITUDE_API_KEY, null, {
       userId,
-      logLevel: process.env.APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
+      logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
       includeGclid: true,
       includeReferrer: true, // See https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
       includeUtm: true,
@@ -115,7 +115,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
     amplitudeInstance.init(process.env.AMPLITUDE_API_KEY, null, {
       // userId: null,
       userId: userData.id,
-      logLevel: process.env.APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
+      logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
       includeGclid: true,
       includeReferrer: true, // https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
       includeUtm: true,
@@ -133,7 +133,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
       app: {
         name: process.env.APP_NAME,
         version: process.env.APP_VERSION,
-        stage: process.env.APP_STAGE,
+        stage: process.env.NEXT_PUBLIC_APP_STAGE,
         preset: process.env.NRN_PRESET,
       },
       page: {

@@ -5,7 +5,7 @@
   "env": {},
   "build": {
     "env": {
-      "APP_STAGE": "staging",
+      "NEXT_PUBLIC_APP_STAGE": "staging",
       "NRN_PRESET": "v2-mst-aptd-gcms-lcz-sty",
       "CUSTOMER_REF": "customer1",
       "GRAPHQL_API_ENDPOINT": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",

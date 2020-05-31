@@ -92,7 +92,7 @@ const memoizedCacheMaxAge = ((): number => {
   const oneHour = 3600;
   const oneMinute = 60;
 
-  if (process.env.APP_STAGE === 'production') {
+  if (process.env.NEXT_PUBLIC_APP_STAGE === 'production') {
     // We want to cache for a while in production, to avoid unnecessary network calls
     if (isBrowser()) {
       // The in-memory browser cache will be invalidated when the page is refreshed,
@@ -139,8 +139,8 @@ const defaultNamespace = 'common';
  */
 export const locizeOptions = {
   projectId: process.env.LOCIZE_PROJECT_ID || undefined,
-  apiKey: process.env.APP_STAGE === 'production' ? null : process.env.LOCIZE_API_KEY, // XXX Only define the API key on non-production environments (allows to use saveMissing from server)
-  version: process.env.APP_STAGE === 'production' ? 'production' : 'latest', // XXX On production, use a dedicated production version
+  apiKey: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? null : process.env.LOCIZE_API_KEY, // XXX Only define the API key on non-production environments (allows to use saveMissing from server)
+  version: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'production' : 'latest', // XXX On production, use a dedicated production version
   referenceLng: 'fr',
 };
 
@@ -171,7 +171,7 @@ export const locizeBackendOptions = {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   allowedAddOrUpdateHosts: (host: string): boolean => {
-    return process.env.APP_STAGE !== 'production'; // We allow any of our development or staging instance to update missing keys
+    return process.env.NEXT_PUBLIC_APP_STAGE !== 'production'; // We allow any of our development or staging instance to update missing keys
   },
 };
 
@@ -372,8 +372,8 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     resources: i18nTranslations,
     // preload: ['fr', 'en'], // XXX Supposed to preload languages, doesn't work with Next
     cleanCode: true, // language will be lowercased EN --> en while leaving full locales like en-US
-    debug: process.env.APP_STAGE !== 'production' && isBrowser(), // Only enable on non-production stages and only on browser (too much noise on server) XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
-    saveMissing: process.env.APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
+    debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser(), // Only enable on non-production stages and only on browser (too much noise on server) XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
+    saveMissing: process.env.NEXT_PUBLIC_APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
     saveMissingTo: defaultNamespace,
     lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language, which must behave identically for both GraphCMS I18n and react-I18n
     fallbackLng: lang === LANG_FR ? LANG_EN : LANG_FR,

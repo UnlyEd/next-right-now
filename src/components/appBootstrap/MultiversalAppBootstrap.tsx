@@ -50,7 +50,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     level: Sentry.Severity.Debug,
   });
 
-  if (isBrowser() && process.env.APP_STAGE !== 'production') { // Avoids log clutter on server
+  if (isBrowser() && process.env.NEXT_PUBLIC_APP_STAGE !== 'production') { // Avoids log clutter on server
     console.debug('MultiversalAppBootstrap.props', props);
   }
 
