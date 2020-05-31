@@ -1,5 +1,5 @@
-import { NowRequest, NowResponse } from '@now/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import Sentry, { configureReq } from '../../utils/monitoring/sentry';
 
@@ -8,7 +8,7 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-export const error = async (req: NowRequest, res: NowResponse): Promise<void> => {
+export const error = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req);
 

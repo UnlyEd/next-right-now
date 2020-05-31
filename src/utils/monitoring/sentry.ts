@@ -1,7 +1,7 @@
-import { NowRequest } from '@now/node/dist';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import get from 'lodash.get';
+import { NextApiRequest } from 'next';
 
 // Don't initialise Sentry if SENTRY_DSN isn't defined (won't crash the app, usage of the Sentry lib is resilient to this and doesn't cause any issue)
 if (process.env.SENTRY_DSN) {
@@ -39,7 +39,7 @@ if (process.env.SENTRY_DSN) {
  *
  * @param req
  */
-export const configureReq = (req: NowRequest): void => {
+export const configureReq = (req: NextApiRequest): void => {
   Sentry.configureScope((scope) => {
     scope.setTag('host', get(req, 'headers.host'));
     scope.setTag('url', get(req, 'url'));

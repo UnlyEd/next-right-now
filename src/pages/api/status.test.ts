@@ -1,4 +1,4 @@
-import { NowRequest, NowResponse } from '@now/node/dist';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import { mockRequest, mockResponse } from '../../utils/testing/tests-mocks';
 import status from './status';
@@ -9,8 +9,8 @@ describe('status', () => {
   });
 
   test('should return expected variables', async () => {
-    const req: NowRequest = mockRequest({}, { param1: 'test-sentry-reporting-context' });
-    const res: NowResponse = mockResponse();
+    const req: NextApiRequest = mockRequest({}, { param1: 'test-sentry-reporting-context' });
+    const res: NextApiResponse = mockResponse();
     await status(req, res);
 
     expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ // https://stackoverflow.com/a/55569458/2391795
