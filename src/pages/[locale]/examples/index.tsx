@@ -62,7 +62,6 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
           ({ logEvent }): JSX.Element => {
             return (
               <>
-                TOTO {process.env.NEXT_PUBLIC_TOTO}<br />
                 <IntroductionSection
                   logEvent={logEvent}
                 />
