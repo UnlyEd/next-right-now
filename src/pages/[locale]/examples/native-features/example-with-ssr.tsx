@@ -1,29 +1,28 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
-import filter from 'lodash.filter';
 import size from 'lodash.size';
 import { GetServerSideProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Container } from 'reactstrap';
-import Products from '../../components/data/Products';
+import { Alert, Container } from 'reactstrap';
+import AllProducts from '../../../../components/data/AllProducts';
+import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
 
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import Text from '../../components/utils/Text';
-import { PRODUCTS_PAGE_QUERY } from '../../gql/pages/products';
-import withApollo from '../../hocs/withApollo';
-import { Customer } from '../../types/data/Customer';
-import { Product } from '../../types/data/Product';
-import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
+import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
+import ExternalLink from '../../../../components/utils/ExternalLink';
+import { EXAMPLE_WITH_SSR_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssr';
+import withApollo from '../../../../hocs/withApollo';
+import { Customer } from '../../../../types/data/Customer';
+import { Product } from '../../../../types/data/Product';
+import { GetServerSidePropsContext } from '../../../../types/nextjs/GetServerSidePropsContext';
+import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import { SSRPageProps } from '../../../../types/pageProps/SSRPageProps';
+import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../../../utils/nextjs/SSR';
 
-const fileLabel = 'pages/products';
+const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -36,76 +35,6 @@ type CustomPageProps = {
   products: Product[];
 }
 
-/**
- * SSR pages are first rendered by the server
- * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
- * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
- * To represent this behaviour, we use the native Partial TS keyword to make all OnlyBrowserPageProps optional
- *
- * Beware props in OnlyBrowserPageProps are not available on the server
- */
-type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
-
-const ProductsPage: NextPage<Props> = (props): JSX.Element => {
-  const { products } = props;
-  const productsPublished = filter(products, { status: 'PUBLISHED' });
-  const productsDraft = filter(products, { status: 'DRAFT' });
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering ${fileLabel}`,
-    level: Sentry.Severity.Debug,
-  });
-
-  return (
-    <DefaultLayout
-      pageName={'products'}
-      headProps={{
-        title: `${size(products)} products (SSR) - Next Right Now`,
-      }}
-      {...props}
-    >
-      <Container
-        className={'container-white'}
-      >
-        <h1>Products</h1>
-
-        <Text>
-          {`
-            This page uses server side rendering (SSR)
-
-            Each page refresh (either SSR or CSR) queries the GraphQL API and displays products below:
-          `}
-        </Text>
-
-        <hr />
-
-        <h2>Published products</h2>
-
-        <Products
-          products={productsPublished}
-        />
-
-        <hr />
-
-        <h2>Draft products</h2>
-
-        <Text>
-          {`
-            Those products are being created/updated by the NRN community, anybody can manipulate those through <a href="https://nrn-admin.now.sh/#/Product/create" target="_blank">the Admin site</a>.
-
-            Don't hesitate to give it a try, you'll see the list of products below will update because content is fetched for every page request.
-          `}
-        </Text>
-
-        <Products
-          products={productsDraft}
-        />
-      </Container>
-    </DefaultLayout>
-  );
-};
-
 type GetServerSidePageProps = CustomPageProps & SSRPageProps
 
 /**
@@ -114,7 +43,6 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<{ props: GetServerSidePageProps }> => {
-  // @ts-ignore
   const {
     apolloClient,
     layoutQueryOptions,
@@ -122,8 +50,8 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
   }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
-    displayName: 'PRODUCTS_PAGE_QUERY',
-    query: PRODUCTS_PAGE_QUERY,
+    displayName: 'EXAMPLE_WITH_SSR_QUERY',
+    query: EXAMPLE_WITH_SSR_QUERY,
   };
 
   const {
@@ -138,6 +66,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
   }> = await apolloClient.query(queryOptions);
 
   if (errors) {
+    // eslint-disable-next-line no-console
     console.error(errors);
     throw new Error('Errors were detected in GraphQL query.');
   }
@@ -156,6 +85,55 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       products,
     },
   };
+};
+
+/**
+ * SSR pages are first rendered by the server
+ * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
+ * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
+ * To represent this behaviour, we use the native Partial TS keyword to make all OnlyBrowserPageProps optional
+ *
+ * Beware props in OnlyBrowserPageProps are not available on the server
+ */
+type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
+
+const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
+  const { products } = props;
+
+  return (
+    <DefaultLayout
+      {...props}
+      pageName={'example-with-ssr'}
+      headProps={{
+        title: `${size(products)} products (SSR) - Next Right Now`,
+      }}
+      Sidebar={NativeFeaturesSidebar}
+    >
+      <Container
+        className={'container-white'}
+      >
+        <h1>Example, using SSR</h1>
+
+        <Alert color={'info'}>
+          This page uses server side rendering (SSR) because it uses <code>getServerSideProps</code>.<br />
+          <br />
+          When this page is loaded through a client-side rendering (AKA "transition") (using <code>next/link</code> or <code>I18nLink</code>){' '}
+          then Next.js sends an API request to the server which runs the <code>getServerSideProps</code> and returns the result as JSON.<br />
+          <br />
+          <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#only-runs-on-server-side'}>Learn more about the technical details</ExternalLink><br />
+          <br />
+          Each page refresh (either SSR or CSR) queries the GraphQL API and displays products below.<br />
+          <br />
+          If you use <ExternalLink href={'https://nrn-admin.now.sh/'}>NRN Admin</ExternalLink> and update the products there,{' '}
+          then the products below will be updated immediately, because each page refresh will fetch the latest content.<br />
+        </Alert>
+
+        <hr />
+
+        <AllProducts products={products} />
+      </Container>
+    </DefaultLayout>
+  );
 };
 
 // XXX For educational purposes - Equivalent to above "getServerSideProps"
@@ -191,8 +169,8 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
 //     customerRef,
 //   };
 //   const queryOptions = {
-//     displayName: 'PRODUCTS_PAGE_QUERY',
-//     query: PRODUCTS_PAGE_QUERY,
+//     displayName: 'EXAMPLE_WITH_SSR_QUERY',
+//     query: EXAMPLE_WITH_SSR_QUERY,
 //     variables,
 //     context: {
 //       headers: {
@@ -241,4 +219,4 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
 //   };
 // };
 
-export default withApollo()(ProductsPage);
+export default withApollo()(ProductsWithSSRPage);

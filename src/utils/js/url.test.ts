@@ -1,4 +1,4 @@
-import { decodeQueryParameter, encodeQueryParameter } from './url';
+import { decodeQueryParameter, encodeQueryParameter, filterExternalAbsoluteUrl } from './url';
 
 export const data = {
   'organisation': {
@@ -47,6 +47,24 @@ describe(`utils/url.ts`, () => {
 
       const _decodedDataAgain: object = decodeQueryParameter(_encodedData);
       expect(_decodedDataAgain).toEqual(data);
+    });
+  });
+
+  describe(`filterExternalAbsoluteUrl`, () => {
+    test(`should not allow external absolute urls (use default fallback)`, async () => {
+      expect(filterExternalAbsoluteUrl('')).toEqual('/');
+      expect(filterExternalAbsoluteUrl('https://google.com')).toEqual('/');
+      expect(filterExternalAbsoluteUrl('http://google.com')).toEqual('/');
+      expect(filterExternalAbsoluteUrl('//google.com')).toEqual('/');
+    });
+
+    test(`should fallback to given fallback value when provided`, async () => {
+      expect(filterExternalAbsoluteUrl('', '/test')).toEqual('/test');
+    });
+
+    test(`should allow internal relative urls`, async () => {
+      expect(filterExternalAbsoluteUrl('/google.com')).toEqual('/google.com');
+      expect(filterExternalAbsoluteUrl('/google.com?test')).toEqual('/google.com?test');
     });
   });
 });

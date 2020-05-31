@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
@@ -23,16 +22,19 @@ import { createApolloClient } from '../../utils/gql/graphql';
 import { replaceAllOccurrences } from '../../utils/js/string';
 import { getCommonStaticPaths, getCommonStaticProps } from '../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/terms';
+const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
 /**
+ * Only executed on the server side at build time
+ * Necessary when a page has dynamic routes and uses "getStaticProps"
+ */
+export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
+
+/**
  * Only executed on the server side at build time.
- *
- * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
- * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
@@ -40,7 +42,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const commonStaticProps = await getCommonStaticProps(props);
+  const commonStaticProps: StaticPropsOutput = await getCommonStaticProps(props);
   const { customerRef, gcmsLocales } = commonStaticProps.props;
 
   const apolloClient = createApolloClient();
@@ -85,12 +87,6 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async 
 };
 
 /**
- * Only executed on the server side at build time
- * Necessary when a page has dynamic routes and uses "getStaticProps"
- */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
-
-/**
  * SSG pages are first rendered by the server (during static bundling)
  * Then, they're rendered by the client, and gain additional props (defined in OnlyBrowserPageProps)
  * Because this last case is the most common (server bundle only happens during development stage), we consider it a default
@@ -103,12 +99,6 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: CustomerContext = React.useContext(customerContext);
   const { theme: { primaryColor } } = customer;
-
-  Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Rendering ${fileLabel}`,
-    level: Sentry.Severity.Debug,
-  });
 
   return (
     <DefaultLayout

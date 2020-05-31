@@ -22,8 +22,8 @@ describe('Index page', () => {
   /**
    * Navbar section
    */
-  it('should have 6 links in the navigation bar', () => {
-    cy.get('#nav a.nav-link').should('have.length', 6);
+  it('should have 5 links in the navigation bar', () => {
+    cy.get('#nav .navbar-nav > .nav-item').should('have.length', 5);
   });
 
   it('should have a link in the navbar that redirects to the examples page', () => {
@@ -31,6 +31,9 @@ describe('Index page', () => {
     cy.get('#nav-link-examples')
       .should('have.text', 'Examples')
       .click();
-    cy.url().should('eq', `${baseUrl}/en/examples`);
+    cy.get('#nav-link-examples-static-i-18-n')
+      .should('have.text', 'Static i18n')
+      .click();
+    cy.url().should('eq', `${baseUrl}/en/examples/built-in-features/static-i18n`);
   });
 });

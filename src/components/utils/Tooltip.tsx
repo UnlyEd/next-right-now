@@ -30,8 +30,7 @@ const Tooltip: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <RCTooltip
-      // @ts-ignore
-      trigger={trigger} // XXX TS type mismatch between their official API and TS type, providing an array works just fine
+      trigger={trigger}
       overlay={overlay}
       placement={placement}
       {...rest}

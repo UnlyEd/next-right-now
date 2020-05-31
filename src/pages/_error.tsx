@@ -50,7 +50,8 @@ export type ErrorProps = {
 const ErrorPage = (props: ErrorPageProps): JSX.Element => {
   const { statusCode, isReadyToRender, err, children = null } = props;
   if (process.env.APP_STAGE !== 'production') {
-    console.debug('ErrorPage - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);
+    console.debug('ErrorPage - Unexpected error caught, it was captured and sent to Sentry. Error details:'); // eslint-disable-line no-console
+    console.error(err); // eslint-disable-line no-console
   }
 
   // TODO rename to "forceLogTopLevelError" = true and provide false in "DefaultErrorLayout"
@@ -87,8 +88,7 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
  */
 ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> => {
   const { res, err, asPath } = props;
-  // @ts-ignore
-  const errorInitialProps: ErrorProps = await NextError.getInitialProps({ res, err });
+  const errorInitialProps: ErrorProps = await NextError.getInitialProps({ res, err } as NextPageContext) as ErrorProps;
   if (process.env.APP_STAGE !== 'production') {
     console.debug('ErrorPage.getInitialProps - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);
   }
@@ -134,7 +134,6 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
   // information about what the error might be. This is unexpected and may
   // indicate a bug introduced in Next.js, so record it in Sentry
   Sentry.captureException(
-    // @ts-ignore
     new Error(`_error.js getInitialProps missing data at path: ${asPath}`),
   );
 

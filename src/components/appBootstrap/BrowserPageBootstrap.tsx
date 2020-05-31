@@ -91,8 +91,9 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
       userId={userId}
     >
       <Amplitude
-        // DA Event props and user props are sometimes duplicated to ease the data analysis through Amplitude
-        //  Because charts are sometimes easier to build using events props, or user users props
+        // DA Know that we decided to duplicate the tracking of the same properties through event props and user props
+        //  This is because charts are sometimes easier to build using events props, or user users props
+        //  Duplicating them facilitates the data analysis and grants more flexibility regarding how to create charts
         eventProperties={{
           app: {
             name: process.env.APP_NAME,
@@ -104,7 +105,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
             url: location.href,
             path: location.pathname,
             origin: location.origin,
-            name: null,
+            name: null, // XXX Will be set by the page (usually through its layout)
           },
           customer: {
             ref: customerRef,
@@ -115,8 +116,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
           iframeReferrer: iframeReferrer,
         }}
         // XXX Do not use "userProperties" here, add default user-related properties in getAmplitudeInstance instead
-        //  Because "event" had priority over "user event" and will be executed before! So, userProperties defined here
-        //  will NOT be applied until the NEXT Amplitude event and this is likely gonna cause analytics issues!
+        //  Because "event" had priority over "user event" and will be executed before
+        //  So, userProperties defined here then it will NOT be applied until the NEXT Amplitude event and this is likely gonna cause analytics issues
         // userProperties={{}}
       >
         <userSessionContext.Provider value={{ ...userSession }}>

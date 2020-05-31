@@ -69,6 +69,7 @@ fabric.properties
 *.iml
 modules.xml
 .idea/misc.xml
+.idea/codeStyles
 *.ipr
 vcs.xml
 

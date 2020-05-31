@@ -1,8 +1,9 @@
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faBook, faBookReader, faCoffee, faHome, faUserCog } from '@fortawesome/free-solid-svg-icons';
-// import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css - XXX Disabled because not used at the moment (used by Loader/AnimatedLoader)
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { faArrowCircleLeft, faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faQuestionCircle, faUserCog } from '@fortawesome/free-solid-svg-icons';
+import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css
 import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
 import 'rc-tooltip/assets/bootstrap.css';
 import React from 'react';
@@ -21,8 +22,28 @@ import '../utils/monitoring/sentry';
 config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
 library.add(
   faGithub,
-  faBook, faBookReader, faCoffee, faHome, faUserCog,
+  faArrowCircleLeft, faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faQuestionCircle, faUserCog,
+  faTimesCircle,
 );
+
+/**
+ * WDYR (why-did-you-render) helps locate unnecessary re-renders and fix them
+ * Applied in development environment, on the frontend only
+ *
+ * @see https://github.com/welldone-software/why-did-you-render
+ */
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const whyDidYouRender = require('@welldone-software/why-did-you-render');
+  // eslint-disable-next-line no-console
+  console.debug('Applying whyDidYouRender, to help you locate unnecessary re-renders during development. See https://github.com/welldone-software/why-did-you-render');
+  whyDidYouRender(React, {
+    trackAllPureComponents: true,
+    trackHooks: true,
+    logOwnerReasons: true,
+    collapseGroups: true,
+  });
+}
 
 /**
  * "props.pageProps" will depend on whether the page is served by server or client, SSG or SSR

@@ -6,5 +6,6 @@ import { Theme } from '../data/Theme';
  */
 export type MultiversalAppBootstrapPageProps = {
   i18nextInstance: i18n;
+  isSSGFallbackInitialBuild: boolean; // When true, means the app is loading a SSG page, with fallback mode enabled, and this page hasn't been built before
   theme: Theme;
 }

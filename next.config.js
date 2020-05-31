@@ -5,8 +5,9 @@ const i18nConfig = require('./src/i18nConfig');
 const supportedLocales = i18nConfig.supportedLocales.map((supportedLocale) => {
   return supportedLocale.name;
 });
+const noRedirectBlacklistedPaths = ['_next', 'api']; // Paths that mustn't have rewrite applied to them, to avoid the whole app to behave inconsistently
 const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folders, files) under /public directory should be added there, to avoid redirection when an asset isn't found
-const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
+const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const withBundleAnalyzer = require('@next/bundle-analyzer')({ // Run with "yarn next:bundle" - See https://www.npmjs.com/package/@next/bundle-analyzer
   enabled: process.env.ANALYZE_BUNDLE === 'true',
 })

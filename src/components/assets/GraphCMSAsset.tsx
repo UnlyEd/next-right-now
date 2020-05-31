@@ -138,7 +138,6 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
         target={resolvedLinkProps.target}
         className={classnames(`asset-link-${id}`, resolvedLinkProps.classes, resolvedLinkProps.className)}
         style={deepmerge(resolvedLinkProps.style || {}, resolvedLinkProps.style || {})}
-        // @ts-ignore
         onClick={onClick} // Support for usage within <Link> component (from Next.js)
       >
         <Image />
@@ -178,7 +177,7 @@ type Props = {
   override?: Asset;
   className?: string;
   style?: object;
-  onClick?: Function;
+  onClick?: () => void;
   linkOverride?: {
     id?: string;
     url?: string;
