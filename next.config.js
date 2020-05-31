@@ -32,6 +32,10 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_NAME: packageJson.name,
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
+
+    // Provided by vercel (?)
+    VERCEL_URL: process.env.VERCEL_URL,
+    VERCEL_GITHUB_DEPLOYMENT: process.env.VERCEL_GITHUB_DEPLOYMENT,
   },
   experimental: {
     redirects() {
