@@ -19,15 +19,9 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   env: {
     // XXX Duplication of the environment variables, this is only used locally (See https://github.com/zeit/next.js#build-time-configuration)
     //  while now.json:build:env will be used on the Now platform (See https://zeit.co/docs/v2/build-step/#providing-environment-variables)
-    NRN_PRESET: process.env.NRN_PRESET,
-    CUSTOMER_REF: process.env.CUSTOMER_REF,
-    APP_STAGE: process.env.APP_STAGE,
     GRAPHQL_API_ENDPOINT: process.env.GRAPHQL_API_ENDPOINT,
     GRAPHQL_API_KEY: process.env.GRAPHQL_API_KEY,
-    LOCIZE_PROJECT_ID: process.env.LOCIZE_PROJECT_ID,
     LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,
-    AMPLITUDE_API_KEY: process.env.AMPLITUDE_API_KEY,
-    SENTRY_DSN: process.env.SENTRY_DSN,
 
     // Non duplicated environment variables (automatically resolved, must not be specified in the .env.build file)
     BUILD_TIME: date.toString(),
