@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "now dev --listen 8888",
+    "start": "next dev --port 8888",
     "build": "yarn test:once && next build",
-    "next": "next start",
     "next:bundle": "ANALYZE_BUNDLE=true yarn start",
     "svg": "npx svgr -d src/svg src/svg --ext tsx --template src/utils/svg/svgTemplate.ts",
     "deploy": "yarn deploy:customer1",
