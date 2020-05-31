@@ -1,7 +1,8 @@
 import { createLogger } from '@unly/utils-simple-logger';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { supportedLocales } from '../i18nConfig';
-import { acceptLanguageHeaderLookup, DEFAULT_LOCALE } from '../utils/i18n/i18n';
 import redirect from '../utils/app/redirect';
+import { acceptLanguageHeaderLookup, DEFAULT_LOCALE } from '../utils/i18n/i18n';
 
 const fileLabel = 'utils/localeMiddleware';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -18,7 +19,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @param req
  * @param res
  */
-export const localeMiddleware = (req, res): void => {
+export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)

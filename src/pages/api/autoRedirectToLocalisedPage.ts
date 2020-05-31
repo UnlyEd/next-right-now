@@ -1,4 +1,5 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import localeMiddleware from '../../middlewares/localeMiddleware';
 
-export default (req, res): void => localeMiddleware(req, res);
+export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => localeMiddleware(req, res);
 
