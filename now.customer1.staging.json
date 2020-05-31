@@ -5,6 +5,7 @@
   "env": {},
   "build": {
     "env": {
+      "NEXT_PUBLIC_TOTO": "titi",
       "APP_STAGE": "staging",
       "NRN_PRESET": "v2-mst-aptd-gcms-lcz-sty",
       "CUSTOMER_REF": "customer1",
