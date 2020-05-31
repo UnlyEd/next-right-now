@@ -40,7 +40,7 @@
     "lint:fix:preview": "eslint src/ --ext .ts --ext .tsx --fix-dry-run",
     "tsclint": "npx tsc --noEmit --skipLibCheck",
     "prettier:base": "npx prettier --parser typescript",
-    "prettier:fix": "yarn prettier:base --write \"./**/*.{ts,tsx,js}\" --ignore-path .gitignore",
+    "prettier:fix": "yarn prettier:base --write \"./**/*.{ts,tsx,js}\"",
     "format": "yarn tsclint && yarn eslint:fix && yarn prettier:fix",
     "test": "NODE_ENV=test jest --watchAll",
     "test:once": "NODE_ENV=test jest",
