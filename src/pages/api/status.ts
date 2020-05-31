@@ -23,10 +23,10 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       memory: process.env.AWS_LAMBDA_FUNCTION_MEMORY_SIZE,
       environment: process.env.NODE_ENV,
       stage: process.env.NEXT_PUBLIC_APP_STAGE,
-      preset: process.env.NRN_PRESET,
+      preset: process.env.NEXT_PUBLIC_NRN_PRESET,
       buildTime: process.env.BUILD_TIME,
       buildTimestamp: process.env.BUILD_TIMESTAMP,
-      customer: process.env.CUSTOMER_REF,
+      customer: process.env.NEXT_PUBLIC_CUSTOMER_REF,
     });
   } catch (e) {
     logger.error(e.message);

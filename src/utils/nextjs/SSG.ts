@@ -35,7 +35,7 @@ import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const customerRef: string = process.env.CUSTOMER_REF;
+  const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const preview: boolean = props?.preview || false;
   const previewData: PreviewData = props?.previewData || null;
   const hasLocaleFromUrl = !!props?.params?.locale;

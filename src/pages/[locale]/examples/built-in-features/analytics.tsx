@@ -98,7 +98,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
           text={`
             <AmplitudeProvider
               amplitudeInstance={amplitudeInstance}
-              apiKey={process.env.AMPLITUDE_API_KEY}
+              apiKey={process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY}
               userId={userId}
             >
               <Amplitude
@@ -107,7 +107,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                     name: process.env.APP_NAME,
                     version: process.env.APP_VERSION,
                     stage: process.env.NEXT_PUBLIC_APP_STAGE,
-                    preset: process.env.NRN_PRESET,
+                    preset: process.env.NEXT_PUBLIC_NRN_PRESET,
                   },
                   page: {
                     url: location.href,
@@ -129,7 +129,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
             // ... elsewhere
 
             // See https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
-            amplitudeInstance.init(process.env.AMPLITUDE_API_KEY, null, {
+            amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
               userId,
               logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
               includeGclid: true,

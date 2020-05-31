@@ -218,7 +218,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                 <Row className={'justify-content-center'}>
                   <NavLink
                     id={'nav-link-github'}
-                    href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NRN_PRESET}`}
+                    href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NEXT_PUBLIC_NRN_PRESET}`}
                     target={'_blank'}
                     rel={'noopener'}
                     onClick={() => {

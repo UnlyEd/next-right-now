@@ -138,7 +138,7 @@ const defaultNamespace = 'common';
  * @see https://github.com/locize/locize-editor#initialize-with-optional-options
  */
 export const locizeOptions = {
-  projectId: process.env.LOCIZE_PROJECT_ID || undefined,
+  projectId: process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID || undefined,
   apiKey: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? null : process.env.LOCIZE_API_KEY, // XXX Only define the API key on non-production environments (allows to use saveMissing from server)
   version: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'production' : 'latest', // XXX On production, use a dedicated production version
   referenceLng: 'fr',
@@ -328,10 +328,10 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
  * @param defaultLocales
  */
 const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextResources): i18n => {
-  // If LOCIZE_PROJECT_ID is not defined then we mustn't init i18next or it'll crash the whole app when running in non-production stage
+  // If NEXT_PUBLIC_LOCIZE_PROJECT_ID is not defined then we mustn't init i18next or it'll crash the whole app when running in non-production stage
   // In that case, better crash early with an explicit message
-  if (!process.env.LOCIZE_PROJECT_ID) {
-    throw new Error('Env var "LOCIZE_PROJECT_ID" is not defined. Please add it to you .env.build file (development) or now*.json (staging/production)');
+  if (!process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID) {
+    throw new Error('Env var "NEXT_PUBLIC_LOCIZE_PROJECT_ID" is not defined. Please add it to you .env.build file (development) or now*.json (staging/production)');
   }
 
   // Plugins will be dynamically added at runtime, depending on the runtime engine (node or browser)

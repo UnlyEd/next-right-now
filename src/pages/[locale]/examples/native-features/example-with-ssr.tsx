@@ -149,7 +149,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 //     req,
 //     res,
 //   } = context;
-//   const customerRef: string = process.env.CUSTOMER_REF;
+//   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
 //   const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
 //   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res);
 //   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();

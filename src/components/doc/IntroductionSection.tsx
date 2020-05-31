@@ -29,8 +29,8 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
       <h1>Next Right Now Demo</h1>
       <h3>
         This demo uses the preset
-        <ExternalLink href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NRN_PRESET}`}>
-          <code>{process.env.NRN_PRESET}</code>
+        <ExternalLink href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NEXT_PUBLIC_NRN_PRESET}`}>
+          <code>{process.env.NEXT_PUBLIC_NRN_PRESET}</code>
         </ExternalLink>
       </h3>
 

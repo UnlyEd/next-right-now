@@ -12,7 +12,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({ // Run with "yarn 
   enabled: process.env.ANALYZE_BUNDLE === 'true',
 })
 
-console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for CUSTOMER_REF="${process.env.CUSTOMER_REF}"`);
+console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}"`);
 
 module.exports = withBundleAnalyzer(withSourceMaps({
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel - See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
@@ -22,6 +22,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     GRAPHQL_API_ENDPOINT: process.env.GRAPHQL_API_ENDPOINT,
     GRAPHQL_API_KEY: process.env.GRAPHQL_API_KEY,
     LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,
+    SENTRY_DSN: process.env.SENTRY_DSN,
 
     // Non duplicated environment variables (automatically resolved, must not be specified in the .env.build file)
     BUILD_TIME: date.toString(),
