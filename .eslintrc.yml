@@ -33,6 +33,7 @@ rules: # See https://eslint.org/docs/rules
     - error
     - single # Prefer simple quotes
     - allowTemplateLiterals: true # Allow the use of `` instead of '' and don't try to replace it, even when `` isn't needed
+      avoidEscape: true # Necessary to work well with prettier, when escaping
   comma-spacing:
     - error
     - before: false
