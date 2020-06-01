@@ -44,8 +44,8 @@ export type ErrorProps = {
  *   />
  *
  * @param props
- * @see https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/pages/_error.js Inspiration about Sentry implementation
- * @see https://github.com/zeit/next.js/discussions/12913 Discussion about hybrid SSG/SSR apps considerations
+ * @see https://github.com/vercel/next.js/blob/canary/examples/with-sentry-simple/pages/_error.js Inspiration about Sentry implementation
+ * @see https://github.com/vercel/next.js/discussions/12913 Discussion about hybrid SSG/SSR apps considerations
  */
 const ErrorPage = (props: ErrorPageProps): JSX.Element => {
   const { statusCode, isReadyToRender, err, children = null } = props;
@@ -56,7 +56,7 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
 
   // TODO rename to "forceLogTopLevelError" = true and provide false in "DefaultErrorLayout"
   if (!isReadyToRender && err) {
-    // XXX getInitialProps is not called for top-level errors - See https://github.com/zeit/next.js/issues/8592
+    // XXX getInitialProps is not called for top-level errors - See https://github.com/vercel/next.js/issues/8592
     // As a workaround, we pass err via _app and src/components/appBootstrap/MultiversalAppBootstrap.tsx so it can be captured
     Sentry.captureException(err);
   }
@@ -93,7 +93,7 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
     console.debug('ErrorPage.getInitialProps - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);
   }
 
-  // Workaround for https://github.com/zeit/next.js/issues/8592, mark when
+  // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
   // getInitialProps has run
   errorInitialProps.isReadyToRender = true;
 

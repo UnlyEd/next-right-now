@@ -31,7 +31,7 @@ import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
  * @param props
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
- * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {

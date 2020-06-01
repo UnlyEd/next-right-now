@@ -18,7 +18,7 @@ export type HeadProps = {
 /**
  * Custom Head component
  *
- * https://github.com/zeit/next.js#populating-head
+ * https://github.com/vercel/next.js#populating-head
  */
 const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript. Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';

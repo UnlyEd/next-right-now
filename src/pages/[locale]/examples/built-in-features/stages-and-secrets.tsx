@@ -32,7 +32,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
- * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
@@ -96,7 +96,7 @@ const StagesAndSecretsPage: NextPage<Props> = (props): JSX.Element => {
           Before, only <code>secrets</code> existed, but since <code>now@18</code> they've introduced the concept of <code>environment variables</code>.<br />
           It can be a bit hard to understand how the 2 should be used together.<br />
           Basically put, <code>secrets</code> are global and shared across all projects, while <code>env vars</code> are scoped by project.<br />
-          <ExternalLink href={'https://github.com/zeit/now/discussions/4065'}>There are other differences</ExternalLink>, though.<br />
+          <ExternalLink href={'https://github.com/vercel/now/discussions/4065'}>There are other differences</ExternalLink>, though.<br />
         </Alert>
 
         <Alert color={'info'}>
