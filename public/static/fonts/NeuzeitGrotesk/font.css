@@ -7,6 +7,7 @@
   url('NeuzeitGrotesk-light.ttf') format('truetype');
   font-style: normal;
   font-weight: 200;
+  font-display: swap; /* Perf optimization - See https://web.dev/font-display */
 }
 
 @font-face {
@@ -18,6 +19,7 @@
   url('NeuzeitGrotesk-regular.ttf') format('truetype');
   font-style: normal;
   font-weight: 900;
+  font-display: swap; /* Perf optimization - See https://web.dev/font-display */
 }
 
 @font-face {
@@ -29,6 +31,7 @@
   url('NeuzeitGrotesk-bold.ttf') format('truetype');
   font-style: normal;
   font-weight: 400;
+  font-display: swap; /* Perf optimization - See https://web.dev/font-display */
 }
 
 @font-face {
@@ -40,4 +43,5 @@
   url('NeuzeitGrotesk-black.ttf') format('truetype');
   font-style: normal;
   font-weight: 700;
+  font-display: swap; /* Perf optimization - See https://web.dev/font-display */
 }
