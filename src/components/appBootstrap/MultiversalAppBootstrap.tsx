@@ -20,11 +20,15 @@ import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBo
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
 import previewModeContext from '../../stores/previewModeContext';
+import pino from '../../utils/logger';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });
+
+pino.info('test pino')
+
 
 export type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;
 

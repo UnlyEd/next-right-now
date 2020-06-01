@@ -103,6 +103,7 @@
     "next": "9.4.4",
     "next-cookies": "2.0.3",
     "next-with-apollo": "5.0.1",
+    "pino": "6.3.1",
     "prop-types": "15.7.2",
     "rc-tooltip": "4.0.3",
     "react": "16.13.1",
