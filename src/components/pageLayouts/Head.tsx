@@ -60,9 +60,9 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
         content={description}
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" sizes="192x192" href="/touch-icon.png" />
-      <link rel="apple-touch-icon" href="/touch-icon.png" />
-      <link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />
+      {/*<link rel="icon" sizes="192x192" href="/touch-icon.png" />*/}
+      {/*<link rel="apple-touch-icon" href="/touch-icon.png" />*/}
+      {/*<link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />*/}
       <link rel="icon" href={favicon} />
 
       {/* Perf optimisation (preload normal and bold fonts because they're the most used) - See https://web.dev/uses-rel-preload*/}
