@@ -65,7 +65,7 @@ const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
         </p>
 
         <Code
-          text={`yarn next:bundle`}
+          text={`yarn analyse:bundle`}
         />
 
       </DocPage>
