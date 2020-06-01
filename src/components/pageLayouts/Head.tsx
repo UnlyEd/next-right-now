@@ -66,11 +66,7 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <link rel="icon" href={favicon} />
 
       {/* Perf optimisation (preload normal and bold fonts because they're the most used) - See https://web.dev/uses-rel-preload*/}
-      <link rel="preload" as="style" href={'/static/fonts/NeuzeitGrotesk/font.css'} />
-      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-bold.woff'} type="font/woff" />
-      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-bold.woff2'} type="font/woff2" />
-      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-black.woff'} type="font/woff" />
-      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-black.woff2'} type="font/woff2" />
+      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/font.css'} />
 
       {
         SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {
