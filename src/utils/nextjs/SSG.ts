@@ -36,6 +36,7 @@ export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Prom
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the GraphQL query by your own API query, while keeping the existing example pages working.
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return getExamplesCommonStaticPaths();
 };
 
@@ -59,6 +60,7 @@ export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = 
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the GraphQL query by your own API query, while keeping the existing example pages working.
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return getExamplesCommonStaticProps(props);
 };
 
