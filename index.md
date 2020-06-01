@@ -40,7 +40,9 @@ Knowing Next.js, TypeScript and Vercel (formerly Zeit) vendor will be **a huge h
 > We carefully explain installation and proper setup, but **it's your responsibility to go deeper and actually learn how they work**.
 >
 > **Tip**: Bookmark this [React Cheat Sheet](https://devhints.io/react) if you're new to React
+>
 > **Tip**: Bookmark this [TypeScript Cheat Sheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup) if you're new to TypeScript
+>
 > **Tip**: Bookmark this [Next.js Cheat Sheet](https://www.saltycrane.com/cheat-sheets/typescript/next.js/latest/) if you're new to Next
 
 ### Boilerplate presets, opt-in features and 3rd party vendors
