@@ -144,7 +144,9 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
           }
 
           .btn-link {
-            padding: 0; // Avoid padding to make it display as a link would
+            @media (min-width: 992px) {
+              padding: 0; // Avoid padding to make it display as a link would for desktop only
+            }
           }
 
           label {
