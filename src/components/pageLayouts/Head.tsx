@@ -66,6 +66,7 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <link rel="icon" href={favicon} />
 
       {/* Perf optimisation (preload normal and bold fonts because they're the most used) - See https://web.dev/uses-rel-preload*/}
+      {/* TODO See if it's actually a good thing, seems to conflict with WebFontLoader - See https://github.com/GoogleChrome/lighthouse/issues/10892 */}
       <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/font.css'} />
 
       {
