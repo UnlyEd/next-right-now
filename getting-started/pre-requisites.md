@@ -23,7 +23,11 @@ _Note that Cypress will require additional binaries, but it's not a requirement,
 
 ## Operating systems compatibility
 
+### Unix (MacOS/Linux distributions)
+
 NRN has only been extensively tested on **MacOS Catalina**, we expect **Unix-based OS** to behave properly.
+
+### Windows
 
 **Windows** users have reported several issues, which aren't always related with NRN itself, we don't use Windows ourselves, so it's hard to cover it.
 

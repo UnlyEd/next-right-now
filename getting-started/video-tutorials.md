@@ -12,6 +12,10 @@ nav_order: 10
 Those videos will show you how NRN works, from a developer point of view.
 
 They're great to watch if you want a peek preview of all available features and how they work.
+
+**Note that video tutorial were recording during NRN v1.**
+
+The demo has been improved a lot since, and more features have been added.
 </div>
 
 {% include page-toc.md %}
