@@ -8,12 +8,16 @@ nav_order: 20
 # Quick start
 {: .no_toc }
 
+<div class="code-example" markdown="1">
+Make sure you've checked our [Pre-requisites](./pre-requisites) page.
+</div>
+
 {% include page-toc.md %}
 
 ---
 
 
-This short tutorial will explain how to perform a super quick local installation (for local-only testing purpose, without deploying anything online)
+This short tutorial will explain how to perform a super quick (~5mn) local installation (for local-only testing purpose, without deploying anything online)
 
 This tutorial uses the [**`{{ site.nrn_default_preset }}`**](../available-presets) preset.
 

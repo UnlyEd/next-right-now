@@ -25,7 +25,9 @@ nav_order: 70
 
 ## Can I use NRN on Windows?
 
-Apparently, `wsl2` may help. [See answer](https://github.com/UnlyEd/next-right-now/issues/55#issuecomment-631278055)
+{% include windows-concerns.md %}
+
+[See original question](https://github.com/UnlyEd/next-right-now/issues/55)
 
 ---
 
