@@ -27,17 +27,17 @@ Step by step guide about how to create and properly configure your Vercel accoun
 
 ## Deploying on Vercel
 
-This tutorial assumes you've cloned the project locally.
+### Pre-requisites
 
-You need to change the associated Vercel `scope` (it currently uses ours, because it's required for our CI/CD Github Actions)
+{% include vercel-online-deployment-pre-requisites.md %}
+{: .mb-6 }
 
-1. Remove the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `now.*.json` files (this `scope` is NRN's scope, and you don't have permissions to access it, so you must remove it manually. We keep it there to make our own CI/CD works)
-    - **Tip**: Don't forget `now.json` is a **symlink** and **musn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
-1. Make sure you have `now@17` installed, if you installed `now@16` during "Quick start" - `yarn add -D now`
-1. (Optional) Run `now login` if you aren't authenticated to Vercel from your local machine. Typically, if it's the first time you use Vercel you'll need to do it.
-1. `yarn start` - Will create a `.now` folder containing project metadata.
-1. Add a `scope` line in all `now.*.json` files using the `orgId` in `.now/project.json`
-    - **Tip**: Don't forget `now.json` is a **symlink** and **musn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
+### Deploying on Vercel (manually)
+
+1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already.
+    This command will fail if any secret is missing.
+1. Add a `scope` line in all `now.*.json` files using the `orgId` in `.now/project.json` (this folder is created when running `npx now`, which was called when you run the above `yarn start`)
+    - **Tip**: Don't forget `now.json` is a **symlink** and **shouldn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
 1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already
 1. Go to [Vercel](https://vercel.com/) to see the project being deployed, go through logs, etc.
 
@@ -45,41 +45,43 @@ You need to change the associated Vercel `scope` (it currently uses ours, becaus
 
 ---
 
-### Deploying on Vercel (manually)
+### Deploying specific stages and tenants
 
 For each customer instance, we create a different Vercel project.
 
 A project is itself composed of multiple staging deployments (called "previews" on Vercel) and one production deployment.
 
-_**Tip**: If you want to learn more about what happens (on the technical level) when pushing a commit to the repository, read the [CI/CD section](../ci-cd/use-github-actions)_
+_**Tip**: If you want to learn more about what happens (on the technical level) when pushing a commit to the repository, read the [CI/CD section](../ci-cd/use-github-actions)_.
 
-#### Staging deployments
+{: .mt-6 }
+##### Staging deployments
 
 Using Vercel Now, **we have access to many staging "deployments"**.
 
 By default, there is one custom domain per Git Branch, but also one per commit.
 It is also possible to create a custom domain manually from the CLI, for any deployment.
 
-##### When not using a MSP tenancy preset
+###### When not using a `MST` preset
 
 - `yarn deploy` - Deploy the app in staging
 
-##### When using a MSP tenancy preset
+###### When using a `MST` preset
 
 - `yarn deploy` - Deploy the customer1 app in staging (shortcut)
 - `yarn deploy:customer1` - Deploy the customer1 app in staging (identical to previous, shortcut)
 - `yarn deploy:customer2` - Deploy the customer2 app in staging
 - `yarn deploy:all` - Deploy all apps in staging
 
-#### Production deployment
+{: .mt-6 }
+##### Production deployment
 
 While there can be multiple staging deployments, **there is only one production deployment (per project)**
 
-##### When not using a MSP tenancy preset
+###### When not using a `MST` preset
 
 - `yarn deploy:production` - Deploy the app in production
 
-##### When using a MSP tenancy preset
+###### When using a `MST` preset
 
 - `yarn deploy:customer1:production` - Deploy the customer1 app in production
 - `yarn deploy:customer2:production` - Deploy the customer2 app in production
@@ -94,7 +96,8 @@ While there can be multiple staging deployments, **there is only one production 
 
 Our simple but useful automated CI/CD process basically deploys all branches as Vercel preview deployments, except for master which is automatically deployed in production.
 
-#### Video Tutorial - How to configure Github Actions integration (7 minutes)
+{: .mt-6 }
+##### Video Tutorial - How to configure Github Actions integration (7 minutes)
 
 [![Tutorial - How to configure Github Actions integration](https://img.youtube.com/vi/hPQu6jgOyC0/maxresdefault.jpg)](http://youtu.be/hPQu6jgOyC0?hd=1)
 

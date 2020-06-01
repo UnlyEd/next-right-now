@@ -27,9 +27,6 @@ This tutorial uses the [**`{{ site.nrn_default_preset }}`**](../available-preset
 
 {% include installation-guide-quick-start.md preset=site.nrn_default_preset %}
 
-### Advanced configuration
-
-{% include installation-guide-tips.md %}
 
 ---
 

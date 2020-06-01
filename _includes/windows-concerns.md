@@ -1,6 +1,6 @@
 - NRN v2 has been tested on Windows (on June 1st, 2020) and works correctly using Cygwin/Babun
     - **Tip**: Babun support has been discontinued in 2019, but it still works and is still awesome, that's what I personally use on my own Windows setup.
-    - **Tip**: I used [`nvm-windows`](https://github.com/coreybutler/nvm-windows/releases) (download the `nvm-setup.zip`) as replacement for `nvm`
+    - **Tip**: We recommend [`nvm-windows`](https://github.com/coreybutler/nvm-windows/releases) as replacement for `nvm` (download the `nvm-setup.zip`)
 - If you don't use Cygwin/Babun, check out [`wsl2`](https://github.com/UnlyEd/next-right-now/issues/55#issuecomment-631278055) (Windows 10 only)
     - **Tip**: `wsl2` may provide a better experience (but we haven't tested it ourselves) - [What is wsl2?](https://docs.microsoft.com/en-us/windows/wsl/wsl2-about)
 - When manually deploying (i.e: `yarn deploy`), the symbolic link for `now.json` (which points to another `now.*.json` file, depending on the preset) will not work on Windows, and you'll have to create a `now.json` yourself (just copy the content of a staging `now.*.json` file)
