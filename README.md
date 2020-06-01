@@ -47,6 +47,12 @@ Both documentations are related and there are many links from the demos toward t
 
 ---
 
+# Quick start
+
+[Go to our "Quick start" section](https://unlyed.github.io/next-right-now/getting-started/quick-start).
+
+---
+
 # FAQ
 
 [Go to our community FAQ](https://unlyed.github.io/next-right-now/faq).
