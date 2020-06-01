@@ -119,9 +119,10 @@ coverage/
 /.next/
 /out/
 
-# misc
-.env*
-!.env.build.example
+# Next.js environment variables - See https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables
+.env.build
+.env*.local
+!.env*.example
 
 # debug
 npm-debug.log*

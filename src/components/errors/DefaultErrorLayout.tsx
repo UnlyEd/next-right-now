@@ -56,7 +56,7 @@ const DefaultErrorLayout = (props: Props): JSX.Element => {
       </div>
 
       {
-        process.env.APP_STAGE !== 'production' && (
+        process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && (
           <ErrorDebug
             error={error}
           />

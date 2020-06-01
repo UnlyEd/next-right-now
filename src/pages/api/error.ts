@@ -23,7 +23,7 @@ export const error = async (req: NextApiRequest, res: NextApiResponse): Promise<
 
     res.json({
       error: true,
-      message: process.env.APP_STAGE === 'production' ? undefined : e.message,
+      message: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? undefined : e.message,
     });
   }
 };
