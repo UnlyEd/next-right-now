@@ -14,7 +14,7 @@ import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSideProps
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { getExamplesCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
+import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
     apolloClient,
     layoutQueryOptions,
     ...pageData
-  }: GetCommonServerSidePropsResults = await getExamplesCommonServerSideProps(context);
+  }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
     displayName: 'LAYOUT_QUERY',
