@@ -46,7 +46,7 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
     WebFontLoader.load({
       custom: {
         families: ['neuzeit-grotesk'],
-        urls: ['/static/fonts/NeuzeitGrotesk/font.css']
+        urls: ['/static/fonts/NeuzeitGrotesk/font.css'],
       },
     });
   }
@@ -64,6 +64,9 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <link rel="apple-touch-icon" href="/touch-icon.png" />
       <link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />
       <link rel="icon" href={favicon} />
+
+      {/* Perf optimisation - See https://web.dev/uses-rel-preload*/}
+      <link rel="preload" href={'/static/fonts/NeuzeitGrotesk/font.css'} as={'style'} />
 
       {
         SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {
