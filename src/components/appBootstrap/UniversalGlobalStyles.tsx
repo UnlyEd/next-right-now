@@ -143,6 +143,10 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
              display: inline-block; // Necessary so that <a> and <button> behave identically
           }
 
+          .btn-link {
+            padding: 0; // Avoid padding to make it display as a link would
+          }
+
           label {
             cursor: pointer;
           }

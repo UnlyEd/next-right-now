@@ -51,6 +51,7 @@ const Cards: React.FunctionComponent<Props> = (props): JSX.Element => {
           .buttons {
             display: flex;
             flex-direction: column;
+            margin-bottom: 20px;
           }
         }
       `}
