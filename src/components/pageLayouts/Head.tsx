@@ -65,8 +65,12 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />
       <link rel="icon" href={favicon} />
 
-      {/* Perf optimisation - See https://web.dev/uses-rel-preload*/}
+      {/* Perf optimisation (preload normal and bold fonts because they're the most used) - See https://web.dev/uses-rel-preload*/}
       <link rel="preload" href={'/static/fonts/NeuzeitGrotesk/font.css'} as={'style'} />
+      <link rel="preload" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-bold.woff'} />
+      <link rel="preload" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-bold.woff2'} />
+      <link rel="preload" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-black.woff'} />
+      <link rel="preload" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-black.woff2'} />
 
       {
         SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {
