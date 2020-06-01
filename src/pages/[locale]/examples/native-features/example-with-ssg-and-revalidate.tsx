@@ -24,7 +24,7 @@ import { StaticPropsOutput } from '../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../../../utils/gql/graphql';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
 import timeDifference from '../../../../utils/time/timeDifference';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-revalidate';
@@ -38,7 +38,7 @@ const regenerationDelay = 30; // Seconds
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<StaticParams> = getExamplesCommonStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -49,7 +49,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const commonStaticProps: StaticPropsOutput = await getCommonStaticProps(props);
+  const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
   const { customerRef, gcmsLocales } = commonStaticProps.props;
 
   const apolloClient = createApolloClient();
