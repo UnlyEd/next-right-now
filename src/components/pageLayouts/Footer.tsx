@@ -38,9 +38,7 @@ const Footer: React.FunctionComponent<Props> = () => {
   ];
 
   // Resolve values, handle multiple fallback levels
-  const copyrightOwner = getValueFallback([
-    { record: customer, key: 'label' },
-  ]);
+  const copyrightOwner = customer?.label;
   const currentYear = (new Date()).getFullYear();
 
   return (
