@@ -39,7 +39,7 @@
     "tsclint": "npx tsc --noEmit --skipLibCheck",
     "prettier": "prettier-eslint --write $PWD/'src/**/*.[jt]s?(x)' && yarn lint:fix",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
-    "lint": "eslint --fix \"src/components/i18n/I18nLink.{js,jsx,ts,tsx}\"",
+    "lint": "prettier-eslint --write \"$PWD/src/components/i18n/I18nLink.{js,jsx,ts,tsx}\" --eslint-config-path .eslintrc.yml --trailing-comma es5 --bracket-spacing",
     "test": "NODE_ENV=test jest --watchAll",
     "test:once": "NODE_ENV=test jest",
     "test:coverage": "NODE_ENV=test jest --coverage",
