@@ -4,6 +4,6 @@
  * Those fields are available on any Airtable record.
  */
 export declare type AirtableSystemFields = {
-  id: string;
-  createdTime: string;
+  id?: string;
+  createdTime?: string;
 }

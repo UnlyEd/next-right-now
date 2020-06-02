@@ -63,8 +63,8 @@ const Logo = (props: Props): JSX.Element => {
   }
 
   const sizes = generateSizes({
-    baseWidth: parseFloat(resolvedLogoProps.width as string),
-    baseHeight: parseFloat(resolvedLogoProps.height as string),
+    baseWidth: resolvedLogoProps.thumbnails.small.width,
+    baseHeight: resolvedLogoProps.thumbnails.small.height,
     sizesMultipliers,
   });
 
@@ -89,9 +89,9 @@ const Logo = (props: Props): JSX.Element => {
         key={id}
         id={id}
         src={resolvedLogoProps.url}
-        title={resolvedLogoProps.title}
-        alt={resolvedLogoProps.alt || resolvedLogoProps.title || resolvedLogoProps.url}
-        className={classnames(`logo-${id}`, className, resolvedLogoProps.classes)}
+        title={resolvedLogoProps.filename}
+        alt={resolvedLogoProps.filename || resolvedLogoProps.url}
+        className={classnames(`logo-${id}`, className)}
         style={deepmerge(style || {}, resolvedLogoProps.style || {})}
         onClick={onClick}
       />

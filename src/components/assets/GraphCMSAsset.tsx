@@ -120,8 +120,8 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
         key={id}
         id={id}
         src={resolvedAssetProps.url}
-        title={resolvedAssetProps.title}
-        alt={resolvedAssetProps.alt || resolvedAssetProps.title || resolvedAssetProps.url}
+        title={resolvedAssetProps.filename}
+        alt={resolvedAssetProps.filename || resolvedAssetProps.url}
         className={classnames(`asset-${id}`, className, resolvedAssetProps.classes)}
         style={deepmerge(style || {}, resolvedAssetProps.style || {})}
       />
