@@ -5,24 +5,26 @@ env:
   es6: true
   node: true
 extends:
-  - plugin:@typescript-eslint/recommended
-  - plugin:react/recommended
+  - eslint:recommended # See https://github.com/yannickcr/eslint-plugin-react#configuration
+  - plugin:@typescript-eslint/recommended # Uses the recommended rules from the https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
+  - plugin:react/recommended # Uses the recommended rules from https://github.com/yannickcr/eslint-plugin-react
   - plugin:jsx-a11y/recommended
-  - plugin:prettier/recommended
+  - prettier # https://github.com/prettier/eslint-config-prettier
   - prettier/react
-  - prettier/@typescript-eslint
-  - prettier # Should be last - https://github.com/prettier/eslint-config-prettier
-globals:
-  Atomics: readonly
-  SharedArrayBuffer: readonly
+  - prettier/@typescript-eslint # Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+  - plugin:prettier/recommended # Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array
 plugins:
   - jest
   - react
   - react-hooks
   - prettier
-parser: '@typescript-eslint/parser'
+  - '@typescript-eslint'
+parser: '@typescript-eslint/parser' # Allows ESLint to understand TS - See https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md#configuration
 parserOptions:
   project: ./tsconfig.json
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
 settings:
   react:
     version: detect
