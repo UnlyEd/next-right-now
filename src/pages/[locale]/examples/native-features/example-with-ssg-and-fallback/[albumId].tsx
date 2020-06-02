@@ -21,7 +21,7 @@ import { StaticPropsOutput } from '../../../../../types/nextjs/StaticPropsOutput
 import { OnlyBrowserPageProps } from '../../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../../types/pageProps/SSGPageProps';
 import { getRandomInt } from '../../../../../utils/math/random';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../../../../utils/nextjs/SSG';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../../utils/nextjs/SSG';
 import waitFor from '../../../../../utils/timers/waitFor';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-fallback/[albumId]';
@@ -34,7 +34,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
 export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
-  const commonStaticPaths: StaticPathsOutput = await getCommonStaticPaths();
+  const commonStaticPaths: StaticPathsOutput = await getExamplesCommonStaticPaths();
   const { paths } = commonStaticPaths;
   const albumIdsToPreBuild = ['1']; // Only '/album-1-with-ssg-and-fallback' is generated at build time, other will be generated on-demand
 
@@ -57,11 +57,11 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<St
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
- * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const commonStaticProps: StaticPropsOutput = await getCommonStaticProps(props);
+  const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
   const { params: { albumId } } = props;
 
   // Simulate API call by awaiting

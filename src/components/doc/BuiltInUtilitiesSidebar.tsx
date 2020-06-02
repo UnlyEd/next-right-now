@@ -72,11 +72,11 @@ const BuiltInUtilitiesSidebar: React.FunctionComponent<Props> = (props): JSX.Ele
       >
         {
           map(BUILT_IN_UTILITIES_SIDEBAR_LINKS, (link: SidebarLink) => {
-            const { label, href } = link;
+            const { label, href, params = null } = link;
 
             return (
               <NavItem key={href}>
-                <I18nLink href={href} wrapChildrenAsLink={false}>
+                <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
                   <NavLink active={router.pathname.replace('/[locale]', '') === href}>
                     {label}
                   </NavLink>

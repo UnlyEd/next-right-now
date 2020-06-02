@@ -8,7 +8,7 @@ import Head from 'next/head';
 import React, { ReactNode } from 'react';
 import createApolloClient from '../utils/gql/graphql';
 
-// XXX Inspired by https://github.com/zeit/next.js/blob/canary/examples/with-apollo/lib/apollo.js
+// XXX Inspired by https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apollo.js
 // On the client, we store the Apollo Client in the following variable.
 // This prevents the client from reinitializing between page transitions.
 let globalApolloClient: ApolloClient<NormalizedCacheObject> = null;
