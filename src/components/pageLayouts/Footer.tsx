@@ -10,7 +10,6 @@ import useUserSession, { UserSession } from '../../hooks/useUserSession';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { i18nRedirect } from '../../utils/app/router';
 import { SIZE_XS } from '../../utils/assets/logo';
-import { getValueFallback } from '../../utils/data/record';
 import { LANG_FR } from '../../utils/i18n/i18n';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
 import Logo from '../assets/Logo';
