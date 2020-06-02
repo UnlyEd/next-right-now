@@ -1,46 +1,38 @@
 ---
+# XXX Must read to understand how prettier/eslint work together - https://blog.theodo.com/2019/08/empower-your-dev-environment-with-eslint-prettier-and-editorconfig-with-no-conflicts/
+# XXX EditorConfig provides everyone with the same editor configuration (prettier inherits from it) - All configuration related to the editor (end of line, indent style, indent size...) should be handled by EditorConfig
+# XXX No "code formatting" should be done by ESLint - Everything related to code formatting should be handled by Prettier
+# XXX EsLint handles our code quality only - The rest (code quality) should be handled by ESLint
 env:
   browser: true
   commonjs: true
   es6: true
   node: true
 extends:
-  - plugin:@typescript-eslint/recommended
-  - plugin:react/recommended
-  - plugin:jsx-a11y/recommended
+  - airbnb-typescript-prettier # https://github.com/toshi-toma/eslint-config-airbnb-typescript-prettier#readme
+plugins:
+  - jest
+parserOptions:
+  project: ./tsconfig.json
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
-plugins:
-  - jest
-  - react
-  - react-hooks
-parser: '@typescript-eslint/parser'
-parserOptions:
-  project: ./tsconfig.json
 settings:
   react:
     version: detect
 rules: # See https://eslint.org/docs/rules
-  semi:
-    - error
-    - always # Always put commas, to avoid multilines git diff when new lines are added
-  quotes:
-    - error
-    - single # Prefer simple quotes
-    - allowTemplateLiterals: true # Allow the use of `` instead of '' and don't try to replace it, even when `` isn't needed
+#  Managed by prettier
+#  semi
+#  quotes
+#  indent
+#  max-len
   comma-spacing:
     - error
     - before: false
       after: true
-  indent:
-    - error
-    - 2
-    - SwitchCase: 1
   arrow-parens:
     - error
     - always
-  max-len: 0 # Disable line length checks, because the IDE is already configured to warn about it, and it's a waste of time to check for lines that are too long, especially in comments (like this one!)
   strict: 'off'
   no-console: 1 # Shouldn't use "console", but "logger" instead
   allowArrowFunctions: 0
@@ -54,6 +46,9 @@ rules: # See https://eslint.org/docs/rules
     - consistent-as-needed # Enforce consistency with quotes on props, either all must be quoted, or all unquoted for a given object
   no-return-await: 0 # Useful before, but recent node.js enhancements make it useless on node 12+ (we use 10, but still, for consistency) - Read https://stackoverflow.com/questions/44806135/why-no-return-await-vs-const-x-await
   no-extra-boolean-cast: 0 # Don't enforce, let developer choose. Using "!!!" is sometimes useful (edge cases), and has a semantic value (dev intention)
+  array-element-newline: # https://eslint.org/docs/rules/array-element-newline
+    - error
+    - consistent
   object-curly-newline:
     - warn
     - ObjectExpression:

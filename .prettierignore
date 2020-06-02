@@ -1,0 +1,10 @@
+.idea
+.next
+.now
+_site
+coverage
+cypress/_examples
+docs/_site
+node_modules
+public
+src/svg/
