@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "name": "nrn-v2-mst-aptd-gcms-lcz-sty-c1",
+  "name": "nrn-v2-mst-aptd-at-lcz-sty-c1",
   "scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",
   "env": {},
   "build": {
     "env": {
       "NEXT_PUBLIC_APP_STAGE": "production",
-      "NEXT_PUBLIC_NRN_PRESET": "v2-mst-aptd-gcms-lcz-sty",
+      "NEXT_PUBLIC_NRN_PRESET": "v2-mst-aptd-at-lcz-sty",
       "NEXT_PUBLIC_CUSTOMER_REF": "customer1",
       "GRAPHQL_API_ENDPOINT": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",
       "GRAPHQL_API_KEY": "@nrn-graphql-api-key",
