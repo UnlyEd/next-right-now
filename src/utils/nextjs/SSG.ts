@@ -13,6 +13,7 @@ import { StaticPathsOutput } from '../../types/nextjs/StaticPathsOutput';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
+import fetchCustomer from '../api/fetchCustomer';
 import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
 import { createApolloClient } from '../gql/graphql';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
@@ -123,7 +124,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, StaticPa
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
+  const preferredLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
   const apolloClient = createApolloClient();
   const variables = {
@@ -135,7 +136,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, StaticPa
     variables,
     context: {
       headers: {
-        'gcms-locale': gcmsLocales,
+        'gcms-locale': preferredLocales,
       },
     },
   };
@@ -159,6 +160,9 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, StaticPa
     customer,
   } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
+  const airtableCustomer: Customer = await fetchCustomer(bestCountryCodes);
+  console.log('airtableCustomer', JSON.stringify(airtableCustomer, null, 2));
+
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
@@ -167,7 +171,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, StaticPa
       customer,
       customerRef,
       i18nTranslations,
-      gcmsLocales,
+      gcmsLocales: preferredLocales,
       hasLocaleFromUrl,
       isReadyToRender: true,
       isStaticRendering: true,

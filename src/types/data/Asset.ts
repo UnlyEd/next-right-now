@@ -1,24 +1,23 @@
-import { GraphCMSSystemFields } from './GraphCMSSystemFields';
+import { AirtableSystemFields } from './AirtableSystemFields';
 
+export type AssetThumbnail = {
+  url: string;
+  width: number;
+  height: number;
+}
+
+/**
+ * An asset is a Airtable "Attachment" field
+ *
+ * All fields are managed internally by Airtable and we have no control over them (they're not columns)
+ */
 export declare type Asset = {
-  id?: string;
-  handle?: string;
-  fileName?: string;
-  height?: number | string;
-  width?: number | string;
+  url: string;
+  filename: string;
   size?: number;
-  mimeType?: string;
-  url?: string; // Field added at runtime by GraphCMS asset's provider - See https://www.filestack.com/
-
-  // XXX Additional fields that do not exist on the native GraphCMS Asset model, but you can add them and they'll be handled when using GraphCMSAsset, for instance
-  alt?: string;
-  classes?: string;
-  defaultTransformations?: object;
-  importUrl?: string;
-  key?: string;
-  linkTarget?: string;
-  linkUrl?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  style?: string | object | any;
-  title?: string;
-} & GraphCMSSystemFields;
+  type?: string;
+  thumbnails?: {
+    small?: AssetThumbnail;
+    large?: AssetThumbnail;
+  }
+} & AirtableSystemFields;

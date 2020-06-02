@@ -11,6 +11,8 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       // NRN env variables
+      AIRTABLE_API_KEY: string;
+      AIRTABLE_BASE_ID: string;
       GRAPHQL_API_ENDPOINT: string;
       GRAPHQL_API_KEY: string;
       LOCIZE_API_KEY: string;
