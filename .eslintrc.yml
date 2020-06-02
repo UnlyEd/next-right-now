@@ -1,4 +1,8 @@
 ---
+# XXX Must read to understand how prettier/eslint work together - https://blog.theodo.com/2019/08/empower-your-dev-environment-with-eslint-prettier-and-editorconfig-with-no-conflicts/
+# XXX EditorConfig provides everyone with the same editor configuration (prettier inherits from it) - All configuration related to the editor (end of line, indent style, indent size...) should be handled by EditorConfig
+# XXX No "code formatting" should be done by ESLint - Everything related to code formatting should be handled by Prettier
+# XXX EsLint handles our code quality only - The rest (code quality) should be handled by ESLint
 env:
   browser: true
   commonjs: true
@@ -10,7 +14,7 @@ extends:
   - plugin:react/recommended # Uses the recommended rules from https://github.com/yannickcr/eslint-plugin-react
   - plugin:jsx-a11y/recommended
   - prettier # https://github.com/prettier/eslint-config-prettier
-  - prettier/react
+#  - prettier/react
   - prettier/@typescript-eslint # Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
   - plugin:prettier/recommended # Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array
 plugins:
@@ -18,7 +22,7 @@ plugins:
   - react
   - react-hooks
   - prettier
-  - '@typescript-eslint'
+#  - '@typescript-eslint'
 parser: '@typescript-eslint/parser' # Allows ESLint to understand TS - See https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md#configuration
 parserOptions:
   project: ./tsconfig.json
@@ -29,26 +33,18 @@ settings:
   react:
     version: detect
 rules: # See https://eslint.org/docs/rules
-  semi:
-    - error
-    - always # Always put commas, to avoid multilines git diff when new lines are added
-  quotes:
-    - error
-    - single # Prefer simple quotes
-    - allowTemplateLiterals: true # Allow the use of `` instead of '' and don't try to replace it, even when `` isn't needed
-      avoidEscape: true # Necessary to work well with prettier, when escaping
+#  Managed by prettier
+#  semi
+#  quotes
+#  indent
+#  max-len
   comma-spacing:
     - error
     - before: false
       after: true
-  indent:
-    - error
-    - 2
-    - SwitchCase: 1
   arrow-parens:
     - error
     - always
-  max-len: 0 # Disable line length checks, because the IDE is already configured to warn about it, and it's a waste of time to check for lines that are too long, especially in comments (like this one!)
   strict: 'off'
   no-console: 1 # Shouldn't use "console", but "logger" instead
   allowArrowFunctions: 0
@@ -80,7 +76,6 @@ rules: # See https://eslint.org/docs/rules
         multiline: true
         minProperties: 5
         consistent: true
-  prettier/prettier: error
   react-hooks/rules-of-hooks: error
   react-hooks/exhaustive-deps: warn
   react/jsx-no-target-blank: warn # Not using "noreferrer" is not a security risk, but "noopener" should always be used indeed
