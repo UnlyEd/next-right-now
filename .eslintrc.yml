@@ -9,21 +9,9 @@ env:
   es6: true
   node: true
 extends:
-  - eslint:recommended # See https://github.com/yannickcr/eslint-plugin-react#configuration
-  - plugin:@typescript-eslint/recommended # Uses the recommended rules from the https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
-  - plugin:react/recommended # Uses the recommended rules from https://github.com/yannickcr/eslint-plugin-react
-  - plugin:jsx-a11y/recommended
-  - prettier # https://github.com/prettier/eslint-config-prettier
-#  - prettier/react
-  - prettier/@typescript-eslint # Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
-  - plugin:prettier/recommended # Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array
+  - airbnb-typescript-prettier # https://github.com/toshi-toma/eslint-config-airbnb-typescript-prettier#readme
 plugins:
   - jest
-  - react
-  - react-hooks
-  - prettier
-#  - '@typescript-eslint'
-parser: '@typescript-eslint/parser' # Allows ESLint to understand TS - See https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md#configuration
 parserOptions:
   project: ./tsconfig.json
 globals:
@@ -58,6 +46,9 @@ rules: # See https://eslint.org/docs/rules
     - consistent-as-needed # Enforce consistency with quotes on props, either all must be quoted, or all unquoted for a given object
   no-return-await: 0 # Useful before, but recent node.js enhancements make it useless on node 12+ (we use 10, but still, for consistency) - Read https://stackoverflow.com/questions/44806135/why-no-return-await-vs-const-x-await
   no-extra-boolean-cast: 0 # Don't enforce, let developer choose. Using "!!!" is sometimes useful (edge cases), and has a semantic value (dev intention)
+  array-element-newline: # https://eslint.org/docs/rules/array-element-newline
+    - error
+    - consistent
   object-curly-newline:
     - warn
     - ObjectExpression:
