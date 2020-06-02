@@ -6,6 +6,7 @@ import Alert from 'reactstrap/lib/Alert';
 import usePreviewMode from '../../hooks/usePreviewMode';
 import ExternalLink from '../utils/ExternalLink';
 import Tooltip from '../utils/Tooltip';
+import { Button } from 'reactstrap';
 
 type Props = {}
 
@@ -85,15 +86,13 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
               </Tooltip>
             </span>
             <span className={'right'}>
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a
-                role={'button'}
-                tabIndex={0}
+              <Button
+                color={'link'}
                 onClick={stopPreviewMode}
                 onKeyPress={stopPreviewMode}
               >
                 Leave preview mode
-              </a>
+              </Button>
             </span>
           </div>
         ) : (
@@ -108,15 +107,13 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
               </Tooltip>
             </span>
             <span className={'right'}>
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a
-                role={'button'}
-                tabIndex={0}
+              <Button
+                color={'link'}
                 onClick={startPreviewMode}
                 onKeyPress={startPreviewMode}
               >
                 Start preview mode
-              </a>
+              </Button>
             </span>
           </div>
         )

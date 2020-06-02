@@ -20,7 +20,7 @@ import { GetServerSidePropsContext } from '../../../../types/nextjs/GetServerSid
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../../../types/pageProps/SSRPageProps';
-import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../../../utils/nextjs/SSR';
+import { getExamplesCommonServerSideProps, GetCommonServerSidePropsResults } from '../../../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
     apolloClient,
     layoutQueryOptions,
     ...pageData
-  }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
+  }: GetCommonServerSidePropsResults = await getExamplesCommonServerSideProps(context);
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
     displayName: 'EXAMPLE_WITH_SSR_QUERY',
@@ -149,7 +149,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 //     req,
 //     res,
 //   } = context;
-//   const customerRef: string = process.env.CUSTOMER_REF;
+//   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
 //   const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
 //   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res);
 //   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();

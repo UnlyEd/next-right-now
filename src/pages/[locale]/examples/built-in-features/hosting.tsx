@@ -14,7 +14,7 @@ import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/hosting';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -25,17 +25,17 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<StaticParams> = getExamplesCommonStaticPaths;
 
 /**
  * Only executed on the server side at build time.
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
- * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getExamplesCommonStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -76,11 +76,11 @@ const HostingPage: NextPage<Props> = (props): JSX.Element => {
 
         <Alert color={'warning'}>
           We are a bit wary about recent changes and decisions made by the Vercel team, in particular regarding their 2020 April Pricing changes, and
-          <ExternalLink href={'https://github.com/zeit/now/discussions/4029'} suffix={null}>we led a discussion about it</ExternalLink>.<br />
+          <ExternalLink href={'https://github.com/vercel/now/discussions/4029'} suffix={null}>we led a discussion about it</ExternalLink>.<br />
           <br />
           Currently, the most controversial decision they've made is about the 12-24 max serverless functions. <br />
           We suggest you
-          <ExternalLink href={'https://github.com/zeit/now/discussions/4029#discussioncomment-8449'}>learn heavily about that</ExternalLink>
+          <ExternalLink href={'https://github.com/vercel/now/discussions/4029#discussioncomment-8449'}>learn heavily about that</ExternalLink>
           if you're considering Vercel.
         </Alert>
 

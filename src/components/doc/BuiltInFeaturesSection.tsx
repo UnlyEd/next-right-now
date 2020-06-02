@@ -62,8 +62,8 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
 
         <Card>
           <CardBody>
-            <CardTitle><h3>B2B MST</h3></CardTitle>
-            <CardSubtitle>&ldquo;Multi Single Tenancy for B2B businesses who need it&rdquo;</CardSubtitle>
+            <CardTitle><h3>SaaS B2B MST</h3></CardTitle>
+            <CardSubtitle>&ldquo;Multi Single Tenancy for SaaS B2B businesses who need it&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <Alert color={'info'}>
                 <code>MST</code> is similar to the <code>monorepo</code> design, where the same source code can be used to deploy multiple instances.

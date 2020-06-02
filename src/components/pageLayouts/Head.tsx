@@ -18,10 +18,10 @@ export type HeadProps = {
 /**
  * Custom Head component
  *
- * https://github.com/zeit/next.js#populating-head
+ * https://github.com/vercel/next.js#populating-head
  */
 const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
-  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript. Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and B2B multiple single-tenants (monorepo) support';
+  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript. Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultOGURL = 'https://github.com/UnlyEd/next-right-now';
   const defaultOGImage = 'https://storage.googleapis.com/the-funding-place/assets/images/Logo_TFP_quadri_horizontal.svg';
   const defaultFavicon = 'https://storage.googleapis.com/the-funding-place/assets/images/default_favicon.ico';
@@ -46,7 +46,7 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
     WebFontLoader.load({
       custom: {
         families: ['neuzeit-grotesk'],
-        urls: ['/static/fonts/NeuzeitGrotesk/font.css']
+        urls: ['/static/fonts/NeuzeitGrotesk/font.css'],
       },
     });
   }
@@ -60,10 +60,14 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
         content={description}
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" sizes="192x192" href="/touch-icon.png" />
-      <link rel="apple-touch-icon" href="/touch-icon.png" />
-      <link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />
+      {/*<link rel="icon" sizes="192x192" href="/touch-icon.png" />*/}
+      {/*<link rel="apple-touch-icon" href="/touch-icon.png" />*/}
+      {/*<link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />*/}
       <link rel="icon" href={favicon} />
+
+      {/* Perf optimisation (preload normal and bold fonts because they're the most used) - See https://web.dev/uses-rel-preload*/}
+      {/* TODO See if it's actually a good thing, seems to conflict with WebFontLoader - See https://github.com/GoogleChrome/lighthouse/issues/10892 */}
+      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/font.css'} />
 
       {
         SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {

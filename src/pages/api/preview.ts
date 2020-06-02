@@ -37,7 +37,7 @@ export const preview = async (req: NextApiRequest, res: NextApiResponse): Promis
     const safeRedirectUrl = filterExternalAbsoluteUrl(redirectTo as string);
 
     // XXX You may want to enable preview mode during non-production stages only
-    // if (process.env.APP_STAGE !== 'production') {
+    // if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
     if (stop === 'true') {
       res.clearPreviewData();
 
@@ -64,7 +64,7 @@ export const preview = async (req: NextApiRequest, res: NextApiResponse): Promis
 
     res.json({
       error: true,
-      message: process.env.APP_STAGE === 'production' ? undefined : e.message,
+      message: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? undefined : e.message,
     });
   }
 };

@@ -16,6 +16,7 @@ import { isActive, resolveI18nHomePage } from '../../utils/app/router';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
 import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '../doc/BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '../doc/BuiltInUtilitiesSidebar';
+import { NATIVE_FEATURES_SIDEBAR_LINKS } from '../doc/NativeFeaturesSidebar';
 import I18nLink from '../i18n/I18nLink';
 
 type Props = {};
@@ -151,20 +152,29 @@ const Nav: React.FunctionComponent<Props> = () => {
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem header>Native features</DropdownItem>
-                  {/*<DropdownItem tag={'span'}>*/}
-                  {/*  <I18nLink href={'/'}>*/}
-                  {/*    Native features*/}
-                  {/*  </I18nLink>*/}
-                  {/*</DropdownItem>*/}
+                  {
+                    map(NATIVE_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
+                      const { label, href, params = null } = link;
+                      return (
+                        <DropdownItem tag={'span'} key={href}>
+                          <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
+                            <NavLink id={`nav-link-examples-${kebabCase(label)}`} active={router.pathname.replace('/[locale]', '') === href}>
+                              {label}
+                            </NavLink>
+                          </I18nLink>
+                        </DropdownItem>
+                      );
+                    })
+                  }
                   <DropdownItem divider />
 
                   <DropdownItem header>Built-in features</DropdownItem>
                   {
                     map(BUILT_IN_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
-                      const { label, href } = link;
+                      const { label, href, params = null } = link;
                       return (
                         <DropdownItem tag={'span'} key={href}>
-                          <I18nLink href={href} wrapChildrenAsLink={false}>
+                          <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
                             <NavLink id={`nav-link-examples-${kebabCase(label)}`} active={router.pathname.replace('/[locale]', '') === href}>
                               {label}
                             </NavLink>
@@ -178,11 +188,11 @@ const Nav: React.FunctionComponent<Props> = () => {
                   <DropdownItem header>Built-in utilities</DropdownItem>
                   {
                     map(BUILT_IN_UTILITIES_SIDEBAR_LINKS, (link: SidebarLink) => {
-                      const { label, href } = link;
+                      const { label, href, params = null } = link;
                       return (
                         <DropdownItem tag={'span'} key={href}>
-                          <I18nLink href={href} wrapChildrenAsLink={false}>
-                            <NavLink active={router.pathname.replace('/[locale]', '') === href}>
+                          <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
+                            <NavLink id={`nav-link-examples-${kebabCase(label)}`} active={router.pathname.replace('/[locale]', '') === href}>
                               {label}
                             </NavLink>
                           </I18nLink>
@@ -218,7 +228,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                 <Row className={'justify-content-center'}>
                   <NavLink
                     id={'nav-link-github'}
-                    href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NRN_PRESET}`}
+                    href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NEXT_PUBLIC_NRN_PRESET}`}
                     target={'_blank'}
                     rel={'noopener'}
                     onClick={() => {

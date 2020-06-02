@@ -71,7 +71,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   });
 
   // In non-production stages, bind some utilities to the browser's DOM, for ease of quick testing
-  if (process.env.APP_STAGE !== 'production') {
+  if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
     window['amplitudeInstance'] = amplitudeInstance;
     window['i18n'] = i18n;
     window['router'] = router;
@@ -87,7 +87,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   return (
     <AmplitudeProvider
       amplitudeInstance={amplitudeInstance}
-      apiKey={process.env.AMPLITUDE_API_KEY}
+      apiKey={process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY}
       userId={userId}
     >
       <Amplitude
@@ -96,10 +96,10 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
         //  Duplicating them facilitates the data analysis and grants more flexibility regarding how to create charts
         eventProperties={{
           app: {
-            name: process.env.APP_NAME,
-            version: process.env.APP_VERSION,
-            stage: process.env.APP_STAGE,
-            preset: process.env.NRN_PRESET,
+            name: process.env.NEXT_PUBLIC_APP_NAME,
+            version: process.env.NEXT_PUBLIC_APP_VERSION,
+            stage: process.env.NEXT_PUBLIC_APP_STAGE,
+            preset: process.env.NEXT_PUBLIC_NRN_PRESET,
           },
           page: {
             url: location.href,

@@ -54,9 +54,9 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
     const amplitudeInstance: AmplitudeClient = amplitude.getInstance();
 
     // See https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
-    amplitudeInstance.init(process.env.AMPLITUDE_API_KEY, null, {
+    amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
       userId,
-      logLevel: process.env.APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
+      logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
       includeGclid: true,
       includeReferrer: true, // See https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
       includeUtm: true,
@@ -67,7 +67,7 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       },
     });
 
-    amplitudeInstance.setVersionName(process.env.APP_VERSION); // e.g: 1.0.0
+    amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
 
     // We're only doing this when detecting a new session, as it won't be executed multiple times for the same session anyway, and it avoids noise
     if (amplitudeInstance.isNewSession()) {
@@ -112,10 +112,10 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
     const userData: UserSemiPersistentSession = universalCookiesManager.getUserData();
 
     // https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
-    amplitudeInstance.init(process.env.AMPLITUDE_API_KEY, null, {
+    amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
       // userId: null,
       userId: userData.id,
-      logLevel: process.env.APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
+      logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
       includeGclid: true,
       includeReferrer: true, // https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
       includeUtm: true,
@@ -126,15 +126,15 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
       },
     });
 
-    amplitudeInstance.setVersionName(process.env.APP_VERSION); // e.g: 1.0.0
+    amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
 
     // Sen metrics to our analytics service
     amplitudeInstance.logEvent(`report-web-vitals`, {
       app: {
-        name: process.env.APP_NAME,
-        version: process.env.APP_VERSION,
-        stage: process.env.APP_STAGE,
-        preset: process.env.NRN_PRESET,
+        name: process.env.NEXT_PUBLIC_APP_NAME,
+        version: process.env.NEXT_PUBLIC_APP_VERSION,
+        stage: process.env.NEXT_PUBLIC_APP_STAGE,
+        preset: process.env.NEXT_PUBLIC_NRN_PRESET,
       },
       page: {
         url: location.href,
@@ -143,7 +143,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
         name: null,
       },
       customer: {
-        ref: process.env.CUSTOMER_REF,
+        ref: process.env.NEXT_PUBLIC_CUSTOMER_REF,
       },
       report,
     });

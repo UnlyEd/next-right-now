@@ -44,19 +44,19 @@ export type ErrorProps = {
  *   />
  *
  * @param props
- * @see https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/pages/_error.js Inspiration about Sentry implementation
- * @see https://github.com/zeit/next.js/discussions/12913 Discussion about hybrid SSG/SSR apps considerations
+ * @see https://github.com/vercel/next.js/blob/canary/examples/with-sentry-simple/pages/_error.js Inspiration about Sentry implementation
+ * @see https://github.com/vercel/next.js/discussions/12913 Discussion about hybrid SSG/SSR apps considerations
  */
 const ErrorPage = (props: ErrorPageProps): JSX.Element => {
   const { statusCode, isReadyToRender, err, children = null } = props;
-  if (process.env.APP_STAGE !== 'production') {
+  if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
     console.debug('ErrorPage - Unexpected error caught, it was captured and sent to Sentry. Error details:'); // eslint-disable-line no-console
     console.error(err); // eslint-disable-line no-console
   }
 
   // TODO rename to "forceLogTopLevelError" = true and provide false in "DefaultErrorLayout"
   if (!isReadyToRender && err) {
-    // XXX getInitialProps is not called for top-level errors - See https://github.com/zeit/next.js/issues/8592
+    // XXX getInitialProps is not called for top-level errors - See https://github.com/vercel/next.js/issues/8592
     // As a workaround, we pass err via _app and src/components/appBootstrap/MultiversalAppBootstrap.tsx so it can be captured
     Sentry.captureException(err);
   }
@@ -72,7 +72,7 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
             statusCode={statusCode}
             // Only display title in non-production stages, to avoid leaking debug information to end-users
             // When "null" is provided, it'll fallback to Next.js default message (based on the statusCode)
-            title={process.env.APP_STAGE !== 'production' ? get(err, 'message', null) : null}
+            title={process.env.NEXT_PUBLIC_APP_STAGE !== 'production' ? get(err, 'message', null) : null}
           />
         )
       }
@@ -89,11 +89,11 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
 ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> => {
   const { res, err, asPath } = props;
   const errorInitialProps: ErrorProps = await NextError.getInitialProps({ res, err } as NextPageContext) as ErrorProps;
-  if (process.env.APP_STAGE !== 'production') {
+  if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
     console.debug('ErrorPage.getInitialProps - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);
   }
 
-  // Workaround for https://github.com/zeit/next.js/issues/8592, mark when
+  // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
   // getInitialProps has run
   errorInitialProps.isReadyToRender = true;
 
