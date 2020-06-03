@@ -10,6 +10,7 @@ import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import withApollo from '../../hocs/withApollo';
 import { Customer } from '../../types/data/Customer';
+import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
@@ -36,7 +37,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
   const {
     props: {
       apolloClient,

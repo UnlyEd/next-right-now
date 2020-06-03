@@ -1,4 +1,4 @@
-import { StaticParams } from './StaticParams';
+import { CommonServerSideParams } from './CommonServerSideParams';
 
 /**
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
@@ -6,6 +6,6 @@ import { StaticParams } from './StaticParams';
 export type StaticPathsOutput = {
   fallback: boolean; // See https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required
   paths: (string | {
-    params: StaticParams;
+    params: CommonServerSideParams;
   })[];
 }
