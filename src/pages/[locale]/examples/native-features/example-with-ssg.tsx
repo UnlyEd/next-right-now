@@ -12,6 +12,7 @@ import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSide
 import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
+import { AirtableRecord } from '../../../../types/data/AirtableRecord';
 import { Product } from '../../../../types/data/Product';
 import { I18nLocale } from '../../../../types/i18n/I18nLocale';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
@@ -50,7 +51,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
  * Beware props in OnlyBrowserPageProps are not available on the server
  */
 type Props = {
-  products: Product[];
+  products: AirtableRecord<Product>[];
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleWithSSGPage: NextPage<Props> = (props): JSX.Element => {

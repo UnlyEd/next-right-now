@@ -3,13 +3,14 @@ import { css, jsx } from '@emotion/core';
 import map from 'lodash.map';
 import React from 'react';
 import { Container } from 'reactstrap';
+import { AirtableRecord } from '../../types/data/AirtableRecord';
 
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
 
 type Props = {
-  products: Product[];
+  products: AirtableRecord<Product>[];
 }
 
 const Products: React.FunctionComponent<Props> = (props) => {

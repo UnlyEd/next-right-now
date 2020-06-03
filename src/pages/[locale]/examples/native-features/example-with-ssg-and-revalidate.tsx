@@ -13,6 +13,7 @@ import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import useI18n, { I18n } from '../../../../hooks/useI18n';
+import { AirtableRecord } from '../../../../types/data/AirtableRecord';
 import { Product } from '../../../../types/data/Product';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
@@ -66,7 +67,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
  * Beware props in OnlyBrowserPageProps are not available on the server
  */
 type Props = {
-  products: Product[];
+  products: AirtableRecord<Product>[];
   builtAt: string;
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 

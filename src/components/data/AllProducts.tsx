@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
-import { Product } from '../../types/data/Product';
-import Text from '../utils/Text';
-import Products from './Products';
 import filter from 'lodash.filter';
+import React from 'react';
+import { AirtableRecord } from '../../types/data/AirtableRecord';
+import { Product } from '../../types/data/Product';
+import Products from './Products';
 
 type Props = {
-  products: Product[];
+  products: AirtableRecord<Product>[];
 }
 
 const AllProducts: React.FunctionComponent<Props> = (props) => {

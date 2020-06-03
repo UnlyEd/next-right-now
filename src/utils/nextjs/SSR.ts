@@ -4,6 +4,7 @@ import NextCookies from 'next-cookies';
 import { Cookies } from '../../types/Cookies';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
+import { Product } from '../../types/data/Product';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
@@ -80,6 +81,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
   const customer: AirtableRecord<Customer> = await fetchCustomer(bestCountryCodes);
+  const products: AirtableRecord<Product>[] = customer?.fields?.products as AirtableRecord<Product>[];
 
   // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
@@ -95,7 +97,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
       isServerRendering: true,
       lang,
       locale,
-      products: customer?.fields?.products,
+      products,
       readonlyCookies,
       userSession,
     }
