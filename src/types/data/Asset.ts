@@ -28,4 +28,8 @@ export declare type Asset = {
   linkUrl?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   style?: string | object | any;
+
+  // Not used but kept to avoid tests failure
+  title?: string;
+  alt?: string;
 } & AirtableSystemFields;
