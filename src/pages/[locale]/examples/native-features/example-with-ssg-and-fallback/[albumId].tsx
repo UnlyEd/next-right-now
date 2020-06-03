@@ -12,7 +12,7 @@ import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../../components/utils/ExternalLink';
 import songs from '../../../../../mocks/songs';
-import { StaticParams } from '../../../../../types/nextjs/StaticParams';
+import { CommonServerSideParams } from '../../../../../types/nextjs/CommonServerSideParams';
 import { StaticPath } from '../../../../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../../../../types/nextjs/StaticPathsOutput';
 import { StaticPropsInput } from '../../../../../types/nextjs/StaticPropsInput';
@@ -32,7 +32,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): Promise<StaticPathsOutput> => {
   const commonStaticPaths: StaticPathsOutput = await getExamplesCommonStaticPaths();
   const { paths } = commonStaticPaths;
   const albumIdsToPreBuild = ['1']; // Only '/album-1-with-ssg-and-fallback' is generated at build time, other will be generated on-demand
@@ -59,7 +59,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<St
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
   const { params: { albumId } } = props;
 

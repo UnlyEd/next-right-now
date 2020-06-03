@@ -3,6 +3,7 @@ import get from 'lodash.get';
 import NextCookies from 'next-cookies';
 import { Cookies } from '../../types/Cookies';
 import { Customer } from '../../types/data/Customer';
+import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
@@ -34,7 +35,7 @@ export type GetCommonServerSidePropsResults = SSRPageProps & {
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCommonServerSideProps: GetServerSideProps<SSRPageProps> = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<SSRPageProps>> => {
+export const getCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the Airtable query by your own API query, while keeping the existing example pages working.
@@ -55,7 +56,7 @@ export const getCommonServerSideProps: GetServerSideProps<SSRPageProps> = async 
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getExamplesCommonServerSideProps: GetServerSideProps<SSRPageProps> = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<SSRPageProps>> => {
+export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
   const {
     query,
     params,

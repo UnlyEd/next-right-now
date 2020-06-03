@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 
-import { StaticParams } from '../../types/nextjs/StaticParams';
+import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import DocsHomePage, { getStaticPaths as getStaticPathsHomePage, getStaticProps as getStaticPropsHomePage } from './examples/';
 
@@ -11,7 +11,7 @@ import DocsHomePage, { getStaticPaths as getStaticPathsHomePage, getStaticProps 
    Check out /pageTemplateSSG for getting started with your own index page and override this one
  */
 
-export const getStaticPaths: GetStaticPaths<StaticParams> = getStaticPathsHomePage;
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getStaticPropsHomePage;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getStaticPathsHomePage;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getStaticPropsHomePage;
 
 export default DocsHomePage;
