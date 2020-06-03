@@ -106,7 +106,7 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
           <hr />
 
           <div className={'source'}>
-            <h2>HTML source code (fetched from GraphQL API), as <code>RichText</code> field:</h2>
+            <h2>HTML source code (fetched from Airtable API), as <code>RichText</code> field:</h2>
             <pre>
               <code>
                 {customer?.terms?.html}

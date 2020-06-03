@@ -248,13 +248,13 @@ const Nav: React.FunctionComponent<Props> = () => {
                 <Row className={'justify-content-center'}>
                   <NavLink
                     id={'nav-link-admin-site'}
-                    href={`https://nrn-admin.now.sh`}
+                    href={``}
                     target={'_blank'}
                     rel={'noopener'}
                     onClick={(): void => {
                       logEvent('open-admin-site');
                     }}
-                    title={'Edit dynamic content using GraphCMS and react-admin!'}
+                    title={'Edit dynamic content using Airtable and Stacker!'}
                   >
                     <FontAwesomeIcon icon={['fas', 'user-cog']} />
                     {t('nav.adminSite.link', 'Admin site')}

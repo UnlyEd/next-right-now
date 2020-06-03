@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getExa
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
+const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
@@ -77,4 +77,4 @@ const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (ExampleGraphQLPage);
+export default (ExampleApiPage);

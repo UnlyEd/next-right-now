@@ -55,9 +55,7 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSR pages</b>.
-        It gets common page properties from a default SSR build. Dynamic data (from GraphCMS) are accessible through <code>props.customer</code>.<br />
-        In order to keep it simple, it fetches <code>LAYOUT_QUERY</code> GraphQL query, which contains the above customer data.<br />
-        Unlike SSG (where you can perform multiple GQL queries without performance concerns because they are executed at build time), SSR should rather only run one GQL query to optimise round trips network calls.
+        It gets common page properties from a default SSR build. Dynamic data (from Airtable) are accessible through <code>props.customer</code> and <code>props.products</code>.<br />
       </p>
       <p>
         Customer label: {customer.label}

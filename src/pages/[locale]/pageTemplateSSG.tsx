@@ -54,7 +54,7 @@ const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSG pages</b>.<br />
-        It gets common page properties from a default SSG build. Dynamic data (from GraphCMS) are accessible through <code>props.customer</code>.
+        It gets common page properties from a default SSG build. Dynamic data (from Airtable) are accessible through <code>props.customer</code>.
       </p>
       <p>
         Customer label: {customer.label}

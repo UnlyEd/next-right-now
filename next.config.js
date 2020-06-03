@@ -21,8 +21,6 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     //  See https://nextjs.org/docs/api-reference/next.config.js/environment-variables
     // XXX Duplication of the environment variables, this is only used locally
     //  while now.json:build:env will be used on the Now platform (See https://vercel.com/docs/v2/build-step/#providing-environment-variables)
-    GRAPHQL_API_ENDPOINT: process.env.GRAPHQL_API_ENDPOINT,
-    GRAPHQL_API_KEY: process.env.GRAPHQL_API_KEY,
     LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,
     SENTRY_DSN: process.env.SENTRY_DSN,
 
