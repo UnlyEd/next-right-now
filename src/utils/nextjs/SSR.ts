@@ -81,7 +81,6 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
   const customer: AirtableRecord<Customer> = await fetchCustomer(bestCountryCodes);
-  const products: AirtableRecord<Product>[] = customer?.fields?.products as AirtableRecord<Product>[];
 
   // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
@@ -97,7 +96,6 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
       isServerRendering: true,
       lang,
       locale,
-      products,
       readonlyCookies,
       userSession,
     }

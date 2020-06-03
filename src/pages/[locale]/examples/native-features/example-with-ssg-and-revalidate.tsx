@@ -67,12 +67,12 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
  * Beware props in OnlyBrowserPageProps are not available on the server
  */
 type Props = {
-  products: AirtableRecord<Product>[];
   builtAt: string;
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
-  const { products, builtAt } = props;
+  const { customer, builtAt } = props;
+  const products = customer?.fields?.products as AirtableRecord<Product>[];
   const { locale }: I18n = useI18n();
 
   return (

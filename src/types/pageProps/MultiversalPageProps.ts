@@ -20,6 +20,5 @@ export declare type MultiversalPageProps<E extends {} = {}> = {
   isReadyToRender: boolean;
   lang: string;
   locale: string;
-  products: AirtableRecord<Product>[];
   statusCode?: number; // Provided by Next.js framework, sometimes
 } & E;

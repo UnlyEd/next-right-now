@@ -124,7 +124,6 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
   const customer: AirtableRecord<Customer> = await fetchCustomer(bestCountryCodes);
-  const products: AirtableRecord<Product>[] = customer?.fields?.products as AirtableRecord<Product>[];
 
   return {
     // Props returned here will be available as page properties (pageProps)
@@ -140,7 +139,6 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
       locale,
       preview,
       previewData,
-      products,
     },
     // unstable_revalidate: false,
   };
