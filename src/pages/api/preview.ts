@@ -1,7 +1,5 @@
 import { createLogger } from '@unly/utils-simple-logger';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-import { PreviewData } from '../../types/nextjs/PreviewData';
 import { filterExternalAbsoluteUrl } from '../../utils/js/url';
 import Sentry, { configureReq } from '../../utils/monitoring/sentry';
 

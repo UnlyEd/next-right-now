@@ -9,7 +9,6 @@ import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSi
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -104,4 +103,4 @@ const ExampleMonitoringPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ExampleMonitoringPage);
+export default (ExampleMonitoringPage);

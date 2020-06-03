@@ -8,7 +8,6 @@ import { Alert, Button } from 'reactstrap';
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/utils/Code';
-import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -103,4 +102,4 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(InteractiveErrorPage);
+export default (InteractiveErrorPage);

@@ -11,7 +11,6 @@ import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -130,4 +129,4 @@ const TrackingUselessReRendersPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(TrackingUselessReRendersPage);
+export default (TrackingUselessReRendersPage);

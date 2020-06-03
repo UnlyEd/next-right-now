@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
 import size from 'lodash.size';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
@@ -10,12 +9,9 @@ import React from 'react';
 import { Alert, Container } from 'reactstrap';
 import AllProducts from '../../../../components/data/AllProducts';
 import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
-import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssg';
-import withApollo from '../../../../hocs/withApollo';
 import useI18n, { I18n } from '../../../../hooks/useI18n';
 import { Product } from '../../../../types/data/Product';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
@@ -23,7 +19,6 @@ import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { createApolloClient } from '../../../../utils/gql/graphql';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
 import timeDifference from '../../../../utils/time/timeDifference';
 
@@ -50,45 +45,11 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getExamplesCommonSta
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
-  const { customerRef, gcmsLocales } = commonStaticProps.props;
-
-  const apolloClient = createApolloClient();
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
-    displayName: 'EXAMPLE_WITH_SSG_QUERY',
-    query: EXAMPLE_WITH_SSG_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locale': gcmsLocales,
-      },
-    },
-  };
-
-  const {
-    data,
-    errors,
-    loading,
-    networkStatus,
-    stale,
-  }: ApolloQueryResult<{
-    products: Product[];
-  }> = await apolloClient.query(queryOptions);
-
-  if (errors) {
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
-  }
-
-  const {
-    products,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+  const { customer } = commonStaticProps.props;
 
   return deepmerge(commonStaticProps, {
     props: {
-      products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
+      products: customer.products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
       builtAt: new Date().toISOString(),
     },
     unstable_revalidate: regenerationDelay, // eslint-disable-line @typescript-eslint/camelcase
@@ -163,4 +124,4 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ProductsWithSSGPage);
+export default (ProductsWithSSGPage);

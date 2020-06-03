@@ -11,7 +11,6 @@ import NativeFeaturesSidebar from '../../../../../components/doc/NativeFeaturesS
 import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../../components/utils/ExternalLink';
-import withApollo from '../../../../../hocs/withApollo';
 import songs from '../../../../../mocks/songs';
 import { StaticParams } from '../../../../../types/nextjs/StaticParams';
 import { StaticPath } from '../../../../../types/nextjs/StaticPath';
@@ -225,4 +224,4 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
   );
 };
 
-export default withApollo()(ExampleWithSSGAndFallbackAlbumPage);
+export default (ExampleWithSSGAndFallbackAlbumPage);

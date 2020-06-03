@@ -1,5 +1,6 @@
 import { RichText } from '../RichText';
 import { AirtableSystemFields } from './AirtableSystemFields';
+import { Product } from './Product';
 import { Theme } from './Theme';
 
 export declare type Customer = {
@@ -11,4 +12,5 @@ export declare type Customer = {
   terms?: RichText;
   termsEN?: RichText;
   termsFR?: RichText;
+  products?: Product[];
 } & AirtableSystemFields;

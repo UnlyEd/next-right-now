@@ -10,7 +10,6 @@ import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -225,4 +224,4 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ExampleAnalyticsPage);
+export default (ExampleAnalyticsPage);

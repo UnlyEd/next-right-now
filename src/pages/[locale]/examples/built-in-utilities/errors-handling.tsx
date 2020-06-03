@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -11,7 +11,6 @@ import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -162,4 +161,4 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ErrorsHandlingPage);
+export default (ErrorsHandlingPage);

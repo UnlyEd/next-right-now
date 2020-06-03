@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult } from 'apollo-client';
 import size from 'lodash.size';
 import { GetServerSideProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -12,15 +11,10 @@ import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSide
 
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import { EXAMPLE_WITH_SSR_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssr';
-import withApollo from '../../../../hocs/withApollo';
-import { Customer } from '../../../../types/data/Customer';
-import { Product } from '../../../../types/data/Product';
-import { GetServerSidePropsContext } from '../../../../types/nextjs/GetServerSidePropsContext';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../../../types/pageProps/SSRPageProps';
-import { getExamplesCommonServerSideProps, GetCommonServerSidePropsResults } from '../../../../utils/nextjs/SSR';
+import { getExamplesCommonServerSideProps } from '../../../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -30,10 +24,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 /**
  * Props that are only available for this page
  */
-type CustomPageProps = {
-  [key: string]: any;
-  products: Product[];
-}
+type CustomPageProps = {}
 
 type GetServerSidePageProps = CustomPageProps & SSRPageProps
 
@@ -42,50 +33,8 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<{ props: GetServerSidePageProps }> => {
-  const {
-    apolloClient,
-    layoutQueryOptions,
-    ...pageData
-  }: GetCommonServerSidePropsResults = await getExamplesCommonServerSideProps(context);
-  const queryOptions = { // Override query (keep existing variables and headers)
-    ...layoutQueryOptions,
-    displayName: 'EXAMPLE_WITH_SSR_QUERY',
-    query: EXAMPLE_WITH_SSR_QUERY,
-  };
-
-  const {
-    data,
-    errors,
-    loading,
-    networkStatus,
-    stale,
-  }: ApolloQueryResult<{
-    customer: Customer;
-    products: Product[];
-  }> = await apolloClient.query(queryOptions);
-
-  if (errors) {
-    // eslint-disable-next-line no-console
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
-  }
-
-  const {
-    customer,
-    products,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
-
-  return {
-    // Props returned here will be available as page properties (pageProps)
-    props: {
-      ...pageData,
-      apolloState: apolloClient.cache.extract(),
-      customer,
-      products,
-    },
-  };
-};
+// @ts-ignore
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getExamplesCommonServerSideProps;
 
 /**
  * SSR pages are first rendered by the server
@@ -98,7 +47,8 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
 type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
-  const { products } = props;
+  const { customer } = props;
+  const { products } = customer;
 
   return (
     <DefaultLayout
@@ -219,4 +169,4 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 //   };
 // };
 
-export default withApollo()(ProductsWithSSRPage);
+export default (ProductsWithSSRPage);

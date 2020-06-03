@@ -1,18 +1,14 @@
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
 import { IncomingMessage } from 'http';
 import get from 'lodash.get';
 import NextCookies from 'next-cookies';
-import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import { Cookies } from '../../types/Cookies';
-import { ApolloQueryOptions } from '../../types/gql/ApolloQueryOptions';
+import { Customer } from '../../types/data/Customer';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
+import fetchCustomer from '../api/fetchCustomer';
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
-import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
-import { createApolloClient } from '../gql/graphql';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
 import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
 
@@ -20,9 +16,7 @@ import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
  * getExamplesCommonServerSideProps returns only part of the props expected in SSRPageProps
  * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
-export type GetCommonServerSidePropsResults = Omit<SSRPageProps, 'apolloState' | 'customer'> & {
-  apolloClient: ApolloClient<NormalizedCacheObject>;
-  layoutQueryOptions: ApolloQueryOptions;
+export type GetCommonServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
@@ -81,38 +75,24 @@ export const getExamplesCommonServerSideProps = async (context: GetServerSidePro
   const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const apolloClient = createApolloClient();
-  const variables = {
-    customerRef,
-  };
-  const layoutQueryOptions: ApolloQueryOptions = {
-    displayName: 'LAYOUT_QUERY',
-    query: LAYOUT_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locale': gcmsLocales,
-      },
-    },
-  };
+  const customer: Customer = await fetchCustomer(bestCountryCodes);
+  console.log('customer', JSON.stringify(customer, null, 2));
 
   // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
   return {
-    apolloClient,
     bestCountryCodes,
+    customer,
     customerRef,
     i18nTranslations,
     headers: publicHeaders,
-    gcmsLocales,
     hasLocaleFromUrl,
     isReadyToRender: true,
     isServerRendering: true,
     lang,
     locale,
-    layoutQueryOptions,
+    products: customer.products,
     readonlyCookies,
     userSession,
   };
