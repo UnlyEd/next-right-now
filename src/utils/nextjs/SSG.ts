@@ -1,7 +1,5 @@
-import { ApolloQueryResult } from 'apollo-client';
 import map from 'lodash.map';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 
 import { supportedLocales } from '../../i18nConfig';
 import { Customer } from '../../types/data/Customer';
@@ -13,8 +11,7 @@ import { StaticPathsOutput } from '../../types/nextjs/StaticPathsOutput';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
-import { createApolloClient } from '../gql/graphql';
+import fetchCustomer from '../api/fetchCustomer';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
 import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
 
@@ -123,51 +120,17 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, StaticPa
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const apolloClient = createApolloClient();
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
-    displayName: 'LAYOUT_QUERY',
-    query: LAYOUT_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locale': gcmsLocales,
-      },
-    },
-  };
-
-  const {
-    data,
-    errors,
-    loading,
-    networkStatus,
-    stale,
-  }: ApolloQueryResult<{
-    customer: Customer;
-  }> = await apolloClient.query(queryOptions);
-
-  if (errors) {
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
-  }
-
-  const {
-    customer,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+  const customer: Customer = await fetchCustomer(bestCountryCodes);
+  console.log('customer', JSON.stringify(customer, null, 2));
 
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
-      apolloState: apolloClient.cache.extract(),
       bestCountryCodes,
       customer,
       customerRef,
       i18nTranslations,
-      gcmsLocales,
       hasLocaleFromUrl,
       isReadyToRender: true,
       isStaticRendering: true,
@@ -175,6 +138,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, StaticPa
       locale,
       preview,
       previewData,
+      products: customer.products,
     },
     // unstable_revalidate: false,
   };

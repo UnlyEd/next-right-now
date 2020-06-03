@@ -1,8 +1,8 @@
 import { Asset } from './Asset';
-import { GraphCMSSystemFields } from './GraphCMSSystemFields';
+import { AirtableSystemFields } from './AirtableSystemFields';
 
 export declare type Theme = {
   id?: string;
   primaryColor?: string;
   logo?: Asset;
-} & GraphCMSSystemFields;
+} & AirtableSystemFields;

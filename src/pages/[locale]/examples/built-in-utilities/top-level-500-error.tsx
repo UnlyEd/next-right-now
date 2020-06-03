@@ -7,7 +7,6 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -64,4 +63,4 @@ const TopLevel500ErrorPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(TopLevel500ErrorPage);
+export default (TopLevel500ErrorPage);

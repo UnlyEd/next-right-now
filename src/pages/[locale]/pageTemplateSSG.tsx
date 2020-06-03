@@ -5,7 +5,6 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import withApollo from '../../hocs/withApollo';
 import { StaticParams } from '../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
@@ -64,4 +63,4 @@ const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(PageTemplateSSG);
+export default (PageTemplateSSG);

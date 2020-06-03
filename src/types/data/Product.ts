@@ -1,5 +1,5 @@
+import { AirtableSystemFields } from './AirtableSystemFields';
 import { Asset } from './Asset';
-import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 
 export declare type Product = {
   id?: string;
@@ -7,4 +7,4 @@ export declare type Product = {
   description?: string;
   images?: Asset[];
   price?: number;
-} & GraphCMSSystemFields;
+} & AirtableSystemFields;

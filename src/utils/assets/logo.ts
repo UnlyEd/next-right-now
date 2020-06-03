@@ -128,19 +128,19 @@ export const resolveSize = ({ width, height, logo }: Size & { logo: Logo }): Siz
     // Only the width is provided, therefore only the width should be set
     return {
       width: width,
-      height: resolveRatio({ baseHeight: logo.height, baseWidth: logo.width, width, height }).height,
+      height: resolveRatio({ baseHeight: logo?.thumbnails?.small?.height, baseWidth: logo?.thumbnails?.small?.width, width, height }).height,
     };
   } else if (height) {
     // Only the height is provided, therefore only the height should be set
     return {
-      width: resolveRatio({ baseHeight: logo.height, baseWidth: logo.width, width, height }).width,
+      width: resolveRatio({ baseHeight: logo?.thumbnails?.small?.height, baseWidth: logo?.thumbnails?.small?.width, width, height }).width,
       height: height,
     };
   } else {
     // If no height nor width are provided, use the default logo values
     return {
-      width: logo.width,
-      height: logo.height,
+      width: logo?.thumbnails?.small?.width,
+      height: logo?.thumbnails?.small?.height,
     };
   }
 };

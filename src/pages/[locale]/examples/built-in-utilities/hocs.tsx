@@ -9,7 +9,6 @@ import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilities
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/utils/Code';
-import withApollo from '../../../../hocs/withApollo';
 import { StaticParams } from '../../../../types/nextjs/StaticParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -87,7 +86,7 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
         <Code
           text={`
             // Example for a page using getStaticProps or getServerSideProps
-            export default withApollo()(ExampleHomePage);
+            export default (ExampleHomePage);
 
             // Example for a page using getInitialProps
             export default withApollo({ useGetInitialProps: true })(ExampleHomePage);
@@ -105,4 +104,4 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(HocsPage);
+export default (HocsPage);

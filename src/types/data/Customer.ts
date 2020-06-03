@@ -1,11 +1,16 @@
 import { RichText } from '../RichText';
-import { GraphCMSSystemFields } from './GraphCMSSystemFields';
+import { AirtableSystemFields } from './AirtableSystemFields';
+import { Product } from './Product';
 import { Theme } from './Theme';
 
 export declare type Customer = {
-  id?: string;
   ref?: string;
   label?: string;
+  labelEN?: string;
+  labelFR?: string;
   theme?: Theme;
   terms?: RichText;
-} & GraphCMSSystemFields;
+  termsEN?: RichText;
+  termsFR?: RichText;
+  products?: Product[];
+} & AirtableSystemFields;

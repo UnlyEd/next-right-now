@@ -1,24 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult } from 'apollo-client';
-import deepmerge from 'deepmerge';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Container } from 'reactstrap';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
-import withApollo from '../../hocs/withApollo';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
-import { Customer } from '../../types/data/Customer';
 import { StaticParams } from '../../types/nextjs/StaticParams';
-
-import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
-import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { createApolloClient } from '../../utils/gql/graphql';
 import { replaceAllOccurrences } from '../../utils/js/string';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../utils/nextjs/SSG';
 
@@ -41,50 +32,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = getExamplesCommonSta
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
-  const { customerRef, gcmsLocales } = commonStaticProps.props;
-
-  const apolloClient = createApolloClient();
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
-    displayName: 'TERMS_PAGE_QUERY',
-    query: TERMS_PAGE_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locale': gcmsLocales,
-      },
-    },
-  };
-
-  const {
-    data,
-    errors,
-    loading,
-    networkStatus,
-    stale,
-  }: ApolloQueryResult<{
-    customer: Customer;
-  }> = await apolloClient.query(queryOptions);
-
-  if (errors) {
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
-  }
-
-  const {
-    customer,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
-
-  return deepmerge(commonStaticProps, {
-    props: {
-      customer,
-    },
-  });
-};
+export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getExamplesCommonStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -171,4 +119,4 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(TermsPage);
+export default (TermsPage);
