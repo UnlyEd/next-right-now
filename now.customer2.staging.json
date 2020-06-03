@@ -10,6 +10,8 @@
       "NEXT_PUBLIC_CUSTOMER_REF": "customer2",
       "NEXT_PUBLIC_LOCIZE_PROJECT_ID": "@nrn-locize-project-id",
       "NEXT_PUBLIC_AMPLITUDE_API_KEY": "@nrn-amplitude-api-key-staging",
+      "AIRTABLE_API_KEY": "@nrn-airtable-api-key",
+      "AIRTABLE_BASE_ID": "@nrn-airtable-base-id",
       "LOCIZE_API_KEY": "@nrn-locize-api-key-staging",
       "SENTRY_DSN": "@nrn-sentry-dsn"
     }

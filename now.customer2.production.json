@@ -10,6 +10,8 @@
       "NEXT_PUBLIC_CUSTOMER_REF": "customer2",
       "NEXT_PUBLIC_LOCIZE_PROJECT_ID": "@nrn-locize-project-id",
       "NEXT_PUBLIC_AMPLITUDE_API_KEY": "@nrn-amplitude-api-key-production",
+      "AIRTABLE_API_KEY": "@nrn-airtable-api-key",
+      "AIRTABLE_BASE_ID": "@nrn-airtable-base-id",
       "LOCIZE_API_KEY": "The Locize API Key shouldn't be used in production (see https://github.com/locize/i18next-locize-backend#backend-options) because it's related to development-only features, and it's sensitive.",
       "SENTRY_DSN": "@nrn-sentry-dsn"
     }
