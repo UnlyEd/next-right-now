@@ -11,6 +11,7 @@ import fetchCustomer from '../api/fetchCustomer';
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
 import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
 import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
+import { GetServerSideProps, GetServerSidePropsResult } from 'next';
 
 /**
  * getExamplesCommonServerSideProps returns only part of the props expected in SSRPageProps
@@ -33,7 +34,7 @@ export type GetCommonServerSidePropsResults = SSRPageProps & {
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCommonServerSideProps = async (context: GetServerSidePropsContext): Promise<GetCommonServerSidePropsResults> => {
+export const getCommonServerSideProps: GetServerSideProps<SSRPageProps> = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<SSRPageProps>> => {
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the Airtable query by your own API query, while keeping the existing example pages working.
@@ -54,7 +55,7 @@ export const getCommonServerSideProps = async (context: GetServerSidePropsContex
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getExamplesCommonServerSideProps = async (context: GetServerSidePropsContext): Promise<GetCommonServerSidePropsResults> => {
+export const getExamplesCommonServerSideProps: GetServerSideProps<SSRPageProps> = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<SSRPageProps>> => {
   const {
     query,
     params,
@@ -82,18 +83,20 @@ export const getExamplesCommonServerSideProps = async (context: GetServerSidePro
   // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
   return {
-    bestCountryCodes,
-    customer,
-    customerRef,
-    i18nTranslations,
-    headers: publicHeaders,
-    hasLocaleFromUrl,
-    isReadyToRender: true,
-    isServerRendering: true,
-    lang,
-    locale,
-    products: customer.products,
-    readonlyCookies,
-    userSession,
+    props: {
+      bestCountryCodes,
+      customer,
+      customerRef,
+      i18nTranslations,
+      headers: publicHeaders,
+      hasLocaleFromUrl,
+      isReadyToRender: true,
+      isServerRendering: true,
+      lang,
+      locale,
+      products: customer.products,
+      readonlyCookies,
+      userSession,
+    }
   };
 };
