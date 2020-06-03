@@ -33,8 +33,8 @@ export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'Monitoring',
   },
   {
-    href: '/examples/built-in-features/graphql',
-    label: 'GraphQL',
+    href: '/examples/built-in-features/api',
+    label: 'API (Airtable)',
   },
   {
     href: '/examples/built-in-features/css-in-js',

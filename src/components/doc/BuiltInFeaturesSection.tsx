@@ -139,17 +139,11 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
 
         <Card>
           <CardBody>
-            <CardTitle><h3>GraphQL</h3></CardTitle>
-            <CardSubtitle>&ldquo;GraphQL API fetching using GraphCMS vendor and Apollo&rdquo;</CardSubtitle>
+            <CardTitle><h3>API</h3></CardTitle>
+            <CardSubtitle>&ldquo;API fetching using Amplitude vendor (REST))&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/graphql.html'}>
-                  <Button color={'link'}>Learn more about the "GraphQL" concept</Button>
-                </ExternalLink>
-                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/graphql-api/use-graphcms.html'}>
-                  <Button color={'link'}>Learn how to use the "GraphCMS" vendor</Button>
-                </ExternalLink>
-                <I18nLink href={'/examples/built-in-features/graphql'}>
+                <I18nLink href={'/examples/built-in-features/api'}>
                   <Button color={'link'}>See usage examples</Button>
                 </I18nLink>
               </div>

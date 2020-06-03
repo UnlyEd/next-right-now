@@ -9,7 +9,6 @@ coverage/
 .graphqlconfig
 buildspec.yml
 README.md
-schema.graphql
 yarn.lock
 yarn-error.log
 

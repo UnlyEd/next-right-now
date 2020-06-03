@@ -54,7 +54,6 @@ const Logo = (props: Props): JSX.Element => {
   let resolvedLogoProps: LogoType = deepmerge.all([defaults, logo || {}, override]);
   resolvedLogoProps = deepmerge.all([resolvedLogoProps, resolveSize({ logo: resolvedLogoProps, width: toPixels(width), height: toPixels(height) })]);
 
-  // Handle v2 structure (graphcms)
   if (resolvedLogoProps.linkUrl) {
     resolvedLogoProps.link = {
       url: resolvedLogoProps.linkUrl,
