@@ -32,7 +32,9 @@ const Products: React.FunctionComponent<Props> = (props) => {
       `}
     >
       {
-        map(products, (product: Product) => {
+        map(products, (productAirtable: AirtableRecord<Product>) => {
+          const product: Product = productAirtable.fields;
+
           return (
             <div
               key={product?.id}

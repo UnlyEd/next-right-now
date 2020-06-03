@@ -12,8 +12,8 @@ type Props = {
 
 const AllProducts: React.FunctionComponent<Props> = (props) => {
   const { products } = props;
-  const productsPublished = filter(products, { status: 'PUBLISHED' });
-  const productsDraft = filter(products, { status: 'DRAFT' });
+  const productsPublished: AirtableRecord<Product>[] = filter(products, { fields: { status: 'PUBLISHED' } });
+  const productsDraft: AirtableRecord<Product>[] = filter(products, { fields: { status: 'DRAFT' } });
 
   return (
     <>
