@@ -1,12 +1,11 @@
-import { BaseTable } from '../../utils/api/fetchAirtableTable';
 import { AirtableRecord } from './AirtableRecord';
 
 /**
- * Dataset containing records split by table
+ * Dataset containing all records index by their airtable "id" field
  * Used to resolve links (relationships) between records
  *
- * @example { Customer: Customer[]> , Theme: Theme[]> }
+ * @example { 'reci9HYsoqd1xScsi': AirtableRecord, ... }
  */
 export declare type AirtableDataset = {
-  [key in BaseTable]?: AirtableRecord[];
+  [id: string]: AirtableRecord;
 }

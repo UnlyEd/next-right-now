@@ -1,13 +1,11 @@
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
-import find from 'lodash.find';
 import get from 'lodash.get';
 import isArray from 'lodash.isarray';
 import map from 'lodash.map';
 import { AirtableDataset } from '../../types/data/AirtableDataset';
 import { AirtableFieldMapping, AirtableFieldsMapping } from '../../types/data/AirtableFieldsMapping';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
-import { BaseTable } from '../api/fetchAirtableTable';
 import { DEFAULT_FIELDS_MAPPING, getFieldBestAvailableTranslation } from './airtableField';
 
 const fileLabel = 'utils/data/airtableRecord';
@@ -39,11 +37,7 @@ export const sanitizeRecord = <Record>(record: AirtableRecord<Record>, dataset: 
 
   // Resolve the main record type if it wasn't provided
   if (!record.__typename) {
-    map(dataset, (records: AirtableRecord[], recordType: BaseTable) => {
-      if (find(records, { id: record.id })) {
-        sanitizedRecord.__typename = recordType;
-      }
-    });
+    sanitizedRecord.__typename = dataset[record.id].__typename;
   }
 
   if (!sanitizedRecord.__typename) {
@@ -64,7 +58,7 @@ export const sanitizeRecord = <Record>(record: AirtableRecord<Record>, dataset: 
     if (fieldMapping) {
       if (fieldMapping.isArray) {
         map(fieldValue, (subFieldValue: any, subFieldName: string) => {
-          const linkedRecord = find(dataset?.[fieldMapping.table], { id: subFieldValue });
+          const linkedRecord = dataset[subFieldValue];
 
           // Init array if not yet init
           if (!sanitizedRecord.fields[fieldName]) {
@@ -92,7 +86,7 @@ export const sanitizeRecord = <Record>(record: AirtableRecord<Record>, dataset: 
         });
       } else {
         const id = isArray(fieldValue) ? fieldValue[0] : fieldValue;
-        const linkedRecord = find(dataset?.[fieldMapping.table], { id });
+        const linkedRecord = dataset[id];
         sanitizedRecord.fields[fieldName] = linkedRecord;
 
         // If a linked record has been resolved, apply it

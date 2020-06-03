@@ -18,6 +18,7 @@ export declare type Asset = {
   thumbnails?: {
     small?: AssetThumbnail;
     large?: AssetThumbnail;
+    full?: AssetThumbnail;
   };
 
   // NRN own fields, dynamically set when manipulating assets

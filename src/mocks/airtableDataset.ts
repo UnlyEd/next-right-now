@@ -1,4 +1,10 @@
-export const CUSTOMER1 = {
+import { AirtableDataset } from '../types/data/AirtableDataset';
+import { AirtableRecord } from '../types/data/AirtableRecord';
+import { Customer } from '../types/data/Customer';
+import { Product } from '../types/data/Product';
+import { Theme } from '../types/data/Theme';
+
+export const CUSTOMER1: AirtableRecord<Customer> = {
   id: 'recZEMyznL19CPD5b',
   fields: {
     termsEN: 'Who wanna get bothered with **terms**? Come on!\n',
@@ -7,13 +13,15 @@ export const CUSTOMER1 = {
     products: [
       'recYXaEyHJCOBWIbd',
     ],
-    theme: 'recgo2T34zNZjAlkN',
+    theme: [
+      'recgo2T34zNZjAlkN'
+    ],
     ref: 'customer2',
   },
   createdTime: '2020-06-02T14:01:51.000Z',
 };
 
-export const CUSTOMER2 = {
+export const CUSTOMER2: AirtableRecord<Customer> = {
   id: 'reci9HYsoqd1xScsi',
   fields: {
     termsEN: 'Who wanna get bothered with **terms**?\n',
@@ -31,7 +39,7 @@ export const CUSTOMER2 = {
   createdTime: '2020-06-02T14:01:51.000Z',
 };
 
-export const THEME1 = {
+export const THEME1: AirtableRecord<Theme> = {
   id: 'recgo2T34zNZjAlkN',
   fields: {
     id: 2,
@@ -69,7 +77,7 @@ export const THEME1 = {
   createdTime: '2020-06-02T14:06:19.000Z',
 };
 
-export const THEME2 = {
+export const THEME2: AirtableRecord<Theme> = {
   id: 'recrcZANU6L73OA9v',
   fields: {
     id: 1,
@@ -107,7 +115,7 @@ export const THEME2 = {
   createdTime: '2020-06-02T14:06:19.000Z',
 };
 
-export const PRODUCT1 = {
+export const PRODUCT1: AirtableRecord<Product> = {
   id: 'recFSrY2znI6Z8Dbj',
   fields: {
     titleEN: 'Big City',
@@ -142,7 +150,7 @@ export const PRODUCT1 = {
   createdTime: '2020-06-02T14:04:46.000Z',
 };
 
-export const PRODUCT2 = {
+export const PRODUCT2: AirtableRecord<Product> = {
   id: 'recYXaEyHJCOBWIbd',
   fields: {
     titleFR: 'Kiunyu (fr)',
@@ -179,7 +187,7 @@ export const PRODUCT2 = {
   createdTime: '2020-06-02T14:04:46.000Z',
 };
 
-export const PRODUCT3 = {
+export const PRODUCT3: AirtableRecord<Product> = {
   id: 'reck5THYBOd0ryd5Z',
   fields: {
     titleEN: 'Vista Al Valle Zapote Honey',
@@ -216,20 +224,14 @@ export const PRODUCT3 = {
   createdTime: '2020-06-02T14:04:46.000Z',
 };
 
-const dataset = {
-  Customer: [
-    CUSTOMER1,
-    CUSTOMER2,
-  ],
-  Theme: [
-    THEME1,
-    THEME2,
-  ],
-  Product: [
-    PRODUCT1,
-    PRODUCT2,
-    PRODUCT3,
-  ],
+const dataset: AirtableDataset = {
+  [CUSTOMER1.id]: { ...CUSTOMER1, __typename: 'Customer' },
+  [CUSTOMER2.id]: { ...CUSTOMER2, __typename: 'Customer' },
+  [THEME1.id]: { ...THEME1, __typename: 'Theme' },
+  [THEME2.id]: { ...THEME2, __typename: 'Theme' },
+  [PRODUCT1.id]: { ...PRODUCT1, __typename: 'Product' },
+  [PRODUCT2.id]: { ...PRODUCT2, __typename: 'Product' },
+  [PRODUCT3.id]: { ...PRODUCT3, __typename: 'Product' },
 };
 
 export default dataset;
