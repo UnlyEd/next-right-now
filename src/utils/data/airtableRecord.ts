@@ -28,7 +28,11 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 export const sanitizeRecord = <Record>(record: AirtableRecord<Record>, dataset: AirtableDataset, preferredLocales: string[], fieldsMapping: AirtableFieldsMapping = DEFAULT_FIELDS_MAPPING, resolveRelations = true): AirtableRecord<Record> => {
   const sanitizedRecord: AirtableRecord = {
     id: record.id,
-    fields: {},
+    fields: {
+      // XXX Opinionated - Duplicate the record id, so that all entities always have an "id" field, even if it'll get overridden if there is an "id" column in Airtable
+      //  This ensures all "fields" have an "id" props, for the sake of consistency and DX
+      id: record.id,
+    },
     createdTime: record.createdTime,
     __typename: record.__typename,
   };
