@@ -26,17 +26,16 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
         <Card>
           <CardBody>
             <CardTitle><h3>Backoffice/Admin site</h3></CardTitle>
-            <CardSubtitle>&ldquo;Manage NRN content using NRN-Admin&rdquo;</CardSubtitle>
+            <CardSubtitle>&ldquo;Manage NRN content using Stacker&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <Alert color={'info'}>
-                You have the ability to update this demo dynamic content using NRN-Admin.<br />
-                It's basically an admin site (POC/experimental), for managing content, based on
-                <ExternalLink href={'https://github.com/marmelab/react-admin'} suffix={null}><code>react-admin</code></ExternalLink>, built with NRN.
+                You have the ability to update this demo dynamic content using Stacker.<br />
+                TODO Stacker
               </Alert>
 
               <div className={'buttons'}>
-                <ExternalLink href={'https://nrn-admin.now.sh/'}>
-                  <Button color={'link'}>Go to NRN-Admin</Button>
+                <ExternalLink href={''}>
+                  <Button color={'link'}>Go to Stacker</Button>
                 </ExternalLink>
               </div>
             </CardText>

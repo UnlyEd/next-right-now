@@ -74,7 +74,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
           <br />
           Each page refresh (either SSR or CSR) queries the Airtable API and displays products below.<br />
           <br />
-          If you use <ExternalLink href={'https://nrn-admin.now.sh/'}>NRN Admin</ExternalLink> and update the products there,{' '}
+          If you use <ExternalLink href={''}>Stacker</ExternalLink> and update the products there,{' '}
           then the products below will be updated immediately, because each page refresh will fetch the latest content.<br />
         </Alert>
 

@@ -98,7 +98,7 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
           By using incremental static regeneration, this page is kept up-to-date automatically, based on how often users open the page. <br />
           Of course, a few users will see outdated information, but it's not really an issue here.<br />
           <br />
-          If you use <ExternalLink href={'https://nrn-admin.now.sh/'}>NRN Admin</ExternalLink> and update the products there,{' '}
+          If you use <ExternalLink href={''}>Stacker</ExternalLink> and update the products there,{' '}
           then when you refresh the page (once the delay of {regenerationDelay} seconds has passed) then the whole page will be statically regenerated.<br />
           And then, you'll have to refresh once again to see the new static version.
         </Alert>
