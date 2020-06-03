@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
@@ -36,12 +36,14 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<{ props: GetServerSidePageProps }> => {
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
   const {
-    apolloClient,
-    layoutQueryOptions,
-    ...pageData
-  }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
+    props: {
+      apolloClient,
+      layoutQueryOptions,
+      ...pageData
+    },
+  }: GetServerSidePropsResult<GetCommonServerSidePropsResults> = await getCommonServerSideProps(context);
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
     displayName: 'LAYOUT_QUERY',

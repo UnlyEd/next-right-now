@@ -2,11 +2,13 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { IncomingMessage } from 'http';
 import get from 'lodash.get';
+import { GetServerSideProps, GetServerSidePropsResult } from 'next';
 import NextCookies from 'next-cookies';
 import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import { Cookies } from '../../types/Cookies';
 import { ApolloQueryOptions } from '../../types/gql/ApolloQueryOptions';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
+import { StaticParams } from '../../types/nextjs/StaticParams';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
@@ -39,7 +41,7 @@ export type GetCommonServerSidePropsResults = Omit<SSRPageProps, 'apolloState' |
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCommonServerSideProps = async (context: GetServerSidePropsContext): Promise<GetCommonServerSidePropsResults> => {
+export const getCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults> = async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the GraphQL query by your own API query, while keeping the existing example pages working.
@@ -60,7 +62,7 @@ export const getCommonServerSideProps = async (context: GetServerSidePropsContex
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getExamplesCommonServerSideProps = async (context: GetServerSidePropsContext): Promise<GetCommonServerSidePropsResults> => {
+export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults> = async (context: GetServerSidePropsContext<StaticParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
   const {
     query,
     params,
@@ -101,19 +103,21 @@ export const getExamplesCommonServerSideProps = async (context: GetServerSidePro
   // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
   return {
-    apolloClient,
-    bestCountryCodes,
-    customerRef,
-    i18nTranslations,
-    headers: publicHeaders,
-    gcmsLocales,
-    hasLocaleFromUrl,
-    isReadyToRender: true,
-    isServerRendering: true,
-    lang,
-    locale,
-    layoutQueryOptions,
-    readonlyCookies,
-    userSession,
+    props: {
+      apolloClient,
+      bestCountryCodes,
+      customerRef,
+      i18nTranslations,
+      headers: publicHeaders,
+      gcmsLocales,
+      hasLocaleFromUrl,
+      isReadyToRender: true,
+      isServerRendering: true,
+      lang,
+      locale,
+      layoutQueryOptions,
+      readonlyCookies,
+      userSession,
+    },
   };
 };
