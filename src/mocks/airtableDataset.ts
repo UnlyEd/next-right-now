@@ -50,6 +50,7 @@ export const THEME1: AirtableRecord<Theme> = {
     logo: [
       {
         id: 'attPS7KMD2GYafnlr',
+        // @ts-ignore
         url: 'https://dl.airtable.com/Qj697gmbRLff6kiHcF71_mark.png',
         filename: 'mark.png',
         size: 4904,
@@ -88,6 +89,7 @@ export const THEME2: AirtableRecord<Theme> = {
     logo: [
       {
         id: 'attBoWO7Vh5VM1MY8',
+        // @ts-ignore
         url: 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png',
         filename: 'monochromelogo.png',
         size: 10233,
@@ -127,6 +129,7 @@ export const PRODUCT1: AirtableRecord<Product> = {
     images: [
       {
         id: 'att6JU52f5PlMuiRu',
+        // @ts-ignore
         url: 'https://dl.airtable.com/Uvg7ldEEQpqKhR3NKTGt_348s.jpg',
         filename: '348s.jpg',
         size: 17866,
@@ -164,6 +167,7 @@ export const PRODUCT2: AirtableRecord<Product> = {
     images: [
       {
         id: 'attTawMyWIwP6kUQe',
+        // @ts-ignore
         url: 'https://dl.airtable.com/n0o4MVQuaU2r6N4h2v5g_c43e3af2268eaac19eb7623add50fcca.jpg',
         filename: 'c43e3af2268eaac19eb7623add50fcca.jpg',
         size: 56296,
@@ -200,6 +204,7 @@ export const PRODUCT3: AirtableRecord<Product> = {
     images: [
       {
         id: 'attlk6ONaDfaZbQTw',
+        // @ts-ignore
         url: 'https://dl.airtable.com/OeNybctMTBKLPkbntK8p_jftonpzlxgakoxo9plfq.jpg',
         filename: 'jftonpzlxgakoxo9plfq.jpg',
         size: 34481,
