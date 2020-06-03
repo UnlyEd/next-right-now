@@ -33,7 +33,6 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-// @ts-ignore
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getExamplesCommonServerSideProps;
 
 /**
