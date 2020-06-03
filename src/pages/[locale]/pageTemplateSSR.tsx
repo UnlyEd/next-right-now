@@ -43,7 +43,7 @@ type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps
 
 const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
   const { customer: airtableCustomer } = props;
-  const customer = airtableCustomer.fields;
+  const customer = airtableCustomer?.fields;
 
   return (
     <DefaultLayout

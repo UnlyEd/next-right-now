@@ -47,7 +47,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
   const { customer: airtableCustomer } = commonStaticProps.props;
-  const customer = airtableCustomer.fields;
+  const customer = airtableCustomer?.fields;
 
   return deepmerge(commonStaticProps, {
     props: {
