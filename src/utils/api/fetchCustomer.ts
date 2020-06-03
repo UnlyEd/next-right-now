@@ -1,5 +1,5 @@
 import find from 'lodash.find';
-import { AirtableRecord } from '../../types/data/Airtable';
+import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { AirtableDataset } from '../../types/data/AirtableDataset';
 import { Customer } from '../../types/data/Customer';
 import { Product } from '../../types/data/Product';
@@ -12,7 +12,7 @@ import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable
  *
  * Relations are only resolved on the main level (to avoid circular dependencies)
  */
-const fetchCustomer = async (preferredLocales: string[]): Promise<Customer> => {
+const fetchCustomer = async (preferredLocales: string[]): Promise<AirtableRecord<Customer>> => {
   const customerRef = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const { records: airtableCustomers } = await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
   const { records: airtableThemes } = await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Theme>>>('Theme');
@@ -24,7 +24,7 @@ const fetchCustomer = async (preferredLocales: string[]): Promise<Customer> => {
   };
   const airtableCustomer = find(airtableCustomers, { fields: { ref: customerRef } });
 
-  return sanitizeRecord(airtableCustomer, dataset, preferredLocales);
+  return sanitizeRecord<Customer>(airtableCustomer, dataset, preferredLocales);
 };
 
 export default fetchCustomer;

@@ -1,6 +1,6 @@
 import deepmerge from 'deepmerge';
 import size from 'lodash.size';
-import { AirtableRecord } from '../../types/data/Airtable';
+import { AirtableRecord } from '../../types/data/AirtableRecord';
 import fetchJSON from './fetchJSON';
 
 const AT_API_BASE_PATH = 'https://api.airtable.com';

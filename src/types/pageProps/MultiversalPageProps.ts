@@ -1,4 +1,5 @@
 import { I18nextResources } from '../../utils/i18n/i18nextLocize';
+import { AirtableRecord } from '../data/AirtableRecord';
 import { Customer } from '../data/Customer';
 import { Product } from '../data/Product';
 
@@ -11,7 +12,7 @@ import { Product } from '../data/Product';
  */
 export declare type MultiversalPageProps<E extends {} = {}> = {
   bestCountryCodes: string[];
-  customer: Customer;
+  customer: AirtableRecord<Customer>;
   customerRef: string;
   error?: Error; // Only defined if there was an error
   hasLocaleFromUrl: boolean;

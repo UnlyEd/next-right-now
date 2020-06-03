@@ -42,7 +42,8 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
-  const { customer } = props;
+  const { customer: airtableCustomer } = props;
+  const customer = airtableCustomer.fields;
 
   return (
     <DefaultLayout

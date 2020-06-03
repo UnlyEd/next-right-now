@@ -64,11 +64,12 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
     console.info('MultiversalAppBootstrap - App is ready, rendering...');
     const {
-      customer,
+      customer: airtableCustomer,
       i18nTranslations,
       lang,
       locale,
     }: SSGPageProps | SSRPageProps = pageProps;
+    const customer = airtableCustomer.fields;
     let preview,
       previewData;
 

@@ -2,6 +2,7 @@ import map from 'lodash.map';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import { supportedLocales } from '../../i18nConfig';
+import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
 import { I18nLocale } from '../../types/i18n/I18nLocale';
 import { PreviewData } from '../../types/nextjs/PreviewData';
@@ -121,8 +122,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const customer: Customer = await fetchCustomer(bestCountryCodes);
-  console.log('customer', JSON.stringify(customer, null, 2));
+  const customer: AirtableRecord<Customer> = await fetchCustomer(bestCountryCodes);
 
   return {
     // Props returned here will be available as page properties (pageProps)
@@ -138,7 +138,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
       locale,
       preview,
       previewData,
-      products: customer.products,
+      products: customer?.fields?.products,
     },
     // unstable_revalidate: false,
   };

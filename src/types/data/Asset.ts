@@ -1,5 +1,3 @@
-import { AirtableSystemFields } from './AirtableSystemFields';
-
 export type AssetThumbnail = {
   url: string;
   width: number;
@@ -12,6 +10,7 @@ export type AssetThumbnail = {
  * All fields are managed internally by Airtable and we have no control over them (they're not columns)
  */
 export declare type Asset = {
+  id?: string;
   url?: string;
   filename?: string;
   size?: number;
@@ -32,4 +31,4 @@ export declare type Asset = {
   // Not used but kept to avoid tests failure
   title?: string;
   alt?: string;
-} & AirtableSystemFields;
+};

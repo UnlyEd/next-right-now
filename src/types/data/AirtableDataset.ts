@@ -1,5 +1,5 @@
 import { BaseTable } from '../../utils/api/fetchAirtableTable';
-import { AirtableRecord } from './Airtable';
+import { AirtableRecord } from './AirtableRecord';
 
 /**
  * Dataset containing records split by table

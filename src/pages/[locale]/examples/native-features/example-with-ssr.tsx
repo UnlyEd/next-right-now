@@ -46,8 +46,8 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = ge
 type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
-  const { customer } = props;
-  const { products } = customer;
+  const { customer: airtableCustomer } = props;
+  const { products } = airtableCustomer.fields;
 
   return (
     <DefaultLayout
