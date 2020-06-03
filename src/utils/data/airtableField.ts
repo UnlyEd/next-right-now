@@ -1,9 +1,9 @@
 import endsWith from 'lodash.endswith';
 import get from 'lodash.get';
 import map from 'lodash.map';
-import { AirtableRecord } from '../../types/data/Airtable';
 import { AirtableFieldsMapping } from '../../types/data/AirtableFieldsMapping';
 import { DEFAULT_LOCALE } from '../i18n/i18n';
+import { GenericRecord } from './record';
 
 /**
  * Default field mappings between entities (helps resolve relationships)
@@ -45,12 +45,12 @@ export const isLocalisedField = (fieldName: string, locales: string[]): boolean 
  * Resolve the generic name of a localised field
  * The generic name will eventually be used to contain the value we want to display to the end-user, based on localisation
  *
- * @example getGenericLocalisedField('labelEN') => 'label'
- * @example getGenericLocalisedField('descriptionFR') => 'description'
+ * @example getGenericLocalisedFieldName('labelEN') => 'label'
+ * @example getGenericLocalisedFieldName('descriptionFR') => 'description'
  *
  * @param fieldName
  */
-export const getGenericLocalisedField = (fieldName: string): string => {
+export const getGenericLocalisedFieldName = (fieldName: string): string => {
   return fieldName.slice(0, fieldName.length - DEFAULT_LOCALE.length); // This only works if all locales use the same number of chars (2, currently)
 };
 
@@ -58,9 +58,10 @@ export const getGenericLocalisedField = (fieldName: string): string => {
  * Resolve whether the record contains a generic localised field
  * If it does, it means the a higher priority localised value has been applied already
  *
- * @param sanitizedRecord
+ * @param record
  * @param fieldName
  */
-export const hasGenericLocalisedField = (sanitizedRecord: AirtableRecord, fieldName: string): boolean => {
-  return get(sanitizedRecord, getGenericLocalisedField(fieldName), false);
+export const hasGenericLocalisedField = (record: GenericRecord, fieldName: string): boolean => {
+  const NOT_FOUND = '__FAKE_VALUE_THAT_MUST_MATCH_NO_FIELD__';
+  return get(record, getGenericLocalisedFieldName(fieldName), NOT_FOUND) !== NOT_FOUND;
 };

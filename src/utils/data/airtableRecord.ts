@@ -7,7 +7,7 @@ import { AirtableRecord } from '../../types/data/Airtable';
 import { AirtableDataset } from '../../types/data/AirtableDataset';
 import { AirtableFieldsMapping } from '../../types/data/AirtableFieldsMapping';
 import { BaseTable } from '../api/fetchAirtableTable';
-import { DEFAULT_FIELDS_MAPPING, getGenericLocalisedField, hasGenericLocalisedField, isLocalisedField } from './airtableField';
+import { DEFAULT_FIELDS_MAPPING, getGenericLocalisedFieldName, hasGenericLocalisedField, isLocalisedField } from './airtableField';
 
 /**
  * Sanitize an airtable record into a proper type.
@@ -80,7 +80,7 @@ export const sanitizeRecord = <Record extends AirtableRecord = {}>(record: Airta
     // Basically, if the current locale is "FR" and we got a value for a "labelFR" then we use it
     // If we don't have a value in "labelFR" then we fallback to `label${DEFAULT_LOCALE}` (i.e: labelEN)
     if (isLocalisedField(fieldName, preferredLocales) && !hasBeenLocalised) {
-      const genericLocalisedField = getGenericLocalisedField(fieldName);
+      const genericLocalisedField = getGenericLocalisedFieldName(fieldName);
 
       map(preferredLocales, (locale: string, i: number) => {
         const hasBeenLocalised = isLocalisedField(fieldName, preferredLocales) ? hasGenericLocalisedField(sanitizedRecord, fieldName) : false;
