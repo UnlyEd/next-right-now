@@ -11,6 +11,10 @@ module.exports = {
     },
   },
   modulePathIgnorePatterns: [
-    'cypress'
-  ]
+    'cypress',
+  ],
+  setupFilesAfterEnv: [
+    'jest-extended',
+    './jest.setup.js',
+  ],
 };

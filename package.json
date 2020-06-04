@@ -44,12 +44,6 @@
     "security:audit": "yarn audit",
     "packages:upgrade": "yarn upgrade-interactive --latest"
   },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "jest-extended",
-      "./jest.setup.js"
-    ]
-  },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
     "@emotion/core": "10.0.28",

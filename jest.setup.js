@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
 /**
  * @see https://github.com/vercel/next.js/discussions/13678 How to use built-in fetch in tests?
@@ -8,4 +8,4 @@ import fetch from 'node-fetch';
 // Polyfill "fetch" for node.js, so that our tests may replicate the built-in "fetch" provided by Next.js
 global.fetch = fetch;
 
-console.info('Jest env has been enhanced - See "./jest.setup.js"')
+console.info('Jest env has been enhanced - See "./jest.setup.js"');
