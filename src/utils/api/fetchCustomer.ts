@@ -6,6 +6,7 @@ import { Product } from '../../types/data/Product';
 import { Theme } from '../../types/data/Theme';
 import { buildDataset } from '../data/airtableDataset';
 import { sanitizeRecord } from '../data/airtableRecord';
+import memoizeWithTTL from '../memoization/memoizeWithTTL';
 import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable';
 
 /**
@@ -15,9 +16,9 @@ import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable
  */
 const fetchCustomer = async (preferredLocales: string[]): Promise<AirtableRecord<Customer>> => {
   const customerRef = process.env.NEXT_PUBLIC_CUSTOMER_REF;
-  const { records: airtableCustomers } = await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
-  const { records: airtableThemes } = await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Theme>>>('Theme');
-  const { records: airtableProducts } = await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Product>>>('Product');
+  const { records: airtableCustomers } = await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'));
+  const { records: airtableThemes } = await memoizeWithTTL('ThemeTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Theme>>>('Theme'));
+  const { records: airtableProducts } = await memoizeWithTTL('ProductTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Product>>>('Product'));
   const dataset: AirtableDataset = buildDataset([
     { records: airtableCustomers, __typename: 'Customer' },
     { records: airtableThemes, __typename: 'Theme' },
