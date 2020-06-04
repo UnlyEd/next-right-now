@@ -18,7 +18,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel - See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
   env: {
     // XXX All env variables defined in ".env*" files that aren't public (don't start with "NEXT_PUBLIC_") MUST manually be made available at build time below
-    //  They're necessary locally and on Vercel for runtime execution (SSR, SSG with revalidate, everything that happens server-side will need those)
+    //  They're necessary on Vercel for runtime execution (SSR, SSG with revalidate, everything that happens server-side will need those)
     //  See https://nextjs.org/docs/api-reference/next.config.js/environment-variables
     AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY,
     AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID,
