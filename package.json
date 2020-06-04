@@ -138,6 +138,7 @@
     "cross-env": "7.0.2",
     "cypress": "4.5.0",
     "del-cli": "3.0.1",
+    "dotenv": "8.2.0",
     "eslint": "7.0.0",
     "eslint-plugin-jest": "23.13.1",
     "eslint-plugin-jsx-a11y": "6.2.3",

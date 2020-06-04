@@ -14,7 +14,7 @@ module.exports = {
     'cypress',
   ],
   setupFilesAfterEnv: [
-    'jest-extended',
+    'jest-extended', // See https://github.com/jest-community/jest-extended
     './jest.setup.js',
   ],
 };
