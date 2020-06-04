@@ -11,6 +11,7 @@ module.exports = {
     },
   },
   modulePathIgnorePatterns: [
+    '.next/',
     'cypress',
   ],
   setupFilesAfterEnv: [
