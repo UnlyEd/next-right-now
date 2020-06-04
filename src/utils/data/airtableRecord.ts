@@ -17,6 +17,10 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Sanitize an airtable record into a proper type.
  * Avoids manipulating Airtable's weird object, and resolve fields linking.
  *
+ * Note that Airtable always returns an array of ids for relationships, even if that relationship is single (same for assets)
+ * (yup, maybe they should learn about proper data structure, that makes it harder for no good reason)
+ * @example A Customer can have one Theme, but will get { theme: ['id'] } instead of { theme: 'id' }
+ *
  * @param record
  * @param dataset
  * @param preferredLocales
@@ -58,7 +62,7 @@ export const sanitizeRecord = <Record>(record: AirtableRecord<Record>, dataset: 
     if (fieldMapping) {
       if (fieldMapping.isArray) {
         map(fieldValue, (subFieldValue: any, subFieldName: string) => {
-          const linkedRecord = dataset[subFieldValue];
+          const linkedRecord = typeof subFieldValue === 'string' ? dataset[subFieldValue] : subFieldValue; // If subFieldValue is not a string, then it's an asset (object)
 
           // Init array if not yet init
           if (!sanitizedRecord.fields[fieldName]) {
@@ -86,7 +90,7 @@ export const sanitizeRecord = <Record>(record: AirtableRecord<Record>, dataset: 
         });
       } else {
         const id = isArray(fieldValue) ? fieldValue[0] : fieldValue;
-        const linkedRecord = dataset[id];
+        const linkedRecord = typeof id === 'string' ? dataset[id] : fieldValue[0];
         sanitizedRecord.fields[fieldName] = linkedRecord;
 
         // If a linked record has been resolved, apply it

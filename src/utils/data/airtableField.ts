@@ -41,6 +41,14 @@ export const DEFAULT_FIELDS_MAPPING: AirtableFieldsMapping = {
     table: 'Theme',
     isArray: true,
   },
+  logo: {
+    table: 'Asset',
+    isArray: false,
+  },
+  images: {
+    table: 'Asset',
+    isArray: true,
+  },
 };
 
 /**

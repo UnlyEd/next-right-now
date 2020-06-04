@@ -30,6 +30,7 @@ describe(`utils/data/airtableRecord.ts`, () => {
         // Relationships of the 2nd level must be resolved
         fields: {
           customer: CUSTOMER1,
+          logo: THEME1.fields.logo[0],
         },
         __typename: 'Theme',
       }),

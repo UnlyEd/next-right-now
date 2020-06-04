@@ -22,7 +22,7 @@ export type GenericListApiResponse<Record extends AirtableRecord = AirtableRecor
 /**
  * List of tables available in the AT Base
  */
-export type BaseTable = 'Customer' | 'Product' | 'Theme';
+export type BaseTable = 'Customer' | 'Product' | 'Theme' | 'Asset';
 
 const defaultApiOptions: ApiOptions = {
   additionalHeaders: {
