@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
+import { useTheme } from 'emotion-theming';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Container } from 'reactstrap';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
@@ -46,7 +48,8 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: CustomerContext = React.useContext(customerContext);
-  const { theme: { primaryColor } } = customer;
+  const theme = useTheme<CustomerTheme>();
+  const { primaryColor } = theme;
 
   return (
     <DefaultLayout
@@ -97,7 +100,7 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
               }
             `}
             dangerouslySetInnerHTML={{
-              __html: replaceAllOccurrences(customer?.terms?.html || '', {
+              __html: replaceAllOccurrences(customer?.terms || '', {
                 customerLabel: `<b>${customer?.label}</b>`,
               }),
             }}
@@ -109,7 +112,7 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
             <h2>HTML source code (fetched from Airtable API), as <code>RichText</code> field:</h2>
             <pre>
               <code>
-                {customer?.terms?.html}
+                {customer?.terms}
               </code>
             </pre>
           </div>

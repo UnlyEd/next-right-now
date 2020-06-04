@@ -9,7 +9,7 @@ export declare type Customer = {
   labelFR?: string;
   products?: AirtableRecord<Product>[] | string[]; // Stored as an array of strings on AT API, converted to a Product array once sanitised
   ref?: string;
-  theme?: Theme | string[]; // Stored as an array of strings on AT API, converted to a Theme object once sanitised
+  theme?: AirtableRecord<Theme> | string[]; // Stored as an array of strings on AT API, converted to a Theme object once sanitised
   terms?: Markdown; // i18n field auto computed
   termsEN?: Markdown;
   termsFR?: Markdown;

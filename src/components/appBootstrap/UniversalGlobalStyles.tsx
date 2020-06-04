@@ -2,10 +2,10 @@
 import { css, Global, jsx } from '@emotion/core';
 
 import { NRN_DEFAULT_FONT, NRN_DEFAULT_SECONDARY_COLOR } from '../../constants';
-import { Theme } from '../../types/data/Theme';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 
 type Props = {
-  theme: Theme;
+  customerTheme: CustomerTheme;
 }
 
 /**
@@ -20,8 +20,8 @@ type Props = {
  * @param props
  */
 const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { theme } = props;
-  const { primaryColor } = theme;
+  const { customerTheme } = props;
+  const { primaryColor } = customerTheme;
   const primaryAltColor = primaryColor; // Helper for "primary alternative color", for customers with 2 primary colors (currently unused)
   const secondaryColor = NRN_DEFAULT_SECONDARY_COLOR;
   const primaryFont = NRN_DEFAULT_FONT; // You could allow custom font per customer from Theme.font (that's what we do in our proprietary app)
@@ -134,8 +134,8 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
 
           .btn-border{
              background-color: transparent;
-             color: ${theme.primaryColor};
-             border: 1.5px solid ${theme.primaryColor};
+             color: ${primaryColor};
+             border: 1.5px solid ${primaryColor};
              border-radius: 30px;
              margin: 5px;
              padding: 5px 12px 5px 12px;

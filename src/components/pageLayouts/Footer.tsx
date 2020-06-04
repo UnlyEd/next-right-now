@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { useTheme } from 'emotion-theming';
 import startsWith from 'lodash.startswith';
 import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
@@ -8,6 +9,9 @@ import { Button, Col, Row } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
+import { AirtableRecord } from '../../types/data/AirtableRecord';
+import { Asset } from '../../types/data/Asset';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { i18nRedirect } from '../../utils/app/router';
 import { SIZE_XS } from '../../utils/assets/logo';
 import { LANG_FR } from '../../utils/i18n/i18n';
@@ -27,8 +31,9 @@ const Footer: React.FunctionComponent<Props> = () => {
   const { deviceId }: UserSession = useUserSession();
   const customer: CustomerContext = React.useContext(customerContext);
   const { lang, locale }: I18n = useI18n();
-  const theme = customer.theme;
-  const { primaryColor, logo } = theme;
+  const theme = useTheme<CustomerTheme>();
+  const { primaryColor, logo: logoAirtable } = theme;
+  const logo = (logoAirtable as AirtableRecord<Asset>)?.fields;
   const logoSizesMultipliers = [
     {
       size: SIZE_XS,

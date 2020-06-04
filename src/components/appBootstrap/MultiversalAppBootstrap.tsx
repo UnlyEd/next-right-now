@@ -8,7 +8,9 @@ import React, { useState } from 'react';
 import ErrorPage from '../../pages/_error';
 import customerContext from '../../stores/customerContext';
 import i18nContext from '../../stores/i18nContext';
-import { Theme } from '../../types/data/Theme';
+import previewModeContext from '../../stores/previewModeContext';
+import { Customer } from '../../types/data/Customer';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
@@ -19,7 +21,6 @@ import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
-import previewModeContext from '../../stores/previewModeContext';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
@@ -69,7 +70,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       lang,
       locale,
     }: SSGPageProps | SSRPageProps = pageProps;
-    const customer = airtableCustomer.fields;
+    const customer: Customer = airtableCustomer?.fields;
     let preview,
       previewData;
 
@@ -109,7 +110,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
-    const theme: Theme = initCustomerTheme(customer);
+    const customerTheme: CustomerTheme = initCustomerTheme(customer);
 
     /*
      * We split the rendering between server and browser
@@ -139,7 +140,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
           ...pageProps,
           i18nextInstance,
           isSSGFallbackInitialBuild: isSSGFallbackInitialBuild,
-          theme,
+          customerTheme,
         },
       };
     } else {
@@ -150,7 +151,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
           ...pageProps,
           i18nextInstance,
           isSSGFallbackInitialBuild: isSSGFallbackInitialBuild,
-          theme,
+          customerTheme,
         },
       };
     }
@@ -160,9 +161,9 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
         <i18nContext.Provider value={{ lang, locale }}>
           <customerContext.Provider value={customer}>
             {/* XXX Global styles that applies to all pages go there */}
-            <UniversalGlobalStyles theme={theme} />
+            <UniversalGlobalStyles customerTheme={customerTheme} />
 
-            <ThemeProvider theme={theme}>
+            <ThemeProvider theme={customerTheme}>
               {
                 isBrowser() ? (
                   <BrowserPageBootstrap
