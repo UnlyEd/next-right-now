@@ -4,6 +4,12 @@ import { Customer } from '../../types/data/Customer';
 import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable';
 
 describe(`utils/api/fetchAirtable.ts`, () => {
+  beforeEach(() => {
+    // Silent console log (used by logger.debug)
+    // @ts-expect-error
+    global.console = { debug: jest.fn(), log: jest.fn() };
+  });
+
   const expectedShape = {
     records: [
       CUSTOMER1,
