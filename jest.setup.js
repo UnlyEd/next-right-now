@@ -3,14 +3,15 @@
 //  See https://github.com/motdotla/dotenv/issues/256#issuecomment-598676663
 require('dotenv').config({ path: '.env.development.local' });
 require('dotenv').config({ path: '.env.development' });
-const fetch = require('node-fetch'); // See https://www.npmjs.com/package/node-fetch
 
 /**
- * @see https://github.com/vercel/next.js/discussions/13678 How to use built-in fetch in tests?
+ * Importing next during test applies automated polyfills:
+ *  - Polyfill the built-in "fetch" provided by Next.js
+ *
+ * @see https://github.com/vercel/next.js/discussions/13678#discussioncomment-22383 How to use built-in fetch in tests?
  * @see https://nextjs.org/blog/next-9-4#improved-built-in-fetch-support Next.js Blog - Improved Built-in Fetch Support
  * @see https://jestjs.io/docs/en/configuration#setupfilesafterenv-array About setupFilesAfterEnv usage
  */
-// Polyfill "fetch" for node.js, so that our tests may replicate the built-in "fetch" provided by Next.js
-global.fetch = fetch;
+require('next');
 
 
