@@ -1,3 +1,4 @@
+// This config cannot be used alongside package.json:jest, all Jest config must be centralised in this file - See https://github.com/facebook/jest/issues/10123#issuecomment-638796267
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
@@ -13,6 +14,7 @@ module.exports = {
   modulePathIgnorePatterns: [
     'cypress',
   ],
+  runner: 'groups', // Allow to use jest-runner-groups - See https://github.com/eugene-manuilov/jest-runner-groups#update-jest-config
   setupFilesAfterEnv: [
     'jest-extended', // See https://github.com/jest-community/jest-extended
     './jest.setup.js',

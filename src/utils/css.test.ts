@@ -1,5 +1,8 @@
 import { cssToReactStyle } from './css';
 
+/**
+ * @group utils
+ */
 describe(`utils/css.ts`, () => {
   describe(`cssToReactStyle`, () => {
     describe(`should convert to react style object correctly`, () => {
