@@ -147,6 +147,7 @@
     "eslint-watch": "6.0.1",
     "jest": "26.0.1",
     "jest-extended": "0.11.5",
+    "jest-to-match-shape-of": "1.3.0",
     "node-fetch": "2.6.0",
     "node-mocks-http": "1.8.1",
     "now": "17.1.1",
