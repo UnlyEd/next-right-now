@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export const mockRequest = (sessionData, body): NextApiRequest => ({
-  // @ts-expect-error
+  // @ts-ignore-error
   session: { data: sessionData },
   body,
 });

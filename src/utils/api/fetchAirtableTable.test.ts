@@ -9,7 +9,7 @@ import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable
 describe(`utils/api/fetchAirtable.ts`, () => {
   beforeEach(() => {
     // Silent console log (used by logger.debug)
-    // @ts-expect-error
+    // @ts-ignore-error
     global.console = { debug: jest.fn(), log: jest.fn() };
   });
 
