@@ -1,5 +1,11 @@
 import deepmerge from 'deepmerge';
 import { CachedItem, CacheStorage, StorageOptions } from './cacheStorage';
+import { createLogger } from '@unly/utils-simple-logger';
+
+const fileLabel = 'utils/cache/cache';
+const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+  label: fileLabel,
+});
 
 type Options = {
   ttl?: number; // In seconds
@@ -65,14 +71,10 @@ const cache = async <T>(keyResolver: string | (() => string), fct: () => T, opti
     if (getTimestampsElapsedTime(timestamp, +new Date()) < ttl) {
       return value;
     } else {
-      // eslint-disable-next-line no-console
-      console.debug('Cache key has expired');
+      logger.debug('Cache key has expired');
     }
   } else {
-    // eslint-disable-next-line no-console
-    console.debug('Cache key does not exist');
-    // eslint-disable-next-line no-console
-    console.debug(cacheStorage);
+    logger.debug('Cache key does not exist');
   }
 
   const unMemoizedResult: T = await fct();

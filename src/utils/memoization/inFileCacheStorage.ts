@@ -1,6 +1,7 @@
 import path from 'path';
 import { deleteFile, readFile, writeFile } from '../node/fs-utils';
 import { CachedItem, CacheStorage as GenericCacheStorage, Get, Reset, Set, StorageOptions as GenericStorageOptions } from './cacheStorage';
+import * as Sentry from '@sentry/node';
 
 type StorageOptions = GenericStorageOptions<{ filename: string }>;
 type CacheStorage = GenericCacheStorage<any, StorageOptions>;
@@ -23,8 +24,9 @@ export const get: Get = async <T>(key: string, options: StorageOptions): Promise
     try {
       cachedItem = JSON.parse(content);
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e);
-      // TODO sentry
+      Sentry.captureException(e);
     }
   }
 
