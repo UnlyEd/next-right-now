@@ -6,7 +6,7 @@ import error from './error';
 describe('error', () => {
   beforeEach(() => {
     // Silent console log (used by logger.warn)
-    // @ts-expect-error
+    // @ts-ignore-error
     global.console = { warn: jest.fn(), log: jest.fn() };
   });
 

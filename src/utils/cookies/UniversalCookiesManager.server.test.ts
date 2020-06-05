@@ -13,9 +13,9 @@ describe(`utils/UniversalCookiesManager.ts`, () => {
         const res = httpMocks.createResponse();
         const universalCookiesManager = new UniversalCookiesManager(req, res);
 
-        // @ts-expect-error
+        // @ts-ignore-error
         expect(universalCookiesManager.req).toBeDefined();
-        // @ts-expect-error
+        // @ts-ignore-error
         expect(universalCookiesManager.res).toBeDefined();
       });
     });
