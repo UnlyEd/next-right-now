@@ -1,6 +1,6 @@
 import { BaseTable } from '../../utils/api/fetchAirtableTable';
 
-export declare type AirtableFieldMapping = {
+export type AirtableFieldMapping = {
   table: BaseTable;
   isArray: boolean;
 };
@@ -15,6 +15,6 @@ export declare type AirtableFieldMapping = {
  *
  * @example { customer: Customer, customers: Customer, products: Product }
  */
-export declare type AirtableFieldsMapping = {
+export type AirtableFieldsMapping = {
   [key: string]: AirtableFieldMapping;
 }

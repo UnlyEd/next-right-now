@@ -8,7 +8,7 @@ import { MultiversalPageProps } from '../pageProps/MultiversalPageProps';
  *
  * @see MultiversalAppBootstrap for usage
  */
-export declare type MultiversalAppBootstrapProps<PP extends MultiversalPageProps = MultiversalPageProps> = {
+export type MultiversalAppBootstrapProps<PP extends MultiversalPageProps = MultiversalPageProps> = {
   Component?: NextComponentType<NextPageContext>; // Page component, not provided if pageProps.statusCode is 3xx or 4xx
   err?: Error; // Only defined if there was an error
   pageProps?: PP; // Props forwarded to the Page component

@@ -14,7 +14,7 @@ import { OnlyServerPageProps } from './OnlyServerPageProps';
  * XXX When using this type, you must make sure you're using the right runtime engine (browser/server)
  *  For instance, it'll allow to use browser-only props like "isInIframe" without complaining, but you should provide a proper default if not set
  */
-export declare type SoftPageProps<E extends {} = {}> =
+export type SoftPageProps<E extends {} = {}> =
   MultiversalPageProps &
   Partial<OnlyBrowserPageProps> &
   Partial<OnlyServerPageProps>;
