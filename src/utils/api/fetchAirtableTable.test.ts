@@ -1,8 +1,8 @@
 import { CUSTOMER1 } from '../../mocks/airtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
-import memoizeWithTTL from '../memoization/memoizeWithTTL';
-import { reset as cacheReset } from '../memoization/inMemoryCache';
+import cache from '../memoization/cache';
+import { reset as cacheReset } from '../memoization/inMemoryCacheStorage';
 import waitFor from '../timers/waitFor';
 import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable';
 
@@ -47,40 +47,40 @@ describe(`utils/api/fetchAirtable.ts`, () => {
       });
 
       test(`when using the default TTL`, async () => {
-        const cacheHitsBefore = require('../memoization/inMemoryCache').cacheHits;
-        const cacheMissBefore = require('../memoization/inMemoryCache').cacheMiss;
-        expect(await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'))).toMatchOneOf([
+        const cacheHitsBefore = require('../memoization/inMemoryCacheStorage').cacheHits;
+        const cacheMissBefore = require('../memoization/inMemoryCacheStorage').cacheMiss;
+        expect(await cache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'))).toMatchOneOf([
           expectedShape,
           expectedShapeWithoutOptionalFields,
         ]);
-        expect(await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'))).toMatchOneOf([
+        expect(await cache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'))).toMatchOneOf([
           expectedShape,
           expectedShapeWithoutOptionalFields,
         ]);
 
-        const cacheHitsAfter = require('../memoization/inMemoryCache').cacheHits;
-        const cacheMissAfter = require('../memoization/inMemoryCache').cacheMiss;
+        const cacheHitsAfter = require('../memoization/inMemoryCacheStorage').cacheHits;
+        const cacheMissAfter = require('../memoization/inMemoryCacheStorage').cacheMiss;
         expect(cacheHitsAfter).toBeGreaterThan(cacheHitsBefore);
         expect(cacheMissAfter).toEqual(cacheMissBefore + 1); // Cache should have been missed only for the first call
       });
 
       describe(`should fetch multiple times and miss the cache`, () => {
         test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
-          const cacheHitsBefore = require('../memoization/inMemoryCache').cacheHits;
-          const cacheMissBefore = require('../memoization/inMemoryCache').cacheMiss;
+          const cacheHitsBefore = require('../memoization/inMemoryCacheStorage').cacheHits;
+          const cacheMissBefore = require('../memoization/inMemoryCacheStorage').cacheMiss;
           await waitFor(1001);
-          expect(await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { ttl: 1 })).toMatchOneOf([
+          expect(await cache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { ttl: 1 })).toMatchOneOf([
             expectedShape,
             expectedShapeWithoutOptionalFields,
           ]);
           await waitFor(1001);
-          expect(await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { ttl: 1 })).toMatchOneOf([
+          expect(await cache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { ttl: 1 })).toMatchOneOf([
             expectedShape,
             expectedShapeWithoutOptionalFields,
           ]);
 
-          const cacheHitsAfter = require('../memoization/inMemoryCache').cacheHits;
-          const cacheMissAfter = require('../memoization/inMemoryCache').cacheMiss;
+          const cacheHitsAfter = require('../memoization/inMemoryCacheStorage').cacheHits;
+          const cacheMissAfter = require('../memoization/inMemoryCacheStorage').cacheMiss;
           expect(cacheHitsAfter).toEqual(cacheHitsBefore + 1);
           expect(cacheMissAfter).toBeGreaterThan(cacheMissBefore);
         });

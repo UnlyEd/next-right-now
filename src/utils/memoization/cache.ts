@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import cache, { CachedItem, get, set } from './inMemoryCache';
+import { CachedItem, CacheStorage, StorageOptions } from './cacheStorage';
 
 type Options = {
   ttl?: number; // In seconds
@@ -7,7 +7,9 @@ type Options = {
     type: 'memory';
   } | {
     type: 'disk';
-    filename: string;
+    options: {
+      filename: string;
+    };
   };
   enabled: boolean;
 }
@@ -28,13 +30,23 @@ const defaultOptions: Required<Options> = {
  */
 const getTimestampsElapsedTime = (oldTimestamp: number, newTimestamp: number): number => (newTimestamp - oldTimestamp) / 1000;
 
-const memoizeWithTTL = async <T>(keyResolver: string | (() => string), fct: () => T, options: Partial<Options> = defaultOptions): Promise<T> => {
+const cache = async <T>(keyResolver: string | (() => string), fct: () => T, options: Partial<Options> = defaultOptions): Promise<T> => {
   const { ttl, enabled, storage } = deepmerge(defaultOptions, options);
 
   if (!enabled) { // Bypasses cache completely
     // eslint-disable-next-line no-console
     console.debug('Cache is disabled, bypassing');
     return fct();
+  }
+  let cacheStorage: CacheStorage;
+  let storageOptions: StorageOptions = {};
+
+  if (storage.type === 'memory') {
+    cacheStorage = require('./inMemoryCacheStorage');
+  } else {
+    cacheStorage = require('./inFileCacheStorage');
+    const { options } = storage;
+    storageOptions = options;
   }
 
   let key: string;
@@ -45,7 +57,7 @@ const memoizeWithTTL = async <T>(keyResolver: string | (() => string), fct: () =
     key = keyResolver;
   }
 
-  const cachedItem: CachedItem = get(key);
+  const cachedItem: CachedItem = await cacheStorage.get(key, storageOptions);
 
   if (typeof cachedItem !== 'undefined') {
     const { value, timestamp } = cachedItem;
@@ -60,11 +72,11 @@ const memoizeWithTTL = async <T>(keyResolver: string | (() => string), fct: () =
     // eslint-disable-next-line no-console
     console.debug('Cache key does not exist');
     // eslint-disable-next-line no-console
-    console.debug(cache);
+    console.debug(cacheStorage);
   }
 
   const unMemoizedResult: T = await fct();
-  return set(key, unMemoizedResult);
+  return cacheStorage.set(key, unMemoizedResult, storageOptions);
 };
 
-export default memoizeWithTTL;
+export default cache;
