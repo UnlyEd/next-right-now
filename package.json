@@ -7,7 +7,7 @@
     "build": "yarn test:once && next build",
     "analyse:bundle": "ANALYZE_BUNDLE=true yarn start",
     "analyse:base": "madge src/ --extensions ts,tsx",
-    "analyse:unused": "node scripts/detect-unused.js",
+    "analyse:unused": "next-unused",
     "analyse:circular": "yarn analyse:base --circular",
     "analyse:orphans": "yarn analyse:base --orphans",
     "svg": "npx svgr -d src/svg src/svg --ext tsx --template src/utils/svg/svgTemplate.ts",
@@ -47,6 +47,28 @@
     "test:config": "NODE_ENV=test jest --showConfig",
     "security:audit": "yarn audit",
     "packages:upgrade": "yarn upgrade-interactive --latest"
+  },
+  "next-unused": {
+    "alias": {},
+    "debug": true,
+    "include": [
+      "src/components",
+      "src/gql",
+      "src/hocs",
+      "src/hooks",
+      "src/middlewares",
+      "src/mocks",
+      "src/pages",
+      "src/propTypes",
+      "src/stores",
+      "src/types",
+      "src/utils"
+    ],
+    "exclude": [],
+    "entrypoints": [
+      "src/components",
+      "src/pages"
+    ]
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
@@ -162,6 +184,7 @@
     "jest-extended": "0.11.5",
     "jest-to-match-shape-of": "1.3.0",
     "madge": "3.9.0",
+    "next-unused": "0.0.1",
     "node-mocks-http": "1.8.1",
     "now": "17.1.1",
     "react-test-renderer": "16.13.1",
