@@ -1,6 +1,4 @@
-import {
-  FallbackConfig, FallbackConfigTransformProps, filterSelectedRecords, getValue, getValueFallback, hasValue, NOT_FOUND, Record, STRATEGY_DO_NOTHING,
-} from './record';
+import { FallbackConfig, FallbackConfigTransformProps, filterSelectedRecords, GenericRecord, getValueFallback, hasValue, NOT_FOUND } from './record';
 
 describe('utils/record.ts', () => {
   beforeEach(() => {
@@ -11,7 +9,7 @@ describe('utils/record.ts', () => {
 
   describe('hasValue', () => {
     test('should return false when the given value is not defined', async () => {
-      const item: Record = {
+      const item: GenericRecord = {
         '': '',
         emptyObject: {},
         emptyArray: [],
@@ -34,7 +32,7 @@ describe('utils/record.ts', () => {
 
     // Edge cases, not handled yet
     test('should return true when the given value is defined', async () => {
-      const item: Record = {
+      const item: GenericRecord = {
         string: 'string',
         string2: '0',
         string3: '-1',
@@ -57,104 +55,6 @@ describe('utils/record.ts', () => {
       expect(hasValue(item, 'array1')).toEqual(true);
       expect(hasValue(item, 'array2')).toEqual(true);
       expect(hasValue(item, 'htmlParagraph')).toEqual(true);
-    });
-  });
-
-  describe('getValue', () => {
-    test('should return null when the given key is not defined without logging the error (with STRATEGY_DO_NOTHING)', async () => {
-      const item: Record = {
-        false: false,
-        true: true,
-        empty: '',
-        0: 0,
-      };
-
-      expect(getValue(item, 'notThere', null, STRATEGY_DO_NOTHING)).toEqual(null);
-      expect(getValue(item, 'notThereEither', null, STRATEGY_DO_NOTHING)).toEqual(null);
-      expect(getValue(item, '1', null, STRATEGY_DO_NOTHING)).toEqual(null);
-      expect(getValue(item, '_', null, STRATEGY_DO_NOTHING)).toEqual(null);
-      expect(getValue(item, '', null, STRATEGY_DO_NOTHING)).toEqual(null);
-      expect(getValue(item, null, null, STRATEGY_DO_NOTHING)).toEqual(null);
-      // @ts-expect-error
-      expect(getValue(item, 50.5, null, STRATEGY_DO_NOTHING)).toEqual(null);
-      // @ts-expect-error
-      expect(getValue(item, {}, null, STRATEGY_DO_NOTHING)).toEqual(null);
-      // @ts-expect-error
-      expect(getValue(item, { 0: 0 }, null, STRATEGY_DO_NOTHING)).toEqual(null);
-      // @ts-expect-error
-      expect(getValue(item, 0, null, STRATEGY_DO_NOTHING)).toEqual(null);
-      expect(console.log).not.toBeCalled();
-    });
-
-    test('should return null when the given key is not defined and log the error (without STRATEGY_DO_NOTHING)', async () => {
-      const item: Record = {
-        false: false,
-        true: true,
-        empty: '',
-        0: 0,
-      };
-
-      expect(getValue(item, 'notThere')).toEqual(null);
-      expect(console.log).toBeCalled();
-      expect(getValue(item, 'notThereEither')).toEqual(null);
-      expect(console.log).toBeCalled();
-      expect(getValue(item, '1')).toEqual(null);
-      expect(console.log).toBeCalled();
-      expect(getValue(item, '_')).toEqual(null);
-      expect(console.log).toBeCalled();
-      expect(getValue(item, '')).toEqual(null);
-      expect(console.log).toBeCalled();
-      expect(getValue(item, null)).toEqual(null);
-      expect(console.log).toBeCalled();
-      // @ts-expect-error
-      expect(getValue(item, 50.5)).toEqual(null);
-      expect(console.log).toBeCalled();
-      // @ts-expect-error
-      expect(getValue(item, {})).toEqual(null);
-      expect(console.log).toBeCalled();
-      // @ts-expect-error
-      expect(getValue(item, { 0: 0 })).toEqual(null);
-      expect(console.log).toBeCalled();
-      // @ts-expect-error
-      expect(getValue(item, 0)).toEqual(null);
-      expect(console.log).toBeCalled();
-    });
-
-    test('should return the expected value when the given value is defined (with multi depths)', async () => {
-      const item: Record = {
-        string: 'string',
-        string2: '0',
-        string3: '-1',
-        object: { a: 0 },
-        object2: { 0: 0 },
-        object3: { '': 0 },
-        array: [0],
-        array1: [1],
-        array2: [-1],
-        htmlParagraph: '<p>a</p>',
-        htmlParagraphEmpty: '<p></p>',
-        objectDeep1: { 'a': { a: 2 } },
-        objectDeep2: { 1: { a: [0] } },
-        objectDeep3: { '-99': { a: [{ b: { c: 5 } }] } },
-      };
-
-      expect(getValue(item, 'string')).toEqual('string');
-      expect(getValue(item, 'string2')).toEqual('0');
-      expect(getValue(item, 'string3')).toEqual('-1');
-      expect(getValue(item, 'object')).toMatchObject({ a: 0 });
-      expect(getValue(item, 'object2')).toMatchObject({ 0: 0 });
-      expect(getValue(item, 'object3')).toMatchObject({ '': 0 });
-      expect(getValue(item, 'array')).toEqual([0]);
-      expect(getValue(item, 'array1')).toEqual([1]);
-      expect(getValue(item, 'array2')).toEqual([-1]);
-      expect(getValue(item, 'htmlParagraph')).toEqual('<p>a</p>');
-      expect(getValue(item, 'htmlParagraphEmpty')).toEqual('<p></p>');
-      expect(getValue(item, 'objectDeep1.a.a')).toEqual(2);
-      expect(getValue(item, 'objectDeep2.1.a')).toEqual([0]);
-      expect(getValue(item, 'objectDeep2.1.a[0]')).toEqual(0);
-      expect(getValue(item, 'objectDeep3.-99.a[0].b')).toMatchObject({ c: 5 });
-      expect(getValue(item, 'objectDeep3.-99.a[0].b["c"]')).toEqual(5);
-      expect(console.log).not.toBeCalled();
     });
   });
 
@@ -351,7 +251,7 @@ describe('utils/record.ts', () => {
         },
       ];
 
-      expect(getValueFallback(fallbacks, 55)).toEqual(55);
+      expect(getValueFallback(fallbacks, 55, 'LOG_ERROR')).toEqual(55);
       expect(console.log).toBeCalled();
     });
 
@@ -381,7 +281,7 @@ describe('utils/record.ts', () => {
   });
 
   describe('filterSelectedRecords', () => {
-    const allRecords: Record[] = [
+    const allRecords: GenericRecord[] = [
       { id: '1' },
       { id: '2' },
       { id: '3' },

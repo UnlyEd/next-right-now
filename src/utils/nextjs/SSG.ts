@@ -7,7 +7,7 @@ import { supportedLocales } from '../../i18nConfig';
 import { Customer } from '../../types/data/Customer';
 import { I18nLocale } from '../../types/i18n/I18nLocale';
 import { PreviewData } from '../../types/nextjs/PreviewData';
-import { StaticParams } from '../../types/nextjs/StaticParams';
+import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { StaticPath } from '../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../types/nextjs/StaticPathsOutput';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
@@ -32,7 +32,7 @@ import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
+export const getCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): Promise<StaticPathsOutput> => {
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the GraphQL query by your own API query, while keeping the existing example pages working.
@@ -56,7 +56,7 @@ export const getCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Prom
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getCommonStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the GraphQL query by your own API query, while keeping the existing example pages working.
@@ -81,7 +81,7 @@ export const getCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = 
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getExamplesCommonStaticPaths: GetStaticPaths<StaticParams> = async (): Promise<StaticPathsOutput> => {
+export const getExamplesCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): Promise<StaticPathsOutput> => {
   const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
     return {
       params: {
@@ -115,7 +115,7 @@ export const getExamplesCommonStaticPaths: GetStaticPaths<StaticParams> = async 
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const preview: boolean = props?.preview || false;
   const previewData: PreviewData = props?.previewData || null;

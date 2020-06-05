@@ -15,8 +15,8 @@ type Props = {
  * @param props
  */
 const ErrorDebug = (props: Props): JSX.Element => {
-  const { error, context }: Props = props;
-  const { message, stack } = error;
+  const { error, context }: Props = props || {};
+  const { message, stack } = error || {};
 
   let stringifiedContext;
   try {
