@@ -2,15 +2,13 @@ import { CUSTOMER1 } from '../../mocks/airtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
 import hybridCache from '../caching/hybridCache';
-import { reset as cacheReset } from '../caching/inMemoryCacheStorage';
+import { reset as cacheReset } from '../caching/memoryCacheStorage';
 import waitFor from '../timers/waitFor';
 import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable';
 
 describe(`utils/api/fetchAirtable.ts`, () => {
   beforeEach(() => {
-    // Silent console log (used by logger.debug)
-    // @ts-ignore-error
-    global.console = { debug: jest.fn(), log: jest.fn() };
+    global.console = global.muteConsole(); // Silent console
   });
 
   const expectedShape = {
@@ -47,8 +45,8 @@ describe(`utils/api/fetchAirtable.ts`, () => {
       });
 
       test(`when using the default TTL`, async () => {
-        const cacheHitsBefore = require('../caching/inMemoryCacheStorage').cacheHits;
-        const cacheMissBefore = require('../caching/inMemoryCacheStorage').cacheMiss;
+        const cacheHitsBefore = require('../caching/memoryCacheStorage').cacheHits;
+        const cacheMissBefore = require('../caching/memoryCacheStorage').cacheMiss;
         expect(await hybridCache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'))).toMatchOneOf([
           expectedShape,
           expectedShapeWithoutOptionalFields,
@@ -58,16 +56,16 @@ describe(`utils/api/fetchAirtable.ts`, () => {
           expectedShapeWithoutOptionalFields,
         ]);
 
-        const cacheHitsAfter = require('../caching/inMemoryCacheStorage').cacheHits;
-        const cacheMissAfter = require('../caching/inMemoryCacheStorage').cacheMiss;
+        const cacheHitsAfter = require('../caching/memoryCacheStorage').cacheHits;
+        const cacheMissAfter = require('../caching/memoryCacheStorage').cacheMiss;
         expect(cacheHitsAfter).toBeGreaterThan(cacheHitsBefore);
         expect(cacheMissAfter).toEqual(cacheMissBefore + 1); // Cache should have been missed only for the first call
       });
 
       describe(`should fetch multiple times and miss the cache`, () => {
         test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
-          const cacheHitsBefore = require('../caching/inMemoryCacheStorage').cacheHits;
-          const cacheMissBefore = require('../caching/inMemoryCacheStorage').cacheMiss;
+          const cacheHitsBefore = require('../caching/memoryCacheStorage').cacheHits;
+          const cacheMissBefore = require('../caching/memoryCacheStorage').cacheMiss;
           await waitFor(1001);
           expect(await hybridCache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { ttl: 1 })).toMatchOneOf([
             expectedShape,
@@ -79,8 +77,8 @@ describe(`utils/api/fetchAirtable.ts`, () => {
             expectedShapeWithoutOptionalFields,
           ]);
 
-          const cacheHitsAfter = require('../caching/inMemoryCacheStorage').cacheHits;
-          const cacheMissAfter = require('../caching/inMemoryCacheStorage').cacheMiss;
+          const cacheHitsAfter = require('../caching/memoryCacheStorage').cacheHits;
+          const cacheMissAfter = require('../caching/memoryCacheStorage').cacheMiss;
           expect(cacheHitsAfter).toEqual(cacheHitsBefore + 1);
           expect(cacheMissAfter).toBeGreaterThan(cacheMissBefore);
         });

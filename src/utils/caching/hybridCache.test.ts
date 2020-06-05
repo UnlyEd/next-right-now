@@ -1,14 +1,12 @@
 import waitFor from '../timers/waitFor';
 import cache from './hybridCache';
 import { StorageOptions } from './hybridCacheStorage';
-import { reset as inDiskCacheReset } from './inDiskCacheStorage';
-import { reset as inMemoryCacheReset } from './inMemoryCacheStorage';
+import { reset as inDiskCacheReset } from './diskCacheStorage';
+import { reset as inMemoryCacheReset } from './memoryCacheStorage';
 
 describe(`utils/memoization/cache.ts`, () => {
   beforeEach(() => {
-    // Silent console log (used by logger.debug)
-    // @ts-ignore
-    global.console = global.muteConsole();
+    global.console = global.muteConsole(); // Silent console
   });
 
   describe(`cache`, () => {
@@ -20,8 +18,8 @@ describe(`utils/memoization/cache.ts`, () => {
 
       describe(`when using in-memory storage`, () => {
         test(`when using the default TTL`, async () => {
-          const cacheHitsBefore = require('.//inMemoryCacheStorage').cacheHits;
-          const cacheMissBefore = require('.//inMemoryCacheStorage').cacheMiss;
+          const cacheHitsBefore = require('./memoryCacheStorage').cacheHits;
+          const cacheMissBefore = require('./memoryCacheStorage').cacheMiss;
           expect(await cache('key', async () => {
             await waitFor(1);
             return expectationResult;
@@ -31,8 +29,8 @@ describe(`utils/memoization/cache.ts`, () => {
             return Promise.resolve(expectationResult);
           })).toEqual(expectationResult);
 
-          const cacheHitsAfter = require('.//inMemoryCacheStorage').cacheHits;
-          const cacheMissAfter = require('.//inMemoryCacheStorage').cacheMiss;
+          const cacheHitsAfter = require('./memoryCacheStorage').cacheHits;
+          const cacheMissAfter = require('./memoryCacheStorage').cacheMiss;
           expect(cacheHitsAfter).toBeGreaterThan(cacheHitsBefore);
           expect(cacheMissAfter).toEqual(cacheMissBefore + 1); // Cache should have been missed only for the first call
         });
@@ -41,8 +39,8 @@ describe(`utils/memoization/cache.ts`, () => {
           const expectationResult = { key2: 'value2' };
 
           test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
-            const cacheHitsBefore = require('.//inMemoryCacheStorage').cacheHits;
-            const cacheMissBefore = require('.//inMemoryCacheStorage').cacheMiss;
+            const cacheHitsBefore = require('./memoryCacheStorage').cacheHits;
+            const cacheMissBefore = require('./memoryCacheStorage').cacheMiss;
             await waitFor(1001);
             expect(await cache('key2', async () => {
               await waitFor(1);
@@ -54,8 +52,8 @@ describe(`utils/memoization/cache.ts`, () => {
               return Promise.resolve(expectationResult);
             })).toEqual(expectationResult);
 
-            const cacheHitsAfter = require('.//inMemoryCacheStorage').cacheHits;
-            const cacheMissAfter = require('.//inMemoryCacheStorage').cacheMiss;
+            const cacheHitsAfter = require('./memoryCacheStorage').cacheHits;
+            const cacheMissAfter = require('./memoryCacheStorage').cacheMiss;
             expect(cacheHitsAfter).toEqual(cacheHitsBefore + 1);
             expect(cacheMissAfter).toBeGreaterThan(cacheMissBefore);
           });

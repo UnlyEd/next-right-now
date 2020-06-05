@@ -11,6 +11,7 @@ export const get: Get = async <T>(key: string): Promise<CachedItem<T>> => {
 
   return cache[key];
 };
+
 export const set: Set = async <T>(key: string, item: T): Promise<T> => {
   ++cacheMiss;
   cache[key] = {
