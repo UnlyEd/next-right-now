@@ -1,30 +1,32 @@
 import path from 'path';
-import { readFile, writeFile } from '../node/fs-utils';
-import {
-  CachedItem,
-  CacheHits,
-  CacheMiss,
-  CacheStorage as GenericCacheStorage,
-  Get,
-  Reset,
-  Set,
-  StorageOptions as GenericStorageOptions,
-} from './cacheStorage';
+import { deleteFile, readFile, writeFile } from '../node/fs-utils';
+import { CachedItem, CacheStorage as GenericCacheStorage, Get, Reset, Set, StorageOptions as GenericStorageOptions } from './cacheStorage';
 
 type StorageOptions = GenericStorageOptions<{ filename: string }>;
 type CacheStorage = GenericCacheStorage<any, StorageOptions>;
 
-export let cacheHits: CacheHits = 0;
-export let cacheMiss: CacheMiss = 0;
+const PREFIX = '.nrn';
 
 export const get: Get = async <T>(key: string, options: StorageOptions): Promise<CachedItem<T>> => {
   const { filename } = options;
-  const content = await readFile(path.resolve(filename + '-' + key), 'utf8');
-  console.log('content', content);
-  const cachedItem: CachedItem = JSON.parse(content);
+  let content;
 
-  if (typeof cachedItem !== 'undefined') {
-    ++cacheHits;
+  try {
+    content = await readFile(path.resolve(PREFIX + '-' + key + '-' + filename), 'utf8');
+  } catch (e) {
+    // File doesn't exist (normal when cache has never been written)
+  }
+
+  let cachedItem: CachedItem;
+
+  console.log('content', content);
+  try {
+    cachedItem = JSON.parse(content);
+    console.log('cachedItem', cachedItem);
+
+  } catch (e) {
+    console.error(e);
+    // TODO sentry
   }
 
   return cachedItem;
@@ -37,18 +39,19 @@ export const set: Set = async <T>(key: string, item: T, options: StorageOptions)
     value: item,
   };
 
-  ++cacheMiss;
-
-  await writeFile(filename + '-' + key, JSON.stringify(cachedItem), 'utf8');
+  await writeFile(path.resolve(PREFIX + '-' + key + '-' + filename), JSON.stringify(cachedItem), 'utf8');
 
   return item;
 };
 
-export const reset: Reset = (): Promise<void> => {
-  cacheHits = 0;
-  cacheMiss = 0;
-  // TODO
+export const reset: Reset = async (key, options: StorageOptions): Promise<void> => {
+  const { filename } = options;
 
+  try {
+    await deleteFile(PREFIX + '-' + key + '-' + filename);
+  } catch (e) {
+    // File doesn't exist (normal when cache has never been written)
+  }
   return;
 };
 

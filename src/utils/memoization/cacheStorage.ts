@@ -11,7 +11,7 @@ export type CachedItem<T = any> = {
 export type StorageOptions<Options extends {} = {}> = Options;
 export type Get<T = any, Options extends StorageOptions = {}> = <T>(key: string, options?: Options) => Promise<CachedItem<T>>;
 export type Set<T = any, Options extends StorageOptions = {}> = <T>(key: string, item: T, options?: Options) => Promise<T>;
-export type Reset<> = () => Promise<void>;
+export type Reset<Options extends StorageOptions = {}> = (string?, options?: Options) => Promise<void>;
 export type Cache<T = any> = {
   [key: string]: CachedItem<T>;
 }

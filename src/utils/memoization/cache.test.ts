@@ -1,19 +1,20 @@
 import cache from '../memoization/cache';
-import { reset as cacheReset } from '../memoization/inMemoryCacheStorage';
+import { reset as inDiskCacheReset } from '../memoization/inFileCacheStorage';
+import { reset as inMemoryCacheReset } from '../memoization/inMemoryCacheStorage';
 import waitFor from '../timers/waitFor';
 import { StorageOptions } from './cacheStorage';
 
 describe(`utils/memoization/cache.ts`, () => {
   beforeEach(() => {
     // Silent console log (used by logger.debug)
-    // @ts-ignore-error
-    global.console = { debug: jest.fn(), log: jest.fn() };
+    // @ts-ignore
+    global.console = global.muteConsole();
   });
 
   describe(`cache`, () => {
     describe(`should not fetch multiple times in a row but rely on the cache instead`, () => {
-      beforeEach(() => {
-        cacheReset();
+      afterEach(() => {
+        inMemoryCacheReset();
       });
       const expectationResult = { key: 'value' };
 
@@ -62,47 +63,39 @@ describe(`utils/memoization/cache.ts`, () => {
       });
 
       describe(`when using file storage (on disk)`, () => {
-        const storageOptions: StorageOptions = { storage: { type: 'disk', options: { filename: '.test-cache1' } } };
+        const storageOptions: StorageOptions = { storage: { type: 'disk', options: { filename: 'test-cache1.cache' } } };
+        const key = 'key';
 
         test(`when using the default TTL`, async () => {
-          const cacheHitsBefore = require('../memoization/inMemoryCacheStorage').cacheHits;
-          const cacheMissBefore = require('../memoization/inMemoryCacheStorage').cacheMiss;
-          expect(await cache('key', async () => {
+          expect(await cache(key, async () => {
             await waitFor(1);
             return expectationResult;
           }, storageOptions)).toEqual(expectationResult);
-          expect(await cache('key', async () => {
+          expect(await cache(key, async () => {
             await waitFor(1);
             return Promise.resolve(expectationResult);
           }, storageOptions)).toEqual(expectationResult);
 
-          const cacheHitsAfter = require('../memoization/inMemoryCacheStorage').cacheHits;
-          const cacheMissAfter = require('../memoization/inMemoryCacheStorage').cacheMiss;
-          expect(cacheHitsAfter).toBeGreaterThan(cacheHitsBefore);
-          expect(cacheMissAfter).toEqual(cacheMissBefore + 1); // Cache should have been missed only for the first call
+          await inDiskCacheReset(key, storageOptions);
         });
 
         describe(`should fetch multiple times and miss the cache`, () => {
           const expectationResult = { key2: 'value2' };
+          const key = 'key2';
 
           test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
-            const cacheHitsBefore = require('../memoization/inMemoryCacheStorage').cacheHits;
-            const cacheMissBefore = require('../memoization/inMemoryCacheStorage').cacheMiss;
             await waitFor(1001);
-            expect(await cache('key2', async () => {
+            expect(await cache(key, async () => {
               await waitFor(1);
               return Promise.resolve(expectationResult);
             }, storageOptions)).toEqual(expectationResult);
             await waitFor(1001);
-            expect(await cache('key2', async () => {
+            expect(await cache(key, async () => {
               await waitFor(1);
               return Promise.resolve(expectationResult);
             }, storageOptions)).toEqual(expectationResult);
 
-            const cacheHitsAfter = require('../memoization/inMemoryCacheStorage').cacheHits;
-            const cacheMissAfter = require('../memoization/inMemoryCacheStorage').cacheMiss;
-            expect(cacheHitsAfter).toEqual(cacheHitsBefore + 1);
-            expect(cacheMissAfter).toBeGreaterThan(cacheMissBefore);
+            await inDiskCacheReset(key, storageOptions);
           });
         });
       });
