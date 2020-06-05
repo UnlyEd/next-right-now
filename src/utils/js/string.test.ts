@@ -20,9 +20,9 @@ describe(`utils/string.ts`, () => {
         expect(replaceAllOccurrences('example', null)).toBe('example');
       });
       test(`when the "variables" are of unexpected types`, async () => {
-        // @ts-expect-error
+        // @ts-ignore-error
         expect(replaceAllOccurrences('example', 1)).toBe('example');
-        // @ts-expect-error
+        // @ts-ignore-error
         expect(replaceAllOccurrences('example', 'test')).toBe('example');
         expect(replaceAllOccurrences('example', ['test'])).toBe('example');
       });

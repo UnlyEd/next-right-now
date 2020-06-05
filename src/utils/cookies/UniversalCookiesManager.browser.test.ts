@@ -16,9 +16,9 @@ describe(`utils/UniversalCookiesManager.ts`, () => {
       test(`should init correctly (no arg)`, async () => {
         const universalCookiesManager = new UniversalCookiesManager();
 
-        // @ts-expect-error
+        // @ts-ignore-error
         expect(universalCookiesManager.req).toEqual(null);
-        // @ts-expect-error
+        // @ts-ignore-error
         expect(universalCookiesManager.res).toEqual(null);
       });
     });
@@ -80,7 +80,7 @@ describe(`utils/UniversalCookiesManager.ts`, () => {
 
         expect(userSessionPatched.id).toBeDefined();
         expect(userSessionPatched.deviceId).toBeDefined();
-        // @ts-expect-error
+        // @ts-ignore-error
         expect(document.cookie).toEqual(`user={"id":"${userSessionPatched.id}","deviceId":"${userSessionPatched.deviceId}","persona":"${userSessionPatched.persona}"}`);
       });
     });

@@ -79,17 +79,24 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     },
   },
   webpack: (config, { isServer, buildId }) => {
+    if (isServer) {
+      process.env.IS_SERVER_INITIAL_BUILD = '1';
+    } else {
+      process.env.IS_SERVER_INITIAL_BUILD = undefined;
+    }
+
     const APP_VERSION_RELEASE = `${packageJson.version}_${buildId}`;
     config.plugins.map((plugin, i) => {
       if (plugin.definitions) { // If it has a "definitions" key, then we consider it's the DefinePlugin where ENV vars are stored
         // Dynamically add some "env" variables that will be replaced during the build in "DefinePlugin"
         plugin.definitions['process.env.NEXT_PUBLIC_APP_BUILD_ID'] = JSON.stringify(buildId);
         plugin.definitions['process.env.NEXT_PUBLIC_APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
+        plugin.definitions['process.env.IS_SERVER_INITIAL_BUILD'] = process.env.IS_SERVER_INITIAL_BUILD;
       }
     });
 
     if (isServer) { // Trick to only log once
-      console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}"`);
+      console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}" ${process.env.IS_SERVER_INITIAL_BUILD ? 'with IS_SERVER_INITIAL_BUILD="1"': ''}`);
     }
 
     // Fixes npm packages that depend on `fs` module
