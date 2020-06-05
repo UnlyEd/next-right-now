@@ -16,9 +16,9 @@ import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable
  */
 const fetchCustomer = async (preferredLocales: string[]): Promise<AirtableRecord<Customer>> => {
   const customerRef = process.env.NEXT_PUBLIC_CUSTOMER_REF;
-  const { records: airtableCustomers } = await cache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development' });
-  const { records: airtableThemes } = await cache('ThemeTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Theme>>>('Theme'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development' });
-  const { records: airtableProducts } = await cache('ProductTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Product>>>('Product'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development' });
+  const { records: airtableCustomers } = await cache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development', storage: {type: 'disk', options: {filename: 'CustomerTable'}} });
+  const { records: airtableThemes } = await cache('ThemeTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Theme>>>('Theme'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development', storage: {type: 'disk', options: {filename: 'ThemeTable'}} });
+  const { records: airtableProducts } = await cache('ProductTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Product>>>('Product'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development', storage: {type: 'disk', options: {filename: 'ProductTable'}} });
   const dataset: AirtableDataset = buildDataset([
     { records: airtableCustomers, __typename: 'Customer' },
     { records: airtableThemes, __typename: 'Theme' },
