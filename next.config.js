@@ -89,7 +89,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     });
 
     if (isServer) { // Trick to only log once
-      console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}"`);
+      console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}"`);
     }
 
     // Fixes npm packages that depend on `fs` module
