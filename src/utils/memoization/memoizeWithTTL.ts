@@ -2,10 +2,21 @@ import cache, { CachedItem, get, set } from './memoizeWithTTLCache';
 
 type Options = {
   ttl?: number; // In seconds
+  storage?: {
+    type: 'memory';
+  } | {
+    type: 'disk';
+    filename: string;
+  };
+  enabled: boolean;
 }
 
-const defaultOptions: Options = {
+const defaultOptions: Required<Options> = {
   ttl: 30,
+  storage: {
+    type: 'memory',
+  },
+  enabled: true,
 };
 
 /**
@@ -16,8 +27,15 @@ const defaultOptions: Options = {
  */
 const getTimestampsElapsedTime = (oldTimestamp: number, newTimestamp: number): number => (newTimestamp - oldTimestamp) / 1000;
 
-const memoizeWithTTL = async <T>(keyResolver: string | (() => string), fct: () => T, options: Options = defaultOptions): Promise<T> => {
-  const { ttl } = options;
+const memoizeWithTTL = async <T>(keyResolver: string | (() => string), fct: () => T, options: Partial<Options> = defaultOptions): Promise<T> => {
+  const { ttl, enabled, storage } = options;
+
+  if (!enabled) { // Bypasses cache completely
+    // eslint-disable-next-line no-console
+    console.debug('Cache is disabled, bypassing');
+    return fct();
+  }
+
   let key: string;
 
   if (typeof keyResolver === 'function') {
@@ -40,6 +58,7 @@ const memoizeWithTTL = async <T>(keyResolver: string | (() => string), fct: () =
   } else {
     // eslint-disable-next-line no-console
     console.debug('Cache key does not exist');
+    // eslint-disable-next-line no-console
     console.debug(cache);
   }
 

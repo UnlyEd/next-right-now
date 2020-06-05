@@ -16,9 +16,9 @@ import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable
  */
 const fetchCustomer = async (preferredLocales: string[]): Promise<AirtableRecord<Customer>> => {
   const customerRef = process.env.NEXT_PUBLIC_CUSTOMER_REF;
-  const { records: airtableCustomers } = await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'));
-  const { records: airtableThemes } = await memoizeWithTTL('ThemeTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Theme>>>('Theme'));
-  const { records: airtableProducts } = await memoizeWithTTL('ProductTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Product>>>('Product'));
+  const { records: airtableCustomers } = await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development' });
+  const { records: airtableThemes } = await memoizeWithTTL('ThemeTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Theme>>>('Theme'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development' });
+  const { records: airtableProducts } = await memoizeWithTTL('ProductTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Product>>>('Product'), { enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development' });
   const dataset: AirtableDataset = buildDataset([
     { records: airtableCustomers, __typename: 'Customer' },
     { records: airtableThemes, __typename: 'Theme' },
