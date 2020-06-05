@@ -1,6 +1,6 @@
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 
-export declare type Asset = {
+export type Asset = {
   id?: string;
   handle?: string;
   fileName?: string;
