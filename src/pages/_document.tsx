@@ -49,7 +49,7 @@ process.on('uncaughtException', (e: Error): void => {
  *
  * Used to inject <html lang=""> tag
  *
- * See https://github.com/zeit/next.js/#custom-document
+ * See https://github.com/vercel/next.js/#custom-document
  */
 class AppDocument extends Document<DocumentRenderProps> {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentGetInitialPropsOutput> {

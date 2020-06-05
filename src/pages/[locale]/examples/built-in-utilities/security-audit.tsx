@@ -9,10 +9,10 @@ import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/utils/Code';
 import withApollo from '../../../../hocs/withApollo';
-import { StaticParams } from '../../../../types/nextjs/StaticParams';
+import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
 import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/security-audit';
@@ -24,17 +24,17 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExamplesCommonStaticPaths;
 
 /**
  * Only executed on the server side at build time.
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
- * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getExamplesCommonStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)

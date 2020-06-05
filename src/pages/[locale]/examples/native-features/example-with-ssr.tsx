@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import size from 'lodash.size';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert, Container } from 'reactstrap';
@@ -16,11 +16,12 @@ import { EXAMPLE_WITH_SSR_QUERY } from '../../../../gql/pages/examples/native-fe
 import withApollo from '../../../../hocs/withApollo';
 import { Customer } from '../../../../types/data/Customer';
 import { Product } from '../../../../types/data/Product';
+import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { GetServerSidePropsContext } from '../../../../types/nextjs/GetServerSidePropsContext';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../../../types/pageProps/SSRPageProps';
-import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../../../utils/nextjs/SSR';
+import { GetCommonServerSidePropsResults, getExamplesCommonServerSideProps } from '../../../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -42,12 +43,14 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext): Promise<{ props: GetServerSidePageProps }> => {
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
   const {
-    apolloClient,
-    layoutQueryOptions,
-    ...pageData
-  }: GetCommonServerSidePropsResults = await getCommonServerSideProps(context);
+    props: {
+      apolloClient,
+      layoutQueryOptions,
+      ...pageData
+    },
+  }: GetServerSidePropsResult<GetCommonServerSidePropsResults> = await getExamplesCommonServerSideProps(context);
   const queryOptions = { // Override query (keep existing variables and headers)
     ...layoutQueryOptions,
     displayName: 'EXAMPLE_WITH_SSR_QUERY',

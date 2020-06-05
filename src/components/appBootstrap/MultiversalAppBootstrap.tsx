@@ -125,7 +125,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
      * XXX If you're concerned regarding React rehydration, read our talk with Josh, author of https://joshwcomeau.com/react/the-perils-of-rehydration/
      *  https://twitter.com/Vadorequest/status/1257658553361408002
      *
-     * XXX There may be more rendering modes - See https://github.com/zeit/next.js/discussions/12558#discussioncomment-12303
+     * XXX There may be more rendering modes - See https://github.com/vercel/next.js/discussions/12558#discussioncomment-12303
      */
     let browserPageBootstrapProps: BrowserPageBootstrapProps;
     let serverPageBootstrapProps: ServerPageBootstrapProps;

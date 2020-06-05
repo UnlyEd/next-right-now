@@ -10,10 +10,10 @@ import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import withApollo from '../../../../hocs/withApollo';
-import { StaticParams } from '../../../../types/nextjs/StaticParams';
+import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
 import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/packages-upgrade';
@@ -25,17 +25,17 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExamplesCommonStaticPaths;
 
 /**
  * Only executed on the server side at build time.
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
- * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getExamplesCommonStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -100,7 +100,7 @@ const PackagesUpgradePage: NextPage<Props> = (props): JSX.Element => {
             ? Choose which packages to update. (Press <space> to select, <a> to toggle all, <i> to invert selection)
              devDependencies
                name                              range   from       to      url
-            ❯◯ @next/bundle-analyzer             latest  9.4.1   ❯  9.4.2   https://github.com/zeit/next.js#readme
+            ❯◯ @next/bundle-analyzer             latest  9.4.1   ❯  9.4.2   https://github.com/vercel/next.js#readme
              ◯ @types/jest                       latest  25.2.2  ❯  25.2.3  https://github.com/DefinitelyTyped/DefinitelyTyped.git
              ◯ @types/webfontloader              latest  1.6.30  ❯  1.6.31  https://github.com/DefinitelyTyped/DefinitelyTyped.git
              ◯ @typescript-eslint/eslint-plugin  latest  2.33.0  ❯  3.0.0   https://github.com/typescript-eslint/typescript-eslint#readme

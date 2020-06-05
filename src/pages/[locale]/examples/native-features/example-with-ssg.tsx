@@ -18,14 +18,14 @@ import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/examples/native-fe
 import withApollo from '../../../../hocs/withApollo';
 import { Product } from '../../../../types/data/Product';
 import { I18nLocale } from '../../../../types/i18n/I18nLocale';
-import { StaticParams } from '../../../../types/nextjs/StaticParams';
+import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../../../utils/gql/graphql';
 import { SUPPORTED_LOCALES } from '../../../../utils/i18n/i18n';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -36,18 +36,18 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<StaticParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExamplesCommonStaticPaths;
 
 /**
  * Only executed on the server side at build time.
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
- * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const commonStaticProps: StaticPropsOutput = await getCommonStaticProps(props);
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+  const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
   const { customerRef, gcmsLocales } = commonStaticProps.props;
 
   const apolloClient = createApolloClient();

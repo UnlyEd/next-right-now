@@ -1,5 +1,5 @@
-import { StaticParams } from './StaticParams';
+import { CommonServerSideParams } from './CommonServerSideParams';
 
 export type StaticPath = {
-  params: StaticParams;
+  params: CommonServerSideParams;
 }

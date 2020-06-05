@@ -6,11 +6,11 @@ import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import DefaultLayout from '../components/pageLayouts/DefaultLayout';
-import { StaticParams } from '../types/nextjs/StaticParams';
+import { CommonServerSideParams } from '../types/nextjs/CommonServerSideParams';
 import { SoftPageProps } from '../types/pageProps/SoftPageProps';
 import { SSGPageProps } from '../types/pageProps/SSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n/i18n';
-import { getCommonStaticProps } from '../utils/nextjs/SSG';
+import { getExamplesCommonStaticProps } from '../utils/nextjs/SSG';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -22,10 +22,10 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
  *
- * @see https://github.com/zeit/next.js/discussions/10949#discussioncomment-6884
+ * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, StaticParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getExamplesCommonStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
