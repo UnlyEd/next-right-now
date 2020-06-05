@@ -14,4 +14,19 @@ require('dotenv').config({ path: '.env' });
  */
 require('next');
 
+// Backup of the native console object for later re-use
+global._console = global.console;
 
+// Force mute console by returning a mock object that mocks the props we use
+global.muteConsole = () => {
+  return {
+    debug: jest.fn(),
+    error: jest.fn(),
+    info: jest.fn(),
+    log: jest.fn(),
+    warn: jest.fn(),
+  };
+};
+
+// Restore previously made "console" object
+global.unmuteConsole = () => _console;
