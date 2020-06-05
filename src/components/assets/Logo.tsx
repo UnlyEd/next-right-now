@@ -4,17 +4,12 @@ import styled from '@emotion/styled';
 import classnames from 'classnames';
 import deepmerge from 'deepmerge';
 import get from 'lodash.get';
-import PropTypes from 'prop-types';
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import React from 'react';
-import stylePropType from 'react-style-proptype';
 
-import LogoPropTypes from '../../propTypes/LogoPropTypes';
 import { Link } from '../../types/data/Link';
 import { Logo as LogoType } from '../../types/data/Logo';
-import {
-  DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels
-} from '../../utils/assets/logo';
+import { DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels } from '../../utils/assets/logo';
 
 type Props = {
   id: string;
@@ -118,26 +113,6 @@ const Logo = (props: Props): JSX.Element => {
       <Image />
     );
   }
-};
-
-Logo.propTypes = {
-  id: PropTypes.string.isRequired,
-  logo: PropTypes.shape(LogoPropTypes),
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  height: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-  defaults: PropTypes.shape(LogoPropTypes), // Merged with the logo, takes lowest priority
-  override: PropTypes.shape(LogoPropTypes), // Merged with the logo, takes highest priority
-  sizesMultipliers: PropTypes.array,
-  className: PropTypes.string,
-  style: stylePropType,
-  link: PropTypes.object,
-  onClick: PropTypes.func, // Support for usage within <Link> component (from Next.js)
 };
 
 export default Logo;
