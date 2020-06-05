@@ -1,8 +1,8 @@
 // XXX Unlike what could be expected, once an ENV var is found by dotenv, it won't be overridden
 //  So, the order must be from the most important to the less important
 //  See https://github.com/motdotla/dotenv/issues/256#issuecomment-598676663
-require('dotenv').config({ path: '.env.development.local' });
-require('dotenv').config({ path: '.env.development' });
+require('dotenv').config({ path: '.env.local' });
+require('dotenv').config({ path: '.env' });
 
 /**
  * Importing next during test applies automated polyfills:

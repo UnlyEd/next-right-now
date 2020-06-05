@@ -1,16 +1,19 @@
-const withSourceMaps = require('@zeit/next-source-maps')();
+const bundleAnalyzer = require('@next/bundle-analyzer');
+const nextSourceMaps = require('@zeit/next-source-maps');
 const packageJson = require('./package');
-const date = new Date();
 const i18nConfig = require('./src/i18nConfig');
+
+const withSourceMaps = nextSourceMaps();
+const withBundleAnalyzer = bundleAnalyzer({ // Run with "yarn analyse:bundle" - See https://www.npmjs.com/package/@next/bundle-analyzer
+  enabled: process.env.ANALYZE_BUNDLE === 'true',
+});
 const supportedLocales = i18nConfig.supportedLocales.map((supportedLocale) => {
   return supportedLocale.name;
 });
 const noRedirectBlacklistedPaths = ['_next', 'api']; // Paths that mustn't have rewrite applied to them, to avoid the whole app to behave inconsistently
 const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folders, files) under /public directory should be added there, to avoid redirection when an asset isn't found
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
-const withBundleAnalyzer = require('@next/bundle-analyzer')({ // Run with "yarn analyse:bundle" - See https://www.npmjs.com/package/@next/bundle-analyzer
-  enabled: process.env.ANALYZE_BUNDLE === 'true',
-})
+const date = new Date();
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}"`);
 
@@ -86,7 +89,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     });
 
     if (isServer) { // Trick to only log once
-      console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}"`);
+      console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}"`);
     }
 
     // Fixes npm packages that depend on `fs` module
