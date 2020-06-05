@@ -78,12 +78,12 @@ describe(`utils/env/env.ts`, () => {
       expect(process.env.NEXT_PUBLIC_CUSTOMER_REF, 'NEXT_PUBLIC_CUSTOMER_REF must be defined but is not').toBeDefined();
     });
 
-    test(`GRAPHQL_API_ENDPOINT`, async () => {
-      expect(process.env.GRAPHQL_API_ENDPOINT, 'GRAPHQL_API_ENDPOINT must be defined but is not').toBeDefined();
+    test(`AIRTABLE_API_KEY`, async () => {
+      expect(process.env.AIRTABLE_API_KEY, 'AIRTABLE_API_KEY must be defined but is not').toBeDefined();
     });
 
-    test(`GRAPHQL_API_KEY`, async () => {
-      expect(process.env.GRAPHQL_API_KEY, 'GRAPHQL_API_KEY must be defined but is not').toBeDefined();
+    test(`AIRTABLE_BASE_ID`, async () => {
+      expect(process.env.AIRTABLE_BASE_ID, 'AIRTABLE_BASE_ID must be defined but is not').toBeDefined();
     });
 
     // XXX Below tests are meant to warn the user about potential misconfiguration of optional variables
