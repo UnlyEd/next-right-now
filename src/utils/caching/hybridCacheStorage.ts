@@ -18,7 +18,7 @@ export type Cache<T = any> = {
 export type CacheHits = number;
 export type CacheMiss = number;
 
-export type CacheStorage<T = any, Options extends StorageOptions = {}> = {
+export type HybridCacheStorage<T = any, Options extends StorageOptions = {}> = {
   get: Get<T, Options>;
   set: Set<T, Options>;
 };

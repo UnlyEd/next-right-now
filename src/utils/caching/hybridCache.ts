@@ -1,6 +1,6 @@
-import deepmerge from 'deepmerge';
-import { CachedItem, CacheStorage, StorageOptions } from './cacheStorage';
 import { createLogger } from '@unly/utils-simple-logger';
+import deepmerge from 'deepmerge';
+import { CachedItem, HybridCacheStorage, StorageOptions } from './hybridCacheStorage';
 
 const fileLabel = 'utils/cache/cache';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -36,7 +36,7 @@ const defaultOptions: Required<Options> = {
  */
 const getTimestampsElapsedTime = (oldTimestamp: number, newTimestamp: number): number => (newTimestamp - oldTimestamp) / 1000;
 
-const cache = async <T>(keyResolver: string | (() => string), fct: () => T, options: Partial<Options> = defaultOptions): Promise<T> => {
+const hybridCache = async <T>(keyResolver: string | (() => string), fct: () => T, options: Partial<Options> = defaultOptions): Promise<T> => {
   const { ttl, enabled, storage } = deepmerge(defaultOptions, options);
 
   if (!enabled) { // Bypasses cache completely
@@ -44,13 +44,13 @@ const cache = async <T>(keyResolver: string | (() => string), fct: () => T, opti
     console.debug('Cache is disabled, bypassing');
     return fct();
   }
-  let cacheStorage: CacheStorage;
+  let cacheStorage: HybridCacheStorage;
   let storageOptions: StorageOptions = {};
 
   if (storage.type === 'memory') {
     cacheStorage = require('./inMemoryCacheStorage');
   } else {
-    cacheStorage = require('./inFileCacheStorage');
+    cacheStorage = require('./inDiskCacheStorage');
     const { options } = storage;
     storageOptions = options;
   }
@@ -81,4 +81,4 @@ const cache = async <T>(keyResolver: string | (() => string), fct: () => T, opti
   return cacheStorage.set(key, unMemoizedResult, storageOptions);
 };
 
-export default cache;
+export default hybridCache;

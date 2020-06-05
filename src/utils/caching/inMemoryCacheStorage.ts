@@ -1,4 +1,4 @@
-import { Cache, CachedItem, CacheHits, CacheMiss, CacheStorage, Get, Reset, Set } from './cacheStorage';
+import { Cache, CachedItem, CacheHits, CacheMiss, Get, HybridCacheStorage, Reset, Set } from './hybridCacheStorage';
 
 let cache: Cache = {};
 export let cacheHits: CacheHits = 0;
@@ -29,7 +29,7 @@ export const reset: Reset = (): Promise<void> => {
   return;
 };
 
-export const cacheStorage: CacheStorage = {
+export const cacheStorage: HybridCacheStorage = {
   get,
   set,
 };
