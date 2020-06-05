@@ -74,6 +74,15 @@ describe(`utils/env/env.ts`, () => {
       }
     });
 
+    test(`IS_SERVER_INITIAL_BUILD`, async () => {
+      // This ENV var is injected by Webpack and not available when running the tests suite when building a local build (because webpack hasn't been executed yet)
+      if (process.env.NODE_ENV === 'production') {
+        expect(process.env.IS_SERVER_INITIAL_BUILD, 'IS_SERVER_INITIAL_BUILD is not valid').toEqual('1');
+      } else {
+        expect(process.env.IS_SERVER_INITIAL_BUILD, 'IS_SERVER_INITIAL_BUILD should not be defined when building a non-production release').not.toBeDefined();
+      }
+    });
+
     test(`NEXT_PUBLIC_CUSTOMER_REF`, async () => {
       expect(process.env.NEXT_PUBLIC_CUSTOMER_REF, 'NEXT_PUBLIC_CUSTOMER_REF must be defined but is not').toBeDefined();
     });
