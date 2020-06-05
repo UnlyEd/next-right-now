@@ -1,3 +1,4 @@
+import deepmerge from 'deepmerge';
 import cache, { CachedItem, get, set } from './memoizeWithTTLCache';
 
 type Options = {
@@ -28,7 +29,7 @@ const defaultOptions: Required<Options> = {
 const getTimestampsElapsedTime = (oldTimestamp: number, newTimestamp: number): number => (newTimestamp - oldTimestamp) / 1000;
 
 const memoizeWithTTL = async <T>(keyResolver: string | (() => string), fct: () => T, options: Partial<Options> = defaultOptions): Promise<T> => {
-  const { ttl, enabled, storage } = options;
+  const { ttl, enabled, storage } = deepmerge(defaultOptions, options);
 
   if (!enabled) { // Bypasses cache completely
     // eslint-disable-next-line no-console
