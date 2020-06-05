@@ -19,14 +19,13 @@ export const get: Get = async <T>(key: string, options: StorageOptions): Promise
 
   let cachedItem: CachedItem;
 
-  console.log('content', content);
-  try {
-    cachedItem = JSON.parse(content);
-    console.log('cachedItem', cachedItem);
-
-  } catch (e) {
-    console.error(e);
-    // TODO sentry
+  if (typeof content !== 'undefined') {
+    try {
+      cachedItem = JSON.parse(content);
+    } catch (e) {
+      console.error(e);
+      // TODO sentry
+    }
   }
 
   return cachedItem;
