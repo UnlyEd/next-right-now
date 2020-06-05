@@ -63,7 +63,13 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   }
 
   if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
-    logger.info('MultiversalAppBootstrap - App is ready, rendering...');
+    if (process.env.IS_SERVER_INITIAL_BUILD) {
+      console.log('props', JSON.stringify(props?.Component, null, 2))
+      logger.info(`MultiversalAppBootstrap - Page "${props?.Component?.displayName || 'UnknownComponent'}" is being built...`);
+    } else {
+      logger.info('MultiversalAppBootstrap - App is ready, rendering...');
+    }
+
     const {
       customer: airtableCustomer,
       i18nTranslations,
