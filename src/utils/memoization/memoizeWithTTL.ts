@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import cache, { CachedItem, get, set } from './memoizeWithTTLCache';
+import cache, { CachedItem, get, set } from './inMemoryCache';
 
 type Options = {
   ttl?: number; // In seconds

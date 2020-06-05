@@ -2,7 +2,7 @@ import { CUSTOMER1 } from '../../mocks/airtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
 import memoizeWithTTL from '../memoization/memoizeWithTTL';
-import { reset as cacheReset } from '../memoization/memoizeWithTTLCache';
+import { reset as cacheReset } from '../memoization/inMemoryCache';
 import waitFor from '../timers/waitFor';
 import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable';
 
@@ -47,8 +47,8 @@ describe(`utils/api/fetchAirtable.ts`, () => {
       });
 
       test(`when using the default TTL`, async () => {
-        const cacheHitsBefore = require('../memoization/memoizeWithTTLCache').cacheHits;
-        const cacheMissBefore = require('../memoization/memoizeWithTTLCache').cacheMiss;
+        const cacheHitsBefore = require('../memoization/inMemoryCache').cacheHits;
+        const cacheMissBefore = require('../memoization/inMemoryCache').cacheMiss;
         expect(await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'))).toMatchOneOf([
           expectedShape,
           expectedShapeWithoutOptionalFields,
@@ -58,16 +58,16 @@ describe(`utils/api/fetchAirtable.ts`, () => {
           expectedShapeWithoutOptionalFields,
         ]);
 
-        const cacheHitsAfter = require('../memoization/memoizeWithTTLCache').cacheHits;
-        const cacheMissAfter = require('../memoization/memoizeWithTTLCache').cacheMiss;
+        const cacheHitsAfter = require('../memoization/inMemoryCache').cacheHits;
+        const cacheMissAfter = require('../memoization/inMemoryCache').cacheMiss;
         expect(cacheHitsAfter).toBeGreaterThan(cacheHitsBefore);
         expect(cacheMissAfter).toEqual(cacheMissBefore + 1); // Cache should have been missed only for the first call
       });
 
       describe(`should fetch multiple times and miss the cache`, () => {
         test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
-          const cacheHitsBefore = require('../memoization/memoizeWithTTLCache').cacheHits;
-          const cacheMissBefore = require('../memoization/memoizeWithTTLCache').cacheMiss;
+          const cacheHitsBefore = require('../memoization/inMemoryCache').cacheHits;
+          const cacheMissBefore = require('../memoization/inMemoryCache').cacheMiss;
           await waitFor(1001);
           expect(await memoizeWithTTL('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { ttl: 1 })).toMatchOneOf([
             expectedShape,
@@ -79,8 +79,8 @@ describe(`utils/api/fetchAirtable.ts`, () => {
             expectedShapeWithoutOptionalFields,
           ]);
 
-          const cacheHitsAfter = require('../memoization/memoizeWithTTLCache').cacheHits;
-          const cacheMissAfter = require('../memoization/memoizeWithTTLCache').cacheMiss;
+          const cacheHitsAfter = require('../memoization/inMemoryCache').cacheHits;
+          const cacheMissAfter = require('../memoization/inMemoryCache').cacheMiss;
           expect(cacheHitsAfter).toEqual(cacheHitsBefore + 1);
           expect(cacheMissAfter).toBeGreaterThan(cacheMissBefore);
         });

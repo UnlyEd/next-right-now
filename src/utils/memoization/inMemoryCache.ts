@@ -3,7 +3,7 @@ export type CachedItem<T = any> = {
   value: T;
 };
 
-let memoizeWithTTLCache: {
+let cache: {
   [key: string]: CachedItem;
 } = {};
 export let cacheHits = 0;
@@ -11,7 +11,7 @@ export let cacheMiss = 0;
 
 export const set = <T>(key: string, item: T): T => {
   ++cacheMiss;
-  memoizeWithTTLCache[key] = {
+  cache[key] = {
     timestamp: +new Date(),
     value: item,
   };
@@ -20,17 +20,17 @@ export const set = <T>(key: string, item: T): T => {
 };
 
 export const get = <T>(key: string): CachedItem<T> => {
-  if (typeof memoizeWithTTLCache[key] !== 'undefined') {
+  if (typeof cache[key] !== 'undefined') {
     ++cacheHits;
   }
 
-  return memoizeWithTTLCache[key];
+  return cache[key];
 };
 
 export const reset = (): void => {
   cacheHits = 0;
   cacheMiss = 0;
-  memoizeWithTTLCache = {};
+  cache = {};
 };
 
-export default memoizeWithTTLCache;
+export default cache;
