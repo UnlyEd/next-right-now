@@ -5,9 +5,7 @@ import error from './error';
 
 describe('error', () => {
   beforeEach(() => {
-    // Silent console log (used by logger.warn)
-    // @ts-ignore-error
-    global.console = { warn: jest.fn(), log: jest.fn() };
+    global.console = global.muteConsole();
   });
 
   test('should be a function', async () => {

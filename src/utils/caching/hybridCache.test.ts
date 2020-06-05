@@ -6,7 +6,7 @@ import { reset as inMemoryCacheReset } from './memoryCacheStorage';
 
 describe(`utils/memoization/cache.ts`, () => {
   beforeEach(() => {
-    global.console = global.muteConsole(); // Silent console
+    global.console = global.muteConsole();
   });
 
   describe(`cache`, () => {

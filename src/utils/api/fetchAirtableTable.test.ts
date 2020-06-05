@@ -8,7 +8,7 @@ import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable
 
 describe(`utils/api/fetchAirtable.ts`, () => {
   beforeEach(() => {
-    global.console = global.muteConsole(); // Silent console
+    global.console = global.muteConsole();
   });
 
   const expectedShape = {
