@@ -1,15 +1,10 @@
 /** @jsx jsx */
-import { Amplitude } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import BuiltInFeaturesSection from '../../../components/doc/BuiltInFeaturesSection';
-import BuiltInUtilitiesSection from '../../../components/doc/BuiltInUtilitiesSection';
-import ExternalFeaturesSection from '../../../components/doc/ExternalFeaturesSection';
-import IntroductionSection from '../../../components/doc/IntroductionSection';
-import NativeFeaturesSection from '../../../components/doc/NativeFeaturesSection';
+import ContentWithMDX from '../../../components/doc/ContentWithMDX';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
 import { CommonServerSideParams } from '../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
@@ -56,25 +51,7 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
         title: 'Homepage - Next Right Now',
       }}
     >
-      <Amplitude>
-        {
-          ({ logEvent }): JSX.Element => {
-            return (
-              <>
-                <IntroductionSection
-                  logEvent={logEvent}
-                />
-
-                <NativeFeaturesSection />
-                <BuiltInFeaturesSection />
-                <BuiltInUtilitiesSection />
-                <ExternalFeaturesSection />
-              </>
-            );
-          }
-        }
-      </Amplitude>
-
+      <ContentWithMDX />
     </DefaultLayout>
   );
 };

@@ -5,7 +5,6 @@ import { Alert, Jumbotron } from 'reactstrap';
 
 import I18nLink from '../i18n/I18nLink';
 import ExternalLink from '../utils/ExternalLink';
-import Content from './TestMDXPage.mdx';
 
 type Props = {
   // XXX Beware when passing down the "logEvent", because it'll use the props attached from the <Amplitude> tag it comes from
@@ -26,7 +25,6 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
     <Jumbotron
       className={'center'}
     >
-      <Content />
       <h1>Next Right Now Demo</h1>
       <h2
         css={css`

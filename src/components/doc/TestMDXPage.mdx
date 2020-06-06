@@ -1,4 +1,43 @@
 import { Button } from 'reactstrap';
+import ExternalLink from '../utils/ExternalLink';
 
-# title 1
+# This is a page with Markdown, HTML and JSX
+
+## This is a JSX component from <ExternalLink href="https://reactstrap.github.io/">reactstrap</ExternalLink>
 <Button>test</Button>
+
+<br />
+<br />
+
+The above link used our custom <code>ExternalLink</code> component!
+
+---
+
+## This is <a href="https://developer.mozilla.org/fr/docs/Web/HTML" rel="noopener noreferrer">HTML</a>
+
+<div class="my-div">
+  <i>italic</i>
+  <br />
+  <b>bold</b>
+  <br />
+
+  <br />
+  <ul>
+    <li>
+      Item A
+    </li>
+    <li>
+      Item B
+    </li>
+  </ul>
+</div>
+
+---
+
+## This is [markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
+
+- Item 1
+- Item 2
+
+1. 1
+1. 2
