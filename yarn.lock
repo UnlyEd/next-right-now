@@ -8743,10 +8743,10 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-next-unused@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/next-unused/-/next-unused-0.0.1.tgz#fde04a5aadb42e4d59f0968f7fa938f76f072afb"
-  integrity sha512-HYgdiIdQWcG+/jPqR8laB8GwVTdlk1U+nuS814GsJZpz5BlVzD5FtwN3q/sEphaHmbb1eOqkbk9HoJeyJ1TxJw==
+next-unused@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/next-unused/-/next-unused-0.0.2.tgz#c0b81f5286f157a8690138afd73c42a87546ec82"
+  integrity sha512-uyI7W+6vikBHtYP8RBxQ5+LpgOLGw0VqQmchM14kcwZN7lmXsox6IBXAufT1AG4ziCrcJAgI3qA6JV4HqOgGYA==
   dependencies:
     madge "^3.8.0"
     ts-loader "^7.0.0"
