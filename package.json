@@ -53,6 +53,8 @@
     "@fortawesome/free-regular-svg-icons": "5.13.0",
     "@fortawesome/free-solid-svg-icons": "5.13.0",
     "@fortawesome/react-fontawesome": "0.1.9",
+    "@mdx-js/loader": "1.6.5",
+    "@next/mdx": "9.4.4",
     "@sentry/browser": "5.15.5",
     "@sentry/node": "5.15.5",
     "@unly/universal-language-detector": "2.0.3",
