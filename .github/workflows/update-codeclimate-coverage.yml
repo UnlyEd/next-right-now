@@ -2,7 +2,7 @@
 # Run Unit and coverage tests, then upload it to Code Climate dashboard
 # Read ./README.md for extensive documentation
 
-name: Update Code Climate Coverage
+name: Update Code Climate test coverage
 
 on:
   push:
@@ -10,6 +10,8 @@ on:
       - 'v2-mst-aptd-gcms-lcz-sty' # Change this branch name by your "main" branch use
 
 jobs:
+  # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
+  # Ex: Necessary to run `yarn test:coverage`
   setup-environment:
     name: Setup deployment environment (Ubuntu 18.04 - Node 12.x)
     runs-on: ubuntu-18.04
@@ -19,7 +21,7 @@ jobs:
         with:
           node-version: '12.x' # Use the same node.js version as the one Zeit's uses (currently node12.x)
   run-tests-coverage:
-    name: Run tests coverage
+    name: Run tests coverage and send report to Code Climate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -27,6 +29,6 @@ jobs:
         run: yarn install
       - uses: paambaati/codeclimate-action@v2.6.0
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }} # Fill this secret to make it works for you.
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }} # XXX Define this secret in "Github repo > Settings > Secrets", you can get it from Code Climate in "Repo settings > Test coverage".
         with:
           coverageCommand: yarn test:coverage
