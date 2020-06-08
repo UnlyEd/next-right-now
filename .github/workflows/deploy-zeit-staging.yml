@@ -72,6 +72,7 @@ jobs:
       - name: Finding Pull Request ID
         uses: jwalton/gh-find-current-pr@v1
         id: pr_id_finder
+        if: always() # We want to get the PR ID, even when it fails.
         with:
           github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
 
