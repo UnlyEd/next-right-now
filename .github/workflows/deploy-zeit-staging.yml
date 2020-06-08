@@ -77,9 +77,15 @@ jobs:
       - name: Comment PR (Deployment failure)
         uses: github-actions-up-and-running/pr-comment@v1.0.0
         if: failure()
+        env:
+          PR_ID: ${{ steps.pr_id_finder.outputs.number }}
         with:
-          repo-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-          message: "[GitHub Actions]\nDeployment FAILED\n\t Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} (click to see logs)"
+          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            \tDeployment **FAILED**
+            \tCommit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} ([click to see logs](https://github.com/UnlyEd/next-right-now/pull/$PR_ID/checks))"
 
       # On deployment success, add a comment to the PR
       - name: Comment PR (Deployment success)
