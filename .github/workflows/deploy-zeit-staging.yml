@@ -84,6 +84,7 @@ jobs:
         with:
           msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}\n\tDeployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}"
 
+
   # Runs E2E tests against the Zeit deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
