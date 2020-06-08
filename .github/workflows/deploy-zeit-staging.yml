@@ -148,20 +148,36 @@ jobs:
           name: videos
           path: cypress/videos/
 
+      # We need to find the PR id to be able to comment it.
+      # It avoids, on many push at the same time, issues about the pull request (HEAD moving).
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # We want to get the PR ID, even when it fails.
+        with:
+          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+
       # On E2E failure, add a comment to the PR with additional information
       - name: Comment PR (E2E failure)
-        uses: unsplash/comment-on-pr@master
+        uses: peter-evans/create-or-update-comment@v1
         if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
         with:
-          msg: "[GitHub Actions]\nE2E tests FAILED\n  Download artifacts (screenshots + videos) from `checks` section at the top"
+          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            E2E tests **FAILED**
+            Download artifacts (screenshots + videos) from `checks` section at the top
 
       # On E2E success, add a comment to the PR
       - name: Comment PR (E2E success)
-        uses: unsplash/comment-on-pr@master
+        uses: peter-evans/create-or-update-comment@v1
         if: success()
+        with:
+          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            E2E tests **SUCCESS**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-        with:
-          msg: "[GitHub Actions]\nE2E tests SUCCESS"
