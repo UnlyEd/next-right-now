@@ -1,6 +1,10 @@
 import { replaceAllOccurrences } from './string';
 
-describe(`utils/string.ts`, () => {
+/**
+ * @group unit
+ * @group utils
+ */
+describe(`utils/js/string.ts`, () => {
   describe(`replaceAllOccurrences`, () => {
     describe(`should replace all occurrences`, () => {
       test(`when replacing one variable`, async () => {

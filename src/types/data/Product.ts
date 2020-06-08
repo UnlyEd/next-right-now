@@ -1,7 +1,7 @@
 import { Asset } from './Asset';
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 
-export declare type Product = {
+export type Product = {
   id?: string;
   title?: string;
   description?: string;

@@ -1,6 +1,10 @@
 import { findNextItem, findPreviousItem } from './array';
 
-describe(`utils/array.ts`, () => {
+/**
+ * @group unit
+ * @group utils
+ */
+describe(`utils/js/array.ts`, () => {
   const item1 = { a: 1 };
   const item2 = { a: 2 };
   const item3 = { a: 3 };

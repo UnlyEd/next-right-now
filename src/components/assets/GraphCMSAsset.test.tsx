@@ -5,6 +5,10 @@ import GraphCMSAsset from './GraphCMSAsset';
 const defaultLogoUrl = 'https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V';
 const defaultLogoTarget = '_blank';
 
+/**
+ * @group unit
+ * @group components
+ */
 describe('GraphCMSAsset', () => {
   describe('should properly render an asset from GraphCMS', () => {
     describe('when the asset is used as an image (<img>)', () => {

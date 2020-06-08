@@ -7,7 +7,7 @@ import { ParsedUrlQuery } from 'querystring';
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  * @see node_modules/next/types/index.d.ts
  */
-export declare type GetServerSidePropsContext<Params extends ParsedUrlQuery = ParsedUrlQuery, E extends {} = {}> = {
+export type GetServerSidePropsContext<Params extends ParsedUrlQuery = ParsedUrlQuery, E extends {} = {}> = {
   req: IncomingMessage;
   res: ServerResponse;
   params?: Params;

@@ -1,4 +1,4 @@
-export declare type RichText = {
+export type RichText = {
   html?: string;
   markdown?: string;
   raw?: object;

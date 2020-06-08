@@ -1,6 +1,6 @@
 import { Asset } from './Asset';
 import { Link } from './Link';
 
-export declare type Logo = {
+export type Logo = {
   link?: Link;
 } & Asset;

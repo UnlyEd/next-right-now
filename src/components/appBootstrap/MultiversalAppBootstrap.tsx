@@ -51,7 +51,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   });
 
   if (isBrowser() && process.env.NEXT_PUBLIC_APP_STAGE !== 'production') { // Avoids log clutter on server
-    console.debug('MultiversalAppBootstrap.props', props);
+    console.debug('MultiversalAppBootstrap.props', props); // eslint-disable-line no-console
   }
 
   // Display a loader (we could use a skeleton too) when this happens, so that the user doesn't face a white page until the page is generated and displayed
@@ -62,7 +62,10 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   }
 
   if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
-    console.info('MultiversalAppBootstrap - App is ready, rendering...');
+    if (!process.env.IS_SERVER_INITIAL_BUILD) { // Avoids noise when building the whole app
+      logger.info('MultiversalAppBootstrap - App is ready, rendering...');
+    }
+
     const {
       customer,
       i18nTranslations,

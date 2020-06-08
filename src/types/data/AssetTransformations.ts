@@ -1,6 +1,6 @@
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 
-export declare type AssetTransformations = {
+export type AssetTransformations = {
   id?: string;
   height?: number;
   width?: number;

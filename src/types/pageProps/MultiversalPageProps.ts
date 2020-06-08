@@ -9,7 +9,7 @@ import { Customer } from '../data/Customer';
  * Server-side page props are listed in SSRPageProps
  * Client-side page props are listed in SSGPageProps
  */
-export declare type MultiversalPageProps<E extends {} = {}> = {
+export type MultiversalPageProps<E extends {} = {}> = {
   apolloState: NormalizedCacheObject;
   bestCountryCodes: string[];
   customer: Customer;

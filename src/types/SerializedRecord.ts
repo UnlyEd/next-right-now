@@ -7,5 +7,5 @@
  *  - Encoded within a URL string
  *  - Stored on a cache system (localstorage, cookie, etc.)
  */
-export declare type SerializedRecord = string
+export type SerializedRecord = string
 

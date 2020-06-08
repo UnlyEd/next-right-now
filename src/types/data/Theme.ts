@@ -1,7 +1,7 @@
 import { Asset } from './Asset';
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 
-export declare type Theme = {
+export type Theme = {
   id?: string;
   primaryColor?: string;
   logo?: Asset;

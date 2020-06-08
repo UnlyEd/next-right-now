@@ -5,6 +5,9 @@
  * It was added after encountering this particular issue https://github.com/vercel/next.js/issues/13780
  * Where a missing env var would crash the "next build" locally, because of the particular behaviour of the "fetch" package
  * It can be hard to track down such misconfiguration, and it's a good practice to detect those as early as possible (and avoid deploying a misconfigured release)
+ *
+ * @group integration
+ * @group utils
  */
 describe(`utils/env/env.ts`, () => {
   describe(`should load env vars properly depending on the environment (NODE_ENV="${process.env.NODE_ENV}")`, () => {
@@ -71,6 +74,15 @@ describe(`utils/env/env.ts`, () => {
         expect(process.env.NEXT_PUBLIC_BUILD_TIMESTAMP, 'NEXT_PUBLIC_BUILD_TIMESTAMP must be defined but is not').toBeDefined();
       } else {
         expect(process.env.NEXT_PUBLIC_BUILD_TIMESTAMP, 'NEXT_PUBLIC_BUILD_TIMESTAMP should not be defined when building a non-production release').not.toBeDefined();
+      }
+    });
+
+    test(`IS_SERVER_INITIAL_BUILD`, async () => {
+      // This ENV var is injected by Webpack and not available when running the tests suite when building a local build (because webpack hasn't been executed yet)
+      if (process.env.NODE_ENV === 'production') {
+        expect(process.env.IS_SERVER_INITIAL_BUILD, 'IS_SERVER_INITIAL_BUILD is not valid').toEqual('1');
+      } else {
+        expect(process.env.IS_SERVER_INITIAL_BUILD, 'IS_SERVER_INITIAL_BUILD should not be defined when building a non-production release').not.toBeDefined();
       }
     });
 
