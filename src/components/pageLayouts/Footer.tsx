@@ -33,7 +33,7 @@ const Footer: React.FunctionComponent<Props> = () => {
   const { lang, locale }: I18n = useI18n();
   const theme = useTheme<CustomerTheme>();
   const { primaryColor, logo: logoAirtable } = theme;
-  const logo = (logoAirtable as AirtableRecord<Asset>)?.fields;
+  const logo = logoAirtable as AirtableRecord<Asset>;
   const logoSizesMultipliers = [
     {
       size: SIZE_XS,
@@ -67,10 +67,6 @@ const Footer: React.FunctionComponent<Props> = () => {
             id={'footer-logo-organisation-brand'}
             asset={logo}
             linkOverride={{ id: 'link-footer-logo-organisation-brand' }}
-            transformationsOverride={{
-              width: 150,
-              height: 200,
-            }}
           />
         </Col>
         <Col md={4} xs={12} className={'mt-4'}>
