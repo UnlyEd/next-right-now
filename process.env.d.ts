@@ -13,6 +13,7 @@ declare global {
       // NRN env variables
       AIRTABLE_API_KEY: string;
       AIRTABLE_BASE_ID: string;
+      IS_SERVER_INITIAL_BUILD: '1' | undefined;
       LOCIZE_API_KEY: string;
       NODE_ENV: 'development' | 'production';
       NEXT_PUBLIC_AMPLITUDE_API_KEY: string;
@@ -20,7 +21,7 @@ declare global {
       NEXT_PUBLIC_APP_NAME: string;
       NEXT_PUBLIC_APP_VERSION: string;
       NEXT_PUBLIC_APP_VERSION_RELEASE: string;
-      NEXT_PUBLIC_APP_STAGE: 'development' | 'staging' | 'production';
+      NEXT_PUBLIC_APP_STAGE: 'test' | 'development' | 'staging' | 'production';
       NEXT_PUBLIC_BUILD_TIME: string;
       NEXT_PUBLIC_BUILD_TIMESTAMP: string;
       NEXT_PUBLIC_CUSTOMER_REF: string;

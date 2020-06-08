@@ -57,8 +57,9 @@ const fetchAirtableTable: <ListApiResponse extends GenericListApiResponse = Gene
   const { additionalHeaders, baseId } = options;
   const url = `${AT_API_BASE_PATH}/${AT_API_VERSION}/${baseId}/${table}`;
 
+  // console.debug(`Fetching airtable API at "${url}" with headers`, additionalHeaders);
   // eslint-disable-next-line no-console
-  console.debug(`Fetching airtable API at "${url}" with headers`, additionalHeaders);
+  console.debug(`Fetching airtable API at "${url}"`);
   const results = await fetchJSON(url, {
     headers: additionalHeaders,
   });

@@ -34,7 +34,7 @@ let globalI18nextInstance: i18n = null;
  *    "User not found!": "User not found!"
  * }
  */
-export declare type I18nextResourceLocale = {
+export type I18nextResourceLocale = {
   [i18nKey: string]: string | I18nextResourceLocale; // The value can either be a string, or a nested object, itself containing either a string, or a nest object, etc.
 }
 
@@ -51,7 +51,7 @@ export declare type I18nextResourceLocale = {
  *   }
  * }
  */
-export declare type I18nextResources = {
+export type I18nextResources = {
   [lang: string]: I18nextResourceLocale;
 }
 
@@ -59,7 +59,7 @@ export declare type I18nextResources = {
  * Memoized i18next resources are timestamped, to allow for cache invalidation strategies
  * The timestamp's value is the time when the memoized cache was created
  */
-export declare type MemoizedI18nextResources = {
+export type MemoizedI18nextResources = {
   resources: I18nextResources;
   ts: number; // Timestamp in milliseconds
 }

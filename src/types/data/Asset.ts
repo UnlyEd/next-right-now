@@ -9,7 +9,7 @@ export type AssetThumbnail = {
  *
  * All fields are managed internally by Airtable and we have no control over them (they're not columns)
  */
-export declare type Asset = {
+export type Asset = {
   id?: string;
   url?: string;
   filename?: string;

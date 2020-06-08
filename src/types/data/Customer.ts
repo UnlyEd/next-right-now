@@ -3,7 +3,7 @@ import { AirtableRecord } from './AirtableRecord';
 import { Product } from './Product';
 import { Theme } from './Theme';
 
-export declare type Customer = {
+export type Customer = {
   label?: string; // i18n field auto computed
   labelEN?: string;
   labelFR?: string;

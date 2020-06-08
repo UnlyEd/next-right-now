@@ -2,9 +2,7 @@ import { FallbackConfig, FallbackConfigTransformProps, filterSelectedRecords, Ge
 
 describe('utils/record.ts', () => {
   beforeEach(() => {
-    // Silent console log (used by logger.warn)
-    // @ts-ignore
-    global.console = { warn: jest.fn(), log: jest.fn() };
+    global.console = global.muteConsole();
   });
 
   describe('hasValue', () => {
@@ -18,7 +16,7 @@ describe('utils/record.ts', () => {
         htmlEmptyParagraph: '<p></p>',
       };
 
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(hasValue(item)).toEqual(false);
       expect(hasValue(item, null)).toEqual(false);
       expect(hasValue(item, undefined)).toEqual(false);
@@ -186,25 +184,25 @@ describe('utils/record.ts', () => {
     test('should return the default value when given an improper "fallbacks" to fallback from', async () => {
       expect(getValueFallback(null)).toEqual(null);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback(1)).toEqual(null);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback(0)).toEqual(null);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback('')).toEqual(null);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback({})).toEqual(null);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback({ a: 5 })).toEqual(null);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback(-42.00)).toEqual(null);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback(NaN)).toEqual(null);
       expect(console.log).toBeCalled();
     });
@@ -212,25 +210,25 @@ describe('utils/record.ts', () => {
     test('should return the expected value when given an improper "fallbacks" to fallback from', async () => {
       expect(getValueFallback(null, 55)).toEqual(55);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback(1, 'fallbackValue')).toEqual('fallbackValue');
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback(0, true)).toEqual(true);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback('', false)).toEqual(false);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback({}, {})).toMatchObject({});
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback({ a: 5 }, { a: 5 })).toMatchObject({ a: 5 });
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback(-42.00, [6])).toEqual([6]);
       expect(console.log).toBeCalled();
-      // @ts-expect-error
+      // @ts-ignore-error
       expect(getValueFallback(NaN, NaN)).toEqual(NaN);
       expect(console.log).toBeCalled();
     });

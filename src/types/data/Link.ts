@@ -1,4 +1,4 @@
-export declare type Link = {
+export type Link = {
   id?: string;
   url?: string;
   target?: string;
