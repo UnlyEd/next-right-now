@@ -66,6 +66,11 @@ jobs:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
 
+      # We need to find the PR id to be able to comment it
+      - name: Find Pull Request ID
+        id: pr_id_finder
+        run: jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH"
+
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
         uses: github-actions-up-and-running/pr-comment@v1.0.0
@@ -80,6 +85,7 @@ jobs:
         if: success()
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs }}
           body: |
             [GitHub Actions]
             Deployment **SUCCESS**
