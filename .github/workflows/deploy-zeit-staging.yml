@@ -78,7 +78,7 @@ jobs:
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
-        uses: github-actions-up-and-running/pr-comment@v1.0.0
+        uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
