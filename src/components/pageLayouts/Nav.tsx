@@ -16,7 +16,7 @@ import { Asset } from '../../types/data/Asset';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { SidebarLink } from '../../types/SidebarLink';
 import { isActive, resolveI18nHomePage } from '../../utils/app/router';
-import GraphCMSAsset from '../assets/GraphCMSAsset';
+import AirtableAsset from '../assets/AirtableAsset';
 import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '../doc/BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '../doc/BuiltInUtilitiesSidebar';
 import { NATIVE_FEATURES_SIDEBAR_LINKS } from '../doc/NativeFeaturesSidebar';
@@ -121,7 +121,7 @@ const Nav: React.FunctionComponent<Props> = () => {
           `}
         >
           <div className={'brand-logo'}>
-            <GraphCMSAsset
+            <AirtableAsset
               id={'nav-logo-brand'}
               asset={logo}
               linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home

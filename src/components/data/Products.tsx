@@ -7,7 +7,7 @@ import { AirtableRecord } from '../../types/data/AirtableRecord';
 
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
-import GraphCMSAsset from '../assets/GraphCMSAsset';
+import AirtableAsset from '../assets/AirtableAsset';
 
 type Props = {
   products: AirtableRecord<Product>[];
@@ -43,7 +43,7 @@ const Products: React.FunctionComponent<Props> = (props) => {
               {
                 map(product.images, (image: Asset) => {
                   return (
-                    <GraphCMSAsset
+                    <AirtableAsset
                       key={image?.id}
                       id={image?.id}
                       asset={image}

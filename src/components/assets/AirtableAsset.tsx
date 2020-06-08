@@ -52,7 +52,7 @@ const _defaultLink: Link = {
  *
  * @see Transformations https://docs.graphcms.com/developers/assets/transformations/transforming-url-structure
  */
-const GraphCMSAsset = (props: Props): JSX.Element => {
+const AirtableAsset = (props: Props): JSX.Element => {
   console.log('props', props);
   const {
     id,
@@ -98,8 +98,8 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
         key={id}
         id={id}
         src={resolvedAssetProps.url}
-        title={resolvedAssetProps.filename}
-        alt={resolvedAssetProps.filename || resolvedAssetProps.url}
+        title={resolvedAssetProps.title || resolvedAssetProps.filename}
+        alt={resolvedAssetProps.title || resolvedAssetProps.filename || resolvedAssetProps.url}
         className={classnames(`asset-${id}`, className, resolvedAssetProps.classes)}
         style={deepmerge(style || {}, resolvedAssetProps.style || {})}
       />
@@ -128,4 +128,4 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
   }
 };
 
-export default GraphCMSAsset;
+export default AirtableAsset;

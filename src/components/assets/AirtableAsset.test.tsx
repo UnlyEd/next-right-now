@@ -1,22 +1,21 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import GraphCMSAsset from './GraphCMSAsset';
+import AirtableAsset from './AirtableAsset';
 
-const defaultLogoUrl = 'https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V';
+const defaultLogoUrl = 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png';
 const defaultLogoTarget = '_blank';
 
 /**
  * @group unit
  * @group components
  */
-// TODO skipped until fixed
-describe.skip('GraphCMSAsset', () => {
-  describe('should properly render an asset from GraphCMS', () => {
+describe('components/assets/AirtableAsset', () => {
+  describe('should properly render an asset from Airtable', () => {
     describe('when the asset is used as an image (<img>)', () => {
       test('when relying on default "logo" property, it should apply the internal default properties', () => {
         const id = 'test';
         const renderer = TestRenderer
-          .create(<GraphCMSAsset
+          .create(<AirtableAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -26,7 +25,7 @@ describe.skip('GraphCMSAsset', () => {
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
-        expect(img.props.title).toEqual('');
+        expect(img.props.title).toEqual(undefined);
         expect(img.props.alt).toEqual(defaultLogoUrl);
         expect(img.props.className).toEqual(`asset-${id}`);
         expect(img.props.style).toEqual({});
@@ -39,7 +38,7 @@ describe.skip('GraphCMSAsset', () => {
         const classes = 'test-class1 test-class2';
         const style = { paddingTop: 5 };
         const renderer = TestRenderer
-          .create(<GraphCMSAsset
+          .create(<AirtableAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -67,7 +66,7 @@ describe.skip('GraphCMSAsset', () => {
           const classes = 'test-class1 test-class2';
           const style = { paddingTop: 5 };
           const renderer = TestRenderer
-            .create(<GraphCMSAsset
+            .create(<AirtableAsset
               id={id}
               asset={{
                 url: defaultLogoUrl,
@@ -98,7 +97,7 @@ describe.skip('GraphCMSAsset', () => {
           const classes = 'test-class1 test-class2';
           const style = { paddingTop: 5 };
           const renderer = TestRenderer
-            .create(<GraphCMSAsset
+            .create(<AirtableAsset
               id={id}
               asset={{
                 url: defaultLogoUrl,
@@ -127,7 +126,7 @@ describe.skip('GraphCMSAsset', () => {
           const classes = 'test-class1 test-class2';
           const style = { paddingTop: 5 };
           const renderer = TestRenderer
-            .create(<GraphCMSAsset
+            .create(<AirtableAsset
               id={id}
               asset={{
                 url: defaultLogoUrl,
@@ -161,9 +160,9 @@ describe.skip('GraphCMSAsset', () => {
         const id = 'test';
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
-        const style = { paddingTop: 5 };
+        const style = { paddingTop: 5, width: 500, height: 300 };
         const renderer = TestRenderer
-          .create(<GraphCMSAsset
+          .create(<AirtableAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -180,7 +179,7 @@ describe.skip('GraphCMSAsset', () => {
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=width:500,height:300/auto_image/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual(defaultLogoUrl);
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -192,9 +191,9 @@ describe.skip('GraphCMSAsset', () => {
         const id = 'test';
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
-        const style = { paddingTop: 5 };
+        const style = { paddingTop: 5, width: 500 };
         const renderer = TestRenderer
-          .create(<GraphCMSAsset
+          .create(<AirtableAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -210,7 +209,7 @@ describe.skip('GraphCMSAsset', () => {
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=width:500/auto_image/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual(defaultLogoUrl);
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -222,9 +221,9 @@ describe.skip('GraphCMSAsset', () => {
         const id = 'test';
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
-        const style = { paddingTop: 5 };
+        const style = { paddingTop: 5, height: 300 };
         const renderer = TestRenderer
-          .create(<GraphCMSAsset
+          .create(<AirtableAsset
             id={id}
             asset={{
               url: defaultLogoUrl,
@@ -237,13 +236,13 @@ describe.skip('GraphCMSAsset', () => {
               },
             }}
             transformationsOverride={{
-              height: 300
+              height: 300,
             }}
           />);
         const img = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
-        expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=height:300/auto_image/88YmsSFsSEGI9i0qcH0V');
+        expect(img.props.src).toEqual(defaultLogoUrl);
         expect(img.props.title).toEqual(title);
         expect(img.props.alt).toEqual(title);
         expect(img.props.className).toEqual(`asset-${id} ${classes}`);
@@ -258,7 +257,7 @@ describe.skip('GraphCMSAsset', () => {
       const id = 'test';
       const linkUrl = 'https://google.com';
       const renderer = TestRenderer
-        .create(<GraphCMSAsset
+        .create(<AirtableAsset
           id={id}
           asset={{
             url: defaultLogoUrl,
@@ -270,7 +269,7 @@ describe.skip('GraphCMSAsset', () => {
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
-      expect(img.props.title).toEqual('');
+      expect(img.props.title).toEqual(undefined);
       expect(img.props.alt).toEqual(defaultLogoUrl);
       expect(img.props.className).toEqual(`asset-${id}`);
       expect(img.props.style).toEqual({});
@@ -291,7 +290,7 @@ describe.skip('GraphCMSAsset', () => {
       const linkUrl = 'https://google.com';
 
       const renderer = TestRenderer
-        .create(<GraphCMSAsset
+        .create(<AirtableAsset
           id={id}
           asset={{
             url: defaultLogoUrl,
@@ -336,7 +335,7 @@ describe.skip('GraphCMSAsset', () => {
       const overriddenLinkUrl = 'https://overridden.com';
 
       const renderer = TestRenderer
-        .create(<GraphCMSAsset
+        .create(<AirtableAsset
           id={id}
           asset={{
             url: defaultLogoUrl,
@@ -383,7 +382,7 @@ describe.skip('GraphCMSAsset', () => {
       const onClick = () => 'clicked';
 
       const renderer = TestRenderer
-        .create(<GraphCMSAsset
+        .create(<AirtableAsset
           id={id}
           asset={{
             url: defaultLogoUrl,
