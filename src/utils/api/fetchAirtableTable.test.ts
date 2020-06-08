@@ -6,6 +6,10 @@ import { reset as cacheReset } from '../caching/memoryCacheStorage';
 import waitFor from '../timers/waitFor';
 import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable';
 
+/**
+ * @group integration
+ * @group utils
+ */
 describe(`utils/api/fetchAirtable.ts`, () => {
   beforeEach(() => {
     global.console = global.muteConsole();

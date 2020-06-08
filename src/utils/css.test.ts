@@ -1,6 +1,7 @@
 import { cssToReactStyle } from './css';
 
 /**
+ * @group unit
  * @group utils
  */
 describe(`utils/css.ts`, () => {

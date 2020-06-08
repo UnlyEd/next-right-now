@@ -5,6 +5,9 @@
  * It was added after encountering this particular issue https://github.com/vercel/next.js/issues/13780
  * Where a missing env var would crash the "next build" locally, because of the particular behaviour of the "fetch" package
  * It can be hard to track down such misconfiguration, and it's a good practice to detect those as early as possible (and avoid deploying a misconfigured release)
+ *
+ * @group integration
+ * @group utils
  */
 describe(`utils/env/env.ts`, () => {
   describe(`should load env vars properly depending on the environment (NODE_ENV="${process.env.NODE_ENV}")`, () => {

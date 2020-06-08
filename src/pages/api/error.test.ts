@@ -3,6 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { mockRequest, mockResponse } from '../../utils/testing/tests-mocks';
 import error from './error';
 
+/**
+ * @group unit
+ * @group api
+ */
 describe('error', () => {
   beforeEach(() => {
     global.console = global.muteConsole();

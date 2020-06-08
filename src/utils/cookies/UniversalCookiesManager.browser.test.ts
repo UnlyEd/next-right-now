@@ -6,7 +6,11 @@ import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession
 import { deleteAllCookies } from './cookies';
 import UniversalCookiesManager from './UniversalCookiesManager';
 
-describe(`utils/UniversalCookiesManager.ts`, () => {
+/**
+ * @group unit
+ * @group utils
+ */
+describe(`utils/cookies/UniversalCookiesManager.ts`, () => {
   describe(`browser`, () => {
     beforeEach(() => {
       deleteAllCookies(); // Reset cookies between each test to avoid "overflow"
