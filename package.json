@@ -38,7 +38,7 @@
     "lint:fix": "eslint src/ --ext .ts --ext .tsx --fix",
     "lint:fix:preview": "eslint src/ --ext .ts --ext .tsx --fix-dry-run",
     "test": "NODE_ENV=test jest --watchAll",
-    "test:group:utils": "NODE_ENV=test jest --group utils --watchAll",
+    "test:group:utils": "NODE_ENV=test jest --group=utils --watchAll",
     "test:once": "NODE_ENV=test jest",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:config": "NODE_ENV=test jest --showConfig",
