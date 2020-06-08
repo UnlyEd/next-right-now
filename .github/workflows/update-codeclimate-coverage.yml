@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - 'v2-mst-aptd-gcms-lcz-sty'
-      - 'CodeClimate-integration'
 
 jobs:
   run-tests-coverage:
@@ -21,7 +20,6 @@ jobs:
           node-version: '12.x'
       - run: npm install -g yarn
       - run: yarn install
-      - run: yarn build
       - uses: paambaati/codeclimate-action@v2.6.0
         env:
           CC_TEST_REPORTER_ID: 1977a1d86aebb0b8ad0fde9af8f081c5703d7320763258db0031142a0e196d76
