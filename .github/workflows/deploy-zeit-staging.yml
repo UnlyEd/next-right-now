@@ -167,7 +167,7 @@ jobs:
           body: |
             [GitHub Actions]
             E2E tests **FAILED**
-            Download artifacts (screenshots + videos) from `checks` section at the top
+            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
 
       # On E2E success, add a comment to the PR
       - name: Comment PR (E2E success)
