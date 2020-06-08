@@ -1,4 +1,4 @@
-// This config cannot be used alongside package.json:jest, all Jest config must be centralised in this file - See https://github.com/facebook/jest/issues/10123#issuecomment-638796267
+// "package.json:jest" config cannot be used alongside this config, all Jest config must be centralised in this file - See https://github.com/facebook/jest/issues/10123#issuecomment-638796267
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
