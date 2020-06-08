@@ -68,8 +68,10 @@ jobs:
 
       # We need to find the PR id to be able to comment it
       - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
         id: pr_id_finder
-        run: echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }' # Found it here: https://github.com/actions/checkout/issues/58
+        with:
+          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
@@ -85,7 +87,7 @@ jobs:
         if: success()
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-          issue-number: ${{ steps.pr_id_finder.outputs }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
             Deployment **SUCCESS**
