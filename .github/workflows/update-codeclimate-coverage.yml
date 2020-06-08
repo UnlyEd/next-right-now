@@ -11,19 +11,21 @@ on:
       - 'CodeClimate-integration'
 
 jobs:
+  setup-environment:
+    name: Setup deployment environment (Ubuntu 18.04 - Node 12.x)
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Installing node.js
+        uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
+        with:
+          node-version: '12.x' # Use the same node.js version as the one Zeit's uses (currently node12.x)
   run-tests-coverage:
     name: Run tests coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
-        with:
-          node-version: '12.x'
-      - run: npm install -g yarn
-      - run: yarn install
+      - uses: actions/checkout@v1
       - uses: paambaati/codeclimate-action@v2.6.0
         env:
-          CC_TEST_REPORTER_ID: 1977a1d86aebb0b8ad0fde9af8f081c5703d7320763258db0031142a0e196d76
-          #CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }} # Fill this secret to make it works for you.
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }} # Fill this secret to make it works for you.
         with:
           coverageCommand: yarn test:coverage
