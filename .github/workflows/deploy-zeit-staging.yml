@@ -83,6 +83,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
         with:
           msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}\n\tDeployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}"
+          check_for_duplicate_msg: true
 
   # Runs E2E tests against the Zeit deployment
   run-2e2-tests:
