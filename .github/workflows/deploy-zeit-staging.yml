@@ -66,8 +66,7 @@ jobs:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
 
-      # We need to find the PR id to be able to comment it.
-      # It avoids, on many push at the same time, issues about the pull request (HEAD moving).
+      # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
         uses: jwalton/gh-find-current-pr@v1
         id: pr_id_finder
@@ -148,8 +147,7 @@ jobs:
           name: videos
           path: cypress/videos/
 
-      # We need to find the PR id to be able to comment it.
-      # It avoids, on many push at the same time, issues about the pull request (HEAD moving).
+      # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
         uses: jwalton/gh-find-current-pr@v1
         id: pr_id_finder
