@@ -86,7 +86,8 @@ jobs:
           body: |
             [GitHub Actions]
             Deployment **FAILED**
-            Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} ([click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks))"
+            Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
 
       # On deployment success, add a comment to the PR
       - name: Comment PR (Deployment success)
