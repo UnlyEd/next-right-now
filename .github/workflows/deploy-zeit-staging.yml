@@ -67,9 +67,9 @@ jobs:
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
 
       # We need to find the PR id to be able to comment it
-      - name: Find Pull Request ID
+      - name: Finding Pull Request ID
         id: pr_id_finder
-        run: jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH"
+        run: echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }' # Found it here: https://github.com/actions/checkout/issues/58
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
