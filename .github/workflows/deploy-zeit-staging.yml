@@ -70,7 +70,7 @@ jobs:
       - name: Finding Pull Request ID
         uses: jwalton/gh-find-current-pr@v1
         id: pr_id_finder
-        if: always() # We want to get the PR ID, even when it fails.
+        if: always() # It forces the job to be always executed, even if a previous job fail.
         with:
           github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
 
@@ -151,7 +151,7 @@ jobs:
       - name: Finding Pull Request ID
         uses: jwalton/gh-find-current-pr@v1
         id: pr_id_finder
-        if: always() # We want to get the PR ID, even when it fails.
+        if: always() # It forces the job to be always executed, even if a previous job fail.
         with:
           github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
 
