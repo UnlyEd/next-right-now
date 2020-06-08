@@ -66,23 +66,39 @@ jobs:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
 
+      # We need to find the PR id. Will be used later to comment on that PR.
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # It forces the job to be always executed, even if a previous job fail.
+        with:
+          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
-        uses: unsplash/comment-on-pr@master
+        uses: peter-evans/create-or-update-comment@v1
         if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
         with:
-          msg: "[GitHub Actions]\nDeployment FAILED\n\t Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} (click to see logs)"
+          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            Deployment **FAILED**
+            Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
 
       # On deployment success, add a comment to the PR
       - name: Comment PR (Deployment success)
-        uses: unsplash/comment-on-pr@master
+        uses: peter-evans/create-or-update-comment@v1
         if: success()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
         with:
-          msg: "[GitHub Actions]\nDeployment SUCCESS\n\t Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}\n\tDeployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}"
+          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            Deployment **SUCCESS**
+            Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            Deployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
 
   # Runs E2E tests against the Zeit deployment
   run-2e2-tests:
@@ -131,20 +147,35 @@ jobs:
           name: videos
           path: cypress/videos/
 
+      # We need to find the PR id. Will be used later to comment on that PR.
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # It forces the job to be always executed, even if a previous job fail.
+        with:
+          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+
       # On E2E failure, add a comment to the PR with additional information
       - name: Comment PR (E2E failure)
-        uses: unsplash/comment-on-pr@master
+        uses: peter-evans/create-or-update-comment@v1
         if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
         with:
-          msg: "[GitHub Actions]\nE2E tests FAILED\n  Download artifacts (screenshots + videos) from `checks` section at the top"
+          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            E2E tests **FAILED**
+            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
 
       # On E2E success, add a comment to the PR
       - name: Comment PR (E2E success)
-        uses: unsplash/comment-on-pr@master
+        uses: peter-evans/create-or-update-comment@v1
         if: success()
+        with:
+          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            E2E tests **SUCCESS**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-        with:
-          msg: "[GitHub Actions]\nE2E tests SUCCESS"
