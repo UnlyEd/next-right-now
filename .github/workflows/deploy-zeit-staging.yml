@@ -62,11 +62,13 @@ jobs:
           echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
 
           npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
+          exit 1
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
 
-      # We need to find the PR id to be able to comment it
+      # We need to find the PR id to be able to comment it.
+      # It avoids, on many push at the same time, issues about the pull request (HEAD moving).
       - name: Finding Pull Request ID
         uses: jwalton/gh-find-current-pr@v1
         id: pr_id_finder
@@ -84,8 +86,8 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
-            \tDeployment **FAILED**
-            \tCommit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} ([click to see logs](https://github.com/UnlyEd/next-right-now/pull/$PR_ID/checks))"
+            Deployment **FAILED**
+            Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} ([click to see logs](https://github.com/UnlyEd/next-right-now/pull/$PR_ID/checks))"
 
       # On deployment success, add a comment to the PR
       - name: Comment PR (Deployment success)
@@ -96,9 +98,9 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
-            \tDeployment **SUCCESS**
-            \tCommit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
-            \tDeployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
+            Deployment **SUCCESS**
+            Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            Deployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
 
   # Runs E2E tests against the Zeit deployment
   run-2e2-tests:
