@@ -5,7 +5,7 @@ import { BaseTable } from '../../utils/api/fetchAirtableTable';
  *
  * Uses generic "fields" field to allow extend using our own entities (Customer, Theme, etc.)
  */
-export declare type AirtableRecord<Record extends {} = {}> = {
+export type AirtableRecord<Record extends {} = {}> = {
   id?: string;
   createdTime?: string;
   fields?: Partial<Record>;

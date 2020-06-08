@@ -3,7 +3,7 @@
  *
  * Those fields are available on any Airtable record.
  */
-export declare type AirtableSystemFields = {
+export type AirtableSystemFields = {
   id?: string;
   createdTime?: string;
 }

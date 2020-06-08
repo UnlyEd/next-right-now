@@ -3,6 +3,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { mockRequest, mockResponse } from '../../utils/testing/tests-mocks';
 import status from './status';
 
+/**
+ * @group unit
+ * @group api
+ */
 describe('status', () => {
   test('should be a function', async () => {
     expect(status).toBeInstanceOf(Function);

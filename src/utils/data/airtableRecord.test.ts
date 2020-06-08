@@ -4,6 +4,10 @@ import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { sanitizeRecord } from './airtableRecord';
 import { GenericRecord } from './record';
 
+/**
+ * @group unit
+ * @group utils
+ */
 describe(`utils/data/airtableRecord.ts`, () => {
   const preferredLocales = ['fr', 'en'];
   const record: AirtableRecord = CUSTOMER1;

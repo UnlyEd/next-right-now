@@ -6,6 +6,6 @@ import { AirtableRecord } from './AirtableRecord';
  *
  * @example { 'reci9HYsoqd1xScsi': AirtableRecord, ... }
  */
-export declare type AirtableDataset = {
+export type AirtableDataset = {
   [id: string]: AirtableRecord;
 }
