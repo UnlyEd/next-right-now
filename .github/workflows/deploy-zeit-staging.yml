@@ -68,12 +68,11 @@ jobs:
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
-        uses: unsplash/comment-on-pr@master
+        uses: github-actions-up-and-running/pr-comment@v1.0.0
         if: failure()
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
         with:
-          msg: "[GitHub Actions]\nDeployment FAILED\n\t Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} (click to see logs)"
+          repo-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          message: "[GitHub Actions]\nDeployment FAILED\n\t Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }} (click to see logs)"
 
       # On deployment success, add a comment to the PR
       - name: Comment PR (Deployment success)
