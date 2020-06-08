@@ -1,6 +1,10 @@
 import { FallbackConfig, FallbackConfigTransformProps, filterSelectedRecords, GenericRecord, getValueFallback, hasValue, NOT_FOUND } from './record';
 
-describe('utils/record.ts', () => {
+/**
+ * @group unit
+ * @group utils
+ */
+describe('utils/data/record.ts', () => {
   beforeEach(() => {
     // Silent console log (used by logger.warn)
     // @ts-ignore
