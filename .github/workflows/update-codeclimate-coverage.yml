@@ -8,7 +8,7 @@ on:
   push:
     branches:
       - 'v2-mst-aptd-gcms-lcz-sty'
-      - 'CC-integration'
+      - 'CodeClimate-integration'
 
 jobs:
   run-tests-coverage:
