@@ -90,9 +90,9 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
-            Deployment **SUCCESS**
-              Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
-              Deployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
+            \tDeployment **SUCCESS**
+            \tCommit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            \tDeployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
 
   # Runs E2E tests against the Zeit deployment
   run-2e2-tests:
