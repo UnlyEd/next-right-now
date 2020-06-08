@@ -19,6 +19,8 @@ jobs:
         uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
         with:
           node-version: '12.x' # Use the same node.js version as the one Zeit's uses (currently node12.x)
+      - name: Installing dependencies
+        run: yarn install
   run-tests-coverage:
     name: Run tests coverage
     runs-on: ubuntu-latest
