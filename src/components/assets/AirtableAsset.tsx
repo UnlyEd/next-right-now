@@ -53,7 +53,6 @@ const _defaultLink: Link = {
  * @see Transformations https://docs.graphcms.com/developers/assets/transformations/transforming-url-structure
  */
 const AirtableAsset = (props: Props): JSX.Element => {
-  console.log('props', props);
   const {
     id,
     asset,
