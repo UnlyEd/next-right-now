@@ -29,7 +29,7 @@ const Nav: React.FunctionComponent<Props> = () => {
   const router: NextRouter = useRouter();
   const theme = useTheme<CustomerTheme>();
   const { primaryColor, logo: logoAirtable } = theme;
-  const logo = (logoAirtable as AirtableRecord<Asset>)?.fields;
+  const logo: Asset = logoAirtable as AirtableRecord<Asset>;
   const { locale }: I18n = useI18n();
 
   return (
@@ -126,7 +126,6 @@ const Nav: React.FunctionComponent<Props> = () => {
               asset={logo}
               linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
               transformationsOverride={{
-                width: 75,
                 height: 100,
               }}
             />
