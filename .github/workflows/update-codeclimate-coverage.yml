@@ -1,0 +1,29 @@
+# Summary:
+# Run Unit and coverage tests, then upload it to Code Climate dashboard
+# Read ./README.md for extensive documentation
+
+name: Update Code Climate Coverage
+
+on:
+  push:
+    branches:
+      - 'v2-mst-aptd-gcms-lcz-sty'
+      - 'CC-integration'
+
+jobs:
+  run-tests-coverage:
+    name: Run tests coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: '12.x'
+      - run: npm install -g yarn
+      - run: yarn install
+      - run: yarn build
+      - uses: paambaati/codeclimate-action@v2.6.0
+        env:
+          CC_TEST_REPORTER_ID: 1977a1d86aebb0b8ad0fde9af8f081c5703d7320763258db0031142a0e196d76
+        with:
+          coverageCommand: yarn test:coverage
