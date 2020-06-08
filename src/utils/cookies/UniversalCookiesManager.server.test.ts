@@ -5,7 +5,11 @@ import UniversalCookiesManager from './UniversalCookiesManager';
 // TODO Couldn't mock server correctly in a way that is compatible with how "cookies" works
 //  Needs more tests (browser is properly tested, but not server)
 
-describe(`utils/UniversalCookiesManager.ts`, () => {
+/**
+ * @group unit
+ * @group utils
+ */
+describe(`utils/cookies/UniversalCookiesManager.ts`, () => {
   describe(`server`, () => {
     describe(`constructor`, () => {
       test(`should init correctly (req, res)`, async () => {

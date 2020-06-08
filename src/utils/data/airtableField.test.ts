@@ -3,6 +3,10 @@ import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
 import { getFieldBestAvailableTranslation, getGenericLocalisedFieldName, hasGenericLocalisedField, isLocalisedField } from './airtableField';
 
+/**
+ * @group unit
+ * @group utils
+ */
 describe(`utils/data/airtableField.ts`, () => {
   const allowedLocales = ['en', 'FR']; // Behaviour between lower casing and upper casing should be identical
 

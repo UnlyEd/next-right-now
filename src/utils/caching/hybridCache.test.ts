@@ -4,6 +4,10 @@ import { StorageOptions } from './hybridCacheStorage';
 import { reset as inDiskCacheReset } from './diskCacheStorage';
 import { reset as inMemoryCacheReset } from './memoryCacheStorage';
 
+/**
+ * @group unit
+ * @group utils
+ */
 describe(`utils/memoization/cache.ts`, () => {
   beforeEach(() => {
     global.console = global.muteConsole();
