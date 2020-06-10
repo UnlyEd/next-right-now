@@ -5,9 +5,6 @@
 name: Deploy to Zeit (staging)
 
 on:
-  push:
-    branches-ignore:
-      - 'master'
   pull_request:
     branches-ignore:
       - 'master'
@@ -213,8 +210,8 @@ jobs:
         id: lighthouseCheck
         with:
           accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR.
-          #prCommentEnabled: true # If we want for this action to comment or not (default: true).
-          #prCommentSaveOld: false # Comment each time with another comment, instead of update the last one (default: false).
+          prCommentEnabled: true # If we want for this action to comment or not (default: true).
+          prCommentSaveOld: true # Comment each time with another comment, instead of update the last one (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
 
@@ -232,8 +229,8 @@ jobs:
         uses: foo-software/lighthouse-check-status-action@v1.0.1
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
-          minAccessibilityScore: "90"
-          minBestPracticesScore: "50"
-          minPerformanceScore: "50"
-          minProgressiveWebAppScore: "50"
-          minSeoScore: "50"
+          minAccessibilityScore: "30"
+          minBestPracticesScore: "30"
+          minPerformanceScore: "30"
+          minProgressiveWebAppScore: "30"
+          minSeoScore: "30"
