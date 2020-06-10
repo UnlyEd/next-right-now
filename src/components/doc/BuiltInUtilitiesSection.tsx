@@ -33,6 +33,19 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             </CardText>
           </CardBody>
         </Card>
+        <Card>
+          <CardBody>
+            <CardTitle><h3><code>AirtableAsset</code> component</h3></CardTitle>
+            <CardSubtitle>&ldquo;Help manage airtable assets (attachments, images, etc.)&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/built-in-utilities/airtableAsset-component'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
 
         <Card>
           <CardBody>
