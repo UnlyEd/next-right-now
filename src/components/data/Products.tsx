@@ -47,10 +47,6 @@ const Products: React.FunctionComponent<Props> = (props) => {
                       key={image?.id}
                       id={image?.id}
                       asset={image}
-                      transformationsOverride={{
-                        width: 75,
-                        height: 100,
-                      }}
                     />
                   );
                 })
