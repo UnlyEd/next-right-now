@@ -201,11 +201,21 @@ jobs:
       - name: Create temporary fodler for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
       - name: Run Lighthouse
-        uses: foo-software/lighthouse-check-action@master
+        uses: foo-software/lighthouse-check-action@v1.0.14
+        id: lighthouseCheck
         with:
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
       - name: Upload artifacts
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v1
         with:
           name: Lighthouse reports
           path: /tmp/lighthouse-artifacts
+      - name: Handle Lighthouse Check results
+        uses: foo-software/lighthouse-check-status-action@v1.0.1
+        with:
+          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
+          minAccessibilityScore: "90"
+          minBestPracticesScore: "50"
+          minPerformanceScore: "50"
+          minProgressiveWebAppScore: "50"
+          minSeoScore: "50"
