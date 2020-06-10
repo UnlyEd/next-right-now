@@ -209,11 +209,11 @@ jobs:
         uses: foo-software/lighthouse-check-action@v1.0.14
         id: lighthouseCheck
         with:
-          urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
-          outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR.
-          prCommentEnabled: true # If we want for this action to comment or not.
+          prCommentEnabled: true # If we want for this action to comment or not (default: true).
           prCommentSaveOld: false # Comment each time with another comment, instead of update the last one (default: false).
+          outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
+          urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
 
       # Upload HTML report create by lighthouse, could be useful
       - name: Upload artifacts
