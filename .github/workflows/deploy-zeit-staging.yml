@@ -210,8 +210,8 @@ jobs:
         id: lighthouseCheck
         with:
           accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR.
-          prCommentEnabled: true # If we want for this action to comment or not (default: true).
-          prCommentSaveOld: false # Comment each time with another comment, instead of update the last one (default: false).
+          #prCommentEnabled: true # If we want for this action to comment or not (default: true).
+          #prCommentSaveOld: false # Comment each time with another comment, instead of update the last one (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
 
