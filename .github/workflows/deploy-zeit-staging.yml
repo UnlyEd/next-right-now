@@ -209,6 +209,7 @@ jobs:
       # Using a pre-build action to make the action fail if your score is too low. It can be really interesting to track a low score on a commit
       # You can remove this action IF you don't want lighthouse to be a blocking point in your CI
       # This default values so you need to change them by your own criteria
+      # Official documentation: https://github.com/foo-software/lighthouse-check-status-action
       - name: Handle Lighthouse Check results
         uses: foo-software/lighthouse-check-status-action@v1.0.1
         with:
