@@ -3,7 +3,7 @@
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
-max_line_length = 160 # Gets inherited by .prettierrc
+max_line_length = 80 # Gets inherited by .prettierrc
 end_of_line = lf # Gets inherited by .prettierrc
 indent_style = space # Gets inherited by .prettierrc
 indent_size = 2 # Gets inherited by .prettierrc
