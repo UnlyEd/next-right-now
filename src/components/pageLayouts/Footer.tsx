@@ -15,7 +15,7 @@ import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { i18nRedirect } from '../../utils/app/router';
 import { SIZE_XS } from '../../utils/assets/logo';
 import { LANG_FR } from '../../utils/i18n/i18n';
-import GraphCMSAsset from '../assets/GraphCMSAsset';
+import AirtableAsset from '../assets/AirtableAsset';
 import Logo from '../assets/Logo';
 import I18nLink from '../i18n/I18nLink';
 import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
@@ -33,7 +33,7 @@ const Footer: React.FunctionComponent<Props> = () => {
   const { lang, locale }: I18n = useI18n();
   const theme = useTheme<CustomerTheme>();
   const { primaryColor, logo: logoAirtable } = theme;
-  const logo = (logoAirtable as AirtableRecord<Asset>)?.fields;
+  const logo = logoAirtable as AirtableRecord<Asset>;
   const logoSizesMultipliers = [
     {
       size: SIZE_XS,
@@ -63,14 +63,10 @@ const Footer: React.FunctionComponent<Props> = () => {
     >
       <Row className={'justify-content-end align-items-end'}>
         <Col md={4} xs={12} className={'text-md-left text-center mt-4'}>
-          <GraphCMSAsset
+          <AirtableAsset
             id={'footer-logo-organisation-brand'}
             asset={logo}
             linkOverride={{ id: 'link-footer-logo-organisation-brand' }}
-            transformationsOverride={{
-              width: 150,
-              height: 200,
-            }}
           />
         </Col>
         <Col md={4} xs={12} className={'mt-4'}>

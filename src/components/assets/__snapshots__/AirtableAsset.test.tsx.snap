@@ -1,0 +1,273 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/assets/AirtableAsset should properly render an asset from Airtable when the asset is used as an image (<img>) when relying on default "logo" property, it should apply the internal default properties 1`] = `
+<img
+  alt="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  className="asset-test"
+  id="test"
+  src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  style={Object {}}
+/>
+`;
+
+exports[`components/assets/AirtableAsset should properly render an asset from Airtable when the asset is used as an image (<img>) when using "logo" property, it should apply the properties correctly 1`] = `
+<img
+  alt="Test asset"
+  className="asset-test test-class1 test-class2"
+  id="test"
+  src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  style={
+    Object {
+      "paddingTop": 5,
+    }
+  }
+  title="Test asset"
+/>
+`;
+
+exports[`components/assets/AirtableAsset should properly render an asset from Airtable when the asset is used as an image (<img>) when using "transformationsOverride" property, it should only use the override and ignore the default transformations 1`] = `
+<img
+  alt="Test asset"
+  className="asset-test test-class1 test-class2"
+  id="test"
+  src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  style={
+    Object {
+      "height": 300,
+      "paddingTop": 5,
+    }
+  }
+  title="Test asset"
+/>
+`;
+
+exports[`components/assets/AirtableAsset should properly render an asset from Airtable when the asset is used as an image (<img>) when using a single "transformations" property, it should apply this transformation 1`] = `
+<img
+  alt="Test asset"
+  className="asset-test test-class1 test-class2"
+  id="test"
+  src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  style={
+    Object {
+      "paddingTop": 5,
+      "width": 500,
+    }
+  }
+  title="Test asset"
+/>
+`;
+
+exports[`components/assets/AirtableAsset should properly render an asset from Airtable when the asset is used as an image (<img>) when using custom defaults which should be properly applied 1`] = `
+<img
+  alt="Test asset"
+  className="asset-test test-class1 test-class2"
+  id="test"
+  src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  style={
+    Object {
+      "paddingTop": 5,
+    }
+  }
+  title="Test asset"
+/>
+`;
+
+exports[`components/assets/AirtableAsset should properly render an asset from Airtable when the asset is used as an image (<img>) when using custom override when used with the "defaults" property, it should override defaults and asset properties with the overridden values 1`] = `
+<img
+  alt="Test asset"
+  className="asset-test test-class1 test-class2"
+  id="test"
+  src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  style={
+    Object {
+      "paddingTop": 5,
+    }
+  }
+  title="Test asset"
+/>
+`;
+
+exports[`components/assets/AirtableAsset should properly render an asset from Airtable when the asset is used as an image (<img>) when using custom override when used with the "logo" property, it should override the logo props with the override values 1`] = `
+<img
+  alt="Test asset"
+  className="asset-test test-class1 test-class2"
+  id="test"
+  src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  style={
+    Object {
+      "paddingTop": 5,
+    }
+  }
+  title="Test asset"
+/>
+`;
+
+exports[`components/assets/AirtableAsset should properly render an asset from Airtable when the asset is used as an image (<img>) when using multiple "transformations" properties, it should apply all transformations 1`] = `
+<img
+  alt="Test asset"
+  className="asset-test test-class1 test-class2"
+  id="test"
+  src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+  style={
+    Object {
+      "height": 300,
+      "paddingTop": 5,
+      "width": 500,
+    }
+  }
+  title="Test asset"
+/>
+`;
+
+exports[`components/assets/AirtableAsset when the asset is used as a link(<a>) containing an image (<img>) when relying on default "logo" property 1`] = `
+Object {
+  "alt": "https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png",
+  "className": "asset-test",
+  "id": "test",
+  "src": "https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png",
+  "style": Object {},
+  "title": undefined,
+}
+`;
+
+exports[`components/assets/AirtableAsset when the asset is used as a link(<a>) containing an image (<img>) when relying on default "logo" property 2`] = `
+<a
+  className="asset-link-test"
+  href="https://google.com"
+  id={null}
+  onClick={null}
+  style={Object {}}
+  target="_blank"
+>
+  <img
+    alt="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+    className="asset-test"
+    id="test"
+    src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+    style={Object {}}
+  />
+</a>
+`;
+
+exports[`components/assets/AirtableAsset when the asset is used as a link(<a>) containing an image (<img>) when using "linkOverride" property 1`] = `
+Object {
+  "alt": "Test asset",
+  "className": "asset-test test-class1 test-class2",
+  "id": "test",
+  "src": "https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png",
+  "style": Object {
+    "paddingTop": 5,
+  },
+  "title": "Test asset",
+}
+`;
+
+exports[`components/assets/AirtableAsset when the asset is used as a link(<a>) containing an image (<img>) when using "linkOverride" property 2`] = `
+<a
+  className="asset-link-test test-class1 test-class2"
+  href="https://google.com"
+  id="link-test"
+  onClick={null}
+  style={
+    Object {
+      "paddingTop": 5,
+    }
+  }
+  target="_blank"
+>
+  <img
+    alt="Test asset"
+    className="asset-test test-class1 test-class2"
+    id="test"
+    src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+    style={
+      Object {
+        "paddingTop": 5,
+      }
+    }
+    title="Test asset"
+  />
+</a>
+`;
+
+exports[`components/assets/AirtableAsset when the asset is used as a link(<a>) containing an image (<img>) when using "linkOverride" property to override the link url 1`] = `
+Object {
+  "alt": "Test asset",
+  "className": "asset-test test-class1 test-class2",
+  "id": "test",
+  "src": "https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png",
+  "style": Object {
+    "paddingTop": 5,
+  },
+  "title": "Test asset",
+}
+`;
+
+exports[`components/assets/AirtableAsset when the asset is used as a link(<a>) containing an image (<img>) when using "linkOverride" property to override the link url 2`] = `
+<a
+  className="asset-link-test test-class1 test-class2"
+  href="https://overridden.com"
+  id="link-test"
+  onClick={null}
+  style={
+    Object {
+      "paddingTop": 5,
+    }
+  }
+  target="_blank"
+>
+  <img
+    alt="Test asset"
+    className="asset-test test-class1 test-class2"
+    id="test"
+    src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+    style={
+      Object {
+        "paddingTop": 5,
+      }
+    }
+    title="Test asset"
+  />
+</a>
+`;
+
+exports[`components/assets/AirtableAsset when the asset is used as a link(<a>) containing an image (<img>) when using "onClick" property 1`] = `
+Object {
+  "alt": "Test asset",
+  "className": "asset-test test-class1 test-class2",
+  "id": "test",
+  "src": "https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png",
+  "style": Object {
+    "paddingTop": 5,
+  },
+  "title": "Test asset",
+}
+`;
+
+exports[`components/assets/AirtableAsset when the asset is used as a link(<a>) containing an image (<img>) when using "onClick" property 2`] = `
+<a
+  className="asset-link-test test-class1 test-class2"
+  href="https://overridden.com"
+  id="link-test"
+  onClick={[Function]}
+  style={
+    Object {
+      "paddingTop": 5,
+    }
+  }
+  target="_blank"
+>
+  <img
+    alt="Test asset"
+    className="asset-test test-class1 test-class2"
+    id="test"
+    src="https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png"
+    style={
+      Object {
+        "paddingTop": 5,
+      }
+    }
+    title="Test asset"
+  />
+</a>
+`;

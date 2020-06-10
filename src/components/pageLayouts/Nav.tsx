@@ -16,7 +16,7 @@ import { Asset } from '../../types/data/Asset';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { SidebarLink } from '../../types/SidebarLink';
 import { isActive, resolveI18nHomePage } from '../../utils/app/router';
-import GraphCMSAsset from '../assets/GraphCMSAsset';
+import AirtableAsset from '../assets/AirtableAsset';
 import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '../doc/BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '../doc/BuiltInUtilitiesSidebar';
 import { NATIVE_FEATURES_SIDEBAR_LINKS } from '../doc/NativeFeaturesSidebar';
@@ -29,7 +29,7 @@ const Nav: React.FunctionComponent<Props> = () => {
   const router: NextRouter = useRouter();
   const theme = useTheme<CustomerTheme>();
   const { primaryColor, logo: logoAirtable } = theme;
-  const logo = (logoAirtable as AirtableRecord<Asset>)?.fields;
+  const logo: Asset = logoAirtable as AirtableRecord<Asset>;
   const { locale }: I18n = useI18n();
 
   return (
@@ -121,12 +121,11 @@ const Nav: React.FunctionComponent<Props> = () => {
           `}
         >
           <div className={'brand-logo'}>
-            <GraphCMSAsset
+            <AirtableAsset
               id={'nav-logo-brand'}
               asset={logo}
               linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
               transformationsOverride={{
-                width: 75,
                 height: 100,
               }}
             />
