@@ -8,8 +8,8 @@ import { Link } from '../../types/data/Link';
 import { cssToReactStyle } from '../../utils/css';
 
 type Props = {
-  id: string;
   asset: Asset;
+  id?: string;
   transformationsOverride?: AssetTransformations;
   defaults?: Asset;
   override?: Asset;
@@ -54,8 +54,8 @@ const _defaultLink: Link = {
  */
 const AirtableAsset = (props: Props): JSX.Element => {
   const {
-    id,
     asset,
+    id,
     defaults = {},
     override = {},
     className = '',
@@ -67,6 +67,8 @@ const AirtableAsset = (props: Props): JSX.Element => {
   if (isEmpty(asset)) {
     return null;
   }
+  const identifier = id || `asset-${asset?.id}`;
+  const defaultClass = id ? `asset-${id}` : identifier;
   const resolvedAssetProps: Asset = deepmerge.all([_defaultAsset, defaults, asset || {}, override]);
   const resolvedLinkProps: Link = deepmerge.all([
     _defaultLink,
@@ -94,12 +96,12 @@ const AirtableAsset = (props: Props): JSX.Element => {
   const Image = (): JSX.Element => {
     return (
       <img
-        key={id}
-        id={id}
+        key={identifier}
+        id={identifier}
         src={resolvedAssetProps.url}
         title={resolvedAssetProps.title || resolvedAssetProps.filename}
         alt={resolvedAssetProps.title || resolvedAssetProps.filename || resolvedAssetProps.url}
-        className={classnames(`asset-${id}`, className, resolvedAssetProps.classes)}
+        className={classnames(defaultClass, className, resolvedAssetProps.classes)}
         style={deepmerge(style || {}, resolvedAssetProps.style || {})}
       />
     );

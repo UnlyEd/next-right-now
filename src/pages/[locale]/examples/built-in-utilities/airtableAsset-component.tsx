@@ -91,7 +91,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
             return (
               <div key={image?.id}>
                 <AirtableAsset
-                  id={product.ref}
+                  id={product?.ref}
                   asset={image}
                 />
               </div>
@@ -112,13 +112,22 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                 return (
                   <div key={image?.id}>
                     <AirtableAsset
-                      id={product.ref}
+                      id={product?.ref}
                       asset={image}
                     />
                   </div>
                 );
               })
             }
+
+            // Generated example
+            <img
+              id="vista-al-valle-zapote-honey"
+              src="https://dl.airtable.com/OeNybctMTBKLPkbntK8p_jftonpzlxgakoxo9plfq.jpg"
+              title="jftonpzlxgakoxo9plfq.jpg"
+              alt="jftonpzlxgakoxo9plfq.jpg"
+              class="asset-vista-al-valle-zapote-honey"
+            />
           `}
         />
 
@@ -138,7 +147,6 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
             return (
               <div key={image?.id}>
                 <AirtableAsset
-                  id={product.ref}
                   asset={image}
                   transformationsOverride={{
                     width: 200
@@ -161,7 +169,6 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
                 return (
                   <AirtableAsset
-                    id={product.ref}
                     asset={image}
                     transformationsOverride={{
                       width: 200
@@ -170,6 +177,16 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                 );
               })
             }
+
+            // Generated example
+            <img
+              id="asset-attlk6ONaDfaZbQTw"
+              src="https://dl.airtable.com/OeNybctMTBKLPkbntK8p_jftonpzlxgakoxo9plfq.jpg"
+              title="jftonpzlxgakoxo9plfq.jpg"
+              alt="jftonpzlxgakoxo9plfq.jpg"
+              class="asset-attlk6ONaDfaZbQTw"
+              style="width: 200px;"
+            />
           `}
         />
 
@@ -190,7 +207,6 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
             return (
               <div key={image?.id}>
                 <AirtableAsset
-                  id={product.ref}
                   asset={{
                     ...image,
                     ...image.thumbnails?.small,
@@ -214,7 +230,6 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                 return (
                   <div key={image?.id}>
                     <AirtableAsset
-                      id={product.ref}
                       asset={{
                         ...image,
                         ...image.thumbnails?.small,
@@ -244,7 +259,6 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
             return (
               <div key={image?.id}>
                 <AirtableAsset
-                  id={product.ref}
                   asset={{
                     ...image,
                     ...image.thumbnails?.large,
@@ -267,7 +281,6 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
                 return (
                   <AirtableAsset
-                    id={product.ref}
                     asset={{
                       ...image,
                       ...image.thumbnails?.large,
