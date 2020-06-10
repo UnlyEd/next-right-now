@@ -179,3 +179,33 @@ jobs:
             E2E tests **SUCCESS**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+
+  run-lighthouse-tests:
+    name: Run LightHouse checks (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    needs: start-staging-deployment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Resolving deployment url from Zeit
+        # The following workflow is:
+        #  - getting all deployments data (by using the scope in `now.json`)
+        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
+        #  - and then we remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        run: |
+          apt update -y >/dev/null && apt install -y jq >/dev/null
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+      - name: Create temporary fodler for artifacts storage
+        run: mkdir /tmp/lighthouse-artifacts
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@master
+        with:
+          urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: Lighthouse reports
+          path: /tmp/lighthouse-artifacts
