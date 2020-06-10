@@ -8,7 +8,9 @@ on:
   push:
     branches-ignore:
       - 'master'
-  pull_request
+  pull_request:
+    branches-ignore:
+      - 'master'
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
