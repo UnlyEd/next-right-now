@@ -209,7 +209,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                 <AirtableAsset
                   asset={{
                     ...image,
-                    ...image.thumbnails?.small,
+                    ...image?.thumbnails?.small,
                   }}
                 />
               </div>
@@ -232,7 +232,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                     <AirtableAsset
                       asset={{
                         ...image,
-                        ...image.thumbnails?.small,
+                        ...image?.thumbnails?.small,
                       }}
                     />
                   </div>
@@ -261,7 +261,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                 <AirtableAsset
                   asset={{
                     ...image,
-                    ...image.thumbnails?.large,
+                    ...image?.thumbnails?.large,
                   }}
                 />
               </div>
@@ -283,7 +283,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                   <AirtableAsset
                     asset={{
                       ...image,
-                      ...image.thumbnails?.large,
+                      ...image?.thumbnails?.large,
                     }}
                   />
                 );
