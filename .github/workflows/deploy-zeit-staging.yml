@@ -180,6 +180,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
 
+  # Run Lighthouse reports in parallel of E2E tests
   run-lighthouse-tests:
     name: Run LightHouse checks (Ubuntu 18.04)
     runs-on: ubuntu-18.04
@@ -198,18 +199,32 @@ jobs:
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+      # In order to store reports and then upload it, we need to create the folder before any tests
       - name: Create temporary fodler for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
+
+      # It runs the lighthouse report for a provided url and create a HTML report in the specified directory
+      # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
       - name: Run Lighthouse
         uses: foo-software/lighthouse-check-action@v1.0.14
         id: lighthouseCheck
         with:
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
+          outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
+          accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR.
+          prCommentEnabled: true # If we want for this action to comment or not.
+          prCommentSaveOld: false # Comment each time with another comment, instead of update the last one (default: false).
+
+      # Upload HTML report create by lighthouse, could be useful
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
           name: Lighthouse reports
           path: /tmp/lighthouse-artifacts
+
+      # Using a pre-build action to make the action fail if your score is too low. It can be really interesting to track a low score on a commit
+      # You can remove this action IF you don't want lighthouse to be a blocking point in your CI
+      # This default values so you need to change them by your own criteria
       - name: Handle Lighthouse Check results
         uses: foo-software/lighthouse-check-status-action@v1.0.1
         with:
