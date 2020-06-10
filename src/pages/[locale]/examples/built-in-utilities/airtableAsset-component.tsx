@@ -133,10 +133,10 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
         <hr />
 
-        <h2>Using native size with max width override</h2>
+        <h2>Override width while keeping image ratio</h2>
 
         <Alert color={'info'}>
-          This will automatically resize the image by applying a max width but keep the same ratio (height will be auto)
+          This will automatically resize the image by applying a specific width but keep the same ratio (height will be auto)
         </Alert>
 
         {
@@ -149,7 +149,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                 <AirtableAsset
                   asset={image}
                   transformationsOverride={{
-                    width: 200
+                    width: 100
                   }}
                 />
               </div>
@@ -171,7 +171,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                   <AirtableAsset
                     asset={image}
                     transformationsOverride={{
-                      width: 200
+                      width: 100
                     }}
                   />
                 );
@@ -185,8 +185,65 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
               title="jftonpzlxgakoxo9plfq.jpg"
               alt="jftonpzlxgakoxo9plfq.jpg"
               class="asset-attlk6ONaDfaZbQTw"
-              style="width: 200px;"
+              style="width: 100px;"
             />
+          `}
+        />
+
+        <hr />
+
+        <h2>Override height while keeping image ratio</h2>
+
+        <Alert color={'info'}>
+          This will automatically resize the image by applying a specific height but keep the same ratio (width will be auto)
+        </Alert>
+
+        {
+          map(airtableProducts, (airtableProduct) => {
+            const product: Product = airtableProduct.fields;
+            const image: Asset = product.images?.[0];
+
+            return (
+              <div key={image?.id}>
+                <AirtableAsset
+                  asset={{
+                    ...image,
+                    ...image?.thumbnails?.large,
+                  }}
+                  transformationsOverride={{
+                    height: 75
+                  }}
+                />
+              </div>
+            );
+          })
+        }
+
+        <br />
+        <br />
+
+        <Code
+          text={`
+            {
+              map(airtableProducts, (airtableProduct) => {
+                const product: Product = airtableProduct.fields;
+                const image: Asset = product.images?.[0];
+
+                return (
+                  <div key={image?.id}>
+                    <AirtableAsset
+                      asset={{
+                        ...image,
+                        ...image?.thumbnails?.large,
+                      }}
+                      transformationsOverride={{
+                        height: 75
+                      }}
+                    />
+                  </div>
+                );
+              })
+            }
           `}
         />
 
