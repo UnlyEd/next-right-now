@@ -71,10 +71,19 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
         <Alert color={'info'}>
           <code>{`<AirtableAsset />`}</code> component meant to display assets from Airtable.<br />
-          It mostly helps display an image with<br />
+          It mostly helps display responsive images that keep a proper aspect ratio.<br />
           <br />
           Learn more about
           <ExternalLink href={'https://support.airtable.com/hc/en-us/articles/360007852173'} suffix={null}>Airtable Attachment field</ExternalLink>.
+        </Alert>
+
+        <Alert color={'warning'}>
+          Implementation has been kept simple on purpose, to avoid making it too complicated.<br />
+          <br />
+          Eventually, it could become a standalone component with its own NPM repository.<br />
+          <br />
+          <ExternalLink href={'https://github.com/vercel/next.js/issues/13905'} suffix={null}>Dealing with images is complicated</ExternalLink>.
+          This helper is not meant to cover complex use-cases.
         </Alert>
 
         <h2>Using native size</h2>
@@ -149,7 +158,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                 <AirtableAsset
                   asset={image}
                   transformationsOverride={{
-                    width: 100
+                    width: 100,
                   }}
                 />
               </div>
@@ -211,7 +220,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
                     ...image?.thumbnails?.large,
                   }}
                   transformationsOverride={{
-                    height: 75
+                    height: 75,
                   }}
                 />
               </div>
