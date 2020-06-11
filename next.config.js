@@ -92,7 +92,6 @@ module.exports = withBundleAnalyzer(withSourceMaps({
         // Dynamically add some "env" variables that will be replaced during the build in "DefinePlugin"
         plugin.definitions['process.env.NEXT_PUBLIC_APP_BUILD_ID'] = JSON.stringify(buildId);
         plugin.definitions['process.env.NEXT_PUBLIC_APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
-        plugin.definitions['process.env.IS_SERVER_INITIAL_BUILD'] = process.env.IS_SERVER_INITIAL_BUILD;
       }
     });
 
