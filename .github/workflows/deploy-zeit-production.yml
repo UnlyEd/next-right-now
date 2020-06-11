@@ -79,3 +79,56 @@ jobs:
         with:
           name: videos
           path: cypress/videos/
+
+  # Run Lighthouse reports in parallel of E2E tests
+  run-lighthouse-tests:
+    name: Run LightHouse checks (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    needs: start-production-deployment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Resolving deployment url from Zeit
+        # The following workflow is:
+        #  - getting all deployments data (by using the scope in `now.json`)
+        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
+        #  - and then we remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        run: |
+          apt update -y >/dev/null && apt install -y jq >/dev/null
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+      # In order to store reports and then upload it, we need to create the folder before any tests
+      - name: Create temporary folder for artifacts storage
+        run: mkdir /tmp/lighthouse-artifacts
+
+      # It runs the lighthouse report for a provided url and create a HTML report in the specified directory
+      # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@v1.0.14
+        id: lighthouseCheck
+        with:
+          outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
+          urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
+
+      # Upload HTML report create by lighthouse, could be useful
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: Lighthouse reports
+          path: /tmp/lighthouse-artifacts
+
+      # Using a pre-build action to make the action fail if your score is too low. It can be really interesting to track a low score on a commit
+      # You can remove this action IF you don't want lighthouse to be a blocking point in your CI
+      # This default values so you need to change them by your own criteria
+      # Official documentation: https://github.com/foo-software/lighthouse-check-status-action
+      - name: Handle Lighthouse Check results
+        uses: foo-software/lighthouse-check-status-action@v1.0.1
+        with:
+          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
+          minAccessibilityScore: "50"
+          minBestPracticesScore: "50"
+          minPerformanceScore: "30"
+          minProgressiveWebAppScore: "50"
+          minSeoScore: "50"
