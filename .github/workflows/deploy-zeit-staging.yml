@@ -184,7 +184,7 @@ jobs:
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests
-      - name: Create temporary fodler for artifacts storage
+      - name: Create temporary folder for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
 
       # It runs the lighthouse report for a provided url and create a HTML report in the specified directory
@@ -214,8 +214,8 @@ jobs:
         uses: foo-software/lighthouse-check-status-action@v1.0.1
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
-          minAccessibilityScore: "30"
-          minBestPracticesScore: "30"
+          minAccessibilityScore: "50"
+          minBestPracticesScore: "50"
           minPerformanceScore: "30"
-          minProgressiveWebAppScore: "30"
-          minSeoScore: "30"
+          minProgressiveWebAppScore: "50"
+          minSeoScore: "50"
