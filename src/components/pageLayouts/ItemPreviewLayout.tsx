@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
@@ -31,12 +31,16 @@ type Device = 'mobile' | 'tablet' | 'small-desktop' | 'large-desktop' | null;
 
 const DefaultExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
   return (
-    <span>
-      The content displayed below is an <b>item preview</b> meant to be displayed within a CMS.<br />
-      For the purpose of this demo, we display it from within Stacker.<br />
-      The goal is to grant the possibility to embed rich content right into your CMS, through the use of an <code>iframe</code>.<br />
-      This way, editors can preview how the content you're working on will display on the actual site.
-    </span>
+    <Trans
+      i18nKey={'itemPreviewLayout.itemPreviewTitleHelp'}
+    >
+      <span>
+        Vous êtes actuellement sur "l'Aperçu d'élément", conçu pour être intégré à un CMS.<br />
+        Dans le cadre de cette démo, nous l'affichons depuis le CMS "Stacker".<br />
+        Le but est de donner la possibilité d'embarquer du contenu riche depuis votre CMS, à travers l'utilisation d'une <code>iframe</code>.<br />
+        De cette manière, les éditeurs peuvent prévisualiser comment le contenu sur lequel ils travaillent s'affichera réellement sur le site final, sans quitter leur CMS.
+      </span>
+    </Trans>
   );
 };
 
@@ -116,7 +120,7 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
                 <span
                   dangerouslySetInnerHTML={{
                     __html: t('itemPreviewLayout.enablePreviewModeHelp', `Ouvre un nouvel onglet en <b>mode aperçu</b> pour le site entier, et redirige vers la page d'exemple SSG.<br />
-                      Le mode aperçu est utile pour prévisualiser comment le site se comporte dans son ensemble. Il n'est pas limité à l'aperçu d'un seul élément, contrairement à "Aperçu d'un élément".`),
+                      Le mode aperçu est utile pour prévisualiser comment le site se comporte dans son ensemble. Il n'est pas limité à l'aperçu d'un seul élément, contrairement à "l'Aperçu d'élément".`),
                   }}
                 />}
               placement={'bottom'}
