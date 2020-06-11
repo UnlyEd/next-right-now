@@ -1,36 +1,27 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
-import startsWith from 'lodash.startswith';
-import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Col, Row } from 'reactstrap';
-import useI18n, { I18n } from '../../hooks/useI18n';
+import { Col, Row } from 'reactstrap';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Asset } from '../../types/data/Asset';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
-import { i18nRedirect } from '../../utils/app/router';
 import { SIZE_XS } from '../../utils/assets/logo';
-import { LANG_FR } from '../../utils/i18n/i18n';
 import AirtableAsset from '../assets/AirtableAsset';
 import Logo from '../assets/Logo';
+import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
 import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
-import EnglishFlag from '../svg/EnglishFlag';
-import FrenchFlag from '../svg/FrenchFlag';
-import Tooltip from '../utils/Tooltip';
 
 type Props = {};
 
 const Footer: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
-  const router: NextRouter = useRouter();
   const { deviceId }: UserSession = useUserSession();
   const customer: CustomerContext = React.useContext(customerContext);
-  const { lang, locale }: I18n = useI18n();
   const theme = useTheme<CustomerTheme>();
   const { primaryColor, logo: logoAirtable } = theme;
   const logo = logoAirtable as AirtableRecord<Asset>;
@@ -122,56 +113,7 @@ const Footer: React.FunctionComponent<Props> = () => {
           </div>
         </Col>
         <Col md={4} xs={12} className={'text-md-right text-center mt-3'}>
-          <Button
-            onClick={(): void => {
-              // XXX Implementation is being kept simple for the sake of simplicity (it toggles selected language between fr/en)
-              //  It doesn't match a real-world use case because there are many possible variations and we can't cover them all
-              //  e.g: with country-based locales (fr-FR, en-GB) or without (fr, en)
-              const newLocale = startsWith(locale, 'fr') ? 'en' : 'fr';
-              i18nRedirect(newLocale, router);
-            }}
-            css={css`
-              background-color: transparent;
-              border: none;
-              margin-bottom: 20px;
-              transition: 0.5s ease-in-out;
-
-              :hover{
-                background-color: transparent;
-                border: none;
-                box-shadow: 0px 2px 30px -2px rgba(0,0,0,0.66);
-                cursor: pointer;
-              }
-
-              .small-text {
-                font-size: 12px;
-              }
-            `}
-          >
-            {lang === LANG_FR ? (
-              <Tooltip
-                overlay={<span><EnglishFlag />English</span>}
-              >
-                <span
-                  className={'small-text'}
-                >
-                  <FrenchFlag />
-                  FR
-                </span>
-              </Tooltip>
-            ) : (
-              <Tooltip
-                overlay={<span><FrenchFlag />Français</span>}
-              >
-                <span
-                  className={'small-text'}
-                >
-                  <EnglishFlag />
-                  EN
-                </span>
-              </Tooltip>
-            )}
-          </Button>
+          <I18nBtnChangeLocale />
           <br />
           <Logo
             id={'footer-logo-unly-brand'}
