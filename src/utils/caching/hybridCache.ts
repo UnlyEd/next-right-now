@@ -57,7 +57,6 @@ const defaultHybridCacheOptions: Required<HybridCacheOptions> = {
  */
 const hybridCache = async <T>(keyResolver: string | (() => string), dataResolver: () => T, options: Partial<HybridCacheOptions> = defaultHybridCacheOptions): Promise<T> => {
   const { ttl, enabled, storage } = deepmerge(defaultHybridCacheOptions, options);
-  console.log('enabled', enabled);
 
   if (!enabled) { // Bypasses cache completely
     // eslint-disable-next-line no-console
