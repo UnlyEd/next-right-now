@@ -40,27 +40,39 @@ const Footer: React.FunctionComponent<Props> = () => {
     <div
       id="footer"
       className={'footer align-items-center center'}
-      css={{
-        background: primaryColor,
-        padding: '20px 50px',
-        color: 'white',
-        a: {
-          color: 'white',
-        },
-        img: {
-          maxWidth: '100%',
-        },
-      }}
+      css={css`
+        background: ${primaryColor};
+        padding: 20px 50px;
+        color: white;
+
+        a {
+          color: white;
+        }
+
+        img {
+          max-width: 100%;
+        }
+
+        .column-center {
+          align-self: flex-end;
+        }
+
+        .column-right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+      `}
     >
-      <Row className={'justify-content-end align-items-end'}>
-        <Col md={4} xs={12} className={'text-md-left text-center mt-4'}>
+      <Row className={'justify-content-end'}>
+        <Col md={4} xs={12} className={'column-left text-md-left mt-4'}>
           <AirtableAsset
             id={'footer-logo-organisation-brand'}
             asset={logo}
             linkOverride={{ id: 'link-footer-logo-organisation-brand' }}
           />
         </Col>
-        <Col md={4} xs={12} className={'mt-4'}>
+        <Col md={4} xs={12} className={'column-center align-items-end mt-4'}>
           <p className={'m-0'}>
             {copyrightOwner} - {currentYear}
             <br />
@@ -112,22 +124,25 @@ const Footer: React.FunctionComponent<Props> = () => {
             </i>
           </div>
         </Col>
-        <Col md={4} xs={12} className={'text-md-right text-center mt-3'}>
-          <I18nBtnChangeLocale />
-          <br />
-          <Logo
-            id={'footer-logo-unly-brand'}
-            logo={{
-              url: '/static/images/LOGO_Powered_by_UNLY_monochrome_WHITE.svg',
-              link: {
-                url: 'https://unly.org/',
-                target: '_blank',
-              },
-            }}
-            width={100}
-            height={50}
-            sizesMultipliers={logoSizesMultipliers}
-          />
+        <Col md={4} xs={12} className={'column-right text-md-right mt-4'}>
+          <div>
+            <I18nBtnChangeLocale />
+          </div>
+          <div>
+            <Logo
+              id={'footer-logo-unly-brand'}
+              logo={{
+                url: '/static/images/LOGO_Powered_by_UNLY_monochrome_WHITE.svg',
+                link: {
+                  url: 'https://unly.org/',
+                  target: '_blank',
+                },
+              }}
+              width={100}
+              height={50}
+              sizesMultipliers={logoSizesMultipliers}
+            />
+          </div>
         </Col>
       </Row>
     </div>
