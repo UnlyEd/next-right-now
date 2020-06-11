@@ -57,8 +57,10 @@ const Logo = (props: Props): JSX.Element => {
   }
 
   const sizes = generateSizes({
-    baseWidth: resolvedLogoProps?.thumbnails?.small?.width,
-    baseHeight: resolvedLogoProps?.thumbnails?.small?.height,
+    // @ts-ignore
+    baseWidth: typeof resolvedLogoProps?.width === 'string' ? parseInt(resolvedLogoProps?.width, 10) : resolvedLogoProps?.width,
+    // @ts-ignore
+    baseHeight: typeof resolvedLogoProps?.height === 'string' ? parseInt(resolvedLogoProps?.height, 10) : resolvedLogoProps?.height,
     sizesMultipliers,
   });
 
