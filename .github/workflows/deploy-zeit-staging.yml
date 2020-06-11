@@ -4,6 +4,11 @@
 
 name: Deploy to Zeit (staging)
 
+# There are many ways to trigger actions:
+# "push": will be trigger each time a commit is made. It can useful for CI (unit tests).
+# "pull_request": will be trigger each time a commit is made IN a pull request. By this way, we are sure to deal with a PR.
+# We are using the pull_request trigger because we want to fully use the ChatOps communication, making reviews and tracking easier for maintainers.
+
 on:
   pull_request:
     branches-ignore:
