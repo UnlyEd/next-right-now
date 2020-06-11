@@ -107,15 +107,15 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
         >
           <div className={'left-actions-container'}>
             <ExternalLink
-              href={`/api/preview?redirectTo=/${locale}`}
+              href={`/api/preview?redirectTo=/${locale}/examples/native-features/example-with-ssg`}
             >
               Preview whole site
             </ExternalLink>
             &nbsp;
             <Tooltip
               overlay={<span>
-                This will open a new tab where <b>preview mode</b> is enabled for the whole site and redirect to the homepage.<br />
-                Preview mode is useful to preview how the whole site behaves. It isn't limited to previewing a single item.
+                This will open a new tab where <b>preview mode</b> is enabled for the whole site and redirect to the SSG example page.<br />
+                Preview mode is useful to preview how the whole site behaves. It isn't limited to previewing a single item, unlike "item preview".
               </span>}
               placement={'bottom'}
             >

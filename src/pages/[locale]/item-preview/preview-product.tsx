@@ -85,7 +85,6 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
       headProps={{
         title: `Preview product "${product?.title}" - Next Right Now`,
       }}
-      // previewTitle={`Ceci est un aperçu du produit "${product?.title}"`}
     >
       <ProductRow product={product} />
     </ItemPreviewLayout>
