@@ -6,6 +6,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
 import ProductRow from '../../../components/data/ProductRow';
 import ItemPreviewLayout from '../../../components/pageLayouts/ItemPreviewLayout';
@@ -58,11 +59,12 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
   const router: NextRouter = useRouter();
   const { query } = router;
   const productRef = query?.ref;
+  const { t } = useTranslation();
 
   if (!productRef) {
     return (
       <Alert color={'danger'}>
-        You must provide a <code>ref</code> to preview an item.
+        {t('itemPreview.noProvidedRef', 'Vous devez fournir une <code>ref</code> pour prévisualiser un élément.')}
       </Alert>
     );
   }
@@ -73,7 +75,7 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
   if (!product) {
     return (
       <Alert color={'warning'}>
-        The product "{productRef}" wasn't found.
+        {t('itemPreview.refNotFound', `L'élément "{{ productRef }}" n'existe pas.`, { productRef })}
       </Alert>
     );
   }
@@ -83,7 +85,7 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'preview-product'}
       headProps={{
-        title: `Preview product "${product?.title}" - Next Right Now`,
+        title: t('itemPreview.pageTitle', `Aperçu produit "{{ title }}" - Next Right Now`, { title: product?.title }),
       }}
     >
       <ProductRow product={product} />

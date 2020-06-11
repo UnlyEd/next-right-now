@@ -3,8 +3,8 @@ import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
-import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
@@ -24,7 +24,7 @@ type Props = {
   ExplanationTooltipOverlay?: React.FunctionComponent;
   headProps: HeadProps;
   pageName: string;
-  previewTitle?: string;
+  itemPreviewTitle?: string;
 } & SoftPageProps;
 
 type Device = 'mobile' | 'tablet' | 'small-desktop' | 'large-desktop' | null;
@@ -55,12 +55,11 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
     ExplanationTooltipOverlay = DefaultExplanationTooltipOverlay,
     headProps = {},
     pageName,
-    previewTitle,
+    itemPreviewTitle,
   } = props;
   // const [simulatedDevice, setSimulatedDevice] = useState<Device>();
-  const router: NextRouter = useRouter();
-  const currentUrl = router?.asPath;
   const { locale }: I18n = useI18n();
+  const { t } = useTranslation();
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -109,14 +108,17 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
             <ExternalLink
               href={`/api/preview?redirectTo=/${locale}/examples/native-features/example-with-ssg`}
             >
-              Preview whole site
+              {t('itemPreviewLayout.enablePreviewMode', `Activer le mode aperçu`)}
             </ExternalLink>
             &nbsp;
             <Tooltip
-              overlay={<span>
-                This will open a new tab where <b>preview mode</b> is enabled for the whole site and redirect to the SSG example page.<br />
-                Preview mode is useful to preview how the whole site behaves. It isn't limited to previewing a single item, unlike "item preview".
-              </span>}
+              overlay={
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: t('itemPreviewLayout.enablePreviewModeHelp', `Ouvre un nouvel onglet en <b>mode aperçu</b> pour le site entier, et redirige vers la page d'exemple SSG.<br />
+                      Le mode aperçu est utile pour prévisualiser comment le site se comporte dans son ensemble. Il n'est pas limité à l'aperçu d'un seul élément, contrairement à "Aperçu d'un élément".`),
+                  }}
+                />}
               placement={'bottom'}
             >
               <FontAwesomeIcon icon={['fas', 'question-circle']} size={'xs'} />
@@ -124,7 +126,7 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
           </div>
           <div className={'explanations-container'}>
             {
-              previewTitle ? previewTitle : 'This is an item preview'
+              itemPreviewTitle ? itemPreviewTitle : t('itemPreviewLayout.itemPreviewTitle', `Aperçu d'un élément`)
             }
             &nbsp;
             <Tooltip
