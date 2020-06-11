@@ -24,8 +24,10 @@ type CustomPageProps = {}
 type GetServerSidePageProps = CustomPageProps & SSRPageProps
 
 /**
+ * Fetches all products and customer in one single GQL query
+ *
  * XXX You should fetch everything you need in one single query, for performance reasons.
- *  It fetches customer data by default (through LAYOUT_QUERY), because those data are needed on all pages (displayed in footer/nav header).
+ *  It fetches all customer data by default, because those data are needed on all pages (displayed in footer/nav header).
  *
  * @param context
  */

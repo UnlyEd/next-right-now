@@ -78,6 +78,22 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
             margin-bottom: 30px;
           }
 
+          .simulated-mobile {
+            max-width: 575px;
+          }
+
+          .simulated-tablet {
+            max-width: 767px;
+          }
+
+          .simulated-small-desktop {
+            max-width: 992px;
+          }
+
+          .simulated-large-desktop {
+            max-width: 1900px;
+          }
+
           // ----------- Utilities -----------
 
           b, .b, strong {

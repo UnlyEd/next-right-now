@@ -72,10 +72,10 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       <LogOnMount eventType="page-displayed" />
 
       {/* Loaded from components/Head - See https://github.com/mikemaccana/outdated-browser-rework */}
-      <div
-        id="outdated"
-        style={{ display: 'none' }}
-      ></div>
+      {/*<div*/}
+      {/*  id="outdated"*/}
+      {/*  style={{ display: 'none' }}*/}
+      {/*></div>*/}
 
       {
         // XXX You may want to enable preview mode during non-production stages only

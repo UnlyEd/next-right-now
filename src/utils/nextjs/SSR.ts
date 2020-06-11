@@ -1,10 +1,13 @@
+import * as Sentry from '@sentry/node';
+import universalLanguageDetect from '@unly/universal-language-detector';
+import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
 import { IncomingMessage } from 'http';
 import get from 'lodash.get';
+import { GetServerSideProps, GetServerSidePropsResult } from 'next';
 import NextCookies from 'next-cookies';
 import { Cookies } from '../../types/Cookies';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
-import { Product } from '../../types/data/Product';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
@@ -12,9 +15,8 @@ import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import fetchCustomer from '../api/fetchCustomer';
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
-import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
+import { DEFAULT_LOCALE, resolveFallbackLanguage, SUPPORTED_LANGUAGES } from '../i18n/i18n';
 import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
-import { GetServerSideProps, GetServerSidePropsResult } from 'next';
 
 /**
  * getExamplesCommonServerSideProps returns only part of the props expected in SSRPageProps
@@ -76,7 +78,23 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
     'host': get(headers, 'host'),
   };
   const hasLocaleFromUrl = !!query?.locale;
-  const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
+  // Resolve locale from query, fallback to browser headers
+  const locale: string = hasLocaleFromUrl ? query?.locale as string : universalLanguageDetect({
+    supportedLanguages: SUPPORTED_LANGUAGES, // Whitelist of supported languages, will be used to filter out languages that aren't supported
+    fallbackLanguage: DEFAULT_LOCALE, // Fallback language in case the user's language cannot be resolved
+    acceptLanguageHeader: get(req, 'headers.accept-language'), // Optional - Accept-language header will be used when resolving the language on the server side
+    serverCookies: readonlyCookies, // Optional - Cookie "i18next" takes precedence over navigator configuration (ex: "i18next: fr"), will only be used on the server side
+    errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: object): void => {
+      Sentry.withScope((scope): void => {
+        scope.setExtra('level', level);
+        scope.setExtra('origin', origin);
+        scope.setContext('context', context);
+        Sentry.captureException(error);
+      });
+      // eslint-disable-next-line no-console
+      console.error(error.message);
+    },
+  });
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
@@ -98,6 +116,6 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
       locale,
       readonlyCookies,
       userSession,
-    }
+    },
   };
 };

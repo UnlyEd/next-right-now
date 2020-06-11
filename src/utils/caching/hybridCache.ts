@@ -2,6 +2,7 @@ import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import getTimestampsElapsedTime from '../time/getTimestampsElapsedTime';
 import { CachedItem, HybridCacheStorage, StorageOptions } from './hybridCacheStorage';
+import * as Sentry from '@sentry/node';
 
 const fileLabel = 'utils/cache/cache';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -96,7 +97,21 @@ const hybridCache = async <T>(keyResolver: string | (() => string), dataResolver
   }
 
   const unMemoizedResult: T = await dataResolver();
-  return cacheStorage.set(key, unMemoizedResult, storageOptions);
+
+  try {
+    // Attempt to cache the results, could fail if no write access to disk
+    return cacheStorage.set(key, unMemoizedResult, storageOptions);
+
+  } catch (e) {
+    // In case of failure, catch error and process it, then return the expected results (caching won't work, but the app won't crash)
+    logger.error(e);
+    Sentry.withScope((scope) => {
+      scope.setExtra('key', key); // Useful for debug
+      Sentry.captureException(e);
+    });
+
+    return unMemoizedResult;
+  }
 };
 
 export default hybridCache;

@@ -1,3 +1,4 @@
+import isEmpty from 'lodash.isempty';
 import { NextRouter } from 'next/router';
 import { removeTrailingSlash } from '../js/string';
 
@@ -74,31 +75,45 @@ export const isActive = (router: NextRouter, path: string): boolean => {
   return (currentPaths?.[1] || currentPaths?.[0]) === path;
 };
 
+export const stringifyQueryParameters = (router: NextRouter): string => {
+  const query: any = router.query || {};
+  delete query.locale; // Remove locale which is always included but doesn't interest us
+
+  if (!isEmpty(query)) {
+    return `?${new URLSearchParams(query)}`;
+  } else {
+    return '';
+  }
+};
+
 /**
  * Returns the current page url, but for a different locale
+ * Includes query parameters (except "locale")
  *
  * @param locale
  * @param router
  */
 export const getSamePageI18nUrl = (locale, router: NextRouter): string => {
-  return `${router.pathname.replace('[locale]', locale)}`;
+  return `${router.pathname.replace('[locale]', locale)}${stringifyQueryParameters(router)}`;
 };
 
 /**
  * Redirects the current page to the "same" page, but for a different locale
+ * Includes query parameters (except "locale")
  *
  * @param locale
  * @param router
- * @param pageReload
+ * @param forcePageReload Force full page reload (not just a client side transition)
  * @see https://nextjs.org/docs/routing/imperatively Programmatic usage of Next Router
  * @see https://nextjs.org/docs/api-reference/next/router#router-api Router API
  */
-export const i18nRedirect = (locale, router: NextRouter, pageReload = false): void => {
+export const i18nRedirect = (locale, router: NextRouter, forcePageReload = false): void => {
   const newUrl = getSamePageI18nUrl(locale, router);
+  const queryParameters: string = stringifyQueryParameters(router);
 
-  if (pageReload) {
+  if (forcePageReload) {
     location.href = newUrl;
   } else {
-    router.push(router.pathname, newUrl);
+    router.push(router.pathname + queryParameters, newUrl);
   }
 };
