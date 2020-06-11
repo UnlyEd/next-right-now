@@ -19,7 +19,8 @@ const logger = createLogger({
  *
  * Base type, meant to be extended to create specialized types.
  */
-export type GenericRecord<E extends {} = {}> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GenericRecord<E extends { [key: string]: any } = { [key: string]: any }> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any; // Allow any key - See https://stackoverflow.com/a/47572701/2391795
 };

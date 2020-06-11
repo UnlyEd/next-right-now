@@ -10,7 +10,6 @@ import React from 'react';
 import { Alert, Container } from 'reactstrap';
 import AllProducts from '../../../../components/data/AllProducts';
 import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
-import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
 import ExternalLink from '../../../../components/utils/ExternalLink';

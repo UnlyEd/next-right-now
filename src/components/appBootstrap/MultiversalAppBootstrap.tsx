@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import ErrorPage from '../../pages/_error';
 import customerContext from '../../stores/customerContext';
 import i18nContext from '../../stores/i18nContext';
+import previewModeContext from '../../stores/previewModeContext';
 import { Theme } from '../../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
@@ -19,7 +20,6 @@ import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
-import previewModeContext from '../../stores/previewModeContext';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({

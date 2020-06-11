@@ -134,8 +134,8 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
 
           .btn-border{
              background-color: transparent;
-             color: ${theme.primaryColor};
-             border: 1.5px solid ${theme.primaryColor};
+             color: ${primaryColor};
+             border: 1.5px solid ${primaryColor};
              border-radius: 30px;
              margin: 5px;
              padding: 5px 12px 5px 12px;
