@@ -12,7 +12,7 @@ import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable
 /**
  * Fetches all Airtable tables and returns a consolidated Customer object with all relations resolved
  *
- * Relations are only resolved on the main level (to avoid circular dependencies)
+ * Relations are only resolved on the two first levels (to avoid circular dependencies)
  */
 const fetchCustomer = async (preferredLocales: string[]): Promise<AirtableRecord<Customer>> => {
   const customerRef = process.env.NEXT_PUBLIC_CUSTOMER_REF;
