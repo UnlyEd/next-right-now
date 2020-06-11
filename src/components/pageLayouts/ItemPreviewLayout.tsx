@@ -3,8 +3,6 @@ import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
-import startsWith from 'lodash.startswith';
-import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { Alert, Container } from 'reactstrap';
@@ -109,7 +107,7 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
         >
           <div className={'left-actions-container'}>
             <ExternalLink
-              href={'/api/preview?redirectTo=/'}
+              href={`/api/preview?redirectTo=/${locale}`}
             >
               Preview whole site
             </ExternalLink>
@@ -135,11 +133,6 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
             >
               <FontAwesomeIcon icon={['fas', 'question-circle']} size={'xs'} />
             </Tooltip>
-            <br />
-            <Link href={currentUrl} passHref>
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a>Refresh preview</a>
-            </Link>
           </div>
           <div className={'right-actions-container'}>
             <div className={'change-locale-container'}>
@@ -168,25 +161,7 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
               {/*  </DropdownMenu>*/}
               {/*</UncontrolledButtonDropdown>*/}
               {/*{' '}*/}
-              <I18nBtnChangeLocale
-                onClick={(): void => {
-                  const newLocale = startsWith(locale, 'fr') ? 'en' : 'fr';
-                  let newUrl: string;
-
-                  if (router.query?.locale) {
-                    // If a locale is already specified in url, replace it
-                    newUrl = currentUrl.replace(`locale=${locale}`, `locale=${newLocale}`);
-
-                  } else {
-                    // Otherwise add the locale to the url
-                    // XXX Adding the locale this way will take precedence over browser-detected locale
-                    //  Also, we can safely use "&" because we're 100% sure there is a "?ref=" that precedes it in our case
-                    newUrl = currentUrl + `&locale=${newLocale}`;
-                  }
-
-                  router.push(newUrl);
-                }}
-              />
+              <I18nBtnChangeLocale />
             </div>
           </div>
         </Alert>

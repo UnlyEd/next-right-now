@@ -7,14 +7,14 @@ import { NextRouter, useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import ProductRow from '../../components/data/ProductRow';
-import ItemPreviewLayout from '../../components/pageLayouts/ItemPreviewLayout';
-import { AirtableRecord } from '../../types/data/AirtableRecord';
-import { Product } from '../../types/data/Product';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { getExamplesCommonServerSideProps } from '../../utils/nextjs/SSR';
+import ProductRow from '../../../components/data/ProductRow';
+import ItemPreviewLayout from '../../../components/pageLayouts/ItemPreviewLayout';
+import { AirtableRecord } from '../../../types/data/AirtableRecord';
+import { Product } from '../../../types/data/Product';
+import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
+import { SSRPageProps } from '../../../types/pageProps/SSRPageProps';
+import { getExamplesCommonServerSideProps } from '../../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/airtable-live-preview/preview-product';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
