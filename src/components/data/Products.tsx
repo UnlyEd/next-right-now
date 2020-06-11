@@ -4,10 +4,8 @@ import map from 'lodash.map';
 import React from 'react';
 import { Container } from 'reactstrap';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
-
-import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
-import AirtableAsset from '../assets/AirtableAsset';
+import ProductRow from './ProductRow';
 
 type Props = {
   products: AirtableRecord<Product>[];
@@ -36,30 +34,7 @@ const Products: React.FunctionComponent<Props> = (props) => {
           const product: Product = productAirtable.fields;
 
           return (
-            <div
-              key={product?.id}
-              className={'product-container'}
-            >
-              {
-                map(product.images, (image: Asset) => {
-                  return (
-                    <AirtableAsset
-                      key={image?.id}
-                      id={image?.id}
-                      asset={image}
-                    />
-                  );
-                })
-              }
-
-              <h2 className={'product-title'}>
-                {product?.title} - ${product?.price || 0}
-              </h2>
-
-              <div className={'product-description'}>
-                {product?.description}
-              </div>
-            </div>
+            <ProductRow product={product} />
           );
         })
       }
