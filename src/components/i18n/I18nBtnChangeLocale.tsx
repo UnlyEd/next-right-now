@@ -6,7 +6,7 @@ import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { Button } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
+import { Theme } from '../../types/data/Theme';
 import { i18nRedirect } from '../../utils/app/router';
 import { LANG_FR } from '../../utils/i18n/i18n';
 import EnglishFlag from '../svg/EnglishFlag';
@@ -43,7 +43,7 @@ const I18nBtnChangeLocale: React.FunctionComponent<Props> = (props): JSX.Element
   } = props;
   const { lang, locale }: I18n = useI18n();
   const router: NextRouter = useRouter();
-  const { primaryColor } = useTheme<CustomerTheme>();
+  const { primaryColor } = useTheme<Theme>();
 
   if (!onClick) {
     onClick = (): void => {
