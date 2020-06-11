@@ -14,7 +14,6 @@ type Props = {
 const ProductRow: React.FunctionComponent<Props> = (props) => {
   const { product } = props;
   const image: Asset = product?.images?.[0];
-  console.log('product', product);
 
   return (
     <Row
