@@ -8,7 +8,7 @@ import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { Alert } from 'reactstrap';
 import ProductRow from '../../components/data/ProductRow';
-import AirtableItemPreviewLayout from '../../components/pageLayouts/AirtableItemPreviewLayout';
+import ItemPreviewLayout from '../../components/pageLayouts/ItemPreviewLayout';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Product } from '../../types/data/Product';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
@@ -79,7 +79,7 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
   }
 
   return (
-    <AirtableItemPreviewLayout
+    <ItemPreviewLayout
       {...props}
       pageName={'preview-product'}
       headProps={{
@@ -88,7 +88,7 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
       // previewTitle={`Ceci est un aperçu du produit "${product?.title}"`}
     >
       <ProductRow product={product} />
-    </AirtableItemPreviewLayout>
+    </ItemPreviewLayout>
   );
 };
 

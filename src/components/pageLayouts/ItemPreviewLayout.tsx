@@ -17,7 +17,7 @@ import ExternalLink from '../utils/ExternalLink';
 import Tooltip from '../utils/Tooltip';
 import Head, { HeadProps } from './Head';
 
-const fileLabel = 'components/pageLayouts/AirtableItemPreviewLayout';
+const fileLabel = 'components/pageLayouts/ItemPreviewLayout';
 const logger = createLogger({
   label: fileLabel,
 });
@@ -52,7 +52,7 @@ const DefaultExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Elemen
  *
  * @param props
  */
-const AirtableItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
+const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     ExplanationTooltipOverlay = DefaultExplanationTooltipOverlay,
@@ -206,4 +206,4 @@ const AirtableItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.E
   );
 };
 
-export default AirtableItemPreviewLayout;
+export default ItemPreviewLayout;
