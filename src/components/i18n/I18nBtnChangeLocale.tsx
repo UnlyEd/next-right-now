@@ -1,4 +1,5 @@
-import { css } from '@emotion/core';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import startsWith from 'lodash.startswith';
 import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
@@ -59,7 +60,7 @@ const I18nBtnChangeLocale: React.FunctionComponent<Props> = (props): JSX.Element
         :hover{
           background-color: transparent;
           border: none;
-          box-shadow: 0px 2px 30px -2px rgba(0,0,0,0.66);
+          box-shadow: 0 2px 30px -2px rgba(0,0,0,0.66);
           cursor: pointer;
         }
 
