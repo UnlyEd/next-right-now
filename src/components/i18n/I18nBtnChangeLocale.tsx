@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { useTheme } from 'emotion-theming';
 import startsWith from 'lodash.startswith';
 import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
@@ -11,7 +12,6 @@ import { LANG_FR } from '../../utils/i18n/i18n';
 import EnglishFlag from '../svg/EnglishFlag';
 import FrenchFlag from '../svg/FrenchFlag';
 import Tooltip from '../utils/Tooltip';
-import { useTheme } from 'emotion-theming';
 
 type Props = {
   onClick?: (any) => void;
@@ -45,7 +45,7 @@ const I18nBtnChangeLocale: React.FunctionComponent<Props> = (props): JSX.Element
   const router: NextRouter = useRouter();
   const { primaryColor } = useTheme<CustomerTheme>();
 
-  if(!onClick){
+  if (!onClick) {
     onClick = (): void => {
       defaultHandleClick(locale, router);
     };
@@ -67,6 +67,12 @@ const I18nBtnChangeLocale: React.FunctionComponent<Props> = (props): JSX.Element
           border: none;
           box-shadow: 0 2px 30px -2px rgba(0,0,0,0.66);
           cursor: pointer;
+        }
+
+        :active, :focus {
+          background-color: ${primaryColor} !important;
+          border: none !important;
+          box-shadow: 0 2px 30px -2px rgba(0,0,0,0.66) !important;
         }
 
         .small-text {
