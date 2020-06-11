@@ -3,11 +3,10 @@ import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
-import classnames from 'classnames';
 import startsWith from 'lodash.startswith';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 import { Alert, Container } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
@@ -60,7 +59,7 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
     pageName,
     previewTitle,
   } = props;
-  const [simulatedDevice, setSimulatedDevice] = useState<Device>();
+  // const [simulatedDevice, setSimulatedDevice] = useState<Device>();
   const router: NextRouter = useRouter();
   const currentUrl = router?.asPath;
   const { locale }: I18n = useI18n();
@@ -85,12 +84,12 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
       <LogOnMount eventType="page-displayed" />
 
       <div
-        className={classnames({
-          'simulated-mobile': simulatedDevice === 'mobile',
-          'simulated-tablet': simulatedDevice === 'tablet',
-          'simulated-small-desktop': simulatedDevice === 'small-desktop',
-          'simulated-large-desktop': simulatedDevice === 'large-desktop',
-        })}
+        // className={classnames({
+        //   'simulated-mobile': simulatedDevice === 'mobile',
+        //   'simulated-tablet': simulatedDevice === 'tablet',
+        //   'simulated-small-desktop': simulatedDevice === 'small-desktop',
+        //   'simulated-large-desktop': simulatedDevice === 'large-desktop',
+        // })}
       >
         <Alert
           color={'info'}
