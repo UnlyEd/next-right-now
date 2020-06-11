@@ -5,11 +5,13 @@ import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { Button } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { i18nRedirect } from '../../utils/app/router';
 import { LANG_FR } from '../../utils/i18n/i18n';
 import EnglishFlag from '../svg/EnglishFlag';
 import FrenchFlag from '../svg/FrenchFlag';
 import Tooltip from '../utils/Tooltip';
+import { useTheme } from 'emotion-theming';
 
 type Props = {
   onClick?: (any) => void;
@@ -41,6 +43,7 @@ const I18nBtnChangeLocale: React.FunctionComponent<Props> = (props): JSX.Element
   } = props;
   const { lang, locale }: I18n = useI18n();
   const router: NextRouter = useRouter();
+  const { primaryColor } = useTheme<CustomerTheme>();
 
   if(!onClick){
     onClick = (): void => {
@@ -51,14 +54,16 @@ const I18nBtnChangeLocale: React.FunctionComponent<Props> = (props): JSX.Element
   return (
     <Button
       onClick={onClick}
+      className={'btn-change-locale'}
       css={css`
-        background-color: transparent;
+        background-color: ${primaryColor};
+        color: white;
         border: none;
         margin-bottom: 20px;
         transition: 0.5s ease-in-out;
 
-        :hover{
-          background-color: transparent;
+        :hover {
+          background-color: ${primaryColor};
           border: none;
           box-shadow: 0 2px 30px -2px rgba(0,0,0,0.66);
           cursor: pointer;
@@ -66,6 +71,7 @@ const I18nBtnChangeLocale: React.FunctionComponent<Props> = (props): JSX.Element
 
         .small-text {
           font-size: 12px;
+          cursor: pointer;
         }
       `}
     >
