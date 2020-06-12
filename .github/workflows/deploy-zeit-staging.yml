@@ -42,7 +42,7 @@ jobs:
         run: |
           ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF') --token $ZEIT_TOKEN`
 
-          ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.now.sh'`
+          ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::$ZEIT_DEPLOYMENT_URL"
 
           if [[ ${CURRENT_BRANCH##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
@@ -51,10 +51,10 @@ jobs:
             ZEIT_DEPLOYMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}
           fi
 
-          # Zeit alias only allows 53 characters in the domain name, so we only keep the first 45 (45 = 53 - 7 - 1) characters (because Zeit needs 7 chars for ".now.sh" at the end of the domain name, and count starts at 1, not 0)
+          # Zeit alias only allows 41 characters in the domain name, so we only keep the first 41 (41 = 53 - 11 - 1) characters (because Zeit needs 7 chars for ".vercel.app" at the end of the domain name, and count starts at 1, not 0)
           # Also, in order to remove forbidden characters, we transform every characters which are not a "alnum" and \n or \r into '-'
 
-          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 45 | tr -c '[:alnum:]\r\n' - | tr '[:upper:]' '[:lower:]')
+          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 41 | tr -c '[:alnum:]\r\n' - | tr '[:upper:]' '[:lower:]')
 
           # Recursively remove any trailing dash ('-')
           while [[ "$ZEIT_DEPLOYMENT_ALIAS" == *- ]]
@@ -62,7 +62,7 @@ jobs:
                   ZEIT_DEPLOYMENT_ALIAS=${ZEIT_DEPLOYMENT_ALIAS::-1}
           done
 
-          ZEIT_DEPLOYMENT_ALIAS=$ZEIT_DEPLOYMENT_ALIAS.now.sh
+          ZEIT_DEPLOYMENT_ALIAS=$ZEIT_DEPLOYMENT_ALIAS.vercel.app
           echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
 
           npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
