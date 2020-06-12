@@ -9,7 +9,7 @@ on:
   # "push": Triggers each time a commit is pushed
   # "pull_request": Triggers each time a commit is pushed within a pull request
   # In staging, we use the "pull_request" trigger, because it makes it much easier to write comments within the PR.
-  pull_request: # Triggers on each pushed commit associated with a pull request
+  push: # Triggers on each pushed commit associated with a pull request
     branches-ignore:
       - 'master'
 
@@ -70,18 +70,26 @@ jobs:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to the worker
 
+      # We need to find the PR id. Will be used later to comment on that PR.
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # It forces the job to be always executed, even if a previous job fail.
+        with:
+          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-          issue-number: ${{ github.event.number }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
             Deployment **FAILED**
             Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }}
-            [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ github.event.number }}/checks)
+            [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
 
       # On deployment success, add a comment to the PR
       - name: Comment PR (Deployment success)
@@ -89,7 +97,7 @@ jobs:
         if: success()
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-          issue-number: ${{ github.event.number }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
             Deployment **SUCCESS**
@@ -141,17 +149,25 @@ jobs:
           name: videos
           path: cypress/videos/
 
+      # We need to find the PR id. Will be used later to comment on that PR.
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # It forces the job to be always executed, even if a previous job fail.
+        with:
+          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+
       # On E2E failure, add a comment to the PR with additional information
       - name: Comment PR (E2E failure)
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-          issue-number: ${{ github.event.number }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
             E2E tests **FAILED**
-            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ github.event.number }}/checks) section
+            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
 
       # On E2E success, add a comment to the PR
       - name: Comment PR (E2E success)
@@ -159,7 +175,7 @@ jobs:
         if: success()
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
-          issue-number: ${{ github.event.number }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
             E2E tests **SUCCESS**
@@ -196,7 +212,7 @@ jobs:
         id: lighthouseCheck
         with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
           accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR.
-          prCommentEnabled: true # Whether to comment on the PR (default: true).
+          prCommentEnabled: false # Whether to comment on the PR (default: true).
           prCommentSaveOld: true # If true, then add a new comment for each commit. Otherwise, update the latest comment (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
