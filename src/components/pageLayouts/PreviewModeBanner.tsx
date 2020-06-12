@@ -1,21 +1,23 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
+import { Button } from 'reactstrap';
 import Alert from 'reactstrap/lib/Alert';
 import usePreviewMode from '../../hooks/usePreviewMode';
+import { stringifyQueryParameters } from '../../utils/app/router';
 import ExternalLink from '../utils/ExternalLink';
 import Tooltip from '../utils/Tooltip';
-import { Button } from 'reactstrap';
 
 type Props = {}
 
-const stopPreviewMode = async (): Promise<void> => {
-  window.location.href = `/api/preview?stop=true&redirectTo=${window.location.pathname}`;
+const stopPreviewMode = (queryParameters: string): void => {
+  window.location.href = `/api/preview?stop=true&redirectTo=${window.location.pathname}${queryParameters}`;
 };
 
-const startPreviewMode = async (): Promise<void> => {
-  window.location.href = `/api/preview?redirectTo=${window.location.pathname}`;
+const startPreviewMode = (queryParameters: string): void => {
+  window.location.href = `/api/preview?redirectTo=${window.location.pathname}${queryParameters}`;
 };
 
 const ExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
@@ -42,6 +44,8 @@ const ExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
  */
 const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { preview } = usePreviewMode();
+  const router: NextRouter = useRouter();
+  const queryParameters: string = stringifyQueryParameters(router);
 
   return (
     <Alert
@@ -88,8 +92,8 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
             <span className={'right'}>
               <Button
                 color={'link'}
-                onClick={stopPreviewMode}
-                onKeyPress={stopPreviewMode}
+                onClick={(): void => stopPreviewMode(queryParameters)}
+                onKeyPress={(): void => stopPreviewMode(queryParameters)}
               >
                 Leave preview mode
               </Button>
@@ -109,8 +113,8 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
             <span className={'right'}>
               <Button
                 color={'link'}
-                onClick={startPreviewMode}
-                onKeyPress={startPreviewMode}
+                onClick={(): void => startPreviewMode(queryParameters)}
+                onKeyPress={(): void => startPreviewMode(queryParameters)}
               >
                 Start preview mode
               </Button>
