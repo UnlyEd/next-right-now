@@ -59,7 +59,7 @@ jobs:
           # Recursively remove any trailing dash ('-')
           while [[ "$ZEIT_DEPLOYMENT_ALIAS" == *- ]]
           do
-                  ZEIT_DEPLOYMENT_ALIAS=${ZEIT_DEPLOYMENT_ALIAS::-1}
+            ZEIT_DEPLOYMENT_ALIAS=${ZEIT_DEPLOYMENT_ALIAS::-1}
           done
 
           ZEIT_DEPLOYMENT_ALIAS=$ZEIT_DEPLOYMENT_ALIAS.vercel.app
