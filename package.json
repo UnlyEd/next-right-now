@@ -158,7 +158,7 @@
     "jest-to-match-shape-of": "1.3.0",
     "ngrok": "3.2.7",
     "node-mocks-http": "1.8.1",
-    "now": "17.1.1",
+    "now": "19.1.0",
     "react-test-renderer": "16.13.1",
     "ts-jest": "26.0.0",
     "typescript": "3.9.2",
