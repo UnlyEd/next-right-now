@@ -12,6 +12,11 @@ on:
   pull_request: # Triggers on each pushed commit associated with a pull request
     branches-ignore:
       - 'master'
+    types: # We must specify the "closed" event, because it's not applied by default - See https://github.community/t/pull-request-action-does-not-run-on-merge/16092/8?u=vadorequest
+      - opened
+      - reopened
+      - synchronize
+      - closed
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
