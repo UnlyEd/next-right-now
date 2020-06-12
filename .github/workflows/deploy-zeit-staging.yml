@@ -40,6 +40,8 @@ jobs:
         #   - Set the deployment url that will be included in the eventual PR comment
         #   - Create a branch alias and link it to the deployment (so that each branch has its own domain automatically aliased to the lastest commit)
         run: |
+          now --version
+
           ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF') --token $ZEIT_TOKEN`
 
           ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
