@@ -274,13 +274,13 @@ const Nav: React.FunctionComponent<Props> = () => {
                       <br />
                       You can edit the <code>customer</code> theme, play with its primary color to see how the demo is affected depending on the various rendering modes (SSG, SSR, etc.)<br />
                       <br />
-                      You can also edit the products, and play around, as if you were using the Stacker back-office from a customer/editor standpoint!
+                      You can also edit the products, and play around, as if you were using the Stacker CMS from a customer/editor standpoint!
                     </span>}
                   >
                     <NavLink
                       id={'nav-link-admin-site'}
                       // Token isn't sensitive because it's a demo, any visitor is meant to have access to Stacker back office and update content
-                      href={process.env.NEXT_PUBLIC_CUSTOMER_REF === 'customer1' ? 'https://nrn.my.stacker.app/login?api_token=be1050d1-de5e-4ae0-97c8-030a132f254b' : 'https://nrn.my.stacker.app/login?api_token=c3a703bc-c4cc-42ee-aeac-03643636dbb0'}
+                      href={process.env.NEXT_PUBLIC_CUSTOMER_REF === 'customer1' ? 'https://nrn.my.stacker.app/login?api_token=be1050d1-de5e-4ae0-97c8-030a132f254b&ref=unly-nrn' : 'https://nrn.my.stacker.app/login?api_token=c3a703bc-c4cc-42ee-aeac-03643636dbb0&ref=unly-nrn'}
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
