@@ -259,8 +259,7 @@ jobs:
           body: |
             [GitHub Actions]
             Lighthouse report
-            <!-- ![](https://img.shields.io/badge/Accessibility-98-green?style=flat-square) ![](https://img.shields.io/badge/Best%20Practices-100-green?style=flat-square) ![](https://img.shields.io/badge/Performance-55-orange?style=flat-square) ![](https://img.shields.io/badge/Progressive%20Web%20App-56-orange?style=flat-square) ![](https://img.shields.io/badge/SEO-92-green?style=flat-square) -->
-            ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
-            ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults.scores }}
-            ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults.scores.accessibility }}
+            ![](https://img.shields.io/badge/Accessibility-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.accessibility }}-green?style=flat-square) ![](https://img.shields.io/badge/Best%20Practices-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.bestPractices }}-green?style=flat-square) ![](https://img.shields.io/badge/Performance-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.performance }}-orange?style=flat-square) ![](https://img.shields.io/badge/Progressive%20Web%20App-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.progressiveWebApp }}-orange?style=flat-square) ![](https://img.shields.io/badge/SEO-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.seo }}-green?style=flat-square)
+
+
             ${{ env.ZEIT_DEPLOYMENT_URL }}
