@@ -241,3 +241,26 @@ jobs:
           minPerformanceScore: "30"
           minProgressiveWebAppScore: "50"
           minSeoScore: "50"
+
+      # We need to find the PR id. Will be used later to comment on that PR.
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # It forces the job to be always executed, even if a previous job fail.
+        with:
+          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+
+      # Add a comment to the PR with lighthouse report
+      - name: Comment PR (E2E failure)
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            Lighthouse report
+            <!-- ![](https://img.shields.io/badge/Accessibility-98-green?style=flat-square) ![](https://img.shields.io/badge/Best%20Practices-100-green?style=flat-square) ![](https://img.shields.io/badge/Performance-55-orange?style=flat-square) ![](https://img.shields.io/badge/Progressive%20Web%20App-56-orange?style=flat-square) ![](https://img.shields.io/badge/SEO-92-green?style=flat-square) -->
+            ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
+            ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults.scores }}
+            ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults.scores.accessibility }}
+            ${{ env.ZEIT_DEPLOYMENT_URL }}
