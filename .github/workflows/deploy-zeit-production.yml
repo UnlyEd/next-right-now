@@ -5,6 +5,10 @@
 name: Deploy to Zeit (production)
 
 on:
+  # There are several ways to trigger Github actions - See https://help.github.com/en/actions/reference/events-that-trigger-workflows#example-using-a-single-event for a comprehensive list:
+  # "push": Triggers each time a commit is pushed
+  # "pull_request": Triggers each time a commit is pushed within a pull request
+  # In production, we use the "push" trigger, because we want to deploy whether any pushed commit, whether it belongs to a PR.
   push:
     branches:
       - 'master'
@@ -31,6 +35,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Deploying on Zeit
+        # Workflow:
+        # Deploy the customer in production
         run: yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
@@ -108,7 +114,7 @@ jobs:
       - name: Run Lighthouse
         uses: foo-software/lighthouse-check-action@v1.0.14
         id: lighthouseCheck
-        with:
+        with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
 

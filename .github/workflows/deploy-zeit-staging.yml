@@ -4,13 +4,12 @@
 
 name: Deploy to Zeit (staging)
 
-# There are many ways to trigger actions:
-# "push": will be trigger each time a commit is made. It can useful for CI (unit tests).
-# "pull_request": will be trigger each time a commit is made IN a pull request. By this way, we are sure to deal with a PR.
-# We are using the pull_request trigger because we want to fully use the ChatOps communication, making reviews and tracking easier for maintainers.
-
 on:
-  pull_request:
+  # There are several ways to trigger Github actions - See https://help.github.com/en/actions/reference/events-that-trigger-workflows#example-using-a-single-event for a comprehensive list:
+  # "push": Triggers each time a commit is pushed
+  # "pull_request": Triggers each time a commit is pushed within a pull request
+  # In staging, we use the "pull_request" trigger, because it makes it much easier to write comments within the PR.
+  pull_request: # Triggers on each pushed commit associated with a pull request
     branches-ignore:
       - 'master'
 
@@ -37,9 +36,9 @@ jobs:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Deploying on Zeit
         # Workflow:
-        #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, what we are looking for)
-        #   - Set deployment url to show on PR message
-        #   - Create alias and link it
+        #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, which is what we are really looking for)
+        #   - Set the deployment url that will be included in the eventual PR comment
+        #   - Create a branch alias and link it to the deployment (so that each branch has its own domain automatically aliased to the lastest commit)
         run: |
           ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF') --token $ZEIT_TOKEN`
 
@@ -69,7 +68,7 @@ jobs:
           npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
-          CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to worker
+          CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to the worker
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
@@ -195,10 +194,10 @@ jobs:
       - name: Run Lighthouse
         uses: foo-software/lighthouse-check-action@v1.0.14
         id: lighthouseCheck
-        with:
+        with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
           accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR.
-          prCommentEnabled: true # If we want for this action to comment or not (default: true).
-          prCommentSaveOld: true # Comment each time with another comment, instead of update the last one (default: false).
+          prCommentEnabled: true # Whether to comment on the PR (default: true).
+          prCommentSaveOld: true # If true, then add a new comment for each commit. Otherwise, update the latest comment (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
 
