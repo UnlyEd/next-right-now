@@ -19,7 +19,7 @@
     "deploy:customer2": "yarn now:cleanup && now --confirm --local-config=now.customer2.staging.json --debug",
     "deploy:customer2:production": "yarn now:cleanup && now --confirm --local-config=now.customer2.production.json --prod --debug",
     "deploy:fake": "git commit --allow-empty -m \"Fake empty commit (force CI trigger)\"",
-    "now:cleanup": "npx del-cli .now/",
+    "now:cleanup": "npx del-cli .now/ && npx del-cli .vercel/",
     "e2e": "yarn e2e:run",
     "e2e:all:production": "yarn e2e:customer1:production && yarn e2e:customer2:production",
     "e2e:customer1:production": "CYPRESS_STAGE=customer1 yarn e2e:run",
