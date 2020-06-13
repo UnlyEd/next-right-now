@@ -256,6 +256,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          # Report provided by steps.lighthouseCheck.outputs.lighthouseCheckResults is a string and need to be transform into an object. Official documentation: https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson
+          # Then, using badges with results provided by `data[0].scores.<category>`
+          # data is an array containing results of every urls tested. Thankfully, we only test one url so we don't care about the index.
           body: |
             [GitHub Actions]
             Lighthouse report
