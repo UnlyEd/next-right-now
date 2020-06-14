@@ -220,7 +220,7 @@ jobs:
         id: lighthouseCheck
         with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
           accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR.
-          prCommentEnabled: false # Whether to comment on the PR (default: true).
+          prCommentEnabled: false # Whether to comment on the PR (default: true). Disabled because we use our own "Comment PR (LightHouse report)" action
           prCommentSaveOld: true # If true, then add a new comment for each commit. Otherwise, update the latest comment (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
@@ -234,7 +234,6 @@ jobs:
 
       # Using a pre-build action to make the action fail if your score is too low. It can be really interesting to track a low score on a commit
       # You can remove this action IF you don't want lighthouse to be a blocking point in your CI
-      # This default values so you need to change them by your own criteria
       # Official documentation: https://github.com/foo-software/lighthouse-check-status-action
       - name: Handle Lighthouse Check results
         uses: foo-software/lighthouse-check-status-action@v1.0.1
@@ -255,15 +254,17 @@ jobs:
           github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
 
       # Add a comment to the PR with lighthouse report
-      - name: Comment PR (E2E failure)
+      - name: Comment PR (LightHouse report)
         uses: peter-evans/create-or-update-comment@v1
         with:
           token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
-          run: "echo toJSON(steps.lighthouseCheck.outputs)"
-          # Report provided by steps.lighthouseCheck.outputs.lighthouseCheckResults is a string and need to be transform into an object. Official documentation: https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson
+          run: |
+            echo toJSON(steps.lighthouseCheck.outputs)
+          # Report provided by steps.lighthouseCheck.outputs.lighthouseCheckResults is a string and need to be transform into an object.
           # Then, using badges with results provided by `data[0].scores.<category>`
           # data is an array containing results of every urls tested. Thankfully, we only test one url so we don't care about the index.
+          # See "fromJson" documentation: https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson
           body: |
             [GitHub Actions] - **Lighthouse report** for ${{ env.ZEIT_DEPLOYMENT_URL }}
             ![](https://img.shields.io/badge/Accessibility-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.accessibility }}-green?style=flat-square) ![](https://img.shields.io/badge/Best%20Practices-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.bestPractices }}-green?style=flat-square) ![](https://img.shields.io/badge/Performance-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.performance }}-orange?style=flat-square) ![](https://img.shields.io/badge/Progressive%20Web%20App-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.progressiveWebApp }}-orange?style=flat-square) ![](https://img.shields.io/badge/SEO-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.seo }}-green?style=flat-square)
