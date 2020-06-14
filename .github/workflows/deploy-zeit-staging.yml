@@ -264,9 +264,5 @@ jobs:
           # Then, using badges with results provided by `data[0].scores.<category>`
           # data is an array containing results of every urls tested. Thankfully, we only test one url so we don't care about the index.
           body: |
-            [GitHub Actions]
-            Lighthouse report
+            [GitHub Actions] - **Lighthouse report** for ${{ env.ZEIT_DEPLOYMENT_URL }}
             ![](https://img.shields.io/badge/Accessibility-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.accessibility }}-green?style=flat-square) ![](https://img.shields.io/badge/Best%20Practices-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.bestPractices }}-green?style=flat-square) ![](https://img.shields.io/badge/Performance-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.performance }}-orange?style=flat-square) ![](https://img.shields.io/badge/Progressive%20Web%20App-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.progressiveWebApp }}-orange?style=flat-square) ![](https://img.shields.io/badge/SEO-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.seo }}-green?style=flat-square)
-
-
-            ${{ env.ZEIT_DEPLOYMENT_URL }}
