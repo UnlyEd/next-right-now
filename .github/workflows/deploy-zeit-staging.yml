@@ -6,10 +6,11 @@ name: Deploy to Zeit (staging)
 
 on:
   # There are several ways to trigger Github actions - See https://help.github.com/en/actions/reference/events-that-trigger-workflows#example-using-a-single-event for a comprehensive list:
-  # "push": Triggers each time a commit is pushed
-  # "pull_request": Triggers each time a commit is pushed within a pull request
-  # In staging, we use the "pull_request" trigger, because it makes it much easier to write comments within the PR.
-  push: # Triggers on each pushed commit associated with a pull request
+  # - "push": Triggers each time a commit is pushed
+  # - "pull_request": Triggers each time a commit is pushed within a pull request, it makes it much easier to write comments within the PR, but it suffers some strong limitations:
+  #   - There is no way to trigger when a PR is merged into another - See https://github.community/t/pull-request-action-does-not-run-on-merge/16092?u=vadorequest
+  #   - It won't trigger when the PR is conflicting with its base branch - See https://github.community/t/run-actions-on-pull-requests-with-merge-conflicts/17104/2?u=vadorequest
+  push: # Triggers on each pushed commit
     branches-ignore:
       - 'master'
 
@@ -40,13 +41,14 @@ jobs:
         #   - Set the deployment url that will be included in the eventual PR comment
         #   - Create a branch alias and link it to the deployment (so that each branch has its own domain automatically aliased to the lastest commit)
         run: |
+          # Print the version of the "now" CLI being used (helps debugging)
           now --version
 
           ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF') --token $ZEIT_TOKEN`
 
           ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::$ZEIT_DEPLOYMENT_URL"
-          echo "Now url deployment: " $ZEIT_DEPLOYMENT_URL
+          echo "Deployment url: " $ZEIT_DEPLOYMENT_URL
 
           if [[ ${CURRENT_BRANCH##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
             ZEIT_DEPLOYMENT_ALIAS=${CURRENT_BRANCH##*/}
@@ -67,8 +69,10 @@ jobs:
 
           ZEIT_DEPLOYMENT_ALIAS=$ZEIT_DEPLOYMENT_ALIAS.vercel.app
           echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
-          echo "Now alias url: " $ZEIT_DEPLOYMENT_ALIAS
+          echo "Alias domain: " $ZEIT_DEPLOYMENT_ALIAS
 
+          echo "Aliasing the deployment using the git branch alias:"
+          echo "npx now alias " $ZEIT_DEPLOYMENT_URL " https://" $ZEIT_DEPLOYMENT_ALIAS
           npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
