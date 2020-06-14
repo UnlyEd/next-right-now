@@ -35,14 +35,18 @@ const ExternalLink: React.FunctionComponent<Props> = (props): JSX.Element => {
   } = props;
 
   return (
-    <a
-      href={href}
-      target={'_blank'} // eslint-disable-line react/jsx-no-target-blank
-      rel={`${nofollow ? 'nofollow' : ''} ${noopener ? 'noopener' : ''} ${noreferrer ? 'noreferrer' : ''}`}
-      {...rest}
-    >
-      {prefix}{children}{suffix}
-    </a>
+    <>
+      {prefix}
+      <a
+        href={href}
+        target={'_blank'} // eslint-disable-line react/jsx-no-target-blank
+        rel={`${nofollow ? 'nofollow' : ''} ${noopener ? 'noopener' : ''} ${noreferrer ? 'noreferrer' : ''}`}
+        {...rest}
+      >
+        {children}
+      </a>
+      {suffix}
+    </>
   );
 };
 
