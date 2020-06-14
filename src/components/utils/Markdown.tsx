@@ -2,47 +2,53 @@
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import { Markdown as MarkdownType } from '../../types/Markdown';
+import deepmerge from 'deepmerge';
 
 const fileLabel = 'components/utils/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
 
-type Renderers = {
-  [key in ReactMarkdown.NodeType]?: string | ReactMarkdown.Renderer<any>;
-}
-
 type Props = {
   text: MarkdownType;
-  renderers?: Renderers;
+  markdownOptions?: MarkdownOptions;
 }
 
-const defaultRenderers: Renderers = {};
+const defaultMarkdownOptions: MarkdownOptions = {
+  overrides: {
+    a: {
+      component: 'a',
+      props: {
+        rel: 'noopener', // Security, avoids external site opened through your site to have control over your site
+        target: '_blank',
+      },
+    },
+  },
+};
 
 /**
- * Display "text" property as Markdown, using the "react-markdown" library
+ * Display "text" property as Markdown, using the "markdown-to-jsx" library
  *
  * @param props
  */
 const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { text, renderers = defaultRenderers } = props;
-  console.log('text', text);
+  const { text, markdownOptions: _markdownOptions } = props;
+  const markdownOptions = deepmerge(defaultMarkdownOptions, _markdownOptions || {});
 
   try {
     return (
-      <ReactMarkdown
-        source={text}
-        // @ts-ignore
-        renderers={renderers}
-        linkTarget={'_blank'}
-      />
+      <MarkdownToJSX
+        options={markdownOptions}
+      >
+        {text}
+      </MarkdownToJSX>
     );
 
   } catch (e) {
-    // Markdown conversion might crash depending on the content, and we must absolutely avoid that - See https://github.com/rexxars/react-markdown/issues/229
+    // Markdown conversion might crash depending on the content, and we must absolutely avoid that
     logger.error(e);
     Sentry.withScope((scope): void => {
       scope.setContext('props', props);
