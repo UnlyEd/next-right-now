@@ -2,10 +2,14 @@
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import deepmerge from 'deepmerge';
 import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
 import React from 'react';
 import { Markdown as MarkdownType } from '../../types/Markdown';
-import deepmerge from 'deepmerge';
+import Loader from '../animations/Loader';
+import Footer from '../pageLayouts/Footer';
+import Nav from '../pageLayouts/Nav';
+import Code from './Code';
 
 const fileLabel = 'components/utils/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -18,7 +22,7 @@ type Props = {
 }
 
 const defaultMarkdownOptions: MarkdownOptions = {
-  overrides: {
+  overrides: { // See https://github.com/probablyup/markdown-to-jsx#optionsoverrides---override-any-html-tags-representation
     a: {
       component: 'a',
       props: {
@@ -26,6 +30,10 @@ const defaultMarkdownOptions: MarkdownOptions = {
         target: '_blank',
       },
     },
+    Code: Code,
+    Loader: Loader,
+    Nav: Nav,
+    Footer: Footer,
   },
 };
 
