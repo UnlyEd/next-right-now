@@ -50,6 +50,11 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
                     Impersonate <b>Customer {process.env.NEXT_PUBLIC_CUSTOMER_REF === 'customer1' ? '1' : '2'} Admin</b> and play with this demo
                   </Button>
                 </ExternalLink>
+                <ExternalLink href={'https://airtable.com/shrnxN46JDBkQV9u1'}>
+                  <Button color={'link'}>
+                    See Airtable base (where data are stored)
+                  </Button>
+                </ExternalLink>
                 <ExternalLink href={'https://stacker.app?ref=unly-nrn'}>
                   <Button color={'link'}>
                     Learn more about Stacker
