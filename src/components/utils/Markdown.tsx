@@ -5,11 +5,14 @@ import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
 import React from 'react';
+import { Button } from 'reactstrap';
 import { Markdown as MarkdownType } from '../../types/Markdown';
 import Loader from '../animations/Loader';
+import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import Footer from '../pageLayouts/Footer';
 import Nav from '../pageLayouts/Nav';
 import Code from './Code';
+import SimpleTooltip from './SimpleTooltip';
 
 const fileLabel = 'components/utils/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -34,6 +37,9 @@ const defaultMarkdownOptions: MarkdownOptions = {
     Loader: Loader,
     Nav: Nav,
     Footer: Footer,
+    I18nBtnChangeLocale: I18nBtnChangeLocale,
+    Tooltip: SimpleTooltip,
+    Button: Button,
   },
 };
 
