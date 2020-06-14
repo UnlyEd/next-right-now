@@ -2,6 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import React from 'react';
 import { Col, Row } from 'reactstrap';
+import ReactMarkdown from 'react-markdown';
 
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
@@ -41,7 +42,7 @@ const ProductRow: React.FunctionComponent<Props> = (props) => {
         {product?.title}
       </Col>
       <Col>
-        {product?.description}
+        <ReactMarkdown source={product?.description} />
       </Col>
       <Col>
         {product?.price || 0}€
