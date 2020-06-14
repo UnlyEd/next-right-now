@@ -45,7 +45,7 @@
     "test:group:integration": "NODE_ENV=test jest --group=integration --watchAll",
     "test:group:unit": "NODE_ENV=test jest --group=unit --watchAll",
     "test:group:utils": "NODE_ENV=test jest --group=utils --watchAll",
-    "test:once": "NODE_ENV=test jest",
+    "test:once": "NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:once:group:no-integration": "NODE_ENV=test jest --group=-integration",
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:config": "NODE_ENV=test jest --showConfig",
