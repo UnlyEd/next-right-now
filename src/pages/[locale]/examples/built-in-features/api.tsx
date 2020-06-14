@@ -70,6 +70,214 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
             // Fetches all Airtable tables and returns a consolidated Customer object with all relations resolved
             // Relations are only resolved on the two first levels (to avoid circular dependencies)
             const customer: AirtableRecord<Customer> = await fetchCustomer(bestCountryCodes);
+
+            // "customer" print:
+            {
+              "id": "reci9HYsoqd1xScsi",
+              "fields": {
+                "id": "reci9HYsoqd1xScsi",
+                "termsEN": "# Those are the terms for {customerLabel}.\\n\\nBut ... Who wanna get bothered with **terms**?\\nNot me\\nMe neither it's boring\\n\\n- List element\\n- List element\\n- List element\\n",
+                "terms": "# Voici les conditions générales d'utilisation pour {customerLabel}.\\n\\nMais... Qui a envie de lire des **CGU** ?\\n\\n- List element\\n- List element\\n- List element\\n",
+                "termsFR": "# Voici les conditions générales d'utilisation pour {customerLabel}.\\n\\nMais... Qui a envie de lire des **CGU** ?\\n\\n- List element\\n- List element\\n- List element\\n",
+                "labelFR": "Client 1",
+                "label": "Client 1",
+                "users": [
+                  "rec5Ren090l6vGJDf"
+                ],
+                "previewBaseUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app",
+                "products": [
+                  {
+                    "id": "reck5THYBOd0ryd5Z",
+                    "fields": {
+                      "id": 1,
+                      "titleEN": "Vista Al Valle Zapote Honey",
+                      "title": "Vista Al Valle Zapote Honey",
+                      "descriptionEN": "Plummy taste and syrupy texture\\n",
+                      "description": "Café au sirop\\n",
+                      "customer": {
+                        "id": "reci9HYsoqd1xScsi",
+                        "fields": {
+                          "termsEN": "# Those are the terms for {customerLabel}.\\n\\nBut ... Who wanna get bothered with **terms**?\\nNot me\\nMe neither it's boring\\n\\n- List element\\n- List element\\n- List element\\n",
+                          "termsFR": "# Voici les conditions générales d'utilisation pour {customerLabel}.\\n\\nMais... Qui a envie de lire des **CGU** ?\\n\\n- List element\\n- List element\\n- List element\\n",
+                          "labelFR": "Client 1",
+                          "users": [
+                            "rec5Ren090l6vGJDf"
+                          ],
+                          "previewBaseUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app",
+                          "products": [
+                            "reck5THYBOd0ryd5Z",
+                            "recFSrY2znI6Z8Dbj"
+                          ],
+                          "theme": [
+                            "recrcZANU6L73OA9v"
+                          ],
+                          "ref": "customer1",
+                          "previewTermsUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/terms?fullPagePreview=1&updatedAt=2020-06-14T11:38:58.000Z"
+                        },
+                        "createdTime": "2020-06-02T14:01:51.000Z",
+                        "__typename": "Customer"
+                      },
+                      "price": 10,
+                      "images": [
+                        {
+                          "id": "attlk6ONaDfaZbQTw",
+                          "url": "https://dl.airtable.com/OeNybctMTBKLPkbntK8p_jftonpzlxgakoxo9plfq.jpg",
+                          "filename": "jftonpzlxgakoxo9plfq.jpg",
+                          "size": 34481,
+                          "type": "image/jpeg",
+                          "thumbnails": {
+                            "small": {
+                              "url": "https://dl.airtable.com/qVbclResT9magEgEnERA_jftonpzlxgakoxo9plfq.jpg",
+                              "width": 56,
+                              "height": 36
+                            },
+                            "large": {
+                              "url": "https://dl.airtable.com/p8e2P2cTKq817hQdo0yw_jftonpzlxgakoxo9plfq.jpg",
+                              "width": 256,
+                              "height": 163
+                            }
+                          },
+                          "__typename": "Asset"
+                        }
+                      ],
+                      "descriptionFR": "Café au sirop\\n",
+                      "status": "PUBLISHED",
+                      "imagesTitle": "Vista Al Valle Zapote Honey",
+                      "ref": "vista-al-valle-zapote-honey",
+                      "previewUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/item-preview/preview-product?ref=vista-al-valle-zapote-honey&updatedAt=2020-06-11T14:15:08.000Z"
+                    },
+                    "createdTime": "2020-06-02T14:04:46.000Z",
+                    "__typename": "Product"
+                  },
+                  {
+                    "id": "recFSrY2znI6Z8Dbj",
+                    "fields": {
+                      "id": 2,
+                      "titleEN": "Big City",
+                      "title": "Big City",
+                      "descriptionEN": "Some awesome **description 2**\\n\\nYou can even [use links][1]\\n\\n  [1]: https://bluebottlecoffee.com/releases/costa-rica-vista-al-valle-honey\\n",
+                      "description": "Super longue **description**\\n\\nVous pouvez même [utiliser des liens][1]\\n\\n  [1]: https://bluebottlecoffee.com/releases/costa-rica-vista-al-valle-honey\\n",
+                      "customer": {
+                        "id": "reci9HYsoqd1xScsi",
+                        "fields": {
+                          "termsEN": "# Those are the terms for {customerLabel}.\\n\\nBut ... Who wanna get bothered with **terms**?\\nNot me\\nMe neither it's boring\\n\\n- List element\\n- List element\\n- List element\\n",
+                          "termsFR": "# Voici les conditions générales d'utilisation pour {customerLabel}.\\n\\nMais... Qui a envie de lire des **CGU** ?\\n\\n- List element\\n- List element\\n- List element\\n",
+                          "labelFR": "Client 1",
+                          "users": [
+                            "rec5Ren090l6vGJDf"
+                          ],
+                          "previewBaseUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app",
+                          "products": [
+                            "reck5THYBOd0ryd5Z",
+                            "recFSrY2znI6Z8Dbj"
+                          ],
+                          "theme": [
+                            "recrcZANU6L73OA9v"
+                          ],
+                          "ref": "customer1",
+                          "previewTermsUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/terms?fullPagePreview=1&updatedAt=2020-06-14T11:38:58.000Z"
+                        },
+                        "createdTime": "2020-06-02T14:01:51.000Z",
+                        "__typename": "Customer"
+                      },
+                      "price": 23,
+                      "images": [
+                        {
+                          "id": "att6JU52f5PlMuiRu",
+                          "url": "https://dl.airtable.com/Uvg7ldEEQpqKhR3NKTGt_348s.jpg",
+                          "filename": "348s.jpg",
+                          "size": 17866,
+                          "type": "image/jpeg",
+                          "thumbnails": {
+                            "small": {
+                              "url": "https://dl.airtable.com/8C4cVNCES89lt6PnFH5W_348s.jpg",
+                              "width": 36,
+                              "height": 36
+                            },
+                            "large": {
+                              "url": "https://dl.airtable.com/TdSPVnVQISc0P0EdiiQw_348s.jpg",
+                              "width": 256,
+                              "height": 256
+                            }
+                          },
+                          "__typename": "Asset"
+                        }
+                      ],
+                      "descriptionFR": "Super longue **description**\\n\\nVous pouvez même [utiliser des liens][1]\\n\\n  [1]: https://bluebottlecoffee.com/releases/costa-rica-vista-al-valle-honey\\n",
+                      "status": "PUBLISHED",
+                      "imagesTitle": "Big City",
+                      "ref": "big-city",
+                      "previewUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/item-preview/preview-product?ref=big-city&updatedAt=2020-06-14T11:42:38.000Z"
+                    },
+                    "createdTime": "2020-06-02T14:04:46.000Z",
+                    "__typename": "Product"
+                  }
+                ],
+                "theme": {
+                  "id": "recrcZANU6L73OA9v",
+                  "fields": {
+                    "id": 1,
+                    "customer": {
+                      "id": "reci9HYsoqd1xScsi",
+                      "fields": {
+                        "termsEN": "# Those are the terms for {customerLabel}.\\n\\nBut ... Who wanna get bothered with **terms**?\\nNot me\\nMe neither it's boring\\n\\n- List element\\n- List element\\n- List element\\n",
+                        "termsFR": "# Voici les conditions générales d'utilisation pour {customerLabel}.\\n\\nMais... Qui a envie de lire des **CGU** ?\\n\\n- List element\\n- List element\\n- List element\\n",
+                        "labelFR": "Client 1",
+                        "users": [
+                          "rec5Ren090l6vGJDf"
+                        ],
+                        "previewBaseUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app",
+                        "products": [
+                          "reck5THYBOd0ryd5Z",
+                          "recFSrY2znI6Z8Dbj"
+                        ],
+                        "theme": [
+                          "recrcZANU6L73OA9v"
+                        ],
+                        "ref": "customer1",
+                        "previewTermsUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/terms?fullPagePreview=1&updatedAt=2020-06-14T11:38:58.000Z"
+                      },
+                      "createdTime": "2020-06-02T14:01:51.000Z",
+                      "__typename": "Customer"
+                    },
+                    "primaryColor": "red",
+                    "logo": {
+                      "id": "attPS7KMD2GYafnlr",
+                      "url": "https://dl.airtable.com/Qj697gmbRLff6kiHcF71_mark.png",
+                      "filename": "mark.png",
+                      "size": 4904,
+                      "type": "image/png",
+                      "thumbnails": {
+                        "small": {
+                          "url": "https://dl.airtable.com/v51rtFINSuuxo3MwXvsG_small_mark.png",
+                          "width": 36,
+                          "height": 36
+                        },
+                        "large": {
+                          "url": "https://dl.airtable.com/oqRnvriRey2urg6KJYlA_large_mark.png",
+                          "width": 191,
+                          "height": 193
+                        },
+                        "full": {
+                          "url": "https://dl.airtable.com/AfwEuXK5TZu7dCIZq3qf_full_mark.png",
+                          "width": 191,
+                          "height": 193
+                        }
+                      },
+                      "__typename": "Asset"
+                    },
+                    "logoTitle": "Awesome-looking logo",
+                    "previewUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app?fullPagePreview=1&updatedAt=2020-06-14T11:07:45.000Z"
+                  },
+                  "createdTime": "2020-06-02T14:06:19.000Z",
+                  "__typename": "Theme"
+                },
+                "ref": "customer1",
+                "previewTermsUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/terms?fullPagePreview=1&updatedAt=2020-06-14T11:38:58.000Z"
+              },
+              "createdTime": "2020-06-02T14:01:51.000Z",
+              "__typename": "Customer"
+            }
           `}
         />
 
