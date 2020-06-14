@@ -13,9 +13,9 @@ const defaultCodeBlockStyle = {
 };
 
 /**
- * Documentation page
+ * Display "text" property as source code, using the "react-code-blocks" library
  *
- * Basically wraps the children in a white container
+ * Pre-configured with theme color, and default sane options for ease of use
  *
  * @param props
  */
