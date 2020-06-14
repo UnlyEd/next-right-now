@@ -16,6 +16,7 @@ import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { replaceAllOccurrences } from '../../utils/js/string';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../utils/nextjs/SSG';
+import Markdown from '../../components/utils/Markdown';
 
 const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -115,8 +116,8 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
         >
           <div className={'terms-content'}>
             {
-              <ReactMarkdown
-                source={terms}
+              <Markdown
+                text={terms}
               />
             }
           </div>

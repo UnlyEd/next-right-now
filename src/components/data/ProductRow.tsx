@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
 import AirtableAsset from '../assets/AirtableAsset';
+import Markdown from '../utils/Markdown';
 
 type Props = {
   product: Product;
@@ -42,7 +43,7 @@ const ProductRow: React.FunctionComponent<Props> = (props) => {
         {product?.title}
       </Col>
       <Col>
-        <ReactMarkdown source={product?.description} />
+        <Markdown text={product?.description} />
       </Col>
       <Col>
         {product?.price || 0}€
