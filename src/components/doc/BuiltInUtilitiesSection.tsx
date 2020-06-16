@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import React from 'react';
-import { Alert, Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
+import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
 import I18nLink from '../i18n/I18nLink';
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';

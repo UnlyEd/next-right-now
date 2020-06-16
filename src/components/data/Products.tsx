@@ -31,7 +31,7 @@ const Products: React.FunctionComponent<Props> = (props) => {
       {
         map(products, (product: Product) => {
           return (
-            <ProductRow product={product} />
+            <ProductRow key={product.id} product={product} />
           );
         })
       }

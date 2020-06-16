@@ -6,6 +6,7 @@ import { Col, Row } from 'reactstrap';
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
+import Markdown from '../utils/Markdown';
 
 type Props = {
   product: Product;
@@ -41,7 +42,7 @@ const ProductRow: React.FunctionComponent<Props> = (props) => {
         {product?.title}
       </Col>
       <Col>
-        {product?.description}
+        <Markdown text={product?.description} />
       </Col>
       <Col>
         {product?.price || 0}€
