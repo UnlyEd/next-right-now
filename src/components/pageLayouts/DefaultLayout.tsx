@@ -3,6 +3,7 @@ import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
+import { NextRouter, useRouter } from 'next/router';
 import React, { useState } from 'react';
 import ErrorPage from '../../pages/_error';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
@@ -51,6 +52,8 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     Sidebar,
   } = props;
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // Todo make default value depend on viewport size
+  const router: NextRouter = useRouter();
+  const isIframeWithFullPagePreview = router?.query?.fullPagePreview === '1';
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -85,7 +88,7 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       }
 
       {
-        !isInIframe && (
+        (!isInIframe || isIframeWithFullPagePreview) && (
           <Nav />
         )
       }
@@ -119,7 +122,7 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       </div>
 
       {
-        !isInIframe && (
+        (!isInIframe || isIframeWithFullPagePreview) && (
           <Footer />
         )
       }

@@ -147,3 +147,5 @@ _site
 
 # Tmp files (cache, etc.)
 *.cache
+
+.vercel
