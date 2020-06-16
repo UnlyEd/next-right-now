@@ -5,14 +5,31 @@ import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
 import React from 'react';
-import { Button } from 'reactstrap';
+import {
+  Alert,
+  Button,
+  Card,
+  CardBody,
+  CardSubtitle,
+  CardText,
+  CardTitle,
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Nav,
+  NavItem,
+  NavLink,
+  Row,
+  UncontrolledDropdown as Dropdown,
+} from 'reactstrap';
 import { Markdown as MarkdownType } from '../../types/Markdown';
-import Loader from '../animations/Loader';
+import AirtableAsset from '../assets/AirtableAsset';
+import Logo from '../assets/Logo';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
-import Footer from '../pageLayouts/Footer';
-import Nav from '../pageLayouts/Nav';
-import Code from './Code';
-import SimpleTooltip from './SimpleTooltip';
+import I18nLink from '../i18n/I18nLink';
+import Cards from './Cards';
+import Tooltip from './SimpleTooltip';
 
 const fileLabel = 'components/utils/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -25,7 +42,9 @@ type Props = {
 }
 
 const defaultMarkdownOptions: MarkdownOptions = {
+  // Make some of our own components available
   overrides: { // See https://github.com/probablyup/markdown-to-jsx#optionsoverrides---override-any-html-tags-representation
+    // All links should open in a new tab, and ensure proper security by default
     a: {
       component: 'a',
       props: {
@@ -33,13 +52,32 @@ const defaultMarkdownOptions: MarkdownOptions = {
         target: '_blank',
       },
     },
-    Code: Code,
-    Loader: Loader,
-    Nav: Nav,
-    Footer: Footer,
-    I18nBtnChangeLocale: I18nBtnChangeLocale,
-    Tooltip: SimpleTooltip,
-    Button: Button,
+
+    // Reactstrap whitelisted components
+    Alert,
+    Button,
+    Card,
+    CardBody,
+    CardSubtitle,
+    CardText,
+    CardTitle,
+    Col,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
+    Nav,
+    NavItem,
+    NavLink,
+    Row,
+
+    // Our own components
+    AirtableAsset,
+    Cards,
+    I18nLink,
+    I18nBtnChangeLocale,
+    Logo,
+    Tooltip,
   },
 };
 
