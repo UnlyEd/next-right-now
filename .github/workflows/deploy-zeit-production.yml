@@ -6,10 +6,11 @@ name: Deploy to Zeit (production)
 
 on:
   # There are several ways to trigger Github actions - See https://help.github.com/en/actions/reference/events-that-trigger-workflows#example-using-a-single-event for a comprehensive list:
-  # "push": Triggers each time a commit is pushed
-  # "pull_request": Triggers each time a commit is pushed within a pull request
-  # In production, we use the "push" trigger, because we want to deploy whether any pushed commit, whether it belongs to a PR.
-  push:
+  # - "push": Triggers each time a commit is pushed
+  # - "pull_request": Triggers each time a commit is pushed within a pull request, it makes it much easier to write comments within the PR, but it suffers some strong limitations:
+  #   - There is no way to trigger when a PR is merged into another - See https://github.community/t/pull-request-action-does-not-run-on-merge/16092?u=vadorequest
+  #   - It won't trigger when the PR is conflicting with its base branch - See https://github.community/t/run-actions-on-pull-requests-with-merge-conflicts/17104/2?u=vadorequest
+  push: # Triggers on each pushed commit
     branches:
       - 'master'
 
@@ -34,10 +35,15 @@ jobs:
     needs: setup-environment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
-      - name: Deploying on Zeit
+      - name: Deploying on Zeit (production)
         # Workflow:
         # Deploy the customer in production
-        run: yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production --token $ZEIT_TOKEN
+        run: |
+          # Print the version of the "now" CLI being used (helps debugging)
+          now --version
+
+          # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1:production")
+          yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
 
