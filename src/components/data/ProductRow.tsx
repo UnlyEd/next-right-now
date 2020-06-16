@@ -2,7 +2,6 @@
 import { css, jsx } from '@emotion/core';
 import React from 'react';
 import { Col, Row } from 'reactstrap';
-import ReactMarkdown from 'react-markdown';
 
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
