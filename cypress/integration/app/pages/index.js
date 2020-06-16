@@ -26,7 +26,7 @@ describe('Index page', () => {
     cy.get('#nav .navbar-nav > .nav-item').should('have.length', 5);
   });
 
-  it('should have a link in the navbar that redirects to the examples page', () => {
+  it('should have a link in the navbar that redirects to the home page', () => {
     cy.url().should('eq', `${baseUrl}/en`);
     cy.get('#nav-link-examples')
       .should('have.text', 'Examples')
