@@ -99,8 +99,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
-            [GitHub Actions]
-            Deployment **FAILED**
+            :x:&nbsp; Deployment **FAILED**
             Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }}
             [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
 
@@ -112,8 +111,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
-            [GitHub Actions]
-            Deployment **SUCCESS**
+            :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
             Deployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
 
@@ -178,8 +176,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
-            [GitHub Actions]
-            E2E tests **FAILED**
+            :x:&nbsp; E2E tests **FAILED**
             Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
 
       # On E2E success, add a comment to the PR
@@ -190,8 +187,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
-            [GitHub Actions]
-            E2E tests **SUCCESS**
+            :white_check_mark:&nbsp; E2E tests **SUCCESS**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -269,5 +265,5 @@ jobs:
           # data is an array containing results of every urls tested. Thankfully, we only test one url so we don't care about the index.
           # See "fromJson" documentation: https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson
           body: |
-            [GitHub Actions] - **Lighthouse report** for ${{ env.ZEIT_DEPLOYMENT_URL }}
+            :white_check_mark:&nbsp; **Lighthouse report** for ${{ env.ZEIT_DEPLOYMENT_URL }}
             ![](https://img.shields.io/badge/Accessibility-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.accessibility }}-green?style=flat-square) ![](https://img.shields.io/badge/Best%20Practices-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.bestPractices }}-green?style=flat-square) ![](https://img.shields.io/badge/Performance-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.performance }}-orange?style=flat-square) ![](https://img.shields.io/badge/Progressive%20Web%20App-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.progressiveWebApp }}-orange?style=flat-square) ![](https://img.shields.io/badge/SEO-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.seo }}-green?style=flat-square)
