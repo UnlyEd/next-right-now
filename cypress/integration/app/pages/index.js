@@ -8,6 +8,15 @@ describe('Index page', () => {
     cy.visit('/');
   });
 
+  it('should be running on the right domain', async () => {
+    const url = await cy.url();
+    cy.log(`Expected to be running on:`);
+    cy.log(baseUrl);
+    cy.log(`Actually running at:`);
+    cy.log(url);
+    cy.url().should('contains', baseUrl);
+  });
+
   /**
    * Footer section
    */
