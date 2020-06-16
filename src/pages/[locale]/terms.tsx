@@ -7,6 +7,8 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import { Container } from 'reactstrap';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
+import Code from '../../components/utils/Code';
+import Markdown from '../../components/utils/Markdown';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
@@ -50,6 +52,12 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: CustomerContext = React.useContext(customerContext);
   const theme = useTheme<CustomerTheme>();
   const { primaryColor } = theme;
+  const termsRaw: string = customer?.terms;
+
+  // Replace dynamic values like "{customerLabel}" by their actual value
+  const terms = replaceAllOccurrences(customer?.terms || '', {
+    customerLabel: `**${customer?.label}**`,
+  });
 
   return (
     <DefaultLayout
@@ -69,52 +77,56 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
 
             .source {
               margin: auto;
-              width: 50%;
             }
-          `}
-        >
-          <div
-            css={css`
+
+            .terms-content {
               margin: 50px 150px 150px;
+
               h1 {
                color: ${primaryColor};
                font-size: 35px;
               }
+
               h2 {
                font-size: 20px;
                margin-top: 35px;
               }
+
               h3 {
                font-size: 17px;
               }
+
               h4 {
                font-size: 13px;
                font-weight: 300;
               }
+
               h5 {
                font-size: 13px;
                font-weight: 100;
               }
+
               h6 {
                font-size: 10px;
               }
-            `}
-            dangerouslySetInnerHTML={{
-              __html: replaceAllOccurrences(customer?.terms || '', {
-                customerLabel: `<b>${customer?.label}</b>`,
-              }),
-            }}
-          />
+            }
+          `}
+        >
+          <div className={'terms-content'}>
+            {
+              <Markdown
+                text={terms}
+              />
+            }
+          </div>
 
           <hr />
 
           <div className={'source'}>
-            <h2>HTML source code (fetched from Airtable API), as <code>RichText</code> field:</h2>
-            <pre>
-              <code>
-                {customer?.terms}
-              </code>
-            </pre>
+            <h2>Field's value (fetched from Airtable API), as <code>Long text</code> (interpreted as Markdown):</h2>
+            <Code
+              text={`${termsRaw}`}
+            />
           </div>
         </div>
       </Container>
