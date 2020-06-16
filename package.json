@@ -50,7 +50,9 @@
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:config": "NODE_ENV=test jest --showConfig",
     "security:audit": "yarn audit",
-    "packages:upgrade": "yarn upgrade-interactive --latest"
+    "packages:upgrade": "yarn upgrade-interactive --latest",
+    "act:build": "docker build -t unlyed/nrn-gha .github/workflows-local",
+    "act:run": "act push -P ubuntu-18.04=unlyed/nrn-gha --secret-file .env.gha"
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
