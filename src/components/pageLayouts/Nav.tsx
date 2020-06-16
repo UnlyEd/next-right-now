@@ -288,7 +288,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                       }}
                     >
                       <FontAwesomeIcon icon={['fas', 'user-cog']} />
-                      {t('nav.adminSite.link', 'Admin site')}
+                      {t('nav.adminSite.link', 'Go to CMS')}
                     </NavLink>
                   </Tooltip>
                 </Row>
