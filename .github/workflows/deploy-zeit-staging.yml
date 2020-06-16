@@ -93,7 +93,7 @@ jobs:
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.2
         if: failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -106,7 +106,7 @@ jobs:
 
       # On deployment success, add a comment to the PR
       - name: Comment PR (Deployment success)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.2
         if: success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -140,7 +140,7 @@ jobs:
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
-        uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v1.25.2 # XXX See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
           config-file: cypress/config-customer1.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
@@ -172,7 +172,7 @@ jobs:
 
       # On E2E failure, add a comment to the PR with additional information
       - name: Comment PR (E2E failure)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.2
         if: failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -184,7 +184,7 @@ jobs:
 
       # On E2E success, add a comment to the PR
       - name: Comment PR (E2E success)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.2
         if: success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
