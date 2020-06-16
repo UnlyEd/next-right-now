@@ -89,14 +89,14 @@ jobs:
         id: pr_id_finder
         if: always() # It forces the job to be always executed, even if a previous job fail.
         with:
-          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # On deployment failure, add a comment to the PR
       - name: Comment PR (Deployment failure)
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
-          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
@@ -109,7 +109,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         if: success()
         with:
-          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
@@ -168,14 +168,14 @@ jobs:
         id: pr_id_finder
         if: always() # It forces the job to be always executed, even if a previous job fail.
         with:
-          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # On E2E failure, add a comment to the PR with additional information
       - name: Comment PR (E2E failure)
         uses: peter-evans/create-or-update-comment@v1
         if: failure()
         with:
-          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
