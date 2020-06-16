@@ -148,7 +148,7 @@ jobs:
 
       # On E2E failure, upload screenshots
       - name: Uplad screenshots artifacts (E2E failure)
-        uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
+        uses: actions/upload-artifact@v2.0.1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
         if: failure()
         with:
           name: screenshots
@@ -156,7 +156,7 @@ jobs:
 
       # On E2E failure, upload videos
       - name: Uplad videos artifacts (E2E failure)
-        uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
+        uses: actions/upload-artifact@v2.0.1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
         if: failure()
         with:
           name: videos
@@ -232,7 +232,7 @@ jobs:
 
       # Upload HTML report create by lighthouse, could be useful
       - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2.0.1
         with:
           name: Lighthouse reports
           path: /tmp/lighthouse-artifacts
@@ -260,7 +260,7 @@ jobs:
 
       # Add a comment to the PR with lighthouse report
       - name: Comment PR (LightHouse report)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1.4.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
