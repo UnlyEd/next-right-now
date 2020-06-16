@@ -219,7 +219,7 @@ jobs:
         uses: foo-software/lighthouse-check-action@v1.0.14
         id: lighthouseCheck
         with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
-          accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR.
+          #accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR if you are using a "pull_request" as trigger.
           prCommentEnabled: false # Whether to comment on the PR (default: true). Disabled because we use our own "Comment PR (LightHouse report)" action
           prCommentSaveOld: true # If true, then add a new comment for each commit. Otherwise, update the latest comment (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
