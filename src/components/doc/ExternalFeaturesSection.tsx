@@ -26,7 +26,7 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
       <Cards maxCards={1}>
         <Card>
           <CardBody>
-            <CardTitle><h3>Backoffice/Admin site</h3></CardTitle>
+            <CardTitle><h3>Backoffice/CMS</h3></CardTitle>
             <CardSubtitle>&ldquo;Update NRN demo using Stacker CMS&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <Alert color={'info'}>
