@@ -35,7 +35,7 @@ jobs:
     needs: setup-environment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
-      - name: Deploying on Zeit
+      - name: Deploying on Zeit (staging)
         # Workflow:
         #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, which is what we are really looking for)
         #   - Set the deployment url that will be included in the eventual PR comment
@@ -44,12 +44,18 @@ jobs:
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
 
+          # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1")
+          # Store the output in a variable so we can extract metadata from it
           ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF') --token $ZEIT_TOKEN`
 
+          # Extract the Vercel deployment url from the deployment output
           ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::$ZEIT_DEPLOYMENT_URL"
           echo "Deployment url: " $ZEIT_DEPLOYMENT_URL
 
+          # Build the alias domain based on our own rules (NRN own rules)
+          # Basically, if a branch starts with "v[0-9]" then we consider it to be a "preset branch" and we use the branch name as alias (e.g: "v2-mst-xxx")
+          # Otherwise, we use the deployment name and suffix it using the branch name (e.g: "v2-mst-xxx-branch-name")
           if [[ ${CURRENT_BRANCH##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
             ZEIT_DEPLOYMENT_ALIAS=${CURRENT_BRANCH##*/}
           else
@@ -58,19 +64,18 @@ jobs:
 
           # Zeit alias only allows 41 characters in the domain name, so we only keep the first 41 (41 = 53 - 11 - 1) characters (because Zeit needs 7 chars for ".vercel.app" at the end of the domain name, and count starts at 1, not 0)
           # Also, in order to remove forbidden characters, we transform every characters which are not a "alnum" and \n or \r into '-'
-
           ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 41 | tr -c '[:alnum:]\r\n' - | tr '[:upper:]' '[:lower:]')
 
-          # Recursively remove any trailing dash ('-')
+          # Recursively remove any trailing dash ('-') to protect against invalid alias domain (not allowed to end with a trailing slash)
           while [[ "$ZEIT_DEPLOYMENT_ALIAS" == *- ]]
           do
             ZEIT_DEPLOYMENT_ALIAS=${ZEIT_DEPLOYMENT_ALIAS::-1}
           done
 
+          # Build alias url and create Vercel alias
           ZEIT_DEPLOYMENT_ALIAS=$ZEIT_DEPLOYMENT_ALIAS.vercel.app
           echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
           echo "Alias domain: " $ZEIT_DEPLOYMENT_ALIAS
-
           echo "Aliasing the deployment using the git branch alias:"
           echo "npx now alias " $ZEIT_DEPLOYMENT_URL " https://" $ZEIT_DEPLOYMENT_ALIAS
           npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN

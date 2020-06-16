@@ -35,10 +35,15 @@ jobs:
     needs: setup-environment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
-      - name: Deploying on Zeit
+      - name: Deploying on Zeit (production)
         # Workflow:
         # Deploy the customer in production
-        run: yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production --token $ZEIT_TOKEN
+        run: |
+          # Print the version of the "now" CLI being used (helps debugging)
+          now --version
+
+          # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1:production")
+          yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
 
