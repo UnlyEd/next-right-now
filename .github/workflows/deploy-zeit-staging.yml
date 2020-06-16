@@ -187,13 +187,13 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         if: success()
         with:
-          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             [GitHub Actions]
             E2E tests **SUCCESS**
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Run Lighthouse reports in parallel of E2E tests
   run-lighthouse-tests:
@@ -224,7 +224,7 @@ jobs:
         uses: foo-software/lighthouse-check-action@v1.0.14
         id: lighthouseCheck
         with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
-          #accessToken: ${{ secrets.GITHUB_CI_PR_COMMENT }} # Providing a token to comment the PR if you are using a "pull_request" as trigger.
+          #accessToken: ${{ secrets.GITHUB_TOKEN }} # Providing a token to comment the PR if you are using a "pull_request" as trigger.
           prCommentEnabled: false # Whether to comment on the PR (default: true). Disabled because we use our own "Comment PR (LightHouse report)" action
           prCommentSaveOld: true # If true, then add a new comment for each commit. Otherwise, update the latest comment (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
@@ -256,13 +256,13 @@ jobs:
         id: pr_id_finder
         if: always() # It forces the job to be always executed, even if a previous job fail.
         with:
-          github-token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Add a comment to the PR with lighthouse report
       - name: Comment PR (LightHouse report)
         uses: peter-evans/create-or-update-comment@v1
         with:
-          token: ${{ secrets.GITHUB_CI_PR_COMMENT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           # Report provided by steps.lighthouseCheck.outputs.lighthouseCheckResults is a string and need to be transform into an object.
           # Then, using badges with results provided by `data[0].scores.<category>`
