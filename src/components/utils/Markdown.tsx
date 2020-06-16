@@ -5,30 +5,10 @@ import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
 import React from 'react';
-import {
-  Alert,
-  Button,
-  Card,
-  CardBody,
-  CardSubtitle,
-  CardText,
-  CardTitle,
-  Col,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Nav,
-  NavItem,
-  NavLink,
-  Row,
-  UncontrolledDropdown as Dropdown,
-} from 'reactstrap';
+import { Alert, Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink, Row, UncontrolledDropdown as Dropdown } from 'reactstrap';
 import { Markdown as MarkdownType } from '../../types/Markdown';
-import AirtableAsset from '../assets/AirtableAsset';
-import Logo from '../assets/Logo';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
-import Cards from './Cards';
 import Tooltip from './SimpleTooltip';
 
 const fileLabel = 'components/utils/Markdown';
@@ -56,11 +36,6 @@ const defaultMarkdownOptions: MarkdownOptions = {
     // Reactstrap whitelisted components
     Alert,
     Button,
-    Card,
-    CardBody,
-    CardSubtitle,
-    CardText,
-    CardTitle,
     Col,
     Dropdown,
     DropdownItem,
@@ -72,11 +47,8 @@ const defaultMarkdownOptions: MarkdownOptions = {
     Row,
 
     // Our own components
-    AirtableAsset,
-    Cards,
     I18nLink,
     I18nBtnChangeLocale,
-    Logo,
     Tooltip,
   },
 };
