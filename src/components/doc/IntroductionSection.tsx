@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import React from 'react';
 import { Alert, Jumbotron } from 'reactstrap';
 
 import I18nLink from '../i18n/I18nLink';
 import ExternalLink from '../utils/ExternalLink';
-import Text from '../utils/Text';
 
 type Props = {
   // XXX Beware when passing down the "logEvent", because it'll use the props attached from the <Amplitude> tag it comes from
@@ -27,9 +26,11 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
       className={'center'}
     >
       <h1>Next Right Now Demo</h1>
-      <h2 css={css`
-        font-size: 20px;
-      `}>
+      <h2
+        css={css`
+          font-size: 20px;
+        `}
+      >
         This demo uses the preset
         <ExternalLink href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NEXT_PUBLIC_NRN_PRESET}`}>
           <code>{process.env.NEXT_PUBLIC_NRN_PRESET}</code>
