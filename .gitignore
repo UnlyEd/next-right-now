@@ -124,6 +124,9 @@ coverage/
 .env*.local
 !.env*.example
 
+# Github Actions environment variables to simulate
+.github/workflows-local/.env.gha
+
 # debug
 npm-debug.log*
 yarn-debug.log*
