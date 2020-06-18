@@ -51,8 +51,9 @@
     "test:config": "NODE_ENV=test jest --showConfig",
     "security:audit": "yarn audit",
     "packages:upgrade": "yarn upgrade-interactive --latest",
-    "act:build": "docker build -t unlyed/nrn-gha .github/workflows-local",
-    "act:run": "act push -P ubuntu-18.04=unlyed/nrn-gha --secret-file .env.gha"
+    "act:image:build": "docker build -t docker.pkg.github.com/unlyed/next-right-now/gha:latest .github/workflows-local",
+    "act:image:publish": "docker push docker.pkg.github.com/unlyed/next-right-now/gha:latest",
+    "act:image:pull": "docker pull docker.pkg.github.com/unlyed/next-right-now/gha:latest",
     "act:fake:staging:all": "act push -pP ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/staging/full-workflow --secret-file .github/workflows-local/.env.gha",
     "act:fake:staging:deployment": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/staging/one-by-one -j start-staging-deployment --secret-file .github/workflows-local/.env.gha",
     "act:fake:staging:run-2e2-tests": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/staging/one-by-one -j run-2e2-tests --secret-file .github/workflows-local/.env.gha",
