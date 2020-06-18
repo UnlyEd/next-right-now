@@ -53,6 +53,14 @@
     "packages:upgrade": "yarn upgrade-interactive --latest",
     "act:build": "docker build -t unlyed/nrn-gha .github/workflows-local",
     "act:run": "act push -P ubuntu-18.04=unlyed/nrn-gha --secret-file .env.gha"
+    "act:fake:staging:all": "act push -pP ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/staging/full-workflow --secret-file .github/workflows-local/.env.gha",
+    "act:fake:staging:deployment": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/staging/one-by-one -j start-staging-deployment --secret-file .github/workflows-local/.env.gha",
+    "act:fake:staging:run-2e2-tests": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/staging/one-by-one -j run-2e2-tests --secret-file .github/workflows-local/.env.gha",
+    "act:fake:staging:lighthouse": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/staging/one-by-one -j run-lighthouse-tests --secret-file .github/workflows-local/.env.gha",
+    "act:fake:production:all": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/production/full-workflow --secret-file .github/workflows-local/.env.gha",
+    "act:fake:production:deployment": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/production/one-by-one -j start-production-deployment --secret-file .github/workflows-local/.env.gha",
+    "act:fake:production:run-2e2-tests": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/production/one-by-one -j run-2e2-tests --secret-file .github/workflows-local/.env.gha",
+    "act:fake:production:lighthouse": "act push -P ubuntu-18.04=docker.pkg.github.com/unlyed/next-right-now/gha:latest -W .github/workflows-local/production/one-by-one -j run-lighthouse-tests --secret-file .github/workflows-local/.env.gha"
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",

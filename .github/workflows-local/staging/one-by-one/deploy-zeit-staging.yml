@@ -1,0 +1,263 @@
+# Summary:
+# Creates a new deployment on Zeit's platform, when anything is pushed in any branch (except for the "master" branch).
+# Read ./README.md for extensive documentation
+
+name: Deploy to Zeit (staging)
+
+on:
+  # There are several ways to trigger Github actions - See https://help.github.com/en/actions/reference/events-that-trigger-workflows#example-using-a-single-event for a comprehensive list:
+  # - "push": Triggers each time a commit is pushed
+  # - "pull_request": Triggers each time a commit is pushed within a pull request, it makes it much easier to write comments within the PR, but it suffers some strong limitations:
+  #   - There is no way to trigger when a PR is merged into another - See https://github.community/t/pull-request-action-does-not-run-on-merge/16092?u=vadorequest
+  #   - It won't trigger when the PR is conflicting with its base branch - See https://github.community/t/run-actions-on-pull-requests-with-merge-conflicts/17104/2?u=vadorequest
+  push: # Triggers on each pushed commit
+    branches-ignore:
+      - 'master'
+
+jobs:
+  # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
+  # Ex: Necessary to run `yarn deploy`
+  setup-environment:
+    name: Setup deployment environment (Ubuntu 18.04 - Node 12.x)
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Installing node.js
+        uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
+        with:
+          node-version: '12.x' # Use the same node.js version as the one Zeit's uses (currently node12.x)
+
+  # Starts a Zeit deployment, using the staging configuration file of the default institution
+  # The default institution is the one defined in the `now.json` file (which is a symlink to the actual file)
+  # N.B: It's Zeit that will perform the actual deployment
+  start-staging-deployment:
+    name: Starts Zeit deployment (staging) (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Deploying on Zeit (staging)
+        # Workflow:
+        #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, which is what we are really looking for)
+        #   - Set the deployment url that will be included in the eventual PR comment
+        #   - Create a branch alias and link it to the deployment (so that each branch has its own domain automatically aliased to the lastest commit)
+        run: |
+          # Print the version of the "now" CLI being used (helps debugging)
+          now --version
+
+          # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1")
+          # Store the output in a variable so we can extract metadata from it
+          ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF') --token $ZEIT_TOKEN`
+
+          # Extract the Vercel deployment url from the deployment output
+          ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::$ZEIT_DEPLOYMENT_URL"
+          echo "Deployment url: " $ZEIT_DEPLOYMENT_URL
+
+          # Build the alias domain based on our own rules (NRN own rules)
+          # Basically, if a branch starts with "v[0-9]" then we consider it to be a "preset branch" and we use the branch name as alias (e.g: "v2-mst-xxx")
+          # Otherwise, we use the deployment name and suffix it using the branch name (e.g: "v2-mst-xxx-branch-name")
+          if [[ ${CURRENT_BRANCH##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
+            ZEIT_DEPLOYMENT_ALIAS=${CURRENT_BRANCH##*/}
+          else
+            ZEIT_DEPLOYMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}
+          fi
+
+          # Zeit alias only allows 41 characters in the domain name, so we only keep the first 41 (41 = 53 - 11 - 1) characters (because Zeit needs 7 chars for ".vercel.app" at the end of the domain name, and count starts at 1, not 0)
+          # Also, in order to remove forbidden characters, we transform every characters which are not a "alnum" and \n or \r into '-'
+          ZEIT_DEPLOYMENT_ALIAS=$(echo $ZEIT_DEPLOYMENT_ALIAS | head -c 41 | tr -c '[:alnum:]\r\n' - | tr '[:upper:]' '[:lower:]')
+
+          # Recursively remove any trailing dash ('-') to protect against invalid alias domain (not allowed to end with a trailing slash)
+          while [[ "$ZEIT_DEPLOYMENT_ALIAS" == *- ]]
+          do
+            ZEIT_DEPLOYMENT_ALIAS=${ZEIT_DEPLOYMENT_ALIAS::-1}
+          done
+
+          # Build alias url and create Vercel alias
+          ZEIT_DEPLOYMENT_ALIAS=$ZEIT_DEPLOYMENT_ALIAS.vercel.app
+          echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
+          echo "Alias domain: " $ZEIT_DEPLOYMENT_ALIAS
+          echo "Aliasing the deployment using the git branch alias:"
+          echo "npx now alias " $ZEIT_DEPLOYMENT_URL " https://" $ZEIT_DEPLOYMENT_ALIAS
+          npx now alias $ZEIT_DEPLOYMENT_URL https://$ZEIT_DEPLOYMENT_ALIAS --token $ZEIT_TOKEN
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+          CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to the worker
+
+      # We need to find the PR id. Will be used later to comment on that PR.
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # It forces the job to be always executed, even if a previous job fail.
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # On deployment failure, add a comment to the PR
+      - name: Comment PR (Deployment failure)
+        uses: peter-evans/create-or-update-comment@v1.4.2
+        if: failure()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            Deployment **FAILED**
+            Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
+
+      # On deployment success, add a comment to the PR
+      - name: Comment PR (Deployment success)
+        uses: peter-evans/create-or-update-comment@v1.4.2
+        if: success()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            Deployment **SUCCESS**
+            Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            Deployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
+
+  # Runs E2E tests against the Zeit deployment
+  run-2e2-tests:
+    name: Run end to end (E2E) tests (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    # Docker image with Cypress pre-installed
+    # https://github.com/cypress-io/cypress-docker-images/tree/master/included
+    container: cypress/included:3.8.3
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Resolving deployment url from Zeit
+        # The following workflow is:
+        #  - getting all deployments data (by using the scope in `now.json`)
+        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
+        #  - and then we remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        run: |
+          apt update -y >/dev/null && apt install -y jq >/dev/null
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+
+      # Run the E2E tests against the new Zeit deployment
+      - name: Run E2E tests (Cypress)
+        uses: cypress-io/github-action@v1.25.2 # XXX See https://github.com/cypress-io/github-action
+        with:
+          wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
+          config-file: cypress/config-customer1.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
+
+      # On E2E failure, upload screenshots
+      - name: Uplad screenshots artifacts (E2E failure)
+        uses: actions/upload-artifact@v2.0.1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
+        if: failure()
+        with:
+          name: screenshots
+          path: cypress/screenshots/
+
+      # On E2E failure, upload videos
+      - name: Uplad videos artifacts (E2E failure)
+        uses: actions/upload-artifact@v2.0.1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
+        if: failure()
+        with:
+          name: videos
+          path: cypress/videos/
+
+      # We need to find the PR id. Will be used later to comment on that PR.
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # It forces the job to be always executed, even if a previous job fail.
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # On E2E failure, add a comment to the PR with additional information
+      - name: Comment PR (E2E failure)
+        uses: peter-evans/create-or-update-comment@v1.4.2
+        if: failure()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            E2E tests **FAILED**
+            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
+
+      # On E2E success, add a comment to the PR
+      - name: Comment PR (E2E success)
+        uses: peter-evans/create-or-update-comment@v1.4.2
+        if: success()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          body: |
+            [GitHub Actions]
+            E2E tests **SUCCESS**
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Run Lighthouse reports in parallel of E2E tests
+  run-lighthouse-tests:
+    name: Run LightHouse checks (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Resolving deployment url from Zeit
+        # The following workflow is:
+        #  - getting all deployments data (by using the scope in `now.json`)
+        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
+        #  - and then we remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        run: |
+          apt update -y >/dev/null && apt install -y jq >/dev/null
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+        env:
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+      # In order to store reports and then upload it, we need to create the folder before any tests
+      - name: Create temporary folder for artifacts storage
+        run: mkdir /tmp/lighthouse-artifacts
+
+      # It runs the lighthouse report for a provided url and create a HTML report in the specified directory
+      # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
+      - name: Run Lighthouse
+        uses: foo-software/lighthouse-check-action@v1.0.14
+        id: lighthouseCheck
+        with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
+          #accessToken: ${{ secrets.GITHUB_TOKEN }} # Providing a token to comment the PR if you are using a "pull_request" as trigger.
+          prCommentEnabled: false # Whether to comment on the PR (default: true). Disabled because we use our own "Comment PR (LightHouse report)" action
+          prCommentSaveOld: true # If true, then add a new comment for each commit. Otherwise, update the latest comment (default: false).
+          outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
+          urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
+
+      # Using a pre-build action to make the action fail if your score is too low. It can be really interesting to track a low score on a commit
+      # You can remove this action IF you don't want lighthouse to be a blocking point in your CI
+      # Official documentation: https://github.com/foo-software/lighthouse-check-status-action
+      - name: Handle Lighthouse Check results
+        uses: foo-software/lighthouse-check-status-action@v1.0.1
+        with:
+          lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
+          minAccessibilityScore: "50"
+          minBestPracticesScore: "50"
+          minPerformanceScore: "30"
+          minProgressiveWebAppScore: "50"
+          minSeoScore: "50"
+
+      # We need to find the PR id. Will be used later to comment on that PR.
+      - name: Finding Pull Request ID
+        uses: jwalton/gh-find-current-pr@v1
+        id: pr_id_finder
+        if: always() # It forces the job to be always executed, even if a previous job fail.
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Add a comment to the PR with lighthouse report
+      - name: Comment PR (LightHouse report)
+        uses: peter-evans/create-or-update-comment@v1.4.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          # Report provided by steps.lighthouseCheck.outputs.lighthouseCheckResults is a string and need to be transform into an object.
+          # Then, using badges with results provided by `data[0].scores.<category>`
+          # data is an array containing results of every urls tested. Thankfully, we only test one url so we don't care about the index.
+          # See "fromJson" documentation: https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson
+          body: |
+            [GitHub Actions] - **Lighthouse report** for ${{ env.ZEIT_DEPLOYMENT_URL }}
+            ![](https://img.shields.io/badge/Accessibility-${{ fromJSON(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.accessibility }}-green?style=flat-square) ![](https://img.shields.io/badge/Best%20Practices-${{ fromJSON(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.bestPractices }}-green?style=flat-square) ![](https://img.shields.io/badge/Performance-${{ fromJSON(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.performance }}-orange?style=flat-square) ![](https://img.shields.io/badge/Progressive%20Web%20App-${{ fromJSON(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.progressiveWebApp }}-orange?style=flat-square) ![](https://img.shields.io/badge/SEO-${{ fromJSON(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.seo }}-green?style=flat-square)
