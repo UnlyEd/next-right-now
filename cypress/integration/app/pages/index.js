@@ -8,6 +8,16 @@ describe('Index page', () => {
     cy.visit('/');
   });
 
+  it('should be running on the right domain', () => {
+    cy.url().then((url) => {
+      cy.log(`Expected to be running on:`);
+      cy.log(baseUrl);
+      cy.log(`Actually running at:`);
+      cy.log(url);
+      cy.url().should('contains', baseUrl);
+    });
+  });
+
   /**
    * Footer section
    */
@@ -26,7 +36,7 @@ describe('Index page', () => {
     cy.get('#nav .navbar-nav > .nav-item').should('have.length', 5);
   });
 
-  it('should have a link in the navbar that redirects to the examples page', () => {
+  it('should have a link in the navbar that redirects to the home page', () => {
     cy.url().should('eq', `${baseUrl}/en`);
     cy.get('#nav-link-examples')
       .should('have.text', 'Examples')
