@@ -13,6 +13,7 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
     configureReq(req);
 
     res.json({
+      name: process.env.NEXT_PUBLIC_APP_NAME,
       version: process.env.NEXT_PUBLIC_APP_VERSION,
       buildId: process.env.NEXT_PUBLIC_APP_BUILD_ID,
       release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
