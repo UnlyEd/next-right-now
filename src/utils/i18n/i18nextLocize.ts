@@ -7,7 +7,6 @@ import get from 'lodash.get';
 import map from 'lodash.map';
 import { initReactI18next } from 'react-i18next';
 import { LANG_EN, LANG_FR } from './i18n';
-import cloneDeep from 'lodash.clonedeep';
 
 const logger = createLogger({
   label: 'utils/i18n/i18nextLocize',
@@ -345,15 +344,6 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
  * @param i18nTranslations
  */
 const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextResources): i18n => {
-  const langCustomerVariation = `${lang}-x-${process.env.NEXT_PUBLIC_CUSTOMER_REF}`;
-  const fallbackLang = lang === LANG_FR ? LANG_EN : LANG_FR;
-  i18nTranslations[langCustomerVariation] = cloneDeep(i18nTranslations[lang] || {});
-  // @ts-ignore
-  i18nTranslations[langCustomerVariation].common.examples.i18n.simpleTranslation = 'Overridden';
-  // @ts-ignore
-  i18nTranslations[langCustomerVariation].common.examples.i18n.dynamicPluralTranslation = 'Overridden';
-  console.log('customerLangCustomVariation', langCustomerVariation);
-  console.log('i18nTranslations', i18nTranslations);
   // If NEXT_PUBLIC_LOCIZE_PROJECT_ID is not defined then we mustn't init i18next or it'll crash the whole app when running in non-production stage
   // In that case, better crash early with an explicit message
   if (!process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID) {
@@ -401,10 +391,8 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser(), // Only enable on non-production stages and only on browser (too much noise on server) XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
     saveMissing: process.env.NEXT_PUBLIC_APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
     saveMissingTo: defaultNamespace,
-    lng: langCustomerVariation, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language
-    // fallbackLng: [lang, fallbackLang],
-    // whitelist: [langCustomerVariation, lang, fallbackLang, 'dev'],
-    // nonExplicitWhitelist: true,
+    lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language
+    fallbackLng: lang === LANG_FR ? LANG_EN : LANG_FR,
     ns: [defaultNamespace], // string or array of namespaces to load
     defaultNS: defaultNamespace, // default namespace used if not passed to translation function
     interpolation: {
