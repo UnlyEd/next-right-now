@@ -6,7 +6,7 @@ import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github
 import get from 'lodash.get';
 import map from 'lodash.map';
 import { initReactI18next } from 'react-i18next';
-import { LANG_EN, LANG_FR } from './i18n';
+import { resolveFallbackLanguage } from './i18n';
 
 const logger = createLogger({
   label: 'utils/i18n/i18nextLocize',
@@ -392,7 +392,7 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     saveMissing: process.env.NEXT_PUBLIC_APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
     saveMissingTo: defaultNamespace,
     lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language
-    fallbackLng: lang === LANG_FR ? LANG_EN : LANG_FR,
+    fallbackLng: resolveFallbackLanguage(lang),
     ns: [defaultNamespace], // string or array of namespaces to load
     defaultNS: defaultNamespace, // default namespace used if not passed to translation function
     interpolation: {

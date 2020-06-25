@@ -18,6 +18,14 @@ export const SUPPORTED_LANGUAGES: string[] = supportedLanguages;
  */
 export const DEFAULT_LOCALE: string = defaultLocale;
 
+/**
+ * The fallback language is used when a translation is not found in the primary language
+ *
+ * Simple fallback language implementation.
+ * Only considers EN and FR languages.
+ *
+ * @param primaryLanguage
+ */
 export const resolveFallbackLanguage = (primaryLanguage: string): string => {
   if (primaryLanguage === LANG_FR) {
     return LANG_EN;
