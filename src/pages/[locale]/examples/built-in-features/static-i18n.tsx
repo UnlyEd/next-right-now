@@ -11,6 +11,7 @@ import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSi
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
+import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
@@ -104,17 +105,29 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
         <Container>
           <div>
             {t('examples.i18n.simpleTranslation', 'Traduction simple')}<br />
-            <code>{'{t(\'examples.i18n.simpleTranslation\', \'Traduction simple\')}'}</code>
+            <Code
+              text={`
+                {t('examples.i18n.simpleTranslation', 'Traduction simple')}
+              `}
+            />
           </div>
           <hr />
 
           <div>
             {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 1 })}<br />
-            <code>{'{t(\'examples.i18n.pluralTranslation\', \'Traduction avec gestion du pluriel\', { count: 1 })}'}</code>
+            <Code
+              text={`
+                {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 1 })}
+              `}
+            />
           </div>
           <div>
             {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 2 })}<br />
-            <code>{'{t(\'examples.i18n.pluralTranslation\', \'Traduction avec gestion du pluriel\', { count: 2 })}'}</code>
+            <Code
+              text={`
+                {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 2 })}
+              `}
+            />
           </div>
           <hr />
 
@@ -126,13 +139,15 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
                 Contenu dynamique : <b>{{ uuid: uuid() }}</b>
               </Trans>
               <br />
-              <code>
-                {'<Trans\n' +
-                '  i18nKey="{\'examples.i18n.dynamicTranslation\'}"\n' +
-                '>\n' +
-                '  Contenu dynamique : <b>{{ uuid: uuid() }}</b>\n' +
-                '</Trans>'}
-              </code>
+              <Code
+                text={`
+                  <Trans
+                    i18nKey={'examples.i18n.dynamicTranslation'}
+                  >
+                    Contenu dynamique : <b>{{ uuid: uuid() }}</b>
+                  </Trans>
+                `}
+              />
             </DisplayOnBrowserMount>
           </div>
           <hr />
@@ -145,14 +160,16 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
               Nous avons trouvé {{ count: 1 }} solution pour vous.
             </Trans>
             <br />
-            <code>
-              {'<Trans\n' +
-              '  i18nKey="{\'examples.i18n.dynamicPluralTranslation\'}"\n' +
-              '  count="{1}"\n' +
-              '>\n' +
-              '  Nous avons trouvé {{ count: 1 }} solution pour vous.\n' +
-              '</Trans>'}
-            </code>
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.dynamicPluralTranslation'}
+                  count={1}
+                >
+                  Nous avons trouvé {{ count: 1 }} solution pour vous.
+                </Trans>
+              `}
+            />
           </div>
           <hr />
 
@@ -164,14 +181,45 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
               Nous avons trouvé {{ count: 2 }} solution pour vous.
             </Trans>
             <br />
-            <code>
-              {'<Trans\n' +
-              '  i18nKey="{\'examples.i18n.dynamicPluralTranslation\'}"\n' +
-              '  count="{2}"\n' +
-              '>\n' +
-              '  Nous avons trouvé {{ count: 2 }} solution pour vous.\n' +
-              '</Trans>'}
-            </code>
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.dynamicPluralTranslation'}
+                  count={2}
+                >
+                  Nous avons trouvé {{ count: 2 }} solution pour vous.
+                </Trans>
+              `}
+            />
+          </div>
+          <hr />
+
+          <div>
+            <Trans
+              i18nKey={'examples.i18n.missingTranslationWithFallback'}
+            >
+              Cette phrase n'est pas traduite en anglais, et sera affichée en Français même quand la langue anglaise est utilisée<br />
+              (This sentence is not translated in English, and will be displayed in French even when English language is being used)<br />
+              <i>
+                Note that I actually translated it (within the same sentence), so that non-French speakers may understand the explanation/feature.<br />
+                Basically, if a static translation is not found in any non-primary language, then NRN automatically fall backs to another language, so that something gets displayed in any way.
+              </i>
+            </Trans>
+            <br />
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.missingTranslationWithFallback'}
+                >
+                  Cette phrase n'est pas traduite en anglais, et sera affichée en Français même quand la langue anglaise est utilisée<br />
+                  (This sentence is not translated in English, and will be displayed in French even when English language is being used)<br />
+                  <i>
+                    Note that I actually translated it (within the same sentence), so that non-French speakers may understand the explanation/feature.<br />
+                    Basically, if a static translation is not found in any non-primary language, then NRN automatically fall backs to another language, so that something gets displayed in any way.
+                  </i>
+                </Trans>
+              `}
+            />
           </div>
         </Container>
       </DocPage>
