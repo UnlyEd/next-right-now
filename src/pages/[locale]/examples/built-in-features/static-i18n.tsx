@@ -106,6 +106,8 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
         </Alert>
 
         <Container>
+          <h2>Translation using <code>t</code> function</h2>
+
           <div>
             {t('examples.i18n.simpleTranslation', 'Traduction simple')}<br />
             <Code
@@ -116,6 +118,14 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
           </div>
           <hr />
 
+          <h2>Translation with plurals</h2>
+
+          <Alert color={'info'}>
+            Plurals work with the <code>count</code> property, which is the amount of items.<br />
+            It's a very particular variable, only meant for that purpose.<br />
+            <ExternalLink href={'https://www.i18next.com/translation-function/plurals'}>Read the doc</ExternalLink>
+          </Alert>
+
           <div>
             {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 1 })}<br />
             <Code
@@ -124,6 +134,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
               `}
             />
           </div>
+          <br />
           <div>
             {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 2 })}<br />
             <Code
@@ -132,7 +143,51 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
               `}
             />
           </div>
+          <br />
+
+          <div>
+            <Trans
+              i18nKey={'examples.i18n.dynamicPluralTranslation'}
+              count={1}
+            >
+              Nous avons trouvé {{ count: 1 }} solution pour vous.
+            </Trans>
+            <br />
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.dynamicPluralTranslation'}
+                  count={1}
+                >
+                  Nous avons trouvé {{ count: 1 }} solution pour vous.
+                </Trans>
+              `}
+            />
+          </div>
+          <br />
+
+          <div>
+            <Trans
+              i18nKey={'examples.i18n.dynamicPluralTranslation'}
+              count={2}
+            >
+              Nous avons trouvé {{ count: 2 }} solution pour vous.
+            </Trans>
+            <br />
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.dynamicPluralTranslation'}
+                  count={2}
+                >
+                  Nous avons trouvé {{ count: 2 }} solution pour vous.
+                </Trans>
+              `}
+            />
+          </div>
           <hr />
+
+          <h2>Translation using variables</h2>
 
           <div>
             <DisplayOnBrowserMount>
@@ -155,47 +210,12 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
           </div>
           <hr />
 
-          <div>
-            <Trans
-              i18nKey={'examples.i18n.dynamicPluralTranslation'}
-              count={1}
-            >
-              Nous avons trouvé {{ count: 1 }} solution pour vous.
-            </Trans>
-            <br />
-            <Code
-              text={`
-                <Trans
-                  i18nKey={'examples.i18n.dynamicPluralTranslation'}
-                  count={1}
-                >
-                  Nous avons trouvé {{ count: 1 }} solution pour vous.
-                </Trans>
-              `}
-            />
-          </div>
-          <hr />
+          <h2>Automated fallback - Handling missing translations</h2>
 
-          <div>
-            <Trans
-              i18nKey={'examples.i18n.dynamicPluralTranslation'}
-              count={2}
-            >
-              Nous avons trouvé {{ count: 2 }} solution pour vous.
-            </Trans>
-            <br />
-            <Code
-              text={`
-                <Trans
-                  i18nKey={'examples.i18n.dynamicPluralTranslation'}
-                  count={2}
-                >
-                  Nous avons trouvé {{ count: 2 }} solution pour vous.
-                </Trans>
-              `}
-            />
-          </div>
-          <hr />
+          <Alert color={'info'}>
+            It will happen that some translations are missing, in such case NRN has been configured to fallback to another language (AKA "fallback" language).<br />
+            French has been defined as the default language in NRN (Locize configuration), meaning all translations must always exist for the French language.<br />
+          </Alert>
 
           <div>
             <Trans
@@ -225,6 +245,13 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
             />
           </div>
           <hr />
+
+          <h2>Customising translations, per customer</h2>
+
+          <Alert color={'info'}>
+            You may need to allow some translations to be overridden by a particular customer.<br />
+            NRN comes with built-in support for this advanced need, and uses additional Locize "Languages" to store "variations" of the translations.
+          </Alert>
 
           <div>
             <Trans
