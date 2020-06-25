@@ -110,8 +110,17 @@ const Nav: React.FunctionComponent<Props> = () => {
                 }
               }
 
+              .dropdown-menu {
+                z-index: 10000;
+              }
+
               .dropdown-item {
                 max-height: 30px;
+                padding-top: 0;
+
+                .nav-link {
+                  padding: 4px;
+                }
               }
             }
 
