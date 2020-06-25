@@ -1,12 +1,13 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
+import deepmerge from 'deepmerge';
 import i18next, { i18n } from 'i18next';
 import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github.com/locize/i18next-locize-backend/issues/323#issuecomment-619625571
 import get from 'lodash.get';
 import map from 'lodash.map';
 import { initReactI18next } from 'react-i18next';
-import { LANG_EN, LANG_FR } from './i18n';
+import { resolveCustomerVariationLang, resolveFallbackLanguage } from './i18n';
 
 const logger = createLogger({
   label: 'utils/i18n/i18nextLocize',
@@ -191,7 +192,83 @@ export const locizeBackendOptions = {
 };
 
 /**
- * Fetch translations from Locize API
+ * Builds Locize API endpoint based on the desired lang and namespace
+ *
+ * @param lang
+ * @param namespace
+ */
+export const buildLocizeAPIEndpoint = (lang: string, namespace: string = defaultNamespace): string => {
+  return locizeBackendOptions
+    .loadPath
+    .replace('{{projectId}}', locizeBackendOptions.projectId)
+    .replace('{{version}}', locizeBackendOptions.version)
+    .replace('{{lng}}', lang)
+    .replace('{{ns}}', namespace);
+};
+
+/**
+ * Fetches the translations that are shared amongst all customers.
+ *
+ * Used as base translations, which can be overridden using translations variation.
+ *
+ * @param lang
+ */
+export const fetchBaseTranslations = async (lang: string): Promise<I18nextResources> => {
+  const locizeAPIEndpoint: string = buildLocizeAPIEndpoint(lang);
+  let i18nTranslations: I18nextResources = {};
+
+  try {
+    // Manually fetching locales from Locize API, for the "common" namespace of the current language
+    // XXX We fetch manually from Locize, because if we use the i18next "preload" feature, it'll crash with Next (no serverless support)
+    logger.info(`Pre-fetching translations from ${locizeAPIEndpoint}`);
+    const defaultI18nTranslationsResponse: Response = await fetch(locizeAPIEndpoint);
+
+    try {
+      i18nTranslations = await defaultI18nTranslationsResponse.json();
+    } catch (e) {
+      logger.error(e.message, `Failed to extract JSON data from locize API response for "${lang}"`);
+      Sentry.captureException(e);
+    }
+  } catch (e) {
+    logger.error(e.message, `Failed to fetch data from locize API for "${lang}"`);
+    Sentry.captureException(e);
+  }
+
+  return i18nTranslations;
+};
+
+/**
+ * Fetches the translations that are specific to the customer (its own translations variation)
+ *
+ * @param lang
+ */
+export const fetchCustomerVariationTranslations = async (lang: string): Promise<I18nextResources> => {
+  const customerVariationLang = resolveCustomerVariationLang(lang);
+  const customerVariationLocizeAPIEndpoint: string = buildLocizeAPIEndpoint(customerVariationLang);
+  let customerVariationI18nTranslations: I18nextResources = {};
+
+  try {
+    // Manually fetching locales from Locize API, for the "common" namespace of the customer language variation
+    // XXX We fetch manually from Locize, because if we use the i18next "preload" feature, it'll crash with Next (no serverless support)
+    logger.info(`Pre-fetching "${customerVariationLang}" translations variation from ${customerVariationLocizeAPIEndpoint}`);
+    const customerVariationI18nTranslationsResponse: Response = await fetch(customerVariationLocizeAPIEndpoint);
+
+    try {
+      customerVariationI18nTranslations = await customerVariationI18nTranslationsResponse.json();
+    } catch (e) {
+      logger.error(e.message, `Failed to extract JSON data from locize API response for "${customerVariationLang}"`);
+      Sentry.captureException(e);
+    }
+  } catch (e) {
+    logger.error(e.message, `Failed to fetch data from locize API for "${customerVariationLang}"`);
+    Sentry.captureException(e);
+  }
+
+  return customerVariationI18nTranslations;
+};
+
+/**
+ * Fetch translations from Locize API (both base translations + translations that are specific to the customer)
  *
  * We use a "common" namespace that contains all our translations
  * It's easier to manage, as we don't need to split translations under multiple files (we don't have so many translations)
@@ -263,13 +340,8 @@ export const locizeBackendOptions = {
  * @return {Promise<string>}
  */
 export const fetchTranslations = async (lang: string): Promise<I18nextResources> => {
-  const locizeAPIEndpoint: string = locizeBackendOptions
-    .loadPath
-    .replace('{{projectId}}', locizeBackendOptions.projectId)
-    .replace('{{version}}', locizeBackendOptions.version)
-    .replace('{{lng}}', lang)
-    .replace('{{ns}}', defaultNamespace);
-  const memoizedI18nextResources: MemoizedI18nextResources = get(_memoizedI18nextResources, locizeAPIEndpoint, null);
+  const cacheIndexKey: string = buildLocizeAPIEndpoint(lang); // Also used as cache index key (memoization)
+  const memoizedI18nextResources: MemoizedI18nextResources = get(_memoizedI18nextResources, cacheIndexKey, null);
 
   if (memoizedI18nextResources) {
     const date = new Date();
@@ -284,28 +356,9 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
       logger.info(`Translations from in-memory cache are too old (> ${memoizedCacheMaxAge} seconds) and thus have been invalidated`);
     }
   }
-  let i18nTranslations: I18nextResources = {};
-
-  try {
-    // Fetching locales for i18next, for the "common" namespace
-    // XXX We do that because if we don't, then the SSR fails at fetching those locales using the i18next "backend" and renders too early
-    //  This hack helps fix the SSR issue
-    //  On the other hand, it seems that once the i18next "resources" are set, they don't change,
-    //  so this workaround could cause sync issue if we were using multiple namespaces, but we aren't and probably won't
-    logger.info(`Pre-fetching translations from ${locizeAPIEndpoint}`);
-    const defaultI18nTranslationsResponse: Response = await fetch(locizeAPIEndpoint);
-
-    try {
-      i18nTranslations = await defaultI18nTranslationsResponse.json();
-    } catch (e) {
-      // TODO Load the locales from local JSON files if ever the API fails, to still display i18n translation even if it's not the most up-to-date?
-      logger.error(e.message, 'Failed to extract JSON data from locize API response');
-      Sentry.captureException(e);
-    }
-  } catch (e) {
-    logger.error(e.message, 'Failed to fetch data from locize API');
-    Sentry.captureException(e);
-  }
+  const i18nBaseTranslations: I18nextResources = await fetchBaseTranslations(lang);
+  const customerVariationI18nTranslations: I18nextResources = await fetchCustomerVariationTranslations(lang);
+  const i18nTranslations: I18nextResources = deepmerge(i18nBaseTranslations, customerVariationI18nTranslations);
 
   const i18nextResources: I18nextResources = {
     [lang]: {
@@ -314,7 +367,7 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
   };
   logger.info('Translations were resolved from Locize API and are now being memoized for subsequent calls');
 
-  _memoizedI18nextResources[locizeAPIEndpoint] = {
+  _memoizedI18nextResources[cacheIndexKey] = {
     resources: i18nextResources,
     ts: ((): number => {
       const date = new Date();
@@ -387,12 +440,12 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
   i18nInstance.init({ // XXX See https://www.i18next.com/overview/configuration-options
     resources: i18nTranslations,
     // preload: ['fr', 'en'], // XXX Supposed to preload languages, doesn't work with Next
-    cleanCode: true, // language will be lowercased EN --> en while leaving full locales like en-US
+    cleanCode: true, // language will be lowercased 'EN' --> 'en' while leaving full locales like 'en-US'
     debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser(), // Only enable on non-production stages and only on browser (too much noise on server) XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
     saveMissing: process.env.NEXT_PUBLIC_APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
     saveMissingTo: defaultNamespace,
     lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language
-    fallbackLng: lang === LANG_FR ? LANG_EN : LANG_FR,
+    fallbackLng: resolveFallbackLanguage(lang),
     ns: [defaultNamespace], // string or array of namespaces to load
     defaultNS: defaultNamespace, // default namespace used if not passed to translation function
     interpolation: {

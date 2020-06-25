@@ -18,12 +18,34 @@ export const SUPPORTED_LANGUAGES: string[] = supportedLanguages;
  */
 export const DEFAULT_LOCALE: string = defaultLocale;
 
+/**
+ * The fallback language is used when a translation is not found in the primary language
+ *
+ * Simple fallback language implementation.
+ * Only considers EN and FR languages.
+ *
+ * @param primaryLanguage
+ */
 export const resolveFallbackLanguage = (primaryLanguage: string): string => {
   if (primaryLanguage === LANG_FR) {
     return LANG_EN;
   } else {
     return LANG_FR;
   }
+};
+
+/**
+ * Each customer may own its own variation of the translations.
+ * Resolves the lang of the customer variation, based on the lang and the customer.
+ *
+ * XXX To define a customer variation language, you must create it on Locize manually
+ *  @example fr-x-customer1
+ *  @example en-x-customer1
+ *
+ * @param lang
+ */
+export const resolveCustomerVariationLang = (lang: string): string => {
+  return `${lang}-x-${process.env.NEXT_PUBLIC_CUSTOMER_REF}`;
 };
 
 /**
