@@ -13,9 +13,11 @@ import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
+import useI18n, { I18n } from '../../../../hooks/useI18n';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import { resolveCustomerVariationLang } from '../../../../utils/i18n/i18n';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/static-i18n';
@@ -51,6 +53,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
   const { t } = useTranslation();
+  const { lang }: I18n = useI18n();
 
   return (
     <DefaultLayout
@@ -220,6 +223,42 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
                 </Trans>
               `}
             />
+          </div>
+          <hr />
+
+          <div>
+            <Trans
+              i18nKey={'examples.i18n.translationUsingCustomerVariation'}
+            >
+              Cette traduction est spécifique au customer "{{ customerRef: process.env.NEXT_PUBLIC_CUSTOMER_REF }}". <br />
+              Chaque customer peut surcharger ses propres traductions, en créant une clé Locize dans son <code>"{{ customerVariationLang: resolveCustomerVariationLang(lang) }}"</code> langage.<br />
+              Cette traduction va surcharger/remplacer la traduction de base, pour ce customer.<br />
+              <br />
+              Exemple:
+            </Trans>
+            <br />
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.translationUsingCustomerVariation'}
+                >
+                  Cette traduction est spécifique au customer "{{ customerRef: process.env.NEXT_PUBLIC_CUSTOMER_REF }}". <br />
+                  Chaque customer peut surcharger ses propres traductions, en créant une clé Locize dans son <code>"{{ customerVariationLang: resolveCustomerVariationLang(lang)}}"</code> langage.<br />
+                  Cette traduction va surcharger/remplacer la traduction de base, pour ce customer.<br />
+                  <br />
+                  Exemple:
+                </Trans>
+              `}
+            />
+            <Alert color={'warning'}>
+              This requires you create a new <code>Language</code> in Locize first, for instance: <code>fr-x-customer1</code> and <code>en-x-customer1</code><br />
+              <br />
+              The <code>-x-</code> stands for "variation", it's the official way to create custom language variations that are specific to your business needs, when using i18next.
+            </Alert>
+            <Alert color={'info'}>
+              You will need to check how this page displays on other customers to see this particular behaviour. <br />
+              <ExternalLink href={'https://github.com/UnlyEd/next-right-now#overview-of-available-presets'}>Check out the README to see all other demos.</ExternalLink> (e.g: customer 1/2)
+            </Alert>
           </div>
         </Container>
       </DocPage>
