@@ -60,7 +60,7 @@ const hybridCache = async <T>(keyResolver: string | (() => string), dataResolver
 
   if (!enabled) { // Bypasses cache completely
     // eslint-disable-next-line no-console
-    console.debug('Cache is disabled, bypassing');
+    logger.debug('Cache is disabled, bypassing');
     return dataResolver();
   }
   let cacheStorage: HybridCacheStorage;
