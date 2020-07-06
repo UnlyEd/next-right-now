@@ -18,6 +18,11 @@ type PreviewModeAPIQuery = {
  *
  * Enables and disables preview mode
  *
+ * The official example uses a security token to enable the preview mode, we don't.
+ * This is a choice, as we don't need/want to protect our preview mode.
+ * Protecting the preview mode makes most sense when this mode can be used in production, so that you can preview content served by Next.js from a CMS/tool of your choice.
+ * Thus, it's strongly related to how you're planning on using it, and we decided to keep it simpler, by not using any kind of security.
+ *
  * @param req
  * @param res
  *
