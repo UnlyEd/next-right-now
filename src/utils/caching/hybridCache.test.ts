@@ -18,7 +18,7 @@ describe(`utils/memoization/cache.ts`, () => {
       afterEach(() => {
         inMemoryCacheReset();
       });
-      const expectationResult = { key: 'value' };
+      const expectedResult = { key: 'value' };
 
       describe(`when using in-memory storage`, () => {
         test(`when using the default TTL`, async () => {
@@ -26,12 +26,12 @@ describe(`utils/memoization/cache.ts`, () => {
           const cacheMissBefore = require('./memoryCacheStorage').cacheMiss;
           expect(await cache('key', async () => {
             await waitFor(1);
-            return expectationResult;
-          })).toEqual(expectationResult);
+            return expectedResult;
+          })).toEqual(expectedResult);
           expect(await cache('key', async () => {
             await waitFor(1);
-            return Promise.resolve(expectationResult);
-          })).toEqual(expectationResult);
+            return Promise.resolve(expectedResult);
+          })).toEqual(expectedResult);
 
           const cacheHitsAfter = require('./memoryCacheStorage').cacheHits;
           const cacheMissAfter = require('./memoryCacheStorage').cacheMiss;
@@ -40,7 +40,7 @@ describe(`utils/memoization/cache.ts`, () => {
         });
 
         describe(`should fetch multiple times and miss the cache`, () => {
-          const expectationResult = { key2: 'value2' };
+          const expectedResult = { key2: 'value2' };
 
           test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
             const cacheHitsBefore = require('./memoryCacheStorage').cacheHits;
@@ -48,13 +48,13 @@ describe(`utils/memoization/cache.ts`, () => {
             await waitFor(1001);
             expect(await cache('key2', async () => {
               await waitFor(1);
-              return Promise.resolve(expectationResult);
-            })).toEqual(expectationResult);
+              return Promise.resolve(expectedResult);
+            })).toEqual(expectedResult);
             await waitFor(1001);
             expect(await cache('key2', async () => {
               await waitFor(1);
-              return Promise.resolve(expectationResult);
-            })).toEqual(expectationResult);
+              return Promise.resolve(expectedResult);
+            })).toEqual(expectedResult);
 
             const cacheHitsAfter = require('./memoryCacheStorage').cacheHits;
             const cacheMissAfter = require('./memoryCacheStorage').cacheMiss;
@@ -71,31 +71,31 @@ describe(`utils/memoization/cache.ts`, () => {
         test(`when using the default TTL`, async () => {
           expect(await cache(key, async () => {
             await waitFor(1);
-            return expectationResult;
-          }, storageOptions)).toEqual(expectationResult);
+            return expectedResult;
+          }, storageOptions)).toEqual(expectedResult);
           expect(await cache(key, async () => {
             await waitFor(1);
-            return Promise.resolve(expectationResult);
-          }, storageOptions)).toEqual(expectationResult);
+            return Promise.resolve(expectedResult);
+          }, storageOptions)).toEqual(expectedResult);
 
           await inDiskCacheReset(key, storageOptions);
         });
 
         describe(`should fetch multiple times and miss the cache`, () => {
-          const expectationResult = { key2: 'value2' };
+          const expectedResult = { key2: 'value2' };
           const key = 'key2';
 
           test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
             await waitFor(1001);
             expect(await cache(key, async () => {
               await waitFor(1);
-              return Promise.resolve(expectationResult);
-            }, storageOptions)).toEqual(expectationResult);
+              return Promise.resolve(expectedResult);
+            }, storageOptions)).toEqual(expectedResult);
             await waitFor(1001);
             expect(await cache(key, async () => {
               await waitFor(1);
-              return Promise.resolve(expectationResult);
-            }, storageOptions)).toEqual(expectationResult);
+              return Promise.resolve(expectedResult);
+            }, storageOptions)).toEqual(expectedResult);
 
             await inDiskCacheReset(key, storageOptions);
           });
