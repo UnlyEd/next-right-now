@@ -1,8 +1,8 @@
 import { Cache, CounterCacheSet, CachedItem, CounterCacheFound, CounterCacheMiss, Get, HybridCacheStorage, Reset, Set } from './hybridCacheStorage';
 
 let cache: Cache = {};
-export let counterCacheFound: CounterCacheFound = 0;
 export let counterCacheMiss: CounterCacheMiss = 0;
+export let counterCacheFound: CounterCacheFound = 0;
 export let counterCacheSet: CounterCacheSet = 0;
 
 export const get: Get = async <T>(key: string): Promise<CachedItem<T>> => {

@@ -23,32 +23,30 @@ describe(`utils/memoization/cache.ts`, () => {
       describe(`when using in-memory storage`, () => {
         describe(`should fetch once and use the cache for subsequent calls`, () => {
           test(`when using the default TTL and calls are made before TTL expires`, async () => {
-            const counterCacheFoundBefore = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheMissBefore = require('./memoryCacheStorage').counterCacheMiss;
+            const counterCacheFoundBefore = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheSetBefore = require('./memoryCacheStorage').counterCacheSet;
             let counterDataResolverCalls = 0;
 
             // The first call should yield a cache miss and a cache set
             expect(await cache('key', async () => {
-              await waitFor(1);
               ++counterDataResolverCalls;
               return expectedResult;
             })).toEqual(expectedResult);
             expect(counterDataResolverCalls).toEqual(1); // Should be called to resolve data
             // The second call should yield a cache found
             expect(await cache('key', async () => {
-              await waitFor(1);
               ++counterDataResolverCalls;
               return Promise.resolve(expectedResult);
             })).toEqual(expectedResult);
             expect(counterDataResolverCalls).toEqual(1); // Shouldn't be called but use data from cache instead
 
-            const counterCacheFoundAfter = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheMissAfter = require('./memoryCacheStorage').counterCacheMiss;
+            const counterCacheFoundAfter = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheSetAfter = require('./memoryCacheStorage').counterCacheSet;
-            expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1);
-            expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1);
-            expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 1);
+            expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1); // Cache should have been missed only once, during first call
+            expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1); // Cache should have been found only once, during second call
+            expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 1); // Cache should have been set only once, during first call
           });
         });
 
@@ -56,14 +54,13 @@ describe(`utils/memoization/cache.ts`, () => {
           const expectedResult = { key2: 'value2' };
 
           test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
-            const counterCacheFoundBefore = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheMissBefore = require('./memoryCacheStorage').counterCacheMiss;
+            const counterCacheFoundBefore = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheSetBefore = require('./memoryCacheStorage').counterCacheSet;
             let counterDataResolverCalls = 0;
 
             // The first call should yield a cache miss and a cache set
             expect(await cache('key2', async () => {
-              await waitFor(1);
               ++counterDataResolverCalls;
               return Promise.resolve(expectedResult);
             }, { ttl: 1 })).toEqual(expectedResult);
@@ -71,23 +68,22 @@ describe(`utils/memoization/cache.ts`, () => {
             await waitFor(1001);
             // The second call should yield a cache found but a cache set too, because TTL has expired and cache shouldn't be used
             expect(await cache('key2', async () => {
-              await waitFor(1);
               ++counterDataResolverCalls;
               return Promise.resolve(expectedResult);
             }, { ttl: 1 })).toEqual(expectedResult);
-            expect(counterDataResolverCalls).toEqual(2); // Should be called to resolve data again
+            expect(counterDataResolverCalls).toEqual(2); // Should have been called to resolve data again
 
-            const counterCacheFoundAfter = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheMissAfter = require('./memoryCacheStorage').counterCacheMiss;
+            const counterCacheFoundAfter = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheSetAfter = require('./memoryCacheStorage').counterCacheSet;
-            expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1);
-            expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1);
-            expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 2);
+            expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1); // Cache should have been missed only once, during first call
+            expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1); // Cache should have been found only once, during second call (but was not used because expired)
+            expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 2); // Cache should have been set twice, during first call (cache miss) and second call (TTL expired)
           });
 
           test(`when using TTL of 0 second (cache is disabled)`, async () => {
-            const counterCacheFoundBefore = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheMissBefore = require('./memoryCacheStorage').counterCacheMiss;
+            const counterCacheFoundBefore = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheSetBefore = require('./memoryCacheStorage').counterCacheSet;
             let counterDataResolverCalls = 0;
 
@@ -104,12 +100,12 @@ describe(`utils/memoization/cache.ts`, () => {
             }, { ttl: 0 })).toEqual(expectedResult);
             expect(counterDataResolverCalls).toEqual(1); // Shouldn't be called but should use data from cache instead
 
-            const counterCacheFoundAfter = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheMissAfter = require('./memoryCacheStorage').counterCacheMiss;
+            const counterCacheFoundAfter = require('./memoryCacheStorage').counterCacheFound;
             const counterCacheSetAfter = require('./memoryCacheStorage').counterCacheSet;
-            expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1);
-            expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1);
-            expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 1);
+            expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1); // Cache should have been missed only once, during first call
+            expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1); // Cache should have been found only once, during second call
+            expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 1); // Cache should have been set only once, during first call
           });
         });
       });
@@ -120,11 +116,9 @@ describe(`utils/memoization/cache.ts`, () => {
 
         test(`when using the default TTL`, async () => {
           expect(await cache(key, async () => {
-            await waitFor(1);
             return expectedResult;
           }, storageOptions)).toEqual(expectedResult);
           expect(await cache(key, async () => {
-            await waitFor(1);
             return Promise.resolve(expectedResult);
           }, storageOptions)).toEqual(expectedResult);
 
@@ -138,12 +132,10 @@ describe(`utils/memoization/cache.ts`, () => {
           test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
             await waitFor(1001);
             expect(await cache(key, async () => {
-              await waitFor(1);
               return Promise.resolve(expectedResult);
             }, storageOptions)).toEqual(expectedResult);
             await waitFor(1001);
             expect(await cache(key, async () => {
-              await waitFor(1);
               return Promise.resolve(expectedResult);
             }, storageOptions)).toEqual(expectedResult);
 
