@@ -86,8 +86,10 @@ const hybridCache = async <T>(keyResolver: string | (() => string), dataResolver
 
   if (typeof cachedItem !== 'undefined') {
     const { value, timestamp } = cachedItem;
+    const elapsedSeconds: number = getTimestampsElapsedTime(timestamp, +new Date());
 
-    if (timestamp === 0 || getTimestampsElapsedTime(timestamp, +new Date()) < ttl) {
+    // If TTL is disabled or if the cached value has not expired, then use the cache
+    if (ttl === 0 || elapsedSeconds < ttl) {
       return value;
     } else {
       logger.debug('Cache key has expired');

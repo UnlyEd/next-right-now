@@ -1,19 +1,22 @@
-import { Cache, CachedItem, CacheHits, CacheMiss, Get, HybridCacheStorage, Reset, Set } from './hybridCacheStorage';
+import { Cache, CounterCacheSet, CachedItem, CounterCacheFound, CounterCacheMiss, Get, HybridCacheStorage, Reset, Set } from './hybridCacheStorage';
 
 let cache: Cache = {};
-export let cacheHits: CacheHits = 0;
-export let cacheMiss: CacheMiss = 0;
+export let counterCacheMiss: CounterCacheMiss = 0;
+export let counterCacheFound: CounterCacheFound = 0;
+export let counterCacheSet: CounterCacheSet = 0;
 
 export const get: Get = async <T>(key: string): Promise<CachedItem<T>> => {
   if (typeof cache[key] !== 'undefined') {
-    ++cacheHits;
+    ++counterCacheFound;
+  } else {
+    ++counterCacheMiss;
   }
 
   return cache[key];
 };
 
 export const set: Set = async <T>(key: string, item: T): Promise<T> => {
-  ++cacheMiss;
+  ++counterCacheSet;
   cache[key] = {
     timestamp: +new Date(),
     value: item,
@@ -23,8 +26,9 @@ export const set: Set = async <T>(key: string, item: T): Promise<T> => {
 };
 
 export const reset: Reset = (): Promise<void> => {
-  cacheHits = 0;
-  cacheMiss = 0;
+  counterCacheFound = 0;
+  counterCacheMiss = 0;
+  counterCacheSet = 0;
   cache = {};
 
   return;
