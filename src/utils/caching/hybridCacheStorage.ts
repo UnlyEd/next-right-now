@@ -15,8 +15,9 @@ export type Reset<Options extends StorageOptions = {}> = (string?, options?: Opt
 export type Cache<T = any> = {
   [key: string]: CachedItem<T>;
 }
-export type CacheHits = number;
-export type CacheMiss = number;
+export type CounterCacheFound = number;
+export type CounterCacheMiss = number;
+export type CounterCacheSet = number;
 
 export type HybridCacheStorage<T = any, Options extends StorageOptions = {}> = {
   get: Get<T, Options>;

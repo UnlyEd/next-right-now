@@ -49,42 +49,71 @@ describe(`utils/api/fetchAirtable.ts`, () => {
       });
 
       test(`when using the default TTL`, async () => {
-        const cacheHitsBefore = require('../caching/memoryCacheStorage').cacheHits;
-        const cacheMissBefore = require('../caching/memoryCacheStorage').cacheMiss;
-        expect(await hybridCache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'))).toMatchOneOf([
-          expectedShape,
-          expectedShapeWithoutOptionalFields,
-        ]);
-        expect(await hybridCache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'))).toMatchOneOf([
-          expectedShape,
-          expectedShapeWithoutOptionalFields,
-        ]);
+        const counterCacheMissBefore = require('../caching/memoryCacheStorage').counterCacheMiss;
+        const counterCacheFoundBefore = require('../caching/memoryCacheStorage').counterCacheFound;
+        const counterCacheSetBefore = require('../caching/memoryCacheStorage').counterCacheSet;
+        let counterDataResolverCalls = 0;
 
-        const cacheHitsAfter = require('../caching/memoryCacheStorage').cacheHits;
-        const cacheMissAfter = require('../caching/memoryCacheStorage').cacheMiss;
-        expect(cacheHitsAfter).toBeGreaterThan(cacheHitsBefore);
-        expect(cacheMissAfter).toEqual(cacheMissBefore + 1); // Cache should have been missed only for the first call
+        // The first call should yield a cache miss and a cache set
+        expect(await hybridCache('CustomerTable', async () => {
+          ++counterDataResolverCalls;
+          return await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
+        })).toMatchOneOf([
+          expectedShape,
+          expectedShapeWithoutOptionalFields,
+        ]);
+        expect(counterDataResolverCalls).toEqual(1); // Should be called to resolve data
+        // The second call should yield a cache found
+        expect(await hybridCache('CustomerTable', async () => {
+          ++counterDataResolverCalls;
+          return await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
+        })).toMatchOneOf([
+          expectedShape,
+          expectedShapeWithoutOptionalFields,
+        ]);
+        expect(counterDataResolverCalls).toEqual(1); // Shouldn't be called but use data from cache instead
+
+        const counterCacheMissAfter = require('../caching/memoryCacheStorage').counterCacheMiss;
+        const counterCacheFoundAfter = require('../caching/memoryCacheStorage').counterCacheFound;
+        const counterCacheSetAfter = require('../caching/memoryCacheStorage').counterCacheSet;
+        expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1); // Cache should have been missed only once, during first call
+        expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1); // Cache should have been found only once, during second call
+        expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 1); // Cache should have been set only once, during first call
       });
 
       describe(`should fetch multiple times and miss the cache`, () => {
         test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
-          const cacheHitsBefore = require('../caching/memoryCacheStorage').cacheHits;
-          const cacheMissBefore = require('../caching/memoryCacheStorage').cacheMiss;
-          await waitFor(1001);
-          expect(await hybridCache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { ttl: 1 })).toMatchOneOf([
-            expectedShape,
-            expectedShapeWithoutOptionalFields,
-          ]);
-          await waitFor(1001);
-          expect(await hybridCache('CustomerTable', async () => await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer'), { ttl: 1 })).toMatchOneOf([
-            expectedShape,
-            expectedShapeWithoutOptionalFields,
-          ]);
+          const counterCacheMissBefore = require('../caching/memoryCacheStorage').counterCacheMiss;
+          const counterCacheFoundBefore = require('../caching/memoryCacheStorage').counterCacheFound;
+          const counterCacheSetBefore = require('../caching/memoryCacheStorage').counterCacheSet;
+          let counterDataResolverCalls = 0;
 
-          const cacheHitsAfter = require('../caching/memoryCacheStorage').cacheHits;
-          const cacheMissAfter = require('../caching/memoryCacheStorage').cacheMiss;
-          expect(cacheHitsAfter).toEqual(cacheHitsBefore + 1);
-          expect(cacheMissAfter).toBeGreaterThan(cacheMissBefore);
+          // The first call should yield a cache miss and a cache set
+          expect(await hybridCache('CustomerTable', async () => {
+            ++counterDataResolverCalls;
+            return await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
+          }, { ttl: 1 })).toMatchOneOf([
+            expectedShape,
+            expectedShapeWithoutOptionalFields,
+          ]);
+          expect(counterDataResolverCalls).toEqual(1); // Should be called to resolve data
+          // The second call should yield a cache found
+          await waitFor(1001);
+          expect(await hybridCache('CustomerTable', async () => {
+            ++counterDataResolverCalls;
+            return await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
+          }, { ttl: 1 })).toMatchOneOf([
+            expectedShape,
+            expectedShapeWithoutOptionalFields,
+          ]);
+          expect(counterDataResolverCalls).toEqual(2); // Should have been called to resolve data again
+
+          const counterCacheMissAfter = require('../caching/memoryCacheStorage').counterCacheMiss;
+          const counterCacheFoundAfter = require('../caching/memoryCacheStorage').counterCacheFound;
+          const counterCacheSetAfter = require('../caching/memoryCacheStorage').counterCacheSet;
+          expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1); // Cache should have been missed only once, during first call
+          expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1); // Cache should have been found only once, during second call (but was not used because expired)
+          expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 2); // Cache should have been set twice, during first call (cache miss) and second call (TTL expired)
         });
       });
     });
