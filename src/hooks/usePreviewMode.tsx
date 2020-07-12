@@ -4,7 +4,7 @@ import previewModeContext, { PreviewModeContext } from '../stores/previewModeCon
 export type PreviewMode = PreviewModeContext
 
 /**
- * Hook to access Next.js preview mode data
+ * Hook to access Next.js preview mode data/status
  *
  * Uses previewModeContext internally (provides an identical API)
  *
