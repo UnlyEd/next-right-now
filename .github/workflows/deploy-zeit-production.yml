@@ -104,11 +104,11 @@ jobs:
         #  - getting all deployments data (by using the scope in `now.json`)
         #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
         #  - and then we remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        # We need to set env the url for next step, formatted as `https://${url provided by API}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT/en"
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests
