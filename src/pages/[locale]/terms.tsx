@@ -9,7 +9,8 @@ import { Container } from 'reactstrap';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import Code from '../../components/utils/Code';
 import Markdown from '../../components/utils/Markdown';
-import customerContext, { CustomerContext } from '../../stores/customerContext';
+import useCustomer from '../../hooks/useCustomer';
+import { Customer } from '../../types/data/Customer';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
@@ -49,7 +50,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
-  const customer: CustomerContext = React.useContext(customerContext);
+  const customer: Customer = useCustomer();
   const theme = useTheme<CustomerTheme>();
   const { primaryColor } = theme;
   const termsRaw: string = customer?.terms;
