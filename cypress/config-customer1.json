@@ -3,5 +3,6 @@
   "projectId": "4dvdog",
   "screenshotsFolder": "cypress/screenshots/customer1",
   "videosFolder": "cypress/videos/customer1",
-  "env": {}
+  "env": {},
+  "ignoreTestFiles": "*.md"
 }
