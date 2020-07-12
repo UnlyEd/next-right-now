@@ -5,7 +5,7 @@ import { NextRouter, useRouter } from 'next/router';
 import React from 'react';
 import { Button } from 'reactstrap';
 import Alert from 'reactstrap/lib/Alert';
-import usePreviewMode from '../../hooks/usePreviewMode';
+import usePreviewMode, { PreviewMode } from '../../hooks/usePreviewMode';
 import { stringifyQueryParameters } from '../../utils/app/router';
 import ExternalLink from '../utils/ExternalLink';
 import Tooltip from '../utils/Tooltip';
@@ -43,7 +43,7 @@ const ExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
  * @param props
  */
 const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { preview } = usePreviewMode();
+  const { preview }: PreviewMode = usePreviewMode();
   const router: NextRouter = useRouter();
   const queryParameters: string = stringifyQueryParameters(router);
 
