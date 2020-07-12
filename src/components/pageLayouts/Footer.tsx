@@ -4,8 +4,9 @@ import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, Row } from 'reactstrap';
+import useCustomer from '../../hooks/useCustomer';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
-import customerContext, { CustomerContext } from '../../stores/customerContext';
+import { Customer } from '../../types/data/Customer';
 import { Theme } from '../../types/data/Theme';
 import { SIZE_XS } from '../../utils/assets/logo';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
@@ -19,7 +20,7 @@ type Props = {};
 const Footer: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const { deviceId }: UserSession = useUserSession();
-  const customer: CustomerContext = React.useContext(customerContext);
+  const customer: Customer = useCustomer();
   const theme = useTheme<Theme>();
   const { primaryColor, logo } = theme;
   const logoSizesMultipliers = [

@@ -12,7 +12,7 @@ import Code from '../../components/utils/Code';
 import Markdown from '../../components/utils/Markdown';
 import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
 import withApollo from '../../hocs/withApollo';
-import customerContext, { CustomerContext } from '../../stores/customerContext';
+import useCustomer from '../../hooks/useCustomer';
 import { Customer } from '../../types/data/Customer';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 
@@ -99,7 +99,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
-  const customer: CustomerContext = React.useContext(customerContext);
+  const customer: Customer = useCustomer();
   const { theme } = customer;
   const { primaryColor } = theme;
   const termsRaw: string = customer?.terms?.html;
