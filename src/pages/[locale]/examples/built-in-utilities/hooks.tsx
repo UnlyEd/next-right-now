@@ -68,6 +68,9 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
             `}
           >
             <li>
+              <code>useCustomer</code>: Hook to access Customer data (theme, etc.)
+            </li>
+            <li>
               <code>useHasMounted</code>: Hook to properly handle expected differences between server and browser rendering.<br />
               Helps to avoid "Text content did not match" warnings, during React rehydration.
             </li>
@@ -75,10 +78,38 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
               <code>useI18n</code>: Hook to access i18n/localisation data
             </li>
             <li>
+              <code>usePreviewMode</code>: Hook to access the native Next.js preview mode data/status
+            </li>
+            <li>
               <code>useUserSession</code>: Hook to access the user session data
             </li>
           </ul>
         </Alert>
+
+        <h2>useCustomer</h2>
+
+        <p>
+          Hook to access customer data<br />
+          <br />
+          The customer data are pre-fetched, either during SSR or SSG and are not meant to be fetched or modified by the app (they're kinda read-only)<br />
+          Thus, it's fine to use React Context for this kind of usage.<br />
+        </p>
+
+        <Alert color={'warning'}>
+          If you need to store data that are meant to be updated (e.g: through forms) then using React Context is a very bad idea!<br />
+          If you don't know why, you should <ExternalLink href={'https://medium.com/swlh/recoil-another-react-state-management-library-97fc979a8d2b'}>read more about it</ExternalLink>.<br />
+          <br />
+          Long story short, React Context is better be used with data that doesn't mutate, like theme/localisation<br />
+          If you need to handle a global state that changes over time, your should rather use a dedicated library <i>(opinionated: I'd probably use Recoil)</i>
+        </Alert>
+
+        <Code
+          text={`
+            const customer: Customer = useCustomer();
+          `}
+        />
+
+        <hr />
 
         <h2>useHasMounted</h2>
 
@@ -120,6 +151,20 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
         <Code
           text={`
             const { lang, locale }: I18n = useI18n();
+          `}
+        />
+
+        <hr />
+
+        <h2>usePreviewMode</h2>
+
+        <p>
+          This hook helps access Next.js native <ExternalLink href={'https://nextjs.org/docs/advanced-features/preview-mode'}>Preview Mode data/status</ExternalLink> in any functional component.
+        </p>
+
+        <Code
+          text={`
+            const { preview }: PreviewMode = usePreviewMode();
           `}
         />
 
