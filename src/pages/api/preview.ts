@@ -39,21 +39,23 @@ export const preview = async (req: NextApiRequest, res: NextApiResponse): Promis
     }: PreviewModeAPIQuery = req.query as PreviewModeAPIQuery;
     const safeRedirectUrl = filterExternalAbsoluteUrl(redirectTo as string);
 
-    // XXX You may want to enable preview mode during non-production stages only
-    // if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
-    if (stop === 'true') {
-      res.clearPreviewData();
+    // XXX We don't want to enable preview mode for the production stage, it's only allowed for non-production stages
+    //  It's allowed during development for testing purpose
+    //  It's allowed during staging because this stage is being used as a "preview environment"
+    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+      if (stop === 'true') {
+        res.clearPreviewData();
 
-      logger.info('Preview mode stopped');
+        logger.info('Preview mode stopped');
+      } else {
+        res.setPreviewData({});
+
+        logger.info('Preview mode enabled');
+      }
     } else {
-      res.setPreviewData({});
-
-      logger.info('Preview mode enabled');
+      logger.error('Preview mode is not allowed in production');
+      Sentry.captureMessage('Preview mode is not allowed in production', Sentry.Severity.Warning);
     }
-    // } else {
-    //   logger.error('Preview mode is not allowed in production');
-    //   Sentry.captureMessage('Preview mode is not allowed in production', Sentry.Severity.Warning);
-    // }
 
     res.writeHead(307, { Location: safeRedirectUrl });
     res.end();
