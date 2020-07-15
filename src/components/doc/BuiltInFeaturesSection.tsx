@@ -275,6 +275,20 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Markdown as JSX components at runtime</h3></CardTitle>
+            <CardSubtitle>&ldquo;Dynamically transform Markdown into JSX components at runtime&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <I18nLink href={'/examples/built-in-features/md-as-jsx'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );
