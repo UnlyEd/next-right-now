@@ -2,7 +2,7 @@
 # Checkout https://pages.github.com/versions/ for the list of Github Pages built-in plugins
 
 # XXX --------- Specific to GHP config ------------
-remote_theme: pmarsceill/just-the-docs # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
+remote_theme: pmarsceill/just-the-docs@v0.3.0 # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
 #ga_tracking:
 
 # XXX --------- Common to all configs (local + GHP) --------------
