@@ -1,4 +1,4 @@
-import { CUSTOMER1 } from '../../mocks/airtableDataset';
+import { CUSTOMER2 } from '../../mocks/airtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
 import hybridCache from '../caching/hybridCache';
@@ -17,17 +17,17 @@ describe(`utils/api/fetchAirtable.ts`, () => {
 
   const expectedShape = {
     records: [
-      CUSTOMER1,
+      CUSTOMER2,
     ],
   };
   const expectedShapeWithoutOptionalFields = {
     records: [
       {
-        ...CUSTOMER1,
+        ...CUSTOMER2,
         fields: { // Only list required fields, so that if Airtable API doesn't return optional fields, then the test still passes
-          products: CUSTOMER1.fields.products,
-          theme: CUSTOMER1.fields.theme,
-          ref: CUSTOMER1.fields.ref,
+          products: CUSTOMER2.fields.products,
+          theme: CUSTOMER2.fields.theme,
+          ref: CUSTOMER2.fields.ref,
         },
       },
     ],

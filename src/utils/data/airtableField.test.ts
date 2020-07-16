@@ -1,4 +1,4 @@
-import { CUSTOMER1 } from '../../mocks/airtableDataset';
+import { CUSTOMER2 } from '../../mocks/airtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
 import { getFieldBestAvailableTranslation, getGenericLocalisedFieldName, hasGenericLocalisedField, isLocalisedField } from './airtableField';
@@ -60,7 +60,7 @@ describe(`utils/data/airtableField.ts`, () => {
   describe(`getFieldBestAvailableTranslation`, () => {
     describe(`should find the best available translation`, () => {
       test(`when the record has the best available translation (order: ['en', 'FR'])`, async () => {
-        const record: AirtableRecord<Customer> = CUSTOMER1 as AirtableRecord<Customer>;
+        const record: AirtableRecord<Customer> = CUSTOMER2 as AirtableRecord<Customer>;
         expect(getFieldBestAvailableTranslation(record, 'labelEN', allowedLocales)).toEqual({
           genericLocalisedField: 'label',
           value: record.fields.labelEN,
@@ -81,7 +81,7 @@ describe(`utils/data/airtableField.ts`, () => {
 
       test(`when the record has the best available translation (order: ['fr', 'EN'])`, async () => {
         const allowedLocales = ['fr', 'EN'];
-        const record: AirtableRecord<Customer> = CUSTOMER1 as AirtableRecord<Customer>;
+        const record: AirtableRecord<Customer> = CUSTOMER2 as AirtableRecord<Customer>;
         expect(getFieldBestAvailableTranslation(record, 'labelEN', allowedLocales)).toEqual({
           genericLocalisedField: 'label',
           value: record.fields.labelEN,
@@ -101,7 +101,7 @@ describe(`utils/data/airtableField.ts`, () => {
       });
 
       test(`when the record don't have the best available translation`, async () => {
-        const record: AirtableRecord<Customer> = CUSTOMER1 as AirtableRecord<Customer>;
+        const record: AirtableRecord<Customer> = CUSTOMER2 as AirtableRecord<Customer>;
         expect(getFieldBestAvailableTranslation(record, 'labelFR', allowedLocales)).toEqual({
           genericLocalisedField: 'label',
           value: record.fields.labelEN,
@@ -109,7 +109,7 @@ describe(`utils/data/airtableField.ts`, () => {
       });
 
       test(`when the record is already localised`, async () => {
-        const record: AirtableRecord<Customer> = { ...CUSTOMER1, fields: { label: 'Any' } } as AirtableRecord<Customer>;
+        const record: AirtableRecord<Customer> = { ...CUSTOMER2, fields: { label: 'Any' } } as AirtableRecord<Customer>;
         expect(getFieldBestAvailableTranslation(record, 'labelFR', allowedLocales)).toEqual({});
       });
     });
