@@ -144,7 +144,7 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
                       "status": "PUBLISHED",
                       "imagesTitle": "Vista Al Valle Zapote Honey",
                       "ref": "vista-al-valle-zapote-honey",
-                      "previewUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/item-preview/preview-product?ref=vista-al-valle-zapote-honey&updatedAt=2020-06-11T14:15:08.000Z"
+                      "previewUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/quick-preview/preview-product?ref=vista-al-valle-zapote-honey&updatedAt=2020-06-11T14:15:08.000Z"
                     },
                     "createdTime": "2020-06-02T14:04:46.000Z",
                     "__typename": "Product"
@@ -207,7 +207,7 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
                       "status": "PUBLISHED",
                       "imagesTitle": "Big City",
                       "ref": "big-city",
-                      "previewUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/item-preview/preview-product?ref=big-city&updatedAt=2020-06-14T11:42:38.000Z"
+                      "previewUrl": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/quick-preview/preview-product?ref=big-city&updatedAt=2020-06-14T11:42:38.000Z"
                     },
                     "createdTime": "2020-06-02T14:04:46.000Z",
                     "__typename": "Product"

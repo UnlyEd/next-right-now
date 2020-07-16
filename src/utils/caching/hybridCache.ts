@@ -4,7 +4,7 @@ import getTimestampsElapsedTime from '../time/getTimestampsElapsedTime';
 import { CachedItem, HybridCacheStorage, StorageOptions } from './hybridCacheStorage';
 import * as Sentry from '@sentry/node';
 
-const fileLabel = 'utils/cache/cache';
+const fileLabel = 'utils/cache/hybridCache';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

@@ -24,7 +24,7 @@ type Props = {
   ExplanationTooltipOverlay?: React.FunctionComponent;
   headProps: HeadProps;
   pageName: string;
-  itemPreviewTitle?: string;
+  quickPreviewTitle?: string;
 } & SoftPageProps;
 
 type Device = 'mobile' | 'tablet' | 'small-desktop' | 'large-desktop' | null;
@@ -32,10 +32,10 @@ type Device = 'mobile' | 'tablet' | 'small-desktop' | 'large-desktop' | null;
 const DefaultExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
   return (
     <Trans
-      i18nKey={'itemPreviewLayout.itemPreviewTitleHelp'}
+      i18nKey={'quickPreviewLayout.quickPreviewTitleHelp'}
     >
       <span>
-        Vous êtes actuellement sur "l'Aperçu d'élément", conçu pour être intégré à un CMS.<br />
+        Vous visualisez actuellement "l'Aperçu rapide", conçu pour être intégré à un CMS.<br />
         Dans le cadre de cette démo, nous l'affichons depuis le CMS "Stacker".<br />
         Le but est de donner la possibilité d'embarquer du contenu riche depuis votre CMS, à travers l'utilisation d'une <code>iframe</code>.<br />
         De cette manière, les éditeurs peuvent prévisualiser comment le contenu sur lequel ils travaillent s'affichera réellement sur le site final, sans quitter leur CMS.
@@ -53,13 +53,13 @@ const DefaultExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Elemen
  *
  * @param props
  */
-const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
+const QuickPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     ExplanationTooltipOverlay = DefaultExplanationTooltipOverlay,
     headProps = {},
     pageName,
-    itemPreviewTitle,
+    quickPreviewTitle,
   } = props;
   // const [simulatedDevice, setSimulatedDevice] = useState<Device>();
   const { locale }: I18n = useI18n();
@@ -112,15 +112,15 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
             <ExternalLink
               href={`/api/preview?redirectTo=/${locale}/examples/native-features/example-with-ssg`}
             >
-              {t('itemPreviewLayout.enablePreviewMode', `Activer le mode aperçu`)}
+              {t('quickPreviewLayout.enablePreviewMode', `Aller à l'environnement de prévisualisation`)}
             </ExternalLink>
             &nbsp;
             <Tooltip
               overlay={
                 <span
                   dangerouslySetInnerHTML={{
-                    __html: t('itemPreviewLayout.enablePreviewModeHelp', `Ouvre un nouvel onglet en <b>mode aperçu</b> pour le site entier, et redirige vers la page d'exemple SSG.<br />
-                      Le mode aperçu est utile pour prévisualiser comment le site se comporte dans son ensemble. Il n'est pas limité à l'aperçu d'un seul élément, contrairement à "l'Aperçu d'élément".`),
+                    __html: t('quickPreviewLayout.enablePreviewModeHelp', `Ouvre un nouvel onglet sur <b>l'environnement de prévisualisation</b>, et redirige vers la page d'exemple SSG.<br />
+                      Cet environnement de prévisualisation est utile pour voir comment le site se comporte dans son ensemble. Il n'est pas limité à l'aperçu d'un seul élément, contrairement à "l'Aperçu rapide".`),
                   }}
                 />}
               placement={'bottom'}
@@ -130,7 +130,7 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
           </div>
           <div className={'explanations-container'}>
             {
-              itemPreviewTitle ? itemPreviewTitle : t('itemPreviewLayout.itemPreviewTitle', `Aperçu d'un élément`)
+              quickPreviewTitle ? quickPreviewTitle : t('quickPreviewLayout.quickPreviewTitle', `Aperçu rapide`)
             }
             &nbsp;
             <Tooltip
@@ -186,4 +186,4 @@ const ItemPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element =
   );
 };
 
-export default ItemPreviewLayout;
+export default QuickPreviewLayout;

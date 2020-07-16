@@ -9,7 +9,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
 import ProductRow from '../../../components/data/ProductRow';
-import ItemPreviewLayout from '../../../components/pageLayouts/ItemPreviewLayout';
+import QuickPreviewLayout from '../../../components/pageLayouts/QuickPreviewLayout';
 import { AirtableRecord } from '../../../types/data/AirtableRecord';
 import { Product } from '../../../types/data/Product';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
@@ -50,7 +50,7 @@ type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps
 /**
  * This page is meant to be used from a CMS. We use Stacker in this demo.
  * Creating a Stacker iframe with url equals to
- * https://nrn-v2-mst-aptd-at-lcz-sty-c1.now.sh/item-preview/preview-product?ref=kiunyu
+ * https://nrn-v2-mst-aptd-at-lcz-sty-c1.now.sh/quick-preview/preview-product?ref=kiunyu
  */
 const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
   const { customer: airtableCustomer } = props;
@@ -64,7 +64,7 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
   if (!productRef) {
     return (
       <Alert color={'danger'}>
-        {t('itemPreview.noProvidedRef', 'Vous devez fournir une <code>ref</code> pour prévisualiser un élément.')}
+        {t('quickPreview.noProvidedRef', 'Vous devez fournir une <code>ref</code> pour prévisualiser un élément.')}
       </Alert>
     );
   }
@@ -75,21 +75,21 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
   if (!product) {
     return (
       <Alert color={'warning'}>
-        {t('itemPreview.refNotFound', `L'élément "{{ productRef }}" n'existe pas.`, { productRef })}
+        {t('quickPreview.refNotFound', `L'élément "{{ productRef }}" n'existe pas.`, { productRef })}
       </Alert>
     );
   }
 
   return (
-    <ItemPreviewLayout
+    <QuickPreviewLayout
       {...props}
       pageName={'preview-product'}
       headProps={{
-        title: t('itemPreview.pageTitle', `Aperçu produit "{{ title }}" - Next Right Now`, { title: product?.title }),
+        title: t('quickPreview.pageTitle', `Aperçu produit "{{ title }}" - Next Right Now`, { title: product?.title }),
       }}
     >
       <ProductRow product={product} />
-    </ItemPreviewLayout>
+    </QuickPreviewLayout>
   );
 };
 
