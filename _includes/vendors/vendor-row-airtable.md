@@ -1,0 +1,1 @@
+| [Airtable](https://airtable.com/pricing?ref=unly-nrn) | `at` | :heavy_check_mark: Free up to 1200 records per base (or 2Go storage) | :x: | If you're interested about Airtable, [here is how to get $2k credits for $50](https://www.joinsecret.com/fr/offers/airtable-coupon-1800) (I've personally used it!) | [Guide](../guides/airtable-api/setup-airtable) |
