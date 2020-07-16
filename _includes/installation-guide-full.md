@@ -29,6 +29,8 @@ Create an account for all required 3rd party vendors below, and follow their ins
 1. [Learn how to setup GraphCMS](../guides/graphql-api/setup-graphcms)
 {%- elsif gql-api == 'airtable' %}
 1. [Learn how to setup Airtable](../guides/airtable-api/setup-airtable)
+
+1. [Learn how to setup Stacker](../guides/stacker-cms/setup-stacker)
 {%- endif %}
 
 {% if i18n == 'locize' -%}
