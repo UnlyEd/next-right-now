@@ -3,8 +3,8 @@
 This preset uses a MST design.
 
 Therefore, there are 2 different demo available at:
-1. [https://nrn-{{preset}}-**c1**.vercel.app/](https://nrn-{{preset}}-c1.vercel.app/)
-1. [https://nrn-{{preset}}-**c2**.vercel.app/](https://nrn-{{preset}}-c2.vercel.app/)
+1. [https://nrn-{{preset}}-**c1**.vercel.app/](https://nrn-{{preset}}-c1.vercel.app/), and its preview at [https://nrn-{{preset}}-**c1**-preview.vercel.app/](https://nrn-{{preset}}-c1-preview.vercel.app/)
+1. [https://nrn-{{preset}}-**c2**.vercel.app/](https://nrn-{{preset}}-c2.vercel.app/), and its preview at [https://nrn-{{preset}}-**c2**-preview.vercel.app/](https://nrn-{{preset}}-c2-preview.vercel.app/)
 
 Both demo have been generated using the same source code, the two demo live in a completely separated server and won't be affected by each other (MST design)
 
@@ -30,7 +30,7 @@ Most pages are built statically (SSG), there are some SSR pages to showcase hybr
 
 Due to SSG, the whole app is extremely fast, and very resilient. It basically cannot crash on SSG pages, even if our underlying providers are taken down.
 
-Even if critical vendors are being used (e.g: Locize, GraphCMS - because they hold our data), it doesn't matter if there is an outage on their side because we only depend on them during **build time**.
+Even if critical vendors are being used (e.g: Locize, GraphCMS, Airtable - because they hold our data), it doesn't matter if there is an outage on their side because we only depend on them during **build time**.
 
 Also, the cost is reduced when using SSG, compared to using SSR because we avoid real-time requests to extra services (e.g: Locize, Vercel, GraphCMS).
 {% endif %}
