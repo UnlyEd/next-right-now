@@ -1,0 +1,1 @@
+| [Airtable](https://stacker.app/pricing?ref=unly-nrn) | `at` | :heavy_check_mark: Free until you launch to production (no limit) | :x: | Get in touch with them (on [Slack](https://stacker-customers.slack.com)) to discuss discounts | [Guide](../guides/airtable-api/setup-airtable) |

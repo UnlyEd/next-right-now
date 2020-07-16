@@ -119,9 +119,10 @@ coverage/
 /.next/
 /out/
 
-# misc
-.env*
-!.env.build.example
+# Next.js environment variables - See https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables
+.env.build
+.env*.local
+!.env*.example
 
 # debug
 npm-debug.log*
@@ -136,7 +137,7 @@ cypress/videos
 src/svg/*.js
 src/svg/*.tsx
 
-# Vercel
+# Zeit
 .now
 
 # Jekyll - Github Pages
@@ -144,3 +145,7 @@ _site
 .sass-cache
 .jekyll-metadata
 
+# Tmp files (cache, etc.)
+*.cache
+
+.vercel

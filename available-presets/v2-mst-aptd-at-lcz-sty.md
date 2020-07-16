@@ -1,8 +1,8 @@
 ---
 layout: default
-title: v2-mst-aptd-gcms-lcz-sty
+title: v2-mst-aptd-at-lcz-sty
 parent: Available presets
-nav_order: 10
+nav_order: 9
 ---
 
 {% capture preset %}{{ page.title }}{% endcapture %}
@@ -10,7 +10,7 @@ nav_order: 10
 {% assign tenancy = 'mst' %}
 {% assign hosting = 'vercel' %}
 {% assign i18n = 'locize' %}
-{% assign gql-api = 'gcms' %}
+{% assign gql-api = 'airtable' %}
 {% assign monitoring = 'sentry' %}
 {% assign analytics = 'amplitude' %}
 
@@ -20,21 +20,19 @@ nav_order: 10
 OFFICIAL
 {: .label .label-purple }
 
-May 2020
+July 2020
 {: .label .label-blue }
 
 ### Overview
 
 | Preset | Diff PR | Pricing concerns |
 |:-------|:--------|:-----------------|
-| `{{preset}}` - [Branch](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | [Compared to `v1-ssr-mst-aptd-gcms-lcz-sty`](https://github.com/UnlyEd/next-right-now/pull/68) | [Not free (Locize)](../reference/vendors) |
+| `{{preset}}` - [Branch](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | [Compared to `v2-mst-aptd-gcms-lcz-sty`](https://github.com/UnlyEd/next-right-now/pull/86) | [Not free (Locize)](../reference/vendors) |
 
-It is very similar to [`v2-mst-aptd-at-lcz-sty`](./v2-mst-aptd-at-lcz-sty) which came out in July, 2020.
-Which uses a REST-ish API (featuring Airtable vendor) instead of GraphQL (featuring GraphCMS vendor).
+It was released in July 2020 to take over [`v2-mst-aptd-gcms-lcz-sty`](./v2-mst-aptd-gcms-lcz-sty) preset and provides a few more features CMS-related.
 
-Depending on what you need/like the most (GraphQL vs REST), you may choose one or the other.
-
-Please note `v2-mst-aptd-at-lcz-sty` has since become the main preset, and provides a few very advanced features (e.g: Markdown as JSX), and a much better CMS (featuring Stacker CMS).
+In comparison, this preset features a built-in CMS (featuring Stacker) which plays very nicely with Airtable as a database (but can also use SalesForce and Google Sheets!).
+Also, it features "Markdown as JSX" advanced use-case, which may be very handy.
 
 ### Built-in features
 

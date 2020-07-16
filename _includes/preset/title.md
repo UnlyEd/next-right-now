@@ -6,6 +6,8 @@
 
 {%- if gql-api == 'gcms' -%}
 &#32;GraphCMS
+{%- elsif gql-api == 'airtable' -%}
+&#32;Airtable
 {%- endif -%}
 
 {%- if i18n == 'locize' -%}

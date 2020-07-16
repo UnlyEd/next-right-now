@@ -14,6 +14,8 @@
 
 {%- if gql-api == 'gcms' -%}
     {%- include features/feature-row-gcms.md -%}
+{%- elsif gql-api == 'airtable' -%}
+    {%- include features/feature-row-airtable.md -%}
 {%- endif -%}
 
 {%- if i18n == 'locize' -%}
