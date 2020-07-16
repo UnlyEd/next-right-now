@@ -27,7 +27,7 @@ July 2020
 
 | Preset | Diff PR | Pricing concerns |
 |:-------|:--------|:-----------------|
-| `{{preset}}` - [Branch](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | [Compared to `v2-mst-aptd-gcms-lcz-sty`](https://github.com/UnlyEd/next-right-now/pull/86) | [Not free (Locize)](../reference/vendors) |
+| `{{preset}}` - [Branch](https://github.com/UnlyEd/next-right-now/tree/{{preset}}) | [Compared to `v2-mst-aptd-gcms-lcz-sty`](https://github.com/UnlyEd/next-right-now/pull/86) | [Not free (Locize, Stacker)](../reference/vendors) |
 
 It was released in July 2020 to take over [`v2-mst-aptd-gcms-lcz-sty`](./v2-mst-aptd-gcms-lcz-sty) preset and provides a few more features CMS-related.
 
