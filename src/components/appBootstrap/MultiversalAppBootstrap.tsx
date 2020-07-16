@@ -14,8 +14,10 @@ import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
+import { stringifyQueryParameters } from '../../utils/app/router';
 import { initCustomerTheme } from '../../utils/data/theme';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
+import { startPreviewMode, stopPreviewMode } from '../../utils/nextjs/previewMode';
 import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
@@ -85,6 +87,22 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       // SSR
       preview = false;
       previewData = null;
+    }
+
+    if (preview && isBrowser()) {
+      const queryParameters: string = stringifyQueryParameters(router);
+
+      // XXX If we are running in staging stage and the preview mode is not enabled, then we force enable it
+      //  We do this to enforce the staging stage is being used as a "preview environment" so it satisfies our publication workflow
+      //  If we're running in development, then we don't enforce anything
+      //  If we're running in production, then we force disable the preview mode, because we don't want to allow it in production
+      if (process.env.NEXT_PUBLIC_APP_STAGE === 'staging') {
+        startPreviewMode(queryParameters);
+      } else if (process.env.NEXT_PUBLIC_APP_STAGE === 'production') {
+        logger.error('Preview mode is not allowed in production, but was detected as enabled. It has been disabled by force.');
+        Sentry.captureMessage('Preview mode is not allowed in production, but was detected as enabled. It has been disabled by force.', Sentry.Severity.Error);
+        stopPreviewMode(queryParameters);
+      }
     }
 
     if (!customer || !i18nTranslations || !lang || !locale) {

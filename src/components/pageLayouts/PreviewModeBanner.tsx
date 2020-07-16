@@ -7,18 +7,11 @@ import { Button } from 'reactstrap';
 import Alert from 'reactstrap/lib/Alert';
 import usePreviewMode, { PreviewMode } from '../../hooks/usePreviewMode';
 import { stringifyQueryParameters } from '../../utils/app/router';
+import { startPreviewMode, stopPreviewMode } from '../../utils/nextjs/previewMode';
 import ExternalLink from '../utils/ExternalLink';
 import Tooltip from '../utils/Tooltip';
 
 type Props = {}
-
-const stopPreviewMode = (queryParameters: string): void => {
-  window.location.href = `/api/preview?stop=true&redirectTo=${window.location.pathname}${queryParameters}`;
-};
-
-const startPreviewMode = (queryParameters: string): void => {
-  window.location.href = `/api/preview?redirectTo=${window.location.pathname}${queryParameters}`;
-};
 
 const ExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
   return (
