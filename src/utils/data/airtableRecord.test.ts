@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import dataset, { CUSTOMER1, PRODUCT2, THEME1 } from '../../mocks/airtableDataset';
+import dataset, { CUSTOMER2, PRODUCT2, THEME1 } from '../../mocks/airtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { sanitizeRecord } from './airtableRecord';
 import { GenericRecord } from './record';
@@ -10,7 +10,7 @@ import { GenericRecord } from './record';
  */
 describe(`utils/data/airtableRecord.ts`, () => {
   const preferredLocales = ['fr', 'en'];
-  const record: AirtableRecord = CUSTOMER1;
+  const record: AirtableRecord = CUSTOMER2;
   const results: GenericRecord = {
     id: 'recZEMyznL19CPD5b',
     fields: {
@@ -25,7 +25,7 @@ describe(`utils/data/airtableRecord.ts`, () => {
           fields: {
             title: 'Kiunyu (fr)',
             description: 'Syrupy and heavy\n',
-            customer: CUSTOMER1,
+            customer: CUSTOMER2,
           },
           __typename: 'Product',
         }),
@@ -33,7 +33,7 @@ describe(`utils/data/airtableRecord.ts`, () => {
       theme: deepmerge(THEME1, {
         // Relationships of the 2nd level must be resolved
         fields: {
-          customer: CUSTOMER1,
+          customer: CUSTOMER2,
           logo: THEME1.fields.logo[0],
         },
         __typename: 'Theme',

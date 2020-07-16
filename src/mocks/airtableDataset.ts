@@ -5,23 +5,6 @@ import { Product } from '../types/data/Product';
 import { Theme } from '../types/data/Theme';
 
 export const CUSTOMER1: AirtableRecord<Customer> = {
-  id: 'recZEMyznL19CPD5b',
-  fields: {
-    termsEN: 'Who wanna get bothered with **terms**? Come on!\n',
-    termsFR: 'Qui a envie de lire des **CGU** ? -\\_-\n',
-    labelEN: 'Customer 2',
-    products: [
-      'recYXaEyHJCOBWIbd',
-    ],
-    theme: [
-      'recgo2T34zNZjAlkN'
-    ],
-    ref: 'customer2',
-  },
-  createdTime: '2020-06-02T14:01:51.000Z',
-};
-
-export const CUSTOMER2: AirtableRecord<Customer> = {
   id: 'reci9HYsoqd1xScsi',
   fields: {
     termsEN: 'Who wanna get bothered with **terms**?\n',
@@ -35,6 +18,23 @@ export const CUSTOMER2: AirtableRecord<Customer> = {
       'recrcZANU6L73OA9v',
     ],
     ref: 'customer1',
+  },
+  createdTime: '2020-06-02T14:01:51.000Z',
+};
+
+export const CUSTOMER2: AirtableRecord<Customer> = {
+  id: 'recZEMyznL19CPD5b',
+  fields: {
+    termsEN: 'Who wanna get bothered with **terms**? Come on!\n',
+    termsFR: 'Qui a envie de lire des **CGU** ? -\\_-\n',
+    labelEN: 'Customer 2',
+    products: [
+      'recYXaEyHJCOBWIbd',
+    ],
+    theme: [
+      'recgo2T34zNZjAlkN'
+    ],
+    ref: 'customer2',
   },
   createdTime: '2020-06-02T14:01:51.000Z',
 };
