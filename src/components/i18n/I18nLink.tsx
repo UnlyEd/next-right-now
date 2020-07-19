@@ -106,7 +106,7 @@ const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
     // If any query params are provided, append it to `as`, so it gets forwarded;
     const queryParamsString = Object.keys(query)
       .map((k) => {
-        if (Array.isArray(k)) {
+        if (isArray(k)) {
           k = k.join(',');
         }
         return `${k}=${query[k]}`;
