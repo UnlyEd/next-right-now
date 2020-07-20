@@ -12,21 +12,51 @@ Changelog
 - We upgrade the **major** version when adding a new preset that changes how Next apps are meant to be used/built, resulting in a non-trivial **redesign of the NRN base code**.
   - Such as the big SSG change in v9.3, which uses a completely different paradigm
 
-This changelog is mostly used as a preset release history, but it is not meant to warn about non-backward compatible changes within presets.
+This changelog is meant to provide a good overview of the biggest changes in the NRN project, such as a preset release history, but it is not meant to warn about non-backward compatible changes within presets.
 
 ---
 
 ## Changes across presets
 
+### Most valuable changes
+
+Here is a short list of the most valuable changes and new features.
+
+- 2020-07-20
+    - Documentation updates of CHANGELOG and ROADMAP pages
+- 2020-07-16
+    - [Change NRN app publication workflow](https://github.com/UnlyEd/next-right-now/pull/129) for all presets
+- 2020-06-25
+    - [Allow custom i18n translations per customer](https://github.com/UnlyEd/next-right-now/pull/118) for all presets
+- 2020-06-16
+    - [Allow converting Markdown to JSX at runtime](https://github.com/UnlyEd/next-right-now/pull/113) for all `-at` presets (Airtable)
+- 2020-06-12
+    - [Automatically run LightHouse on PR commits (CI)](https://github.com/UnlyEd/next-right-now/pull/103) for all presets
+    - [Added "item preview" feature, allowing to preview a NRN record from Stacker CMS](https://github.com/UnlyEd/next-right-now/pull/105) for all `-at` presets (Airtable)
+        - _This feature has been renamed "Quick preview" since then_
+- 2020-06-08
+    - [Add jest-runner-groups to run tests by group](https://github.com/UnlyEd/next-right-now/pull/91) for all presets
+- 2020-06-06
+    - [Add hybrid memory/disk cache storages to optimise Airtable API data fetching during server initial build](https://github.com/UnlyEd/next-right-now/pull/92) for all presets
+        - This will eventually be moved out of NRN and released as a NPM package
+- 2020-06-06
+    - [Use .env instead of .env.build file](https://github.com/UnlyEd/next-right-now/pull/77)
+- 2020-05-31
+    - [Implement preview mode](https://github.com/UnlyEd/next-right-now/pull/70)
+        - _This feature [has been changed since](https://github.com/UnlyEd/next-right-now/pull/129), to allow "Preview mode" to be used only for the staging environment_
+
+
+### Changes workflow
+
+> `v2-mst-aptd-at-lcz-sty` and `v2-mst-aptd-gcms-lcz-sty` are both kept up-to-date. Changes that aren't specific to one preset are applied to both.
+
 To see an exhaustive list of changes (added across presets), check out the [merged PR](https://github.com/UnlyEd/next-right-now/pulls?q=is%3Apr+sort%3Aupdated-desc+is%3Amerged).
 
-All changes are merged through PRs, for easier reviews.
+Most changes are merged through PRs, for easier reviews.
 
 *I basically don't have the time to keep a documented version of what's included in each preset branch (too much work).*
-*If you want to know what's included within each preset, the easiest way is to review which commits are included in those presets.*
 
-**Long story short**:
-`v2-mst-aptd-at-lcz-sty` and `v2-mst-aptd-gcms-lcz-sty` are both kept up-to-date. Changes that aren't specific to one preset are applied to both.
+*If you want to know what's included within each preset, the easiest way is to review which commits are included in those presets.*
 
 ---
 
