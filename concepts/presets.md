@@ -67,8 +67,6 @@ Presets were discussed [in a RFC](https://github.com/UnlyEd/next-right-now/issue
 ## Which presets **are** being considered?
 
 Here is a short list of all presets that **we consider to support in the future**:
-- Airtable instead of GraphCMS vendor, which will help towards making NRN "free" (no built-in paid vendor)
-    - [A GraphCMS alternative has been asked by the community](https://github.com/UnlyEd/next-right-now/issues/16)
 - ST (as an alternative to current MST), for people who don't need the extra tenancy complexity
     - Basically, only deploy one site, not several (no monorepo design)
     - Simplifies config, scripts, CI
