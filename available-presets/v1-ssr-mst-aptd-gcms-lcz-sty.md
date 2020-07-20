@@ -15,6 +15,8 @@ nav_order: 20
 {% assign analytics = 'amplitude' %}
 
 ## `{{preset}}`
+{: .no_toc }
+
 {% include preset/title.md %}
 
 DEPRECATED
@@ -25,6 +27,10 @@ OFFICIAL
 
 March 2020
 {: .label .label-blue }
+
+{% include page-toc.md %}
+
+---
 
 ### Overview
 

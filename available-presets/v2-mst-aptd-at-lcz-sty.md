@@ -15,6 +15,8 @@ nav_order: 9
 {% assign analytics = 'amplitude' %}
 
 ## `{{preset}}`
+{: .no_toc }
+
 {% include preset/title.md %}
 
 OFFICIAL
@@ -22,6 +24,10 @@ OFFICIAL
 
 July 2020
 {: .label .label-blue }
+
+{% include page-toc.md %}
+
+---
 
 ### Overview
 
