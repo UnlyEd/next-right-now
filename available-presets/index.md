@@ -32,6 +32,14 @@ Note that all presets also contains the "common features" [mentioned in the home
 ## Recommended presets
 {: .text_delta .label .label-green }
 
+- ### [`v2-mst-aptd-at-lcz-sty`](./v2-mst-aptd-at-lcz-sty)
+    - MST (Multi Single Tenancy)
+    - Analytics (Amplitude)
+    - REST-ish API (Airtable)
+    - CMS back office (Stacker)
+    - I18n (Locize)
+    - Monitoring (Sentry)
+
 - ### [`v2-mst-aptd-gcms-lcz-sty`](./v2-mst-aptd-gcms-lcz-sty)
     - MST (Multi Single Tenancy)
     - Analytics (Amplitude)
