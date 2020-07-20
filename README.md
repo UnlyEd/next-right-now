@@ -58,9 +58,21 @@ Both documentations are related and there are many links from the demos toward t
 
 ---
 
+# CHANGELOG
+
+[Go to our changelog](https://unlyed.github.io/next-right-now/changelog).
+
+---
+
 # Contributing
 
 [Go to our contributing guide](https://unlyed.github.io/next-right-now/contributing).
+
+---
+
+# Roadmap
+
+[Go to our roadmap](https://unlyed.github.io/next-right-now/roadmap).
 
 ---
 
