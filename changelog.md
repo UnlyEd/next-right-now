@@ -25,24 +25,24 @@ Here is a short list of the most valuable changes and new features.
 - 2020-07-20
     - Documentation updates of CHANGELOG and ROADMAP pages
 - 2020-07-16
-    - [Change NRN app publication workflow](https://github.com/UnlyEd/next-right-now/pull/129) for all presets
+    - [Change NRN app publication workflow](https://github.com/UnlyEd/next-right-now/pull/129) for all `v2` presets
 - 2020-06-25
-    - [Allow custom i18n translations per customer](https://github.com/UnlyEd/next-right-now/pull/118) for all presets
+    - [Allow custom i18n translations per customer](https://github.com/UnlyEd/next-right-now/pull/118) for all `v2` presets
 - 2020-06-16
-    - [Allow converting Markdown to JSX at runtime](https://github.com/UnlyEd/next-right-now/pull/113) for all `-at` presets (Airtable)
+    - [Allow converting Markdown to JSX at runtime](https://github.com/UnlyEd/next-right-now/pull/113) for all `v2-*-at` presets (Airtable)
 - 2020-06-12
-    - [Automatically run LightHouse on PR commits (CI)](https://github.com/UnlyEd/next-right-now/pull/103) for all presets
-    - [Added "item preview" feature, allowing to preview a NRN record from Stacker CMS](https://github.com/UnlyEd/next-right-now/pull/105) for all `-at` presets (Airtable)
+    - [Automatically run LightHouse on PR commits (CI)](https://github.com/UnlyEd/next-right-now/pull/103) for all `v2` presets
+    - [Added "item preview" feature, allowing to preview a NRN record from Stacker CMS](https://github.com/UnlyEd/next-right-now/pull/105) for all `v2-*-at` presets (Airtable)
         - _This feature has been renamed "Quick preview" since then_
 - 2020-06-08
-    - [Add jest-runner-groups to run tests by group](https://github.com/UnlyEd/next-right-now/pull/91) for all presets
+    - [Add jest-runner-groups to run tests by group](https://github.com/UnlyEd/next-right-now/pull/91) for all `v2` presets
 - 2020-06-06
-    - [Add hybrid memory/disk cache storages to optimise Airtable API data fetching during server initial build](https://github.com/UnlyEd/next-right-now/pull/92) for all presets
+    - [Add hybrid memory/disk cache storages to optimise Airtable API data fetching during server initial build](https://github.com/UnlyEd/next-right-now/pull/92) for all `v2` presets
         - This will eventually be moved out of NRN and released as a NPM package
 - 2020-06-06
-    - [Use .env instead of .env.build file](https://github.com/UnlyEd/next-right-now/pull/77)
+    - [Use .env instead of .env.build file](https://github.com/UnlyEd/next-right-now/pull/77) for all `v2` presets
 - 2020-05-31
-    - [Implement preview mode](https://github.com/UnlyEd/next-right-now/pull/70)
+    - [Implement preview mode](https://github.com/UnlyEd/next-right-now/pull/70) for all `v2` presets
         - _This feature [has been changed since](https://github.com/UnlyEd/next-right-now/pull/129), to allow "Preview mode" to be used only for the staging environment_
 
 
