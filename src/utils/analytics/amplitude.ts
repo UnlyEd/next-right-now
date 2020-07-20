@@ -116,7 +116,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
       // userId: null,
       userId: userData.id,
       logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
-      includeGclid: true,
+      includeGclid: false, // GDPR Enabling this is not GDPR compliant and must not be enabled without explicit user consent - See https://croud.com/blog/news/10-point-gdpr-checklist-digital-advertising/
       includeReferrer: true, // https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
       includeUtm: true,
       // @ts-ignore XXX onError should be allowed, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/42005
