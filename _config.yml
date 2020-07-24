@@ -31,7 +31,7 @@ aux_links:
 
 footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd/next-right-now/blob/master/LICENSE\">MIT license.</a>"
 #color_scheme: "dark"
-nrn_default_preset: v2-mst-aptd-gcms-lcz-sty # Default NRN preset, used as quick start preset
+nrn_default_preset: v2-mst-aptd-at-lcz-sty # Default NRN preset, used as quick start preset
 
 plugins:
   - jekyll-sitemap
