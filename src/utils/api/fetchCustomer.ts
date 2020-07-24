@@ -35,6 +35,9 @@ const fetchCustomer = async (preferredLocales: string[]): Promise<AirtableRecord
   ]);
 
   const airtableCustomer = find(airtableCustomers, { fields: { ref: customerRef } });
+  if (!airtableCustomer) {
+    throw new Error(`"airtableCustomer" couldn't be resolved, using "customer.ref"="${customerRef}". Make sure you filter the customers using the proper field ("customer.ref").`);
+  }
 
   return sanitizeRecord<Customer>(airtableCustomer, dataset, preferredLocales);
 };
