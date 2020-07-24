@@ -20,9 +20,23 @@ export type GenericListApiResponse<Record extends AirtableRecord = AirtableRecor
 }
 
 /**
- * List of tables available in the AT Base
+ * List of tables available in the Airtable database
+ *
+ * Our default naming uses "singular with camel case" rules, but you might prefer using the plural form (e.g: "Customers" or "customers")
+ * In such case, make sure to update BaseTableType accordingly
  */
 export type BaseTable = 'Customer' | 'Product' | 'Theme' | 'Asset';
+
+/**
+ * List of types corresponding to the base tables
+ * Meant to be used as record typename to know from which table a record came from
+ *
+ * By default, use the same values as BaseTable
+ * You may customise this behaviour based on your own naming rules (e.g: plural, CamelCase)
+ *
+ * Keep in mind BaseTableType should use singular in most cases
+ */
+export type BaseTableType = BaseTable;
 
 const defaultApiOptions: ApiOptions = {
   additionalHeaders: {

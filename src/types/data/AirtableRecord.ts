@@ -1,4 +1,4 @@
-import { BaseTable } from '../../utils/api/fetchAirtableTable';
+import { BaseTableType } from '../../utils/api/fetchAirtableTable';
 
 /**
  * Airtable record fetched from their API
@@ -9,5 +9,5 @@ export type AirtableRecord<Record extends {} = {}> = {
   id?: string;
   createdTime?: string;
   fields?: Partial<Record>;
-  __typename?: BaseTable; // Not available upon fetch, made available after sanitising
+  __typename?: BaseTableType; // Not available upon fetch, made available after sanitising
 };

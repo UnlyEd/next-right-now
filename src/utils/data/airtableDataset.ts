@@ -1,11 +1,11 @@
 import map from 'lodash.map';
 import { AirtableDataset } from '../../types/data/AirtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
-import { BaseTable } from '../api/fetchAirtableTable';
+import { BaseTableType } from '../api/fetchAirtableTable';
 
 type recordsSet = {
   records: AirtableRecord[];
-  __typename: BaseTable;
+  __typename: BaseTableType;
 }
 
 /**
