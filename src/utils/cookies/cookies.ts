@@ -1,4 +1,6 @@
 /**
+ * Delete all existing cookies in the browser
+ *
  * @see https://stackoverflow.com/a/179514/2391795
  */
 export const deleteAllCookies = (): void => {
