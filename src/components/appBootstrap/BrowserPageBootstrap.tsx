@@ -3,19 +3,22 @@ import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import { AmplitudeClient } from 'amplitude-js';
 import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import userConsentContext from '../../stores/userConsentContext';
 import { userSessionContext } from '../../stores/userSessionContext';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
+import { UserConsent } from '../../types/UserConsent';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../../utils/analytics/amplitude';
 
-import cookieConsentInit from '../../utils/cookies/cookieConsent';
+import initCookieConsent, { getUserConsent } from '../../utils/cookies/cookieConsent';
 import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
 import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';
 
@@ -65,17 +68,20 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     level: Sentry.Severity.Debug,
   });
 
-  // Init the Cookie Consent popup, which will open on the browser
-  cookieConsentInit(theme, t);
-
-  const amplitudeInstance = getAmplitudeInstance({
+  const userConsent: UserConsent = getUserConsent();
+  const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
+  const amplitudeInstance: AmplitudeClient = getAmplitudeInstance({
     customerRef,
     iframeReferrer,
     isInIframe,
     lang,
     locale,
     userId,
+    userConsent,
   });
+
+  // Init the Cookie Consent popup, which will open on the browser
+  initCookieConsent(amplitudeInstance, theme, t, locale);
 
   // In non-production stages, bind some utilities to the browser's DOM, for ease of quick testing
   if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
@@ -121,6 +127,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
           locale: locale,
           iframe: isInIframe,
           iframeReferrer: iframeReferrer,
+          isUserOptedOutOfAnalytics: isUserOptedOutOfAnalytics,
+          hasUserGivenAnyCookieConsent: hasUserGivenAnyCookieConsent,
         }}
         // XXX Do not use "userProperties" here, add default user-related properties in getAmplitudeInstance instead
         //  Because "event" had priority over "user event" and will be executed before
@@ -128,11 +136,13 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
         // userProperties={{}}
       >
         <userSessionContext.Provider value={{ ...userSession }}>
-          <Component
-            {...injectedPageProps}
-            // @ts-ignore
-            error={err}
-          />
+          <userConsentContext.Provider value={{ ...userConsent }}>
+            <Component
+              {...injectedPageProps}
+              // @ts-ignore
+              error={err}
+            />
+          </userConsentContext.Provider>
         </userSessionContext.Provider>
       </Amplitude>
     </AmplitudeProvider>
