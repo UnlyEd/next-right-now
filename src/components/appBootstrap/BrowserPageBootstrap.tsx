@@ -3,16 +3,19 @@ import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import { useTheme } from 'emotion-theming';
 import React from 'react';
-
 import { useTranslation } from 'react-i18next';
 import { userSessionContext } from '../../stores/userSessionContext';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../../utils/analytics/amplitude';
+
+import cookieConsentInit from '../../utils/cookies/cookieConsent';
 import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
 import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';
 
@@ -32,7 +35,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const {
     Component,
     err,
-    router
+    router,
   } = props;
   // When the page is served by the browser, some browser-only properties are available
   const pageProps = props.pageProps as unknown as MultiversalPageProps<OnlyBrowserPageProps>;
@@ -54,12 +57,16 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     cookiesManager,
     userSession,
   };
+  const theme = useTheme<CustomerTheme>();
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
     level: Sentry.Severity.Debug,
   });
+
+  // Init the Cookie Consent popup, which will open on the browser
+  cookieConsentInit(theme, t);
 
   const amplitudeInstance = getAmplitudeInstance({
     customerRef,
