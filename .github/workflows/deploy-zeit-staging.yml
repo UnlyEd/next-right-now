@@ -217,11 +217,12 @@ jobs:
       # It runs the lighthouse report for a provided url and create a HTML report in the specified directory
       # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
       - name: Run Lighthouse
-        uses: foo-software/lighthouse-check-action@v1.0.14
+        uses: foo-software/lighthouse-check-action@v2.0.3
         id: lighthouseCheck
         with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
-          #accessToken: ${{ secrets.GITHUB_TOKEN }} # Providing a token to comment the PR if you are using a "pull_request" as trigger.
-          prCommentEnabled: false # Whether to comment on the PR (default: true). Disabled because we use our own "Comment PR (LightHouse report)" action
+          accessToken: ${{ secrets.GITHUB_TOKEN }} # Providing a token to comment the PR if you are using a "pull_request" as trigger, or using "commentUrl" option.
+          commentUrl: https://api.github.com/repos/UnlyEd/next-right-now/commits/${{ github.sha }}/comments
+          prCommentEnabled: true # Whether to comment on the PR (default: true). Disabled because we use our own "Comment PR (LightHouse report)" action
           prCommentSaveOld: true # If true, then add a new comment for each commit. Otherwise, update the latest comment (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
@@ -245,25 +246,3 @@ jobs:
           minPerformanceScore: "30"
           minProgressiveWebAppScore: "50"
           minSeoScore: "50"
-
-      # We need to find the PR id. Will be used later to comment on that PR.
-      - name: Finding Pull Request ID
-        uses: jwalton/gh-find-current-pr@v1
-        id: pr_id_finder
-        if: always() # It forces the job to be always executed, even if a previous job fail.
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      # Add a comment to the PR with lighthouse report
-      - name: Comment PR (LightHouse report)
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ steps.pr_id_finder.outputs.number }}
-          # Report provided by steps.lighthouseCheck.outputs.lighthouseCheckResults is a string and need to be transform into an object.
-          # Then, using badges with results provided by `data[0].scores.<category>`
-          # data is an array containing results of every urls tested. Thankfully, we only test one url so we don't care about the index.
-          # See "fromJson" documentation: https://help.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#fromjson
-          body: |
-            :white_check_mark:&nbsp; **Lighthouse report** for ${{ env.ZEIT_DEPLOYMENT_URL }}
-            ![](https://img.shields.io/badge/Accessibility-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.accessibility }}-green?style=flat-square) ![](https://img.shields.io/badge/Best%20Practices-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.bestPractices }}-green?style=flat-square) ![](https://img.shields.io/badge/Performance-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.performance }}-orange?style=flat-square) ![](https://img.shields.io/badge/Progressive%20Web%20App-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.progressiveWebApp }}-orange?style=flat-square) ![](https://img.shields.io/badge/SEO-${{ fromJson(steps.lighthouseCheck.outputs.lighthouseCheckResults).data[0].scores.seo }}-green?style=flat-square)
