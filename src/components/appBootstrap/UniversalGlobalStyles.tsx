@@ -281,7 +281,20 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
 
         // Overrides of CookieConsent
         .cc-revoke {
-          border: 1px solid lightgrey
+          border: 1px solid lightgrey;
+        }
+
+        .cc-btn.cc-allow {
+          background-color: ${primaryColor} !important;
+          color: white !important;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+
+        .cc-btn.cc-deny {
+          color: darkgrey !important;
         }
       `}
     />
