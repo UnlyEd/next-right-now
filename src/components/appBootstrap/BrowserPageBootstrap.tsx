@@ -84,7 +84,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   initCookieConsent({
     allowedPages: [ // We only allow it on those 2 pages to avoid display that boring popup on every page
       `${window.location.origin}/${locale}/terms`,
-      `${window.location.origin}/${locale}/examples/built-in-features/css-in-js`,
+      `${window.location.origin}/${locale}/examples/built-in-features/cookies-consent`,
     ],
     amplitudeInstance,
     locale,

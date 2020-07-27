@@ -2,10 +2,18 @@ import { AmplitudeClient } from 'amplitude-js';
 import { TFunction } from 'i18next';
 import BrowserCookies from 'js-cookie';
 import includes from 'lodash.includes';
-import isArray from 'lodash.isarray';
 import size from 'lodash.size';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { UserConsent } from '../../types/UserConsent';
+
+export type InitOptions = {
+  allowedPages?: string[]; // On which pages should the cookie consent be enabled, if it's not an empty array then it's enabled everywhere
+  amplitudeInstance: AmplitudeClient;
+  locale: string;
+  t: TFunction;
+  theme: CustomerTheme;
+  userConsent: UserConsent;
+};
 
 /**
  * Defines whether the user do not consent to data tracking by default (until they've made a choice)
@@ -47,13 +55,17 @@ export const getUserConsent = (): UserConsent => {
   };
 };
 
-export type InitOptions = {
-  allowedPages?: string[]; // On which pages should the cookie consent be enabled, if it's not an empty array then it's enabled everywhere
-  amplitudeInstance: AmplitudeClient;
-  locale: string;
-  t: TFunction;
-  theme: CustomerTheme;
-  userConsent: UserConsent;
+/**
+ * Resolves whether the current page should display the cookie consent popup.
+ *
+ * @param allowedPages
+ */
+export const shouldDisplayConsentPopup = (allowedPages: string[] | null): boolean => {
+  if (!size(allowedPages)) {
+    return true;
+  }
+
+  return includes(allowedPages, window.location.href);
 };
 
 /**
@@ -80,9 +92,8 @@ const init = (options: InitOptions): void => {
   } = options;
   const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
   const { primaryColor } = theme;
-  const isAllowedOnCurrentPage = !(isArray(allowedPages) && size(allowedPages) > 0 && !includes(allowedPages, window.location.href));
 
-  if (!isAllowedOnCurrentPage) {
+  if (!shouldDisplayConsentPopup(allowedPages)) {
     return;
   }
 
