@@ -51,6 +51,7 @@ export const getUserConsent = (): UserConsent => {
  * XXX This component lives completely outside of React render tree, it could/should probably be rewritten as a React component to be more "react-friendly"
  * XXX You'll need to refresh the browser when updating this file or changes won't be applied
  *
+ * @param userConsent
  * @param amplitudeInstance
  * @param theme
  * @param t
@@ -60,7 +61,8 @@ export const getUserConsent = (): UserConsent => {
  * @see https://www.osano.com/cookieconsent/documentation/javascript-api/
  * @see https://www.osano.com/cookieconsent/download/
  */
-const init = (amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunction, locale: string): void => {
+const init = (userConsent: UserConsent, amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunction, locale: string): void => {
+  const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
   const { primaryColor } = theme;
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -68,6 +70,8 @@ const init = (amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunc
 
   // @ts-ignore
   const cc = window.cookieconsent;
+  const additionalMessage = hasUserGivenAnyCookieConsent ? isUserOptedOutOfAnalytics ? `<br /><b>Vous aviez refusé les cookies. Veuillez reconfirmer votre choix.</b><br /><br />` : `<br /><b>Vous aviez autorisé les cookies. Veuillez reconfirmer votre choix.</b><br /><br />` : '';
+  const message = `Nous utilisons des cookies pour faire des mesures d'audience anonymes afin de nous permettre d'identifier les fonctionnalités les plus utilisées et les pages les plus consultées.<br /><br /><i>Aucune information personnelle n'est recueillie, ni partagée à quelconque tiers.</i><br />${additionalMessage}`;
 
   // Use https://www.osano.com/cookieconsent/download/ "Start Coding" to use the UI configuration builder
   // See https://www.osano.com/cookieconsent/documentation/javascript-api/ for advanced API options and documentation
@@ -76,8 +80,8 @@ const init = (amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunc
     autoOpen: true,
     autoAttach: true,
     type: 'opt-out', // We consider the user is opt-in by default and must opt-out manually to disable tracking
-    revokable: true,
-    whitelistPage: [`/${locale}/terms`],
+    revokable: true, // Doesn't seem to work as expected, stuff gets revoked even when set to false, and also depends on the country
+    whitelistPage: [], // Doesn't seem to work at all, no visible effect
     blacklistPage: [],
     location: false, // XXX Can also be an object with advanced configuration to implement your own geolocation resolvers
     cookie: {
@@ -122,16 +126,16 @@ const init = (amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunc
 
     // Content (texts, wording)
     content: {
-      header: 'Cookies used on the website!',
-      message: 'This website uses cookies to improve your experience.',
-      dismiss: 'Got it!',
-      allow: 'Allow cookies',
-      deny: 'Decline',
-      link: 'Learn more',
+      header: `Cookies utilisés sur le site`,
+      message: message,
+      dismiss: `Ok !`,
+      allow: `Accepter`,
+      deny: `Refuser`,
+      link: `En savoir plus`,
       href: `/${locale}/terms`,
-      target: '', // Use "_blank" if you use an external "href" value
-      close: '&#x274c;',
-      policy: 'Cookie Policy',
+      target: ``, // Use "_blank" if you use an external "href" value
+      close: `fermer&#x274c;`,
+      policy: `Politique de confidentialité`,
     },
 
     // Events
@@ -150,22 +154,44 @@ const init = (amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunc
     onStatusChange: function(status, previousChoice) {
       console.info('onStatusChange', status, previousChoice);
       if (status === 'deny') {
+        // Store user choice, then disable analytics tracking
+        amplitudeInstance.logEvent('user-consent-manually-given', {
+          choice: 'deny',
+          at: +new Date(),
+          message, // Store the text that was displayed to the user at the time
+        });
         amplitudeInstance.setOptOut(true);
+        // TODO Delete the amplitude cookie to clear all traces? It'd be better, but cookie's name is random... See https://github.com/amplitude/Amplitude-JavaScript/issues/277
         console.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
       } else if (status === 'allow') {
+        // Enable analytics tracking, then store user choice
         amplitudeInstance.setOptOut(false);
+        amplitudeInstance.logEvent('user-consent-manually-given', {
+          choice: 'allow',
+          at: +new Date(),
+          message, // Store the text that was displayed to the user at the time
+        });
         console.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
       }
     },
-    // onRevokeChoice: function() {
-    //   console.info('onRevokeChoice');
-    // },
-    // onPopupOpen: function() {
-    //   console.info('onPopupOpen');
-    // },
-    // onPopupClose: function() {
-    //   console.info('onPopupClose');
-    // },
+    /**
+     * Triggers when the current choice has been revoked.
+     *
+     * When the popup is opened, the cookie is automatically deleted.
+     * IMHO, this is a very bad design choice because the end user doesn't know it...
+     * It may seems fine when not using "opt-out" type, but when consent is given by default then users might discard their previous choice (deny) and revoke it without knowing.
+     * This should be fixed in the CC OSS lib.
+     */
+    onRevokeChoice: function() {
+      console.info('onRevokeChoice');
+      console.info(`Previous choice has been revoked, "${CONSENT_COOKIE_NAME}" cookie has been deleted.`);
+    },
+    onPopupOpen: function() {
+      console.info('onPopupOpen');
+    },
+    onPopupClose: function() {
+      console.info('onPopupClose');
+    },
   };
   cc.initialise(cookieConsentSettings);
 };
