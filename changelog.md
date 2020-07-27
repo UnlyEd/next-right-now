@@ -22,6 +22,10 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2020-07-28
+    - [GDPR - Add cookie consent UI](https://github.com/UnlyEd/next-right-now/pull/140)
+- 2020-07-21
+    - [GDPR - Disable Google Click ID being used by default](https://github.com/UnlyEd/next-right-now/pull/138)
 - 2020-07-20
     - Documentation updates of CHANGELOG and ROADMAP pages
 - 2020-07-16
