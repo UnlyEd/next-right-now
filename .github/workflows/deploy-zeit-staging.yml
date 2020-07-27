@@ -244,7 +244,7 @@ jobs:
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
           minAccessibilityScore: "50"
-          minBestPracticesScore: "50"
+          minBestPracticesScore: "0"
           minPerformanceScore: "30"
           minProgressiveWebAppScore: "50"
           minSeoScore: "50"
