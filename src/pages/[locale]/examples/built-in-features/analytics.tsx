@@ -221,7 +221,10 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
             </p>
 
             <Button
-              onClick={(): void => logEvent('analytics-button-test-event')}
+              onClick={(): void => {
+                console.log('Button click');
+                logEvent('analytics-button-test-event');
+              }}
             >
               Click me
             </Button>
@@ -233,7 +236,10 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                 <Amplitude>
                   {({ logEvent }): JSX.Element => (
                     <Button
-                      onClick={(): void => logEvent('analytics-button-test-event')}
+                      onClick={(): void => {
+                        console.log('Button click');
+                        logEvent('analytics-button-test-event');
+                      }}
                     >
                       Click me
                     </Button>
