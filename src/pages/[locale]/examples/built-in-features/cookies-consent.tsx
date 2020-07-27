@@ -8,6 +8,7 @@ import React from 'react';
 import { Alert } from 'reactstrap';
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
+import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import useUserConsent from '../../../../hooks/useUserConsent';
@@ -63,6 +64,11 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
         {({ logEvent }): JSX.Element => (
           <DocPage>
             <h1 className={'pcolor'}>Cookies consent examples, using <code>CookieConsent</code> OSS library</h1>
+
+            <Alert color={'warning'}>
+              The consent popup has been enabled only on this page and the <I18nLink href={'/terms'}>terms</I18nLink> page to avoid undesired popups popping everywhere.<br />
+              Note that the consent implementation makes you opt-in to analytics tracking by default unless you manually refuse it.
+            </Alert>
 
             <Alert color={'info'}>
               Make sure to check
