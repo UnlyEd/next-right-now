@@ -100,8 +100,9 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       visitor.setOnce('locale', locale);
       visitor.setOnce('iframe', isInIframe);
       visitor.setOnce('iframeReferrer', iframeReferrer);
-      visitor.setOnce('isUserOptedOutOfAnalytics', isUserOptedOutOfAnalytics);
-      visitor.setOnce('hasUserGivenAnyCookieConsent', hasUserGivenAnyCookieConsent);
+
+      visitor.set('isUserOptedOutOfAnalytics', isUserOptedOutOfAnalytics);
+      visitor.set('hasUserGivenAnyCookieConsent', hasUserGivenAnyCookieConsent);
 
       amplitudeInstance.identify(visitor); // Send the new identify event to amplitude (updates user's identity)
     }

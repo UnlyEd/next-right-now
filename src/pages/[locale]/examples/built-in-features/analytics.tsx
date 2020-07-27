@@ -210,7 +210,9 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                 {
                   !hasUserGivenAnyCookieConsent ? `You haven't made any choice regarding your consent yet, and thus an event will be sent (because you're opt-in by default)` : (isUserOptedOutOfAnalytics ? `You've chosen to opt-out from analytics tracking, and thus no event will be sent` : `You've chosen to opt-in to analytics tracking, and thus an event will be sent`)
                 }
-              </b>
+              </b><br />
+              <br />
+              You can check the event details using <ExternalLink href={'https://chrome.google.com/webstore/detail/amplitude-instrumentation/acehfjhnmhbmgkedjmjlobpgdicnhkbp'}>Amplitude Instrumentation Explorer</ExternalLink> Chrome extension.
             </p>
 
             <Button
