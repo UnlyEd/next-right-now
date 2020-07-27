@@ -84,10 +84,18 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
             </Alert>
 
             Amplitude has been configured to stop tracking all kind of analytics as soon as the user opts-out from analytics tracking.<br />
-            Also, the current behaviour has been configured to automatically opt-in into all analytics tracking by default.<br />
-            We've made this choice because no personal data are being processed in any way, and thus it should be safe for most apps that don't process personal data to have such default behaviour. (it's safe to be used as-it in France (CNIL + GDPR), which is tough to deal with, so most countries should be safe)
             <br />
-            Consent isn't stored though, since we consider analytics is allowed by default, we didn't want to complicate the app with that. Also, we don't have any personal information to link to such consents, so it really wouldn't make any sense in our case.
+            Also, the current behaviour has been configured to automatically opt-in into all analytics tracking by default.<br />
+            We've made this choice because no personal data are being processed in any way, and thus it should be safe for most apps that don't process personal data to have such default behaviour. (it's safe to be used as-it in France (CNIL + GDPR), which is very tough to deal with regarding privacy, so it should be safe to use this behaviour in most countries)<br />
+            <br />
+            User consent is stored on Amplitude, and tagged with the time and message that were displayed to the user at the time of consent. Denies are stored as well for analytics purposes. (but you can easily disable this behaviour if you wish)<br />
+            <br />
+            <Alert color={'warning'}>
+              The <code>CookieConsent</code> OSS library is not perfect, it kinda does the job but feel free to replace it with something better if you wish.<br />
+              Also, it most likely won't cover all legal requirements for all regulations for all countries. But it's a start, and a free one.<br />
+              <br />
+              Feel free to propose your help to improve it a bit, either by sending a PR to <code>CookieConsent</code> or NRN directly.
+            </Alert>
           </DocPage>
         )}
       </Amplitude>
