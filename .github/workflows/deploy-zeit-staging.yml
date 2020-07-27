@@ -207,7 +207,7 @@ jobs:
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT/en"
+          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests
@@ -217,7 +217,7 @@ jobs:
       # It runs the lighthouse report for a provided url and create a HTML report in the specified directory
       # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
       - name: Run Lighthouse
-        uses: foo-software/lighthouse-check-action@v2.0.3
+        uses: foo-software/lighthouse-check-action@v2.0.5
         id: lighthouseCheck
         with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
           accessToken: ${{ secrets.GITHUB_TOKEN }} # Providing a token to comment the PR if you are using a "pull_request" as trigger, or using "commentUrl" option.
@@ -225,7 +225,9 @@ jobs:
           prCommentEnabled: true # Whether to comment on the PR (default: true). Disabled because we use our own "Comment PR (LightHouse report)" action
           prCommentSaveOld: true # If true, then add a new comment for each commit. Otherwise, update the latest comment (default: false).
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
-          urls: ${{ env.ZEIT_DEPLOYMENT_URL }}
+          emulatedFormFactor: all # Run LightHouse against "mobile", "desktop", or "all" devices
+          urls: ${{ env.ZEIT_DEPLOYMENT_URL }}, ${{ env.ZEIT_DEPLOYMENT_URL }}/en, ${{ env.ZEIT_DEPLOYMENT_URL }}/fr, ${{ env.ZEIT_DEPLOYMENT_URL }}/en-US, ${{ env.ZEIT_DEPLOYMENT_URL }}/fr-FR
+          locale: en
 
       # Upload HTML report create by lighthouse, could be useful
       - name: Upload artifacts
