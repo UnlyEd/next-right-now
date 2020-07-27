@@ -178,7 +178,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Button color={'link'}>Learn more about the "Cookie consent" library</Button>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/cookies-consent'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Button color={'link'}>Learn more about user consent and its impact on analytics</Button>
                 </I18nLink>
               </div>
             </CardText>
