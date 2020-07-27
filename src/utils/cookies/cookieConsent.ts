@@ -48,6 +48,9 @@ export const getUserConsent = (): UserConsent => {
  * Initialise the Cookie Consent UI popup
  * Relies on Osano open source "cookieconsent" software (v3) https://github.com/osano/cookieconsent
  *
+ * XXX This component lives completely outside of React render tree, it could/should probably be rewritten as a React component to be more "react-friendly"
+ * XXX You'll need to refresh the browser when updating this file or changes won't be applied
+ *
  * @param amplitudeInstance
  * @param theme
  * @param t
@@ -133,15 +136,11 @@ const init = (amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunc
 
     // Events
     onInitialise: function(status) {
-      console.info('onInitialise', status);
-    },
-    onPopupOpen: function() {
-      console.info('onPopupOpen');
-    },
-    onPopupClose: function() {
-      console.info('onPopupClose');
+      console.info('onInitialise', `User consent from "${CONSENT_COOKIE_NAME}" cookie:`, status);
     },
     /**
+     * When the user selects another choice (initial choice, or change) then we toggle analytics tracking
+     *
      * The previousChoice is for the status
      * This event may trigger multiple times (once per status changed)
      *
@@ -150,10 +149,23 @@ const init = (amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunc
      */
     onStatusChange: function(status, previousChoice) {
       console.info('onStatusChange', status, previousChoice);
+      if (status === 'deny') {
+        amplitudeInstance.setOptOut(true);
+        console.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
+      } else if (status === 'allow') {
+        amplitudeInstance.setOptOut(false);
+        console.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
+      }
     },
-    onRevokeChoice: function() {
-      console.info('onRevokeChoice');
-    },
+    // onRevokeChoice: function() {
+    //   console.info('onRevokeChoice');
+    // },
+    // onPopupOpen: function() {
+    //   console.info('onPopupOpen');
+    // },
+    // onPopupClose: function() {
+    //   console.info('onPopupClose');
+    // },
   };
   cc.initialise(cookieConsentSettings);
 };
