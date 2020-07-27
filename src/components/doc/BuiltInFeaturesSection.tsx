@@ -170,6 +170,23 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
 
         <Card>
           <CardBody>
+            <CardTitle><h3>Cookies consent</h3></CardTitle>
+            <CardSubtitle>&ldquo;Cookies consent using <code>CookieConsent</code> OSS library&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://github.com/osano/cookieconsent'}>
+                  <Button color={'link'}>Learn more about the "Cookie consent" library</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/built-in-features/cookies-consent'}>
+                  <Button color={'link'}>Learn more about user consent and its impact on analytics</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
             <CardTitle><h3>Analytics</h3></CardTitle>
             <CardSubtitle>&ldquo;Analytics using Amplitude vendor&rdquo;</CardSubtitle>
             <CardText tag={'div'}>

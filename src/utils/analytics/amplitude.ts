@@ -2,6 +2,7 @@ import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { AmplitudeClient, Identify } from 'amplitude-js';
 import { NextWebVitalsMetricsReport } from '../../types/nextjs/NextWebVitalsMetricsReport';
+import { UserConsent } from '../../types/UserConsent';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
 
@@ -29,6 +30,7 @@ type GetAmplitudeInstanceProps = {
   lang: string;
   locale: string;
   userId: string;
+  userConsent: UserConsent;
 }
 
 export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): AmplitudeClient | null => {
@@ -42,7 +44,9 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       lang,
       locale,
       userId,
+      userConsent,
     } = props;
+    const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
 
     Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
       scope.setTag('iframe', `${isInIframe}`);
@@ -67,6 +71,16 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       },
     });
 
+    // Disable analytics tracking entirely if the user has opted-out
+    if (isUserOptedOutOfAnalytics) {
+      amplitudeInstance.setOptOut(true); // If true, then no events will be logged or sent.
+      console.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
+    } else {
+      // Re-enable tracking (necessary if it was previously disabled!)
+      amplitudeInstance.setOptOut(false);
+      console.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
+    }
+
     amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
 
     // We're only doing this when detecting a new session, as it won't be executed multiple times for the same session anyway, and it avoids noise
@@ -86,6 +100,9 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       visitor.setOnce('locale', locale);
       visitor.setOnce('iframe', isInIframe);
       visitor.setOnce('iframeReferrer', iframeReferrer);
+
+      visitor.set('isUserOptedOutOfAnalytics', isUserOptedOutOfAnalytics);
+      visitor.set('hasUserGivenAnyCookieConsent', hasUserGivenAnyCookieConsent);
 
       amplitudeInstance.identify(visitor); // Send the new identify event to amplitude (updates user's identity)
     }

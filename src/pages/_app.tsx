@@ -5,6 +5,7 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import { faArrowCircleLeft, faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faQuestionCircle, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css
 import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
+import 'cookieconsent/build/cookieconsent.min.css'; // Loads CookieConsent CSS file. See https://github.com/osano/cookieconsent
 import 'rc-tooltip/assets/bootstrap.css';
 import React from 'react';
 import uuid from 'uuid/v1'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
