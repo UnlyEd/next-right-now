@@ -1,6 +1,9 @@
 import { AmplitudeClient } from 'amplitude-js';
 import { TFunction } from 'i18next';
 import BrowserCookies from 'js-cookie';
+import includes from 'lodash.includes';
+import isArray from 'lodash.isarray';
+import size from 'lodash.size';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { UserConsent } from '../../types/UserConsent';
 
@@ -44,6 +47,15 @@ export const getUserConsent = (): UserConsent => {
   };
 };
 
+export type InitOptions = {
+  allowedPages?: string[]; // On which pages should the cookie consent be enabled, if it's not an empty array then it's enabled everywhere
+  amplitudeInstance: AmplitudeClient;
+  locale: string;
+  t: TFunction;
+  theme: CustomerTheme;
+  userConsent: UserConsent;
+};
+
 /**
  * Initialise the Cookie Consent UI popup
  * Relies on Osano open source "cookieconsent" software (v3) https://github.com/osano/cookieconsent
@@ -51,19 +63,28 @@ export const getUserConsent = (): UserConsent => {
  * XXX This component lives completely outside of React render tree, it could/should probably be rewritten as a React component to be more "react-friendly"
  * XXX You'll need to refresh the browser when updating this file or changes won't be applied
  *
- * @param userConsent
- * @param amplitudeInstance
- * @param theme
- * @param t
+ * @param options
  *
- * @param locale
  * @see https://www.osano.com/cookieconsent/documentation/
  * @see https://www.osano.com/cookieconsent/documentation/javascript-api/
  * @see https://www.osano.com/cookieconsent/download/
  */
-const init = (userConsent: UserConsent, amplitudeInstance: AmplitudeClient, theme: CustomerTheme, t: TFunction, locale: string): void => {
+const init = (options: InitOptions): void => {
+  const {
+    allowedPages = null,
+    amplitudeInstance,
+    locale,
+    t,
+    theme,
+    userConsent,
+  } = options;
   const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
   const { primaryColor } = theme;
+  const isAllowedOnCurrentPage = !(isArray(allowedPages) && size(allowedPages) > 0 && !includes(allowedPages, window.location.href));
+
+  if (!isAllowedOnCurrentPage) {
+    return;
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('cookieconsent'); // XXX Requiring it will make it available in the browser (cannot be used properly as a module)

@@ -81,7 +81,17 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   });
 
   // Init the Cookie Consent popup, which will open on the browser
-  initCookieConsent(userConsent, amplitudeInstance, theme, t, locale);
+  initCookieConsent({
+    allowedPages: [ // We only allow it on those 2 pages to avoid display that boring popup on every page
+      `${window.location.origin}/${locale}/terms`,
+      `${window.location.origin}/${locale}/examples/built-in-features/css-in-js`,
+    ],
+    amplitudeInstance,
+    locale,
+    t,
+    theme,
+    userConsent,
+  });
 
   // In non-production stages, bind some utilities to the browser's DOM, for ease of quick testing
   if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
