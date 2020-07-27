@@ -102,8 +102,8 @@ const init = (options: InitOptions): void => {
 
   // @ts-ignore
   const cc = window.cookieconsent;
-  const additionalMessage = hasUserGivenAnyCookieConsent ? isUserOptedOutOfAnalytics ? `<br /><b>Vous aviez refusé les cookies. Veuillez reconfirmer votre choix.</b><br /><br />` : `<br /><b>Vous aviez autorisé les cookies. Veuillez reconfirmer votre choix.</b><br /><br />` : '';
-  const message = `Nous utilisons des cookies pour faire des mesures d'audience anonymes afin de nous permettre d'identifier les fonctionnalités les plus utilisées et les pages les plus consultées.<br /><br /><i>Aucune information personnelle n'est recueillie, ni partagée à quelconque tiers.</i><br />${additionalMessage}`;
+  const additionalMessage = hasUserGivenAnyCookieConsent ? isUserOptedOutOfAnalytics ? t('cookieConsent.message.userDenied', `<br /><b>Vous aviez refusé les cookies. Veuillez reconfirmer votre choix.</b><br /><br />`) : t('cookieConsent.message.userAllowed', `<br /><b>Vous aviez autorisé les cookies. Veuillez reconfirmer votre choix.</b><br /><br />`) : '';
+  const message = t('cookieConsent.message.cookieUsage', `Nous utilisons des cookies pour faire des mesures d'audience anonymes afin de nous permettre d'identifier les fonctionnalités les plus utilisées et les pages les plus consultées.<br /><br /><i>Aucune information personnelle n'est recueillie, ni partagée à quelconque tiers.</i><br />${additionalMessage}`);
 
   // Use https://www.osano.com/cookieconsent/download/ "Start Coding" to use the UI configuration builder
   // See https://www.osano.com/cookieconsent/documentation/javascript-api/ for advanced API options and documentation
@@ -158,22 +158,28 @@ const init = (options: InitOptions): void => {
 
     // Content (texts, wording)
     content: {
-      header: `Cookies utilisés sur le site`,
+      header: t('cookieConsent.content.header', `Cookies utilisés sur le site`),
       message: message,
-      dismiss: `Ok !`,
-      allow: `Accepter`,
-      deny: `Refuser`,
-      link: `En savoir plus`,
+      dismiss: t('cookieConsent.content.dismiss', `Ok !`),
+      allow: t('cookieConsent.content.allow', `Accepter`),
+      deny: t('cookieConsent.content.deny', `Refuser`),
+      link: t('cookieConsent.content.link', `En savoir plus`),
       href: `/${locale}/terms`,
       target: ``, // Use "_blank" if you use an external "href" value
-      close: `fermer&#x274c;`,
-      policy: `Politique de confidentialité`,
+      close: `&#x274c;`,
+      policy: t('cookieConsent.content.policy', `Politique de confidentialité`),
     },
 
     // Events
+
+    /**
+     * Triggers when the lib initialises
+     * Will provide the value contained in CONSENT_COOKIE_NAME cookie
+     */
     onInitialise: function(status) {
       console.info('onInitialise', `User consent from "${CONSENT_COOKIE_NAME}" cookie:`, status);
     },
+
     /**
      * When the user selects another choice (initial choice, or change) then we toggle analytics tracking
      *
@@ -193,7 +199,7 @@ const init = (options: InitOptions): void => {
           message, // Store the text that was displayed to the user at the time
         });
         amplitudeInstance.setOptOut(true);
-        // TODO Delete the amplitude cookie to clear all traces? It'd be better, but cookie's name is random... See https://github.com/amplitude/Amplitude-JavaScript/issues/277
+        // TODO Delete the amplitude cookie to clear all traces? It'd be better, but cookie's name is random... And it'd be regenerated anyway... See https://github.com/amplitude/Amplitude-JavaScript/issues/277
         console.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
       } else if (status === 'allow') {
         // Enable analytics tracking, then store user choice
@@ -206,6 +212,7 @@ const init = (options: InitOptions): void => {
         console.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
       }
     },
+
     /**
      * Triggers when the current choice has been revoked.
      *
@@ -218,9 +225,17 @@ const init = (options: InitOptions): void => {
       console.info('onRevokeChoice');
       console.info(`Previous choice has been revoked, "${CONSENT_COOKIE_NAME}" cookie has been deleted.`);
     },
+
+    /**
+     * Triggers when the popup opens
+     */
     onPopupOpen: function() {
       console.info('onPopupOpen');
     },
+
+    /**
+     * Triggers when the popup closes
+     */
     onPopupClose: function() {
       console.info('onPopupClose');
     },
