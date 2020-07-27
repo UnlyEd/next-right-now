@@ -9,6 +9,7 @@ import { Alert, Button } from 'reactstrap';
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
+import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import useUserConsent from '../../../../hooks/useUserConsent';
@@ -206,19 +207,21 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
               Below is how we log events upon user interaction. (i.e: click)<br />
               When you click on the below button an event <code>analytics-button-test-event</code> is sent to Amplitude.<br />
               No data will be sent if you've opted-out of analytics tracking:
-              <b>
-                {
-                  !hasUserGivenAnyCookieConsent ? `You haven't made any choice regarding your consent yet, and thus an event will be sent (because you're opt-in by default)` : (isUserOptedOutOfAnalytics ? `You've chosen to opt-out from analytics tracking, and thus no event will be sent` : `You've chosen to opt-in to analytics tracking, and thus an event will be sent`)
-                }
-              </b><br />
+              <DisplayOnBrowserMount>
+                <br />
+                <b>
+                  {
+                    !hasUserGivenAnyCookieConsent ? `You haven't made any choice regarding your consent yet, and thus an event will be sent (because you're opt-in by default).` : (isUserOptedOutOfAnalytics ? `You've chosen to opt-out from analytics tracking, and thus no event will be sent.` : `You've chosen to opt-in to analytics tracking, and thus an event will be sent.`)
+                  }
+                </b>
+              </DisplayOnBrowserMount>
+              <br />
               <br />
               You can check the event details using <ExternalLink href={'https://chrome.google.com/webstore/detail/amplitude-instrumentation/acehfjhnmhbmgkedjmjlobpgdicnhkbp'}>Amplitude Instrumentation Explorer</ExternalLink> Chrome extension.
             </p>
 
             <Button
-              onClick={(): void => logEvent('analytics-button-test-event', {
-                file: fileLabel,
-              })}
+              onClick={(): void => logEvent('analytics-button-test-event')}
             >
               Click me
             </Button>
@@ -230,9 +233,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                 <Amplitude>
                   {({ logEvent }): JSX.Element => (
                     <Button
-                      onClick={(): void => logEvent('analytics-button-test-event', {
-                        file: fileLabel,
-                      })}
+                      onClick={(): void => logEvent('analytics-button-test-event')}
                     >
                       Click me
                     </Button>
