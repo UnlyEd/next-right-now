@@ -31,4 +31,4 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }} # XXX Define this secret in "Github repo > Settings > Secrets", you can get it from Code Climate in "Repo settings > Test coverage".
         with:
-          coverageCommand: yarn test:coverage
+          coverageCommand: yarn test:coverage:group:no-integration
