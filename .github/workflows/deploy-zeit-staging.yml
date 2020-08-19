@@ -13,12 +13,7 @@ on:
   push: # Triggers on each pushed commit
     branches-ignore:
       - 'master'
-  workflow_dispatch:
-    inputs:
-      name:
-        description: 'Person to greet'
-        required: true
-        default: 'Mona the Octocat'
+  workflow_dispatch: # Allow manual trigger via a button in github or a HTTP call: https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#manually-running-a-workflow
 
 
 jobs:
