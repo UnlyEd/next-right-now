@@ -13,7 +13,7 @@ on:
   push: # Triggers on each pushed commit
     branches-ignore:
       - 'master'
-  check_run: # Allow custom trigger using API call: https://docs.github.com/en/actions/reference/events-that-trigger-workflows#check_run
+  workflow_dispatch: # Allow custom trigger using API call: https://docs.github.com/en/actions/reference/events-that-trigger-workflows#manual-events
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
