@@ -13,7 +13,13 @@ on:
   push: # Triggers on each pushed commit
     branches-ignore:
       - 'master'
-  workflow_dispatch: # Allow custom trigger using API call: https://docs.github.com/en/actions/reference/events-that-trigger-workflows#manual-events
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Person to greet'
+        required: true
+        default: 'Mona the Octocat'
+
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
