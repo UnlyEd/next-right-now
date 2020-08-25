@@ -3,7 +3,6 @@ import TestRenderer from 'react-test-renderer';
 import GraphCMSAsset from './GraphCMSAsset';
 
 const defaultLogoUrl = 'https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V';
-const defaultLogoTarget = '_blank';
 
 /**
  * @group unit
@@ -21,7 +20,7 @@ describe('GraphCMSAsset', () => {
               url: defaultLogoUrl,
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
@@ -48,7 +47,7 @@ describe('GraphCMSAsset', () => {
               style: style,
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
@@ -78,7 +77,7 @@ describe('GraphCMSAsset', () => {
                 style: style,
               }}
             />);
-          const img = renderer.toJSON();
+          const img: any = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
           expect(img.props.src).toEqual(defaultLogoUrl);
@@ -109,7 +108,7 @@ describe('GraphCMSAsset', () => {
                 style: style,
               }}
             />);
-          const img = renderer.toJSON();
+          const img: any = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
           expect(img.props.src).toEqual(defaultLogoUrl);
@@ -144,7 +143,7 @@ describe('GraphCMSAsset', () => {
                 style: style,
               }}
             />);
-          const img = renderer.toJSON();
+          const img: any = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
           expect(img.props.src).toEqual(defaultLogoUrl);
@@ -176,7 +175,7 @@ describe('GraphCMSAsset', () => {
               },
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=width:500,height:300/auto_image/88YmsSFsSEGI9i0qcH0V');
@@ -206,7 +205,7 @@ describe('GraphCMSAsset', () => {
               },
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=width:500/auto_image/88YmsSFsSEGI9i0qcH0V');
@@ -239,7 +238,7 @@ describe('GraphCMSAsset', () => {
               height: 300
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual('https://media.graphcms.com/quality=value:100/resize=height:300/auto_image/88YmsSFsSEGI9i0qcH0V');
@@ -264,8 +263,8 @@ describe('GraphCMSAsset', () => {
             linkUrl: linkUrl,
           }}
         />);
-      const link = renderer.toJSON();
-      const img = renderer.root.findByType('img');
+      const link: any = renderer.toJSON();
+      const img: any = renderer.root.findByType('img');
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
@@ -306,8 +305,8 @@ describe('GraphCMSAsset', () => {
             style: style,
           }}
         />);
-      const link = renderer.toJSON();
-      const img = renderer.root.findByType('img');
+      const link: any = renderer.toJSON();
+      const img: any = renderer.root.findByType('img');
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
@@ -352,8 +351,8 @@ describe('GraphCMSAsset', () => {
             style: style,
           }}
         />);
-      const link = renderer.toJSON();
-      const img = renderer.root.findByType('img');
+      const link: any = renderer.toJSON();
+      const img: any = renderer.root.findByType('img');
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
@@ -400,8 +399,8 @@ describe('GraphCMSAsset', () => {
           }}
           onClick={onClick}
         />);
-      const link = renderer.toJSON();
-      const img = renderer.root.findByType('img');
+      const link: any = renderer.toJSON();
+      const img: any = renderer.root.findByType('img');
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
