@@ -21,7 +21,7 @@ describe('components/assets/AirtableAsset', () => {
               url: defaultLogoUrl,
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
@@ -48,7 +48,7 @@ describe('components/assets/AirtableAsset', () => {
               style: style,
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
@@ -78,7 +78,7 @@ describe('components/assets/AirtableAsset', () => {
                 style: style,
               }}
             />);
-          const img = renderer.toJSON();
+          const img: any = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
           expect(img.props.src).toEqual(defaultLogoUrl);
@@ -109,7 +109,7 @@ describe('components/assets/AirtableAsset', () => {
                 style: style,
               }}
             />);
-          const img = renderer.toJSON();
+          const img: any = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
           expect(img.props.src).toEqual(defaultLogoUrl);
@@ -144,7 +144,7 @@ describe('components/assets/AirtableAsset', () => {
                 style: style,
               }}
             />);
-          const img = renderer.toJSON();
+          const img: any = renderer.toJSON();
 
           expect(img.props.id).toEqual(id);
           expect(img.props.src).toEqual(defaultLogoUrl);
@@ -176,7 +176,7 @@ describe('components/assets/AirtableAsset', () => {
               },
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
@@ -206,7 +206,7 @@ describe('components/assets/AirtableAsset', () => {
               },
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
@@ -239,7 +239,7 @@ describe('components/assets/AirtableAsset', () => {
               height: 300,
             }}
           />);
-        const img = renderer.toJSON();
+        const img: any = renderer.toJSON();
 
         expect(img.props.id).toEqual(id);
         expect(img.props.src).toEqual(defaultLogoUrl);
@@ -264,8 +264,8 @@ describe('components/assets/AirtableAsset', () => {
             linkUrl: linkUrl,
           }}
         />);
-      const link = renderer.toJSON();
-      const img = renderer.root.findByType('img');
+      const link: any = renderer.toJSON();
+      const img: any = renderer.root.findByType('img');
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
@@ -306,8 +306,8 @@ describe('components/assets/AirtableAsset', () => {
             style: style,
           }}
         />);
-      const link = renderer.toJSON();
-      const img = renderer.root.findByType('img');
+      const link: any = renderer.toJSON();
+      const img: any = renderer.root.findByType('img');
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
@@ -352,8 +352,8 @@ describe('components/assets/AirtableAsset', () => {
             style: style,
           }}
         />);
-      const link = renderer.toJSON();
-      const img = renderer.root.findByType('img');
+      const link: any = renderer.toJSON();
+      const img: any = renderer.root.findByType('img');
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
@@ -400,8 +400,8 @@ describe('components/assets/AirtableAsset', () => {
           }}
           onClick={onClick}
         />);
-      const link = renderer.toJSON();
-      const img = renderer.root.findByType('img');
+      const link: any = renderer.toJSON();
+      const img: any = renderer.root.findByType('img');
 
       expect(img.props.id).toEqual(id);
       expect(img.props.src).toEqual(defaultLogoUrl);
