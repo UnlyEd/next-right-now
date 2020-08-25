@@ -61,6 +61,16 @@ exports[`I18nLink should properly render when using route params and query route
 </a>
 `;
 
+exports[`I18nLink should properly render when using route params and query route params using nested paths and forcing locale 1`] = `
+<a
+  href="/fr/products/favourites/5?userId=1"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Text
+</a>
+`;
+
 exports[`I18nLink should properly render when using wrapChildrenAsLink manually using a <NavLink> element 1`] = `
 <a
   className="nav-link"

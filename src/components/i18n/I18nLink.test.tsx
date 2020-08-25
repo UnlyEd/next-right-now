@@ -107,5 +107,16 @@ describe('I18nLink', () => {
       expect(link.props.href).toEqual('/en/products/favourites/5?userId=1');
       expect(link).toMatchSnapshot();
     });
+
+    test('when using route params and query route params using nested paths and forcing locale', () => {
+      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/favourites/[id]'} params={{id: 5}} query={{userId: 1}} locale={'fr'} />);
+      const link: any = renderer.toJSON();
+      console.log(link)
+
+      expect(link.type).toEqual('a');
+      expect(link.children).toEqual(['Text']);
+      expect(link.props.href).toEqual('/fr/products/favourites/5?userId=1');
+      expect(link).toMatchSnapshot();
+    });
   });
 });
