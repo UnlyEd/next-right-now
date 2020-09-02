@@ -185,7 +185,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
                 </I18nLink>
               )
             }
-
+            { ' | ' }
             <I18nLink
               href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
               params={{
