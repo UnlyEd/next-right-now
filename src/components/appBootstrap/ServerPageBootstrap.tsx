@@ -18,7 +18,7 @@ const logger = createLogger({
 export type ServerPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalPageProps & MultiversalAppBootstrapPageProps>;
 
 /**
- * Bootstraps the page, only when rendered on the browser
+ * Bootstraps the page, only when rendered on the server
  *
  * @param props
  */
