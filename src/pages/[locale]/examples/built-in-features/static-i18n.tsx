@@ -6,7 +6,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
-import uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';

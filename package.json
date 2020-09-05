@@ -111,6 +111,7 @@
     "react-i18next": "11.4.0",
     "reactstrap": "8.4.1",
     "recompose": "0.30.0",
+    "uuid": "8.3.0",
     "webfontloader": "1.6.28",
     "winston": "3.2.1"
   },
@@ -142,6 +143,7 @@
     "@types/react": "16.9.35",
     "@types/react-test-renderer": "16.9.3",
     "@types/reactstrap": "8.4.2",
+    "@types/uuid": "8.3.0",
     "@types/webfontloader": "1.6.30",
     "@types/webpack-env": "1.15.2",
     "@typescript-eslint/eslint-plugin": "2.33.0",
