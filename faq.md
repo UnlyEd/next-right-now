@@ -68,6 +68,20 @@ If you don't find what you're looking for, you can open a discussion/issue on gi
 
 [See original question](https://github.com/UnlyEd/next-right-now/issues/151)
 
+## What is `MultiversalAppBootstrap`?
+
+<div class="code-example" markdown="1">
+  **Question**: _I would like to understand the purpose of this component `MultiversalAppBootstrap.tsx` and its siblings components `BrowserPageBootstrap.tsx`, `ServerPageBootstrap.tsx` and `UniversalGlobalStyles.tsx`, I may have missed something in the documentation. But I don't understand its usefulness knowing that we have `_app` and `_document`... are to separate the logic of each type of rendering, or only for maintainability purposes?_
+</div>
+
+See the [Application Bootstrap concept](../concepts/app-bootstrap).
+
+If you don't find what you're looking for, you can open a discussion/issue on github.
+
+## What's the NRN page lifecycle?
+
+See the [Application Bootstrap page lifecycle](../concepts/app-bootstrap#whats-the-nrn-page-lifecycle).
+
 ---
 
 <div class="pagination-section space-even">

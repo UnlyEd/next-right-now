@@ -133,6 +133,6 @@ At least, we hope it does! :wink:
     [Guides: Tenancy](../guides/tenancy){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
-    [GraphQL >](./graphql){: .btn .btn-purple }
+    [Application bootstrap >](./app-bootstrap){: .btn .btn-purple }
     </span>
 </div>
