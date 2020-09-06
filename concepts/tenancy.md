@@ -130,6 +130,9 @@ At least, we hope it does! :wink:
     [< Environments and Stages](./env-and-stages){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [GraphQL >](./graphql){: .btn .btn-purple }
+    [Guides: Tenancy](../guides/tenancy){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Application bootstrap >](./app-bootstrap){: .btn .btn-purple }
     </span>
 </div>

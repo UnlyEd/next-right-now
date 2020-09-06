@@ -43,6 +43,45 @@ Error! The specified scope does not exist
 
 [See original question](https://github.com/UnlyEd/next-right-now/issues/14#issuecomment-601557549)
 
+## Should I be keeping the `MST` tenancy design even though I don't have use for it?
+
+<div class="code-example" markdown="1">
+  **Question**: _I don't find the "plugin" system that highly customizable since "plugins" seem to already be bundled into the 2 main templates you offer, and I have been having hard time trying to rip things out that I don't need (i18n/locize, example app, MST tenancy (although looks like I can opt out by not using certain now json files), and etc.)._
+</div>
+
+See our guide about ["How to remove MST"](../guides/tenancy/remove-MST).
+
+[See original question](https://github.com/UnlyEd/next-right-now/issues/151)
+
+
+## How do I remove plugins/features I do not want?
+
+<div class="code-example" markdown="1">
+  **Question**: _I don't find the "plugin" system that highly customizable since "plugins" seem to already be bundled into the 2 main templates you offer, and I have been having hard time trying to rip things out that I don't need (i18n/locize, example app, MST tenancy, etc.)._
+</div>
+
+See our ["How to remove X" guides](../guides). **Each tool has its own "How to remove" section.**
+
+If you don't find what you're looking for, you can open a discussion/issue on github.
+
+> Please contribute to the documentation if you manage to remove something that isn't properly documented! :blush:
+
+[See original question](https://github.com/UnlyEd/next-right-now/issues/151)
+
+## What is `MultiversalAppBootstrap`?
+
+<div class="code-example" markdown="1">
+  **Question**: _I would like to understand the purpose of this component `MultiversalAppBootstrap.tsx` and its siblings components `BrowserPageBootstrap.tsx`, `ServerPageBootstrap.tsx` and `UniversalGlobalStyles.tsx`, I may have missed something in the documentation. But I don't understand its usefulness knowing that we have `_app` and `_document`... are to separate the logic of each type of rendering, or only for maintainability purposes?_
+</div>
+
+See the [Application Bootstrap concept](../concepts/app-bootstrap).
+
+If you don't find what you're looking for, you can open a discussion/issue on github.
+
+## What's the NRN page lifecycle?
+
+See the [Application Bootstrap page lifecycle](../concepts/app-bootstrap#whats-the-nrn-page-lifecycle).
+
 ---
 
 <div class="pagination-section space-even">
