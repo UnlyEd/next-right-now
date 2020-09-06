@@ -15,8 +15,6 @@ Guide about how to remove the default demo examples so you can build your own ap
 The demo is great at showcasing features and explaining concepts, but you'll most likely want to tear it down, eventually.
 </div>
 
-{% include page-toc.md %}
-
 ---
 
 ## Example - Guide on how to remove the demo examples from the preset [v2-mst-aptd-at-lcz-sty](../../available-presets/v2-mst-aptd-at-lcz-sty)
