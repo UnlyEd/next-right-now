@@ -26,7 +26,7 @@ describe('Common > Nav section', () => {
     cy.get('#nav-link-examples-static-i-18-n')
       .should('have.text', 'Static i18n')
       .click();
-    cy.url({ timeout: 10000 }).should('eq', `${baseUrl}/en/examples/built-in-features/static-i18n`);
+    cy.url({ timeout: 45000 }).should('eq', `${baseUrl}/en/examples/built-in-features/static-i18n`);
     cy.get('h1').should('have.length', 1).should('have.text', 'Static i18n examples, using i18next and Locize vendor');
   });
 
@@ -37,7 +37,7 @@ describe('Common > Nav section', () => {
     cy.get('#nav-link-examples-ssr-get-server-side-props')
       .should('have.text', 'SSR (getServerSideProps)')
       .click();
-    cy.url({ timeout: 10000 }).should('eq', `${baseUrl}/en/examples/native-features/example-with-ssr`);
+    cy.url({ timeout: 45000 }).should('eq', `${baseUrl}/en/examples/native-features/example-with-ssr`);
     cy.get('h1').should('have.length', 1).should('have.text', 'Example, using SSR');
   });
 });
