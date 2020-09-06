@@ -36,5 +36,3 @@ It's very useful for managing a fleet of customers, but it comes at the price of
     - Cypress must run on the right deployment , not on the deployment of another customer.
 
 For instance, when we deploy a customer, we automatically run tests for this customer only. Other customers aren't affected.
-
-### Keeping MST design even though I
