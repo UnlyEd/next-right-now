@@ -46,7 +46,7 @@ Part of it is documented in [`MultiversalAppBootstrap`](https://github.com/UnlyE
 
 ## What is `Multiversal`?
 
-The term `Multiversal` is for code that runs on all situations, to make it obvious it's always executed, no matter what.
+The term `Multiversal` is meant for "code that runs on all situations", to make it obvious it's always executed, no matter what.
 
 The idea behind that `Multiversal` term _(which we invented ourselves)_ is that while `Universal` is well-known by developers and stands for code that runs on both the client and the server (or, for apps/tools that are compatible with both, depending on who wrote the definition), `Multiversal` stands for "code running no matter what".
 
