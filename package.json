@@ -102,7 +102,7 @@
     "lodash.startswith": "4.2.1",
     "lodash.xorby": "4.7.0",
     "markdown-to-jsx": "6.11.4",
-    "next": "9.5.3",
+    "next": "9.5.4-canary.4",
     "next-cookies": "2.0.3",
     "prop-types": "15.7.2",
     "rc-tooltip": "4.0.3",
