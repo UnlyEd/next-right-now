@@ -18,6 +18,7 @@ const date = new Date();
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}"`);
 
 module.exports = withBundleAnalyzer(withSourceMaps({
+  // basepath: '/', // If you want Next.js to cover only a subsection of the domain - See https://nextjs.org/blog/next-9-5#customizable-base-path
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel - See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
   env: {
     // XXX All env variables defined in ".env*" files that aren't public (don't start with "NEXT_PUBLIC_") MUST manually be made available at build time below
