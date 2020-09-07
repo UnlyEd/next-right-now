@@ -17,13 +17,46 @@ const date = new Date();
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}"`);
 
+/**
+ * This file is for advanced configuration of the Next.js framework.
+ *
+ * The below config applies to the whole application.
+ * next.config.js gets used by the Next.js server and build phases, and it's not included in the browser build.
+ *
+ * XXX Not all configuration options are listed below, we only kept those of most interest.
+ *  You'll need to dive into Next.js own documentation to find out about what's not included.
+ *  Basically, we focused on options that seemed important for a SSG/SSR app running on serverless mode (Vercel).
+ *  Also, we included some options by are not using them, this is mostly to help make you aware of those options, in case you'd need them.
+ *
+ * @see https://nextjs.org/docs/api-reference/next.config.js/introduction
+ */
 module.exports = withBundleAnalyzer(withSourceMaps({
-  // basepath: '/', // If you want Next.js to cover only a subsection of the domain - See https://nextjs.org/blog/next-9-5#customizable-base-path
-  // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel - See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
+  // basepath: '', // If you want Next.js to cover only a subsection of the domain. See https://nextjs.org/docs/api-reference/next.config.js/basepath
+  // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel. See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
+  // trailingSlash: false, // By default Next.js will redirect urls with trailing slashes to their counterpart without a trailing slash. See https://nextjs.org/docs/api-reference/next.config.js/trailing-slash
+
+  /**
+   * React's Strict Mode is a development mode only feature for highlighting potential problems in an application.
+   * It helps to identify unsafe lifecycles, legacy API usage, and a number of other features.
+   *
+   * Officially suggested by Next.js:
+   * We strongly suggest you enable Strict Mode in your Next.js application to better prepare your application for the future of React.
+   *
+   * If you or your team are not ready to use Strict Mode in your entire application, that's OK! You can incrementally migrate on a page-by-page basis using <React.StrictMode>.
+   *
+   * @see https://nextjs.org/docs/api-reference/next.config.js/react-strict-mode
+   */
+  // reactStrictMode: true, // XXX Disabled for now, but we should enable it
+
+  /**
+   * Environment variables added to JS bundle
+   *
+   * XXX All env variables defined in ".env*" files that aren't public (those that don't start with "NEXT_PUBLIC_") MUST manually be made available at build time below.
+   *  They're necessary on Vercel for runtime execution (SSR, SSG with revalidate, everything that happens server-side will need those).
+   *
+   * @see https://nextjs.org/docs/api-reference/next.config.js/environment-variables
+   */
   env: {
-    // XXX All env variables defined in ".env*" files that aren't public (don't start with "NEXT_PUBLIC_") MUST manually be made available at build time below
-    //  They're necessary on Vercel for runtime execution (SSR, SSG with revalidate, everything that happens server-side will need those)
-    //  See https://nextjs.org/docs/api-reference/next.config.js/environment-variables
     AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY,
     AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID,
     LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,
@@ -36,50 +69,99 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
   },
-  experimental: {
-    redirects() {
-      const redirects = [
-        {
-          // Redirect root link with trailing slash to non-trailing slash, avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
-          source: '/:locale/',
-          destination: '/:locale',
-          permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
-        },
-        {
-          // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
-          source: '/:locale/:path*/',
-          destination: '/:locale/:path*',
-          permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
-        },
-      ];
 
-      if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-        console.info('Using experimental redirects:', redirects);
-      }
+  /**
+   * Redirects allow you to redirect an incoming request path to a different destination path.
+   *
+   * Redirects are only available on the Node.js environment and do not affect client-side routing.
+   *
+   * @return {Promise<[{permanent: boolean, destination: string, source: string}, {permanent: boolean, destination: string, source: string}]>}
+   * @see https://nextjs.org/docs/api-reference/next.config.js/redirects
+   * @since 9.5 - See https://nextjs.org/blog/next-9-5#redirects
+   */
+  async redirects() {
+    const redirects = [
+      {
+        // Redirect root link with trailing slash to non-trailing slash, avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
+        source: '/:locale/',
+        destination: '/:locale',
+        permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
+      },
+      {
+        // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
+        source: '/:locale/:path*/',
+        destination: '/:locale/:path*',
+        permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
+      },
+    ];
 
-      return redirects;
-    },
-    rewrites() {
-      const rewrites = [
-        {
-          // XXX Doesn't work locally (maybe because of rewrites), but works online
-          source: '/',
-          destination: '/api/autoRedirectToLocalisedPage',
-        },
-        {
-          source: `/:locale((?!${noRedirectBasePaths.join('|')})[^/]+)(.*)`,
-          destination: '/api/autoRedirectToLocalisedPage',
-        },
-      ];
+    if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
+      console.info('Using redirects:', redirects);
+    }
 
-      if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-        console.info('Using experimental rewrites:', rewrites);
-      }
-
-      return rewrites;
-    },
+    return redirects;
   },
-  webpack: (config, { isServer, buildId }) => {
+
+  /**
+   * Rewrites allow you to map an incoming request path to a different destination path.
+   *
+   * Rewrites are only available on the Node.js environment and do not affect client-side routing.
+   *
+   * @return {Promise<[{destination: string, source: string}, {destination: string, source: string}]>}
+   * @see https://nextjs.org/docs/api-reference/next.config.js/rewrites
+   * @since 9.5 - See https://nextjs.org/blog/next-9-5#rewrites
+   */
+  async rewrites() {
+    const rewrites = [
+      {
+        // XXX Doesn't work locally (maybe because of rewrites), but works online
+        source: '/',
+        destination: '/api/autoRedirectToLocalisedPage',
+      },
+      {
+        source: `/:locale((?!${noRedirectBasePaths.join('|')})[^/]+)(.*)`,
+        destination: '/api/autoRedirectToLocalisedPage',
+      },
+    ];
+
+    if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
+      console.info('Using rewrites:', rewrites);
+    }
+
+    return rewrites;
+  },
+
+  /**
+   * Headers allow you to set custom HTTP headers for an incoming request path.
+   *
+   * @return {Promise<{headers: [{value: string, key: string}], source: string}[]>}
+   * @see https://nextjs.org/docs/api-reference/next.config.js/headers
+   * @since 9.5 - See https://nextjs.org/blog/next-9-5#headers
+   */
+  async headers() {
+    const headers = [];
+
+    if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
+      console.info('Using headers:', headers);
+    }
+
+    return headers;
+  },
+
+  /**
+   *
+   * The webpack function is executed twice, once for the server and once for the client.
+   * This allows you to distinguish between client and server configuration using the isServer property.
+   *
+   * @param config Current webpack config. Useful to reuse parts of what's already configured while overridding other parts.
+   * @param buildId The build id, used as a unique identifier between builds.
+   * @param dev Indicates if the compilation will be done in development.
+   * @param isServer It's true for server-side compilation, and false for client-side compilation.
+   * @param defaultLoaders Default loaders used internally by Next.js:
+   *  - babel Default babel-loader configuration
+   * @see https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
+   */
+  webpack: (config, { buildId, dev, isServer, defaultLoaders }) => {
     if (isServer) {
       // IS_SERVER_INITIAL_BUILD is meant to be defined only at build time and not at run time, and therefore must not be "made public"
       process.env.IS_SERVER_INITIAL_BUILD = '1';
@@ -96,7 +178,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     });
 
     if (isServer) { // Trick to only log once
-      console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}" ${process.env.IS_SERVER_INITIAL_BUILD ? 'with IS_SERVER_INITIAL_BUILD="1"': ''}`);
+      console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}" ${process.env.IS_SERVER_INITIAL_BUILD ? 'with IS_SERVER_INITIAL_BUILD="1"' : ''}`);
     }
 
     // Fixes npm packages that depend on `fs` module
@@ -125,5 +207,35 @@ module.exports = withBundleAnalyzer(withSourceMaps({
 
     return config;
   },
-  poweredByHeader: 'NRN - With love',
+
+  /**
+   * Next.js uses a constant id generated at build time to identify which version of your application is being served.
+   *
+   * This can cause problems in multi-server deployments when next build is ran on every server.
+   * In order to keep a static build id between builds you can provide your own build id.
+   *
+   * XXX We documented this function in case you might want to use it, but we aren't using it.
+   *
+   * @see https://nextjs.org/docs/api-reference/next.config.js/configuring-the-build-id
+   */
+  // generateBuildId: async () => {
+  //   // You can, for example, get the latest git commit hash here
+  //   return 'my-build-id'
+  // },
+
+  /**
+   * Next.js exposes some options that give you some control over how the server will dispose or keep in memory built pages in development.
+   *
+   * XXX We documented this function in case you might want to use it, but we aren't using it.
+   *
+   * @see https://nextjs.org/docs/api-reference/next.config.js/configuring-onDemandEntries
+   */
+  // onDemandEntries: {
+  //   // period (in ms) where the server will keep pages in the buffer
+  //   maxInactiveAge: 25 * 1000,
+  //   // number of pages that should be kept simultaneously without being disposed
+  //   pagesBufferLength: 2,
+  // },
+
+  poweredByHeader: 'Next Right Now - With love - https://github.com/UnlyEd/next-right-now', // See https://nextjs.org/docs/api-reference/next.config.js/disabling-x-powered-by
 }));
