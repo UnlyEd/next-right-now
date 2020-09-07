@@ -31,6 +31,10 @@ export const NATIVE_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
     href: '/examples/native-features/example-with-ssg-and-revalidate',
     label: 'SSG using revalidate',
   },
+  {
+    href: '/examples/native-features/example-optional-catch-all-routes',
+    label: 'Catch-all routes',
+  },
 ];
 
 /**
