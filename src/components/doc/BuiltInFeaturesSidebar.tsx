@@ -110,8 +110,8 @@ const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Elem
       <hr />
 
       <SidebarFooter
-        previousSectionHref={'/examples/native-features'}
-        nextSectionHref={'/examples/built-in-utilities'}
+        previousSectionHref={'/examples/native-features/example-with-ssr'}
+        nextSectionHref={'/examples/built-in-utilities/i18nLink-component'}
       />
     </div>
   );
