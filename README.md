@@ -90,11 +90,14 @@ Both documentations are related and there are many links from the demos toward t
 
 # Contributors and maintainers
 
-This project is being maintained by:
+This project is being authored by:
 - [Unly] Ambroise Dhenain ([Vadorequest](https://github.com/vadorequest)) **(active)**
 
-Special thanks to:
-- [Contributor] Hugo Martin ([Demmonius](https://github.com/Demmonius)) - Github Actions CI/CD pipeline
+**Special thanks to our contributors**:
+- Hugo Martin ([Demmonius](https://github.com/Demmonius)) - [Github Actions CI/CD pipeline](https://github.com/UnlyEd/next-right-now/pulls?q=is%3Apr+author%3ADemmonius+sort%3Aupdated-desc+)
+- Sovattha SOK ([sovattha](https://github.com/sovattha)) - [GraphQL Authorization](https://github.com/UnlyEd/next-right-now/pulls?q=is%3Apr+author%3Asovattha+sort%3Aupdated-desc)
+- Samuel Castro ([samuelcastro](https://github.com/samuelcastro)) - [Various stuff](https://github.com/UnlyEd/next-right-now/pulls?q=is%3Apr+author%3Asamuelcastro+sort%3Aupdated-desc)
+- Joshua Andrew Jourdain ([jajourda](https://github.com/jajourda)) - [Documentation](https://github.com/UnlyEd/next-right-now/pulls?q=is%3Apr+author%3Ajajourda+sort%3Aupdated-desc)
 
 ---
 
