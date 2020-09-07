@@ -16,7 +16,7 @@ NRN is maintained with several purposes in mind:
 - Provide various boilerplate [presets](./concepts/presets), to get started with the preset that matches the closest your needs.
 - To be **flexible** and allow for extensive **customisation**, based on your own needs and use-cases.
 
-Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience and your [feedback about opt-in 3rd parties](https://github.com/UnlyEd/next-right-now/issues/13)!
+Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience!
 
 :point_right: [**Documentation: Overview & benefits (getting started)**](https://unlyed.github.io/next-right-now/). :point_left:
 
