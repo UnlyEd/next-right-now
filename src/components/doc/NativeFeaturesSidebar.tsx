@@ -73,7 +73,7 @@ const NativeFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Eleme
       <hr />
 
       <SidebarFooter
-        nextSectionHref={'/examples/built-in-features'}
+        nextSectionHref={'/examples/built-in-features/hosting'}
       />
     </div>
   );

@@ -29,22 +29,26 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
   label: fileLabel,
 });
 
+type PageAdditionalServerSideParams = {
+  albumId: string;
+}
+
 /**
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): Promise<StaticPathsOutput> => {
-  const commonStaticPaths: StaticPathsOutput = await getExamplesCommonStaticPaths();
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): Promise<StaticPathsOutput<PageAdditionalServerSideParams>> => {
+  const commonStaticPaths: StaticPathsOutput<PageAdditionalServerSideParams> = await getExamplesCommonStaticPaths() as StaticPathsOutput<PageAdditionalServerSideParams>;
   const { paths } = commonStaticPaths;
   const albumIdsToPreBuild = ['1']; // Only '/album-1-with-ssg-and-fallback' is generated at build time, other will be generated on-demand
 
   map(albumIdsToPreBuild, (albumId: string): void => {
-    map(paths, (path: StaticPath) => {
+    map(paths, (path: StaticPath<PageAdditionalServerSideParams>) => {
       path.params.albumId = albumId;
     });
   });
 
-  const staticPaths: StaticPathsOutput = {
+  const staticPaths: StaticPathsOutput<PageAdditionalServerSideParams> = {
     ...commonStaticPaths,
     fallback: true,
   };
@@ -60,7 +64,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): 
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput<PageAdditionalServerSideParams>): Promise<StaticPropsOutput> => {
   const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
   const { params: { albumId } } = props;
 
@@ -186,7 +190,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
                 </I18nLink>
               )
             }
-            { ' | ' }
+            {' | '}
             <I18nLink
               href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
               params={{

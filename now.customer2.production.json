@@ -16,11 +16,5 @@
       "SENTRY_DSN": "@nrn-sentry-dsn"
     }
   },
-  "routes": [
-    {
-      "src": "/robots.txt",
-      "dest": "/robots/production.txt"
-    }
-  ],
   "public": false
 }
