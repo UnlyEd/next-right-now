@@ -139,7 +139,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
       preview,
       previewData,
     },
-    // unstable_revalidate: false,
+    // revalidate: false,
   };
 };
 
