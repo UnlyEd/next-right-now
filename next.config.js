@@ -84,6 +84,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    */
   async redirects() {
     const redirects = [
+      // I18n redirects
       {
         // Redirect root link with trailing slash to non-trailing slash, avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
         source: '/:locale/',
@@ -98,9 +99,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
       },
     ];
 
-    if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-      console.info('Using redirects:', redirects);
-    }
+    console.info('Using redirects:', redirects);
 
     return redirects;
   },
@@ -121,6 +120,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    */
   async rewrites() {
     const rewrites = [
+      // I18n rewrites
       {
         // XXX Doesn't work locally (maybe because of rewrites), but works online
         source: '/',
@@ -130,11 +130,15 @@ module.exports = withBundleAnalyzer(withSourceMaps({
         source: `/:locale((?!${noRedirectBasePaths.join('|')})[^/]+)(.*)`,
         destination: '/api/autoRedirectToLocalisedPage',
       },
+
+      // Robots rewrites
+      {
+        source: `/robots.txt`,
+        destination: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? `/robots/production.txt` : '/robots/!production.txt',
+      },
     ];
 
-    if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-      console.info('Using rewrites:', rewrites);
-    }
+    console.info('Using rewrites:', rewrites);
 
     return rewrites;
   },
@@ -151,9 +155,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   async headers() {
     const headers = [];
 
-    if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-      console.info('Using headers:', headers);
-    }
+    console.info('Using headers:', headers);
 
     return headers;
   },
