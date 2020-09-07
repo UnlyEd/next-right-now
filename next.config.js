@@ -74,8 +74,11 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    * Redirects allow you to redirect an incoming request path to a different destination path.
    *
    * Redirects are only available on the Node.js environment and do not affect client-side routing.
+   * By redirects, we mean HTTP Redirects (aka URL forwarding).
+   * Redirects are most commonly used when a website is reorganized — ensuring search engines and bookmarks are forwarded to their new locations.
+   * The destination url can be internal, or external.
    *
-   * @return {Promise<[{permanent: boolean, destination: string, source: string}, {permanent: boolean, destination: string, source: string}]>}
+   * @return { Promise<Array<{ permanent: boolean, destination: string, source: string, statusCode?: number }>> }
    * @see https://nextjs.org/docs/api-reference/next.config.js/redirects
    * @since 9.5 - See https://nextjs.org/blog/next-9-5#redirects
    */
@@ -106,8 +109,13 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    * Rewrites allow you to map an incoming request path to a different destination path.
    *
    * Rewrites are only available on the Node.js environment and do not affect client-side routing.
+   * Rewrites are the most commonly used form of custom routing — they're used for dynamic routes (pretty URLs), user-land routing libraries (e.g. next-routes), internationalization, and other advanced use cases.
    *
-   * @return {Promise<[{destination: string, source: string}, {destination: string, source: string}]>}
+   * For example, the route /user/:id rendering a specific user's profile page is a rewrite.
+   * Rendering your company's about page for both /about and /fr/a-propos is also a rewrite.
+   * The destination url can be internal, or external.
+   *
+   * @return { Promise<Array<{ destination: string, source: string, headers: Array<{ key: string, value: string }> }>> }
    * @see https://nextjs.org/docs/api-reference/next.config.js/rewrites
    * @since 9.5 - See https://nextjs.org/blog/next-9-5#rewrites
    */
@@ -134,7 +142,9 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   /**
    * Headers allow you to set custom HTTP headers for an incoming request path.
    *
-   * @return {Promise<{headers: [{value: string, key: string}], source: string}[]>}
+   * Headers allow you to set route specific headers like CORS headers, content-types, and any other headers that may be needed. They are applied at the very top of the routes.
+   *
+   * @return {Promise<Array<{ headers: [{value: string, key: string}], source: string }>>}
    * @see https://nextjs.org/docs/api-reference/next.config.js/headers
    * @since 9.5 - See https://nextjs.org/blog/next-9-5#headers
    */
