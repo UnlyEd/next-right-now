@@ -22,6 +22,9 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2020-09-07
+    - [Improved the NRN docs](https://github.com/UnlyEd/next-right-now/pull/160)
+    - [Migrated all `v2` presets from `v9.4.4` to Next.js `v9.5.4-canary.4`](https://github.com/UnlyEd/next-right-now/pull/161)
 - 2020-07-28
     - [GDPR - Add cookie consent UI](https://github.com/UnlyEd/next-right-now/pull/140)
 - 2020-07-21
