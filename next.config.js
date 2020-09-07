@@ -71,37 +71,21 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   },
 
   /**
-   * Redirects allow you to redirect an incoming request path to a different destination path.
+   * Headers allow you to set custom HTTP headers for an incoming request path.
    *
-   * Redirects are only available on the Node.js environment and do not affect client-side routing.
-   * By redirects, we mean HTTP Redirects (aka URL forwarding).
-   * Redirects are most commonly used when a website is reorganized — ensuring search engines and bookmarks are forwarded to their new locations.
-   * The destination url can be internal, or external.
+   * Headers allow you to set route specific headers like CORS headers, content-types, and any other headers that may be needed.
+   * They are applied at the very top of the routes.
    *
-   * @return { Promise<Array<{ permanent: boolean, destination: string, source: string, statusCode?: number }>> }
-   * @see https://nextjs.org/docs/api-reference/next.config.js/redirects
-   * @since 9.5 - See https://nextjs.org/blog/next-9-5#redirects
+   * @return {Promise<Array<{ headers: [{value: string, key: string}], source: string }>>}
+   * @see https://nextjs.org/docs/api-reference/next.config.js/headers
+   * @since 9.5 - See https://nextjs.org/blog/next-9-5#headers
    */
-  async redirects() {
-    const redirects = [
-      // I18n redirects
-      {
-        // Redirect root link with trailing slash to non-trailing slash, avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
-        source: '/:locale/',
-        destination: '/:locale',
-        permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
-      },
-      {
-        // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
-        source: '/:locale/:path*/',
-        destination: '/:locale/:path*',
-        permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
-      },
-    ];
+  async headers() {
+    const headers = [];
 
-    console.info('Using redirects:', redirects);
+    console.info('Using headers:', headers);
 
-    return redirects;
+    return headers;
   },
 
   /**
@@ -144,20 +128,37 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   },
 
   /**
-   * Headers allow you to set custom HTTP headers for an incoming request path.
+   * Redirects allow you to redirect an incoming request path to a different destination path.
    *
-   * Headers allow you to set route specific headers like CORS headers, content-types, and any other headers that may be needed. They are applied at the very top of the routes.
+   * Redirects are only available on the Node.js environment and do not affect client-side routing.
+   * By redirects, we mean HTTP Redirects (aka URL forwarding).
+   * Redirects are most commonly used when a website is reorganized — ensuring search engines and bookmarks are forwarded to their new locations.
+   * The destination url can be internal, or external.
    *
-   * @return {Promise<Array<{ headers: [{value: string, key: string}], source: string }>>}
-   * @see https://nextjs.org/docs/api-reference/next.config.js/headers
-   * @since 9.5 - See https://nextjs.org/blog/next-9-5#headers
+   * @return { Promise<Array<{ permanent: boolean, destination: string, source: string, statusCode?: number }>> }
+   * @see https://nextjs.org/docs/api-reference/next.config.js/redirects
+   * @since 9.5 - See https://nextjs.org/blog/next-9-5#redirects
    */
-  async headers() {
-    const headers = [];
+  async redirects() {
+    const redirects = [
+      // I18n redirects
+      {
+        // Redirect root link with trailing slash to non-trailing slash, avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
+        source: '/:locale/',
+        destination: '/:locale',
+        permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
+      },
+      {
+        // Redirect link with trailing slash to non-trailing slash (any depth), avoids 404 - See https://github.com/vercel/next.js/discussions/10651#discussioncomment-8270
+        source: '/:locale/:path*/',
+        destination: '/:locale/:path*',
+        permanent: process.env.NEXT_PUBLIC_APP_STAGE !== 'development', // Do not use permanent redirect locally to avoid browser caching when working on it
+      },
+    ];
 
-    console.info('Using headers:', headers);
+    console.info('Using redirects:', redirects);
 
-    return headers;
+    return redirects;
   },
 
   /**
