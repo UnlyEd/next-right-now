@@ -1,5 +1,7 @@
 import map from 'lodash.map';
+
 import { Logo } from '../../types/data/Logo';
+import { GenericObject } from '../../types/GenericObject';
 
 export const SIZE_XS = 'xs';
 export const SIZE_SM = 'sm';
@@ -68,7 +70,7 @@ export const toPixels = (value: number | string): string => {
  * @param sizesMultipliers
  * @returns {object}
  */
-export const generateSizes = ({ baseWidth, baseHeight, sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS }: { baseWidth: number; baseHeight: number; sizesMultipliers?: SizeMultiplier[] }): object => {
+export const generateSizes = ({ baseWidth, baseHeight, sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS }: { baseWidth: number; baseHeight: number; sizesMultipliers?: SizeMultiplier[] }): GenericObject => {
   const sizes = {};
 
   map(sizesMultipliers, (sizeMultiplier) => {

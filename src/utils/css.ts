@@ -3,6 +3,7 @@ import { createLogger } from '@unly/utils-simple-logger';
 import { getPropertyName } from 'css-to-react-native';
 import isPlainObject from 'lodash.isplainobject';
 import map from 'lodash.map';
+import { CSSStyles } from '../types/CSSStyles';
 
 const logger = createLogger({
   label: 'utils/css',
@@ -22,10 +23,10 @@ const logger = createLogger({
  * @param css
  * @return {object}
  */
-export const cssToReactStyle = (css: string | object): object => {
+export const cssToReactStyle = (css: string | CSSStyles): CSSStyles => {
   // If object is given, return object (could be react style object mistakenly provided)
   if (isPlainObject(css)) {
-    return css as object;
+    return css as CSSStyles;
   }
 
   // If falsy, then probably empty string or null, nothing to be done there

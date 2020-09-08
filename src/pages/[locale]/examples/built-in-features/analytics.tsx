@@ -223,6 +223,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
 
             <Button
               onClick={(): void => {
+                // eslint-disable-next-line no-console
                 console.log('Button click');
                 logEvent('analytics-button-test-event');
               }}
@@ -238,6 +239,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                   {({ logEvent }): JSX.Element => (
                     <Button
                       onClick={(): void => {
+                        // eslint-disable-next-line no-console
                         console.log('Button click');
                         logEvent('analytics-button-test-event');
                       }}

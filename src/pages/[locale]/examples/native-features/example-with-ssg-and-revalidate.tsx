@@ -3,10 +3,17 @@ import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import size from 'lodash.size';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Alert, Container } from 'reactstrap';
+import {
+  Alert,
+  Container,
+} from 'reactstrap';
 import AllProducts from '../../../../components/data/AllProducts';
 import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
@@ -20,7 +27,10 @@ import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import {
+  getExamplesCommonStaticPaths,
+  getExamplesCommonStaticProps,
+} from '../../../../utils/nextjs/SSG';
 import timeDifference from '../../../../utils/time/timeDifference';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-revalidate';
@@ -54,7 +64,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       products: customer.products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
       builtAt: new Date().toISOString(),
     },
-    revalidate: regenerationDelay, // eslint-disable-line @typescript-eslint/camelcase
+    revalidate: regenerationDelay,
   });
 };
 
