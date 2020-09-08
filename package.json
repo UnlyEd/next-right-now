@@ -173,7 +173,7 @@
     "now": "19.1.0",
     "react-test-renderer": "16.13.1",
     "ts-jest": "26.3.0",
-    "typescript": "3.9.2",
+    "typescript": "4.0.2",
     "version-bump-prompt": "6.1.0"
   }
 }
