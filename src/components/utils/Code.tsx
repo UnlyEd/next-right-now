@@ -1,10 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { CodeBlock, dracula } from 'react-code-blocks';
+import {
+  CodeBlock,
+  dracula,
+} from 'react-code-blocks';
+import { CSSStyles } from '../../types/CSSStyles';
 
 type Props = {
-  codeBlockStyle?: object;
+  codeBlockStyle?: CSSStyles;
   text: string;
 }
 

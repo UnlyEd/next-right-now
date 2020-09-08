@@ -81,7 +81,7 @@ rules: # See https://eslint.org/docs/rules
   linebreak-style:
     - error
     - unix
-  '@typescript-eslint/ban-ts-ignore': warn # ts-ignore are sometimes the only way to bypass a TS issue, we trust we will use them for good and not abuse them
+  '@typescript-eslint/ban-ts-comment': warn # ts-ignore are sometimes the only way to bypass a TS issue, we trust we will use them for good and not abuse them
   '@typescript-eslint/no-use-before-define': warn
   '@typescript-eslint/no-unused-vars':
     - warn
@@ -89,6 +89,12 @@ rules: # See https://eslint.org/docs/rules
       vars: 'all' # We don't want unused variables (noise) - XXX Note that this will be a duplicate of "no-unused-vars" rule
       args: 'none' # Sometimes it's useful to have unused arguments for later use, such as describing what args are available (DX)
       ignoreRestSiblings: true # Sometimes it's useful to have unused props for later use, such as describing what props are available (DX)
+  '@typescript-eslint/ban-types':
+    - error
+    -
+      extendDefaults: true
+      types:
+        '{}': false # Allow writing `type Props = {}` - See https://github.com/typescript-eslint/typescript-eslint/issues/2063#issuecomment-632833366
 overrides:
   - files: ['**/*.tsx']
     rules:

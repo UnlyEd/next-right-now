@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import { NextRouter, useRouter } from 'next/router';
 import React, { useState } from 'react';
 import ErrorPage from '../../pages/_error';
+import { GenericObject } from '../../types/GenericObject';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
 import Sentry from '../../utils/monitoring/sentry';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
@@ -63,7 +64,7 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <Amplitude
-      eventProperties={(inheritedProps): object => ({
+      eventProperties={(inheritedProps): GenericObject => ({
         ...inheritedProps,
         page: {
           ...inheritedProps.page,

@@ -90,7 +90,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
       builtAt: new Date().toISOString(),
     },
-    revalidate: regenerationDelay, // eslint-disable-line @typescript-eslint/camelcase
+    revalidate: regenerationDelay,
   });
 };
 
