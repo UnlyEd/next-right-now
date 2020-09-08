@@ -8,6 +8,7 @@ import isEmpty from 'lodash.isempty';
 import remove from 'lodash.remove';
 import xOrBy from 'lodash.xorby';
 
+import { GenericObject } from '../../types/GenericObject';
 import { SerializedRecord } from '../../types/SerializedRecord';
 
 const logger = createLogger({
@@ -61,7 +62,7 @@ export type FallbackConfig = {
   record: GenericRecord;
   key: string; // Key to find within the "record", same as lodash.get "path"
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  transform?(value: string | object | any, props: FallbackConfigTransformProps): any; // Transformation applied if that fallback is selected (key found in record)
+  transform?(value: string | GenericObject | any, props: FallbackConfigTransformProps): any; // Transformation applied if that fallback is selected (key found in record)
 }
 
 /**

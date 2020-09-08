@@ -28,6 +28,7 @@ describe(`utils/js/string.ts`, () => {
         expect(replaceAllOccurrences('example', 1)).toBe('example');
         // @ts-expect-error
         expect(replaceAllOccurrences('example', 'test')).toBe('example');
+        // @ts-ignore-error
         expect(replaceAllOccurrences('example', ['test'])).toBe('example');
       });
     });

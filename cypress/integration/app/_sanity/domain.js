@@ -1,6 +1,10 @@
 const baseUrl = Cypress.config().baseUrl;
 
-describe('Sanity checks > Domain', () => {
+describe('Sanity checks > Domain', {
+  retries: {
+    runMode: 2, // Allows 2 retries (for a total of 3 attempts) to reduce the probability of failing the whole tests suite because Vercel hasn't finished to deploy yet (which makes Cypress fail by trying to test the Vercel "waiting page", instead of our app)
+  }
+}, () => {
   /*
   * Visits the home page before any test
   */
