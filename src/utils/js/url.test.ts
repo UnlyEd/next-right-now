@@ -1,4 +1,9 @@
-import { decodeQueryParameter, encodeQueryParameter, filterExternalAbsoluteUrl } from './url';
+import { GenericObject } from '../../types/GenericObject';
+import {
+  decodeQueryParameter,
+  encodeQueryParameter,
+  filterExternalAbsoluteUrl,
+} from './url';
 
 /**
  * @group unit
@@ -43,13 +48,13 @@ describe(`utils/js/url.ts`, () => {
 
   describe(`encodeQueryParameter <> decodeQueryParameter <> encodeQueryParameter`, () => {
     test(`should encode and decode multiple times without altering data`, async () => {
-      const _decodedData: object = decodeQueryParameter(encodedData);
+      const _decodedData: GenericObject = decodeQueryParameter(encodedData);
       expect(_decodedData).toEqual(data);
 
       const _encodedData: string = encodeQueryParameter(_decodedData);
       expect(_encodedData).toEqual(encodedData);
 
-      const _decodedDataAgain: object = decodeQueryParameter(_encodedData);
+      const _decodedDataAgain: GenericObject = decodeQueryParameter(_encodedData);
       expect(_decodedDataAgain).toEqual(data);
     });
   });

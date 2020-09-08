@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import deepmerge from 'deepmerge';
 import isEmpty from 'lodash.isempty';
 import React from 'react';
+import { CSSStyles } from '../../types/CSSStyles';
 import { Asset } from '../../types/data/Asset';
 import { AssetTransformations } from '../../types/data/AssetTransformations';
 import { Link } from '../../types/data/Link';
@@ -14,13 +15,13 @@ type Props = {
   defaults?: Asset;
   override?: Asset;
   className?: string;
-  style?: object;
+  style?: CSSStyles;
   onClick?: () => void;
   linkOverride?: {
     id?: string;
     url?: string;
     target?: string;
-    style?: object;
+    style?: CSSStyles;
     classes?: string;
   };
 }

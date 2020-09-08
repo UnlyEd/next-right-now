@@ -7,6 +7,7 @@ import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
+import { GenericObject } from '../../types/GenericObject';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';
 import Sentry from '../../utils/monitoring/sentry';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
@@ -73,7 +74,7 @@ const QuickPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element 
 
   return (
     <Amplitude
-      eventProperties={(inheritedProps): object => ({
+      eventProperties={(inheritedProps): GenericObject => ({
         ...inheritedProps,
         page: {
           ...inheritedProps.page,

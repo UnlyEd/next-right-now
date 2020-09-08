@@ -1,4 +1,14 @@
-import { Cache, CounterCacheSet, CachedItem, CounterCacheFound, CounterCacheMiss, Get, HybridCacheStorage, Reset, Set } from './hybridCacheStorage';
+import {
+  Cache,
+  CachedItem,
+  CounterCacheFound,
+  CounterCacheMiss,
+  CounterCacheSet,
+  Get,
+  HybridCacheStorage,
+  Reset,
+  Set,
+} from './hybridCacheStorage';
 
 let cache: Cache = {};
 export let counterCacheMiss: CounterCacheMiss = 0;

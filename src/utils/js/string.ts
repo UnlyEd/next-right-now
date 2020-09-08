@@ -1,6 +1,8 @@
 import isPlainObject from 'lodash.isplainobject';
 import map from 'lodash.map';
 
+import { GenericObject } from '../../types/GenericObject';
+
 /**
  * Replace all occurrences in a string.
  *
@@ -14,7 +16,7 @@ import map from 'lodash.map';
  * @param {string} suffix
  * @return {string}
  */
-export const replaceAllOccurrences = (initialString: string, variables: object, prefix = '{', suffix = '}'): string => {
+export const replaceAllOccurrences = (initialString: string, variables: GenericObject<string>, prefix = '{', suffix = '}'): string => {
   if (isPlainObject(variables) && Object.keys(variables).length) {
     let replacedString = initialString;
 
@@ -39,7 +41,7 @@ export const replaceAllOccurrences = (initialString: string, variables: object, 
  *
  * @param string
  */
-export const removeTrailingSlash = (string): string => {
+export const removeTrailingSlash = (string: string): string => {
   if (string[string.length - 1] === '/') {
     return string.slice(0, -1);
   }
