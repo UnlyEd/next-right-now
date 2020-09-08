@@ -106,7 +106,7 @@
     "next": "9.5.4-canary.4",
     "next-cookies": "2.0.3",
     "prop-types": "15.7.2",
-    "rc-tooltip": "4.0.3",
+    "rc-tooltip": "5.0.0",
     "react": "16.13.1",
     "react-code-blocks": "0.0.8",
     "react-dom": "16.13.1",
