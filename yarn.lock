@@ -10,10 +10,10 @@
     lodash.debounce "^4.0.8"
     shallowequal "^1.0.2"
 
-"@amplitude/ua-parser-js@0.7.20":
-  version "0.7.20"
-  resolved "https://registry.yarnpkg.com/@amplitude/ua-parser-js/-/ua-parser-js-0.7.20.tgz#15652f8cc4fee72d962a5f2101cfde6f3c8e87b8"
-  integrity sha512-bmW++BLt1Hg+4HCExLXP+0Jhgy2eTsEevqkVc5o4yYbgwdP/gV3gEQXzyVrMVlWWNLgph/tFIkf5PVlSpCELEg==
+"@amplitude/ua-parser-js@0.7.24":
+  version "0.7.24"
+  resolved "https://registry.yarnpkg.com/@amplitude/ua-parser-js/-/ua-parser-js-0.7.24.tgz#2ce605af7d2c38d4a01313fb2385df55fbbd69aa"
+  integrity sha512-VbQuJymJ20WEw0HtI2np7EdC3NJGUWi8+Xdbc7uk8WfMIF308T0howpzkQ3JFMN7ejnrcSM/OyNGveeE3TP3TA==
 
 "@ampproject/toolbox-core@^2.6.0":
   version "2.6.0"
@@ -2898,12 +2898,12 @@ ally.js@1.4.1:
     css.escape "^1.5.0"
     platform "1.3.3"
 
-amplitude-js@6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/amplitude-js/-/amplitude-js-6.2.0.tgz#fc5d3b4d0cecd8f4b17d8d9770f13ed565aaaea0"
-  integrity sha512-l+00XubD0ZJHcWUBMzV6JrtXs1JhsqO/qGoDbYLtljtgup/cCclOAuirwQJMtYLRP6vEmstGjZtq1Ew9nWnzug==
+amplitude-js@7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/amplitude-js/-/amplitude-js-7.1.1.tgz#3e3282be836aa4245eb2d6e52f16ecbb81c0b6d2"
+  integrity sha512-grEQf0p4V/q4aIcGYdGEJ6EquBXu91R/RorsYTQvh9O6sxjpwHf5vSDICQJq7twEElBrSHoSF77GUvC9ZTBj4A==
   dependencies:
-    "@amplitude/ua-parser-js" "0.7.20"
+    "@amplitude/ua-parser-js" "0.7.24"
     blueimp-md5 "^2.10.0"
     query-string "5"
 
