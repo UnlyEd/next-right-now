@@ -147,6 +147,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                     Sentry.captureException(error);
                     console.error(error); // eslint-disable-line no-console
                   },
+                  sameSite: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
                 });
 
                 amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
