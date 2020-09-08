@@ -1,5 +1,6 @@
 1. `git clone https://github.com/UnlyEd/next-right-now.git nrn-quick-start` - Clones the boilerplate
 1. `cd nrn-quick-start && git checkout {{ include.preset }}` - Selects the preset branch
+1. `cp .env.local.example .env.local` - Uses the default ENV variables when running locally
 1. `yarn` - Installs all deps from `package.json`
 1. `yarn start` - Starts the app on [http://localhost:8888/](http://localhost:8888/)
 
