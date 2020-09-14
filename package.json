@@ -74,7 +74,11 @@
       "src/types",
       "src/utils"
     ],
-    "exclude": [".test."],
+    "exclude": [
+      ".test.",
+      "src/utils/extend-jest/*",
+      "src/utils/svg/svgTemplate.ts"
+    ],
     "entrypoints": [
       "src/pages"
     ]
