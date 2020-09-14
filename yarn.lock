@@ -8776,33 +8776,6 @@ lru_map@^0.3.3:
   resolved "https://registry.yarnpkg.com/lru_map/-/lru_map-0.3.3.tgz#b5c8351b9464cbd750335a79650a0ec0e56118dd"
   integrity sha1-tcg1G5Rky9dQM1p5ZQoOwOVhGN0=
 
-madge@3.9.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/madge/-/madge-3.9.0.tgz#7bcc6d6265e88049685cb5bb075cd1b16b90fcf5"
-  integrity sha512-ABR2ZTFga+TPLzlu2u46lcv8WwOzoI6VMTMqe3DyaY0igzyGpXiOIH1vAtziSKC4UHuyTpwkfhjWN5qOYR/5OA==
-  dependencies:
-    chalk "^4.0.0"
-    commander "^5.1.0"
-    commondir "^1.0.1"
-    debug "^4.0.1"
-    dependency-tree "^7.2.1"
-    detective-amd "^3.0.0"
-    detective-cjs "^3.1.1"
-    detective-es6 "^2.1.0"
-    detective-less "^1.0.2"
-    detective-postcss "^3.0.1"
-    detective-sass "^3.0.1"
-    detective-scss "^2.0.1"
-    detective-stylus "^1.0.0"
-    detective-typescript "^5.8.0"
-    graphviz "0.0.9"
-    ora "^4.0.4"
-    pify "^5.0.0"
-    pluralize "^8.0.0"
-    pretty-ms "^7.0.0"
-    rc "^1.2.7"
-    walkdir "^0.4.1"
-
 madge@^3.8.0:
   version "3.9.2"
   resolved "https://registry.yarnpkg.com/madge/-/madge-3.9.2.tgz#a432de2c858092d379c2910a21a622ad2b1b24c7"
