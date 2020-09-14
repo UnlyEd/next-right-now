@@ -62,17 +62,7 @@
     "alias": {},
     "debug": true,
     "include": [
-      "src/components",
-      "src/gql",
-      "src/hocs",
-      "src/hooks",
-      "src/middlewares",
-      "src/mocks",
-      "src/pages",
-      "src/propTypes",
-      "src/stores",
-      "src/types",
-      "src/utils"
+      "src"
     ],
     "exclude": [
       ".test.",
