@@ -8,18 +8,20 @@ import React, { useState } from 'react';
 import ErrorPage from '../../pages/_error';
 import customerContext from '../../stores/customerContext';
 import i18nContext from '../../stores/i18nContext';
+import previewModeContext from '../../stores/previewModeContext';
 import { Theme } from '../../types/data/Theme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
+import { stringifyQueryParameters } from '../../utils/app/router';
 import { initCustomerTheme } from '../../utils/data/theme';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
+import { startPreviewMode, stopPreviewMode } from '../../utils/nextjs/previewMode';
 import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 import UniversalGlobalStyles from './UniversalGlobalStyles';
-import previewModeContext from '../../stores/previewModeContext';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
@@ -79,6 +81,22 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       // SSG
       preview = pageProps.preview;
       previewData = pageProps.previewData;
+
+      if (isBrowser()) {
+        const queryParameters: string = stringifyQueryParameters(router);
+
+        // XXX If we are running in staging stage and the preview mode is not enabled, then we force enable it
+        //  We do this to enforce the staging stage is being used as a "preview environment" so it satisfies our publication workflow
+        //  If we're running in development, then we don't enforce anything
+        //  If we're running in production, then we force disable the preview mode, because we don't want to allow it in production
+        if (process.env.NEXT_PUBLIC_APP_STAGE === 'staging' && !preview) {
+          startPreviewMode(queryParameters);
+        } else if (process.env.NEXT_PUBLIC_APP_STAGE === 'production' && preview) {
+          logger.error('Preview mode is not allowed in production, but was detected as enabled. It will now be disabled by force.');
+          Sentry.captureMessage('Preview mode is not allowed in production, but was detected as enabled. It will now be disabled by force.', Sentry.Severity.Error);
+          stopPreviewMode(queryParameters);
+        }
+      }
     } else {
       // SSR
       preview = false;

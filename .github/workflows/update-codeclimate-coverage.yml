@@ -7,7 +7,7 @@ name: Update Code Climate test coverage
 on:
   push:
     branches:
-      - 'v2-mst-aptd-gcms-lcz-sty' # Change this branch name by your "main" branch use
+      - 'v2-mst-aptd-at-lcz-sty' # Change this branch name by your CodeClimate "main" branch use
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
@@ -31,4 +31,4 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }} # XXX Define this secret in "Github repo > Settings > Secrets", you can get it from Code Climate in "Repo settings > Test coverage".
         with:
-          coverageCommand: yarn test:coverage
+          coverageCommand: yarn test:coverage:group:no-integration

@@ -134,8 +134,8 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
 
           .btn-border{
              background-color: transparent;
-             color: ${theme.primaryColor};
-             border: 1.5px solid ${theme.primaryColor};
+             color: ${primaryColor};
+             border: 1.5px solid ${primaryColor};
              border-radius: 30px;
              margin: 5px;
              padding: 5px 12px 5px 12px;
@@ -261,6 +261,24 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
           .fade {
             opacity: 1 !important; // Overrides default bootstrap behaviour to avoid make-believe SSR doesn't work on the demo, when JS is disabled - See https://github.com/UnlyEd/next-right-now/issues/9
           }
+        }
+
+        // Overrides of CookieConsent
+        .cc-revoke {
+          border: 1px solid lightgrey;
+        }
+
+        .cc-btn.cc-allow {
+          background-color: ${primaryColor} !important;
+          color: white !important;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+
+        .cc-btn.cc-deny {
+          color: darkgrey !important;
         }
       `}
     />

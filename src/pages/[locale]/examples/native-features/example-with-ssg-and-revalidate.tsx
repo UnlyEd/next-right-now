@@ -10,7 +10,6 @@ import React from 'react';
 import { Alert, Container } from 'reactstrap';
 import AllProducts from '../../../../components/data/AllProducts';
 import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
-import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
 import ExternalLink from '../../../../components/utils/ExternalLink';
@@ -91,7 +90,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
       builtAt: new Date().toISOString(),
     },
-    unstable_revalidate: regenerationDelay, // eslint-disable-line @typescript-eslint/camelcase
+    revalidate: regenerationDelay,
   });
 };
 

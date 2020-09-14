@@ -6,17 +6,20 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Alert, Container } from 'reactstrap';
-import uuid from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
+import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
+import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import withApollo from '../../../../hocs/withApollo';
+import useI18n, { I18n } from '../../../../hooks/useI18n';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import { resolveCustomerVariationLang } from '../../../../utils/i18n/i18n';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
-import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -51,6 +54,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
   const { t } = useTranslation();
+  const { lang }: I18n = useI18n();
 
   return (
     <DefaultLayout
@@ -103,40 +107,44 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
         </Alert>
 
         <Container>
+          <h2>Translation using <code>t</code> function</h2>
+
           <div>
             {t('examples.i18n.simpleTranslation', 'Traduction simple')}<br />
-            <code>{'{t(\'examples.i18n.simpleTranslation\', \'Traduction simple\')}'}</code>
+            <Code
+              text={`
+                {t('examples.i18n.simpleTranslation', 'Traduction simple')}
+              `}
+            />
           </div>
           <hr />
+
+          <h2>Translation with plurals</h2>
+
+          <Alert color={'info'}>
+            Plurals work with the <code>count</code> property, which is the amount of items.<br />
+            It's a very particular variable, only meant for that purpose.<br />
+            <ExternalLink href={'https://www.i18next.com/translation-function/plurals'}>Read the doc</ExternalLink>
+          </Alert>
 
           <div>
             {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 1 })}<br />
-            <code>{'{t(\'examples.i18n.pluralTranslation\', \'Traduction avec gestion du pluriel\', { count: 1 })}'}</code>
+            <Code
+              text={`
+                {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 1 })}
+              `}
+            />
           </div>
+          <br />
           <div>
             {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 2 })}<br />
-            <code>{'{t(\'examples.i18n.pluralTranslation\', \'Traduction avec gestion du pluriel\', { count: 2 })}'}</code>
+            <Code
+              text={`
+                {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 2 })}
+              `}
+            />
           </div>
-          <hr />
-
-          <div>
-            <DisplayOnBrowserMount>
-              <Trans
-                i18nKey={'examples.i18n.dynamicTranslation'}
-              >
-                Contenu dynamique : <b>{{ uuid: uuid() }}</b>
-              </Trans>
-              <br />
-              <code>
-                {'<Trans\n' +
-                '  i18nKey="{\'examples.i18n.dynamicTranslation\'}"\n' +
-                '>\n' +
-                '  Contenu dynamique : <b>{{ uuid: uuid() }}</b>\n' +
-                '</Trans>'}
-              </code>
-            </DisplayOnBrowserMount>
-          </div>
-          <hr />
+          <br />
 
           <div>
             <Trans
@@ -146,16 +154,18 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
               Nous avons trouvé {{ count: 1 }} solution pour vous.
             </Trans>
             <br />
-            <code>
-              {'<Trans\n' +
-              '  i18nKey="{\'examples.i18n.dynamicPluralTranslation\'}"\n' +
-              '  count="{1}"\n' +
-              '>\n' +
-              '  Nous avons trouvé {{ count: 1 }} solution pour vous.\n' +
-              '</Trans>'}
-            </code>
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.dynamicPluralTranslation'}
+                  count={1}
+                >
+                  Nous avons trouvé {{ count: 1 }} solution pour vous.
+                </Trans>
+              `}
+            />
           </div>
-          <hr />
+          <br />
 
           <div>
             <Trans
@@ -165,14 +175,118 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
               Nous avons trouvé {{ count: 2 }} solution pour vous.
             </Trans>
             <br />
-            <code>
-              {'<Trans\n' +
-              '  i18nKey="{\'examples.i18n.dynamicPluralTranslation\'}"\n' +
-              '  count="{2}"\n' +
-              '>\n' +
-              '  Nous avons trouvé {{ count: 2 }} solution pour vous.\n' +
-              '</Trans>'}
-            </code>
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.dynamicPluralTranslation'}
+                  count={2}
+                >
+                  Nous avons trouvé {{ count: 2 }} solution pour vous.
+                </Trans>
+              `}
+            />
+          </div>
+          <hr />
+
+          <h2>Translation using variables</h2>
+
+          <div>
+            <DisplayOnBrowserMount>
+              <Trans
+                i18nKey={'examples.i18n.dynamicTranslation'}
+              >
+                Contenu dynamique : <b>{{ uuid: uuid() }}</b>
+              </Trans>
+              <br />
+              <Code
+                text={`
+                  <Trans
+                    i18nKey={'examples.i18n.dynamicTranslation'}
+                  >
+                    Contenu dynamique : <b>{{ uuid: uuid() }}</b>
+                  </Trans>
+                `}
+              />
+            </DisplayOnBrowserMount>
+          </div>
+          <hr />
+
+          <h2>Automated fallback - Handling missing translations</h2>
+
+          <Alert color={'info'}>
+            It will happen that some translations are missing, in such case NRN has been configured to fallback to another language (AKA "fallback" language).<br />
+            French has been defined as the default language in NRN (Locize configuration), meaning all translations must always exist for the French language.<br />
+          </Alert>
+
+          <div>
+            <Trans
+              i18nKey={'examples.i18n.missingTranslationWithFallback'}
+            >
+              Cette phrase n'est pas traduite en anglais, et sera affichée en Français même quand la langue anglaise est utilisée<br />
+              (This sentence is not translated in English, and will be displayed in French even when English language is being used)<br />
+              <i>
+                Note that I actually translated it (within the same sentence), so that non-French speakers may understand the explanation/feature.<br />
+                Basically, if a static translation is not found in any non-primary language, then NRN automatically fall backs to another language, so that something gets displayed in any way.
+              </i>
+            </Trans>
+            <br />
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.missingTranslationWithFallback'}
+                >
+                  Cette phrase n'est pas traduite en anglais, et sera affichée en Français même quand la langue anglaise est utilisée<br />
+                  (This sentence is not translated in English, and will be displayed in French even when English language is being used)<br />
+                  <i>
+                    Note that I actually translated it (within the same sentence), so that non-French speakers may understand the explanation/feature.<br />
+                    Basically, if a static translation is not found in any non-primary language, then NRN automatically fall backs to another language, so that something gets displayed in any way.
+                  </i>
+                </Trans>
+              `}
+            />
+          </div>
+          <hr />
+
+          <h2>Customising translations, per customer</h2>
+
+          <Alert color={'info'}>
+            You may need to allow some translations to be overridden by a particular customer.<br />
+            NRN comes with built-in support for this advanced need, and uses additional Locize "Languages" to store "variations" of the translations.
+          </Alert>
+
+          <div>
+            <Trans
+              i18nKey={'examples.i18n.translationUsingCustomerVariation'}
+            >
+              Cette traduction est spécifique au customer "{{ customerRef: process.env.NEXT_PUBLIC_CUSTOMER_REF }}". <br />
+              Chaque customer peut surcharger ses propres traductions, en créant une clé Locize dans son <code>"{{ customerVariationLang: resolveCustomerVariationLang(lang) }}"</code> langage.<br />
+              Cette traduction va surcharger/remplacer la traduction de base, pour ce customer.<br />
+              <br />
+              Exemple:
+            </Trans>
+            <br />
+            <Code
+              text={`
+                <Trans
+                  i18nKey={'examples.i18n.translationUsingCustomerVariation'}
+                >
+                  Cette traduction est spécifique au customer "{{ customerRef: process.env.NEXT_PUBLIC_CUSTOMER_REF }}". <br />
+                  Chaque customer peut surcharger ses propres traductions, en créant une clé Locize dans son <code>"{{ customerVariationLang: resolveCustomerVariationLang(lang)}}"</code> langage.<br />
+                  Cette traduction va surcharger/remplacer la traduction de base, pour ce customer.<br />
+                  <br />
+                  Exemple:
+                </Trans>
+              `}
+            />
+            <Alert color={'warning'}>
+              This requires you create a new <code>Language</code> in Locize first, for instance: <code>fr-x-customer1</code> and <code>en-x-customer1</code><br />
+              <br />
+              The <code>-x-</code> stands for "variation", it's the official way to create custom language variations that are specific to your business needs, when using i18next.
+            </Alert>
+            <Alert color={'info'}>
+              You will need to check how this page displays on other customers to see this particular behaviour. <br />
+              <ExternalLink href={'https://github.com/UnlyEd/next-right-now#overview-of-available-presets'}>Check out the README to see all other demos.</ExternalLink> (e.g: customer 1/2)
+            </Alert>
           </div>
         </Container>
       </DocPage>

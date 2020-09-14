@@ -8,19 +8,13 @@
       "NEXT_PUBLIC_APP_STAGE": "production",
       "NEXT_PUBLIC_NRN_PRESET": "v2-mst-aptd-gcms-lcz-sty",
       "NEXT_PUBLIC_CUSTOMER_REF": "customer2",
+      "NEXT_PUBLIC_LOCIZE_PROJECT_ID": "@nrn-locize-project-id",
+      "NEXT_PUBLIC_AMPLITUDE_API_KEY": "@nrn-amplitude-api-key-production",
       "GRAPHQL_API_ENDPOINT": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",
       "GRAPHQL_API_KEY": "@nrn-graphql-api-key",
-      "NEXT_PUBLIC_LOCIZE_PROJECT_ID": "@nrn-locize-project-id",
       "LOCIZE_API_KEY": "The Locize API Key shouldn't be used in production (see https://github.com/locize/i18next-locize-backend#backend-options) because it's related to development-only features, and it's sensitive.",
-      "NEXT_PUBLIC_AMPLITUDE_API_KEY": "@nrn-amplitude-api-key-production",
       "SENTRY_DSN": "@nrn-sentry-dsn"
     }
   },
-  "routes": [
-    {
-      "src": "/robots.txt",
-      "dest": "/robots/production.txt"
-    }
-  ],
   "public": false
 }

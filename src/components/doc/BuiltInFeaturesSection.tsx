@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle, Alert } from 'reactstrap';
+import { Alert, Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap';
 import I18nLink from '../i18n/I18nLink';
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
@@ -168,6 +168,23 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/css-in-js'}>
                   <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Cookies consent</h3></CardTitle>
+            <CardSubtitle>&ldquo;Cookies consent using <code>CookieConsent</code> OSS library&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://github.com/osano/cookieconsent'}>
+                  <Button color={'link'}>Learn more about the "Cookie consent" library</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/built-in-features/cookies-consent'}>
+                  <Button color={'link'}>Learn more about user consent and its impact on analytics</Button>
                 </I18nLink>
               </div>
             </CardText>

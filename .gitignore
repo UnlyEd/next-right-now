@@ -144,3 +144,8 @@ src/svg/*.tsx
 _site
 .sass-cache
 .jekyll-metadata
+
+# Tmp files (cache, etc.)
+*.cache
+
+.vercel

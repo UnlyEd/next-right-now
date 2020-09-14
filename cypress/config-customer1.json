@@ -1,7 +1,8 @@
 {
-  "baseUrl": "https://nrn-v2-mst-aptd-gcms-lcz-sty-c1.now.sh/",
+  "baseUrl": "https://nrn-v2-mst-aptd-gcms-lcz-sty-c1.vercel.app",
   "projectId": "4dvdog",
   "screenshotsFolder": "cypress/screenshots/customer1",
   "videosFolder": "cypress/videos/customer1",
-  "env": {}
+  "env": {},
+  "ignoreTestFiles": "*.md"
 }

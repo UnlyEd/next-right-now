@@ -1,17 +1,17 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import React from 'react';
 import { Alert, Jumbotron } from 'reactstrap';
+import { LogEvent } from '../../types/Amplitude';
 
 import I18nLink from '../i18n/I18nLink';
 import ExternalLink from '../utils/ExternalLink';
-import Text from '../utils/Text';
 
 type Props = {
   // XXX Beware when passing down the "logEvent", because it'll use the props attached from the <Amplitude> tag it comes from
   //  It's not an issue here, because we don't "supercharge" it with additional event/user properties
   //  But, if we had wanted to do so, we should have used a different <Amplitude> component here, and supercharge its properties
-  logEvent: Function;
+  logEvent: LogEvent;
 }
 
 /**
@@ -27,9 +27,11 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
       className={'center'}
     >
       <h1>Next Right Now Demo</h1>
-      <h2 css={css`
-        font-size: 20px;
-      `}>
+      <h2
+        css={css`
+          font-size: 20px;
+        `}
+      >
         This demo uses the preset
         <ExternalLink href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NEXT_PUBLIC_NRN_PRESET}`}>
           <code>{process.env.NEXT_PUBLIC_NRN_PRESET}</code>
@@ -38,14 +40,14 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
 
       <ExternalLink
         href={'https://unlyed.github.io/next-right-now/concepts/presets'}
-        onClick={(): void => logEvent('open-what-is-preset-doc')}
+        onClick={(): number => logEvent('open-what-is-preset-doc')}
       >
         What is a preset?
       </ExternalLink>
       &nbsp;-&nbsp;
       <ExternalLink
         href={'https://unlyed.github.io/next-right-now/getting-started/select-preset'}
-        onClick={(): void => logEvent('open-see-all-presets-doc')}
+        onClick={(): number => logEvent('open-see-all-presets-doc')}
       >
         See all presets
       </ExternalLink>

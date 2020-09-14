@@ -1,0 +1,33 @@
+// XXX Overrides CSS styles - See https://pmarsceill.github.io/just-the-docs/docs/customization/#override-and-completely-custom-styles
+
+blockquote {
+  border-left: #f4f1fa 1px solid;
+  padding-left: 25px;
+}
+
+.pagination-section {
+  display: flex;
+  justify-content: space-between;
+
+  &.space-even {
+    justify-content: space-evenly;
+  }
+}
+
+// Overrides https://github.com/jekyll/jemoji for better positioning alongside text
+img.emoji {
+  top: 5px;
+  position: relative;
+}
+
+h1 {
+  code {
+    font-size: 36px;
+  }
+}
+
+h2 {
+  code {
+    font-size: 24px;
+  }
+}

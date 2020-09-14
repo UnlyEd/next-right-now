@@ -1,5 +1,5 @@
 import { CommonServerSideParams } from './CommonServerSideParams';
 
-export type StaticPath = {
-  params: CommonServerSideParams;
+export type StaticPath<E extends {} = {}> = {
+  params: CommonServerSideParams<E>;
 }

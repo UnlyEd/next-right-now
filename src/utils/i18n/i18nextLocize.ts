@@ -1,12 +1,13 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
+import deepmerge from 'deepmerge';
 import i18next, { i18n } from 'i18next';
 import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github.com/locize/i18next-locize-backend/issues/323#issuecomment-619625571
 import get from 'lodash.get';
 import map from 'lodash.map';
 import { initReactI18next } from 'react-i18next';
-import { LANG_EN, LANG_FR } from './i18n';
+import { resolveCustomerVariationLang, resolveFallbackLanguage } from './i18n';
 
 const logger = createLogger({
   label: 'utils/i18n/i18nextLocize',
@@ -19,7 +20,10 @@ let globalI18nextInstance: i18n = null;
 /**
  * A resource locale can be either using a "flat" format or a "nested" format
  *
- * @example
+ * XXX We strongly recommend to use either, but not both. Pick your choice at the beginning of the project and stick with it.
+ *  We personally chose the "nested" format.
+ *
+ * @example Nested format
  * {
  *    "login": {
  *        "label": "Log in",
@@ -27,7 +31,7 @@ let globalI18nextInstance: i18n = null;
  *    }
  * }
  *
- * @example
+ * @example Flat format
  * {
  *    "login.label": "Log in",
  *    "login.user": "User Name",
@@ -58,6 +62,7 @@ export type I18nextResources = {
 /**
  * Memoized i18next resources are timestamped, to allow for cache invalidation strategies
  * The timestamp's value is the time when the memoized cache was created
+ * It is used as "max-age", to discard/refresh cache when it's too old
  */
 export type MemoizedI18nextResources = {
   resources: I18nextResources;
@@ -81,10 +86,12 @@ const _memoizedI18nextResources: {
  * Max age of the memoized cache (value in seconds)
  *
  * Once the cache is older than max age, it gets invalidated
- * This is used in both the browser and the server, but it's meant to be the most useful on the server
+ * This is used in both the browser and the server, but it's meant to be the most useful on the server (especially for SSR pages)
  * - The browser will reset its own memoized cache as soon as the user refreshes the page (f5, etc.), so it's very not likely to ever reach max age
  * - The server, on the other hand, may very much reach max age and needs to perform some cache invalidation from time to time,
  *    to make sure we use the latest translations
+ *
+ * For SSG pages, because Locize is not used at runtime, but only queried at build time, the whole caching process is not relevant and isn't really used
  *
  * @type {number} seconds
  */
@@ -123,7 +130,11 @@ const memoizedCacheMaxAge = ((): number => {
 
 /**
  * The default namespace name used to store all our translations
- * (Must be manually created in Locize's project before being used)
+ *
+ * We made the opinionated choice to only use one namespace for the whole app, because we don't see the need for a more complex setup at this point
+ * Feel free to change this behaviour and use several namespaces, if necessary
+ *
+ * XXX Must be manually created in Locize's project before being usable
  *
  * @type {string}
  */
@@ -139,9 +150,14 @@ const defaultNamespace = 'common';
  */
 export const locizeOptions = {
   projectId: process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID || undefined,
-  apiKey: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? null : process.env.LOCIZE_API_KEY, // XXX Only define the API key on non-production environments (allows to use saveMissing from server)
-  version: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'production' : 'latest', // XXX On production, use a dedicated production version
-  referenceLng: 'fr',
+  // XXX The API key must only be used on non-production environments (allows to use saveMissing features when working on the app)
+  //  It must never be shared with the production environment, as it could incur costs and also could be used by attackers to make undesired changes to your app
+  //  We strongly recommend to restrain the scope of your API keys so that those you use to work on the app locally cannot be used to change the production translation (in case they get leaked)
+  apiKey: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? null : process.env.LOCIZE_API_KEY,
+  // XXX On production, we use a dedicated production version
+  //  You may want to use fixed versions instead (e.g: 1.0.0, etc.), it depends on your workflow really
+  version: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'production' : 'latest',
+  referenceLng: 'fr', // Language of reference, used to define the default translations
 };
 
 /**
@@ -155,7 +171,7 @@ export const locizeOptions = {
  */
 export const locizeBackendOptions = {
   ...locizeOptions,
-  // XXX "build" is meant to automatically invalidate the browser cache when releasing a different version,
+  // XXX The "build" parameter is meant to automatically invalidate the browser cache when releasing a different version,
   //  so that the end-users get the newest version immediately
   loadPath: `https://api.locize.app/{{projectId}}/{{version}}/{{lng}}/{{ns}}?build=${process.env.NEXT_PUBLIC_BUILD_TIMESTAMP}`,
   private: false, // Should never be private
@@ -176,7 +192,83 @@ export const locizeBackendOptions = {
 };
 
 /**
- * Fetch translations from Locize API
+ * Builds Locize API endpoint based on the desired lang and namespace
+ *
+ * @param lang
+ * @param namespace
+ */
+export const buildLocizeAPIEndpoint = (lang: string, namespace: string = defaultNamespace): string => {
+  return locizeBackendOptions
+    .loadPath
+    .replace('{{projectId}}', locizeBackendOptions.projectId)
+    .replace('{{version}}', locizeBackendOptions.version)
+    .replace('{{lng}}', lang)
+    .replace('{{ns}}', namespace);
+};
+
+/**
+ * Fetches the translations that are shared amongst all customers.
+ *
+ * Used as base translations, which can be overridden using translations variation.
+ *
+ * @param lang
+ */
+export const fetchBaseTranslations = async (lang: string): Promise<I18nextResources> => {
+  const locizeAPIEndpoint: string = buildLocizeAPIEndpoint(lang);
+  let i18nTranslations: I18nextResources = {};
+
+  try {
+    // Manually fetching locales from Locize API, for the "common" namespace of the current language
+    // XXX We fetch manually from Locize, because if we use the i18next "preload" feature, it'll crash with Next (no serverless support)
+    logger.info(`Pre-fetching translations from ${locizeAPIEndpoint}`);
+    const defaultI18nTranslationsResponse: Response = await fetch(locizeAPIEndpoint);
+
+    try {
+      i18nTranslations = await defaultI18nTranslationsResponse.json();
+    } catch (e) {
+      logger.error(e.message, `Failed to extract JSON data from locize API response for "${lang}"`);
+      Sentry.captureException(e);
+    }
+  } catch (e) {
+    logger.error(e.message, `Failed to fetch data from locize API for "${lang}"`);
+    Sentry.captureException(e);
+  }
+
+  return i18nTranslations;
+};
+
+/**
+ * Fetches the translations that are specific to the customer (its own translations variation)
+ *
+ * @param lang
+ */
+export const fetchCustomerVariationTranslations = async (lang: string): Promise<I18nextResources> => {
+  const customerVariationLang = resolveCustomerVariationLang(lang);
+  const customerVariationLocizeAPIEndpoint: string = buildLocizeAPIEndpoint(customerVariationLang);
+  let customerVariationI18nTranslations: I18nextResources = {};
+
+  try {
+    // Manually fetching locales from Locize API, for the "common" namespace of the customer language variation
+    // XXX We fetch manually from Locize, because if we use the i18next "preload" feature, it'll crash with Next (no serverless support)
+    logger.info(`Pre-fetching "${customerVariationLang}" translations variation from ${customerVariationLocizeAPIEndpoint}`);
+    const customerVariationI18nTranslationsResponse: Response = await fetch(customerVariationLocizeAPIEndpoint);
+
+    try {
+      customerVariationI18nTranslations = await customerVariationI18nTranslationsResponse.json();
+    } catch (e) {
+      logger.error(e.message, `Failed to extract JSON data from locize API response for "${customerVariationLang}"`);
+      Sentry.captureException(e);
+    }
+  } catch (e) {
+    logger.error(e.message, `Failed to fetch data from locize API for "${customerVariationLang}"`);
+    Sentry.captureException(e);
+  }
+
+  return customerVariationI18nTranslations;
+};
+
+/**
+ * Fetch translations from Locize API (both base translations + translations that are specific to the customer)
  *
  * We use a "common" namespace that contains all our translations
  * It's easier to manage, as we don't need to split translations under multiple files (we don't have so many translations)
@@ -185,16 +277,18 @@ export const locizeBackendOptions = {
  * We don't use the Locize backend for fetching data, because it doesn't play well with Next framework (no serverless support)
  * @see https://github.com/isaachinman/next-i18next/issues/274
  *
- * Instead, we manually fetch (pre-fetch) the translations ourselves from the _app:getInitialProps, so that they're available both on the client and the server
+ * Instead, we manually fetch (pre-fetch) the translations ourselves from getServerSideProps/getStaticProps (or getInitialProps)
  * @see https://github.com/i18next/i18next/issues/1373
  *
- * XXX Make sure you don't use "auto" publish format, but either "nested" or "flat", to avoid the format to dynamically change (We recommend "nested")
+ * XXX Make sure you don't use "auto" publish format, but either "nested" or "flat", to avoid the format to dynamically change (We use "nested")
  * @see https://faq.locize.com/#/general-questions/why-is-my-namespace-suddenly-a-flat-json
  *
- * XXX Caching is quite complicated, because the caching strategy depends on the runtime engine (browser vs server) and the stage (development, staging, production)
- * For instance, we don't want to cache in development/staging, but we do for production in order to improve performances and decrease network usage
+ * XXX Caching is quite complicated, because the caching strategy depends on the runtime engine (browser vs server), the stage (development, staging, production) and the rendering mode (SSG, SSR)
+ * For instance, we don't want to cache in development/staging, but we do for production in order to improve performances and decrease network usage (when using SSR)
+ * When using SSG, caching doesn't matter because the pre-fetch is performed during the initial build (build time) and never at run time, so we don't need a caching mechanism
+ *
  * Also, we want to invalidate the cache as soon as a new version is deployed, so that the end-users get the latest version immediately
- * (and avoid missing translations due to new content for which there wouldn't be any translation because we'd still be using a cached version)
+ * (and avoid missing translations because we'd be using a cached version)
  * @see https://github.com/i18next/i18next/issues/1373
  *
  * Explanation about our cache implementation:
@@ -204,55 +298,50 @@ export const locizeBackendOptions = {
  *        - It's very useful in development/staging, where we don't have any browser caching enabled, because it'll reduce the API calls
  *          With this in-memory cache, the Locize API will be hit only once by the browser, and then the in-memory cache will take over when performing client-side navigation
  *        - The in-memory cache will be invalidated as soon as the page is refreshed (F5, cmd+r, etc.) and a new API call will be made
- *    * Browser's native cache:
+ *        - XXX Without in-memory cache, a new API call would be sent for each page transition, which is slower, costly and not necessary
+ *    * Browser's local cache:
  *      - Development/staging stages:
- *        - The browser's cache is completely disabled in development/staging, so that we may work/test with the latest translation
+ *        - The browser's local cache is completely disabled in development/staging, so that we may work/test with the latest translation
  *          See the official recommendations https://docs.locize.com/more/caching
  *      - Production stage:
  *        - When in production, the browser will also cache for 1h, because we configured a "Cache-control: Max-Age" at https://www.locize.app/p/w7jrmdie/settings
  *          We followed the official recommendations https://docs.locize.com/more/caching
  *          1h seems to be a good compromise between over-fetching (we don't expect our users to use the app for more than 1h straight)
  *          and applying translation "hot-fix" (worst case: "hot-fix"" be applied 1h later, which is acceptable)
- *        - The browser's native cache will be invalidated as soon as a new release of the app is deployed,
+ *          XXX SSG pages won't be affected by changes made in Locize once the app is built. A rebuild will be necessary to update the translations
+ *        - The browser's local cache will be invalidated as soon as a new release of the app is deployed,
  *          because the value of "build" in the "loadPath" url will change and thus the browser will not use its cached version anymore
- *  - Server:
+ *  - Server (XXX this affects SSR pages in particular, as mentioned above):
  *    * In-memory: Once the translations are fetched from Locize, they're memoized
  *      - Development:
  *        - Once the translations are memoized, they'll be kept in-memory until the server restarts
- *          Note that HMR will clear the cache, meaning any source code change that triggers a new build will thus invalidate the cache
+ *          Note that full page reload may clear the cache if max-age is reached
  *      - Staging/production:
  *        - Once the translations are memoized, they'll be kept in-memory until... God knows what.
  *          - It's very hard to know how/when the memoized cache will be invalidated, as it's very much related to AWS Lambda lifecycle, which can be quite surprising
- *          - It will likely be invalidated within 5-15mn if there aren't any request performed against the Lambda (nobody using the app)
+ *          - It will likely be invalidated within 5-15mn if there aren't any request performed against the Lambda (when nobody is using the app)
  *          - But if there is a steady usage of the app then it could be memoized for hours/days
  *          - If there is a burst usage, then new lambdas will be triggered, with their own version of the memoized cache
  *            (thus, depending on which Lambda serves the requests, the result could be different if they don't use the same memoized cache)
  *            This could be the most surprising, as you don't know which Lambda will serve you, so you may see a different content by refreshing the page
- *            (if browser cache is disabled, like when using the browser in Anonymous mode)
+ *            (especially when browser cache is disabled, like when using the browser in Anonymous mode)
  *        - To sum up: The memoized cache will be invalidated when the server restarts
  *          - When a new release is deployed (this ensures that a new deployment invalidates the cache for all running Lambda instances at once)
  *          - When a Lambda that serves the app is started
- *        - The cache is automatically invalidated after 1h (see memoizedCacheMaxAge). Thus ensuring that all Lambdas will be in-sync every hour or so,
+ *        - The in-memory cache is automatically invalidated after 1h (see memoizedCacheMaxAge). Thus ensuring that all Lambdas will be in-sync every hour or so,
  *          even when hot-fixes are deployed on Locize
- *    * Server's native cache:
+ *    * Server's local cache:
  *      - Development:
- *        - There is no known server-side caching abilities while in development, and we don't want to cache the content while in development
+ *        - There is no known server-side caching abilities while in development, and we already rely on our in-memory cache while in development
  *      - Staging/production:
- *        - The server doesn't have any native caching abilities. We're running under Next.js serverless mode (AWS Lambda), which has a /tmp directory where we could write
- *          (See https://stackoverflow.com/questions/48364250/write-to-tmp-directory-in-aws-lambda-with-python)
- *          But Next.js abstracts that away from us and we don't know how to write there. (would it be more efficient than the in-memory cache anyway?)
+ *        - We could use on-disk caching mechanism during build, but it's not necessary because our in-memory cache is less complicated and doesn't require a writable file system
  *
  * @param {string} lang
  * @return {Promise<string>}
  */
 export const fetchTranslations = async (lang: string): Promise<I18nextResources> => {
-  const locizeAPIEndpoint: string = locizeBackendOptions
-    .loadPath
-    .replace('{{projectId}}', locizeBackendOptions.projectId)
-    .replace('{{version}}', locizeBackendOptions.version)
-    .replace('{{lng}}', lang)
-    .replace('{{ns}}', defaultNamespace);
-  const memoizedI18nextResources: MemoizedI18nextResources = get(_memoizedI18nextResources, locizeAPIEndpoint, null);
+  const cacheIndexKey: string = buildLocizeAPIEndpoint(lang); // Also used as cache index key (memoization)
+  const memoizedI18nextResources: MemoizedI18nextResources = get(_memoizedI18nextResources, cacheIndexKey, null);
 
   if (memoizedI18nextResources) {
     const date = new Date();
@@ -267,37 +356,18 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
       logger.info(`Translations from in-memory cache are too old (> ${memoizedCacheMaxAge} seconds) and thus have been invalidated`);
     }
   }
-  let commonLocales: I18nextResources = {};
-
-  try {
-    // Fetching locales for i18next, for the "common" namespace
-    // XXX We do that because if we don't, then the SSR fails at fetching those locales using the i18next "backend" and renders too early
-    //  This hack helps fix the SSR issue
-    //  On the other hand, it seems that once the i18next "resources" are set, they don't change,
-    //  so this workaround could cause sync issue if we were using multiple namespaces, but we aren't and probably won't
-    logger.info(`Pre-fetching translations from ${locizeAPIEndpoint}`);
-    const defaultLocalesResponse: Response = await fetch(locizeAPIEndpoint);
-
-    try {
-      commonLocales = await defaultLocalesResponse.json();
-    } catch (e) {
-      // TODO Load the locales from local JSON files if ever the API fails, to still display i18n translation even if it's not the most up-to-date?
-      logger.error(e.message, 'Failed to extract JSON data from locize API response');
-      Sentry.captureException(e);
-    }
-  } catch (e) {
-    logger.error(e.message, 'Failed to fetch data from locize API');
-    Sentry.captureException(e);
-  }
+  const i18nBaseTranslations: I18nextResources = await fetchBaseTranslations(lang);
+  const customerVariationI18nTranslations: I18nextResources = await fetchCustomerVariationTranslations(lang);
+  const i18nTranslations: I18nextResources = deepmerge(i18nBaseTranslations, customerVariationI18nTranslations);
 
   const i18nextResources: I18nextResources = {
     [lang]: {
-      [defaultNamespace]: commonLocales,
+      [defaultNamespace]: i18nTranslations,
     },
   };
   logger.info('Translations were resolved from Locize API and are now being memoized for subsequent calls');
 
-  _memoizedI18nextResources[locizeAPIEndpoint] = {
+  _memoizedI18nextResources[cacheIndexKey] = {
     resources: i18nextResources,
     ts: ((): number => {
       const date = new Date();
@@ -314,18 +384,17 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
 /**
  * Configure i18next with Locize backend.
  *
- * - Initialized with pre-defined "lang" (to make sure GraphCMS and Locize are configured with the same language)
- * - Initialized with pre-fetched "defaultLocales" (for SSR compatibility)
- * - Fetches translations from Locize backend
- * - Automates the creation of missing translations using "saveMissing: true"
- * - Display Locize "in-context" Editor when appending "/?locize=true" to the url (e.g http://localhost:8888/?locize=true)
- * - Automatically "touches" translations so it's easier to know when they've been used for the last time,
+ * - Initialized with pre-defined "lang"
+ * - Initialized with pre-fetched "i18nTranslations"
+ * - Automates the creation of missing translations using "saveMissing: true", when working locally
+ * - Display Locize "in-context" Editor when appending "/?locize=true" to the url (e.g http://localhost:8888/?locize=true) in non-production stages
+ * - Automatically "touches" translations so it's easier to know when they've been used for the last time (when working locally),
  *    thus helping translators figure out which translations are not used anymore so they can delete them
  *
- * XXX We don't rely on https://github.com/i18next/i18next-browser-languageDetector because we have our own way of resolving the language to use, using utils/locale
+ * XXX We don't rely on https://github.com/i18next/i18next-browser-languageDetector because we have our own way of resolving the language to use (in getStaticProps/getServerSideProps)
  *
  * @param lang
- * @param defaultLocales
+ * @param i18nTranslations
  */
 const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextResources): i18n => {
   // If NEXT_PUBLIC_LOCIZE_PROJECT_ID is not defined then we mustn't init i18next or it'll crash the whole app when running in non-production stage
@@ -371,12 +440,12 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
   i18nInstance.init({ // XXX See https://www.i18next.com/overview/configuration-options
     resources: i18nTranslations,
     // preload: ['fr', 'en'], // XXX Supposed to preload languages, doesn't work with Next
-    cleanCode: true, // language will be lowercased EN --> en while leaving full locales like en-US
+    cleanCode: true, // language will be lowercased 'EN' --> 'en' while leaving full locales like 'en-US'
     debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser(), // Only enable on non-production stages and only on browser (too much noise on server) XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
     saveMissing: process.env.NEXT_PUBLIC_APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
     saveMissingTo: defaultNamespace,
-    lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language, which must behave identically for both GraphCMS I18n and react-I18n
-    fallbackLng: lang === LANG_FR ? LANG_EN : LANG_FR,
+    lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language
+    fallbackLng: resolveFallbackLanguage(lang),
     ns: [defaultNamespace], // string or array of namespaces to load
     defaultNS: defaultNamespace, // default namespace used if not passed to translation function
     interpolation: {

@@ -6,8 +6,8 @@ import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import { supportedLocales } from '../../i18nConfig';
 import { Customer } from '../../types/data/Customer';
 import { I18nLocale } from '../../types/i18n/I18nLocale';
-import { PreviewData } from '../../types/nextjs/PreviewData';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
+import { PreviewData } from '../../types/nextjs/PreviewData';
 import { StaticPath } from '../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../types/nextjs/StaticPathsOutput';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
@@ -176,7 +176,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
       preview,
       previewData,
     },
-    // unstable_revalidate: false,
+    // revalidate: false,
   };
 };
 

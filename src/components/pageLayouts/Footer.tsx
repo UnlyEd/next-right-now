@@ -1,33 +1,27 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import startsWith from 'lodash.startswith';
-import { NextRouter, useRouter } from 'next/router';
+import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Col, Row } from 'reactstrap';
-import useI18n, { I18n } from '../../hooks/useI18n';
+import { Col, Row } from 'reactstrap';
+import useCustomer from '../../hooks/useCustomer';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
-import customerContext, { CustomerContext } from '../../stores/customerContext';
-import { i18nRedirect } from '../../utils/app/router';
+import { Customer } from '../../types/data/Customer';
+import { Theme } from '../../types/data/Theme';
 import { SIZE_XS } from '../../utils/assets/logo';
-import { LANG_FR } from '../../utils/i18n/i18n';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
 import Logo from '../assets/Logo';
+import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
 import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
-import EnglishFlag from '../svg/EnglishFlag';
-import FrenchFlag from '../svg/FrenchFlag';
-import Tooltip from '../utils/Tooltip';
 
 type Props = {};
 
 const Footer: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
-  const router: NextRouter = useRouter();
   const { deviceId }: UserSession = useUserSession();
-  const customer: CustomerContext = React.useContext(customerContext);
-  const { lang, locale }: I18n = useI18n();
-  const theme = customer.theme;
+  const customer: Customer = useCustomer();
+  const theme = useTheme<Theme>();
   const { primaryColor, logo } = theme;
   const logoSizesMultipliers = [
     {
@@ -44,20 +38,32 @@ const Footer: React.FunctionComponent<Props> = () => {
     <div
       id="footer"
       className={'footer align-items-center center'}
-      css={{
-        background: primaryColor,
-        padding: '20px 50px',
-        color: 'white',
-        a: {
-          color: 'white',
-        },
-        img: {
-          maxWidth: '100%',
-        },
-      }}
+      css={css`
+        background: ${primaryColor};
+        padding: 20px 50px;
+        color: white;
+
+        a {
+          color: white;
+        }
+
+        img {
+          max-width: 100%;
+        }
+
+        .column-center {
+          align-self: flex-end;
+        }
+
+        .column-right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+      `}
     >
-      <Row className={'justify-content-end align-items-end'}>
-        <Col md={4} xs={12} className={'text-md-left text-center mt-4'}>
+      <Row className={'justify-content-end'}>
+        <Col md={4} xs={12} className={'column-left text-md-left mt-4'}>
           <GraphCMSAsset
             id={'footer-logo-organisation-brand'}
             asset={logo}
@@ -68,7 +74,7 @@ const Footer: React.FunctionComponent<Props> = () => {
             }}
           />
         </Col>
-        <Col md={4} xs={12} className={'mt-4'}>
+        <Col md={4} xs={12} className={'column-center align-items-end mt-4'}>
           <p className={'m-0'}>
             {copyrightOwner} - {currentYear}
             <br />
@@ -120,71 +126,25 @@ const Footer: React.FunctionComponent<Props> = () => {
             </i>
           </div>
         </Col>
-        <Col md={4} xs={12} className={'text-md-right text-center mt-3'}>
-          <Button
-            onClick={(): void => {
-              // XXX Implementation is being kept simple for the sake of simplicity (it toggles selected language between fr/en)
-              //  It doesn't match a real-world use case because there are many possible variations and we can't cover them all
-              //  e.g: with country-based locales (fr-FR, en-GB) or without (fr, en)
-              const newLocale = startsWith(locale, 'fr') ? 'en' : 'fr';
-              i18nRedirect(newLocale, router);
-            }}
-            css={css`
-              background-color: transparent;
-              border: none;
-              margin-bottom: 20px;
-              transition: 0.5s ease-in-out;
-
-              :hover{
-                background-color: transparent;
-                border: none;
-                box-shadow: 0px 2px 30px -2px rgba(0,0,0,0.66);
-                cursor: pointer;
-              }
-
-              .small-text {
-                font-size: 12px;
-              }
-            `}
-          >
-            {lang === LANG_FR ? (
-              <Tooltip
-                overlay={<span><EnglishFlag />English</span>}
-              >
-                <span
-                  className={'small-text'}
-                >
-                  <FrenchFlag />
-                  FR
-                </span>
-              </Tooltip>
-            ) : (
-              <Tooltip
-                overlay={<span><FrenchFlag />Français</span>}
-              >
-                <span
-                  className={'small-text'}
-                >
-                  <EnglishFlag />
-                  EN
-                </span>
-              </Tooltip>
-            )}
-          </Button>
-          <br />
-          <Logo
-            id={'footer-logo-unly-brand'}
-            logo={{
-              url: '/static/images/LOGO_Powered_by_UNLY_monochrome_WHITE.svg',
-              link: {
-                url: 'https://unly.org/',
-                target: '_blank',
-              },
-            }}
-            width={100}
-            height={50}
-            sizesMultipliers={logoSizesMultipliers}
-          />
+        <Col md={4} xs={12} className={'column-right text-md-right mt-4'}>
+          <div>
+            <I18nBtnChangeLocale />
+          </div>
+          <div>
+            <Logo
+              id={'footer-logo-unly-brand'}
+              logo={{
+                url: '/static/images/LOGO_Powered_by_UNLY_monochrome_WHITE.svg',
+                link: {
+                  url: 'https://unly.org/',
+                  target: '_blank',
+                },
+              }}
+              width={100}
+              height={50}
+              sizesMultipliers={logoSizesMultipliers}
+            />
+          </div>
         </Col>
       </Row>
     </div>

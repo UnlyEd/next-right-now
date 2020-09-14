@@ -6,9 +6,7 @@ import { FallbackConfig, FallbackConfigTransformProps, filterSelectedRecords, Ge
  */
 describe('utils/data/record.ts', () => {
   beforeEach(() => {
-    // Silent console log (used by logger.warn)
-    // @ts-ignore
-    global.console = { warn: jest.fn(), log: jest.fn() };
+    global.console = global.muteConsole();
   });
 
   describe('hasValue', () => {

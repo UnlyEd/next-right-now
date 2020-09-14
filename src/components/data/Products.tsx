@@ -3,10 +3,8 @@ import { css, jsx } from '@emotion/core';
 import map from 'lodash.map';
 import React from 'react';
 import { Container } from 'reactstrap';
-
-import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
-import GraphCMSAsset from '../assets/GraphCMSAsset';
+import ProductRow from './ProductRow';
 
 type Props = {
   products: Product[];
@@ -33,34 +31,7 @@ const Products: React.FunctionComponent<Props> = (props) => {
       {
         map(products, (product: Product) => {
           return (
-            <div
-              key={product?.id}
-              className={'product-container'}
-            >
-              {
-                map(product.images, (image: Asset) => {
-                  return (
-                    <GraphCMSAsset
-                      key={image?.id}
-                      id={image?.id}
-                      asset={image}
-                      transformationsOverride={{
-                        width: 75,
-                        height: 100,
-                      }}
-                    />
-                  );
-                })
-              }
-
-              <h2 className={'product-title'}>
-                {product?.title} - ${product?.price || 0}
-              </h2>
-
-              <div className={'product-description'}>
-                {product?.description}
-              </div>
-            </div>
+            <ProductRow key={product.id} product={product} />
           );
         })
       }
