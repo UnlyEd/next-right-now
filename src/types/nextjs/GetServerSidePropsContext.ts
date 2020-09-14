@@ -1,5 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { ParsedUrlQuery } from 'querystring';
+import { PreviewData } from './PreviewData';
 
 /**
  * Context type used by "getServerSideProps"
@@ -13,5 +14,5 @@ export type GetServerSidePropsContext<E extends {} = {}, Q extends ParsedUrlQuer
   params?: Q;
   query: ParsedUrlQuery;
   preview?: boolean;
-  previewData?: any;
+  previewData?: PreviewData;
 } & E;
