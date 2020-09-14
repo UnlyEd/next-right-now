@@ -74,7 +74,7 @@
       "src/types",
       "src/utils"
     ],
-    "exclude": [],
+    "exclude": [".test."],
     "entrypoints": [
       "src/pages"
     ]
