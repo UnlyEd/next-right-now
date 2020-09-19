@@ -9,10 +9,15 @@ import { CSSStyles } from '../../types/CSSStyles';
 
 type Props = {
   codeBlockStyle?: CSSStyles;
+  codeContainerStyle?: CSSStyles;
   text: string;
 }
 
 const defaultCodeBlockStyle = {
+  textAlign: 'left',
+};
+
+const defaultCodeContainerStyle = {
   textAlign: 'left',
 };
 
@@ -24,11 +29,12 @@ const defaultCodeBlockStyle = {
  * @param props
  */
 const Code: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { codeBlockStyle, text } = props;
+  const { codeBlockStyle, codeContainerStyle, text } = props;
 
   return (
     <CodeBlock
       codeBlockStyle={codeBlockStyle || defaultCodeBlockStyle}
+      codeContainerStyle={codeContainerStyle || defaultCodeContainerStyle}
       text={text}
       language={'tsx'}
       showLineNumbers={true}
