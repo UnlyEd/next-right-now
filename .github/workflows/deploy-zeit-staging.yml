@@ -17,8 +17,7 @@ on:
     inputs:
       customer:
         description: 'Customer to deploy'
-        required: false
-
+        required: true
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
