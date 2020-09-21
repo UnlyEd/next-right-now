@@ -53,7 +53,7 @@ jobs:
           # Selecting customer to deploy
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-
+          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
           # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1")
           # Store the output in a variable so we can extract metadata from it
