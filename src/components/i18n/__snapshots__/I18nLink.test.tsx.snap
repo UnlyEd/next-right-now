@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`I18nLink should properly render when forcing the locale to use 1`] = `
+<a
+  href="/fr-FR"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Text
+</a>
+`;
+
+exports[`I18nLink should properly render when going to homepage, it should redirect to i18n homepage 1`] = `
+<a
+  href="/en"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Text
+</a>
+`;
+
+exports[`I18nLink should properly render when using custom CSS class 1`] = `
+<a
+  className="customClassName"
+  href="/en"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Text
+</a>
+`;
+
+exports[`I18nLink should properly render when using route params 1`] = `
+<a
+  href="/en/products/5"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Text
+</a>
+`;
+
+exports[`I18nLink should properly render when using route params and query route params 1`] = `
+<a
+  href="/en/products/5?userId=1"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Text
+</a>
+`;
+
+exports[`I18nLink should properly render when using route params and query route params using nested paths 1`] = `
+<a
+  href="/en/products/favourites/5?userId=1"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Text
+</a>
+`;
+
+exports[`I18nLink should properly render when using route params and query route params using nested paths and forcing locale 1`] = `
+<a
+  href="/fr/products/favourites/5?userId=1"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Text
+</a>
+`;
+
+exports[`I18nLink should properly render when using wrapChildrenAsLink manually using a <NavLink> element 1`] = `
+<a
+  className="nav-link"
+  href="/en"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Page
+</a>
+`;
+
+exports[`I18nLink should properly render when using wrapChildrenAsLink manually using a <a> element 1`] = `
+<a
+  href="/en"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+>
+  Page
+</a>
+`;

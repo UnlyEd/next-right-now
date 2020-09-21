@@ -258,7 +258,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                       href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NEXT_PUBLIC_NRN_PRESET}`}
                       target={'_blank'}
                       rel={'noopener'}
-                      onClick={() => {
+                      onClick={(): void => {
                         logEvent('open-github');
                       }}
                       title={''}

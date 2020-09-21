@@ -3,7 +3,7 @@
  *
  * @see https://stackoverflow.com/a/1527820/2391795
  */
-export const getRandomArbitrary = (min, max): number => {
+export const getRandomArbitrary = (min: number, max: number): number => {
   return Math.random() * (max - min) + min;
 };
 
@@ -16,7 +16,7 @@ export const getRandomArbitrary = (min, max): number => {
  *
  * @see https://stackoverflow.com/a/1527820/2391795
  */
-export const getRandomInt = (min, max): number => {
+export const getRandomInt = (min: number, max: number): number => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;

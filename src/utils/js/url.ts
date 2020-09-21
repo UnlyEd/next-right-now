@@ -2,13 +2,15 @@ import * as Sentry from '@sentry/node';
 import StringifySafe from 'json-stringify-safe';
 import startsWith from 'lodash.startswith';
 
+import { GenericObject } from '../../types/GenericObject';
+
 /**
  * Converts a JSON object into a string that is url-friendly
  *
  * @param {object} data
  * @return {string}
  */
-export const encodeQueryParameter = (data: object): string => {
+export const encodeQueryParameter = (data: GenericObject): string => {
   return encodeURIComponent(StringifySafe(data)); // Use StringifySafe to avoid crash on circular dependencies
 };
 
@@ -20,7 +22,7 @@ export const encodeQueryParameter = (data: object): string => {
  * @param {string} query
  * @return {object}
  */
-export const decodeQueryParameter = (query: string): object => {
+export const decodeQueryParameter = (query: string): GenericObject => {
   const decodedQueryParameter: string = decodeURIComponent(query);
 
   // Parsing the simulation could fail for various reason, the most expected use case being a bad/truncated/malformed URL

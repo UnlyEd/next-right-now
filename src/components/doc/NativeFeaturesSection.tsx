@@ -156,7 +156,6 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
               </div>
 
               <Alert color={'warning'}>
-                Be aware that this feature is still in beta (as of v9.4), and the prop name is <code>unstable_revalidate</code> to make this obvious.<br />
                 The <ExternalLink href={'https://github.com/vercel/next.js/discussions/11552'}>RFC</ExternalLink> is still being discussed, don't hesitate to participate!<br />
                 API-based regeneration (e.g: regenerate pages based on a CMS update) is still being discussed in the RFC.
               </Alert>

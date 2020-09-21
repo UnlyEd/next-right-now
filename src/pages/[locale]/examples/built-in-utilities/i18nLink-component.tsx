@@ -68,26 +68,26 @@ const ExampleI18nLinkComponentPage: NextPage<Props> = (props): JSX.Element => {
         </Alert>
 
         <p>
-          <I18nLink href={'/examples/i18nLink-component'}>
+          <I18nLink href={'/examples/built-in-utilities/i18nLink-component'}>
             This is a link going to the same page (keeps the current locale)
           </I18nLink><br />
-          <I18nLink href={'/examples/i18nLink-component'} locale={'fr-FR'}>
+          <I18nLink href={'/examples/built-in-utilities/i18nLink-component'} locale={'fr-FR'}>
             This is a link going to the same page (forces to switch to <code>fr-FR</code> locale)
           </I18nLink><br />
-          <I18nLink href={'/examples/i18nLink-component'} locale={'en-US'}>
+          <I18nLink href={'/examples/built-in-utilities/i18nLink-component'} locale={'en-US'}>
             This is a link going to the same page (forces to switch to <code>en-US</code> locale)
           </I18nLink><br />
         </p>
 
         <Code
           text={`
-            <I18nLink href={'/examples/i18nLink-component'}>
+            <I18nLink href={'/examples/built-in-utilities/i18nLink-component'}>
               This is a link going to the same page (keeps the current locale)
             </I18nLink>
-            <I18nLink href={'/examples/i18nLink-component'} locale={'fr-FR'}>
+            <I18nLink href={'/examples/built-in-utilities/i18nLink-component'} locale={'fr-FR'}>
               This is a link going to the same page (forces to switch to <code>fr-FR</code> locale)
             </I18nLink>
-            <I18nLink href={'/examples/i18nLink-component'} locale={'en-US'}>
+            <I18nLink href={'/examples/built-in-utilities/i18nLink-component'} locale={'en-US'}>
               This is a link going to the same page (forces to switch to <code>en-US</code> locale)
             </I18nLink>
           `}

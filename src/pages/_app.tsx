@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See 
 import 'cookieconsent/build/cookieconsent.min.css'; // Loads CookieConsent CSS file. See https://github.com/osano/cookieconsent
 import 'rc-tooltip/assets/bootstrap.css';
 import React from 'react';
-import uuid from 'uuid/v1'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
+import { v1 as uuid } from 'uuid'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
 import MultiversalAppBootstrap from '../components/appBootstrap/MultiversalAppBootstrap';
 import { MultiversalAppBootstrapProps } from '../types/nextjs/MultiversalAppBootstrapProps';
 import { NextWebVitalsMetrics } from '../types/nextjs/NextWebVitalsMetrics';

@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import stylePropType from 'react-style-proptype';
 
+import { CSSStyles } from '../../types/CSSStyles';
 import LogoPropTypes from '../../propTypes/LogoPropTypes';
 import { Link } from '../../types/data/Link';
 import { Logo as LogoType } from '../../types/data/Logo';
@@ -25,7 +26,7 @@ type Props = {
   override?: LogoType;
   sizesMultipliers?: SizeMultiplier[];
   className?: string;
-  style?: object;
+  style?: CSSStyles;
   link?: Link;
   onClick?: () => void;
 }
@@ -68,6 +69,7 @@ const Logo = (props: Props): JSX.Element => {
     sizesMultipliers,
   });
 
+  // @ts-ignore
   const StyledImage = styled.img`
     width: ${get(sizes, 'xs.width')};
     height: ${get(sizes, 'xs.height')};

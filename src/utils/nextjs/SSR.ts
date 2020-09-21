@@ -10,6 +10,7 @@ import NextCookies from 'next-cookies';
 import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import { Cookies } from '../../types/Cookies';
 import { ApolloQueryOptions } from '../../types/gql/ApolloQueryOptions';
+import { GenericObject } from '../../types/GenericObject';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
@@ -89,7 +90,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
     fallbackLanguage: DEFAULT_LOCALE, // Fallback language in case the user's language cannot be resolved
     acceptLanguageHeader: get(req, 'headers.accept-language'), // Optional - Accept-language header will be used when resolving the language on the server side
     serverCookies: readonlyCookies, // Optional - Cookie "i18next" takes precedence over navigator configuration (ex: "i18next: fr"), will only be used on the server side
-    errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: object): void => {
+    errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: GenericObject): void => {
       Sentry.withScope((scope): void => {
         scope.setExtra('level', level);
         scope.setExtra('origin', origin);
