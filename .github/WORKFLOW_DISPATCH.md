@@ -132,7 +132,7 @@ If it returns a `204` status code, it worked.
 ```bash
 curl -s \
   -X POST \
-  -d '{ "ref": "master", "customer": "customer2"}' \
+  -d '{ "ref": "master", "inputs": { "customer": "customer2" }}' \
   -H "Authorization: token <YOUR_GITHUB_TOKEN>" \
   -H "Accept: application/vnd.github.v3+json" \
   https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows/643638/dispatches
