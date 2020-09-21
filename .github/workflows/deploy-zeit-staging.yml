@@ -15,8 +15,8 @@ on:
       - 'master'
   workflow_dispatch: # Allow manual trigger via a button in github or a HTTP call: https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#manually-running-a-workflow
     inputs:
-      client:
-        description: 'Client to deploy'
+      customer:
+        description: 'Customer to deploy'
         required: false
 
 
@@ -49,15 +49,15 @@ jobs:
         run: |
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
-          
-          # Selecting client to deploy
-          MANUAL_TRIGGER_CLIENT="${{ github.event.inputs.client}}"
-          CLIENT_TO_DEPLOY="${MANUAL_TRIGGER_CLIENT:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+
+          # Selecting customer to deploy
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
 
 
           # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1")
           # Store the output in a variable so we can extract metadata from it
-          ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$CLIENT_TO_DEPLOY --token $ZEIT_TOKEN`
+          ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$CUSTOMER_TO_DEPLOY --token $ZEIT_TOKEN`
 
           # Extract the Vercel deployment url from the deployment output
           ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
@@ -70,7 +70,7 @@ jobs:
           if [[ ${CURRENT_BRANCH##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
             ZEIT_DEPLOYMENT_ALIAS=${CURRENT_BRANCH##*/}
           else
-            ZEIT_DEPLOYMENT_ALIAS=$(cat now.$CLIENT_TO_DEPLOY.staging.json | jq -r '.name')-${CURRENT_BRANCH##*/}
+            ZEIT_DEPLOYMENT_ALIAS=$(cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.name')-${CURRENT_BRANCH##*/}
           fi
 
           # Zeit alias only allows 41 characters in the domain name, so we only keep the first 41 (41 = 53 - 11 - 1) characters (because Zeit needs 7 chars for ".vercel.app" at the end of the domain name, and count starts at 1, not 0)
