@@ -50,7 +50,8 @@ jobs:
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
 
-          # Selecting customer to deploy
+          # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
+          # Falls back to the customer specified in the now.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
