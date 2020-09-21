@@ -59,7 +59,7 @@ Authentication is required for every request, you'll need to provide your creden
 }
 ```
 
-**N.B**: This `token` needs the **full repo** permissions to be granted access.
+**N.B**: This [`personal access token`](https://github.com/settings/tokens) needs the **full repo** permissions to be granted access.
 
 ### Get your workflow id
 
@@ -80,17 +80,24 @@ GET https://api.github.com/repos/{owner}/{repo}/actions/workflows
 
 This call will return all your workflow, so make sure you use the right one.
 
+##### Find our Next-Right-Now workflow id
+
+- [Open https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows](https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows)
+- `643638` here it is! (for `Deploy to Zeit (staging)` workflow)
+
 ### Example
 
-This `curl` command will sort you the ID, if you have not change the *name/path*. Please change the **owner** and the **repository name**.
+This `curl` command can find the ID for you automatically.
+Make sure to adapt the **owner**, and the **repository name** to reflect yours.
 
 ```bash
 curl -s \
   -X GET \
   -H "Accept: application/vnd.github.v3+json" \
-  -H "Authorization: token <YOUR_GITHUB_TOKEN>" \
   https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows | jq '.workflows[] | select(.path==".github/workflows/deploy-zeit-staging.yml") | .id'
 ```
+
+**N.B**: You'll need to provide an `Authorization` header for private repositories. e.g: `-H "Authorization: token <YOUR_GITHUB_TOKEN>" \`
 
 ### Structure
 
@@ -125,7 +132,8 @@ If it returns a `204` status code, it worked.
 ```bash
 curl -s \
   -X POST \
+  -d '{ "ref": "master", "customer": "customer2"}' \
+  -H "Authorization: token <YOUR_GITHUB_TOKEN>" \
   -H "Accept: application/vnd.github.v3+json" \
-  -H "Authorization: <YOUR_GITHUB_TOKEN>" \
-  https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows/2249094/dispatches
+  https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows/643638/dispatches
 ```
