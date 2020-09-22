@@ -14,6 +14,14 @@ on:
     branches:
       - 'master'
 
+  # Allow manual trigger via a button in github or a HTTP call - See https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#manually-running-a-workflow
+  # XXX Read more about how to use it with NRN in .github/WORKFLOW_DISPATCH.md
+  workflow_dispatch:
+    inputs:
+      customer:
+        description: 'Customer to deploy'
+        required: true
+
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
@@ -41,9 +49,15 @@ jobs:
         run: |
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
+          
+          # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
+          # Falls back to the customer specified in the now.json file, which is most useful when deployment is triggered through "push" event
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
           # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1:production:simple")
-          yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production:simple --token $ZEIT_TOKEN
+          yarn deploy:$CUSTOMER_TO_DEPLOY:production:simple --token $ZEIT_TOKEN
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
 
@@ -65,7 +79,10 @@ jobs:
         # We need to set env the url for next step, formatted as `https://${url provided by API}`
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
 
       # Run the E2E tests against the new Zeit deployment
@@ -107,7 +124,10 @@ jobs:
         # We need to set env the url for next step, formatted as `https://${url provided by API}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
