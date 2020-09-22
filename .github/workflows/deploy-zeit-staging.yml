@@ -147,7 +147,10 @@ jobs:
         # We need to set env the url for next step, formatted as `https://${url provided by API}`
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
 
       # Run the E2E tests against the new Zeit deployment
@@ -220,7 +223,10 @@ jobs:
         # We need to set env the url for next step, formatted as `https://${url provided by API}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+
+          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
