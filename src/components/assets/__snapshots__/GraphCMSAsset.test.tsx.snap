@@ -19,7 +19,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   title="Test asset"
@@ -34,7 +34,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   src="https://media.graphcms.com/quality=value:100/resize=height:300/auto_image/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   title="Test asset"
@@ -49,7 +49,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   src="https://media.graphcms.com/quality=value:100/resize=width:500/auto_image/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   title="Test asset"
@@ -64,7 +64,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   title="Test asset"
@@ -79,7 +79,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   title="Test asset"
@@ -94,7 +94,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   title="Test asset"
@@ -109,7 +109,7 @@ exports[`GraphCMSAsset should properly render an asset from GraphCMS when the as
   src="https://media.graphcms.com/quality=value:100/resize=width:500,height:300/auto_image/88YmsSFsSEGI9i0qcH0V"
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   title="Test asset"
@@ -154,7 +154,7 @@ Object {
   "id": "test",
   "src": "https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V",
   "style": Object {
-    "paddingTop": 5,
+    "paddingTop": "5",
   },
   "title": "Test asset",
 }
@@ -168,7 +168,7 @@ exports[`GraphCMSAsset when the asset is used as a link(<a>) containing an image
   onClick={null}
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   target="_blank"
@@ -180,7 +180,7 @@ exports[`GraphCMSAsset when the asset is used as a link(<a>) containing an image
     src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
     style={
       Object {
-        "paddingTop": 5,
+        "paddingTop": "5",
       }
     }
     title="Test asset"
@@ -195,7 +195,7 @@ Object {
   "id": "test",
   "src": "https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V",
   "style": Object {
-    "paddingTop": 5,
+    "paddingTop": "5",
   },
   "title": "Test asset",
 }
@@ -209,7 +209,7 @@ exports[`GraphCMSAsset when the asset is used as a link(<a>) containing an image
   onClick={null}
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   target="_blank"
@@ -221,7 +221,7 @@ exports[`GraphCMSAsset when the asset is used as a link(<a>) containing an image
     src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
     style={
       Object {
-        "paddingTop": 5,
+        "paddingTop": "5",
       }
     }
     title="Test asset"
@@ -236,7 +236,7 @@ Object {
   "id": "test",
   "src": "https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V",
   "style": Object {
-    "paddingTop": 5,
+    "paddingTop": "5",
   },
   "title": "Test asset",
 }
@@ -250,7 +250,7 @@ exports[`GraphCMSAsset when the asset is used as a link(<a>) containing an image
   onClick={[Function]}
   style={
     Object {
-      "paddingTop": 5,
+      "paddingTop": "5",
     }
   }
   target="_blank"
@@ -262,7 +262,7 @@ exports[`GraphCMSAsset when the asset is used as a link(<a>) containing an image
     src="https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V"
     style={
       Object {
-        "paddingTop": 5,
+        "paddingTop": "5",
       }
     }
     title="Test asset"
