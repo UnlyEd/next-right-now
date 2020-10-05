@@ -69,7 +69,8 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
         Sentry.captureException(error);
         console.error(error); // eslint-disable-line no-console
       },
-      sameSite: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
+      sameSiteCookie: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
+      cookieExpiration: 365, // Expires in 1 year (would fallback to 10 years by default, which isn't GDPR compliant)
     });
 
     // Disable analytics tracking entirely if the user has opted-out
@@ -142,7 +143,8 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
         Sentry.captureException(error);
         console.error(error); // eslint-disable-line no-console
       },
-      sameSite: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
+      sameSiteCookie: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
+      cookieExpiration: 365, // Expires in 1 year (would fallback to 10 years by default, which isn't GDPR compliant)
     });
 
     amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
