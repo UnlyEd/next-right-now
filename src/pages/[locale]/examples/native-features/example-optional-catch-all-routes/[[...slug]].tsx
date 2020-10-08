@@ -43,7 +43,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): 
   });
 
   return {
-    fallback: false,
+    fallback: true, // XXX Must enable fallback mode when using catch-all route otherwise it'll return a 404 - See https://github.com/vercel/next.js/discussions/16907
     paths,
   };
 };
