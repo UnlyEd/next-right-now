@@ -2,13 +2,18 @@
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import map from 'lodash.map';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
 import DocPage from '../../../../../components/doc/DocPage';
 import NativeFeaturesSidebar from '../../../../../components/doc/NativeFeaturesSidebar';
+import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
 import { supportedLocales } from '../../../../../i18nConfig';
 import { I18nLocale } from '../../../../../types/i18n/I18nLocale';
@@ -70,7 +75,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
   const { query } = useRouter();
-  console.log('query', query);
+  const { slug } = query;
 
   return (
     <DefaultLayout
@@ -85,6 +90,19 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
         <h1 className={'pcolor'}>Catch-all dynamic routes examples</h1>
 
         <Alert color={'info'}>
+          You can change the url yourself to about anything you want, with multiple nested levels.<br />
+          The page will be <b>dynamically generated as static page</b> <i>(fallback: true)</i> and served as a static page from now on.
+        </Alert>
+
+        <b>URL <code>slug</code> parameters:</b> <code>{(slug as string[])?.join('/')}</code><br />
+        <I18nLink href={'/examples/native-features/example-optional-catch-all-routes/you/can/go/to/any/depth/you/want'}>Go to some nested path</I18nLink>
+
+        <hr />
+
+        <Alert color={'info'}>
+          This feature allows you to use a dynamic page (catch-all) that will build subpages dynamically based on the parameters you provide.<br />
+          It's extremely powerful and can be used to dynamically generate product pages, for instance.<br />
+          You can also combine it with the <code>revalidate</code> option so that your page gets refreshed based on your revalidation strategy, to keep the content up-to-date, for instance.
         </Alert>
       </DocPage>
     </DefaultLayout>
