@@ -147,6 +147,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                     Sentry.captureException(error);
                     console.error(error); // eslint-disable-line no-console
                   },
+                  sameSite: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
                 });
 
                 amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
@@ -222,6 +223,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
 
             <Button
               onClick={(): void => {
+                // eslint-disable-next-line no-console
                 console.log('Button click');
                 logEvent('analytics-button-test-event');
               }}
@@ -237,6 +239,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                   {({ logEvent }): JSX.Element => (
                     <Button
                       onClick={(): void => {
+                        // eslint-disable-next-line no-console
                         console.log('Button click');
                         logEvent('analytics-button-test-event');
                       }}

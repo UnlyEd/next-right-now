@@ -71,6 +71,16 @@ const fetchAirtableTable: <ListApiResponse extends GenericListApiResponse = Gene
   const { additionalHeaders, baseId } = options;
   const url = `${AT_API_BASE_PATH}/${AT_API_VERSION}/${baseId}/${table}`;
 
+  if (!baseId) {
+    // eslint-disable-next-line no-console
+    console.error(`process.env.AIRTABLE_BASE_ID is not defined. Fetching airtable API will fail. Check your ".env.local" if working locally, or "now.**.json" file if this error happens on Vercel.`);
+  }
+
+  if (!process.env.AIRTABLE_API_KEY) {
+    // eslint-disable-next-line no-console
+    console.error(`process.env.AIRTABLE_API_KEY is not defined. Fetching airtable API will fail. Check your ".env.local" if working locally, or "now.**.json" file if this error happens on Vercel.`);
+  }
+
   // console.debug(`Fetching airtable API at "${url}" with headers`, additionalHeaders);
   // eslint-disable-next-line no-console
   console.debug(`Fetching airtable API at "${url}"`);

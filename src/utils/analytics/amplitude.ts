@@ -58,6 +58,7 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
     const amplitudeInstance: AmplitudeClient = amplitude.getInstance();
 
     // See https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
+    // See all JS SDK options https://github.com/amplitude/Amplitude-JavaScript/blob/master/src/options.js
     amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
       userId,
       logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
@@ -69,6 +70,8 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
         Sentry.captureException(error);
         console.error(error); // eslint-disable-line no-console
       },
+      sameSiteCookie: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
+      cookieExpiration: 365, // Expires in 1 year (would fallback to 10 years by default, which isn't GDPR compliant)
     });
 
     // Disable analytics tracking entirely if the user has opted-out
@@ -129,6 +132,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
     const userData: UserSemiPersistentSession = universalCookiesManager.getUserData();
 
     // https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
+    // See all JS SDK options https://github.com/amplitude/Amplitude-JavaScript/blob/master/src/options.js
     amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
       // userId: null,
       userId: userData.id,
@@ -141,6 +145,8 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
         Sentry.captureException(error);
         console.error(error); // eslint-disable-line no-console
       },
+      sameSiteCookie: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
+      cookieExpiration: 365, // Expires in 1 year (would fallback to 10 years by default, which isn't GDPR compliant)
     });
 
     amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0

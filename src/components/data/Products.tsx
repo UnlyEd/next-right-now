@@ -30,11 +30,14 @@ const Products: React.FunctionComponent<Props> = (props) => {
       `}
     >
       {
-        map(products, (productAirtable: AirtableRecord<Product>) => {
+        map(products, (productAirtable: AirtableRecord<Product>, i: number) => {
           const product: Product = productAirtable.fields;
 
           return (
-            <ProductRow product={product} />
+            <ProductRow
+              key={i}
+              product={product}
+            />
           );
         })
       }
