@@ -44,8 +44,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Deploying on Zeit (production)
-        # Workflow:
-        # Deploy the customer in production
+        # Workflow overview:
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Deploy the customer in production
         run: |
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
@@ -53,6 +54,8 @@ jobs:
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the now.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
@@ -72,15 +75,21 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Zeit
-        # The following workflow is:
-        #  - getting all deployments data (by using the scope in `now.json`)
-        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
-        #  - and then we remove the `"` character to pre-format url
+        # Workflow overview:
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Resolve $ZEIT_DEPLOYMENT
+        #     - Fetch all deployments data (by using the scope in `now.json`)
+        #     - Resolve the last url (from `response.deployments[0].url`)
+        #     - Remove the `"` character to pre-format url
         # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}`
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
+
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
@@ -117,15 +126,21 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Zeit
-        # The following workflow is:
-        #  - getting all deployments data (by using the scope in `now.json`)
-        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
-        #  - and then we remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${url provided by API}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
+        # Workflow overview:
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Resolve $ZEIT_DEPLOYMENT
+        #     - Fetch all deployments data (by using the scope in `now.json`)
+        #     - Resolve the last url (from `response.deployments[0].url`)
+        #     - Remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
+
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
