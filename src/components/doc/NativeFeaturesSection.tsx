@@ -214,6 +214,23 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
             </CardText>
           </CardBody>
         </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Catch-all routes</h3></CardTitle>
+            <CardSubtitle>&ldquo;Optional catch-all dynamic routes for advanced scenarios&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes'}>
+                  <Button color={'link'}>Learn more about "optional catch-all routes" native feature</Button>
+                </ExternalLink>
+                <I18nLink href={'/examples/native-features/example-optional-catch-all-routes'}>
+                  <Button color={'link'}>See usage examples</Button>
+                </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
       </Cards>
     </DocSection>
   );
