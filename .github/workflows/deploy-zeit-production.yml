@@ -49,7 +49,7 @@ jobs:
         run: |
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
-          
+
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the now.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
@@ -76,7 +76,7 @@ jobs:
         #  - getting all deployments data (by using the scope in `now.json`)
         #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
         #  - and then we remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}`
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
@@ -126,7 +126,7 @@ jobs:
           apt update -y >/dev/null && apt install -y jq >/dev/null
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          
+
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
         env:
@@ -141,6 +141,7 @@ jobs:
         uses: foo-software/lighthouse-check-action@v2.0.5
         id: lighthouseCheck
         with: # See https://github.com/marketplace/actions/lighthouse-check#inputs for all options
+          # XXX We don't enable comments, because there is no branch to write them into
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           emulatedFormFactor: all # Run LightHouse against "mobile", "desktop", or "all" devices
           urls: ${{ env.ZEIT_DEPLOYMENT_URL }}, ${{ env.ZEIT_DEPLOYMENT_URL }}/en, ${{ env.ZEIT_DEPLOYMENT_URL }}/fr, ${{ env.ZEIT_DEPLOYMENT_URL }}/en-US, ${{ env.ZEIT_DEPLOYMENT_URL }}/fr-FR

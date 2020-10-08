@@ -45,9 +45,10 @@ jobs:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Deploying on Zeit (staging)
         # Workflow:
-        #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, which is what we are really looking for)
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Get stdout from deploy command (stderr prints build steps and stdout prints deployment url, which is what we are really looking for)
         #   - Set the deployment url that will be included in the eventual PR comment
-        #   - Create a branch alias and link it to the deployment (so that each branch has its own domain automatically aliased to the lastest commit)
+        #   - Create a branch alias and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
         run: |
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
@@ -144,7 +145,7 @@ jobs:
         #  - getting all deployments data (by using the scope in `now.json`)
         #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
         #  - and then we remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}`
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
@@ -263,6 +264,7 @@ jobs:
         uses: foo-software/lighthouse-check-status-action@v1.0.1
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
+          # XXX We expect bad performances on staging, in particular because of client-side redirect upon first loading (preview mode causes a page refresh)
           minAccessibilityScore: "50"
           minBestPracticesScore: "0"
           minPerformanceScore: "10"
