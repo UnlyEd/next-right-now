@@ -22,6 +22,8 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2020-10-08
+    - [Added new example with **optional `catch-all` routes**](https://github.com/UnlyEd/next-right-now/pull/162)
 - 2020-09-08
     - [Upgraded deps of `v2-mst-aptd-at-lcz-sty` preset](https://github.com/UnlyEd/next-right-now/pull/163)
     - [Upgraded deps of `v2-mst-aptd-gcms-lcz-sty` preset](https://github.com/UnlyEd/next-right-now/pull/165)
