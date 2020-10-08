@@ -104,6 +104,10 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
           It's extremely powerful and can be used to dynamically generate product pages, for instance.<br />
           You can also combine it with the <code>revalidate</code> option so that your page gets refreshed based on your revalidation strategy, to keep the content up-to-date, for instance.
         </Alert>
+
+        <Alert color={'warning'}>
+          Make sure you use <code>fallback: true</code> <b>when using SSG</b>, otherwise it'll generate a 404 page, and won't be able to dynamically generate the page.<br />
+        </Alert>
       </DocPage>
     </DefaultLayout>
   );
