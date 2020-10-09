@@ -52,6 +52,16 @@ Both documentations are related and there are many links from the demos toward t
 
 ---
 
+# Testimonials
+
+> "We initially built our app with Create React App and as our product evolves we needed to have a solid SEO.
+> We planned to migrate to NextJS, but it looked very time-consuming to set up everything again.
+> Here's come Next Right Now providing a complete boilerplate with great tools already integrated like Sentry or Locize.
+> TypeScript, with good typings, is the icing on the cake.
+> It helps us a lot to move quickly on NextJS." - [ApplyFuture](https://www.applyfuture.com/)
+
+---
+
 # FAQ
 
 [Go to our community FAQ](https://unlyed.github.io/next-right-now/faq).
