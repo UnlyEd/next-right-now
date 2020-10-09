@@ -58,7 +58,7 @@ Both documentations are related and there are many links from the demos toward t
 > We planned to migrate to NextJS, but it looked very time-consuming to set up everything again.
 > Here's come Next Right Now providing a complete boilerplate with great tools already integrated like Sentry or Locize.
 > TypeScript, with good typings, is the icing on the cake.
-> It helps us a lot to move quickly on NextJS." - [ApplyFuture](https://www.applyfuture.com/)
+> It helps us a lot to move quickly on NextJS." - [ApplyFuture](https://www.applyfuture.com/), _2020-10_
 
 ---
 

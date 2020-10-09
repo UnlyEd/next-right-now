@@ -90,6 +90,9 @@ If you need a preset that isn't supported yet, you can request one through [Gith
 
 <div class="pagination-section space-even">
     <span class="fs-4" markdown="1">
+    [TESTIMONIALS](./testimonials){: .btn .btn }
+    </span>
+    <span class="fs-4" markdown="1">
     [FAQ](./faq){: .btn .btn }
     </span>
     <span class="fs-4" markdown="1">
