@@ -20,7 +20,7 @@ NRN is maintained with several purposes in mind:
     - It has been used to build production-grade websites within 2h time during a French COVID-19 hackathon. (March 2020)
     - It has been used to build [NRN Admin](https://github.com/UnlyEd/next-right-now-admin)
 - To be used as an **educational** resource, meant to be used as a **learning/teaching** resource, even if you don't use it as a boilerplate.
-- Provide various boilerplate [presets](./concepts/presets), to get started with the preset that matches the closest your needs.
+- To provide various boilerplate [presets](./concepts/presets), in order to get started with the preset that matches the closest your needs.
 - To be **flexible** and allow for extensive **customisation**, based on your own needs and use-cases.
 
 Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience and your [feedback about opt-in 3rd parties](https://github.com/UnlyEd/next-right-now/issues/13)!
