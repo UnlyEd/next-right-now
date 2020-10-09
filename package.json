@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "yarn doc:start",
+    "start:fast": "yarn doc:start:fast",
     "preversion": "yarn lint:once && yarn test:once",
     "release": "yarn bump --commit --tag && git add CHANGELOG.md README.md && git commit --amend --no-edit && git push && git push --tags",
     "doc:start": "bundle exec jekyll serve --config _config-development.yml",
