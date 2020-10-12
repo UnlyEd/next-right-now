@@ -12,4 +12,17 @@ declare global {
       unmuteConsole: () => any;
     }
   }
+
+  /**
+   * Advanced Jest support for custom extends.
+   *
+   * Those additional utilities must be loaded through jest.extends.ts
+   *
+   * @see https://medium.com/javascript-in-plain-english/jest-how-to-use-extend-with-typescript-4011582a2217
+   */
+  namespace jest {
+    interface Matchers<R, T> {
+      toContainObject(expected: any): R;
+    }
+  }
 }

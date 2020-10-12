@@ -1,3 +1,4 @@
+// @ts-ignore
 expect.extend({
   toContainObject(received, argument) {
 
