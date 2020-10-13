@@ -1,10 +1,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
+
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
@@ -15,7 +20,10 @@ import ExternalLink from '../../../../components/utils/ExternalLink';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import {
+  getExamplesCommonStaticPaths,
+  getExamplesCommonStaticProps,
+} from '../../../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/svg-to-react';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

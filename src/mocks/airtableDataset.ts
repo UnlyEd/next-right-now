@@ -32,7 +32,7 @@ export const CUSTOMER2: AirtableRecord<Customer> = {
       'recYXaEyHJCOBWIbd',
     ],
     theme: [
-      'recgo2T34zNZjAlkN'
+      'recgo2T34zNZjAlkN',
     ],
     ref: 'customer2',
   },

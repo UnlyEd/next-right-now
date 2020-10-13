@@ -106,7 +106,8 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
         </Alert>
 
         <Alert color={'warning'}>
-          Make sure you use <code>fallback: true</code> <b>when using SSG</b>, otherwise it'll generate a 404 page, and won't be able to dynamically generate the page.<br />
+          Make sure you use <code>fallback: true</code>
+          <b>when using SSG</b>, otherwise it'll generate a 404 page, and won't be able to dynamically generate the page.<br />
         </Alert>
       </DocPage>
     </DefaultLayout>

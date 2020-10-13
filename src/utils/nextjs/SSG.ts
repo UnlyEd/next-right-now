@@ -1,5 +1,8 @@
 import map from 'lodash.map';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+} from 'next';
 
 import { supportedLocales } from '../../i18nConfig';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
@@ -13,8 +16,14 @@ import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import fetchCustomer from '../api/fetchCustomer';
-import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
-import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
+import {
+  DEFAULT_LOCALE,
+  resolveFallbackLanguage,
+} from '../i18n/i18n';
+import {
+  fetchTranslations,
+  I18nextResources,
+} from '../i18n/i18nextLocize';
 
 /**
  * Only executed on the server side at build time.

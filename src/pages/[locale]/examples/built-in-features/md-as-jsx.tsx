@@ -1,10 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Alert, Container } from 'reactstrap';
+import {
+  Alert,
+  Container,
+} from 'reactstrap';
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import I18nLink from '../../../../components/i18n/I18nLink';
@@ -14,7 +21,10 @@ import Markdown from '../../../../components/utils/Markdown';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import {
+  getExamplesCommonStaticPaths,
+  getExamplesCommonStaticProps,
+} from '../../../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/md-as-jsx';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

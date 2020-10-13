@@ -1,4 +1,4 @@
-import { ParsedUrlQuery } from "querystring";
+import { ParsedUrlQuery } from 'querystring';
 
 /**
  * Server side params provided to any page (SSG or SSR)

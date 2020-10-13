@@ -1,4 +1,7 @@
-import { findNextItem, findPreviousItem } from './array';
+import {
+  findNextItem,
+  findPreviousItem,
+} from './array';
 
 /**
  * @group unit

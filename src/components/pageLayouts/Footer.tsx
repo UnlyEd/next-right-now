@@ -1,9 +1,16 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Col, Row } from 'reactstrap';
+import {
+  Col,
+  Row,
+} from 'reactstrap';
+
 import useCustomer from '../../hooks/useCustomer';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
 import { AirtableRecord } from '../../types/data/AirtableRecord';

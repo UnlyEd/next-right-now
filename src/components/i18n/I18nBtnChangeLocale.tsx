@@ -1,10 +1,17 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import startsWith from 'lodash.startswith';
-import { NextRouter, useRouter } from 'next/router';
+import {
+  NextRouter,
+  useRouter,
+} from 'next/router';
 import React from 'react';
 import { Button } from 'reactstrap';
+
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { i18nRedirect } from '../../utils/app/router';

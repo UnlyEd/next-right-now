@@ -1,5 +1,9 @@
-import { NextComponentType, NextPageContext } from 'next';
+import {
+  NextComponentType,
+  NextPageContext,
+} from 'next';
 import { NextRouter } from 'next/router';
+
 import { MultiversalPageProps } from '../pageProps/MultiversalPageProps';
 
 /**

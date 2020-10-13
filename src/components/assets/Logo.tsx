@@ -6,11 +6,17 @@ import deepmerge from 'deepmerge';
 import get from 'lodash.get';
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import React from 'react';
-import { CSSStyles } from '../../types/CSSStyles';
 
+import { CSSStyles } from '../../types/CSSStyles';
 import { Link } from '../../types/data/Link';
 import { Logo as LogoType } from '../../types/data/Logo';
-import { DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels } from '../../utils/assets/logo';
+import {
+  DEFAULT_SIZES_MULTIPLIERS,
+  generateSizes,
+  resolveSize,
+  SizeMultiplier,
+  toPixels,
+} from '../../utils/assets/logo';
 
 type Props = {
   id: string;

@@ -4,9 +4,15 @@ import get from 'lodash.get';
 import isArray from 'lodash.isarray';
 import map from 'lodash.map';
 import { AirtableDataset } from '../../types/data/AirtableDataset';
-import { AirtableFieldMapping, AirtableFieldsMapping } from '../../types/data/AirtableFieldsMapping';
+import {
+  AirtableFieldMapping,
+  AirtableFieldsMapping,
+} from '../../types/data/AirtableFieldsMapping';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
-import { DEFAULT_FIELDS_MAPPING, getFieldBestAvailableTranslation } from './airtableField';
+import {
+  DEFAULT_FIELDS_MAPPING,
+  getFieldBestAvailableTranslation,
+} from './airtableField';
 
 const fileLabel = 'utils/data/airtableRecord';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

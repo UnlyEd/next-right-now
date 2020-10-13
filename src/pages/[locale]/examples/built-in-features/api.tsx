@@ -1,7 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
@@ -13,7 +17,10 @@ import ExternalLink from '../../../../components/utils/ExternalLink';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import {
+  getExamplesCommonStaticPaths,
+  getExamplesCommonStaticProps,
+} from '../../../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/api';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -294,7 +301,10 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
           This is very important when generating static pages, otherwise we end up making hundreds of API calls (3 calls per page, because we fetch 3 tables). <br />
           Storing cache in memory doesn't work, because each page generation is executed in different processes (or so) and don't share the same memory (RAM).<br />
           Creating files like this requires a writable disk,
-          <ExternalLink href={'https://github.com/vercel/next.js/discussions/13765#discussioncomment-22703'} suffix={null}>which is the case with Vercel</ExternalLink>.
+          <ExternalLink
+            href={'https://github.com/vercel/next.js/discussions/13765#discussioncomment-22703'}
+            suffix={null}
+          >which is the case with Vercel</ExternalLink>.
         </Alert>
 
         <Code

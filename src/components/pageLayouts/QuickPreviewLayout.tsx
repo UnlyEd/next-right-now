@@ -1,11 +1,23 @@
 /** @jsx jsx */
-import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
-import { css, jsx } from '@emotion/core';
+import {
+  Amplitude,
+  LogOnMount,
+} from '@amplitude/react-amplitude';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { Alert, Container } from 'reactstrap';
+import {
+  Trans,
+  useTranslation,
+} from 'react-i18next';
+import {
+  Alert,
+  Container,
+} from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { GenericObject } from '../../types/GenericObject';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';

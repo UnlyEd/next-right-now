@@ -1,5 +1,8 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
@@ -18,7 +21,7 @@ type Props = {
 const SidebarToggle: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     isSidebarOpen,
-    setIsSidebarOpen
+    setIsSidebarOpen,
   } = props;
 
   return (

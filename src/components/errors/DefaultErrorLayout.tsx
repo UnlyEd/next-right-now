@@ -1,8 +1,12 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import * as React from 'react';
 import { Button } from 'reactstrap';
+
 import ErrorDebug from './ErrorDebug';
 
 type Props = {

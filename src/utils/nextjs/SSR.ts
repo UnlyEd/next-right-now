@@ -3,8 +3,12 @@ import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
 import { IncomingMessage } from 'http';
 import get from 'lodash.get';
-import { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import {
+  GetServerSideProps,
+  GetServerSidePropsResult,
+} from 'next';
 import NextCookies from 'next-cookies';
+
 import { Cookies } from '../../types/Cookies';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
@@ -16,8 +20,15 @@ import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import fetchCustomer from '../api/fetchCustomer';
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
-import { DEFAULT_LOCALE, resolveFallbackLanguage, SUPPORTED_LANGUAGES } from '../i18n/i18n';
-import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
+import {
+  DEFAULT_LOCALE,
+  resolveFallbackLanguage,
+  SUPPORTED_LANGUAGES,
+} from '../i18n/i18n';
+import {
+  fetchTranslations,
+  I18nextResources,
+} from '../i18n/i18nextLocize';
 
 /**
  * getExamplesCommonServerSideProps returns only part of the props expected in SSRPageProps

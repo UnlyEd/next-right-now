@@ -1,5 +1,8 @@
 /** @jsx jsx */
-import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
+import {
+  Amplitude,
+  AmplitudeProvider,
+} from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -7,6 +10,7 @@ import { AmplitudeClient } from 'amplitude-js';
 import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
 import userConsentContext from '../../stores/userConsentContext';
 import { userSessionContext } from '../../stores/userSessionContext';
 import { CustomerTheme } from '../../types/data/CustomerTheme';

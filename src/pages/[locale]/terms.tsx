@@ -1,11 +1,19 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { useTheme } from 'emotion-theming';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Container } from 'reactstrap';
+
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import Code from '../../components/utils/Code';
 import Markdown from '../../components/utils/Markdown';
@@ -16,7 +24,10 @@ import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParam
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { replaceAllOccurrences } from '../../utils/js/string';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../utils/nextjs/SSG';
+import {
+  getExamplesCommonStaticPaths,
+  getExamplesCommonStaticProps,
+} from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -7,7 +7,11 @@ import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github
 import get from 'lodash.get';
 import map from 'lodash.map';
 import { initReactI18next } from 'react-i18next';
-import { resolveCustomerVariationLang, resolveFallbackLanguage } from './i18n';
+
+import {
+  resolveCustomerVariationLang,
+  resolveFallbackLanguage,
+} from './i18n';
 
 const logger = createLogger({
   label: 'utils/i18n/i18nextLocize',

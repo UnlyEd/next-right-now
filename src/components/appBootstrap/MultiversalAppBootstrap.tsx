@@ -5,6 +5,7 @@ import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
 import isEmpty from 'lodash.isempty';
 import React, { useState } from 'react';
+
 import ErrorPage from '../../pages/_error';
 import customerContext from '../../stores/customerContext';
 import i18nContext from '../../stores/i18nContext';

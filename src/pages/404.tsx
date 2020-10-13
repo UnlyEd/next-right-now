@@ -1,15 +1,29 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { GetStaticProps, NextPage } from 'next';
-import { NextRouter, useRouter } from 'next/router';
+import {
+  GetStaticProps,
+  NextPage,
+} from 'next';
+import {
+  NextRouter,
+  useRouter,
+} from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
+
 import DefaultLayout from '../components/pageLayouts/DefaultLayout';
 import { CommonServerSideParams } from '../types/nextjs/CommonServerSideParams';
 import { SoftPageProps } from '../types/pageProps/SoftPageProps';
 import { SSGPageProps } from '../types/pageProps/SSGPageProps';
-import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '../utils/i18n/i18n';
+import {
+  DEFAULT_LOCALE,
+  LANG_EN,
+  LANG_FR,
+} from '../utils/i18n/i18n';
 import { getExamplesCommonStaticProps } from '../utils/nextjs/SSG';
 
 const fileLabel = 'pages/404';

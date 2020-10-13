@@ -2,8 +2,16 @@ import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import { DocumentInitialProps } from 'next/dist/next-server/lib/utils';
-import Document, { DocumentContext, DocumentProps, Head, Main, NextScript, Html } from 'next/document';
+import Document, {
+  DocumentContext,
+  DocumentProps,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from 'next/document';
 import React from 'react';
+
 import { DEFAULT_LOCALE } from '../utils/i18n/i18n';
 
 const fileLabel = 'pages/_document';

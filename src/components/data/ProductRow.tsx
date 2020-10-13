@@ -1,7 +1,13 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import React from 'react';
-import { Col, Row } from 'reactstrap';
+import {
+  Col,
+  Row,
+} from 'reactstrap';
 
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';

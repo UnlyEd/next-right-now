@@ -1,7 +1,12 @@
 import { CUSTOMER2 } from '../../mocks/airtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
-import { getFieldBestAvailableTranslation, getGenericLocalisedFieldName, hasGenericLocalisedField, isLocalisedField } from './airtableField';
+import {
+  getFieldBestAvailableTranslation,
+  getGenericLocalisedFieldName,
+  hasGenericLocalisedField,
+  isLocalisedField,
+} from './airtableField';
 
 /**
  * @group unit

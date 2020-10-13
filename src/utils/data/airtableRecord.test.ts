@@ -1,5 +1,9 @@
 import deepmerge from 'deepmerge';
-import dataset, { CUSTOMER2, PRODUCT2, THEME1 } from '../../mocks/airtableDataset';
+import dataset, {
+  CUSTOMER2,
+  PRODUCT2,
+  THEME1,
+} from '../../mocks/airtableDataset';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { sanitizeRecord } from './airtableRecord';
 import { GenericRecord } from './record';

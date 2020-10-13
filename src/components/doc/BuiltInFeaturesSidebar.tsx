@@ -1,9 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import map from 'lodash.map';
-import { NextRouter, useRouter } from 'next/router';
+import {
+  NextRouter,
+  useRouter,
+} from 'next/router';
 import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import {
+  Nav,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
+
 import { SidebarLink } from '../../types/SidebarLink';
 import I18nLink from '../i18n/I18nLink';
 import { SidebarProps } from '../pageLayouts/DefaultLayout';

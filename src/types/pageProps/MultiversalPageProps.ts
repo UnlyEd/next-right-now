@@ -1,7 +1,6 @@
 import { I18nextResources } from '../../utils/i18n/i18nextLocize';
 import { AirtableRecord } from '../data/AirtableRecord';
 import { Customer } from '../data/Customer';
-import { Product } from '../data/Product';
 
 /**
  * Page properties available on all pages, whether they're rendered statically, dynamically, from the server or the client

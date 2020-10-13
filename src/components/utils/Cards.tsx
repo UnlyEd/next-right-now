@@ -1,8 +1,11 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
+import classnames from 'classnames';
 import React, { ReactNode } from 'react';
 import { CardDeck } from 'reactstrap';
-import classnames from 'classnames';
 
 type Props = {
   children: ReactNode;

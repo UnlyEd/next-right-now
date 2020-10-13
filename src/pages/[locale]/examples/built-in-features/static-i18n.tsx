@@ -1,12 +1,26 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
-import { Alert, Container } from 'reactstrap';
+import {
+  Trans,
+  useTranslation,
+} from 'react-i18next';
+import {
+  Alert,
+  Container,
+} from 'reactstrap';
 import { v1 as uuid } from 'uuid';
+
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
@@ -18,7 +32,10 @@ import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSid
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { resolveCustomerVariationLang } from '../../../../utils/i18n/i18n';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import {
+  getExamplesCommonStaticPaths,
+  getExamplesCommonStaticProps,
+} from '../../../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
