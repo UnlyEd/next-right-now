@@ -173,7 +173,7 @@ export const locizeBackendOptions = {
   ...locizeOptions,
   // XXX The "build" parameter is meant to automatically invalidate the browser cache when releasing a different version,
   //  so that the end-users get the newest version immediately
-  loadPath: `https://api.locize.app/{{projectId}}/{{version}}/{{lng}}/{{ns}}?build=${process.env.NEXT_PUBLIC_BUILD_TIMESTAMP}`,
+  loadPath: `https://api.locize.app/{{projectId}}/{{version}}/{{lng}}/{{ns}}?build=${process.env.NEXT_PUBLIC_APP_BUILD_TIMESTAMP}`,
   private: false, // Should never be private
 
   /**
