@@ -59,21 +59,21 @@ describe(`utils/env/env.ts`, () => {
       }
     });
 
-    test(`NEXT_PUBLIC_BUILD_TIME`, async () => {
+    test(`NEXT_PUBLIC_APP_BUILD_TIME`, async () => {
       // This ENV var is injected by Webpack and not available when running the tests suite when building a local build (because webpack hasn't been executed yet)
       if (process.env.NODE_ENV === 'production') {
-        expect(process.env.NEXT_PUBLIC_BUILD_TIME, 'NEXT_PUBLIC_BUILD_TIME must be defined but is not').toBeDefined();
+        expect(process.env.NEXT_PUBLIC_APP_BUILD_TIME, 'NEXT_PUBLIC_APP_BUILD_TIME must be defined but is not').toBeDefined();
       } else {
-        expect(process.env.NEXT_PUBLIC_BUILD_TIME, 'NEXT_PUBLIC_BUILD_TIME should not be defined when building a non-production release').not.toBeDefined();
+        expect(process.env.NEXT_PUBLIC_APP_BUILD_TIME, 'NEXT_PUBLIC_APP_BUILD_TIME should not be defined when building a non-production release').not.toBeDefined();
       }
     });
 
-    test(`NEXT_PUBLIC_BUILD_TIMESTAMP`, async () => {
+    test(`NEXT_PUBLIC_APP_BUILD_TIMESTAMP`, async () => {
       // This ENV var is injected by Webpack and not available when running the tests suite when building a local build (because webpack hasn't been executed yet)
       if (process.env.NODE_ENV === 'production') {
-        expect(process.env.NEXT_PUBLIC_BUILD_TIMESTAMP, 'NEXT_PUBLIC_BUILD_TIMESTAMP must be defined but is not').toBeDefined();
+        expect(process.env.NEXT_PUBLIC_APP_BUILD_TIMESTAMP, 'NEXT_PUBLIC_APP_BUILD_TIMESTAMP must be defined but is not').toBeDefined();
       } else {
-        expect(process.env.NEXT_PUBLIC_BUILD_TIMESTAMP, 'NEXT_PUBLIC_BUILD_TIMESTAMP should not be defined when building a non-production release').not.toBeDefined();
+        expect(process.env.NEXT_PUBLIC_APP_BUILD_TIMESTAMP, 'NEXT_PUBLIC_APP_BUILD_TIMESTAMP should not be defined when building a non-production release').not.toBeDefined();
       }
     });
     test(`IS_SERVER_INITIAL_BUILD`, async () => {

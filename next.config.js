@@ -63,8 +63,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     SENTRY_DSN: process.env.SENTRY_DSN,
 
     // Dynamic env variables
-    NEXT_PUBLIC_BUILD_TIME: date.toString(),
-    NEXT_PUBLIC_BUILD_TIMESTAMP: +date,
+    NEXT_PUBLIC_APP_BUILD_TIME: date.toString(),
+    NEXT_PUBLIC_APP_BUILD_TIMESTAMP: +date,
     NEXT_PUBLIC_APP_NAME: packageJson.name,
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production

@@ -22,8 +22,8 @@ declare global {
       NEXT_PUBLIC_APP_VERSION: string;
       NEXT_PUBLIC_APP_VERSION_RELEASE: string;
       NEXT_PUBLIC_APP_STAGE: 'test' | 'development' | 'staging' | 'production';
-      NEXT_PUBLIC_BUILD_TIME: string;
-      NEXT_PUBLIC_BUILD_TIMESTAMP: string;
+      NEXT_PUBLIC_APP_BUILD_TIME: string;
+      NEXT_PUBLIC_APP_BUILD_TIMESTAMP: string;
       NEXT_PUBLIC_CUSTOMER_REF: string;
       NEXT_PUBLIC_LOCIZE_PROJECT_ID: string;
       NEXT_PUBLIC_NRN_PRESET: string;
