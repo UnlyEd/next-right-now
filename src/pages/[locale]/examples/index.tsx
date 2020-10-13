@@ -11,6 +11,7 @@ import ExternalFeaturesSection from '../../../components/doc/ExternalFeaturesSec
 import IntroductionSection from '../../../components/doc/IntroductionSection';
 import NativeFeaturesSection from '../../../components/doc/NativeFeaturesSection';
 import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
+import { LogEvent } from '../../../types/Amplitude';
 import { CommonServerSideParams } from '../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
@@ -58,7 +59,7 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
     >
       <Amplitude>
         {
-          ({ logEvent }): JSX.Element => {
+          ({ logEvent }: { logEvent: LogEvent }): JSX.Element => {
             return (
               <>
                 <IntroductionSection

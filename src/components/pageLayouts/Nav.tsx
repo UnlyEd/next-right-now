@@ -11,6 +11,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Col, DropdownItem, DropdownMenu, DropdownToggle, Nav as NavStrap, Navbar, NavItem, NavLink, Row, UncontrolledDropdown } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
+import { LogEvent } from '../../types/Amplitude';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Asset } from '../../types/data/Asset';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
@@ -35,7 +36,7 @@ const Nav: React.FunctionComponent<Props> = () => {
 
   return (
     <Amplitude>
-      {({ logEvent }): JSX.Element => (
+      {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
         <Navbar
           id={'nav'}
           color="#F5F5F5"

@@ -13,6 +13,7 @@ import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnB
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import useUserConsent from '../../../../hooks/useUserConsent';
+import { LogEvent } from '../../../../types/Amplitude';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -62,7 +63,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <Amplitude>
-        {({ logEvent }): JSX.Element => (
+        {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
           <DocPage>
             <h1 className={'pcolor'}>Analytics examples, using Amplitude vendor</h1>
 
@@ -236,7 +237,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
             <Code
               text={`
                 <Amplitude>
-                  {({ logEvent }): JSX.Element => (
+                  {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
                     <Button
                       onClick={(): void => {
                         // eslint-disable-next-line no-console
