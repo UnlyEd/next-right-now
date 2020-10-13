@@ -30,6 +30,7 @@ if (process.env.SENTRY_DSN) {
     scope.setTag('appStage', process.env.NEXT_PUBLIC_APP_STAGE);
     scope.setTag('appName', process.env.NEXT_PUBLIC_APP_NAME);
     scope.setTag('appVersion', process.env.NEXT_PUBLIC_APP_VERSION);
+    scope.setTag('appNameVersion', process.env.NEXT_PUBLIC_APP_NAME_VERSION);
     scope.setTag('appVersionRelease', process.env.NEXT_PUBLIC_APP_VERSION_RELEASE);
     scope.setTag('appBuildTime', process.env.NEXT_PUBLIC_APP_BUILD_TIME);
     scope.setTag('appBuildId', process.env.NEXT_PUBLIC_APP_BUILD_ID);
