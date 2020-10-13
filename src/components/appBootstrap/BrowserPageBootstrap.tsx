@@ -20,7 +20,11 @@ import { getAmplitudeInstance } from '../../utils/analytics/amplitude';
 
 import initCookieConsent, { getUserConsent } from '../../utils/cookies/cookieConsent';
 import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
-import { getIframeReferrer, isRunningInIframe } from '../../utils/iframe';
+import {
+  getIframeReferrer,
+  isRunningInIframe,
+} from '../../utils/iframe';
+import { configureSentryUser } from '../../utils/monitoring/sentry';
 
 const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
 const logger = createLogger({
@@ -62,6 +66,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   };
   const theme = useTheme<CustomerTheme>();
 
+  // Configure Sentry user and track navigation through breadcrumb
+  configureSentryUser(userSession);
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
@@ -82,7 +88,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
 
   // Init the Cookie Consent popup, which will open on the browser
   initCookieConsent({
-    allowedPages: [ // We only allow it on those 2 pages to avoid display that boring popup on every page
+    allowedPages: [ // We only allow it on those pages to avoid display that boring popup on every page
       `${window.location.origin}/${locale}/terms`,
       `${window.location.origin}/${locale}/examples/built-in-features/cookies-consent`,
     ],

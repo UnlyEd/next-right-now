@@ -1,8 +1,10 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { NextApiRequest } from 'next';
+import { UserSession } from '../../hooks/useUserSession';
 
 // Don't initialise Sentry if SENTRY_DSN isn't defined (won't crash the app, usage of the Sentry lib is resilient to this and doesn't cause any issue)
+// XXX Initialise Sentry as soon as the file is loaded
 if (process.env.SENTRY_DSN) {
   /**
    * Initialize Sentry and export it.
@@ -39,19 +41,37 @@ if (process.env.SENTRY_DSN) {
 }
 
 /**
+ * Configure Sentry tags for the current user.
+ *
+ * Allows to track all Sentry events related to a particular user.
+ * The tracking remains anonymous, there are no personal information being tracked, only internal ids.
+ *
+ * @param userSession
+ */
+export const configureSentryUser = (userSession: UserSession): void => {
+  if (process.env.SENTRY_DSN) {
+    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+      scope.setTag('userId', userSession?.id);
+      scope.setTag('userDeviceId', userSession?.deviceId);
+      scope.setContext('user', userSession);
+    });
+  }
+};
+
+/**
  * Configure the Sentry scope by extracting useful tags and context from the given request.
  *
  * @param req
  */
 export const configureReq = (req: NextApiRequest): void => {
   Sentry.configureScope((scope) => {
-    scope.setTag('host', get(req, 'headers.host'));
-    scope.setTag('url', get(req, 'url'));
-    scope.setTag('method', get(req, 'method'));
-    scope.setContext('query', get(req, 'query'));
-    scope.setContext('cookies', get(req, 'cookies'));
-    scope.setContext('body', get(req, 'body'));
-    scope.setContext('headers', get(req, 'headers'));
+    scope.setTag('host', req?.headers?.host);
+    scope.setTag('url', req?.url);
+    scope.setTag('method', req?.method);
+    scope.setContext('query', req?.query);
+    scope.setContext('cookies', req?.cookies);
+    scope.setContext('body', req?.body);
+    scope.setContext('headers', req?.headers);
   });
 };
 
