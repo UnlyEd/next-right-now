@@ -1,6 +1,9 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { AmplitudeClient, Identify } from 'amplitude-js';
+import {
+  AmplitudeClient,
+  Identify,
+} from 'amplitude-js';
 import { NextWebVitalsMetricsReport } from '../../types/nextjs/NextWebVitalsMetricsReport';
 import { UserConsent } from '../../types/UserConsent';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
