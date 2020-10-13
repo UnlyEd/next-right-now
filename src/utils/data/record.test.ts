@@ -1,4 +1,12 @@
-import { FallbackConfig, FallbackConfigTransformProps, filterSelectedRecords, GenericRecord, getValueFallback, hasValue, NOT_FOUND } from './record';
+import {
+  FallbackConfig,
+  FallbackConfigTransformProps,
+  filterSelectedRecords,
+  GenericRecord,
+  getValueFallback,
+  hasValue,
+  NOT_FOUND,
+} from './record';
 
 /**
  * @group unit

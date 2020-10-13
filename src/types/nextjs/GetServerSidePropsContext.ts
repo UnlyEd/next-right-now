@@ -1,5 +1,9 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import {
+  IncomingMessage,
+  ServerResponse,
+} from 'http';
 import { ParsedUrlQuery } from 'querystring';
+
 import { PreviewData } from './PreviewData';
 
 /**

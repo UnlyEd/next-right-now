@@ -2,7 +2,11 @@
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
-import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
@@ -15,7 +19,10 @@ import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSideProps
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { getCommonServerSideProps, GetCommonServerSidePropsResults } from '../../utils/nextjs/SSR';
+import {
+  getCommonServerSideProps,
+  GetCommonServerSidePropsResults,
+} from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

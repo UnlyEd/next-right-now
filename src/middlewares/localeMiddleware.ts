@@ -1,8 +1,15 @@
 import { createLogger } from '@unly/utils-simple-logger';
-import { NextApiRequest, NextApiResponse } from 'next';
+import {
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
+
 import { supportedLocales } from '../i18nConfig';
 import redirect from '../utils/app/redirect';
-import { acceptLanguageHeaderLookup, DEFAULT_LOCALE } from '../utils/i18n/i18n';
+import {
+  acceptLanguageHeaderLookup,
+  DEFAULT_LOCALE,
+} from '../utils/i18n/i18n';
 
 const fileLabel = 'utils/localeMiddleware';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

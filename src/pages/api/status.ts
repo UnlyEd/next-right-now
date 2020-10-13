@@ -1,5 +1,8 @@
 import { createLogger } from '@unly/utils-simple-logger';
-import { NextApiRequest, NextApiResponse } from 'next';
+import {
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
 
 import Sentry, { configureReq } from '../../utils/monitoring/sentry';
 

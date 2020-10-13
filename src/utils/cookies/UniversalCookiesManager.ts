@@ -1,13 +1,22 @@
 import * as Sentry from '@sentry/node';
 import { COOKIE_LOOKUP_KEY_LANG } from '@unly/universal-language-detector/lib';
 import { isBrowser } from '@unly/utils';
-import ServerCookies, { GetOption, SetOption } from 'cookies';
-import { IncomingMessage, ServerResponse } from 'http';
+import ServerCookies, {
+  GetOption,
+  SetOption,
+} from 'cookies';
+import {
+  IncomingMessage,
+  ServerResponse,
+} from 'http';
 import BrowserCookies, { CookieAttributes } from 'js-cookie';
 import { v1 as uuid } from 'uuid'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
 
 import { Cookies } from '../../types/Cookies';
-import { PatchedUserSemiPersistentSession, UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
+import {
+  PatchedUserSemiPersistentSession,
+  UserSemiPersistentSession,
+} from '../../types/UserSemiPersistentSession';
 import { addYears } from '../js/date';
 
 const USER_LS_KEY = 'user';
@@ -60,7 +69,7 @@ export default class UniversalCookiesManager {
         //  We therefore override this behaviour because we need to write proper JSON
         //  See https://github.com/js-cookie/js-cookie#encoding
         const browserCookies = BrowserCookies.withConverter({
-          write: function (value: string, name: string) {
+          write: function(value: string, name: string) {
             return value;
           },
         });

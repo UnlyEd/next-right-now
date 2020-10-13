@@ -1,5 +1,9 @@
 import { createLogger } from '@unly/utils-simple-logger';
-import { NextApiRequest, NextApiResponse } from 'next';
+import {
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
+
 import { filterExternalAbsoluteUrl } from '../../utils/js/url';
 import Sentry, { configureReq } from '../../utils/monitoring/sentry';
 

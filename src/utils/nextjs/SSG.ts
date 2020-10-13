@@ -1,8 +1,11 @@
 import { ApolloQueryResult } from 'apollo-client';
 import map from 'lodash.map';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+} from 'next';
 
+import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import { supportedLocales } from '../../i18nConfig';
 import { Customer } from '../../types/data/Customer';
 import { I18nLocale } from '../../types/i18n/I18nLocale';
@@ -15,8 +18,14 @@ import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
 import { createApolloClient } from '../gql/graphql';
-import { DEFAULT_LOCALE, resolveFallbackLanguage } from '../i18n/i18n';
-import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
+import {
+  DEFAULT_LOCALE,
+  resolveFallbackLanguage,
+} from '../i18n/i18n';
+import {
+  fetchTranslations,
+  I18nextResources,
+} from '../i18n/i18nextLocize';
 
 /**
  * Only executed on the server side at build time.

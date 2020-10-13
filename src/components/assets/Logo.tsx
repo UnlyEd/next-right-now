@@ -9,12 +9,16 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import stylePropType from 'react-style-proptype';
 
-import { CSSStyles } from '../../types/CSSStyles';
 import LogoPropTypes from '../../propTypes/LogoPropTypes';
+import { CSSStyles } from '../../types/CSSStyles';
 import { Link } from '../../types/data/Link';
 import { Logo as LogoType } from '../../types/data/Logo';
 import {
-  DEFAULT_SIZES_MULTIPLIERS, generateSizes, resolveSize, SizeMultiplier, toPixels
+  DEFAULT_SIZES_MULTIPLIERS,
+  generateSizes,
+  resolveSize,
+  SizeMultiplier,
+  toPixels,
 } from '../../utils/assets/logo';
 
 type Props = {

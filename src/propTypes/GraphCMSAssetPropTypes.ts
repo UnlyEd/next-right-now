@@ -12,5 +12,5 @@ export default {
   style: stylePropType,
   linkUrl: PropTypes.string,
   linkTarget: PropTypes.string,
-  defaultTransformations: PropTypes.shape(GraphCMSAssetTransformationsPropTypes)
+  defaultTransformations: PropTypes.shape(GraphCMSAssetTransformationsPropTypes),
 };

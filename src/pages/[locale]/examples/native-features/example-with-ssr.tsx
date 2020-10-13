@@ -3,10 +3,18 @@ import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import size from 'lodash.size';
-import { GetServerSideProps, GetServerSidePropsResult, NextPage } from 'next';
+import {
+  GetServerSideProps,
+  GetServerSidePropsResult,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Alert, Container } from 'reactstrap';
+import {
+  Alert,
+  Container,
+} from 'reactstrap';
+
 import AllProducts from '../../../../components/data/AllProducts';
 import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
 
@@ -21,7 +29,10 @@ import { GetServerSidePropsContext } from '../../../../types/nextjs/GetServerSid
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../../../types/pageProps/SSRPageProps';
-import { GetCommonServerSidePropsResults, getExamplesCommonServerSideProps } from '../../../../utils/nextjs/SSR';
+import {
+  GetCommonServerSidePropsResults,
+  getExamplesCommonServerSideProps,
+} from '../../../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

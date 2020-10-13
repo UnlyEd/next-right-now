@@ -1,4 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import {
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
 
 export const mockRequest = (sessionData, body): NextApiRequest => ({
   // @ts-expect-error

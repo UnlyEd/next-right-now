@@ -1,4 +1,7 @@
-import { generateSizes, toPixels } from './logo';
+import {
+  generateSizes,
+  toPixels,
+} from './logo';
 
 /**
  * @group unit

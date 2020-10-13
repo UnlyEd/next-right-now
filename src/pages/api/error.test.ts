@@ -1,6 +1,12 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import {
+  NextApiRequest,
+  NextApiResponse,
+} from 'next';
 
-import { mockRequest, mockResponse } from '../../utils/testing/tests-mocks';
+import {
+  mockRequest,
+  mockResponse,
+} from '../../utils/testing/tests-mocks';
 import error from './error';
 
 /**

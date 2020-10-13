@@ -1,10 +1,17 @@
 /** @jsx jsx */
-import { Amplitude, LogOnMount } from '@amplitude/react-amplitude';
+import {
+  Amplitude,
+  LogOnMount,
+} from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
-import { NextRouter, useRouter } from 'next/router';
+import {
+  NextRouter,
+  useRouter,
+} from 'next/router';
 import React, { useState } from 'react';
+
 import ErrorPage from '../../pages/_error';
 import { GenericObject } from '../../types/GenericObject';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';

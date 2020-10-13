@@ -1,19 +1,40 @@
 /** @jsx jsx */
 import { Amplitude } from '@amplitude/react-amplitude';
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
 import kebabCase from 'lodash.kebabcase';
 import map from 'lodash.map';
-import { NextRouter, useRouter } from 'next/router';
+import {
+  NextRouter,
+  useRouter,
+} from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Col, DropdownItem, DropdownMenu, DropdownToggle, Nav as NavStrap, Navbar, NavItem, NavLink, Row, UncontrolledDropdown } from 'reactstrap';
+import {
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Nav as NavStrap,
+  Navbar,
+  NavItem,
+  NavLink,
+  Row,
+  UncontrolledDropdown,
+} from 'reactstrap';
+
 import useI18n, { I18n } from '../../hooks/useI18n';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { LogEvent } from '../../types/Amplitude';
 import { SidebarLink } from '../../types/SidebarLink';
-import { isActive, resolveI18nHomePage } from '../../utils/app/router';
+import {
+  isActive,
+  resolveI18nHomePage,
+} from '../../utils/app/router';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
 import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '../doc/BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '../doc/BuiltInUtilitiesSidebar';

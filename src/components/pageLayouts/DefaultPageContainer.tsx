@@ -1,9 +1,13 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import classnames from 'classnames';
 import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { Container } from 'reactstrap';
+
 import SidebarToggle from '../doc/SidebarToggle';
 import { SidebarProps } from './DefaultLayout';
 

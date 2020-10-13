@@ -5,7 +5,20 @@ import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
 import React from 'react';
-import { Alert, Button, Col, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink, Row, UncontrolledDropdown as Dropdown } from 'reactstrap';
+import {
+  Alert,
+  Button,
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Nav,
+  NavItem,
+  NavLink,
+  Row,
+  UncontrolledDropdown as Dropdown,
+} from 'reactstrap';
+
 import { Markdown as MarkdownType } from '../../types/Markdown';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
@@ -63,7 +76,7 @@ const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
   const markdownOptions = deepmerge(defaultMarkdownOptions, _markdownOptions || {});
 
   // If providing a non-string input (like "null" or "undefined") then markdown-to-jsx will crash with "Cannot read property 'replace' of undefined" - See https://github.com/probablyup/markdown-to-jsx/issues/314
-  if(typeof text !== 'string'){
+  if (typeof text !== 'string') {
     return null;
   }
 

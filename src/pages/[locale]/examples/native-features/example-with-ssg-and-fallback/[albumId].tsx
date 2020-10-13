@@ -1,12 +1,23 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Alert, Button } from 'reactstrap';
+import {
+  Alert,
+  Button,
+} from 'reactstrap';
+
 import NativeFeaturesSidebar from '../../../../../components/doc/NativeFeaturesSidebar';
 import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
@@ -21,7 +32,10 @@ import { StaticPropsOutput } from '../../../../../types/nextjs/StaticPropsOutput
 import { OnlyBrowserPageProps } from '../../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../../types/pageProps/SSGPageProps';
 import { getRandomInt } from '../../../../../utils/math/random';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../../utils/nextjs/SSG';
+import {
+  getExamplesCommonStaticPaths,
+  getExamplesCommonStaticProps,
+} from '../../../../../utils/nextjs/SSG';
 import waitFor from '../../../../../utils/timers/waitFor';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-fallback/[albumId]';

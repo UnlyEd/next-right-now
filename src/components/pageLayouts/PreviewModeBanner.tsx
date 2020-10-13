@@ -1,14 +1,27 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { NextRouter, useRouter } from 'next/router';
+import {
+  NextRouter,
+  useRouter,
+} from 'next/router';
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import {
+  Trans,
+  useTranslation,
+} from 'react-i18next';
 import { Button } from 'reactstrap';
 import Alert from 'reactstrap/lib/Alert';
+
 import usePreviewMode, { PreviewMode } from '../../hooks/usePreviewMode';
 import { stringifyQueryParameters } from '../../utils/app/router';
-import { startPreviewMode, stopPreviewMode } from '../../utils/nextjs/previewMode';
+import {
+  startPreviewMode,
+  stopPreviewMode,
+} from '../../utils/nextjs/previewMode';
 import ExternalLink from '../utils/ExternalLink';
 import Tooltip from '../utils/Tooltip';
 

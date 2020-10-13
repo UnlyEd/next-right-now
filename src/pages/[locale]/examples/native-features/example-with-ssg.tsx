@@ -5,10 +5,18 @@ import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Alert, Container } from 'reactstrap';
+import {
+  Alert,
+  Container,
+} from 'reactstrap';
+
 import AllProducts from '../../../../components/data/AllProducts';
 import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
 import I18nLink from '../../../../components/i18n/I18nLink';
@@ -25,7 +33,10 @@ import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPag
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../../../utils/gql/graphql';
 import { SUPPORTED_LOCALES } from '../../../../utils/i18n/i18n';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '../../../../utils/nextjs/SSG';
+import {
+  getExamplesCommonStaticPaths,
+  getExamplesCommonStaticProps,
+} from '../../../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -1,5 +1,8 @@
 import some from 'lodash.some';
-import React, { DependencyList, useState } from 'react';
+import React, {
+  DependencyList,
+  useState,
+} from 'react';
 
 type Props = {
   children: React.ReactNode;

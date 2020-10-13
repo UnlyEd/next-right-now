@@ -1,5 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+
 import GraphCMSAsset from './GraphCMSAsset';
 
 const defaultLogoUrl = 'https://media.graphcms.com/88YmsSFsSEGI9i0qcH0V';
@@ -235,7 +236,7 @@ describe('GraphCMSAsset', () => {
               },
             }}
             transformationsOverride={{
-              height: 300
+              height: 300,
             }}
           />);
         const img: any = renderer.toJSON();

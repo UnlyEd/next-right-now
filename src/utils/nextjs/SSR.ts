@@ -5,12 +5,16 @@ import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { IncomingMessage } from 'http';
 import get from 'lodash.get';
-import { GetServerSideProps, GetServerSidePropsResult } from 'next';
+import {
+  GetServerSideProps,
+  GetServerSidePropsResult,
+} from 'next';
 import NextCookies from 'next-cookies';
+
 import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import { Cookies } from '../../types/Cookies';
-import { ApolloQueryOptions } from '../../types/gql/ApolloQueryOptions';
 import { GenericObject } from '../../types/GenericObject';
+import { ApolloQueryOptions } from '../../types/gql/ApolloQueryOptions';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
@@ -19,8 +23,15 @@ import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
 import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
 import { createApolloClient } from '../gql/graphql';
-import { DEFAULT_LOCALE, resolveFallbackLanguage, SUPPORTED_LANGUAGES } from '../i18n/i18n';
-import { fetchTranslations, I18nextResources } from '../i18n/i18nextLocize';
+import {
+  DEFAULT_LOCALE,
+  resolveFallbackLanguage,
+  SUPPORTED_LANGUAGES,
+} from '../i18n/i18n';
+import {
+  fetchTranslations,
+  I18nextResources,
+} from '../i18n/i18nextLocize';
 
 /**
  * getExamplesCommonServerSideProps returns only part of the props expected in SSRPageProps

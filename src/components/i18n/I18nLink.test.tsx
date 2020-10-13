@@ -1,8 +1,9 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { NavLink } from 'reactstrap';
+
 import i18nContext from '../../stores/i18nContext';
 import I18nLink from './I18nLink';
-import { NavLink } from 'reactstrap';
 
 /**
  * @group unit
@@ -78,7 +79,7 @@ describe('I18nLink', () => {
     });
 
     test('when using route params', () => {
-      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/[id]'} params={{id: 5}} />);
+      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/[id]'} params={{ id: 5 }} />);
       const link: any = renderer.toJSON();
 
       expect(link.type).toEqual('a');
@@ -88,7 +89,7 @@ describe('I18nLink', () => {
     });
 
     test('when using route params and query route params', () => {
-      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/[id]'} params={{id: 5}} query={{userId: 1}} />);
+      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/[id]'} params={{ id: 5 }} query={{ userId: 1 }} />);
       const link: any = renderer.toJSON();
 
       expect(link.type).toEqual('a');
@@ -98,7 +99,7 @@ describe('I18nLink', () => {
     });
 
     test('when using route params and query route params using nested paths', () => {
-      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/favourites/[id]'} params={{id: 5}} query={{userId: 1}} />);
+      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/favourites/[id]'} params={{ id: 5 }} query={{ userId: 1 }} />);
       const link: any = renderer.toJSON();
 
       expect(link.type).toEqual('a');
@@ -108,7 +109,7 @@ describe('I18nLink', () => {
     });
 
     test('when using route params and query route params using nested paths and forcing locale', () => {
-      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/favourites/[id]'} params={{id: 5}} query={{userId: 1}} locale={'fr'} />);
+      const renderer = TestRenderer.create(<I18nLinkTest href={'/products/favourites/[id]'} params={{ id: 5 }} query={{ userId: 1 }} locale={'fr'} />);
       const link: any = renderer.toJSON();
 
       expect(link.type).toEqual('a');

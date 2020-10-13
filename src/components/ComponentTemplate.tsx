@@ -1,6 +1,10 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import {
+  css,
+  jsx,
+} from '@emotion/core';
 import React from 'react';
+
 import Text from './utils/Text';
 
 type Props = {}
