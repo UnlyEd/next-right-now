@@ -39,7 +39,7 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const WebFontLoader = require('webfontloader');
 
-    // Load our fonts. Until they're loaded, fallback fonts will be used (configured in UniversalGlobalStyles)
+    // Load our fonts. Until they're loaded, fallback fonts will be used (configured in MultiversalGlobalStyles)
     // This fixed an issue when loading fonts from external sources that don't show the text until the font is loaded
     // With this, instead of not showing any text, it'll show the text using its fallback font, and then show the font once loaded
     // XXX See https://github.com/typekit/webfontloader#custom
