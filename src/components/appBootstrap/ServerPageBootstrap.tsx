@@ -9,6 +9,7 @@ import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/Multiversal
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
 import { OnlyServerPageProps } from '../../types/pageProps/OnlyServerPageProps';
+import { configureSentryUser } from '../../utils/monitoring/sentry';
 
 const fileLabel = 'components/appBootstrap/ServerPageBootstrap';
 const logger = createLogger({
@@ -36,6 +37,8 @@ const ServerPageBootstrap = (props: ServerPageBootstrapProps): JSX.Element => {
     userSession,
   } = pageProps;
 
+  // Configure Sentry user and track navigation through breadcrumb
+  configureSentryUser(userSession);
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
