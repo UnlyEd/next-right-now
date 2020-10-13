@@ -12,6 +12,7 @@ import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import useUserConsent from '../../../../hooks/useUserConsent';
+import { LogEvent } from '../../../../types/Amplitude';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -61,7 +62,7 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInFeaturesSidebar}
     >
       <Amplitude>
-        {({ logEvent }): JSX.Element => (
+        {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
           <DocPage>
             <h1 className={'pcolor'}>Cookies consent examples, using <code>CookieConsent</code> OSS library</h1>
 

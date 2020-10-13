@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Col, DropdownItem, DropdownMenu, DropdownToggle, Nav as NavStrap, Navbar, NavItem, NavLink, Row, UncontrolledDropdown } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
+import { LogEvent } from '../../types/Amplitude';
 import { SidebarLink } from '../../types/SidebarLink';
 import { isActive, resolveI18nHomePage } from '../../utils/app/router';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
@@ -31,7 +32,7 @@ const Nav: React.FunctionComponent<Props> = () => {
 
   return (
     <Amplitude>
-      {({ logEvent }): JSX.Element => (
+      {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
         <Navbar
           id={'nav'}
           color="#F5F5F5"
