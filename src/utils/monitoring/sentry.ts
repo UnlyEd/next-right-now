@@ -1,17 +1,20 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { NextApiRequest } from 'next';
+
 import { UserSession } from '../../hooks/useUserSession';
 
-// Don't initialise Sentry if SENTRY_DSN isn't defined (won't crash the app, usage of the Sentry lib is resilient to this and doesn't cause any issue)
-// XXX Initialise Sentry as soon as the file is loaded
+/**
+ * Initialize Sentry and export it.
+ *
+ * Helper to avoid duplicating the init() call in every /pages/api file.
+ * Also used in pages/_app for the client side, which automatically applies it for all frontend pages.
+ *
+ * Doesn't initialise Sentry if SENTRY_DSN isn't defined
+ *
+ * @see https://www.npmjs.com/package/@sentry/node
+ */
 if (process.env.SENTRY_DSN) {
-  /**
-   * Initialize Sentry and export it.
-   *
-   * Helper to avoid duplicating the init() call in every /pages/api file.
-   * Also used in pages/_app for the client side, which automatically applies it for all frontend pages.
-   */
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
     enabled: process.env.NODE_ENV !== 'test',
@@ -48,10 +51,11 @@ if (process.env.SENTRY_DSN) {
  * The tracking remains anonymous, there are no personal information being tracked, only internal ids.
  *
  * @param userSession
+ * @see https://www.npmjs.com/package/@sentry/node
  */
 export const configureSentryUser = (userSession: UserSession): void => {
   if (process.env.SENTRY_DSN) {
-    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+    Sentry.configureScope((scope) => {
       scope.setTag('userId', userSession?.id);
       scope.setTag('userDeviceId', userSession?.deviceId);
       scope.setContext('user', userSession);
@@ -60,9 +64,26 @@ export const configureSentryUser = (userSession: UserSession): void => {
 };
 
 /**
+ * Configure Sentry tags for the currently used lang/locale.
+ *
+ * @param lang
+ * @param locale
+ * @see https://www.npmjs.com/package/@sentry/node
+ */
+export const configureSentryI18n = (lang: string, locale: string): void => {
+  if (process.env.SENTRY_DSN) {
+    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+      scope.setTag('lang', lang);
+      scope.setTag('locale', locale);
+    });
+  }
+};
+
+/**
  * Configure the Sentry scope by extracting useful tags and context from the given request.
  *
  * @param req
+ * @see https://www.npmjs.com/package/@sentry/node
  */
 export const configureReq = (req: NextApiRequest): void => {
   Sentry.configureScope((scope) => {

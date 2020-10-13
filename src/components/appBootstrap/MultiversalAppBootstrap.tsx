@@ -17,7 +17,11 @@ import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { stringifyQueryParameters } from '../../utils/app/router';
 import { initCustomerTheme } from '../../utils/data/theme';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
-import { startPreviewMode, stopPreviewMode } from '../../utils/nextjs/previewMode';
+import { configureSentryI18n } from '../../utils/monitoring/sentry';
+import {
+  startPreviewMode,
+  stopPreviewMode,
+} from '../../utils/nextjs/previewMode';
 import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
@@ -75,6 +79,8 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       lang,
       locale,
     }: SSGPageProps | SSRPageProps = pageProps;
+    configureSentryI18n(lang, locale);
+
     const customer: Customer = airtableCustomer?.fields;
     let preview,
       previewData;
