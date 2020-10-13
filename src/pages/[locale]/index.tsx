@@ -1,8 +1,14 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+} from 'next';
 
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import DocsHomePage, { getStaticPaths as getStaticPathsHomePage, getStaticProps as getStaticPropsHomePage } from './examples/';
+import DocsHomePage, {
+  getStaticPaths as getStaticPathsHomePage,
+  getStaticProps as getStaticPropsHomePage,
+} from './examples/';
 
 /*
   XXX This page is an "alias", it basically imports the whole /examples/index page and export it back

@@ -1,5 +1,8 @@
 /** @jsx jsx */
-import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
+import {
+  Amplitude,
+  AmplitudeProvider,
+} from '@amplitude/react-amplitude';
 import { jsx } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';

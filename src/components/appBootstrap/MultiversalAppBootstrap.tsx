@@ -24,8 +24,8 @@ import {
 import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
-import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
+import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
