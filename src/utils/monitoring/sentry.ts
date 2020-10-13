@@ -1,6 +1,5 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import get from 'lodash.get';
 import { NextApiRequest } from 'next';
 
 // Don't initialise Sentry if SENTRY_DSN isn't defined (won't crash the app, usage of the Sentry lib is resilient to this and doesn't cause any issue)
@@ -25,13 +24,17 @@ if (process.env.SENTRY_DSN) {
 
   // Scope configured by default, subsequent calls to "configureScope" will add additional data
   Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+    scope.setTag('customerRef', process.env.NEXT_PUBLIC_CUSTOMER_REF);
+    scope.setTag('stage', process.env.NEXT_PUBLIC_APP_STAGE);
     scope.setTag('appName', process.env.NEXT_PUBLIC_APP_NAME);
     scope.setTag('appVersion', process.env.NEXT_PUBLIC_APP_VERSION);
+    scope.setTag('appVersionRelease', process.env.NEXT_PUBLIC_APP_VERSION_RELEASE);
     scope.setTag('nodejs', process.version);
     scope.setTag('nodejsAWS', process.env.AWS_EXECUTION_ENV || null); // Optional - Available on production environment only
     scope.setTag('memory', process.env.AWS_LAMBDA_FUNCTION_MEMORY_SIZE || null); // Optional - Available on production environment only
     scope.setTag('runtimeEngine', isBrowser() ? 'browser' : 'server');
     scope.setTag('buildTime', process.env.NEXT_PUBLIC_BUILD_TIME);
+    scope.setTag('buildId', process.env.NEXT_PUBLIC_APP_BUILD_ID);
   });
 }
 
