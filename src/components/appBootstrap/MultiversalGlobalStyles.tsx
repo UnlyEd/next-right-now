@@ -19,7 +19,7 @@ type Props = {
  *
  * @param props
  */
-const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Element => {
+const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { theme } = props;
   const { primaryColor } = theme;
   const primaryAltColor = primaryColor; // Helper for "primary alternative color", for customers with 2 primary colors (currently unused)
@@ -285,4 +285,4 @@ const UniversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Eleme
   );
 };
 
-export default UniversalGlobalStyles;
+export default MultiversalGlobalStyles;

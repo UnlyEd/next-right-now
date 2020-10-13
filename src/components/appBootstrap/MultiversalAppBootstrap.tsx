@@ -25,7 +25,7 @@ import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
-import UniversalGlobalStyles from './UniversalGlobalStyles';
+import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
@@ -186,7 +186,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
         <i18nContext.Provider value={{ lang, locale }}>
           <customerContext.Provider value={customer}>
             {/* XXX Global styles that applies to all pages go there */}
-            <UniversalGlobalStyles theme={theme} />
+            <MultiversalGlobalStyles theme={theme} />
 
             <ThemeProvider theme={theme}>
               {

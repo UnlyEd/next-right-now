@@ -84,7 +84,7 @@ class AppDocument extends Document<DocumentRenderProps> {
         <body
           className={classnames(
             // XXX Those variables are added to grant more flexibility if ever needed. They're not used at the moment
-            'nrn', // All styles are bound to this, if you remove/rename, it'll break all CSS in src/components/appBootstrap/UniversalGlobalStyles.tsx
+            'nrn', // All styles are bound to this, if you remove/rename, it'll break all CSS in src/components/appBootstrap/MultiversalGlobalStyles.tsx
             `${process.env.NEXT_PUBLIC_APP_NAME}`, // From package.json:name
 
             // Localisation-based styles are very useful (e.g: resize text based on locale or language)
