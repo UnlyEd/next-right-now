@@ -95,7 +95,7 @@ jobs:
           # Then we parse this json result to find the last deployment url, without the double quotation
           ALL_ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope')`
           ZEIT_DEPLOYMENT=`jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+          echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
@@ -146,7 +146,7 @@ jobs:
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+          echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests

@@ -68,7 +68,7 @@ jobs:
 
           # Extract the Vercel deployment url from the deployment output
           ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::$ZEIT_DEPLOYMENT_URL"
+          echo "ZEIT_DEPLOYMENT_URL=$ZEIT_DEPLOYMENT_URL" >> $GITHUB_ENV
           echo "Deployment url: " $ZEIT_DEPLOYMENT_URL
 
           # Build the alias domain based on our own rules (NRN own rules)
@@ -92,7 +92,7 @@ jobs:
 
           # Build alias url and create Vercel alias
           ZEIT_DEPLOYMENT_ALIAS=$ZEIT_DEPLOYMENT_ALIAS.vercel.app
-          echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
+          echo "ZEIT_DEPLOYMENT_ALIAS=https://$ZEIT_DEPLOYMENT_ALIAS" >> $GITHUB_ENV
           echo "Alias domain: "$ZEIT_DEPLOYMENT_ALIAS
           echo "Aliasing the deployment using the git branch alias:"
           echo "npx now alias "$ZEIT_DEPLOYMENT_URL $ZEIT_DEPLOYMENT_ALIAS
@@ -161,7 +161,7 @@ jobs:
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+          echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
@@ -243,7 +243,7 @@ jobs:
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
           ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+          echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests
