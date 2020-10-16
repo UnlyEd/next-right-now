@@ -91,7 +91,10 @@ jobs:
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
+          # First, we get all zeit deployment from this project
+          # Then we parse this json result to find the last deployment url, without the double quotation
+          ALL_ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope')`
+          ZEIT_DEPLOYMENT=`jq '.deployments [0].url' | tr -d \"`
           echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
 
       # Run the E2E tests against the new Zeit deployment
