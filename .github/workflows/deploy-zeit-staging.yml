@@ -182,7 +182,7 @@ jobs:
           echo "Latest Vercel deployment for current project: " $ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT
 
           # Extract the first element (which is the latest vercel deployment), and strip the double quotes from its value
-          ZEIT_LATEST_DEPLOYMENT_DOMAIN_FOR_CURRENT_PROJECT=`echo $ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT | jq '.url' | tr -d \"`
+          ZEIT_LATEST_DEPLOYMENT_DOMAIN_FOR_CURRENT_PROJECT=`echo $ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT | jq --raw-output '[].url'`
           echo "Latest Vercel deployment domain url for current project: " $ZEIT_LATEST_DEPLOYMENT_DOMAIN_FOR_CURRENT_PROJECT
 
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
@@ -290,7 +290,7 @@ jobs:
           echo "Latest Vercel deployment for current project: " $ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT
 
           # Extract the first element (which is the latest vercel deployment), and strip the double quotes from its value
-          ZEIT_LATEST_DEPLOYMENT_DOMAIN_FOR_CURRENT_PROJECT=`echo $ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT | jq '.url' | tr -d \"`
+          ZEIT_LATEST_DEPLOYMENT_DOMAIN_FOR_CURRENT_PROJECT=`echo $ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT | jq --raw-output '[].url'`
           echo "Latest Vercel deployment domain url for current project: " $ZEIT_LATEST_DEPLOYMENT_DOMAIN_FOR_CURRENT_PROJECT
 
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
