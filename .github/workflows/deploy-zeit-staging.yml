@@ -169,7 +169,7 @@ jobs:
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
 
           # Build Vercel API endpoint used to fetch deployments
-          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT=`https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID`
+          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
           echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
 
           # Fetch all zeit deployment from this project
@@ -270,12 +270,12 @@ jobs:
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
 
           # Build Vercel API endpoint used to fetch deployments
-          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT=`https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID`
+          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
           echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
 
           # Fetch all zeit deployment from this project
           ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
-          echo "Vercel deployments for current team" $ALL_ZEIT_DEPLOYMENTS
+          echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
 
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
           # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
