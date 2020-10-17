@@ -160,8 +160,12 @@ jobs:
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
+          # Resolve Vercel team ID
+          VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope'`
+          echo "Vercel team ID: " $VERCEL_TEAM_ID
+
           # Fetch all zeit deployment from this project
-          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope')`
+          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID`
           echo "Vercel deployments for current team" $ALL_ZEIT_DEPLOYMENTS
 
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
