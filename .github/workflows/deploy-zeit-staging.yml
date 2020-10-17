@@ -46,10 +46,10 @@ jobs:
       - name: Deploying on Zeit (staging)
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
-        #   - Resolve $ZEIT_DEPLOYMENT
+        #   - Resolve $ZEIT_DEPLOYMENT_URL
         #   - Get stdout from deploy command (stderr prints build steps and stdout prints deployment url, which is what we are really looking for)
         #   - Set the deployment url that will be included in the eventual PR comment
-        #   - Create a branch alias and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
+        #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
         run: |
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
@@ -146,7 +146,7 @@ jobs:
       - name: Resolving deployment url from Zeit
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
-        #   - Resolve $ZEIT_DEPLOYMENT
+        #   - Resolve $ZEIT_DEPLOYMENT_URL
         #     - Fetch all deployments data (by using the scope in `now.json`)
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
@@ -158,19 +158,25 @@ jobs:
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
+          echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
 
           # Resolve Vercel team ID
           VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
 
+          # Resolve Vercel project name
+          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.name'`
+          echo "Vercel project name: " $VERCEL_PROJECT_NAME
+
           # Fetch all zeit deployment from this project
           ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID`
-          echo "Vercel deployments for current team" $ALL_ZEIT_DEPLOYMENTS
+          echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
 
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
+          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
           ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
           echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
+          echo "Url where to run E2E tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
@@ -237,7 +243,7 @@ jobs:
       - name: Resolving deployment url from Zeit
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
-        #   - Resolve $ZEIT_DEPLOYMENT
+        #   - Resolve $ZEIT_DEPLOYMENT_URL
         #     - Fetch all deployments data (by using the scope in `now.json`)
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
@@ -249,15 +255,25 @@ jobs:
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
+          echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+
+          # Resolve Vercel team ID
+          VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope'`
+          echo "Vercel team ID: " $VERCEL_TEAM_ID
+
+          # Resolve Vercel project name
+          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.name'`
+          echo "Vercel project name: " $VERCEL_PROJECT_NAME
 
           # Fetch all zeit deployment from this project
-          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope')`
+          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID`
           echo "Vercel deployments for current team" $ALL_ZEIT_DEPLOYMENTS
 
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
+          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
           ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
           echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
+          echo "Url where to run LightHouse tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests

@@ -77,7 +77,7 @@ jobs:
       - name: Resolving deployment url from Zeit
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
-        #   - Resolve $ZEIT_DEPLOYMENT
+        #   - Resolve $ZEIT_DEPLOYMENT_URL
         #     - Fetch all deployments data (by using the scope in `now.json`)
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
@@ -131,7 +131,7 @@ jobs:
       - name: Resolving deployment url from Zeit
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
-        #   - Resolve $ZEIT_DEPLOYMENT
+        #   - Resolve $ZEIT_DEPLOYMENT_URL
         #     - Fetch all deployments data (by using the scope in `now.json`)
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
