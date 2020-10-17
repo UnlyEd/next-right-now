@@ -178,7 +178,7 @@ jobs:
           echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
 
           # Filter deployments by their "name" property in order to consider only deployments related to the current project
-          ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT=`echo $ALL_ZEIT_DEPLOYMENTS | jq 'first(.deployments[] | [select(.name == "$VERCEL_PROJECT_NAME")])'`
+          ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT=`echo $ALL_ZEIT_DEPLOYMENTS | jq 'first(.deployments[] | [select(.name == "$VERCEL_PROJECT_NAME")])[]'`
           echo "Latest Vercel deployment for current project: " $ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT
 
           # Extract the first element (which is the latest vercel deployment), and strip the double quotes from its value
@@ -286,7 +286,7 @@ jobs:
           echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
 
           # Filter deployments by their "name" property in order to consider only deployments related to the current project
-          ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT=`echo $ALL_ZEIT_DEPLOYMENTS | jq 'first(.deployments[] | [select(.name == "$VERCEL_PROJECT_NAME")])'`
+          ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT=`echo $ALL_ZEIT_DEPLOYMENTS | jq 'first(.deployments[] | [select(.name == "$VERCEL_PROJECT_NAME")])[]'`
           echo "Latest Vercel deployment for current project: " $ZEIT_LATEST_DEPLOYMENT_FOR_CURRENT_PROJECT
 
           # Extract the first element (which is the latest vercel deployment), and strip the double quotes from its value
