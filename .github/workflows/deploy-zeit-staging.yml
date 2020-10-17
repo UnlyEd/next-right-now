@@ -138,7 +138,7 @@ jobs:
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed to [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
-            Deployment aliased as [https://${{ env.ZEIT_DEPLOYMENT_ALIAS }}](${{ env.ZEIT_DEPLOYMENT_ALIAS }})
+            Deployment aliased as [${{ env.ZEIT_DEPLOYMENT_ALIAS }}](https://${{ env.ZEIT_DEPLOYMENT_ALIAS }})
 
   # Runs E2E tests against the Zeit deployment
   run-2e2-tests:
