@@ -14,6 +14,14 @@ on:
     branches-ignore:
       - 'master'
 
+  # Allow manual trigger via a button in github or a HTTP call - See https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#manually-running-a-workflow
+  # XXX Read more about how to use it with NRN in .github/WORKFLOW_DISPATCH.md
+  workflow_dispatch:
+    inputs:
+      customer:
+        description: 'Customer to deploy'
+        required: true
+
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
@@ -36,21 +44,31 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Deploying on Zeit (staging)
-        # Workflow:
-        #   - Get stdout from deploy command (stderr shows build steps and stdout shows final url, which is what we are really looking for)
+        # Workflow overview:
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Resolve $ZEIT_DEPLOYMENT_URL
+        #   - Get stdout from deploy command (stderr prints build steps and stdout prints deployment url, which is what we are really looking for)
         #   - Set the deployment url that will be included in the eventual PR comment
-        #   - Create a branch alias and link it to the deployment (so that each branch has its own domain automatically aliased to the lastest commit)
+        #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
         run: |
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
 
+          # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
+          # Falls back to the customer specified in the now.json file, which is most useful when deployment is triggered through "push" event
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
+
           # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1")
           # Store the output in a variable so we can extract metadata from it
-          ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF') --token $ZEIT_TOKEN`
+          ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$CUSTOMER_TO_DEPLOY --token $ZEIT_TOKEN`
 
           # Extract the Vercel deployment url from the deployment output
           ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::$ZEIT_DEPLOYMENT_URL"
+          echo "ZEIT_DEPLOYMENT_URL=$ZEIT_DEPLOYMENT_URL" >> $GITHUB_ENV
           echo "Deployment url: " $ZEIT_DEPLOYMENT_URL
 
           # Build the alias domain based on our own rules (NRN own rules)
@@ -59,7 +77,7 @@ jobs:
           if [[ ${CURRENT_BRANCH##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
             ZEIT_DEPLOYMENT_ALIAS=${CURRENT_BRANCH##*/}
           else
-            ZEIT_DEPLOYMENT_ALIAS=$(cat now.json | jq -r '.name')-${CURRENT_BRANCH##*/}
+            ZEIT_DEPLOYMENT_ALIAS=$(cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.name')-${CURRENT_BRANCH##*/}
           fi
 
           # Zeit alias only allows 41 characters in the domain name, so we only keep the first 41 (41 = 53 - 11 - 1) characters (because Zeit needs 7 chars for ".vercel.app" at the end of the domain name, and count starts at 1, not 0)
@@ -74,7 +92,7 @@ jobs:
 
           # Build alias url and create Vercel alias
           ZEIT_DEPLOYMENT_ALIAS=$ZEIT_DEPLOYMENT_ALIAS.vercel.app
-          echo "::set-env name=ZEIT_DEPLOYMENT_ALIAS::https://$ZEIT_DEPLOYMENT_ALIAS"
+          echo "ZEIT_DEPLOYMENT_ALIAS=https://$ZEIT_DEPLOYMENT_ALIAS" >> $GITHUB_ENV
           echo "Alias domain: "$ZEIT_DEPLOYMENT_ALIAS
           echo "Aliasing the deployment using the git branch alias:"
           echo "npx now alias "$ZEIT_DEPLOYMENT_URL $ZEIT_DEPLOYMENT_ALIAS
@@ -100,7 +118,7 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             :x:&nbsp; Deployment **FAILED**
-            Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            Commit ${{ github.sha }} failed to deploy to [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
             [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
 
       # On deployment success, add a comment to the PR
@@ -112,7 +130,7 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
-            Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            Commit ${{ github.sha }} successfully deployed to [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
             Deployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
 
   # Runs E2E tests against the Zeit deployment
@@ -126,15 +144,43 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Zeit
-        # The following workflow is:
-        #  - getting all deployments data (by using the scope in `now.json`)
-        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
-        #  - and then we remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${url provided by API}`
+        # Workflow overview:
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Resolve $ZEIT_DEPLOYMENT_URL
+        #     - Fetch all deployments data (by using the scope in `now.json`)
+        #     - Resolve the last url (from `response.deployments[0].url`)
+        #     - Remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}`
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+
+          # Resolve Vercel team ID
+          VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope'`
+          echo "Vercel team ID: " $VERCEL_TEAM_ID
+
+          # Resolve Vercel project name
+          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.name'`
+          echo "Vercel project name: " $VERCEL_PROJECT_NAME
+
+          # Build Vercel API endpoint used to fetch deployments
+          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
+          echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
+
+          # Fetch all zeit deployment from this project
+          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
+          echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
+
+          # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
+          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
+          ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
+          echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
+          echo "Url where to run E2E tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
@@ -176,7 +222,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
-            :x:&nbsp; E2E tests **FAILED**
+            :x:&nbsp; E2E tests **FAILED** for commit ${{ github.sha }} previously deployed at [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
             Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
 
       # On E2E success, add a comment to the PR
@@ -187,7 +233,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
-            :white_check_mark:&nbsp; E2E tests **SUCCESS**
+            :white_check_mark:&nbsp; E2E tests **SUCCESS** for commit ${{ github.sha }} previously deployed at [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -199,15 +245,43 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Zeit
-        # The following workflow is:
-        #  - getting all deployments data (by using the scope in `now.json`)
-        #  - then we get the last url (in Node.js it corresponds as `response.deployments[0].url`
-        #  - and then we remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${url provided by API}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
+        # Workflow overview:
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Resolve $ZEIT_DEPLOYMENT_URL
+        #     - Fetch all deployments data (by using the scope in `now.json`)
+        #     - Resolve the last url (from `response.deployments[0].url`)
+        #     - Remove the `"` character to pre-format url
+        # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
-          ZEIT_DEPLOYMENT=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.json | jq -r '.scope') | jq '.deployments [0].url' | tr -d \"`
-          echo "::set-env name=ZEIT_DEPLOYMENT_URL::https://$ZEIT_DEPLOYMENT"
+
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+
+          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+
+          # Resolve Vercel team ID
+          VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope'`
+          echo "Vercel team ID: " $VERCEL_TEAM_ID
+
+          # Resolve Vercel project name
+          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.name'`
+          echo "Vercel project name: " $VERCEL_PROJECT_NAME
+
+          # Build Vercel API endpoint used to fetch deployments
+          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
+          echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
+
+          # Fetch all zeit deployment from this project
+          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
+          echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
+
+          # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
+          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
+          ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
+          echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
+          echo "Url where to run LightHouse tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests
@@ -243,8 +317,9 @@ jobs:
         uses: foo-software/lighthouse-check-status-action@v1.0.1
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
-          minAccessibilityScore: "50"
+          # XXX We expect bad performances on staging, in particular because of client-side redirect upon first loading (preview mode causes a page refresh)
+          minAccessibilityScore: "10"
           minBestPracticesScore: "0"
           minPerformanceScore: "10"
-          minProgressiveWebAppScore: "50"
-          minSeoScore: "50"
+          minProgressiveWebAppScore: "10"
+          minSeoScore: "10"
