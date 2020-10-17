@@ -91,9 +91,9 @@ jobs:
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
-          # First, we get all zeit deployment from this project
-          # Then we parse this json result to find the last deployment url, without the double quotation
+          # Fetch all zeit deployment from this project
           ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope')`
+          # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
           ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
           echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
 
@@ -145,7 +145,9 @@ jobs:
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
 
+          # Fetch all zeit deployment from this project
           ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope')`
+          # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
           ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
           echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
         env:
