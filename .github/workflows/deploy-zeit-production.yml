@@ -89,13 +89,25 @@ jobs:
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
+          echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+
+          # Resolve Vercel team ID
+          VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope'`
+          echo "Vercel team ID: " $VERCEL_TEAM_ID
+
+          # Resolve Vercel project name
+          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.name'`
+          echo "Vercel project name: " $VERCEL_PROJECT_NAME
 
           # Fetch all zeit deployment from this project
-          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope')`
+          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID`
+          echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
+
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
+          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
           ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
           echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
+          echo "Url where to run E2E tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
@@ -143,13 +155,25 @@ jobs:
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
+          echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+
+          # Resolve Vercel team ID
+          VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope'`
+          echo "Vercel team ID: " $VERCEL_TEAM_ID
+
+          # Resolve Vercel project name
+          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.name'`
+          echo "Vercel project name: " $VERCEL_PROJECT_NAME
 
           # Fetch all zeit deployment from this project
-          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$(cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope')`
+          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID`
+          echo "Vercel deployments for current team" $ALL_ZEIT_DEPLOYMENTS
+
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
+          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
           ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
           echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
+          echo "Url where to run LightHouse tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests
