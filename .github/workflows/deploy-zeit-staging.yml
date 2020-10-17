@@ -118,7 +118,7 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             :x:&nbsp; Deployment **FAILED**
-            Commit ${{ github.sha }} failed to deploy to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            Commit ${{ github.sha }} failed to deploy to [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
             [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
 
       # On deployment success, add a comment to the PR
@@ -130,7 +130,7 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
-            Commit ${{ github.sha }} successfully deployed to ${{ env.ZEIT_DEPLOYMENT_URL }}
+            Commit ${{ github.sha }} successfully deployed to [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
             Deployment aliased as ${{ env.ZEIT_DEPLOYMENT_ALIAS }}
 
   # Runs E2E tests against the Zeit deployment
@@ -218,7 +218,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
-            :x:&nbsp; E2E tests **FAILED**
+            :x:&nbsp; E2E tests **FAILED** for commit ${{ github.sha }} previously deployed at [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
             Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
 
       # On E2E success, add a comment to the PR
@@ -229,7 +229,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
-            :white_check_mark:&nbsp; E2E tests **SUCCESS**
+            :white_check_mark:&nbsp; E2E tests **SUCCESS** for commit ${{ github.sha }} previously deployed at [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
