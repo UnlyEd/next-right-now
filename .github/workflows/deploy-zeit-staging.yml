@@ -58,9 +58,11 @@ jobs:
           # Falls back to the customer specified in the now.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
+          echo "CUSTOMER_TO_DEPLOY=$CUSTOMER_TO_DEPLOY" >> $GITHUB_ENV
 
           # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1")
           # Store the output in a variable so we can extract metadata from it
@@ -68,8 +70,8 @@ jobs:
 
           # Extract the Vercel deployment url from the deployment output
           ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
-          echo "ZEIT_DEPLOYMENT_URL=$ZEIT_DEPLOYMENT_URL" >> $GITHUB_ENV
           echo "Deployment url: " $ZEIT_DEPLOYMENT_URL
+          echo "ZEIT_DEPLOYMENT_URL=$ZEIT_DEPLOYMENT_URL" >> $GITHUB_ENV
 
           # Build the alias domain based on our own rules (NRN own rules)
           # Basically, if a branch starts with "v[0-9]" then we consider it to be a "preset branch" and we use the branch name as alias (e.g: "v2-mst-xxx")
@@ -163,17 +165,21 @@ jobs:
 
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+          echo "CUSTOMER_TO_DEPLOY=$CUSTOMER_TO_DEPLOY" >> $GITHUB_ENV
 
           # Resolve Vercel team ID
           VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
+          echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
 
           # Resolve Vercel project name
           VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.name'`
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
+          echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
 
           # Build Vercel API endpoint used to fetch deployments
           VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
@@ -195,7 +201,7 @@ jobs:
         uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
-          config-file: cypress/config-customer1.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config-file: cypress/config-${{ env.CUSTOMER_TO_DEPLOY }}.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
 
       # On E2E failure, upload screenshots
@@ -265,17 +271,21 @@ jobs:
 
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+          echo "CUSTOMER_TO_DEPLOY=$CUSTOMER_TO_DEPLOY" >> $GITHUB_ENV
 
           # Resolve Vercel team ID
           VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
+          echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
 
           # Resolve Vercel project name
           VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.staging.json | jq -r '.name'`
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
+          echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
 
           # Build Vercel API endpoint used to fetch deployments
           VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
