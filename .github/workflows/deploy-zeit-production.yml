@@ -87,17 +87,21 @@ jobs:
 
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+          echo "CUSTOMER_TO_DEPLOY=$CUSTOMER_TO_DEPLOY" >> $GITHUB_ENV
 
           # Resolve Vercel team ID
           VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
+          echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
 
           # Resolve Vercel project name
           VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.name'`
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
+          echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
 
           # Build Vercel API endpoint used to fetch deployments
           VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
@@ -110,15 +114,16 @@ jobs:
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
           # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
           ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
-          echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
+          ZEIT_DEPLOYMENT_URL="https://$ZEIT_DEPLOYMENT"
           echo "Url where to run E2E tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
+          echo "ZEIT_DEPLOYMENT_URL=$ZEIT_DEPLOYMENT_URL" >> $GITHUB_ENV
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
         uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
-          config-file: cypress/config-customer1.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config-file: cypress/config-${{ env.CUSTOMER_TO_DEPLOY }}.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
 
       # On E2E failure, upload screenshots
@@ -157,17 +162,21 @@ jobs:
 
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
           CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
+          echo "CUSTOMER_TO_DEPLOY=$CUSTOMER_TO_DEPLOY" >> $GITHUB_ENV
 
           # Resolve Vercel team ID
           VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
+          echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
 
           # Resolve Vercel project name
           VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.name'`
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
+          echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
 
           # Build Vercel API endpoint used to fetch deployments
           VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
@@ -180,8 +189,9 @@ jobs:
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
           # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
           ZEIT_DEPLOYMENT=`echo $ALL_ZEIT_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
-          echo "ZEIT_DEPLOYMENT_URL=https://$ZEIT_DEPLOYMENT" >> $GITHUB_ENV
+          ZEIT_DEPLOYMENT_URL="https://$ZEIT_DEPLOYMENT"
           echo "Url where to run LightHouse tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
+          echo "ZEIT_DEPLOYMENT_URL=$ZEIT_DEPLOYMENT_URL" >> $GITHUB_ENV
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests
