@@ -22,6 +22,8 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2020-10-18
+    - [Improve GHA - Do not crash Github build when Vercel aliasing fails](https://github.com/UnlyEd/next-right-now/pull/180)
 - 2020-10-17
     - [Manual & remote (HTTP) deployments through GitHub UI/API](https://github.com/UnlyEd/next-right-now/pull/147)
 - 2020-10-08
