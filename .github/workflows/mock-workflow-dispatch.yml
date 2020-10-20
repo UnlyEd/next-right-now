@@ -1,9 +1,0 @@
-# Summary:
-# Mock workflow that does nothing on its own
-# Trick to force GitHub UI to show the "Run workflow" button on all branches
-# See https://github.community/t/cant-trigger-workflow-manually/121740/53?u=vadorequest
-
-name: Mock workflow_dispatch trigger
-
-on:
-  workflow_dispatch:
