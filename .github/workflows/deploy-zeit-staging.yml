@@ -203,6 +203,10 @@ jobs:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
           config-file: cypress/config-${{ env.CUSTOMER_TO_DEPLOY }}.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
+        env:
+          # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.
+          #          DEBUG: "cypress:*" # Enable all logs. See https://docs.cypress.io/guides/references/troubleshooting.html#Print-DEBUG-logs
+          DEBUG: "cypress:server:util:process_profiler" # Enable logs for "memory and CPU usage". See https://docs.cypress.io/guides/references/troubleshooting.html#Log-memory-and-CPU-usage
 
       # On E2E failure, upload screenshots
       - name: Uplad screenshots artifacts (E2E failure)
