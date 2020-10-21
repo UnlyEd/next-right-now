@@ -118,10 +118,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # On deployment failure, add a comment to the PR
+      # On deployment failure, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (Deployment failure)
         uses: peter-evans/create-or-update-comment@v1
-        if: failure()
+        if: steps.pr_id_finder.outputs.number && failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
@@ -130,10 +130,10 @@ jobs:
             Commit ${{ github.sha }} failed to deploy to [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
             [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
 
-      # On deployment success, add a comment to the PR
+      # On deployment success, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (Deployment success)
         uses: peter-evans/create-or-update-comment@v1
-        if: success()
+        if: steps.pr_id_finder.outputs.number && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
@@ -228,10 +228,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # On E2E failure, add a comment to the PR with additional information
+      # On E2E failure, add a comment to the PR with additional information, if there is an open PR for the current branch
       - name: Comment PR (E2E failure)
         uses: peter-evans/create-or-update-comment@v1
-        if: failure()
+        if: steps.pr_id_finder.outputs.number && failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
@@ -239,10 +239,10 @@ jobs:
             :x:&nbsp; E2E tests **FAILED** for commit ${{ github.sha }} previously deployed at [${{ env.ZEIT_DEPLOYMENT_URL }}](${{ env.ZEIT_DEPLOYMENT_URL }})
             Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
 
-      # On E2E success, add a comment to the PR
+      # On E2E success, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (E2E success)
         uses: peter-evans/create-or-update-comment@v1
-        if: success()
+        if: steps.pr_id_finder.outputs.number && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
