@@ -210,6 +210,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     // We wait for out props to contain "isReadyToRender: true", which means they've been set correctly by either getInitialProps/getStaticProps/getServerProps
     // This helps avoid multiple useless renders (especially in development mode) and thus avoid noisy logs
     // XXX I've recently tested without it and didn't notice any more logs than expected/usual. Maybe this was from a time where there were multiple full-renders? It may be removed if so (TODO later with proper testing)
+    // eslint-disable-next-line no-console
     console.info('MultiversalAppBootstrap - App is not ready yet, waiting for isReadyToRender');
     return null;
   }
