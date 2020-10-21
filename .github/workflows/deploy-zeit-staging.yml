@@ -91,9 +91,9 @@ jobs:
 
           # Recursively remove any trailing dash ('-') to protect against invalid alias domain (not allowed to end with a trailing slash)
           while [[ "$ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS" == *- ]]
-            do
-              ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS=${ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS::-1}
-            done
+          do
+            ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS=${ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS::-1}
+          done
           echo "Sanitized domain alias (2): " $ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS
 
            # Build alias url
