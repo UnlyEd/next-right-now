@@ -47,6 +47,7 @@ jobs:
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
         #   - Deploy the customer in production
+        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           # Print the version of the "now" CLI being used (helps debugging)
           now --version
@@ -56,11 +57,37 @@ jobs:
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
 
-          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer to deploy: " $CUSTOMER_TO_DEPLOY
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
 
           # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1:production:simple")
-          yarn deploy:$CUSTOMER_TO_DEPLOY:production:simple --token $ZEIT_TOKEN
+          yarn deploy:$CUSTOMER_REF_TO_DEPLOY:production:simple --token $ZEIT_TOKEN
+
+          # Find all custom aliases configured in the customer deployment configuration file (now.json)
+          ZEIT_DEPLOYMENT_ALIASES_JSON=$(cat now.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')
+          echo "Custom aliases: " $ZEIT_DEPLOYMENT_ALIASES_JSON
+
+          # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
+          readarray -t ZEIT_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < now.$CUSTOMER_REF_TO_DEPLOY.staging.json)
+
+          # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
+          ZEIT_DEPLOYMENT_ALIASES_COUNT=${#ZEIT_DEPLOYMENT_ALIASES[@]}
+
+          # Check if there are no aliases configured
+          if [ "$ZEIT_DEPLOYMENT_ALIASES" > 0 ]
+          then
+            echo "$ZEIT_DEPLOYMENT_ALIASES_COUNT alias(es) found. Aliasing them now..."
+
+            # For each alias configured, then assign it to the deployed domain
+            for DEPLOYMENT_ALIAS in "${ZEIT_DEPLOYMENT_ALIASES[@]}"; do
+              echo "npx now alias "$ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS
+              npx now alias $ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS --token $ZEIT_TOKEN || echo "Aliasing failed for '$DEPLOYMENT_ALIAS', but the build will continue regardless."
+            done
+          else
+            # $ZEIT_DEPLOYMENT_ALIASES is null, this happens when it was not defined in the now.json file
+            echo "There are no more aliases to configure. You can add more aliases from your now.json 'alias' property. See https://vercel.com/docs/configuration?query=alias%20domain#project/alias"
+            echo "$ZEIT_DEPLOYMENT_ALIASES"
+          fi
         env:
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
 
@@ -82,6 +109,7 @@ jobs:
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
         # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}`
+        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
 
@@ -89,17 +117,17 @@ jobs:
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
           echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
-          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
-          echo "CUSTOMER_TO_DEPLOY=$CUSTOMER_TO_DEPLOY" >> $GITHUB_ENV
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer that was deployed: " $CUSTOMER_REF_TO_DEPLOY
+          echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
 
           # Resolve Vercel team ID
-          VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope'`
+          VERCEL_TEAM_ID=`cat now.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
           echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
 
           # Resolve Vercel project name
-          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.name'`
+          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.name'`
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
           echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
 
@@ -123,7 +151,7 @@ jobs:
         uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
-          config-file: cypress/config-${{ env.CUSTOMER_TO_DEPLOY }}.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config-file: cypress/config-${{ env.CUSTOMER_REF_TO_DEPLOY }}.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
 
       # On E2E failure, upload screenshots
@@ -157,6 +185,7 @@ jobs:
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
         # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
+        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
 
@@ -164,17 +193,17 @@ jobs:
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
           echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
-          CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer that was deployed: " $CUSTOMER_TO_DEPLOY
-          echo "CUSTOMER_TO_DEPLOY=$CUSTOMER_TO_DEPLOY" >> $GITHUB_ENV
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer that was deployed: " $CUSTOMER_REF_TO_DEPLOY
+          echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
 
           # Resolve Vercel team ID
-          VERCEL_TEAM_ID=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.scope'`
+          VERCEL_TEAM_ID=`cat now.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
           echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
 
           # Resolve Vercel project name
-          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_TO_DEPLOY.production.json | jq -r '.name'`
+          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.name'`
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
           echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
 

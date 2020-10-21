@@ -16,5 +16,8 @@
       "SENTRY_DSN": "@nrn-sentry-dsn"
     }
   },
+  "alias": [
+    "nrn-v2-mst-aptd-at-lcz-sty-c2-preview.vercel.app"
+  ],
   "public": false
 }
