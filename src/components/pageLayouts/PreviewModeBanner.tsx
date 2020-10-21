@@ -69,7 +69,7 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
 
   return (
     <Alert
-      color={'info'}
+      color={preview ? 'warning' : 'info'}
       css={css`
         display: flex;
         position: relative;
