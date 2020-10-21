@@ -24,7 +24,7 @@ checks:
   method-lines:
     enabled: true
     config:
-      threshold: 100 # 25 by default
+      threshold: 200 # 25 by default
   nested-control-flow:
     enabled: true
     config:
@@ -64,6 +64,7 @@ exclude_patterns:
   - "**/*.spec.*"
   - "src/svg/"
   - "cypress/"
+  - "src/mocks/"
 
   # Default CC excluded paths:
   - "config/"
