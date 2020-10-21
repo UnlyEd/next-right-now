@@ -96,7 +96,7 @@ jobs:
           done
           echo "Sanitized domain alias (2): " $ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS
 
-           # Build alias url
+          # Build alias url
           ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS="${ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS}.vercel.app"
           echo "ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS=$ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS" >> $GITHUB_ENV
           echo "Alias domain: "$ZEIT_DEPLOYMENT_AUTO_BRANCH_ALIAS
