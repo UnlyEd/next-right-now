@@ -22,6 +22,8 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2020-10-21
+    - [GHA - Auto-alias custom domains](https://github.com/UnlyEd/next-right-now/pull/185)
 - 2020-10-20
     - [GHA - Enable Cypress debug logs for CPU/Memory usage by default](https://github.com/UnlyEd/next-right-now/commit/383862e34d288f5a435b921fd4b1a2ba89b3254f)
     - Allow triggering workflows manually through [GitHub Actions page](https://github.com/UnlyEd/next-right-now/actions)
