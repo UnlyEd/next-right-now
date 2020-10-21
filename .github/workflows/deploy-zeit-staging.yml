@@ -145,6 +145,7 @@ jobs:
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
         # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}`
+        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
 
@@ -255,6 +256,7 @@ jobs:
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
         # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
+        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
 
