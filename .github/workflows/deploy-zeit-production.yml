@@ -62,6 +62,11 @@ jobs:
 
           # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1:production:simple")
           yarn deploy:$CUSTOMER_REF_TO_DEPLOY:production:simple --token $ZEIT_TOKEN
+
+          # Find all custom aliases configured in the customer deployment configuration file (now.json)
+          ZEIT_DEPLOYMENT_ALIASES_JSON=$(cat now.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')
+          echo "Custom aliases: " $ZEIT_DEPLOYMENT_ALIASES_JSON
+
           # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
           readarray -t ZEIT_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < now.$CUSTOMER_REF_TO_DEPLOY.staging.json)
 

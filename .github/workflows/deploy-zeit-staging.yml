@@ -108,8 +108,7 @@ jobs:
            echo $ZEIT_ALIASING_OUTPUT
            # TODO Resolve whether the aliasing has worked and change the GitHub comment "Comment PR (Deployment success)"
 
-           # Apply all aliases specified in the now.json file (if any is specified)
-           # Find all aliases configured in the customer deployment configuration file (now.json)
+           # Find all custom aliases configured in the customer deployment configuration file (now.json)
            ZEIT_DEPLOYMENT_ALIASES_JSON=$(cat now.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.alias')
            echo "Custom aliases: " $ZEIT_DEPLOYMENT_ALIASES_JSON
 
