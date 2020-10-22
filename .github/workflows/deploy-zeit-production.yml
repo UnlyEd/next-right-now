@@ -68,7 +68,7 @@ jobs:
           echo "Custom aliases: " $ZEIT_DEPLOYMENT_ALIASES_JSON
 
           # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
-          readarray -t ZEIT_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < now.$CUSTOMER_REF_TO_DEPLOY.staging.json)
+          readarray -t ZEIT_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < now.$CUSTOMER_REF_TO_DEPLOY.production.json)
 
           # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
           ZEIT_DEPLOYMENT_ALIASES_COUNT=${#ZEIT_DEPLOYMENT_ALIASES[@]}
