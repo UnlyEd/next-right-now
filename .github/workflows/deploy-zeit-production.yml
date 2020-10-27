@@ -60,8 +60,8 @@ jobs:
           CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
 
-          # Deploy the customer on Vercel using the customer specified in now.json (e.g: "yarn deploy:customer1:production:simple")
-          yarn deploy:$CUSTOMER_REF_TO_DEPLOY:production:simple --token $ZEIT_TOKEN
+          # Deploy the customer on Vercel using the customer specified in now.json
+          CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer:production:simple --token $ZEIT_TOKEN
 
           # Find all custom aliases configured in the customer deployment configuration file (now.json)
           ZEIT_DEPLOYMENT_ALIASES_JSON=$(cat now.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')

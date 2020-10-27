@@ -1,0 +1,9 @@
+{
+  "//": "This file is used by CI/CD GitHub Actions and not meant to be used locally",
+  "baseUrl": "https://nrn-customer.vercel.app",
+  "projectId": "4dvdog",
+  "screenshotsFolder": "cypress/screenshots/customer",
+  "videosFolder": "cypress/videos/customer",
+  "env": {},
+  "ignoreTestFiles": "*.md"
+}

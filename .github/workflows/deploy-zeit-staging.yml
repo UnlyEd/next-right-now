@@ -65,9 +65,9 @@ jobs:
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
           echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
 
-          # Deploy the customer on Vercel using the customer ref (e.g: "yarn deploy:customer1")
+          # Deploy the customer on Vercel using the customer ref
           # Store the output in a variable so we can extract metadata from it
-          ZEIT_DEPLOYMENT_OUTPUT=`yarn deploy:$CUSTOMER_REF_TO_DEPLOY --token $ZEIT_TOKEN`
+          ZEIT_DEPLOYMENT_OUTPUT=`CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer --token $ZEIT_TOKEN`
 
           # Extract the Vercel deployment url from the deployment output
           ZEIT_DEPLOYMENT_URL=`echo $ZEIT_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
@@ -229,7 +229,7 @@ jobs:
         uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
-          config-file: cypress/config-${{ env.CUSTOMER_REF_TO_DEPLOY }}.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config-file: cypress/config-customer-ci-cd.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
 
       # On E2E failure, upload screenshots
