@@ -6,6 +6,7 @@ import size from 'lodash.size';
 import {
   GetStaticPaths,
   GetStaticProps,
+  GetStaticPropsResult,
   NextPage,
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -25,7 +26,6 @@ import { AirtableRecord } from '../../../../types/data/AirtableRecord';
 import { Product } from '../../../../types/data/Product';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
-import { StaticPropsOutput } from '../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import {
@@ -55,18 +55,23 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
-  const { customer: airtableCustomer } = commonStaticProps.props;
-  const customer = airtableCustomer?.fields;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getExamplesCommonStaticProps(props);
 
-  return deepmerge(commonStaticProps, {
-    props: {
-      products: customer.products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
-      builtAt: new Date().toISOString(),
-    },
-    revalidate: regenerationDelay,
-  });
+  if ('props' in commonStaticProps) {
+    const { customer: airtableCustomer } = commonStaticProps?.props || {};
+    const customer = airtableCustomer?.fields;
+
+    return deepmerge(commonStaticProps, {
+      props: {
+        products: customer?.products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
+        builtAt: new Date().toISOString(),
+      },
+      revalidate: regenerationDelay,
+    });
+  } else {
+    return commonStaticProps;
+  }
 };
 
 /**

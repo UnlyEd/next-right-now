@@ -1,7 +1,9 @@
 import map from 'lodash.map';
 import {
   GetStaticPaths,
+  GetStaticPathsContext,
   GetStaticProps,
+  GetStaticPropsResult,
 } from 'next';
 
 import { supportedLocales } from '../../i18nConfig';
@@ -13,7 +15,6 @@ import { PreviewData } from '../../types/nextjs/PreviewData';
 import { StaticPath } from '../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../types/nextjs/StaticPathsOutput';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
-import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import fetchCustomer from '../api/fetchCustomer';
 import {
@@ -39,12 +40,12 @@ import {
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): Promise<StaticPathsOutput> => {
+export const getCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the Airtable query by your own API query, while keeping the existing example pages working.
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  return getExamplesCommonStaticPaths();
+  return getExamplesCommonStaticPaths(context);
 };
 
 /**
@@ -63,7 +64,7 @@ export const getCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = asyn
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getCommonStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getCommonStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the Airtable query by your own API query, while keeping the existing example pages working.
@@ -88,7 +89,7 @@ export const getCommonStaticProps: GetStaticProps<SSGPageProps, CommonServerSide
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getExamplesCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): Promise<StaticPathsOutput> => {
+export const getExamplesCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
     return {
       params: {
@@ -122,7 +123,7 @@ export const getExamplesCommonStaticPaths: GetStaticPaths<CommonServerSideParams
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
+export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const preview: boolean = props?.preview || false;
   const previewData: PreviewData = props?.previewData || null;
