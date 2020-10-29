@@ -127,7 +127,7 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
         </Alert>
 
         <Alert color={'warning'}>
-          In development mode, it is not possible to simulate <code>revalidate</code> mode properly.<br />
+          In development mode and when the preview mode is enabled on staging, it is not possible to simulate <code>revalidate</code> mode properly.<br />
           Each page refresh will completely refresh the page, any previous build will be ignored, and <code>builtAt</code> will be reset.
         </Alert>
 
