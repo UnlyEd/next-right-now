@@ -129,7 +129,7 @@
     "lodash.startswith": "4.2.1",
     "lodash.xorby": "4.7.0",
     "markdown-to-jsx": "6.11.2",
-    "next": "9.5.4-canary.4",
+    "next": "10.0.0",
     "next-cookies": "2.0.3",
     "next-with-apollo": "5.0.1",
     "prop-types": "15.7.2",
