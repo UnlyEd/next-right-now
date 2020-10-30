@@ -1,27 +1,9 @@
-import {
-  config,
-  library,
-} from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
-import {
-  faArrowCircleLeft,
-  faArrowCircleRight,
-  faBook,
-  faBookReader,
-  faCoffee,
-  faHome,
-  faQuestionCircle,
-  faUserCog,
-} from '@fortawesome/free-solid-svg-icons';
 import 'animate.css/animate.min.css'; // Loads animate.css CSS file. See https://github.com/daneden/animate.css
 import 'bootstrap/dist/css/bootstrap.min.css'; // Loads bootstrap CSS file. See https://stackoverflow.com/a/50002905/2391795
 import 'cookieconsent/build/cookieconsent.min.css'; // Loads CookieConsent CSS file. See https://github.com/osano/cookieconsent
 import 'rc-tooltip/assets/bootstrap.css';
 import React from 'react';
 import { v1 as uuid } from 'uuid'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
-
 import MultiversalAppBootstrap from '../components/appBootstrap/MultiversalAppBootstrap';
 import { MultiversalAppBootstrapProps } from '../types/nextjs/MultiversalAppBootstrapProps';
 import { NextWebVitalsMetrics } from '../types/nextjs/NextWebVitalsMetrics';
@@ -30,15 +12,8 @@ import { SSGPageProps } from '../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../types/pageProps/SSRPageProps';
 import { sendWebVitals } from '../utils/analytics/amplitude';
 import '../utils/app/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
+import '../utils/icons/font-awesome';
 import '../utils/monitoring/sentry';
-
-// See https://github.com/FortAwesome/react-fontawesome#integrating-with-other-tools-and-frameworks
-config.autoAddCss = false; // Tell Font Awesome to skip adding the CSS automatically since it's being imported above
-library.add(
-  faGithub,
-  faArrowCircleLeft, faArrowCircleRight, faBook, faBookReader, faCoffee, faHome, faQuestionCircle, faUserCog,
-  faTimesCircle,
-);
 
 /**
  * WDYR (why-did-you-render) helps locate unnecessary re-renders and fix them
