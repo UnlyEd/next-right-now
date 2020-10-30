@@ -1,9 +1,7 @@
-/** @jsx jsx */
 import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
-import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import {

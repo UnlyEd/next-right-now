@@ -1,8 +1,6 @@
-/** @jsx jsx */
 import {
   css,
   Global,
-  jsx,
 } from '@emotion/core';
 
 import {

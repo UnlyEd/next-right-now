@@ -1,8 +1,4 @@
-/** @jsx jsx */
-import {
-  css,
-  jsx,
-} from '@emotion/core';
+import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
