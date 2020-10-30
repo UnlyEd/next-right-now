@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -118,8 +116,6 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
             <br />
             <Code
               text={`
-                /** @jsx jsx */
-                import { jsx } from '@emotion/core';
                 import * as Sentry from '@sentry/node';
                 import { createLogger } from '@unly/utils-simple-logger';
                 import deepmerge from 'deepmerge';

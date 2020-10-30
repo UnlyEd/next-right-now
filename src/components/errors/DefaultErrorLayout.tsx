@@ -1,8 +1,4 @@
-/** @jsx jsx */
-import {
-  css,
-  jsx,
-} from '@emotion/core';
+import { css } from '@emotion/core';
 import * as Sentry from '@sentry/node';
 import * as React from 'react';
 import { Button } from 'reactstrap';

@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import classnames from 'classnames';
 import deepmerge from 'deepmerge';

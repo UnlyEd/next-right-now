@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import RCTooltip from 'rc-tooltip';
 import React from 'react';
 

@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import size from 'lodash.size';

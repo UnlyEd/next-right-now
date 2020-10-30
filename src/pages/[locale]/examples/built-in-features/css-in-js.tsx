@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -88,8 +86,7 @@ const ExampleCssInJsPage: NextPage<Props> = (props): JSX.Element => {
 
         <Code
           text={`
-            /** @jsx jsx */
-            import { css, jsx } from '@emotion/core';
+            import { css } from '@emotion/core';
 
             <div
               css={css\`
@@ -125,8 +122,6 @@ const ExampleCssInJsPage: NextPage<Props> = (props): JSX.Element => {
 
         <Code
           text={`
-            /** @jsx jsx */
-            import { jsx } from '@emotion/core';
             import styled from '@emotion/styled';
 
             const StyledImage = styled.img\`
