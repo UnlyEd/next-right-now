@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
@@ -8,6 +6,7 @@ import size from 'lodash.size';
 import {
   GetStaticPaths,
   GetStaticProps,
+  GetStaticPropsResult,
   NextPage,
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -28,7 +27,6 @@ import { Product } from '../../../../types/data/Product';
 import { I18nLocale } from '../../../../types/i18n/I18nLocale';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
-import { StaticPropsOutput } from '../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../../../utils/gql/graphql';
@@ -57,49 +55,54 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
-  const { customerRef, gcmsLocales } = commonStaticProps.props;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getExamplesCommonStaticProps(props);
 
-  const apolloClient = createApolloClient();
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
-    displayName: 'EXAMPLE_WITH_SSG_QUERY',
-    query: EXAMPLE_WITH_SSG_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locale': gcmsLocales,
+  if ('props' in commonStaticProps) {
+    const { customerRef, gcmsLocales } = commonStaticProps.props;
+
+    const apolloClient = createApolloClient();
+    const variables = {
+      customerRef,
+    };
+    const queryOptions = {
+      displayName: 'EXAMPLE_WITH_SSG_QUERY',
+      query: EXAMPLE_WITH_SSG_QUERY,
+      variables,
+      context: {
+        headers: {
+          'gcms-locale': gcmsLocales,
+        },
       },
-    },
-  };
+    };
 
-  const {
-    data,
-    errors,
-    loading,
-    networkStatus,
-    stale,
-  }: ApolloQueryResult<{
-    products: Product[];
-  }> = await apolloClient.query(queryOptions);
+    const {
+      data,
+      errors,
+      loading,
+      networkStatus,
+      stale,
+    }: ApolloQueryResult<{
+      products: Product[];
+    }> = await apolloClient.query(queryOptions);
 
-  if (errors) {
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
+    if (errors) {
+      console.error(errors);
+      throw new Error('Errors were detected in GraphQL query.');
+    }
+
+    const {
+      products,
+    } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+
+    return deepmerge(commonStaticProps, {
+      props: {
+        products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
+      },
+    });
+  } else {
+    return commonStaticProps;
   }
-
-  const {
-    products,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
-
-  return deepmerge(commonStaticProps, {
-    props: {
-      products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
-    },
-  });
 };
 
 /**

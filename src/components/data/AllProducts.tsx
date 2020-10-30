@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import filter from 'lodash.filter';
 import React from 'react';
 

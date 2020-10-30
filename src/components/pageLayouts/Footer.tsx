@@ -1,8 +1,4 @@
-/** @jsx jsx */
-import {
-  css,
-  jsx,
-} from '@emotion/core';
+import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

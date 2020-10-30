@@ -1,14 +1,11 @@
-/** @jsx jsx */
-import {
-  css,
-  jsx,
-} from '@emotion/core';
+import { css } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
 import {
   GetStaticPaths,
   GetStaticProps,
+  GetStaticPropsResult,
   NextPage,
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -25,7 +22,6 @@ import { Customer } from '../../types/data/Customer';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
-import { StaticPropsOutput } from '../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../utils/gql/graphql';
@@ -54,49 +50,53 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<StaticPropsOutput> => {
-  const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
-  const { customerRef, gcmsLocales } = commonStaticProps.props;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getExamplesCommonStaticProps(props);
 
-  const apolloClient = createApolloClient();
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
-    displayName: 'TERMS_PAGE_QUERY',
-    query: TERMS_PAGE_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locale': gcmsLocales,
+  if ('props' in commonStaticProps) {
+    const { customerRef, gcmsLocales } = commonStaticProps.props;
+    const apolloClient = createApolloClient();
+    const variables = {
+      customerRef,
+    };
+    const queryOptions = {
+      displayName: 'TERMS_PAGE_QUERY',
+      query: TERMS_PAGE_QUERY,
+      variables,
+      context: {
+        headers: {
+          'gcms-locale': gcmsLocales,
+        },
       },
-    },
-  };
+    };
 
-  const {
-    data,
-    errors,
-    loading,
-    networkStatus,
-    stale,
-  }: ApolloQueryResult<{
-    customer: Customer;
-  }> = await apolloClient.query(queryOptions);
+    const {
+      data,
+      errors,
+      loading,
+      networkStatus,
+      stale,
+    }: ApolloQueryResult<{
+      customer: Customer;
+    }> = await apolloClient.query(queryOptions);
 
-  if (errors) {
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
-  }
+    if (errors) {
+      console.error(errors);
+      throw new Error('Errors were detected in GraphQL query.');
+    }
 
-  const {
-    customer,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
-
-  return deepmerge(commonStaticProps, {
-    props: {
+    const {
       customer,
-    },
-  });
+    } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+
+    return deepmerge(commonStaticProps, {
+      props: {
+        customer,
+      },
+    });
+  } else {
+    return commonStaticProps;
+  }
 };
 
 /**

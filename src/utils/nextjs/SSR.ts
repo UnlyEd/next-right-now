@@ -7,6 +7,7 @@ import { IncomingMessage } from 'http';
 import get from 'lodash.get';
 import {
   GetServerSideProps,
+  GetServerSidePropsContext,
   GetServerSidePropsResult,
 } from 'next';
 import NextCookies from 'next-cookies';
@@ -16,7 +17,6 @@ import { Cookies } from '../../types/Cookies';
 import { GenericObject } from '../../types/GenericObject';
 import { ApolloQueryOptions } from '../../types/gql/ApolloQueryOptions';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
@@ -56,7 +56,7 @@ export type GetCommonServerSidePropsResults = Omit<SSRPageProps, 'apolloState' |
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
+export const getCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
   // TODO Make your own implementation.
   // XXX Having this as separate function helps making your own pages without affecting existing examples under "pages/[locale]/examples".
   //  For instance, you may want to replace the GraphQL query by your own API query, while keeping the existing example pages working.
@@ -77,7 +77,7 @@ export const getCommonServerSideProps: GetServerSideProps<GetCommonServerSidePro
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
+export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
   const {
     query,
     params,

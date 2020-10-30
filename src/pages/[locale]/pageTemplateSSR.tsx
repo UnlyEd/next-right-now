@@ -1,9 +1,8 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import {
   GetServerSideProps,
+  GetServerSidePropsContext,
   GetServerSidePropsResult,
   NextPage,
 } from 'next';
@@ -15,7 +14,6 @@ import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import withApollo from '../../hocs/withApollo';
 import { Customer } from '../../types/data/Customer';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-import { GetServerSidePropsContext } from '../../types/nextjs/GetServerSidePropsContext';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
@@ -47,44 +45,50 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
-  const {
-    props: {
-      apolloClient,
-      layoutQueryOptions,
-      ...pageData
-    },
-  }: GetServerSidePropsResult<GetCommonServerSidePropsResults> = await getCommonServerSideProps(context);
-  const queryOptions = { // Override query (keep existing variables and headers)
-    ...layoutQueryOptions,
-    displayName: 'LAYOUT_QUERY',
-    query: LAYOUT_QUERY,
-  };
+  const commonServerSideProps: GetServerSidePropsResult<GetCommonServerSidePropsResults> = await getCommonServerSideProps(context);
 
-  const {
-    data,
-    errors,
-  }: ApolloQueryResult<{
-    customer: Customer;
-  }> = await apolloClient.query(queryOptions);
+  if ('props' in commonServerSideProps) {
+    const {
+      props: {
+        apolloClient,
+        layoutQueryOptions,
+        ...pageData
+      },
+    } = commonServerSideProps;
+    const queryOptions = { // Override query (keep existing variables and headers)
+      ...layoutQueryOptions,
+      displayName: 'LAYOUT_QUERY',
+      query: LAYOUT_QUERY,
+    };
 
-  if (errors) {
-    // eslint-disable-next-line no-console
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
-  }
+    const {
+      data,
+      errors,
+    }: ApolloQueryResult<{
+      customer: Customer;
+    }> = await apolloClient.query(queryOptions);
 
-  const {
-    customer,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+    if (errors) {
+      // eslint-disable-next-line no-console
+      console.error(errors);
+      throw new Error('Errors were detected in GraphQL query.');
+    }
 
-  return {
-    // Props returned here will be available as page properties (pageProps)
-    props: {
-      ...pageData,
-      apolloState: apolloClient.cache.extract(),
+    const {
       customer,
-    },
-  };
+    } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+
+    return {
+      // Props returned here will be available as page properties (pageProps)
+      props: {
+        ...pageData,
+        apolloState: apolloClient.cache.extract(),
+        customer,
+      },
+    };
+  } else {
+    return commonServerSideProps;
+  }
 };
 
 /**

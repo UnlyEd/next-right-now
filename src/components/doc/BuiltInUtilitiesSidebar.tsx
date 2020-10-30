@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import map from 'lodash.map';
 import {
   NextRouter,
