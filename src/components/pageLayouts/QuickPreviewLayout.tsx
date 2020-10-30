@@ -1,12 +1,8 @@
-/** @jsx jsx */
 import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
-import {
-  css,
-  jsx,
-} from '@emotion/core';
+import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';

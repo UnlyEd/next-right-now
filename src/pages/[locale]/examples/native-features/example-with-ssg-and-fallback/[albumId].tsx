@@ -1,14 +1,12 @@
-/** @jsx jsx */
-import {
-  css,
-  jsx,
-} from '@emotion/core';
+import { css } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import {
   GetStaticPaths,
+  GetStaticPathsContext,
   GetStaticProps,
+  GetStaticPropsResult,
   NextPage,
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
@@ -27,7 +25,6 @@ import { CommonServerSideParams } from '../../../../../types/nextjs/CommonServer
 import { StaticPath } from '../../../../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../../../../types/nextjs/StaticPathsOutput';
 import { StaticPropsInput } from '../../../../../types/nextjs/StaticPropsInput';
-import { StaticPropsOutput } from '../../../../../types/nextjs/StaticPropsOutput';
 import { OnlyBrowserPageProps } from '../../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../../types/pageProps/SSGPageProps';
 import { getRandomInt } from '../../../../../utils/math/random';
@@ -50,8 +47,8 @@ type PageAdditionalServerSideParams = {
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): Promise<StaticPathsOutput<PageAdditionalServerSideParams>> => {
-  const commonStaticPaths: StaticPathsOutput<PageAdditionalServerSideParams> = await getExamplesCommonStaticPaths() as StaticPathsOutput<PageAdditionalServerSideParams>;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput<PageAdditionalServerSideParams>> => {
+  const commonStaticPaths: StaticPathsOutput<PageAdditionalServerSideParams> = await getExamplesCommonStaticPaths(context) as StaticPathsOutput<PageAdditionalServerSideParams>;
   const { paths } = commonStaticPaths;
   const albumIdsToPreBuild = ['1']; // Only '/album-1-with-ssg-and-fallback' is generated at build time, other will be generated on-demand
 
@@ -77,8 +74,8 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): 
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput<PageAdditionalServerSideParams>): Promise<StaticPropsOutput> => {
-  const commonStaticProps: StaticPropsOutput = await getExamplesCommonStaticProps(props);
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput<PageAdditionalServerSideParams>): Promise<GetStaticPropsResult<SSGPageProps>> => {
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getExamplesCommonStaticProps(props);
   const { params: { albumId } } = props;
 
   // Simulate API call by awaiting
@@ -100,14 +97,16 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
     awaitedForMs: awaitForMs,
   };
 
-  const staticProps: StaticPropsOutput = deepmerge(commonStaticProps, {
-    props: {
-      album,
-      albumId,
-    },
-  });
-
-  return staticProps;
+  if ('props' in commonStaticProps) {
+    return deepmerge(commonStaticProps, {
+      props: {
+        album,
+        albumId,
+      },
+    });
+  } else {
+    return commonStaticProps;
+  }
 };
 
 type Album = {

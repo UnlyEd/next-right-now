@@ -1,8 +1,4 @@
-/** @jsx jsx */
-import {
-  css,
-  jsx,
-} from '@emotion/core';
+import { css } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticProps,
