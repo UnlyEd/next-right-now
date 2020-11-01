@@ -12,8 +12,8 @@ type Props = {
   asset: Asset;
   id?: string;
   transformationsOverride?: AssetTransformations;
-  defaults?: Asset;
-  override?: Asset;
+  defaults?: Asset; // TODO Should be renamed to "assetFallback"
+  override?: Asset; // TODO Should be renamed to "assetOverride"
   className?: string;
   style?: CSSStyles;
   onClick?: () => void;
@@ -22,7 +22,7 @@ type Props = {
     url?: string;
     target?: string;
     style?: CSSStyles;
-    classes?: string;
+    classes?: string; // TODO Should be renamed to "className"
   };
 }
 
@@ -44,14 +44,22 @@ const _defaultLink: Link = {
 };
 
 /**
- * Displays an asset, based on the provided props
- * Handles GraphCMS assets, including svg
- * Should be used to display assets coming from GraphCMS (handles transformations)
+ * Displays an image with enriched capabilities, for a given "Asset".
+ *
+ * Extra capabilities:
+ *  - Auto-generates an "id", based on the asset.id
+ *  - Asset default properties
+ *    - A default asset can be provided and its properties will be used as fallback properties, if they're undefined in the asset property
+ *  - Asset override
+ *    - An asset override can be provided and its properties will take priority, even if they're defined within the asset property
+ *  - Link wrapper
+ *    - The image will be wrapped with a link, if a valid link (contains a "url") is provided either through:
+ *      - The asset itself (asset.linkUrl)
+ *      - The linkOverride (linkOverride.url)
+ *  - Link override
+ *    - A link override can be provided and its properties will take priority, even if they're defined within the link property
  *
  * @param props
- * @return {null|*}
- *
- * @see Transformations https://docs.graphcms.com/developers/assets/transformations/transforming-url-structure
  */
 const AirtableAsset = (props: Props): JSX.Element => {
   const {
