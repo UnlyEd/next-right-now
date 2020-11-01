@@ -4,16 +4,14 @@ import isEmpty from 'lodash.isempty';
 import React from 'react';
 import { CSSStyles } from '../../types/CSSStyles';
 import { Asset } from '../../types/data/Asset';
-import { AssetTransformations } from '../../types/data/AssetTransformations';
 import { Link } from '../../types/data/Link';
 import { cssToReactStyle } from '../../utils/css';
 
 type Props = {
   asset: Asset;
   id?: string;
-  transformationsOverride?: AssetTransformations;
-  defaults?: Asset; // TODO Should be renamed to "assetFallback"
-  override?: Asset; // TODO Should be renamed to "assetOverride"
+  defaults?: Asset; // XXX Should be renamed to "assetFallback"
+  override?: Asset; // XXX Should be renamed to "assetOverride"
   className?: string;
   style?: CSSStyles;
   onClick?: () => void;
@@ -22,7 +20,7 @@ type Props = {
     url?: string;
     target?: string;
     style?: CSSStyles;
-    classes?: string; // TODO Should be renamed to "className"
+    className?: string;
   };
 }
 
@@ -61,7 +59,7 @@ const _defaultLink: Link = {
  *
  * @param props
  */
-const AirtableAsset = (props: Props): JSX.Element => {
+const RichImage = (props: Props): JSX.Element => {
   const {
     asset,
     id,
@@ -71,7 +69,6 @@ const AirtableAsset = (props: Props): JSX.Element => {
     style = null,
     onClick = null,
     linkOverride = {},
-    transformationsOverride = null,
   }: Props = props;
   if (isEmpty(asset)) {
     return null;
@@ -87,20 +84,10 @@ const AirtableAsset = (props: Props): JSX.Element => {
     },
     linkOverride,
   ]);
-  const transformations: AssetTransformations = transformationsOverride || asset.defaultTransformations;
 
   // Convert "style" if it is a string, to a react style object (won't modify if already an object)
   resolvedAssetProps.style = cssToReactStyle(resolvedAssetProps.style);
   resolvedLinkProps.style = cssToReactStyle(resolvedLinkProps.style);
-
-  if (transformations) {
-    if (transformations.width) {
-      resolvedAssetProps.style.width = transformations.width;
-    }
-    if (transformations.height) {
-      resolvedAssetProps.style.height = transformations.height;
-    }
-  }
 
   const Image = (): JSX.Element => {
     return (
@@ -138,4 +125,4 @@ const AirtableAsset = (props: Props): JSX.Element => {
   }
 };
 
-export default AirtableAsset;
+export default RichImage;
