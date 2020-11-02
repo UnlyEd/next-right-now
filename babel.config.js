@@ -1,3 +1,6 @@
 module.exports = {
-  presets: ['next/babel', '@emotion/babel-preset-css-prop'],
+  presets: [
+    'next/babel',
+    ['@emotion/babel-preset-css-prop', { runtime: 'automatic' }],
+  ],
 };

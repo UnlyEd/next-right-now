@@ -82,7 +82,7 @@
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
-    "@emotion/core": "10.0.35",
+    "@emotion/core": "10.1.0",
     "@emotion/styled": "10.0.27",
     "@fortawesome/fontawesome-svg-core": "1.2.30",
     "@fortawesome/free-brands-svg-icons": "5.14.0",
@@ -142,7 +142,7 @@
     "winston": "3.2.1"
   },
   "devDependencies": {
-    "@emotion/babel-preset-css-prop": "10.0.27",
+    "@emotion/babel-preset-css-prop": "10.1.0",
     "@next/bundle-analyzer": "9.5.3",
     "@svgr/cli": "5.4.0",
     "@types/amplitude-js": "5.11.0",
