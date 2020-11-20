@@ -155,7 +155,7 @@ jobs:
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
 
       # On E2E failure, upload screenshots
-      - name: Uplad screenshots artifacts (E2E failure)
+      - name: Upload screenshots artifacts (E2E failure)
         uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
         if: failure()
         with:
@@ -163,7 +163,7 @@ jobs:
           path: cypress/screenshots/
 
       # On E2E failure, upload videos
-      - name: Uplad videos artifacts (E2E failure)
+      - name: Upload videos artifacts (E2E failure)
         uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
         if: failure()
         with:
