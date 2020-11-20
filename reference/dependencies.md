@@ -315,13 +315,13 @@ Development dependencies that are required to run the program locally (the bundl
 >
 > They are meant to make the development process easier/faster.
 
-### Now & Vercel
+### Vercel
 
-> Official packages from Vercel/Now, the company hosting our application
+> Official packages from Vercel, the company hosting our application
 
-- [`@now/node`](https://vercel.com/docs/runtimes#official-runtimes/node-js): Used as a dev dependency, it's useful to provide [TypeScript support](https://vercel.com/docs/v2/serverless-functions/supported-languages/#node.js-typescript-support:).
-  Such as for `import { NowRequest, NowResponse } from '@now/node'`.
-- [`now`](https://www.npmjs.com/package/now): The Now CLI [https://github.com/vercel/vercel](https://github.com/vercel/vercel) [https://www.npmjs.com/package/now](https://www.npmjs.com/package/now)
+- [`@vercel/node`](https://vercel.com/docs/runtimes#official-runtimes/node-js): Used as a dev dependency, it's useful to provide [TypeScript support](https://vercel.com/docs/v2/serverless-functions/supported-languages/#node.js-typescript-support:).
+  Such as for `import { NowRequest, NowResponse } from '@vercel/node'`.
+- [`vercel`](https://www.npmjs.com/package/vercel): The Vercel CLI [https://github.com/vercel/vercel](https://github.com/vercel/vercel)
 - [`@zeit/next-css`](https://github.com/vercel/next-plugins/tree/master/packages/next-css): [Additional Next configuration](https://stackoverflow.com/a/50002905/2391795) necessary to gain the ability to `import` `.css` files.
   Used to import other libs such as `bootstrap.css`.
 - [`@zeit/next-source-maps`](https://www.npmjs.com/package/@zeit/next-source-maps): Generate source maps during production build in your Next.js project

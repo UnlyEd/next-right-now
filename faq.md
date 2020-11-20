@@ -20,16 +20,16 @@ nav_order: 70
 ## I try to deploy locally, but I get "The specified scope does not exist"
 
 ```
-$ npx now
-Now CLI 17.1.1
+$ npx vercel
+Vercel CLI 20.1.4
 Error! The specified scope does not exist
-> More details: https://err.sh/now/scope-not-existent
+> More details: https://err.sh/vercel/scope-not-existent
 ```
 
-**This is because you're using NRN own `scope` in your `now.*.json` files.**
+**This is because you're using NRN own `scope` in your `vercel.*.json` files.**
 
-1. Remove the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `now.*.json` files.
-    - **Tip**: Don't forget `now.json` is a **symlink** and **shouldn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
+1. Remove the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `vercel.*.json` files.
+    - **Tip**: Don't forget `vercel.json` is a **symlink** and **shouldn't** to be modified (run `ln vercel.staging.json vercel.json` if you messed it up :wink:)
 
 ## How is the `i18nextInstance` passed to react?
 
@@ -46,7 +46,7 @@ Error! The specified scope does not exist
 ## Should I be keeping the `MST` tenancy design even though I don't have use for it?
 
 <div class="code-example" markdown="1">
-  **Question**: _I don't find the "plugin" system that highly customizable since "plugins" seem to already be bundled into the 2 main templates you offer, and I have been having hard time trying to rip things out that I don't need (i18n/locize, example app, MST tenancy (although looks like I can opt out by not using certain now json files), and etc.)._
+  **Question**: _I don't find the "plugin" system that highly customizable since "plugins" seem to already be bundled into the 2 main templates you offer, and I have been having hard time trying to rip things out that I don't need (i18n/locize, example app, MST tenancy (although looks like I can opt out by not using certain vercel json files), and etc.)._
 </div>
 
 See our guide about ["How to remove MST"](../guides/tenancy/remove-MST).

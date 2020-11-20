@@ -45,7 +45,7 @@ Here is how the multiple steps are ordered:
     - No matter what script (production vs staging) gets executed, those actions are always triggered:
         1. A new Vercel deployment is triggered, which **runs our tests first** (`yarn test:once`)
             - **Tip**: Failing tests will stop the deployment altogether, and no change will be applied online, because the app isn't built at all
-        1. Then, the deployment is deployed, and **automatically linked to a custom domain** which depends on the git **branch** name (xxx.now.sh)
+        1. Then, the deployment is deployed, and **automatically linked to a custom domain** which depends on the git **branch** name (xxx.vercel.app)
         1. Then, our **2E2 tests** are triggered using **Cypress**
             - If they fail, artifacts (screenshots, videos) recorded by Cypress are uploaded to Github to help further debug (See [example](https://github.com/UnlyEd/next-right-now/runs/474607960))
 

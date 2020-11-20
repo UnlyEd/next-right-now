@@ -1,6 +1,6 @@
 - NRN v2 has been tested on Windows (on June 1st, 2020) and works correctly
     - **Tip**: We recommend [`nvm-windows`](https://github.com/coreybutler/nvm-windows/releases) as replacement for `nvm` (download the `nvm-setup.zip`)
-- When manually deploying (i.e: `yarn deploy`), the symbolic link for `now.json` (which points to another `now.*.json` file, depending on the preset) **will not work on Windows**, and you'll have to create a `now.json` yourself (just copy the content of any `now.*.json` file)
+- When manually deploying (i.e: `yarn deploy`), the symbolic link for `vercel.json` (which points to another `vercel.*.json` file, depending on the preset) **will not work on Windows**, and you'll have to create a `vercel.json` yourself (just copy the content of any `vercel.*.json` file)
     - This is not a concern if you don't need to deploy manually from a Windows computer, as CI/CD will deploy properly (CI/CD runs under Unix)
 
 **Using Cygwin/Babun**

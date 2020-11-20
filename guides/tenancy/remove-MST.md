@@ -31,7 +31,7 @@ Also, if you think you might use it someday, then better to keep it for now then
 
 Removing MST is fairly simple, when you know what you're looking for :wink:.
 
-- Only keep one deployment file per environment (e.g: `now.staging.json` instead of `now.customer1.staging.json`).
+- Only keep one deployment file per environment (e.g: `vercel.staging.json` instead of `vercel.customer1.staging.json`).
 - Remove all unnecessary scripts related to "customer2".
 - Do a full search of the project looking for `customer2`, that will tell you where to look for stuff related to MST.
 - Do a full search of the project looking for `NEXT_PUBLIC_CUSTOMER_REF`, that will tell you where to look for stuff related to MST, you can remove that ENV variable.
@@ -43,7 +43,7 @@ Removing MST is fairly simple, when you know what you're looking for :wink:.
 - Update the Github Actions scripts in `.github/workflows` to make sure the E2E tests use the proper JSON file (`run-2e2-tests` action)
 - You'll need to update the GHA deployment scripts to run the proper deployment command (ignoring stuff related to the customer)
     - Basically, stuff like this
-    - `yarn deploy:$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production:simple --token $ZEIT_TOKEN`
+    - `yarn deploy:$(cat vercel.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production:simple --token $ZEIT_TOKEN`
     - should become
     - `yarn deploy:production:simple --token $ZEIT_TOKEN`
 

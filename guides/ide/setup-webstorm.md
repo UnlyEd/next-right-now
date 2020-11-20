@@ -19,7 +19,7 @@ Guide about how to properly configure your WebStorm IDE.
 
 ## Exclude write-heavy directories to improve performances
 
-Configure your IDE not to index `.next` and `.now` folders as they will eat a lot of your RAM because their files are changed very frequently!
+Configure your IDE not to index `.next` and `.vercel` folders as they will eat a lot of your RAM because their files are changed very frequently!
 
 On WebStorm, right click on the folders and select `Mark directory as > Excluded`.
 
