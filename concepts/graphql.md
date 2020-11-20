@@ -41,7 +41,7 @@ If you're not familiar with the differences between REST and GraphQL:
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< Tenancy](./tenancy){: .btn }
+    [< Application bootstrap](./app-bootstrap){: .btn }
     </span>
     <span class="fs-4" markdown="1">
     [Guides: GraphQL API](../guides/graphql-api){: .btn .btn-blue }

@@ -71,7 +71,7 @@ This means you may need to allow a customer to stay on v1, another on v2, anothe
 And thus you need to have each of them **isolated**, use **different servers**, and probably **different databases** between major versions. (depends on how you deal with versioning)
 
 Also, you really **can't afford to take down multiple customers** by mistake.
-Imagine you're running some migration and all customer platforms are down at once, _that'd be a hell of a day for your whole team_. :fear:
+Imagine you're running some migration and all customer platforms are down at once, _that'd be a hell of a day for your whole team_.
 
 ---
 
@@ -99,10 +99,10 @@ So, it's not really a new way of designing a tenancy system, but rather an **arc
 Using NRN, this design allows you to quickly deploy a new tenant by writing a few scripts:
 - Create `deploy:customerX`: Deploy the new customer to staging
 - Create `deploy:customerX:production`: Deploy the new customer to production
-- Create `now.customerX.staging.json`: Zeit config for staging environment
-- Create `now.customerX.production.json`: Zeit config for production environment
+- Create `now.customerX.staging.json`: Vercel config for staging environment
+- Create `now.customerX.production.json`: Vercel config for production environment
 
-Those scripts and config files would automatically generate a whole new Zeit project the first time you'd run the deploy scripts.
+Those scripts and config files would automatically generate a whole new Vercel project the first time you'd run the deploy scripts.
 This new project would run on its own server and own domain name.
 
 It would be completely **isolated** from other tenants, only the database would be **shared**.
@@ -116,7 +116,8 @@ This is what we call "Multiple Single-Tenancy" for now, there is probably a bett
 
 Now that you better understand all those concepts, it should be easier to choose what you need.
 
-Honestly, most businesses just need a simple multi-tenants design. But if you're one of the "lucky" ones, using a preset that uses MST design should help a ton.
+Honestly, most businesses don't even know what tenancy is, or just need a simple multi-tenants design.
+If you need to handle multiple tenants with a shared codebase, using a preset that uses MST design should help a ton.
 
 At least, we hope it does! :wink:
 
@@ -129,6 +130,9 @@ At least, we hope it does! :wink:
     [< Environments and Stages](./env-and-stages){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [GraphQL >](./graphql){: .btn .btn-purple }
+    [Guides: Tenancy](../guides/tenancy){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Application bootstrap >](./app-bootstrap){: .btn .btn-purple }
     </span>
 </div>

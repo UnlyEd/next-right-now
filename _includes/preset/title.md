@@ -1,1 +1,19 @@
-{% if include.rendering == ssr %} SSR {% endif %}{% if include.tenancy == mst %} MST {% endif %}{% if include.analytics == amplitude %} Amplitude {% endif %}{% if include.gql-api == gcms %} GraphCMS {% endif %}{% if include.i18n == locize %} Locize {% endif %}{% if include.monitoring == sentry %} Sentry {% endif %}
+> {{- tenancy | upcase -}}
+
+{%- if analytics == 'amplitude' -%}
+&#32;Amplitude
+{%- endif -%}
+
+{%- if gql-api == 'gcms' -%}
+&#32;GraphCMS
+{%- elsif gql-api == 'airtable' -%}
+&#32;Airtable
+{%- endif -%}
+
+{%- if i18n == 'locize' -%}
+&#32;Locize
+{%- endif -%}
+
+{%- if monitoring == 'sentry' -%}
+&#32;Sentry
+{%- endif -%}

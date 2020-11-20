@@ -1,0 +1,9 @@
+# Summary:
+# Mock workflow that does nothing on its own
+# Trick to force GitHub UI to show the "Run workflow" button on all branches
+# See https://github.community/t/cant-trigger-workflow-manually/121740/53?u=vadorequest
+
+name: Mock "Deploy to Zeit (staging)"
+
+on:
+  workflow_dispatch:

@@ -1,4 +1,5 @@
 # XXX This file is only used when working on your local machine, in development
+# XXX Remember that changing anything in this file NEEDS a full server restart to be applied
 # Checkout https://pages.github.com/versions/ for the list of Github Pages built-in plugins
 
 # XXX --------- Specific to local config ------------
@@ -16,7 +17,7 @@ theme: 'just-the-docs' # XXX Our Jekyll theme - See https://pmarsceill.github.io
 # in the templates via {{ site.myvariable }}.
 title: Next Right Now
 description: >- # this means to ignore newlines until "baseurl:"
-  Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript.
+  Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript.
   Includes multiple opt-in presets using GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing,
   Internationalization, CI/CD and B2B multiple single-tenants (monorepo) support
 #baseurl: "" # the subpath of your site, e.g. /blog
@@ -24,12 +25,13 @@ description: >- # this means to ignore newlines until "baseurl:"
 
 # Aux links for the upper right navigation
 aux_links:
-  "Home": "/"
+  "Home": "/next-right-now"
   "Github": "https://github.com/UnlyEd/next-right-now"
   "About us": "https://github.com/UnlyEd/Unly"
 
 footer_content: "Copyright &copy; 2020 Unly. <a href=\"https://github.com/UnlyEd/next-right-now/blob/master/LICENSE\">MIT license.</a>"
 #color_scheme: "dark"
+nrn_default_preset: v2-mst-aptd-at-lcz-sty # Default NRN preset, used as quick start preset
 
 plugins:
   - jekyll-sitemap
@@ -38,11 +40,19 @@ plugins:
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+  # Custom
+  - .idea/
+  - .github/
+  - .next/
+  - .now/
+  - coverage/
+  - cypress/

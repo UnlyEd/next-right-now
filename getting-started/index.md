@@ -18,8 +18,7 @@ Here is the order we recommend:
 
 1. [Video tutorials](./video-tutorials): Check our video tutorial to get an overview of what using NRN really looks like, from a developer point of view
 1. [Pre-requisites](./pre-requisites): Make sure all required tools are installed
-1. [Quick start](./quick-start): Quickly get started with the most simple preset and run it on your own computer under 5mn
-1. [Select your preset](./select-preset): **Advanced** - Find the preset that fits your needs through a comprehensive list of all possibilities _(make sure you are familiar with the basic [NRN concepts](../concepts) first!)_
+1. [Quick start](./quick-start): Quickly get started with a preset and run it on your own computer under 5mn
 
 ## Want more?
 
@@ -38,6 +37,9 @@ Here is the order we recommend:
     [< Introduction](../){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Watch video tutorials >](./video-tutorials){: .btn .btn-purple }
+    [Watch video tutorials](./video-tutorials){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Quick start >](./quick-start){: .btn .btn-purple }
     </span>
 </div>

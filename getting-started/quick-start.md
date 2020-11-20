@@ -8,24 +8,25 @@ nav_order: 20
 # Quick start
 {: .no_toc }
 
+<div class="code-example" markdown="1">
+Make sure you've checked our [Pre-requisites](./pre-requisites) page.
+</div>
+
 {% include page-toc.md %}
 
 ---
 
 
-This short tutorial will explain how to perform a super quick local installation (for local-only testing purpose, without deploying anything online)
+This short tutorial will explain how to perform a super quick (~5mn) local installation (for local-only testing purpose, without deploying anything online)
 
-This tutorial uses the [**`v1-ssr`**](../getting-started/select-preset) preset, which is the ~~simplest~~ _only one_ available at this time.
+This tutorial uses the [**`{{ site.nrn_default_preset }}`**](../available-presets) preset.
 
 > It doesn't really matter if the selected preset fits your needs, the goal here is to give your a tour of what NRN can do for you, as quickly as possible.
 
 ## Step by step installation
 
-{% include installation-guide-quick-start.md preset=v1-ssr %}
+{% include installation-guide-quick-start.md preset=site.nrn_default_preset %}
 
-### Advanced configuration
-
-{% include installation-guide-tips.md %}
 
 ---
 
@@ -54,7 +55,7 @@ Pick the Preset that best fit your needs and it deploy online right now!
 
 <div class="pagination-section" style="justify-content: center">
     <span class="fs-4" markdown="1">
-    [Find your preset >](./select-preset){: .btn .btn-blue }
+    [Find your preset >](../available-presets){: .btn .btn-blue }
     </span>
 </div>
 

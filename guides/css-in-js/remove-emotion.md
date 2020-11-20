@@ -8,7 +8,7 @@ nav_order: 20
 
 ## How to remove Emotion
 
-> We strongly recommend to keep Emotion. You can use both Styled Component approach and inline styles, it should feet all needs.
+> We strongly recommend to keep Emotion. You can use both Styled Component approach and inline styles, it should fit all css-related needs.
 
 1. Remove the following libraries:
     - [`@emotion/core`](https://emotion.sh/docs/css-prop): Necessary to use emotion, with built-in `css` notation support.

@@ -12,6 +12,10 @@ nav_order: 10
 Those videos will show you how NRN works, from a developer point of view.
 
 They're great to watch if you want a peek preview of all available features and how they work.
+
+**Note that video tutorial were recording during NRN v1.**
+
+The demo has been improved a lot since, and more features have been added.
 </div>
 
 {% include page-toc.md %}
@@ -23,7 +27,7 @@ They're great to watch if you want a peek preview of all available features and 
 
 Let's talk about why we built RNR in the first place, how it's meant to be used and who it's for.
 
-> This video features Zeit deployments, i18n, GraphCMS, Locize in-context editor, Sentry monitoring, Amplitude analytics, CI/CD Github Actions
+> This video features Vercel deployments, i18n, GraphCMS, Locize in-context editor, Sentry monitoring, Amplitude analytics, CI/CD Github Actions
 
 ## Part 2 - Developer Experience with Next Right Now (15 minutes)
 [![Part 2 - Developer Experience with Next Right Now](https://img.youtube.com/vi/fGlgIEeUqFg/maxresdefault.jpg)](http://youtu.be/fGlgIEeUqFg?hd=1)
