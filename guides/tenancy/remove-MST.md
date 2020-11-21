@@ -43,8 +43,8 @@ Removing MST is fairly simple, when you know what you're looking for :wink:.
 - Update the Github Actions scripts in `.github/workflows` to make sure the E2E tests use the proper JSON file (`run-2e2-tests` action)
 - You'll need to update the GHA deployment scripts to run the proper deployment command (ignoring stuff related to the customer)
     - Basically, stuff like this
-    - `yarn deploy:$(cat vercel.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production:simple --token $ZEIT_TOKEN`
+    - `yarn deploy:$(cat vercel.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production:simple --token $VERCEL_TOKEN`
     - should become
-    - `yarn deploy:production:simple --token $ZEIT_TOKEN`
+    - `yarn deploy:production:simple --token $VERCEL_TOKEN`
 
 That should be all, make sure to do things step by step (GHA, then E2E, etc.) and things in between because it's likely to break things if you're not careful.

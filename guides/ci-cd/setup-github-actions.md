@@ -29,9 +29,9 @@ This documentation explains how our GitHub actions integrate themselves with the
 
 > Those secrets must be added on Github settings "secrets" page (e.g: [https://github.com/UnlyEd/next-right-now/settings/secrets](https://github.com/UnlyEd/next-right-now/settings/secrets) for NRN)
 
-- `ZEIT_TOKEN`: Used to trigger Vercel deployments from Github actions
+- `VERCEL_TOKEN`: Used to trigger Vercel deployments from Github actions
     1. Create the Vercel secret at [https://vercel.com/account/tokens](https://vercel.com/account/tokens) (e.g: "GitHub Actions - NRN app")
-    1. Create the `ZEIT_TOKEN` as [Github secret](https://github.com/UnlyEd/next-right-now/settings/secrets) for your app
+    1. Create the `VERCEL_TOKEN` as [Github secret](https://github.com/UnlyEd/next-right-now/settings/secrets) for your app
 
 ---
 
