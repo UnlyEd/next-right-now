@@ -19,7 +19,7 @@ Those variables are provided differently depending on the environment.
 ---
 
 When working on the `development` environment (localhost), the variables from `.env` are used by [the webpack configuration](./next.config.js),
-also, the [`vercel.json`](./vercel.json) configuration file is used _(it's always a symlink to another staging `vercel.*.json` file, e.g: `vercel.customer1.staging.json`)_, but the variable defined in `.env` take precedence.
+also, the [`vercel.json`](./vercel.json) configuration file is used _(it's always a symlink to another `vercel.*.staging.json` file, e.g: `vercel.customer1.staging.json`)_, but the variable defined in `.env` take precedence.
 
 When deploying an instance to the Vercel's platform, the variables used are the one that belong to that instance, such as:
 - `yarn deploy:customer1`: This script will deploy an instance using the `vercel.customer1.staging.json` file.
