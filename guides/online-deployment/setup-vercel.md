@@ -110,7 +110,7 @@ This documentation is in-case-of you'd need to configure secrets through the CLI
 - Each secret must be added manually, one by one
 - A secret starts with `@`
 - Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects _(Vercel is working on this, to avoid leaking secrets from one project to another, but hasn't released anything yet)_
-- Take a look at `.env.build.example` for secrets to use by default (you can use them for testing purpose, it's fine, they're not sensitive)
+- Take a look at `.env.example` for secrets to use by default (you can use them for testing purpose, it's fine, they're not sensitive)
 - Example: `vercel secrets add nrn-locize-project-id 658fc999-dfa8-4307-b9d7-b4870ad5b968`
 
 - **Tip**: If you don't provide all secrets, the app will fail to deploy. The Vercel CLI will complain about missing secrets and abort the build.

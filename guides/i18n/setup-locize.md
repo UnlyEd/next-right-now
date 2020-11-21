@@ -19,9 +19,10 @@ Guide about how to properly configure Locize.
 
 ## Creating Locize account
 
-The app will throw an error if the `LOCIZE_PROJECT_ID` is not valid.
+The app will throw an error if the `NEXT_PUBLIC_LOCIZE_PROJECT_ID` is not valid.
 
-- **Tip**: You can skip creating your own Locize account if you use the default `LOCIZE_PROJECT_ID` in `.env.build`, but note that **new keys won't be created automatically** because `LOCIZE_API_KEY` isn't really valid
+- **Tip**: You can skip creating your own Locize account if you use the default `NEXT_PUBLIC_LOCIZE_PROJECT_ID` in `.env`,
+but note that **new keys won't be created automatically** because `LOCIZE_API_KEY` in `.env` doesn't hold a valid value and should be defined in `.env.local` with a proper value, instead.
 
 - [Create a free (2w trial) account on Locize](https://www.locize.app/register?ref=unly-nrn)
 - Make sure to keep `i18n format: i18next/locizify` (by default)
@@ -31,10 +32,11 @@ The app will throw an error if the `LOCIZE_PROJECT_ID` is not valid.
 - (Optional) Update the `src/utils/i18nextLocize.ts:referenceLng` (set to `fr` for the demo), you can leave it to `fr` if you created a French version in Locize
 - (Optional) Add a `production` version, you won't need it if you don't deploy to production
     - Set the `Cache-Control max-age` header value _(ex: `86400`)_ for the `production` version (performances + cost optimizations)
-- Copy the `Project Id` and `API Key` from the Locize settings page to the `.env.build` (`LOCIZE_PROJECT_ID` and `LOCIZE_API_KEY`, respectively)
-    - The `LOCIZE_PROJECT_ID` is required for the app to fetch the translations
+- Copy the `Project Id` and `API Key` from the Locize settings page to the `.env` and `.env.local` (`NEXT_PUBLIC_LOCIZE_PROJECT_ID` and `LOCIZE_API_KEY`, respectively)
+    - The `NEXT_PUBLIC_LOCIZE_PROJECT_ID` is required for the app to fetch the translations
     - The `LOCIZE_API_KEY` is required for the app to automatically create missing keys to Locize, when working locally (See `src/utils/i18nextLocize.ts:saveMissing` option)
         **This key is sensitive and must not be shared publicly, as it would allow anyone to update your translations through the API.** (it's not injected in the DOM when not working locally, so you're safe for now)
+        It is strongly recommended storing it into `.env.local` instead of `.env`, to avoid tracking it by Git.
 - If you have already configured Vercel, and if you want to deploy your app online, you must also configure Vercel secrets
     - `vercel secrets add nrn-locize-project-id YOUR_PROJECT_ID`
     - `vercel secrets add nrn-locize-api-key YOUR_API_KEY`

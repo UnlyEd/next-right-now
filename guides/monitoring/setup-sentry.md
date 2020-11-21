@@ -19,7 +19,7 @@ Guide about how to properly configure Sentry.
 
 ## Creating Sentry account
 
-- **Tip**: If you don't want to create an account, you can use `https://14fa1cae05079675b18cd05403ae5c48@sentry.io/1234567` as `SENTRY_DSN`, it will not catch any error, but it will allow for online deployment
+- **Tip**: If you don't want to create an account, you can use `https://14fa1cae05079675b18cd05403ae5c48@sentry.io/1234567` as `SENTRY_DSN` in `.env.local`, it will not catch any error, but it will allow for online deployment (it's a dummy value)
 
 - [Create a free account on Sentry](https://sentry.io/signup/?ref=unly-nrn)
 - Create a new project

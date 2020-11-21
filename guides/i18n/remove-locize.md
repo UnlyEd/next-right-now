@@ -18,4 +18,5 @@ You may replace Locize by another internationalisation too of your choice. Make 
 - [`locize-editor`](https://www.npmjs.com/package/locize-editor): The locize-editor enables you to directly connect content from your website / application with your content on your localization project on locize.
 - [`locize-node-lastused`](https://www.npmjs.com/package/locize-node-lastused): This is an i18next plugin or standalone scriot to be used for locize service. It will update last used timestamps on reference keys from your locize project using xhr. It sets the last used date on your reference language's namespaces.
 1. Remove their components usage in the source code
-1. Remove the `LOCIZE_PROJECT_ID` and `LOCIZE_API_KEY` env var
+1. Remove the `NEXT_PUBLIC_LOCIZE_PROJECT_ID`, in `.env`
+1. Remove the `LOCIZE_API_KEY` env var, in `.env.local`
