@@ -35,7 +35,7 @@ jobs:
           node-version: '12.x' # Use the same node.js version as the one Zeit's uses (currently node12.x)
 
   # Starts a Zeit deployment, using the production configuration file of the default institution
-  # The default institution is the one defined in the `now.json` file (which is a symlink to the actual file)
+  # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
   # N.B: It's Zeit that will perform the actual deployment
   start-production-deployment:
     name: Starts Zeit deployment (production) (Ubuntu 18.04)
@@ -45,30 +45,30 @@ jobs:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Deploying on Zeit (production)
         # Workflow overview:
-        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
         #   - Deploy the customer in production
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
-          # Print the version of the "now" CLI being used (helps debugging)
-          now --version
+          # Print the version of the "vercel" CLI being used (helps debugging)
+          vercel --version
 
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
-          # Falls back to the customer specified in the now.json file, which is most useful when deployment is triggered through "push" event
+          # Falls back to the customer specified in the vercel.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
 
-          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
 
-          # Deploy the customer on Vercel using the customer specified in now.json
+          # Deploy the customer on Vercel using the customer specified in vercel.json
           CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer:production:simple --token $ZEIT_TOKEN
 
-          # Find all custom aliases configured in the customer deployment configuration file (now.json)
-          ZEIT_DEPLOYMENT_ALIASES_JSON=$(cat now.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')
+          # Find all custom aliases configured in the customer deployment configuration file (vercel.json)
+          ZEIT_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')
           echo "Custom aliases: " $ZEIT_DEPLOYMENT_ALIASES_JSON
 
           # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
-          readarray -t ZEIT_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < now.$CUSTOMER_REF_TO_DEPLOY.production.json)
+          readarray -t ZEIT_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.production.json)
 
           # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
           ZEIT_DEPLOYMENT_ALIASES_COUNT=${#ZEIT_DEPLOYMENT_ALIASES[@]}
@@ -80,12 +80,12 @@ jobs:
 
             # For each alias configured, then assign it to the deployed domain
             for DEPLOYMENT_ALIAS in "${ZEIT_DEPLOYMENT_ALIASES[@]}"; do
-              echo "npx now alias "$ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS
-              npx now alias $ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS --token $ZEIT_TOKEN || echo "Aliasing failed for '$DEPLOYMENT_ALIAS', but the build will continue regardless."
+              echo "npx vercel alias "$ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS
+              npx vercel alias $ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS --token $ZEIT_TOKEN || echo "Aliasing failed for '$DEPLOYMENT_ALIAS', but the build will continue regardless."
             done
           else
-            # $ZEIT_DEPLOYMENT_ALIASES is null, this happens when it was not defined in the now.json file
-            echo "There are no more aliases to configure. You can add more aliases from your now.json 'alias' property. See https://vercel.com/docs/configuration?query=alias%20domain#project/alias"
+            # $ZEIT_DEPLOYMENT_ALIASES is null, this happens when it was not defined in the vercel.json file
+            echo "There are no more aliases to configure. You can add more aliases from your vercel.json 'alias' property. See https://vercel.com/docs/configuration?query=alias%20domain#project/alias"
             echo "$ZEIT_DEPLOYMENT_ALIASES"
           fi
         env:
@@ -103,9 +103,9 @@ jobs:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Zeit
         # Workflow overview:
-        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
         #   - Resolve $ZEIT_DEPLOYMENT_URL
-        #     - Fetch all deployments data (by using the scope in `now.json`)
+        #     - Fetch all deployments data (by using the scope in `vercel.json`)
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
         # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}`

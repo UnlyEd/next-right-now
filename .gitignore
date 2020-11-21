@@ -139,6 +139,7 @@ src/svg/*.tsx
 
 # Zeit
 .now
+.vercel
 
 # Jekyll - Github Pages
 _site

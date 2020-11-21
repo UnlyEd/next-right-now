@@ -41,10 +41,10 @@ All inputs are available within `${{github}}` variable. Because this input has b
 In order to use a **fallback** value (useful when the input isn't required, e.g: `required: false`), we can use this bash trick:
 
 ```bash
-CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+CUSTOMER_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
 ```
 
-If `MANUAL_TRIGGER_CUSTOMER` is empty, then we'll resolve its fallback value from the `now.json` file and extract the `build.env.NEXT_PUBLIC_CUSTOMER_REF` value.
+If `MANUAL_TRIGGER_CUSTOMER` is empty, then we'll resolve its fallback value from the `vercel.json` file and extract the `build.env.NEXT_PUBLIC_CUSTOMER_REF` value.
 
 ## 3. How to trigger the workflow using an external HTTP request?
 

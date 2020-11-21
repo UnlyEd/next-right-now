@@ -87,12 +87,12 @@ const StagesAndSecretsPage: NextPage<Props> = (props): JSX.Element => {
             </li>
             <li>
               <code>staging</code> and <code>development</code> stages:
-              Your env vars are configured in the <code>now.*.json</code> files, per customer and per stage.<br />
+              Your env vars are configured in the <code>vercel.*.json</code> files, per customer and per stage.<br />
               Env vars are basically hardcoded in those files, while secrets are referenced there, but nobody can read their value.<br />
             </li>
           </ul>
           <br />
-          Overall, we made it easy to use: Just hardcode your non-sensitive env vars in <code>now.*.json</code> and store your sensitive secrets on Vercel, that's it.
+          Overall, we made it easy to use: Just hardcode your non-sensitive env vars in <code>vercel.*.json</code> and store your sensitive secrets on Vercel, that's it.
         </div>
 
         <Alert color={'warning'}>
