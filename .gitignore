@@ -137,7 +137,7 @@ cypress/videos
 src/svg/*.js
 src/svg/*.tsx
 
-# Zeit
+# Vercel
 .now
 .vercel
 

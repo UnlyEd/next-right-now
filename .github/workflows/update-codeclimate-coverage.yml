@@ -19,7 +19,7 @@ jobs:
       - name: Installing node.js
         uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
         with:
-          node-version: '12.x' # Use the same node.js version as the one Zeit's uses (currently node12.x)
+          node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
   run-tests-coverage:
     name: Run tests coverage and send report to Code Climate
     runs-on: ubuntu-latest

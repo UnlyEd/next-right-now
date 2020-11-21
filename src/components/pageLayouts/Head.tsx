@@ -21,7 +21,7 @@ export type HeadProps = {
  * https://github.com/vercel/next.js#populating-head
  */
 const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
-  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Zeit and TypeScript. Includes multiple opt-in presets using Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
+  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultOGURL = 'https://github.com/UnlyEd/next-right-now';
   const defaultOGImage = 'https://storage.googleapis.com/the-funding-place/assets/images/Logo_TFP_quadri_horizontal.svg';
   const defaultFavicon = 'https://storage.googleapis.com/the-funding-place/assets/images/default_favicon.ico';
