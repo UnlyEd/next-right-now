@@ -288,9 +288,9 @@ jobs:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Zeit
         # Workflow overview:
-        #   - Resolve customer to deploy from github event input (falls back to resolving it from now.json file)
+        #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
         #   - Resolve $ZEIT_DEPLOYMENT_URL
-        #     - Fetch all deployments data (by using the scope in `now.json`)
+        #     - Fetch all deployments data (by using the scope in `vercel.json`)
         #     - Resolve the last url (from `response.deployments[0].url`)
         #     - Remove the `"` character to pre-format url
         # We need to set env the url for next step, formatted as `https://${$ZEIT_DEPLOYMENT}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
@@ -302,17 +302,17 @@ jobs:
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
           echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
-          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat now.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer that was deployed: " $CUSTOMER_REF_TO_DEPLOY
           echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
 
           # Resolve Vercel team ID
-          VERCEL_TEAM_ID=`cat now.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.scope'`
+          VERCEL_TEAM_ID=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
           echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
 
           # Resolve Vercel project name
-          VERCEL_PROJECT_NAME=`cat now.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name'`
+          VERCEL_PROJECT_NAME=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name'`
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
           echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
 
