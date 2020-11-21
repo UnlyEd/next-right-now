@@ -67,10 +67,10 @@ Commits pushed to the `master` branch will automatically deploy the "CUSTOMER_RE
     * We parse current `vercel.json` config file to get `CUSTOMER_REF`, which corresponding to customer project to deploy, and then we run `yarn deploy:CUSTOMER_REF` or in production `yarn deploy:CUSTOMER_REF:production`
 * Run 2e2 tests:
     * We need to checkout again (because the code is not persistent)
-    * We request Vercel api for the last deployment data, retrieve the url and then set it as environment variable as `ZEIT_DEPLOYMENT_URL` (to be able to use it afterwards)
+    * We request Vercel api for the last deployment data, retrieve the url and then set it as environment variable as `VERCEL_DEPLOYMENT_URL` (to be able to use it afterwards)
     * We use default action provided by Cypress (documentation [here](https://github.com/cypress-io/github-action)):
         * _**wait-on**_: Allows us to wait before starting tests. It pings the endpoint until it's up, with a timeout of 60 seconds per default.
         * _**config-file**_: We need to specify a config file because cypress is looking for the `cypress.json` in the main folder.
             The config file itself doesn't matter because we will override most settings anyway. We just need `orgId` to run the tests.
-        * _**config**_: Overrides some default config, like the `baseUrl` in particular (we use the `ZEIT_DEPLOYMENT_URL` instead)
+        * _**config**_: Overrides some default config, like the `baseUrl` in particular (we use the `VERCEL_DEPLOYMENT_URL` instead)
     * We upload artifacts on tests failure, more documentation [here](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts)
