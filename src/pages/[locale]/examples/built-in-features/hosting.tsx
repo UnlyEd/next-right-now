@@ -81,11 +81,11 @@ const HostingPage: NextPage<Props> = (props): JSX.Element => {
 
         <Alert color={'warning'}>
           We are a bit wary about recent changes and decisions made by the Vercel team, in particular regarding their 2020 April Pricing changes, and
-          <ExternalLink href={'https://github.com/vercel/now/discussions/4029'} suffix={null}>we led a discussion about it</ExternalLink>.<br />
+          <ExternalLink href={'https://github.com/vercel/vercel/discussions/4029'} suffix={null}>we led a discussion about it</ExternalLink>.<br />
           <br />
           Currently, the most controversial decision they've made is about the 12-24 max serverless functions. <br />
           We suggest you
-          <ExternalLink href={'https://github.com/vercel/now/discussions/4029#discussioncomment-8449'}>learn heavily about that</ExternalLink>
+          <ExternalLink href={'https://github.com/vercel/vercel/discussions/4029#discussioncomment-8449'}>learn heavily about that</ExternalLink>
           if you're considering Vercel.
         </Alert>
 
