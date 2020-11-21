@@ -35,7 +35,7 @@ declare global {
       AWS_EXECUTION_ENV: string;
       AWS_LAMBDA_FUNCTION_MEMORY_SIZE: string;
       AWS_REGION: string;
-      NOW_REGION: string;
+      VERCEL_REGION: string;
 
       // Other
       TZ: string; // TimeZone (":UTC")

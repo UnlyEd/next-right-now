@@ -25,7 +25,7 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       appBuildId: process.env.NEXT_PUBLIC_APP_BUILD_ID,
       nodejs: process.version,
       nodejsAWS: process.env.AWS_EXECUTION_ENV,
-      regionNOW: process.env.NOW_REGION,
+      regionVERCEL: process.env.VERCEL_REGION,
       regionAWS: process.env.AWS_REGION,
       timezone: process.env.TZ,
       memory: process.env.AWS_LAMBDA_FUNCTION_MEMORY_SIZE,
