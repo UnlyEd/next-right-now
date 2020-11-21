@@ -45,7 +45,7 @@ You need to set `AIRTABLE_BASE_ID` and `AIRTABLE_API_KEY` in your `.env.local` f
 
 You'll also need to add those values as Vercel secrets.
 
-Example: `now secrets add nrn-airtable-api-key your-key`
+Example: `vercel secrets add nrn-airtable-api-key your-key`
 
 ---
 

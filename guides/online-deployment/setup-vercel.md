@@ -36,8 +36,8 @@ Step by step guide about how to create and properly configure your Vercel accoun
 
 1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already.
     This command will fail if any secret is missing.
-1. Add a `scope` line in all `now.*.json` files using the `orgId` in `.now/project.json` (this folder is created when running `npx now`, which was called when you run the above `yarn start`)
-    - **Tip**: Don't forget `now.json` is a **symlink** and **shouldn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
+1. Add a `scope` line in all `vercel.*.json` files using the `orgId` in `.vercel/project.json` (this folder is created when running `npx vercel`, which was called when you run the above `yarn start`)
+    - **Tip**: Don't forget `vercel.json` is a **symlink** and **shouldn't** to be modified (run `ln vercel.staging.json vercel.json` if you messed it up :wink:)
 1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already
 1. Go to [Vercel](https://vercel.com/) to see the project being deployed, go through logs, etc.
 
@@ -56,7 +56,7 @@ _**Tip**: If you want to learn more about what happens (on the technical level) 
 {: .mt-6 }
 ##### Staging deployments
 
-Using Vercel Now, **we have access to many staging "deployments"**.
+Using Vercel, **we have access to many staging "deployments"**.
 
 By default, there is one custom domain per Git Branch, but also one per commit.
 It is also possible to create a custom domain manually from the CLI, for any deployment.
@@ -87,7 +87,7 @@ While there can be multiple staging deployments, **there is only one production 
 - `yarn deploy:customer2:production` - Deploy the customer2 app in production
 - `yarn deploy:all:production` - Deploy all apps in production
 
-- **Tip**: Those commands use the `now` command with the `--prod` argument behind the wheel.
+- **Tip**: Those commands use the `vercel` command with the `--prod` argument behind the wheel.
 - **Tip**: Those commands are used by our CI/CD Github Actions.
 
 ---
@@ -111,9 +111,9 @@ This documentation is in-case-of you'd need to configure secrets through the CLI
 - A secret starts with `@`
 - Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects _(Vercel is working on this, to avoid leaking secrets from one project to another, but hasn't released anything yet)_
 - Take a look at `.env.build.example` for secrets to use by default (you can use them for testing purpose, it's fine, they're not sensitive)
-- Example: `now secrets add nrn-locize-project-id 658fc999-dfa8-4307-b9d7-b4870ad5b968`
+- Example: `vercel secrets add nrn-locize-project-id 658fc999-dfa8-4307-b9d7-b4870ad5b968`
 
-- **Tip**: If you don't provide all secrets, the app will fail to deploy. The Now CLI will complain about missing secrets and abort the build.
+- **Tip**: If you don't provide all secrets, the app will fail to deploy. The Vercel CLI will complain about missing secrets and abort the build.
 
 ### Configuring Vercel deployment regions
 

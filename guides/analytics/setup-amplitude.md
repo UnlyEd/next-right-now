@@ -29,8 +29,8 @@ Guide about how to properly configure Amplitude.
 1. Go to "Project settings"
 1. Copy the "API Key" value (not the secret!) and apply it to `AMPLITUDE_API_KEY` in `.env.build`
 1. If you have already configured Vercel, and if you want to deploy your app online, you must also configure Vercel secrets
-    - `now secrets add nrn-amplitude-api-key-staging YOUR_AMPLITUDE_STAGING_API_KEY`
-    - (Optional) Get your "[NRN] Production" "API key" too, and run `now secrets add nrn-amplitude-api-key-production YOUR_AMPLITUDE_PRODUCTION_API_KEY`
+    - `vercel secrets add nrn-amplitude-api-key-staging YOUR_AMPLITUDE_STAGING_API_KEY`
+    - (Optional) Get your "[NRN] Production" "API key" too, and run `vercel secrets add nrn-amplitude-api-key-production YOUR_AMPLITUDE_PRODUCTION_API_KEY`
         - This is only useful if you attempt to deploy to production
 
 That's it! Your Amplitude account is ready to use!

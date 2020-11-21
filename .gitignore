@@ -137,8 +137,9 @@ cypress/videos
 src/svg/*.js
 src/svg/*.tsx
 
-# Zeit
+# Vercel
 .now
+.vercel
 
 # Jekyll - Github Pages
 _site
@@ -147,5 +148,3 @@ _site
 
 # Tmp files (cache, etc.)
 *.cache
-
-.vercel

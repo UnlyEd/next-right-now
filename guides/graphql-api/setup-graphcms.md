@@ -76,8 +76,8 @@ You may allow each token a different permissions scope:
     - Copy this token, you won't be able to see it again.
 - Use the previously copied auth token and update the `GRAPHQL_API_KEY` env variable in your `.env.build`
 - If you have already configured Vercel, and if you want to deploy your app online, you must also configure Vercel secrets
-    - Replace the `GRAPHQL_API_ENDPOINT` in all `now.*.json` files (this is not a secret because it's not considered sensitive)
-    - `now secrets add nrn-graphql-api-key YOUR_API_KEY`
+    - Replace the `GRAPHQL_API_ENDPOINT` in all `vercel.*.json` files (this is not a secret because it's not considered sensitive)
+    - `vercel secrets add nrn-graphql-api-key YOUR_API_KEY`
 - Your app is now properly configured and will be able to run GraphQL queries to fetch data from your app.
 
 **Important note:**
