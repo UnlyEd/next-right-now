@@ -40,7 +40,7 @@ Check [this video](https://www.youtube.com/watch?v=9NOzJhgmyQE) to see Locize in
 The Locize project contains two different **versions**:
 
 - `latest`: This **Locize version** is used in **any non-production application stage** (development, staging). That's where translations get added/updated by translators.
-- `production`: This **Locize version** is only used in the production application stages (`APP_STAGE=production`) _(all customers share the same `production` version in the current setup, for the sake of simplicity)_
+- `production`: This **Locize version** is only used in the production application stages (`NEXT_PUBLIC_APP_STAGE=production`) _(all customers share the same `production` version in the current setup, for the sake of simplicity)_
 
 > This separation between the two versions is important and very useful to avoid deploying unapproved changes to the production stage.
 

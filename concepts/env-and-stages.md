@@ -18,8 +18,8 @@ Those variables are provided differently depending on the environment.
 
 ---
 
-When working on the `development` environment (localhost), the variables from `.env.build` are used by [the webpack configuration](./next.config.js),
-also, the [`vercel.json`](./vercel.json) configuration file is used _(it's always a symlink to another staging `vercel.*.json` file, e.g: `vercel.customer1.staging.json`)_, but the variable defined in `.env.build` take precedence.
+When working on the `development` environment (localhost), the variables from `.env` are used by [the webpack configuration](./next.config.js),
+also, the [`vercel.json`](./vercel.json) configuration file is used _(it's always a symlink to another staging `vercel.*.json` file, e.g: `vercel.customer1.staging.json`)_, but the variable defined in `.env` take precedence.
 
 When deploying an instance to the Vercel's platform, the variables used are the one that belong to that instance, such as:
 - `yarn deploy:customer1`: This script will deploy an instance using the `vercel.customer1.staging.json` file.
@@ -51,17 +51,17 @@ The environment affects how the application **is bundled**, it is defined at **b
 > A stage is "how" the application is running.
 > It can be either "development" (localhost), "staging" or "production" (on Vercel's servers) - _You can even add more if you need_
 >
-> **The `stage` is defined by the `APP_STAGE` environment variable.**
+> **The `stage` is defined by the `NEXT_PUBLIC_APP_STAGE` environment variable.**
 >
 > **Tip**: You can use any stage name you like, there is no restriction.
 
-- When working on your local computer, NRN automatically uses `APP_STAGE=developement` _(as defined in `.env.build`)_.
-- When creating a Vercel preview deployment (e.g: when pushing a commit/branch (CD), or when using `yarn deploy`, etc.), NRN automatically uses `APP_STAGE=staging` _(as defined in `vercel.customer1.staging.json`)_.
-- When creating a Vercel production deployment (e.g: when using `yarn deploy:customer1:production`, or when merging a PR to `master`, etc.), NRN automatically uses `APP_STAGE=production` _(as defined in `vercel.customer1.production.json`)_.
+- When working on your local computer, NRN automatically uses `NEXT_PUBLIC_APP_STAGE=developement` _(as defined in `.env`)_.
+- When creating a Vercel preview deployment (e.g: when pushing a commit/branch (CD), or when using `yarn deploy`, etc.), NRN automatically uses `NEXT_PUBLIC_APP_STAGE=staging` _(as defined in `vercel.customer1.staging.json`)_.
+- When creating a Vercel production deployment (e.g: when using `yarn deploy:customer1:production`, or when merging a PR to `master`, etc.), NRN automatically uses `NEXT_PUBLIC_APP_STAGE=production` _(as defined in `vercel.customer1.production.json`)_.
 
 The stage changes the behaviour of the application, because we sometimes need the application to behave differently depending on the stage.
 
-> The stage **isn't magically chosen by NRN**, it is **automated** but it's because of either your `.env.build`, or because **Github Actions** have been configured this way.
+> The stage **isn't magically chosen by NRN**, it is **automated** but it's because of either your `.env`, or because **Github Actions** have been configured this way.
 > (any push on **master** is considered as **production** stage, while any push on **any other branch** is considered as **staging** stage)
 
 > e.g: In `production` stage, the Locize configuration uses the `production` version.

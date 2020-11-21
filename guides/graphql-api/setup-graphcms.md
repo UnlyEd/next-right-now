@@ -69,12 +69,12 @@ You may allow each token a different permissions scope:
 
 ## Configure your GraphCMS project
 
-- Copy the `Master endpoint` and update the `GRAPHQL_API_ENDPOINT` env variable in your `.env.build`
+- Copy the `Master endpoint` and update the `GRAPHQL_API_ENDPOINT` env variable in your `.env`
     - **Hint**: It starts with `https://api-euwest.graphcms.com/v1...`
 - Create a `Permanent Auth Token` with `QUERY` permissions.
     - This will generate a token that can be used to authenticate to your GraphCMS API endpoint and fetch data.
     - Copy this token, you won't be able to see it again.
-- Use the previously copied auth token and update the `GRAPHQL_API_KEY` env variable in your `.env.build`
+- Use the previously copied auth token and update the `GRAPHQL_API_KEY` env variable in your `.env`
 - If you have already configured Vercel, and if you want to deploy your app online, you must also configure Vercel secrets
     - Replace the `GRAPHQL_API_ENDPOINT` in all `vercel.*.json` files (this is not a secret because it's not considered sensitive)
     - `vercel secrets add nrn-graphql-api-key YOUR_API_KEY`
