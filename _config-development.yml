@@ -53,6 +53,6 @@ exclude:
   - .idea/
   - .github/
   - .next/
-  - .now/
+  - .vercel/
   - coverage/
   - cypress/

@@ -36,8 +36,8 @@ Step by step guide about how to create and properly configure your Vercel accoun
 
 1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already.
     This command will fail if any secret is missing.
-1. Add a `scope` line in all `now.*.json` files using the `orgId` in `.now/project.json` (this folder is created when running `npx now`, which was called when you run the above `yarn start`)
-    - **Tip**: Don't forget `now.json` is a **symlink** and **shouldn't** to be modified (run `ln now.staging.json now.json` if you messed it up :wink:)
+1. Add a `scope` line in all `vercel.*.json` files using the `orgId` in `.vercel/project.json` (this folder is created when running `npx vercel`, which was called when you run the above `yarn start`)
+    - **Tip**: Don't forget `vercel.json` is a **symlink** and **shouldn't** to be modified (run `ln vercel.staging.json vercel.json` if you messed it up :wink:)
 1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already
 1. Go to [Vercel](https://vercel.com/) to see the project being deployed, go through logs, etc.
 
@@ -87,7 +87,7 @@ While there can be multiple staging deployments, **there is only one production 
 - `yarn deploy:customer2:production` - Deploy the customer2 app in production
 - `yarn deploy:all:production` - Deploy all apps in production
 
-- **Tip**: Those commands use the `now` command with the `--prod` argument behind the wheel.
+- **Tip**: Those commands use the `vercel` command with the `--prod` argument behind the wheel.
 - **Tip**: Those commands are used by our CI/CD Github Actions.
 
 ---

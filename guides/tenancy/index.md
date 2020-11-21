@@ -27,7 +27,7 @@ It's very useful for managing a fleet of customers, but it comes at the price of
 
 - `MST` makes the CI/CD much more complicated, because it needs to handle the deployment of different "customers".
 - The Vercel configuration is more difficult too, because:
-    - Each tenant (customer) has its own set of Vercel configuration (`now.customer1.*.json`, etc.).
+    - Each tenant (customer) has its own set of Vercel configuration (`vercel.customer1.*.json`, etc.).
     - Each tenant might have its own `secrets` and ENV variables.
     - Each tenant is managed through a distinct Vercel project on [https://vercel.com/](https://vercel.com/).
     - Each tenant is completely separated from the others, and this can complicate your app even more, depending on what other tools you rely on (DB, etc.).
