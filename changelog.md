@@ -22,6 +22,12 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2020-11-21
+    - [Improve LightHouse performances](https://github.com/UnlyEd/next-right-now/pull/214)
+    - [Migrated "now" and "Zeit" to "vercel"](https://github.com/UnlyEd/next-right-now/issues/181)
+        - GitHub Actions now uses `vercel` CLI instead of `now` which will be deprecated by the end of 2020
+    - [GHA - Update cypress-io/github-action from v1 to v2 to fix CI/CD due to ::set-env security issue](https://github.com/UnlyEd/next-right-now/pull/209)
+        - This fixes a recurring crash for all GH Actions since `::set-env` support has been dropped by GitHub about a week ago (was mostly affecting Cypress Action)
 - 2020-10-21
     - [GHA - Auto-alias custom domains](https://github.com/UnlyEd/next-right-now/pull/185)
 - 2020-10-20
