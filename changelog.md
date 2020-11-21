@@ -23,6 +23,7 @@ This changelog is meant to provide a good overview of the biggest changes in the
 Here is a short list of the most valuable changes and new features.
 
 - 2020-11-21
+    - [Update documentation about ENV vars](https://github.com/UnlyEd/next-right-now/pull/215)
     - [Improve LightHouse performances](https://github.com/UnlyEd/next-right-now/pull/214)
     - [Migrated "now" and "Zeit" to "vercel"](https://github.com/UnlyEd/next-right-now/issues/181)
         - GitHub Actions now uses `vercel` CLI instead of `now` which will be deprecated by the end of 2020
