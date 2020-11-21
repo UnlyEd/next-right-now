@@ -56,7 +56,7 @@ _**Tip**: If you want to learn more about what happens (on the technical level) 
 {: .mt-6 }
 ##### Staging deployments
 
-Using Vercel Now, **we have access to many staging "deployments"**.
+Using Vercel, **we have access to many staging "deployments"**.
 
 By default, there is one custom domain per Git Branch, but also one per commit.
 It is also possible to create a custom domain manually from the CLI, for any deployment.
@@ -111,9 +111,9 @@ This documentation is in-case-of you'd need to configure secrets through the CLI
 - A secret starts with `@`
 - Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects _(Vercel is working on this, to avoid leaking secrets from one project to another, but hasn't released anything yet)_
 - Take a look at `.env.build.example` for secrets to use by default (you can use them for testing purpose, it's fine, they're not sensitive)
-- Example: `now secrets add nrn-locize-project-id 658fc999-dfa8-4307-b9d7-b4870ad5b968`
+- Example: `vercel secrets add nrn-locize-project-id 658fc999-dfa8-4307-b9d7-b4870ad5b968`
 
-- **Tip**: If you don't provide all secrets, the app will fail to deploy. The Now CLI will complain about missing secrets and abort the build.
+- **Tip**: If you don't provide all secrets, the app will fail to deploy. The Vercel CLI will complain about missing secrets and abort the build.
 
 ### Configuring Vercel deployment regions
 
