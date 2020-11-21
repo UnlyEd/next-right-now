@@ -148,14 +148,14 @@ jobs:
 
       # Run the E2E tests against the new Zeit deployment
       - name: Run E2E tests (Cypress)
-        uses: cypress-io/github-action@v1 # XXX See https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v2 # XXX See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.ZEIT_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
           config-file: cypress/config-${{ env.CUSTOMER_REF_TO_DEPLOY }}.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.ZEIT_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
 
       # On E2E failure, upload screenshots
-      - name: Uplad screenshots artifacts (E2E failure)
+      - name: Upload screenshots artifacts (E2E failure)
         uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
         if: failure()
         with:
@@ -163,7 +163,7 @@ jobs:
           path: cypress/screenshots/
 
       # On E2E failure, upload videos
-      - name: Uplad videos artifacts (E2E failure)
+      - name: Upload videos artifacts (E2E failure)
         uses: actions/upload-artifact@v1 # On failure we upload artifacts, https://help.github.com/en/actions/automating-your-workflow-with-github-actions/persisting-workflow-data-using-artifacts
         if: failure()
         with:
