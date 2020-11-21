@@ -83,7 +83,7 @@ This call will return all your workflow, so make sure you use the right one.
 ##### Find our Next-Right-Now workflow id
 
 - [Open https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows](https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows)
-- `643638` here it is! (for `Deploy to Zeit (staging)` workflow)
+- `643638` here it is! (for `Deploy to Vercel (staging)` workflow)
 
 ### Example
 
@@ -94,7 +94,7 @@ Make sure to adapt the **owner**, and the **repository name** to reflect yours.
 curl -s \
   -X GET \
   -H "Accept: application/vnd.github.v3+json" \
-  https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows | jq '.workflows[] | select(.path==".github/workflows/deploy-zeit-staging.yml") | .id'
+  https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows | jq '.workflows[] | select(.path==".github/workflows/deploy-vercel-staging.yml") | .id'
 ```
 
 **N.B**: You'll need to provide an `Authorization` header for private repositories. e.g: `-H "Authorization: token <YOUR_GITHUB_TOKEN>" \`
