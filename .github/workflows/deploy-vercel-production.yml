@@ -61,7 +61,7 @@ jobs:
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
 
           # Deploy the customer on Vercel using the customer specified in vercel.json
-          CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer:production:simple --token $ZEIT_TOKEN
+          CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer:production:simple --token $VERCEL_TOKEN
 
           # Find all custom aliases configured in the customer deployment configuration file (vercel.json)
           ZEIT_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')
@@ -81,7 +81,7 @@ jobs:
             # For each alias configured, then assign it to the deployed domain
             for DEPLOYMENT_ALIAS in "${ZEIT_DEPLOYMENT_ALIASES[@]}"; do
               echo "npx vercel alias "$ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS
-              npx vercel alias $ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS --token $ZEIT_TOKEN || echo "Aliasing failed for '$DEPLOYMENT_ALIAS', but the build will continue regardless."
+              npx vercel alias $ZEIT_DEPLOYMENT_URL $DEPLOYMENT_ALIAS --token $VERCEL_TOKEN || echo "Aliasing failed for '$DEPLOYMENT_ALIAS', but the build will continue regardless."
             done
           else
             # $ZEIT_DEPLOYMENT_ALIASES is null, this happens when it was not defined in the vercel.json file
@@ -89,7 +89,7 @@ jobs:
             echo "$ZEIT_DEPLOYMENT_ALIASES"
           fi
         env:
-          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
 
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
@@ -136,7 +136,7 @@ jobs:
           echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
 
           # Fetch all Vercel deployment from this project
-          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
+          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
           echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
 
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
@@ -216,7 +216,7 @@ jobs:
           echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
 
           # Fetch all Vercel deployment from this project
-          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.ZEIT_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
+          ALL_ZEIT_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
           echo "Vercel deployments for current team: " $ALL_ZEIT_DEPLOYMENTS
 
           # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
@@ -226,7 +226,7 @@ jobs:
           echo "Url where to run LightHouse tests (ZEIT_DEPLOYMENT_URL): " $ZEIT_DEPLOYMENT_URL
           echo "ZEIT_DEPLOYMENT_URL=$ZEIT_DEPLOYMENT_URL" >> $GITHUB_ENV
         env:
-          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }} # Passing github's secret to the worker
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
       # In order to store reports and then upload it, we need to create the folder before any tests
       - name: Create temporary folder for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
