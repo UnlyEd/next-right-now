@@ -55,7 +55,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    *  They're necessary on Vercel for runtime execution (SSR, SSG with revalidate, everything that happens server-side will need those).
    *
    * XXX This is a duplication of the environment variables.
-   *  The variables defined below are only used locally, while those in "now.*.json:build:env" will be used on the Vercel platform.
+   *  The variables defined below are only used locally, while those in "vercel.*.json:build:env" will be used on the Vercel platform.
    *  See https://vercel.com/docs/v2/build-step/#providing-environment-variables
    *
    * @see https://nextjs.org/docs/api-reference/next.config.js/environment-variables

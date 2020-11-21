@@ -404,7 +404,7 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
   // If NEXT_PUBLIC_LOCIZE_PROJECT_ID is not defined then we mustn't init i18next or it'll crash the whole app when running in non-production stage
   // In that case, better crash early with an explicit message
   if (!process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID) {
-    throw new Error('Env var "NEXT_PUBLIC_LOCIZE_PROJECT_ID" is not defined. Please add it to you .env.build file (development) or now*.json (staging/production)');
+    throw new Error('Env var "NEXT_PUBLIC_LOCIZE_PROJECT_ID" is not defined. Please add it to you .env.build file (development) or vercel*.json (staging/production)');
   }
 
   // Plugins will be dynamically added at runtime, depending on the runtime engine (node or browser)

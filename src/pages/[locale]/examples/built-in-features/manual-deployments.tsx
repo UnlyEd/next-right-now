@@ -104,7 +104,7 @@ const ManualDeploymentsPage: NextPage<Props> = (props): JSX.Element => {
 
         <Alert color={'info'}>
           They're also used by CI/CD scripts. <br />
-          Note that when deploying through CI/CD, the deployed customer depends on which file is targeted as symbolic link by the <code>now.json</code> file.<br />
+          Note that when deploying through CI/CD, the deployed customer depends on which file is targeted as symbolic link by the <code>vercel.json</code> file.<br />
           Changing the symbolic link, or "hardcoding" the file will change which customer gets deployed by default.<br />
           You can also change the way CI/CD works and deploy all your customers at once every time, but we preferred to deploy one customer in particular (our own internal demo) by default, as we judged it was less risky in case anything goes wrong.
         </Alert>
