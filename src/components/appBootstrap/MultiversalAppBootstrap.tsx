@@ -21,6 +21,8 @@ import {
   startPreviewMode,
   stopPreviewMode,
 } from '../../utils/nextjs/previewMode';
+import { detectLightHouse } from '../../utils/quality/lighthouse';
+import { detectCypress } from '../../utils/testing/cypress';
 import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
@@ -90,12 +92,15 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
       if (isBrowser()) {
         const queryParameters: string = stringifyQueryParameters(router);
+        const isCypressRunning = detectCypress();
+        const isLightHouseRunning = detectLightHouse();
 
         // XXX If we are running in staging stage and the preview mode is not enabled, then we force enable it
         //  We do this to enforce the staging stage is being used as a "preview environment" so it satisfies our publication workflow
         //  If we're running in development, then we don't enforce anything
         //  If we're running in production, then we force disable the preview mode, because we don't want to allow it in production
-        if (process.env.NEXT_PUBLIC_APP_STAGE === 'staging' && !preview) {
+        // XXX Also, don't enable preview mode when Cypress or LightHouse are running to avoid bad performances
+        if (process.env.NEXT_PUBLIC_APP_STAGE === 'staging' && !preview && !isCypressRunning && !isLightHouseRunning) {
           startPreviewMode(queryParameters);
         } else if (process.env.NEXT_PUBLIC_APP_STAGE === 'production' && preview) {
           logger.error('Preview mode is not allowed in production, but was detected as enabled. It will now be disabled by force.');

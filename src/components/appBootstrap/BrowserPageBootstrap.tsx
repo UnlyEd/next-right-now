@@ -26,6 +26,8 @@ import {
   isRunningInIframe,
 } from '../../utils/iframe';
 import { configureSentryUser } from '../../utils/monitoring/sentry';
+import { detectLightHouse } from '../../utils/quality/lighthouse';
+import { detectCypress } from '../../utils/testing/cypress';
 
 const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
 const logger = createLogger({
@@ -66,6 +68,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     userSession,
   };
   const theme = useTheme<Theme>();
+  const isCypressRunning = detectCypress();
+  const isLightHouseRunning = detectLightHouse();
 
   // Configure Sentry user and track navigation through breadcrumb
   configureSentryUser(userSession);
@@ -146,6 +150,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
           iframeReferrer: iframeReferrer,
           isUserOptedOutOfAnalytics: isUserOptedOutOfAnalytics,
           hasUserGivenAnyCookieConsent: hasUserGivenAnyCookieConsent,
+          isCypressRunning,
+          isLightHouseRunning,
         }}
         // XXX Do not use "userProperties" here, add default user-related properties in getAmplitudeInstance instead
         //  Because "event" had priority over "user event" and will be executed before
