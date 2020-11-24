@@ -292,28 +292,28 @@ const Nav: React.FunctionComponent<Props> = () => {
             <NavItem>
               <Col className={'navItemsMenu'}>
                 <Row className={'justify-content-center'}>
-                  <Tooltip
-                    overlay={<span>
-                      Edit this demo using NRN-Admin CMS!<br />
-                      <br />
-                      You can edit the <code>customer</code> theme, play with its primary color to see how the demo is affected depending on the various rendering modes (SSG, SSR, etc.)<br />
-                      <br />
-                      You can also edit the products, and play around, as if you were using the NRN-Admin CMS from a customer/editor standpoint!
-                    </span>}
-                  >
-                    <NavLink
-                      id={'nav-link-admin-site'}
-                      href={`https://nrn-admin.now.sh`}
-                      target={'_blank'}
-                      rel={'noopener'}
-                      onClick={(): void => {
-                        logEvent('open-admin-site');
-                      }}
-                    >
-                      <FontAwesomeIcon icon={['fas', 'user-cog']} />
-                      {t('nav.adminSite.link', 'Go to CMS')}
-                    </NavLink>
-                  </Tooltip>
+                  {/*<Tooltip*/}
+                  {/*  overlay={<span>*/}
+                  {/*    Edit this demo using NRN-Admin CMS!<br />*/}
+                  {/*    <br />*/}
+                  {/*    You can edit the <code>customer</code> theme, play with its primary color to see how the demo is affected depending on the various rendering modes (SSG, SSR, etc.)<br />*/}
+                  {/*    <br />*/}
+                  {/*    You can also edit the products, and play around, as if you were using the NRN-Admin CMS from a customer/editor standpoint!*/}
+                  {/*  </span>}*/}
+                  {/*>*/}
+                  {/*  <NavLink*/}
+                  {/*    id={'nav-link-admin-site'}*/}
+                  {/*    href={`https://nrn-admin.now.sh`}*/}
+                  {/*    target={'_blank'}*/}
+                  {/*    rel={'noopener'}*/}
+                  {/*    onClick={(): void => {*/}
+                  {/*      logEvent('open-admin-site');*/}
+                  {/*    }}*/}
+                  {/*  >*/}
+                  {/*    <FontAwesomeIcon icon={['fas', 'user-cog']} />*/}
+                  {/*    {t('nav.adminSite.link', 'Go to CMS')}*/}
+                  {/*  </NavLink>*/}
+                  {/*</Tooltip>*/}
                 </Row>
               </Col>
             </NavItem>

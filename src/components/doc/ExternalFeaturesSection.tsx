@@ -33,9 +33,20 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
       <Cards maxCards={1}>
         <Card>
           <CardBody>
-            <CardTitle><h3>Backoffice/Admin site</h3></CardTitle>
+            <CardTitle><h3 style={{textDecoration: 'strikethrough'}}>Backoffice/Admin site</h3></CardTitle>
             <CardSubtitle>&ldquo;Update NRN demo using NRN-Admin CMS&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
+
+              <Alert color={'error'}>
+                This experimental feature isn't available anymore, because the GraphQL provider (GraphCMS) used for this demo has changed its API (from v1 to v2) with several breaking changes.<br />
+                <br />
+                The NRN-Admin hasn't been updated to the new GraphCMS v2 API and thus is now unusable and changes made on NRN-Admin won't reflect here.<br />
+                <br />
+                This section has been kept through, to showcase what could be done. <i>(this was working properly in 2020)</i><br />
+                <br />
+                The NRN-Admin demo will stop working on February 1st, 2021.
+              </Alert>
+
               <Alert color={'info'}>
                 Edit this demo using NRN-Admin CMS!<br />
                 <br />
