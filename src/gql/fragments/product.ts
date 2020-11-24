@@ -7,7 +7,6 @@ export const product = {
   productFields: gql`
     fragment productFields on Product {
       id
-      status
       title
       description
       images {
