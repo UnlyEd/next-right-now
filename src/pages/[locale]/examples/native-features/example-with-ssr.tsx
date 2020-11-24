@@ -193,7 +193,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 //     variables,
 //     context: {
 //       headers: {
-//         'gcms-locale': gcmsLocales,
+//         'gcms-locales': gcmsLocales,
 //       },
 //     },
 //   };

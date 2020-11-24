@@ -145,7 +145,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
     variables,
     context: {
       headers: {
-        'gcms-locale': gcmsLocales,
+        'gcms-locales': gcmsLocales,
       },
     },
   };

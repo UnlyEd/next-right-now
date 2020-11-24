@@ -126,7 +126,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
     variables,
     context: {
       headers: {
-        'gcms-locale': gcmsLocales,
+        'gcms-locales': gcmsLocales,
       },
     },
   };

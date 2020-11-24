@@ -72,7 +72,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       variables,
       context: {
         headers: {
-          'gcms-locale': gcmsLocales,
+          'gcms-locales': gcmsLocales,
         },
       },
     };

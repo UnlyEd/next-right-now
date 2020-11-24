@@ -91,7 +91,7 @@ const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
                 headers: {
                   // This is how we handle "Dynamic i18n", by only fetching content for one language
                   // With languages fallback if content isn't available (e.g: ['FR', 'DE', 'EN']
-                  'gcms-locale': gcmsLocales,
+                  'gcms-locales': gcmsLocales,
                 },
               },
             };
