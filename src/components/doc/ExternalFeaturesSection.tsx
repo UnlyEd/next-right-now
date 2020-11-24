@@ -34,31 +34,24 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
         <Card>
           <CardBody>
             <CardTitle><h3 style={{textDecoration: 'strikethrough'}}>Backoffice/Admin site</h3></CardTitle>
-            <CardSubtitle>&ldquo;Update NRN demo using NRN-Admin CMS&rdquo;</CardSubtitle>
+            <CardSubtitle>&ldquo;Update NRN demo using GraphCMS&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
 
-              <Alert color={'error'}>
-                This experimental feature isn't available anymore, because the GraphQL provider (GraphCMS) used for this demo has changed its API (from v1 to v2) with several breaking changes.<br />
-                <br />
-                The NRN-Admin hasn't been updated to the new GraphCMS v2 API and thus is now unusable and changes made on NRN-Admin won't reflect here.<br />
-                <br />
-                This section has been kept through, to showcase what could be done. <i>(this was working properly in 2020)</i><br />
-                <br />
-                The NRN-Admin demo will stop working on February 1st, 2021.
-              </Alert>
-
               <Alert color={'info'}>
-                Edit this demo using NRN-Admin CMS!<br />
+                Edit this demo using GraphCMS!<br />
                 <br />
-                You can edit the <code>customer</code> theme, play with its primary color to see how the demo is affected depending on the various rendering modes (SSG, SSR, etc.)<br />
+                <b>Email</b>: <code style={{fontSize: 18}}>unly-nrn+contributor@unly.org</code><br />
+                <b>Password</b>: <code style={{fontSize: 18}}>bbU#Ec2m6FpqU7&</code><br />
                 <br />
-                It's basically an admin site (POC/experimental), for managing content, based on
-                <ExternalLink href={'https://github.com/marmelab/react-admin'} suffix={null}><code>react-admin</code></ExternalLink>, built with NRN.
+                You can edit anything and play with the various rendering modes (SSG, SSR, etc.), the GraphCMS API is configured to use <code>DRAFT</code> content in priority.<br />
+                This mean that your changes on any published content will be reflected (because changing a published content creates a draft, and that draft is being used).<br />
+                This has been done on purpose, to allow visitors to manipulate the content of the demo and see their changes being reflected immediately.<br />
+                <b>N.B: Please do not change the <code>customer.ref</code> values, as it would break the associated demo, if the <code>ref</code> doesn't match.</b><br />
               </Alert>
 
               <div className={'buttons'}>
-                <ExternalLink href={'https://nrn-admin.now.sh/'}>
-                  <Button color={'link'}>Go to NRN-Admin CMS</Button>
+                <ExternalLink href={'https://app.graphcms.com/b767f8ab435746e2909249461e2f1eb7/master'}>
+                  <Button color={'link'}>Go to GraphCMS</Button>
                 </ExternalLink>
               </div>
             </CardText>
