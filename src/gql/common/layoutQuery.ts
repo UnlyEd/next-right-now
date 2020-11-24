@@ -11,13 +11,6 @@ export const LAYOUT_QUERY = gql`
       ref: $customerRef,
     }){
       stage
-      documentInStages(includeCurrent: true){
-        id
-        label
-        theme {
-          ...themeFields
-        }
-      }
       id
       label
       theme {

@@ -6,7 +6,7 @@ import { asset } from './asset';
 export const product = {
   productFields: gql`
     fragment productFields on Product {
-      documentInStages(includeCurrent: false, stages: [PUBLISHED]){
+      documentInStages(includeCurrent: true, stages: [DRAFT, PUBLISHED]){
         stage
         id
         title

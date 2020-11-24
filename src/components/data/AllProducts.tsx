@@ -12,6 +12,7 @@ const AllProducts: React.FunctionComponent<Props> = (props) => {
   const { products } = props;
   const productsPublished = filter(products, { stage: 'PUBLISHED' });
   const productsDraft = filter(products, { stage: 'DRAFT' });
+  console.log('products', products)
 
   return (
     <>
