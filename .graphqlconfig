@@ -3,7 +3,7 @@
   "extensions": {
     "endpoints": {
       "master": {
-        "url": "https://api-euwest.graphcms.com/v1/ck73ixhlv09yt01dv2ga1bkbp/master",
+        "url": "https://api-eu-central-1.graphcms.com/v2/ck73ixhlv09yt01dv2ga1bkbp/master",
         "introspect": true,
         "headers": {
           "user-agent": "JS GraphQL",
