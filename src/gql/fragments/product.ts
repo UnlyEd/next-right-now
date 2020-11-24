@@ -6,6 +6,7 @@ import { asset } from './asset';
 export const product = {
   productFields: gql`
     fragment productFields on Product {
+      stage
       id
       title
       description

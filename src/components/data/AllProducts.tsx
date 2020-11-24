@@ -10,8 +10,8 @@ type Props = {
 
 const AllProducts: React.FunctionComponent<Props> = (props) => {
   const { products } = props;
-  const productsPublished = filter(products, { status: 'PUBLISHED' });
-  const productsDraft = filter(products, { status: 'DRAFT' });
+  const productsPublished = filter(products, { stage: 'PUBLISHED' });
+  const productsDraft = filter(products, { stage: 'DRAFT' });
 
   return (
     <>
