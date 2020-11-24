@@ -10,6 +10,14 @@ export const LAYOUT_QUERY = gql`
     customer(where: {
       ref: $customerRef,
     }){
+      stage
+      documentInStages(includeCurrent: true){
+        id
+        label
+        theme {
+          ...themeFields
+        }
+      }
       id
       label
       theme {

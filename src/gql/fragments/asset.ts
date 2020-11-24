@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 export const asset = {
   assetFields: gql`
     fragment assetFields on Asset {
+      stage
       id
       url
       mimeType
