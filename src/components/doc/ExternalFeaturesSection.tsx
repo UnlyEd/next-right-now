@@ -49,6 +49,12 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
                 <b>N.B: Please do not change the <code>customer.ref</code> values, as it would break the associated demo, if the <code>ref</code> doesn't match.</b><br />
               </Alert>
 
+              <Alert color={'warning'}>
+                Changes will be immediately be reflected on SSG pages, when the preview mode is enabled (staging environment).<br />
+                But, they won't be applied on the production demo (for SSG pages), because those pages have been generated at build-time and aren't updated dynamically.<br />
+                On the other hand, SSR pages will always reflect the latest version of the content.
+              </Alert>
+
               <div className={'buttons'}>
                 <ExternalLink href={'https://app.graphcms.com/b767f8ab435746e2909249461e2f1eb7/master'}>
                   <Button color={'link'}>Go to GraphCMS</Button>
