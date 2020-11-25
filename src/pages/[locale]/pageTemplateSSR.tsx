@@ -60,7 +60,6 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       displayName: 'LAYOUT_QUERY',
       query: LAYOUT_QUERY,
     };
-    console.log('queryOptions', queryOptions)
 
     const {
       data,

@@ -1,5 +1,5 @@
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult, QueryOptions } from 'apollo-client';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';
@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
     const variables = {
       customerRef,
     };
-    const queryOptions = {
+    const queryOptions: QueryOptions = {
       displayName: 'EXAMPLE_WITH_SSG_QUERY',
       query: EXAMPLE_WITH_SSG_QUERY,
       variables,
@@ -74,8 +74,18 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
           'gcms-locales': gcmsLocales,
         },
       },
-    };
-    console.log('queryOptions', queryOptions)
+      // XXX When you use the "documentInStages" special GraphCMS feature,
+      //  you must disable the ApolloClient cache for it to function properly,
+      //  otherwise ApolloClient internal caching messes up with the results returned by GraphCMS,
+      //  because it gets 2 different records that have the same "id",
+      //  and it doesn't understand those are 2 different records but treats them as one.
+      //  If you don't disable the cache, then "documentInStages" will only contain DRAFT records and not PUBLISHED records,
+      //  because ApolloClient will replace the PUBLISHED record by the draft record, by mistakenly thinking they're the same
+      //  This is because ApolloClient doesn't known about the concept of "stage".
+      //  I haven't reported this issue to the ApolloClient team,
+      //  you'll need to look into it yourself if you want to benefit from both content from multiple stages and client-side caching
+      fetchPolicy: 'no-cache',
+    } as QueryOptions;
 
     const {
       data,
