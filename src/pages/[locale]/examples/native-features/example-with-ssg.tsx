@@ -75,6 +75,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
         },
       },
     };
+    console.log('queryOptions', queryOptions)
 
     const {
       data,

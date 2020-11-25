@@ -149,6 +149,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
       },
     },
   };
+  console.log('queryOptions', queryOptions)
 
   const {
     data,
