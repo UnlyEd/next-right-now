@@ -23,7 +23,6 @@ export const EXAMPLE_WITH_SSR_QUERY = gql`
         ref: $customerRef
       }
     }
-      orderBy: title_ASC
     ){
       ...productFields
     }
