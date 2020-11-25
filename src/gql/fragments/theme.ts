@@ -6,6 +6,7 @@ import { asset } from './asset';
 export const theme = {
   themeFields: gql`
     fragment themeFields on Theme {
+      stage
       primaryColor
       logo {
         ...assetFields

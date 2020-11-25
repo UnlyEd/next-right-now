@@ -294,16 +294,20 @@ const Nav: React.FunctionComponent<Props> = () => {
                 <Row className={'justify-content-center'}>
                   <Tooltip
                     overlay={<span>
-                      Edit this demo using NRN-Admin CMS!<br />
+                      Edit this demo using GraphCMS!<br />
                       <br />
-                      You can edit the <code>customer</code> theme, play with its primary color to see how the demo is affected depending on the various rendering modes (SSG, SSR, etc.)<br />
+                      <b>Email</b>: <code style={{ fontSize: 18 }}>unly-nrn+contributor@unly.org</code><br />
+                      <b>Password</b>: <code style={{ fontSize: 18 }}>bbU#Ec2m6FpqU7&</code><br />
                       <br />
-                      You can also edit the products, and play around, as if you were using the NRN-Admin CMS from a customer/editor standpoint!
+                      You can edit anything and play with the various rendering modes (SSG, SSR, etc.), the GraphCMS API is configured to use <code>DRAFT</code> content in priority.<br />
+                      This mean that your changes on any published content will be reflected (because changing a published content creates a draft, and that draft is being used).<br />
+                      This has been done on purpose, to allow visitors to manipulate the content of the demo and see their changes being reflected immediately.<br />
+                      <b>N.B: Please do not change the <code>customer.ref</code> values, as it would break the associated demo, if the <code>ref</code> doesn't match.</b><br />
                     </span>}
                   >
                     <NavLink
                       id={'nav-link-admin-site'}
-                      href={`https://nrn-admin.now.sh`}
+                      href={`https://app.graphcms.com/b767f8ab435746e2909249461e2f1eb7/master`}
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {

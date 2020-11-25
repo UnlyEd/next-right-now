@@ -10,6 +10,7 @@ export const LAYOUT_QUERY = gql`
     customer(where: {
       ref: $customerRef,
     }){
+      stage
       id
       label
       theme {

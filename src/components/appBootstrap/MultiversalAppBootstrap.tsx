@@ -115,25 +115,39 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     if (!customer || !i18nTranslations || !lang || !locale) {
+      let error = props.err || null;
+
       // Unrecoverable error, we can't even display the layout because we don't have the minimal required information to properly do so
       // This most likely means something went wrong, and we must display the error page in such case
-      if (!props.err) {
-        // If the error wasn't detected by Next, then we log it to Sentry to make sure we'll be notified
+      if (!error) {
+        // The most-likely issue could be that we failed to fetch the customer related to "process.env.NEXT_PUBLIC_CUSTOMER_REF"
+        // E.g: This will happens when an instance was deployed for a customer, but the customer.ref was changed since then.
+        if (process.env.NEXT_PUBLIC_CUSTOMER_REF !== customer?.ref) {
+          error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
+            `An error happened, the app cannot start. (customer doesn't match)` :
+            `Fatal error when bootstraping the app. The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}".`,
+          );
+        } else {
+          error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
+            `An error happened, the app cannot start.` :
+            `Fatal error when bootstraping the app. It might happen when lang/locale/translations couldn't be resolved.`,
+          );
+        }
 
+        // If the error wasn't detected by Next, then we log it to Sentry to make sure we'll be notified
         Sentry.withScope((scope): void => {
           scope.setContext('props', props);
-          Sentry.captureMessage(`Unexpected fatal error happened, the app cannot render properly, fallback to the Error page. Check props.`, Sentry.Severity.Warning);
+          Sentry.captureException(error);
         });
-
       } else {
         // If an error was detected by Next, then it means the current state is due to a top-level that was caught before
         // We don't have anything to do, as it's automatically logged into Sentry
       }
 
       return (
-        <ErrorPage err={props.err} statusCode={500} isReadyToRender={true}>
+        <ErrorPage err={error} statusCode={500} isReadyToRender={true}>
           <DefaultErrorLayout
-            error={props.err}
+            error={error}
           />
         </ErrorPage>
       );

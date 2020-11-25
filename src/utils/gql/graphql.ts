@@ -15,8 +15,7 @@ export const createApolloClient = (initialState = {}, ctx = undefined): ApolloCl
       // Headers applied here will be applied for all requests
       // See the use of the "options" when running a graphQL query to specify options per-request at https://www.apollographql.com/docs/react/api/react-hooks/#options
       headers: {
-        'gcms-locale-no-default': false,
-        'authorization': `Bearer ${process.env.GRAPHQL_API_KEY}`,
+        authorization: `Bearer ${process.env.GRAPHQL_API_KEY}`,
       },
       credentials: 'same-origin', // XXX See https://www.apollographql.com/docs/react/recipes/authentication#cookie
       fetch, // Switches between unfetch & node-fetch for client & server.

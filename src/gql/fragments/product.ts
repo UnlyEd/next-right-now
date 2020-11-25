@@ -6,8 +6,18 @@ import { asset } from './asset';
 export const product = {
   productFields: gql`
     fragment productFields on Product {
+      documentInStages(includeCurrent: false, stages: [PUBLISHED]){
+        stage
+        id
+        title
+        description
+        images {
+          ...assetFields
+        }
+        price
+      }
+      stage
       id
-      status
       title
       description
       images {

@@ -7,7 +7,6 @@
 export type GraphCMSSystemFields = {
   // id: string; // XXX Should specified in sub-types if required - See https://github.com/microsoft/TypeScript/issues/36286
   createdAt?: string;
-  status?: string;
-  updatedAt?: string;
+  stage?: 'DRAFT' | 'PUBLISHED';
   __typename?: string;
 }
