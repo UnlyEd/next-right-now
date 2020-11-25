@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { product } from '../../../fragments/product';
 
 /**
  * Used by /src/pages/[locale]/examples/native-features/example-with-ssg page
@@ -10,30 +11,8 @@ export const EXAMPLE_WITH_SSG_QUERY = gql`
         ref: $customerRef
       }
     }){
-      documentInStages(includeCurrent: true, stages: [DRAFT, PUBLISHED]){
-        stage
-        id
-        title
-        description
-        images {
-          stage
-          id
-          url
-          mimeType
-        }
-        price
-      }
-      stage
-      id
-      title
-      description
-      images {
-        stage
-        id
-        url
-        mimeType
-      }
-      price
+      ...productFields
     }
   }
+  ${product.productFields}
 `;
