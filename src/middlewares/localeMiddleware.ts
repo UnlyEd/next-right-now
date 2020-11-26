@@ -17,8 +17,8 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 });
 
 /**
- * Detects the browser locale and redirects to the requested page
- * Only used when the locale isn't specified in the url (called through /api/autoRedirectToLocalisedPage)
+ * Detects the browser locale and redirects to the requested page.
+ * Only used when the locale isn't specified in the url (called through /api/autoRedirectToLocalisedPage).
  *
  * @example / => /fr
  * @example /terms => /fr/terms

@@ -11,6 +11,15 @@ const logger = createLogger({
   label: fileLabel,
 });
 
+/**
+ * Error endpoint - Throws an error upon being called.
+ *
+ * Mock API endpoint whose sole purpose is to throw an error, nothing else.
+ * Meant to be used to check whether monitoring (Sentry) works as expected.
+ *
+ * @param req
+ * @param res
+ */
 export const error = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req);
