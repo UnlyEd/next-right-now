@@ -13,16 +13,16 @@ const logger = createLogger({
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   const PRODUCTION_CI_FILE = '.github/workflows/deploy-vercel-production.yml';
-  const deploymentRef = 'master'; //TODO
+  const deployRef = req.query.ref || process.env.NEXT_PUBLIC_NRN_PRESET;
+
   try {
     configureReq(req);
+    
     console.log('Github token: ', process.env.GITHUB_DISPATCH_TOKEN);
     console.log('Customer: ', process.env.NEXT_PUBLIC_CUSTOMER_REF);
-    console.log('ref: ', deploymentRef);
 
     fetch('https://api.github.com/repos/UnlyEd/next-right-now/actions/workflows').then((plainData) => plainData.json()).then((data) => {
       const [productionWorkflow] = data.workflows.filter((workflow) => workflow.path === PRODUCTION_CI_FILE);
-      console.log(`Fetching ${productionWorkflow.url}/dispatches`);
       fetch(`${productionWorkflow.url}/dispatches`, {
         method: 'POST',
         headers: {
@@ -30,14 +30,13 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
           Accept: 'application/vnd.github.v3+json'
         },
         body: JSON.stringify({
-          ref: deploymentRef,
           inputs: {
             customer: process.env.NEXT_PUBLIC_CUSTOMER_REF
-          }
+          },
+          ref: deployRef
         })
-      }).then((response) => {
-        console.log('response: ', response);
-        console.log('responseStatus: ', response.status);
+      }).then(async (response) => {
+        console.log('response: ', response.status);
       });
     });
 
