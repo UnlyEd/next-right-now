@@ -153,7 +153,7 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
     redirect(res, redirectTo, statusCode);
 
     // Dispatch the GitHub Actions workflow, which will then trigger the Vercel deployment
-    await dispatchWorkflowByPath(platformReleaseRef, process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? GITHUB_ACTION_WORKFLOW_FILE_PATH_PRODUCTION : GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING);
+    dispatchWorkflowByPath(platformReleaseRef, process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? GITHUB_ACTION_WORKFLOW_FILE_PATH_PRODUCTION : GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING);
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);
