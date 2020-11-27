@@ -11,6 +11,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       // NRN env variables
+      GITHUB_DISPATCH_TOKEN: string;
       GRAPHQL_API_ENDPOINT: string;
       GRAPHQL_API_KEY: string;
       IS_SERVER_INITIAL_BUILD: '1' | undefined;

@@ -35,7 +35,7 @@ type PreviewModeAPIQuery = {
  */
 export const preview = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
-    configureReq(req);
+    configureReq(req, { fileLabel });
 
     const {
       stop = 'false',
@@ -64,12 +64,8 @@ export const preview = async (req: NextApiRequest, res: NextApiResponse): Promis
     res.writeHead(307, { Location: safeRedirectUrl });
     res.end();
   } catch (e) {
+    Sentry.captureException(e);
     logger.error(e.message);
-
-    Sentry.withScope((scope): void => {
-      scope.setTag('fileLabel', fileLabel);
-      Sentry.captureException(e);
-    });
 
     res.json({
       error: true,
