@@ -5,6 +5,7 @@ import {
   GITHUB_REPO_NAME,
 } from '../../constants';
 import { WorkflowsAPIResponse } from '../../types/githubActions/WorkflowsAPIResponse';
+import Sentry from '../monitoring/sentry';
 import dispatchWorkflow from './dispatchWorkflow';
 
 const fileLabel = 'utils/githubActions/dispatchWorkflowByPath';
@@ -28,7 +29,8 @@ export const dispatchWorkflowByPath = async (platformReleaseRef: string, workflo
 
     await dispatchWorkflow(results, platformReleaseRef, workflowFilePath);
   } catch (e) {
-
+    Sentry.captureException(new Error(e));
+    logger.error(e);
   }
 };
 
