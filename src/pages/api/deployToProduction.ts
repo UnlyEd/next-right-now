@@ -94,7 +94,7 @@ const GITHUB_ACTION_WORKFLOW_FILE_PATH = '.github/workflows/deploy-vercel-produc
  */
 const deployToProduction = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
-    configureReq(req);
+    configureReq(req, { fileLabel });
 
     const {
       customerAuthToken,
@@ -140,12 +140,8 @@ const deployToProduction = async (req: EndpointRequest, res: NextApiResponse): P
         dispatchWorkflow(data, platformReleaseRef);
       });
   } catch (e) {
+    Sentry.captureException(e);
     logger.error(e.message);
-
-    Sentry.withScope((scope): void => {
-      scope.setTag('fileLabel', fileLabel);
-      Sentry.captureException(e);
-    });
 
     res.json({
       error: true,

@@ -23,16 +23,12 @@ const logger = createLogger({
  */
 export const error = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
-    configureReq(req);
+    configureReq(req, { fileLabel });
 
     throw Error('Fake error - Sentry test from /api/error');
   } catch (e) {
+    Sentry.captureException(e);
     logger.error(e.message);
-
-    Sentry.withScope((scope): void => {
-      scope.setTag('fileLabel', fileLabel);
-      Sentry.captureException(e);
-    });
 
     res.json({
       error: true,
