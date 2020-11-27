@@ -24,6 +24,9 @@ type EndpointRequest = NextApiRequest & {
      *
      * Used to make sure the request is authenticated, by using a token that belongs to the current customer.
      *  E.g: A customer A might call the "/api/startVercelDeployment" endpoint of another customer B, using the token of customer A will not work.
+     *
+     * @example ?customerAuthToken=customer1 Token for customer1
+     * @example ?customerAuthToken=customer2 Token for customer2
      */
     customerAuthToken: string;
 
@@ -90,7 +93,8 @@ const GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING = '.github/workflows/deploy-verce
  * XXX Technical staff can use a similar feature by running the GitHub Actions directly through the GitHub UI, and don't necessarily need to use this endpoint.
  *  (e.g: https://github.com/UnlyEd/next-right-now/actions)
  *
- * @example http://localhost:8888/api/startVercelDeployment?forceNoRedirect=true&customerAuthToken=customer1 For easier debug
+ * @example http://localhost:8888/api/startVercelDeployment?forceNoRedirect=true&customerAuthToken=customer1 For easier debug, using valid token for customer1
+ * @example http://localhost:8888/api/startVercelDeployment?forceNoRedirect=true&customerAuthToken=customer2 For easier debug, using valid token for customer2
  *
  * @param req
  * @param res
