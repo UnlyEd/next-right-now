@@ -19,6 +19,7 @@ const logger = createLogger({
  *
  * @param req
  * @param res
+ * @method GET
  */
 export const error = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {

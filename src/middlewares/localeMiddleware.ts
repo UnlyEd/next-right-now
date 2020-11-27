@@ -55,7 +55,6 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);
 
-  const redirectStatusCode = 302;
   let redirectTo: string;
 
   if (req.url === '/' || req.url === '/api/autoRedirectToLocalisedPage') {
@@ -69,7 +68,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
 
   logger.debug(`Redirecting to "${redirectTo}" ...`);
 
-  return redirect(res, redirectStatusCode, redirectTo);
+  return redirect(res, redirectTo);
 };
 
 export default localeMiddleware;

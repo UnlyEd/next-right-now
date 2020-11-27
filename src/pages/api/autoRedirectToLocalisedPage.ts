@@ -13,6 +13,7 @@ import localeMiddleware from '../../middlewares/localeMiddleware';
  *
  * @param req
  * @param res
+ * @method GET
  */
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => localeMiddleware(req, res);
 
