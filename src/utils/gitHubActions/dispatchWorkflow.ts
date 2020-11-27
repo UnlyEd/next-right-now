@@ -37,8 +37,15 @@ export const dispatchWorkflow = async (workflowsList: WorkflowsAPIResponse, plat
     const url = `${workflowDetails?.url}/dispatches`;
 
     Sentry.configureScope((scope): void => {
+      scope.setExtra('workflowFilePath', workflowFilePath);
+      scope.setExtra('workflowDispatchRequestUrl', url);
+      scope.setContext('workflowDispatchRequestBody', body);
       scope.setContext('workflowDetails', workflowDetails);
-      scope.setContext('requestBody', body);
+    });
+
+    Sentry.captureEvent({
+      message: 'Triggering Vercel deployment.',
+      level: Sentry.Severity.Log,
     });
 
     logger.debug(`Fetching "${url}", using workflow path: "${workflowFilePath}", with request body: ${JSON.stringify(body, null, 2)}`);

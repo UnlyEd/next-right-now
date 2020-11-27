@@ -103,6 +103,10 @@ const GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING = '.github/workflows/deploy-verce
 const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req, { fileLabel });
+    Sentry.captureEvent({
+      message: 'API endpoint "startVercelDeployment" invoked.',
+      level: Sentry.Severity.Log,
+    });
 
     const {
       customerAuthToken,
@@ -115,7 +119,7 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
     // XXX For the sake of simplicity, our "customerAuthToken" is the same as the customer ref.
     //  This is better than using no token at all, but it's still a rather weak security check.
     //  Feel free to implement your own authentication protocol.
-    if(customerAuthToken !== process.env.NEXT_PUBLIC_CUSTOMER_REF){
+    if (customerAuthToken !== process.env.NEXT_PUBLIC_CUSTOMER_REF) {
       const errorMessage = `Query parameter "customerAuthToken" is not valid (using "${customerAuthToken}"). Access refused.`;
       Sentry.captureException(new Error(errorMessage));
       logger.error(errorMessage);
@@ -150,8 +154,7 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
     }
 
     // Dispatch the GitHub Actions workflow, which will then trigger the Vercel deployment
-    // XXX We don't await for the processing to be done
-    dispatchWorkflowByPath(platformReleaseRef, process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? GITHUB_ACTION_WORKFLOW_FILE_PATH_PRODUCTION : GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING);
+    await dispatchWorkflowByPath(platformReleaseRef, process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? GITHUB_ACTION_WORKFLOW_FILE_PATH_PRODUCTION : GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING);
 
     // Redirect the end-user
     redirect(res, redirectTo, statusCode);
