@@ -50,7 +50,7 @@ type EndpointRequest = NextApiRequest & {
     /**
      * Url to redirect to, once the deployment has been triggered.
      *
-     * Will return early, not waiting for the actual deployment to be done, will not know whether the trigger was successful either.
+     * Will not wait for the actual deployment to be done, will not return whether the trigger was successful either.
      *
      * XXX We can't wait for the deployment to be performed by Vercel, as it'd definitely be longer than the maximum allowed serverless function running time (10-60sec depending on your Vercel plan).
      *  Thus, we redirect as early as possible and don't wait for any kind of feedback.
@@ -149,11 +149,12 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
       return redirect(res, redirectTo, statusCode);
     }
 
-    // Redirect the end-user early, as we don't need/want to wait for the dispatch to be triggered
-    redirect(res, redirectTo, statusCode);
-
     // Dispatch the GitHub Actions workflow, which will then trigger the Vercel deployment
+    // XXX We don't await for the processing to be done
     dispatchWorkflowByPath(platformReleaseRef, process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? GITHUB_ACTION_WORKFLOW_FILE_PATH_PRODUCTION : GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING);
+
+    // Redirect the end-user
+    redirect(res, redirectTo, statusCode);
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);
