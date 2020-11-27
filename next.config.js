@@ -61,6 +61,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    * @see https://nextjs.org/docs/api-reference/next.config.js/environment-variables
    */
   env: {
+    GITHUB_DISPATCH_TOKEN: process.env.GITHUB_DISPATCH_TOKEN,
     AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY,
     AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID,
     LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,

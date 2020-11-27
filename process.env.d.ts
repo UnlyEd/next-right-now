@@ -11,6 +11,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       // NRN env variables
+      GITHUB_DISPATCH_TOKEN: string;
       AIRTABLE_API_KEY: string;
       AIRTABLE_BASE_ID: string;
       IS_SERVER_INITIAL_BUILD: '1' | undefined;

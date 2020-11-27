@@ -11,9 +11,20 @@ const logger = createLogger({
   label: fileLabel,
 });
 
+/**
+ * Status endpoint - Prints the "status" of the deployed instance.
+ *
+ * Prints useful information regarding the deployment.
+ * Meant to be used for debugging purposes.
+ * Can also be used as "ping endpoint" to make sure the app is online.
+ *
+ * @param req
+ * @param res
+ * @method GET
+ */
 export const status = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
-    configureReq(req);
+    configureReq(req, { fileLabel });
 
     res.json({
       appStage: process.env.NEXT_PUBLIC_APP_STAGE,

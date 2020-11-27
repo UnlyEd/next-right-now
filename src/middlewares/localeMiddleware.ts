@@ -17,8 +17,8 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 });
 
 /**
- * Detects the browser locale and redirects to the requested page
- * Only used when the locale isn't specified in the url (called through /api/autoRedirectToLocalisedPage)
+ * Detects the browser locale and redirects to the requested page.
+ * Only used when the locale isn't specified in the url (called through /api/autoRedirectToLocalisedPage).
  *
  * @example / => /fr
  * @example /terms => /fr/terms
@@ -55,7 +55,6 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);
 
-  const redirectStatusCode = 302;
   let redirectTo: string;
 
   if (req.url === '/' || req.url === '/api/autoRedirectToLocalisedPage') {
@@ -69,7 +68,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
 
   logger.debug(`Redirecting to "${redirectTo}" ...`);
 
-  return redirect(res, redirectStatusCode, redirectTo);
+  return redirect(res, redirectTo);
 };
 
 export default localeMiddleware;

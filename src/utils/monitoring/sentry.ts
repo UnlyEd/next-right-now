@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
+import map from 'lodash.map';
 import { NextApiRequest } from 'next';
 
 import { UserSession } from '../../hooks/useUserSession';
@@ -83,9 +84,11 @@ export const configureSentryI18n = (lang: string, locale: string): void => {
  * Configure the Sentry scope by extracting useful tags and context from the given request.
  *
  * @param req
+ * @param tags
+ * @param contexts
  * @see https://www.npmjs.com/package/@sentry/node
  */
-export const configureReq = (req: NextApiRequest): void => {
+export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string }, contexts?: { [key: string]: any }): void => {
   Sentry.configureScope((scope) => {
     scope.setTag('host', req?.headers?.host);
     scope.setTag('url', req?.url);
@@ -94,6 +97,14 @@ export const configureReq = (req: NextApiRequest): void => {
     scope.setContext('cookies', req?.cookies);
     scope.setContext('body', req?.body);
     scope.setContext('headers', req?.headers);
+
+    map(tags, (value: string, tag: string) => {
+      scope.setTag(tag, value);
+    });
+
+    map(contexts, (value: { [key: string]: any; }, context: string) => {
+      scope.setContext(context, value);
+    });
   });
 };
 
