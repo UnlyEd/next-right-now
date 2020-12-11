@@ -226,7 +226,7 @@ jobs:
 
 
       # Wait for deployment to be ready
-      - uses: UnlyEd/github-action-await-vercel:v1.0.0
+      - uses: UnlyEd/github-action-await-vercel@v1.0.0
         id: await-vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
