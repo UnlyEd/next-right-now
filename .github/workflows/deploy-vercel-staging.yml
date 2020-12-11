@@ -223,6 +223,7 @@ jobs:
           VERCEL_DEPLOYMENT_URL="https://$VERCEL_DEPLOYMENT"
           echo "Url where to run E2E tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
+          echo "VERCEL_DEPLOYMENT=$VERCEL_DEPLOYMENT" >> $GITHUB_ENV
 
 
       # Wait for deployment to be ready
@@ -231,7 +232,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
         with:
-          url-to-wait: ${{ env.VERCEL_DEPLOYMENT_URL }}
+          url-to-wait: ${{ env.$VERCEL_DEPLOYMENT }}
           timeout: 10
       - run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
 
