@@ -225,17 +225,16 @@ jobs:
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
           echo "VERCEL_DEPLOYMENT=$VERCEL_DEPLOYMENT" >> $GITHUB_ENV
 
-
-      # Wait for deployment to be ready
+      # Wait for deployment to be ready, before running E2E or LightHouse (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
       - name: Awaiting Vercel deployment to be ready
-        uses: UnlyEd/github-action-await-vercel@v1.0.0
+        uses: UnlyEd/github-action-await-vercel@v1.0.0-beta2
         id: await-vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
         with:
-          url-to-wait: ${{ env.VERCEL_DEPLOYMENT }}
-          timeout: 10
-      - run: "echo The deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
+          deployment-url: ${{ env.VERCEL_DEPLOYMENT }}
+          timeout: 30 # Wait for 30 seconds before failing
+      - run: "echo The deployment is now '${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}'"
 
       # Run the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
