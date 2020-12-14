@@ -227,7 +227,7 @@ jobs:
 
       # Wait for deployment to be ready, before running E2E or LightHouse (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
       - name: Awaiting Vercel deployment to be ready
-        uses: UnlyEd/github-action-await-vercel@v1.0.0-beta2
+        uses: UnlyEd/github-action-await-vercel@v1.0.0-beta.2
         id: await-vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
