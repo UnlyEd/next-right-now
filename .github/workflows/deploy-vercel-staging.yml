@@ -55,6 +55,9 @@ jobs:
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
 
+          echo "Actual commit SHA"
+          echo $GIT_COMMIT_SHA
+
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the vercel.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
@@ -136,6 +139,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to the worker
+          GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
