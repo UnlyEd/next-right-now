@@ -5,7 +5,7 @@
   "scripts": {
     "start": "next dev --port 8888",
     "start:tunnel": "ngrok http 8888",
-    "build": "yarn test:once && GIT_COMMIT_SHA=${GIT_COMMIT_SHA:development} next build",
+    "build": "yarn test:once && echo 'SHA: $GIT_COMMIT_SHA' && GIT_COMMIT_SHA=${GIT_COMMIT_SHA:development} next build",
     "build:profiler": "next build --profile",
     "analyse:bundle": "yarn analyse:bundle:production",
     "analyse:bundle:development": "ANALYZE_BUNDLE=true yarn start",
