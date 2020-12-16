@@ -16,6 +16,8 @@ const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folde
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const date = new Date();
 const commitInfo = gitCommitInfo();
+const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.commit);
+console.log('Git commit SHA: ', GIT_COMMIT_SHA); // Forward existing GIT_COMMIT_SHA or set it
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}"`);
 
@@ -76,7 +78,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
     NEXT_PUBLIC_APP_NAME_VERSION: `${packageJson.name}-${packageJson.version}`,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
-    GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.commit), // Forward existing GIT_COMMIT_SHA or set it
+    GIT_COMMIT_SHA: GIT_COMMIT_SHA,
+    NEXT_PUBLIC_GIT_COMMIT_SHA: GIT_COMMIT_SHA,
   },
 
   /**
