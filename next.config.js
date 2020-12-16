@@ -17,6 +17,8 @@ const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedir
 const date = new Date();
 const commitInfo = gitCommitInfo();
 const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.commit);
+console.log('process.env.VERCEL_GIT_COMMIT_SHA: ', process.env.VERCEL_GIT_COMMIT_SHA);
+console.log('process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA: ', process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA);
 console.log('process.env.GIT_COMMIT_SHA: ', process.env.GIT_COMMIT_SHA);
 console.log('Git commit SHA: ', GIT_COMMIT_SHA); // Forward existing GIT_COMMIT_SHA or set it
 
