@@ -14,8 +14,7 @@
       "AIRTABLE_BASE_ID": "@nrn-airtable-base-id",
       "LOCIZE_API_KEY": "@nrn-locize-api-key-staging",
       "SENTRY_DSN": "@nrn-sentry-dsn",
-      "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token",
-      "GIT_COMMIT_SHA": "${GIT_COMMIT_SHA:?You need to provide a commit SHA in order to build}"
+      "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token"
 }
   },
   "alias": [

@@ -19,7 +19,7 @@
     "deploy:customer": "yarn vercel:cleanup && vercel --confirm --local-config=vercel.${CUSTOMER_REF}.staging.json --debug",
     "deploy:customer:production:simple": "yarn vercel:cleanup && vercel --confirm --local-config=vercel.${CUSTOMER_REF}.production.json --prod --debug",
     "deploy:customer1:all": "yarn deploy:customer1 && yarn deploy:customer1:production",
-    "deploy:customer1": "yarn vercel:cleanup && vercel --confirm --local-config=vercel.customer1.staging.json --debug",
+    "deploy:customer1": "yarn vercel:cleanup && vercel -e GIT_COMMIT_SHA=${GIT_COMMIT_SHA:?You need to provide a commit SHA in order to build} --confirm --local-config=vercel.customer1.staging.json --debug",
     "deploy:customer1:production": "yarn deploy:customer1:production:simple && yarn e2e:customer1:production",
     "deploy:customer1:production:simple": "yarn vercel:cleanup && vercel --confirm --local-config=vercel.customer1.production.json --prod --debug",
     "deploy:customer2:all": "yarn deploy:customer2 && yarn deploy:customer2:production",
