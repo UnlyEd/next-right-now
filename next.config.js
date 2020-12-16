@@ -17,6 +17,7 @@ const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedir
 const date = new Date();
 const commitInfo = gitCommitInfo();
 const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.commit);
+console.log('process.env.GIT_COMMIT_SHA: ', process.env.GIT_COMMIT_SHA);
 console.log('Git commit SHA: ', GIT_COMMIT_SHA); // Forward existing GIT_COMMIT_SHA or set it
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}"`);
