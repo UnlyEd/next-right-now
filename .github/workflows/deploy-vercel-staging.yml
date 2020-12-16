@@ -55,8 +55,7 @@ jobs:
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
 
-          echo "Actual commit SHA"
-          echo $GIT_COMMIT_SHA
+          echo "Deploying SHA $GIT_COMMIT_SHA"
 
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the vercel.json file, which is most useful when deployment is triggered through "push" event
