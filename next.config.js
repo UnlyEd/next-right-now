@@ -1,5 +1,6 @@
 const bundleAnalyzer = require('@next/bundle-analyzer');
 const nextSourceMaps = require('@zeit/next-source-maps');
+const gitCurrentBranchName = require('current-git-branch');
 const gitCommitInfo = require('git-commit-info');
 const packageJson = require('./package');
 const i18nConfig = require('./src/i18nConfig');
@@ -15,10 +16,13 @@ const noRedirectBlacklistedPaths = ['_next', 'api']; // Paths that mustn't have 
 const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folders, files) under /public directory should be added there, to avoid redirection when an asset isn't found
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const date = new Date();
+
+// Those two commands rely on running `git` command, which isn't installed/available on Vercel. They're only useful when building in a localhost environment.
 const commitInfo = gitCommitInfo();
+const currentBranchName = gitCurrentBranchName();
 
 const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.hash); // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
-const GIT_COMMIT_REF = process.env.GIT_COMMIT_REF || 'unknown'; // Resolve commit hash from ENV first (set through CI), fallbacks to "unknown"
+const GIT_COMMIT_REF = process.env.GIT_COMMIT_REF || currentBranchName; // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${GIT_COMMIT_SHA}`);
 

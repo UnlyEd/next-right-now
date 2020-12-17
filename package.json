@@ -180,6 +180,7 @@
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "concurrently": "5.3.0",
     "cross-env": "7.0.2",
+    "current-git-branch": "1.1.0",
     "cypress": "5.1.0",
     "del-cli": "3.0.1",
     "dotenv": "8.2.0",
