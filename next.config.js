@@ -16,15 +16,6 @@ const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folde
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const date = new Date();
 const commitInfo = gitCommitInfo();
-console.log(commitInfo);
-console.log(process.env);
-const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.commit);
-console.log('process.env.VERCEL_GITHUB_COMMIT_SHA: ', process.env.VERCEL_GITHUB_COMMIT_SHA);
-console.log('process.env.VERCEL_GIT_COMMIT_SHA: ', process.env.VERCEL_GIT_COMMIT_SHA);
-console.log('process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA: ', process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA);
-console.log('process.env.GIT_COMMIT_SHA: ', process.env.GIT_COMMIT_SHA);
-console.log('Git commit SHA: ', GIT_COMMIT_SHA); // Forward existing GIT_COMMIT_SHA or set it
-console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}"`);
 
 /**
  * This file is for advanced configuration of the Next.js framework.
@@ -83,8 +74,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
     NEXT_PUBLIC_APP_NAME_VERSION: `${packageJson.name}-${packageJson.version}`,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
-    GIT_COMMIT_SHA: GIT_COMMIT_SHA,
-    NEXT_PUBLIC_GIT_COMMIT_SHA: GIT_COMMIT_SHA,
+    GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.commit) //
   },
 
   /**
