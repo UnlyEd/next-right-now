@@ -17,6 +17,11 @@ const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedir
 const date = new Date();
 const commitInfo = gitCommitInfo();
 
+const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.hash); // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
+const GIT_COMMIT_REF = process.env.GIT_COMMIT_REF || 'unknown'; // Resolve commit hash from ENV first (set through CI), fallbacks to "unknown"
+
+console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${GIT_COMMIT_SHA}`);
+
 /**
  * This file is for advanced configuration of the Next.js framework.
  *
@@ -74,7 +79,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
     NEXT_PUBLIC_APP_NAME_VERSION: `${packageJson.name}-${packageJson.version}`,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
-    GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.commit) //
+    GIT_COMMIT_SHA: GIT_COMMIT_SHA,
+    GIT_COMMIT_REF: GIT_COMMIT_REF,
   },
 
   /**
