@@ -169,6 +169,14 @@ jobs:
             Commit ${{ github.sha }} successfully deployed to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
             Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
 
+  await-for-vercel-deployment:
+    name: Await this deployment to be ready (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    needs: start-staging-deployment
+    steps:
+      - name: Resolving deployment url from Vercel
+        run: |
+          echo $VERCEL_DEPLOYMENT_URL
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
@@ -176,7 +184,7 @@ jobs:
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
     container: cypress/included:3.8.3
-    needs: start-staging-deployment
+    needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
@@ -299,7 +307,7 @@ jobs:
   run-lighthouse-tests:
     name: Run LightHouse checks (Ubuntu 18.04)
     runs-on: ubuntu-18.04
-    needs: start-staging-deployment
+    needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
