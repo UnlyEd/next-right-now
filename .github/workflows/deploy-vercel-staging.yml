@@ -229,6 +229,10 @@ jobs:
         with:
           deployment-url: ${{ env.VERCEL_DEPLOYMENT }}
           timeout: 90 # Wait for 90 seconds before failing
+
+      - name: Display deployment status
+        run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
+
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
