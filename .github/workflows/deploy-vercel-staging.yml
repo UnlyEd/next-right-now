@@ -54,7 +54,7 @@ jobs:
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
-          echo "Deploying using git commit SHA: $GIT_COMMIT_SHA"
+          echo "Deploying using git commit SHA: $GIT_COMMIT_SHA and branch/tag: $GIT_COMMIT_REF"
 
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the vercel.json file, which is most useful when deployment is triggered through "push" event
