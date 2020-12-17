@@ -13,7 +13,6 @@ on:
   push: # Triggers on each pushed commit
     branches:
       - 'master'
-      - 'implement-custom-wait-action'
 
   # Allow manual trigger via a button in github or a HTTP call - See https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#manually-running-a-workflow
   # XXX Read more about how to use it with NRN in .github/WORKFLOW_DISPATCH.md
