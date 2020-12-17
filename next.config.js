@@ -17,10 +17,13 @@ const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folde
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const date = new Date();
 
-// Those two commands rely on running `git` command, which isn't installed/available on Vercel. They're only useful when building in a localhost environment.
+// Those two commands rely on running `git` command in the shell, which isn't installed/available on Vercel.
+// They're only useful when building in a localhost environment.
 const commitInfo = gitCommitInfo();
 const currentBranchName = gitCurrentBranchName();
 
+// When deployed through GHA, both GIT_COMMIT_SHA and GIT_COMMIT_REF must be provided by GitHub Actions.
+// When deploying locally, those values are resolved automatically.
 const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.hash); // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
 const GIT_COMMIT_REF = process.env.GIT_COMMIT_REF || currentBranchName; // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
 
