@@ -64,6 +64,9 @@ jobs:
         #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
+          echo "------------------------------------------"
+          pwd
+          echo "------------------------------------------"
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
 
@@ -190,7 +193,7 @@ jobs:
     container:
       image: cypress/included:3.8.3
       #volumes:
-      #  - my_docker_volume:/volume_mount
+        #- ./node_modules:./node_modules
     needs: start-staging-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
@@ -205,7 +208,6 @@ jobs:
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           echo "------------------------------------------"
-          ls
           pwd
           echo "------------------------------------------"
           apt update -y >/dev/null && apt install -y jq >/dev/null
@@ -247,6 +249,7 @@ jobs:
         uses: actions/cache@v2
         id: yarn-cache
         with:
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
