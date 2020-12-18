@@ -148,7 +148,7 @@ jobs:
 
       # Run the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
-        uses: cypress-io/github-action@v2 # XXX See https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@47c5d1dc17e3f4a28680fe65494bf28607e405bf # Pin v2.7.1 XXX See https://github.com/cypress-io/github-action
         with:
           cache-key: ${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }} # Using a custom key for cache because the default key is not working. See https://github.com/cypress-io/github-action#custom-cache-key
           wait-on: ${{ env.VERCEL_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
