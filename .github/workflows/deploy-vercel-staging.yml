@@ -52,9 +52,6 @@ jobs:
         #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
-          echo "------------------------------------------"
-          pwd
-          echo "------------------------------------------"
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
 
@@ -178,10 +175,7 @@ jobs:
     runs-on: ubuntu-18.04
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
-    container:
-      image: cypress/included:3.8.3
-      #volumes:
-        #- /home/runner/work/next-right-now/next-right-now/:./node_modules
+    container: cypress/included:3.8.3
     needs: start-staging-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
@@ -195,9 +189,6 @@ jobs:
         # We need to set env the url for next step, formatted as `https://${$VERCEL_DEPLOYMENT}`
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
-          echo "------------------------------------------"
-          pwd
-          echo "------------------------------------------"
           apt update -y >/dev/null && apt install -y jq >/dev/null
 
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
@@ -237,7 +228,7 @@ jobs:
       - name: Run E2E tests (Cypress)
         uses: cypress-io/github-action@v2 # XXX See https://github.com/cypress-io/github-action
         with:
-          cache-key: ${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
+          cache-key: ${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }} # Using a custom key for cache because default is not workking. See https://github.com/cypress-io/github-action#custom-cache-key
           wait-on: ${{ env.VERCEL_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
           config-file: cypress/config-customer-ci-cd.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
