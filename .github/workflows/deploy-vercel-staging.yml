@@ -193,7 +193,7 @@ jobs:
     container:
       image: cypress/included:3.8.3
       #volumes:
-        #- ./node_modules:./node_modules
+        #- /home/runner/work/next-right-now/next-right-now/:./node_modules
     needs: start-staging-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
@@ -245,11 +245,17 @@ jobs:
           echo "Url where to run E2E tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
 
+      # Caching node_modules to use it in others workflow (e.g: E2E tests)
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
       - name: Restoring cache for Cypress
         uses: actions/cache@v2
         id: yarn-cache
         with:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
