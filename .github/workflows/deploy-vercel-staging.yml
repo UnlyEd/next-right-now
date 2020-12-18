@@ -33,18 +33,6 @@ jobs:
         uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
         with:
           node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
-      # Caching node_modules to use it in others workflow (e.g: E2E tests)
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Save yarn cache for other jobs
-        uses: actions/cache@v2 # Used to cache dependencies XXX https://github.com/actions/cache
-        id: yarn-cache # Use this id to check what did the cache  (e.g: `steps.yarn-cache.outputs.cache-hit`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
 
   # Starts a Vercel deployment, using the staging configuration file of the default institution
   # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
@@ -245,31 +233,11 @@ jobs:
           echo "Url where to run E2E tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
 
-      # Caching node_modules to use it in others workflow (e.g: E2E tests)
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - name: Restoring cache for Cypress
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Debug cache
-        run: |
-          echo "Cache returned: $CACHE_STATUS"
-          ls $(yarn cache dir)
-        env:
-          CACHE_STATUS: ${{ steps.cache-primes.outputs.cache-hit }}
-
       # Run the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
         uses: cypress-io/github-action@v2 # XXX See https://github.com/cypress-io/github-action
         with:
+          cache-key: ${{ runner.os }}-hash-${{ hashFiles('yarn.lock') }}
           wait-on: ${{ env.VERCEL_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
           config-file: cypress/config-customer-ci-cd.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
