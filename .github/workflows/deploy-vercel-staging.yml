@@ -255,7 +255,7 @@ jobs:
           echo "Cache returned: $CACHE_STATUS"
           ls $(yarn cache dir)
         env:
-          - CACHE_STATUS: ${{ steps.cache-primes.outputs.cache-hit }}
+          CACHE_STATUS: ${{ steps.cache-primes.outputs.cache-hit }}
 
       # Run the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
