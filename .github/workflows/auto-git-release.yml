@@ -17,6 +17,14 @@ jobs:
   tag-and-release:
     runs-on: ubuntu-18.04
     steps:
+      - name: Get branch name
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+      - name: Get branch name (pull request)
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
@@ -33,7 +41,7 @@ jobs:
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
           echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
           echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
-      - uses: marvinpinto/action-automatic-releases@v1.1.0
+      - uses: marvinpinto/action-automatic-releases@latest
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{steps.next_semantic_version.outputs.version_tag}}
