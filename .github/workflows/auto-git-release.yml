@@ -25,7 +25,7 @@ jobs:
       - uses: paulhatch/semantic-version@v3.1.2
         id: next_semantic_version # Output: https://github.com/PaulHatch/semantic-version/blob/master/index.js#L63-L69
         with: # See https://github.com/PaulHatch/semantic-version#usage
-          branch: ${{ env.GITHUB_REF_SLUG }} # Use current branch XXX You might want to use main or master
+          branch: ${{ env.GITHUB_REF_SLUG }} # Use current branch
           tag_prefix: "v" # The prefix to use to identify tags
           major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
