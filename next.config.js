@@ -31,7 +31,8 @@ console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC
 
 // When specifying GIT_COMMIT_TAGS by using `yarn --silent git:getReleasesAndTags`, we receive "v1.1.1 v1.1.1-customer1" and we transform it as ["v1.1.1", "v1.1.1-customer1"].
 // We use `filter` to make sure there are not empty element.
-const GIT_COMMIT_TAGS = process.env.GIT_COMMIT_TAGS?.split(" ").filter(tag => tag) || [];
+// Default value is an empty array.
+const GIT_COMMIT_TAGS = (process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.split(" ").filter(tag => tag) : []);
 console.debug(`Commit deployed is defined as ${GIT_COMMIT_TAGS.join(",")}`)
 /**
  * This file is for advanced configuration of the Next.js framework.
