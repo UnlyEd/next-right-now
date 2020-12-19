@@ -12,7 +12,6 @@ on:
 #      - main
 #      - master
       - 'v2-*' # XXX NRN releases on v2 branches, but you'll likely want to release on either main or master
-      - '*' # For testing/debugging
 
 jobs:
   tag-and-release:
