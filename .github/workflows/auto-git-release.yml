@@ -17,19 +17,23 @@ jobs:
   tag-and-release:
     runs-on: ubuntu-18.04
     steps:
+      - name: Extract current branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
       - uses: paulhatch/semantic-version@v3.1.2
         id: next_semantic_version # Output: https://github.com/PaulHatch/semantic-version/blob/master/index.js#L63-L69
         with: # See https://github.com/PaulHatch/semantic-version#usage
-          branch: ${GITHUB_REF#refs/heads/} # Use current branch XXX You might want to use main or master
+          branch: ${{ steps.extract_branch.outputs.branch }} # Use current branch XXX You might want to use main or master
           tag_prefix: "v" # The prefix to use to identify tags
           major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
           format: "${major}.${minor}.${patch}-prerelease.${increment}" # A string to determine the format of the version output
       - run: |
-          echo "Current branch: ${GITHUB_REF#refs/heads/}"
+          echo "Current branch: ${{ steps.extract_branch.outputs.branch }}"
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
           echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
           echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
