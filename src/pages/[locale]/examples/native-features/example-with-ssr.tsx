@@ -16,7 +16,9 @@ import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSide
 
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
+import useCustomer from '../../../../hooks/useCustomer';
 import { AirtableRecord } from '../../../../types/data/AirtableRecord';
+import { Customer } from '../../../../types/data/Customer';
 import { Product } from '../../../../types/data/Product';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
@@ -53,8 +55,8 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = ge
 type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
-  const { customer } = props;
-  const products = customer?.fields?.products as AirtableRecord<Product>[];
+  const customer: Customer = useCustomer();
+  const products: AirtableRecord<Product>[] = customer?.products;
 
   return (
     <DefaultLayout

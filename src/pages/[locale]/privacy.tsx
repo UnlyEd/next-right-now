@@ -58,8 +58,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
-  const { modTFP } = customer;
-  const { privacyDescription, serviceLabel } = modTFP || {};
+  const { privacyDescription, serviceLabel } = customer || {};
 
   // Replace dynamic values (like "{customerLabel}") by their actual value
   const privacy = replaceAllOccurrences(privacyDescription, {

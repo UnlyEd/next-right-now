@@ -19,9 +19,13 @@ export type Customer = {
   label: I18nString;
   labelEN?: string;
   labelFR?: string;
+  availableLanguages: string[];
   products?: AirtableRecord<Product>[];
   theme: AirtableRecord<Theme>;
   terms?: I18nMarkdown;
   termsEN?: Markdown;
   termsFR?: Markdown;
+  serviceLabel?: string;
+  termsDescription?: Markdown;
+  privacyDescription?: Markdown;
 };

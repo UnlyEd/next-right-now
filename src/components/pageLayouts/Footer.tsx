@@ -6,6 +6,7 @@ import {
   Col,
   Row,
 } from 'reactstrap';
+import { NRN_CO_BRANDING_LOGO_URL } from '../../constants';
 
 import useCustomer from '../../hooks/useCustomer';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
@@ -130,15 +131,16 @@ const Footer: React.FunctionComponent<Props> = () => {
         </Col>
         <Col md={4} xs={12} className={'column-right text-md-right mt-4'}>
           <div>
-            <I18nBtnChangeLocale />
+            <I18nBtnChangeLocale id={'footer-btn-change-locale'} />
           </div>
           <div>
             <Logo
               id={'footer-logo-unly-brand'}
+              // @ts-ignore
               logo={{
-                url: '/static/images/LOGO_Powered_by_UNLY_monochrome_WHITE.svg',
+                url: NRN_CO_BRANDING_LOGO_URL,
                 link: {
-                  url: 'https://unly.org/',
+                  url: 'https://github.com/unlyEd',
                   target: '_blank',
                 },
               }}

@@ -30,8 +30,7 @@ export const initCustomerTheme = (customer: Customer): CustomerTheme => {
     onSurfaceColor: NRN_DEFAULT_THEME.onSurfaceColor,
     errorColor: NRN_DEFAULT_THEME.errorColor,
     onErrorColor: NRN_DEFAULT_THEME.onErrorColor,
-    serviceLogo: NRN_DEFAULT_THEME.serviceLogo,
-    footerLogo: NRN_DEFAULT_THEME.footerLogo,
+    logo: NRN_DEFAULT_THEME.logo,
     fonts: NRN_DEFAULT_THEME.fonts,
   };
 
@@ -46,8 +45,7 @@ export const initCustomerTheme = (customer: Customer): CustomerTheme => {
   const customerTheme: CustomerTheme = {
     ...DEFAULT_THEME,
     ...(theme as AirtableRecord<Theme>),
-    serviceLogo: customer?.modTFP?.serviceLogo,
-    footerLogo: customer?.modTFP?.footerLogo,
+    logo: customer?.theme?.logo,
     fonts: NRN_DEFAULT_THEME.fonts,
   };
 

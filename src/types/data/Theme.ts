@@ -1,3 +1,4 @@
+import { AirtableAttachment } from './AirtableAttachment';
 import { AirtableRecordBaseFields } from './AirtableRecordBaseFields';
 
 /**
@@ -22,4 +23,5 @@ export type Theme = {
   onSurfaceColor?: string;
   errorColor?: string;
   onErrorColor?: string;
+  logo?: AirtableAttachment;
 } & AirtableRecordBaseFields;

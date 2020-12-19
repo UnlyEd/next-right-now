@@ -32,6 +32,11 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
         label: {
           isI18n: true,
         },
+        availableLanguages: {
+          transformations: {
+            defaultSanitizedValue: ['en'],
+          },
+        },
         theme: {
           relationship: {
             table: 'Theme',
@@ -45,6 +50,8 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
             table: 'Product',
           },
         },
+        serviceLabel: {},
+        privacyDescription: {},
       },
     },
     Product: {
@@ -55,13 +62,7 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
         title: {
           isI18n: true,
         },
-        images: {
-          transformations: {
-            asAttachment: {
-              fields: ['url'], // Only keep the url field, ignore the other fields
-            },
-          },
-        },
+        images: {},
         imagesTitle: {}, // TODO split by ', ' and build as array of strings
         description: {
           isI18n: true,
@@ -85,14 +86,7 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
         onSurfaceColor: {},
         errorColor: {},
         onErrorColor: {},
-        logo: {
-          transformations: {
-            asSingleRecord: true,
-            asAttachment: {
-              fields: ['url'], // Only keep the url field, ignore the other fields
-            },
-          },
-        },
+        logo: {},
         logoTitle: {},
       },
     },

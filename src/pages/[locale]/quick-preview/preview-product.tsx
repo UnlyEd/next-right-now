@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
 import ProductRow from '../../../components/data/ProductRow';
 import QuickPreviewLayout from '../../../components/pageLayouts/QuickPreviewLayout';
+import useCustomer from '../../../hooks/useCustomer';
 import { AirtableRecord } from '../../../types/data/AirtableRecord';
 import { Product } from '../../../types/data/Product';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
@@ -57,9 +58,8 @@ type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps
  * https://nrn-v2-mst-aptd-at-lcz-sty-c1.now.sh/quick-preview/preview-product?ref=kiunyu
  */
 const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
-  const { customer: airtableCustomer } = props;
-  const customer = airtableCustomer?.fields;
-  const airtableProducts: AirtableRecord<Product>[] = customer?.products as AirtableRecord<Product>[];
+  const customer = useCustomer();
+  const airtableProducts: AirtableRecord<Product>[] = customer?.products;
   const router: NextRouter = useRouter();
   const { query } = router;
   const productRef = query?.ref;
@@ -73,8 +73,7 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
     );
   }
 
-  const airtableProduct: AirtableRecord<Product> = find(airtableProducts, { fields: { ref: productRef } });
-  const product: Product = airtableProduct?.fields;
+  const product = find(airtableProducts, { ref: productRef }) as AirtableRecord<Product>;
 
   if (!product) {
     return (
@@ -89,7 +88,7 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'preview-product'}
       headProps={{
-        title: t('quickPreview.pageTitle', `Aperçu produit "{{ title }}" - Next Right Now`, { title: product?.title }),
+        seoTitle: t('quickPreview.pageTitle', `Aperçu produit "{{ title }}" - Next Right Now`, { title: product?.title }),
       }}
     >
       <ProductRow product={product} />

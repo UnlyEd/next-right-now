@@ -117,14 +117,9 @@ export const NRN_DEFAULT_THEME: Omit<CustomerTheme, 'primaryColorVariant1' | 'se
   onErrorColor: '#FE6262',
 
   /**
-   * Logo displayed on the top navbar.
+   * Logo displayed on the top footer.
    */
-  serviceLogo: null,
-
-  /**
-   * Logo displayed on the footer.
-   */
-  footerLogo: null,
+  logo: null,
 
   /**
    * Fonts used by the application.
