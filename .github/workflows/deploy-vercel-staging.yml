@@ -258,12 +258,12 @@ jobs:
           echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
 
           # Resolve Vercel team ID
-          VERCEL_TEAM_ID=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.scope'`
+          VERCEL_TEAM_ID=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.scope'`
           echo "Vercel team ID: " $VERCEL_TEAM_ID
           echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
 
           # Resolve Vercel project name
-          VERCEL_PROJECT_NAME=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.name'`
+          VERCEL_PROJECT_NAME=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name'`
           echo "Vercel project name: " $VERCEL_PROJECT_NAME
           echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
 
