@@ -95,16 +95,11 @@ jobs:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
 
-  # Runs E2E tests against the Vercel deployment
-  run-2e2-tests:
-    name: Run end to end (E2E) tests (Ubuntu 18.04)
+  await-for-vercel-deployment:
+    name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
-    # Docker image with Cypress pre-installed
-    # https://github.com/cypress-io/cypress-docker-images/tree/master/included
-    container: cypress/included:3.8.3
     needs: start-production-deployment
     steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
@@ -114,6 +109,67 @@ jobs:
         #     - Remove the `"` character to pre-format url
         # We need to set env the url for next step, formatted as `https://${$VERCEL_DEPLOYMENT}`
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
+        run: |
+          apt update -y >/dev/null && apt install -y jq >/dev/null
+
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
+
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+          echo "Customer that was deployed: " $CUSTOMER_REF_TO_DEPLOY
+          echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
+
+          # Resolve Vercel team ID
+          VERCEL_TEAM_ID=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.scope'`
+          echo "Vercel team ID: " $VERCEL_TEAM_ID
+          echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
+
+          # Resolve Vercel project name
+          VERCEL_PROJECT_NAME=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.name'`
+          echo "Vercel project name: " $VERCEL_PROJECT_NAME
+          echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
+
+          # Build Vercel API endpoint used to fetch deployments
+          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
+          echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
+
+          # Fetch all Vercel deployment from this project
+          ALL_VERCEL_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
+          echo "Vercel deployments for current team: " $ALL_VERCEL_DEPLOYMENTS
+
+          # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
+          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
+          VERCEL_DEPLOYMENT=`echo $ALL_VERCEL_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
+          VERCEL_DEPLOYMENT_URL="https://$VERCEL_DEPLOYMENT"
+          echo "Url where to run E2E tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
+          echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
+          echo "VERCEL_DEPLOYMENT=$VERCEL_DEPLOYMENT" >> $GITHUB_ENV
+
+      # Wait for deployment to be ready, before running E2E (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
+      - name: Awaiting Vercel deployment to be ready
+        uses: UnlyEd/github-action-await-vercel@v1.1.1
+        id: await-vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
+        with:
+          deployment-url: ${{ env.VERCEL_DEPLOYMENT }} # Must only contain the domain name (no http prefix, etc.)
+          timeout: 90 # Wait for 90 seconds before failing
+
+      - name: Display deployment status
+        run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
+
+  # Runs E2E tests against the Vercel deployment
+  run-2e2-tests:
+    name: Run end to end (E2E) tests (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    # Docker image with Cypress pre-installed
+    # https://github.com/cypress-io/cypress-docker-images/tree/master/included
+    container: cypress/included:3.8.3
+    needs: await-for-vercel-deployment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Resolving deployment url from Vercel
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
 
@@ -182,7 +238,7 @@ jobs:
   run-lighthouse-tests:
     name: Run LightHouse checks (Ubuntu 18.04)
     runs-on: ubuntu-18.04
-    needs: start-production-deployment
+    needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
