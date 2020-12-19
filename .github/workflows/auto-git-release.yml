@@ -29,7 +29,7 @@ jobs:
           tag_prefix: "v" # The prefix to use to identify tags
           major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
-          format: "${major}.${minor}.${patch}-${{ env.GITHUB_REF_SLUG }}.${increment}" # A string to determine the format of the version output
+          format: "${major}.${minor}.${patch}-${{ env.GITHUB_REF_SLUG }}" # A string to determine the format of the version output
       - run: |
           echo "Branch name: ${{ env.GITHUB_REF_SLUG }}"
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
@@ -39,7 +39,7 @@ jobs:
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{steps.next_semantic_version.outputs.version_tag}}
-          prerelease: true
+          prerelease: false
           title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`${{ env.GITHUB_REF_SLUG }}`)"
           files: |
             README.md
