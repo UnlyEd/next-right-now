@@ -1,6 +1,6 @@
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
-import { ModChatbot } from '../../types/data/ModChatbot';
+import { Theme } from '../../types/data/Theme';
 import applyRecordFallback from './applyRecordFallback';
 
 /**
@@ -18,27 +18,27 @@ describe(`utils/airtableDataset/applyRecordFallback.ts`, () => {
       describe(`when using the "simple" customer (simple relationships, no nested relationships)`, () => {
         const customer: AirtableRecord<Customer> = {
           ref: 'customer1',
-          modChatbot: {
-            dialogIntroduction: 'test',
+          theme: {
+            primaryColor: 'white',
           },
         } as AirtableRecord<Customer>;
-        const modChatbotFallback: Partial<ModChatbot> = {
-          dialogIntroduction: null,
-          homeButtonLabel: 'test',
+        const themeFallback: Partial<Theme> = {
+          primaryColor: null,
+          secondaryColor: 'black',
         };
-        const modChatbot = applyRecordFallback(customer, 'modChatbot', modChatbotFallback);
+        const theme = applyRecordFallback(customer, 'theme', themeFallback);
 
         test(`should mutate the original object, which should contain all properties from the fallback object that were missing from the original object`, async () => {
-          expect(customer.modChatbot).toMatchObject({
-            dialogIntroduction: 'test',
-            homeButtonLabel: 'test',
+          expect(customer.theme).toMatchObject({
+            primaryColor: 'white',
+            secondaryColor: 'black',
           });
         });
 
         test(`should return the new object, which should contain all properties from the fallback object that were missing from the original object`, async () => {
-          expect(modChatbot).toMatchObject({
-            dialogIntroduction: 'test',
-            homeButtonLabel: 'test',
+          expect(theme).toMatchObject({
+            primaryColor: 'white',
+            secondaryColor: 'black',
           });
         });
       });
