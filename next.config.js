@@ -27,7 +27,7 @@ const currentBranchName = gitCurrentBranchName();
 const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.hash); // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
 const GIT_COMMIT_REF = process.env.GIT_COMMIT_REF || currentBranchName; // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
 
-console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${GIT_COMMIT_SHA}`);
+console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${GIT_COMMIT_SHA} and GIT_COMMIT_REF=${GIT_COMMIT_REF}`);
 
 /**
  * This file is for advanced configuration of the Next.js framework.
