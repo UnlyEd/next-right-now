@@ -63,7 +63,7 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'md-as-jsx'}
       headProps={{
-        title: 'Markdown as JSX examples - Next Right Now',
+        seoTitle: 'Markdown as JSX examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

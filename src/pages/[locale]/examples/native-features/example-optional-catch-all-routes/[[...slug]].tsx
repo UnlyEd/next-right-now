@@ -80,7 +80,7 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'examples'}
       headProps={{
-        title: `Catch-all dynamic routes examples - Next Right Now`,
+        seoTitle: `Catch-all dynamic routes examples - Next Right Now`,
       }}
       Sidebar={NativeFeaturesSidebar}
     >

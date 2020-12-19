@@ -57,7 +57,7 @@ const DocsSiteExamplePage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'docs-site'}
       headProps={{
-        title: 'Docs site - Next Right Now',
+        seoTitle: 'Docs site - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

@@ -37,6 +37,7 @@ export enum AMPLITUDE_PAGES {
   HOME_PAGE = 'home',
   PREVIEW_HOME_PAGE = 'preview-home',
   TERMS_PAGE = 'terms',
+  PRIVACY_PAGE = 'privacy',
 }
 
 type GetAmplitudeInstanceProps = {

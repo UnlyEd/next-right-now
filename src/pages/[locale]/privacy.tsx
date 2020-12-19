@@ -20,7 +20,7 @@ import {
   getCommonStaticProps,
 } from '../../utils/nextjs/SSG';
 
-const fileLabel = 'pages/[locale]/terms';
+const fileLabel = 'pages/[locale]/privacy';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
@@ -52,17 +52,17 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 /**
- * Terms page, that displays all legal-related information.
+ * Privacy page, that displays all legal-related information.
  *
  * Basically displays a bunch of markdown that's coming from the CMS.
  */
-const TermsPage: NextPage<Props> = (props): JSX.Element => {
+const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
   const { modTFP } = customer;
-  const { termsDescription, serviceLabel } = modTFP || {};
+  const { privacyDescription, serviceLabel } = modTFP || {};
 
   // Replace dynamic values (like "{customerLabel}") by their actual value
-  const terms = replaceAllOccurrences(termsDescription, {
+  const privacy = replaceAllOccurrences(privacyDescription, {
     serviceLabel: `**${serviceLabel}**`,
     customerLabel: `**${customer?.label}**`,
   });
@@ -70,13 +70,14 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
-      pageName={AMPLITUDE_PAGES.TERMS_PAGE}
+      pageName={AMPLITUDE_PAGES.PRIVACY_PAGE}
     >
+      <h2>Field's value (fetched from Airtable API), as <code>Long text</code> (interpreted as Markdown):</h2>
       <LegalContent
-        content={terms}
+        content={privacy}
       />
     </DefaultLayout>
   );
 };
 
-export default (TermsPage);
+export default (PrivacyPage);

@@ -67,7 +67,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
       {...props}
       pageName={'airtable-component'}
       headProps={{
-        title: 'I18nLink component examples - Next Right Now',
+        seoTitle: 'I18nLink component examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

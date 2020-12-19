@@ -94,7 +94,7 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'examples'}
       headProps={{
-        title: `${size(products)} products (SSG with revalidate) - Next Right Now`,
+        seoTitle: `${size(products)} products (SSG with revalidate) - Next Right Now`,
       }}
       Sidebar={NativeFeaturesSidebar}
     >

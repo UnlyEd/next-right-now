@@ -59,7 +59,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'errors-handling'}
       headProps={{
-        title: 'Errors handling examples - Next Right Now',
+        seoTitle: 'Errors handling examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
@@ -136,7 +136,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
                   {...props}
                   pageName={'page-500-error'}
                   headProps={{
-                    title: 'Top-level 500 error example - Next Right Now',
+                    seoTitle: 'Top-level 500 error example - Next Right Now',
                   }}
                   Sidebar={BuiltInUtilitiesSidebar}
                 >

@@ -137,7 +137,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
       {...props}
       pageName={'example-with-ssg-and-fallback/[albumId]'}
       headProps={{
-        title: `Album N°${albumId} (SSG, ${isSSGFallbackInitialBuild ? 'using fallback' : 'not using fallback'}) - Next Right Now`,
+        seoTitle: `Album N°${albumId} (SSG, ${isSSGFallbackInitialBuild ? 'using fallback' : 'not using fallback'}) - Next Right Now`,
       }}
       Sidebar={NativeFeaturesSidebar}
     >
