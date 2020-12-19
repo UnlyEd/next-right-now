@@ -2,23 +2,25 @@ import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
 import { IncomingMessage } from 'http';
-import get from 'lodash.get';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
   GetServerSidePropsResult,
 } from 'next';
 import NextCookies from 'next-cookies';
-
+import { getAirtableSchema } from '../../airtableSchema';
+import { AirtableSchema } from '../../types/airtableDataset/AirtableSchema';
 import { Cookies } from '../../types/Cookies';
-import { AirtableRecord } from '../../types/data/AirtableRecord';
-import { Customer } from '../../types/data/Customer';
+import { AirtableDatasets } from '../../types/data/AirtableDatasets';
+import { SanitizedAirtableDataset } from '../../types/data/SanitizedAirtableDataset';
 import { GenericObject } from '../../types/GenericObject';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { PublicHeaders } from '../../types/pageProps/PublicHeaders';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
-import fetchCustomer from '../api/fetchCustomer';
+import consolidateSanitizedAirtableDataset from '../airtableDataset/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '../airtableDataset/fetchAndSanitizeAirtableDatasets';
+import serializeSafe from '../airtableDataset/serializeSafe';
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
 import {
   DEFAULT_LOCALE,
@@ -29,6 +31,7 @@ import {
   fetchTranslations,
   I18nextResources,
 } from '../i18n/i18nextLocize';
+import { isQuickPreviewRequest } from '../quickPreview/quickPreview';
 
 /**
  * getExamplesCommonServerSideProps returns only part of the props expected in SSRPageProps
@@ -79,22 +82,23 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
     req,
     res,
   } = context;
+  const isQuickPreviewPage: boolean = isQuickPreviewRequest(req);
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res); // Cannot be forwarded as pageProps, because contains circular refs
   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
   const { headers }: IncomingMessage = req;
   const publicHeaders: PublicHeaders = {
-    'accept-language': get(headers, 'accept-language'),
-    'user-agent': get(headers, 'user-agent'),
-    'host': get(headers, 'host'),
+    'accept-language': headers?.['accept-language'],
+    'user-agent': headers?.['user-agent'],
+    'host': headers?.host,
   };
   const hasLocaleFromUrl = !!query?.locale;
   // Resolve locale from query, fallback to browser headers
   const locale: string = hasLocaleFromUrl ? query?.locale as string : universalLanguageDetect({
     supportedLanguages: SUPPORTED_LANGUAGES, // Whitelist of supported languages, will be used to filter out languages that aren't supported
     fallbackLanguage: DEFAULT_LOCALE, // Fallback language in case the user's language cannot be resolved
-    acceptLanguageHeader: get(req, 'headers.accept-language'), // Optional - Accept-language header will be used when resolving the language on the server side
+    acceptLanguageHeader: req?.headers?.['accept-language'], // Optional - Accept-language header will be used when resolving the language on the server side
     serverCookies: readonlyCookies, // Optional - Cookie "i18next" takes precedence over navigator configuration (ex: "i18next: fr"), will only be used on the server side
     errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: GenericObject): void => {
       Sentry.withScope((scope): void => {
@@ -110,14 +114,18 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const customer: AirtableRecord<Customer> = await fetchCustomer(bestCountryCodes);
+  const airtableSchema: AirtableSchema = getAirtableSchema({
+    fetchAllStudentSolutions: isQuickPreviewPage, // Fetch all solutions when running under quick-preview mode
+  });
+  const datasets: AirtableDatasets = await fetchAndSanitizeAirtableDatasets(airtableSchema, bestCountryCodes);
+  const dataset: SanitizedAirtableDataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
 
   // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
   return {
     props: {
       bestCountryCodes,
-      customer,
+      serializedDataset: serializeSafe(dataset),
       customerRef,
       i18nTranslations,
       headers: publicHeaders,
@@ -128,6 +136,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
       locale,
       readonlyCookies,
       userSession,
+      isQuickPreviewPage,
     },
   };
 };

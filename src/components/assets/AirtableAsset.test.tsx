@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-
+import { Asset } from '../../types/data/Asset';
 import AirtableAsset from './AirtableAsset';
 
 const defaultLogoUrl = 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png';
@@ -20,7 +20,7 @@ describe('components/assets/AirtableAsset', () => {
             id={id}
             asset={{
               url: defaultLogoUrl,
-            }}
+            } as Asset}
           />);
         const img: any = renderer.toJSON();
 
@@ -47,7 +47,7 @@ describe('components/assets/AirtableAsset', () => {
               alt: title,
               classes: classes,
               style: style,
-            }}
+            } as unknown as Asset}
           />);
         const img: any = renderer.toJSON();
 
@@ -73,11 +73,11 @@ describe('components/assets/AirtableAsset', () => {
                 url: defaultLogoUrl,
                 title: title,
                 alt: title,
-              }}
+              } as Asset}
               defaults={{
                 classes: classes,
                 style: style,
-              }}
+              } as unknown as Asset}
             />);
           const img: any = renderer.toJSON();
 
@@ -104,11 +104,11 @@ describe('components/assets/AirtableAsset', () => {
                 url: defaultLogoUrl,
                 title: title,
                 alt: title,
-              }}
+              } as unknown as Asset}
               override={{
                 classes: classes,
                 style: style,
-              }}
+              } as unknown as Asset}
             />);
           const img: any = renderer.toJSON();
 
@@ -135,15 +135,15 @@ describe('components/assets/AirtableAsset', () => {
                 alt: title,
                 classes: 'should-not-be-applied',
                 style: { paddingTop: 1 }, // Should be overridden
-              }}
+              } as unknown as Asset}
               defaults={{
                 classes: 'should-not-be-applied2',
                 style: { paddingTop: 3 }, // Should be overridden
-              }}
+              } as unknown as Asset}
               override={{
                 classes: classes,
                 style: style,
-              }}
+              } as unknown as Asset}
             />);
           const img: any = renderer.toJSON();
 
@@ -175,7 +175,7 @@ describe('components/assets/AirtableAsset', () => {
                 width: 500,
                 height: 300,
               },
-            }}
+            } as unknown as Asset}
           />);
         const img: any = renderer.toJSON();
 
@@ -205,7 +205,7 @@ describe('components/assets/AirtableAsset', () => {
               defaultTransformations: {
                 width: 500,
               },
-            }}
+            } as unknown as Asset}
           />);
         const img: any = renderer.toJSON();
 
@@ -235,7 +235,7 @@ describe('components/assets/AirtableAsset', () => {
               defaultTransformations: {
                 width: 500,
               },
-            }}
+            } as unknown as Asset}
             transformationsOverride={{
               height: 300,
             }}
@@ -263,7 +263,7 @@ describe('components/assets/AirtableAsset', () => {
           asset={{
             url: defaultLogoUrl,
             linkUrl: linkUrl,
-          }}
+          } as unknown as Asset}
         />);
       const link: any = renderer.toJSON();
       const img: any = renderer.root.findByType('img');
@@ -300,12 +300,12 @@ describe('components/assets/AirtableAsset', () => {
             classes: classes,
             style: style,
             linkUrl: linkUrl,
-          }}
+          } as unknown as Asset}
           linkOverride={{
             id: linkId,
             classes: classes,
             style: style,
-          }}
+          } as unknown as Asset}
         />);
       const link: any = renderer.toJSON();
       const img: any = renderer.root.findByType('img');
@@ -345,7 +345,7 @@ describe('components/assets/AirtableAsset', () => {
             classes: classes,
             style: style,
             linkUrl: linkUrl,
-          }}
+          } as unknown as Asset}
           linkOverride={{
             id: linkId,
             url: overriddenLinkUrl,
@@ -392,7 +392,7 @@ describe('components/assets/AirtableAsset', () => {
             classes: classes,
             style: style,
             linkUrl: linkUrl,
-          }}
+          } as unknown as Asset}
           linkOverride={{
             id: linkId,
             url: overriddenLinkUrl,

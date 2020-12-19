@@ -1,4 +1,5 @@
 import { createLogger } from '@unly/utils-simple-logger';
+import size from 'lodash.size';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -31,7 +32,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
 
-  if (detections && detections.length) {
+  if (detections && !!size(detections)) {
     detections.forEach((language) => {
       if (localeFound || typeof language !== 'string') return;
 

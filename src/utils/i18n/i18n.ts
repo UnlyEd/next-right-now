@@ -1,3 +1,4 @@
+import size from 'lodash.size';
 import {
   defaultLocale,
   supportedLanguages,
@@ -88,11 +89,11 @@ export const acceptLanguageHeaderLookup = (req): string[] | undefined => {
 
       lngs.sort((a, b) => b.q - a.q);
 
-      for (i = 0; i < lngs.length; i++) {
+      for (i = 0; i < size(lngs); i++) {
         locales.push(lngs[i].lng);
       }
 
-      if (locales.length) found = locales;
+      if (size(locales)) found = locales;
     }
   }
 

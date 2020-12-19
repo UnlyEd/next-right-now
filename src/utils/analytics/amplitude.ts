@@ -11,13 +11,13 @@ import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession
 import UniversalCookiesManager from '../cookies/UniversalCookiesManager';
 
 /**
- * Event actions
+ * Event actions.
  *
- * All actions must use action verb (imperative form)
+ * All actions must use action verb (imperative form).
  *
- * DA Usefulness: Avoids using anonymous constants that will likely duplicate each other
- *  Using constants ensures strict usage with a proper definition for the analytics team and the developers
- *  Example: Using both "remove" and "delete" could lead to misunderstanding or errors when configuring charts
+ * DA Usefulness: Avoids using anonymous constants that will likely duplicate each other.
+ *  Using constants ensures strict usage with a proper definition for the analytics team and the developers.
+ *  Example: Using both "remove" and "delete" could lead to misunderstanding or errors when configuring charts.
  */
 export enum AMPLITUDE_ACTIONS {
   CLICK = 'click', // When an element is clicked (mouse) or tapped (screen, mobile)
@@ -25,6 +25,18 @@ export enum AMPLITUDE_ACTIONS {
   REMOVE = 'remove', // When an element is removed/delete
   OPEN = 'open', // When an element is opened
   CLOSE = 'close', // When an element is closed
+}
+
+/**
+ * Pages names used by Amplitude
+ *
+ * Each page within the /src/pages directory should use a different page name as "pageName".
+ * This is used to track events happening within the pages, to know on which page they occurred.
+ */
+export enum AMPLITUDE_PAGES {
+  HOME_PAGE = 'home',
+  PREVIEW_HOME_PAGE = 'preview-home',
+  TERMS_PAGE = 'terms',
 }
 
 type GetAmplitudeInstanceProps = {

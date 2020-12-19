@@ -5,10 +5,11 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
-
+import { getAirtableSchema } from '../../airtableSchema';
 import { supportedLocales } from '../../i18nConfig';
-import { AirtableRecord } from '../../types/data/AirtableRecord';
-import { Customer } from '../../types/data/Customer';
+import { AirtableSchema } from '../../types/airtableDataset/AirtableSchema';
+import { AirtableDatasets } from '../../types/data/AirtableDatasets';
+import { SanitizedAirtableDataset } from '../../types/data/SanitizedAirtableDataset';
 import { I18nLocale } from '../../types/i18n/I18nLocale';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { PreviewData } from '../../types/nextjs/PreviewData';
@@ -16,7 +17,9 @@ import { StaticPath } from '../../types/nextjs/StaticPath';
 import { StaticPathsOutput } from '../../types/nextjs/StaticPathsOutput';
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import fetchCustomer from '../api/fetchCustomer';
+import consolidateSanitizedAirtableDataset from '../airtableDataset/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '../airtableDataset/fetchAndSanitizeAirtableDatasets';
+import serializeSafe from '../airtableDataset/serializeSafe';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -132,13 +135,15 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const customer: AirtableRecord<Customer> = await fetchCustomer(bestCountryCodes);
+  const airtableSchema: AirtableSchema = getAirtableSchema(); // Don't fetch StudentSolutions that aren't visible when generating static pages (only do that for SSR which handles CMS previews)
+  const datasets: AirtableDatasets = await fetchAndSanitizeAirtableDatasets(airtableSchema, bestCountryCodes);
+  const dataset: SanitizedAirtableDataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
 
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
       bestCountryCodes,
-      customer,
+      serializedDataset: serializeSafe(dataset),
       customerRef,
       i18nTranslations,
       hasLocaleFromUrl,

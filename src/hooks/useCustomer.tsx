@@ -5,7 +5,7 @@ import { Customer } from '../types/data/Customer';
 /**
  * Hook to access customer data
  *
- * The customer data are pre-fetched, either during SSR or SSG and are not meant to be fetched or modified by the app (they're kinda read-only)
+ * The customer data are pre-fetched, either during SSR or SSG and are not meant to be mutated afterwards (they're kinda read-only)
  * Thus, it's fine to use React Context for this kind of usage.
  *
  * XXX If you need to store data that are meant to be updated (e.g: through forms) then using React Context is a very bad idea!

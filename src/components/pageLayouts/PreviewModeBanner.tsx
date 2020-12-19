@@ -1,24 +1,25 @@
 import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useTheme } from 'emotion-theming';
 import {
   NextRouter,
   useRouter,
 } from 'next/router';
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   Trans,
   useTranslation,
 } from 'react-i18next';
-import { Button } from 'reactstrap';
-import Alert from 'reactstrap/lib/Alert';
 
 import usePreviewMode, { PreviewMode } from '../../hooks/usePreviewMode';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { stringifyQueryParameters } from '../../utils/app/router';
 import {
   startPreviewMode,
   stopPreviewMode,
 } from '../../utils/nextjs/previewMode';
 import ExternalLink from '../utils/ExternalLink';
+import Btn from '../utils/Btn';
 import Tooltip from '../utils/Tooltip';
 
 type Props = {}
@@ -54,37 +55,50 @@ const ExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
  * @param props
  */
 const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { preview }: PreviewMode = usePreviewMode();
+  const { isPreviewModeEnabled }: PreviewMode = usePreviewMode();
   const router: NextRouter = useRouter();
   const queryParameters: string = stringifyQueryParameters(router);
   const { t } = useTranslation();
+  const {
+    secondaryColor, secondaryColorVariant1, onSecondaryColor,
+  } = useTheme<CustomerTheme>();
 
   if (process.env.NEXT_PUBLIC_APP_STAGE === 'production') {
     return null;
   }
 
   return (
-    <Alert
-      color={preview ? 'warning' : 'info'}
+    <div
       css={css`
-        display: flex;
-        position: relative;
-        flex-direction: row;
-        justify-content: center;
-        text-align: center;
+        display: inline-flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        color: ${secondaryColor};
+        background-color: ${secondaryColorVariant1};
+        border: transparent;
 
-        @media (max-width: 991.98px) {
-          flex-direction: column;
+        .left-actions-container,
+        .explanations-container,
+        .right-actions-container {
+          width: calc(100vw / 3); // Each section takes the same width, dynamically calculated based on the available width
+        }
 
-          .right {
-            display: block;
+        .explanations-container {
+          text-align: center;
+
+          .explanations-title {
+            display: inline;
           }
         }
 
-        @media (min-width: 992px) {
-          .right {
-            position: absolute;
-            right: 20px;
+        .right-actions-container {
+          display: flex;
+          flex-direction: row-reverse; // Order elements from right to left
+
+          .change-locale-container {
+            display: inline-flex;
+            align-items: center;
           }
         }
 
@@ -94,9 +108,10 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
       `}
     >
       {
-        preview ? (
-          <div>
-            <span>
+        isPreviewModeEnabled ? (
+          <Fragment>
+            <div className={'left-actions-container'} />
+            <div className={'explanations-container'}>
               {t(`previewModeBanner.previewModeEnabledTitle`, `Vous êtes sur l'environnement de prévisualisation`)}
               &nbsp;
               <Tooltip
@@ -105,25 +120,26 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
               >
                 <FontAwesomeIcon icon={['fas', 'question-circle']} size={'xs'} />
               </Tooltip>
-            </span>
-
-            {
-              process.env.NEXT_PUBLIC_APP_STAGE === 'development' && (
-                <span className={'right'}>
-                  <Button
+            </div>
+            <div className={'right-actions-container'}>
+              {
+                process.env.NEXT_PUBLIC_APP_STAGE === 'development' && (
+                  <Btn
+                    mode={'secondary-reverse'}
                     color={'link'}
                     onClick={(): void => stopPreviewMode(queryParameters)}
                     onKeyPress={(): void => stopPreviewMode(queryParameters)}
                   >
                     {t(`previewModeBanner.stopPreviewMode`, `Stopper l'environnement de prévisualisation`)}
-                  </Button>
-                </span>
-              )
-            }
-          </div>
+                  </Btn>
+                )
+              }
+            </div>
+          </Fragment>
         ) : (
-          <div>
-            <span>
+          <Fragment>
+            <div className={'left-actions-container'} />
+            <div className={'explanations-container'}>
               {t(`previewModeBanner.previewModeDisabledTitle`, `L'environnement de prévisualisation est désactivé`)}
               &nbsp;
               <Tooltip
@@ -132,25 +148,25 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
               >
                 <FontAwesomeIcon icon={['fas', 'question-circle']} size={'xs'} />
               </Tooltip>
-            </span>
-
-            {
-              process.env.NEXT_PUBLIC_APP_STAGE === 'development' && (
-                <span className={'right'}>
-                  <Button
+            </div>
+            <div className={'right-actions-container'}>
+              {
+                process.env.NEXT_PUBLIC_APP_STAGE === 'development' && (
+                  <Btn
+                    mode={'secondary-reverse'}
                     color={'link'}
                     onClick={(): void => startPreviewMode(queryParameters)}
                     onKeyPress={(): void => startPreviewMode(queryParameters)}
                   >
                     {t(`previewModeBanner.startPreviewMode`, `Démarrer l'environnement de prévisualisation`)}
-                  </Button>
-                </span>
-              )
-            }
-          </div>
+                  </Btn>
+                )
+              }
+            </div>
+          </Fragment>
         )
       }
-    </Alert>
+    </div>
   );
 };
 

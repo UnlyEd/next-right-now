@@ -11,7 +11,6 @@ import {
 } from 'http';
 import BrowserCookies, { CookieAttributes } from 'js-cookie';
 import { v1 as uuid } from 'uuid'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
-
 import { Cookies } from '../../types/Cookies';
 import {
   PatchedUserSemiPersistentSession,
@@ -69,7 +68,7 @@ export default class UniversalCookiesManager {
         //  We therefore override this behaviour because we need to write proper JSON
         //  See https://github.com/js-cookie/js-cookie#encoding
         const browserCookies = BrowserCookies.withConverter({
-          write: function(value: string, name: string) {
+          write: function (value: string, name: string) {
             return value;
           },
         });

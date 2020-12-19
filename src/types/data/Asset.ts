@@ -1,35 +1,32 @@
-export type AssetThumbnail = {
-  url: string;
-  width: number;
-  height: number;
-}
+import { CSSStyles } from '../CSSStyles';
+import { AirtableAttachment } from './AirtableAttachment';
+
+export type AssetTransformations = {
+  height?: number;
+  width?: number;
+};
 
 /**
- * An asset is a Airtable "Attachment" field
+ * Sanitized Asset Airtable record.
  *
- * All fields are managed internally by Airtable and we have no control over them (they're not columns)
+ * An asset is a table composed of an Airtable "Attachment" field.
+ * Some fields are managed internally by Airtable (RawAirtableAttachmentBaseFields) and we have no control over them (they're not columns).
+ *
+ * A consolidated record has gone through the "sanitizeRecord" function.
+ * Only useful or allowed fields are mapped below.
+ * Other fields have been filtered out during sanitization and thus aren't part of the shape even though they exist on Airtable.
+ * Some fields are filtered out because we don't want them to be shared with the client-side (sensitive information).
+ * Some fields are just not useful within this application and are not represented to avoid complicating things.
  */
 export type Asset = {
-  id?: string;
-  url?: string;
-  filename?: string;
-  size?: number;
-  type?: string;
-  thumbnails?: {
-    small?: AssetThumbnail;
-    large?: AssetThumbnail;
-    full?: AssetThumbnail;
-  };
-
-  // NRN own fields, dynamically set when manipulating assets
-  classes?: string;
-  defaultTransformations?: object;
-  linkTarget?: string;
-  linkUrl?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  style?: string | object | any;
-
-  // Not used but kept to avoid tests failure
+  ref: string;
   title?: string;
   alt?: string;
-};
+  linkUrl?: string;
+  linkTarget?: string;
+
+  // Not defined on Airtable API but kept to avoid tests failure with Asset test component
+  classes?: string;
+  style?: CSSStyles;
+} & AirtableAttachment
+  & AssetTransformations;
