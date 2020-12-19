@@ -172,7 +172,7 @@ jobs:
             Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
 
   await-for-vercel-deployment:
-    name: Await this deployment to be ready (Ubuntu 18.04)
+    name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: start-staging-deployment
     steps:
@@ -229,7 +229,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
         with:
-          deployment-url: ${{ env.VERCEL_DEPLOYMENT }}
+          deployment-url: ${{ env.VERCEL_DEPLOYMENT }} # Must only contain the domain name (no http prefix, etc.)
           timeout: 90 # Wait for 90 seconds before failing
 
       - name: Display deployment status
