@@ -41,7 +41,7 @@ jobs:
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
           echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
           echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
-      - uses: marvinpinto/action-automatic-releases@ea10bdb242e83fa0fa008b75761761f345a2e5f2 # Pin "latest" https://github.com/marvinpinto/actions/commit/ea10bdb242e83fa0fa008b75761761f345a2e5f2 necessary to avoid "The `set-env` command is disabled."
+      - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{steps.next_semantic_version.outputs.version_tag}}
