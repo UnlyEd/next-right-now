@@ -35,7 +35,7 @@ jobs:
           tag_prefix: "v" # The prefix to use to identify tags
           major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
-          format: "${major}.${minor}.${patch}-prerelease.${increment}" # A string to determine the format of the version output
+          format: "${major}.${minor}.${patch}-${BRANCH_NAME}.${increment}" # A string to determine the format of the version output
       - run: |
           echo "Branch name: $BRANCH_NAME"
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
@@ -44,9 +44,9 @@ jobs:
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{steps.next_semantic_version.outputs.version_tag}}
+          automatic_release_tag: ${{steps.next_semantic_version.outputs.version}}
           prerelease: true
-          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}}"
+          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`$BRANCH_NAME`)"
           files: |
             README.md
             CHANGELOG.md
