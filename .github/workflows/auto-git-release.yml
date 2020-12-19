@@ -27,7 +27,7 @@ jobs:
           tag_prefix: "v" # The prefix to use to identify tags
           major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
-          format: "${major}.${minor}.${patch}-$BRANCH_NAME.${increment}" # A string to determine the format of the version output
+          format: "${major}.${minor}.${patch}-${{ github.ref }}.${increment}" # A string to determine the format of the version output
       - run: |
           echo "Branch name: ${{ github.ref }}"
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
@@ -38,7 +38,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{steps.next_semantic_version.outputs.version}}
           prerelease: true
-          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`$BRANCH_NAME`)"
+          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`${{ github.ref }}`)"
           files: |
             README.md
             CHANGELOG.md
