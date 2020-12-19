@@ -29,6 +29,10 @@ const GIT_COMMIT_REF = process.env.GIT_COMMIT_REF || currentBranchName; // Resol
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${GIT_COMMIT_SHA} and GIT_COMMIT_REF=${GIT_COMMIT_REF}`);
 
+// When specifying GIT_COMMIT_TAGS by using `yarn --silent git:getReleasesAndTags`, we receive "v1.1.1 v1.1.1-customer1" and we transform it as ["v1.1.1", "v1.1.1-customer1"].
+// We use `filter` to make sure there are not empty element.
+const GIT_COMMIT_TAGS = process.env.GIT_COMMIT_TAGS?.split(" ").filter(tag => tag) || [];
+console.debug(`Commit deployed is defined as ${GIT_COMMIT_TAGS.join(",")}`)
 /**
  * This file is for advanced configuration of the Next.js framework.
  *
@@ -88,6 +92,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
     GIT_COMMIT_SHA: GIT_COMMIT_SHA,
     GIT_COMMIT_REF: GIT_COMMIT_REF,
+    GIT_COMMIT_TAGS: GIT_COMMIT_TAGS,
   },
 
   /**
