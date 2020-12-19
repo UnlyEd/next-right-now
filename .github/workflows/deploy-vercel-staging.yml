@@ -371,9 +371,8 @@ jobs:
         uses: foo-software/lighthouse-check-status-action@v1.0.1
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
-          # XXX We expect bad performances on staging, in particular because of client-side redirect upon first loading (preview mode causes a page refresh)
-          minAccessibilityScore: "10"
-          minBestPracticesScore: "0"
-          minPerformanceScore: "10"
-          minProgressiveWebAppScore: "10"
-          minSeoScore: "10"
+          minAccessibilityScore: "50"
+          minBestPracticesScore: "50"
+          minPerformanceScore: "30"
+          minProgressiveWebAppScore: "50"
+          minSeoScore: "50"
