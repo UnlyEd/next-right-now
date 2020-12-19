@@ -17,27 +17,19 @@ jobs:
   tag-and-release:
     runs-on: ubuntu-18.04
     steps:
-      - name: Get branch name
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
-      - name: Get branch name (pull request)
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
       - uses: paulhatch/semantic-version@v3.1.2
         id: next_semantic_version # Output: https://github.com/PaulHatch/semantic-version/blob/master/index.js#L63-L69
         with: # See https://github.com/PaulHatch/semantic-version#usage
-          branch: $BRANCH_NAME # Use current branch XXX You might want to use main or master
+          branch: ${{ github.ref }} # Use current branch XXX You might want to use main or master
           tag_prefix: "v" # The prefix to use to identify tags
           major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
           format: "${major}.${minor}.${patch}-$BRANCH_NAME.${increment}" # A string to determine the format of the version output
       - run: |
-          echo "Branch name: $BRANCH_NAME"
+          echo "Branch name: ${{ github.ref }}"
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
           echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
           echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
