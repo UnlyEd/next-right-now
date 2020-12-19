@@ -5,21 +5,5 @@
  */
 export type AirtableDBTable =
   'Customer'
-  | 'Theme'
-  | 'Asset'
-  | 'ModTFP'
-  | 'ModTFPFallback'
-  | 'ModChatbot'
-  | 'ModChatbotFallback'
-  | 'ModSLG'
-  | 'ModSLGFallback'
-  | 'ModSLS'
-  | 'ModSLSFallback'
-  | 'Contact'
-  | 'Place'
-  | 'ContactPlaceInfo'
-  | 'Campus'
-  | 'EducationalProgram'
-  | 'EducationalProgramStep'
-  | 'StudentSolution'
-  | 'StudentSolutionsCategory';
+  | 'Product'
+  | 'Theme';

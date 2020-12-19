@@ -114,9 +114,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const airtableSchema: AirtableSchema = getAirtableSchema({
-    fetchAllStudentSolutions: isQuickPreviewPage, // Fetch all solutions when running under quick-preview mode
-  });
+  const airtableSchema: AirtableSchema = getAirtableSchema();
   const datasets: AirtableDatasets = await fetchAndSanitizeAirtableDatasets(airtableSchema, bestCountryCodes);
   const dataset: SanitizedAirtableDataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
 

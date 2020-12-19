@@ -135,7 +135,7 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const airtableSchema: AirtableSchema = getAirtableSchema(); // Don't fetch StudentSolutions that aren't visible when generating static pages (only do that for SSR which handles CMS previews)
+  const airtableSchema: AirtableSchema = getAirtableSchema();
   const datasets: AirtableDatasets = await fetchAndSanitizeAirtableDatasets(airtableSchema, bestCountryCodes);
   const dataset: SanitizedAirtableDataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
 
