@@ -3,6 +3,7 @@
 #
 # See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.1.2
 # See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
+# See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.1.0
 
 name: 'Auto release'
 on:
@@ -18,7 +19,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Inject slug/short variables
-        uses: rlespinasse/github-slug-action@v3.x
+        uses: rlespinasse/github-slug-action@v3.1.0
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
