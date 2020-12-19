@@ -29,7 +29,7 @@ jobs:
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
           format: "${major}.${minor}.${patch}-${{ github.ref }}.${increment}" # A string to determine the format of the version output
       - run: |
-          echo "Branch name: ${{ github.ref }}"
+          echo "Branch name: ${{ github.ref#refs/heads/ }}"
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
           echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
           echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
