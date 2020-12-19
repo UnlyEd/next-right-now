@@ -17,7 +17,7 @@ jobs:
   tag-and-release:
     runs-on: ubuntu-18.04
     steps:
-      - name: Inject slug/short variables
+      - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
         uses: rlespinasse/github-slug-action@v3.x
       - uses: actions/checkout@v2
         with:
