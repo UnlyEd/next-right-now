@@ -1,6 +1,5 @@
 {
   "name": "next-right-now",
-  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "next dev --port 8888",
