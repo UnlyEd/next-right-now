@@ -39,7 +39,7 @@ jobs:
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{steps.next_semantic_version.outputs.version}}
+          automatic_release_tag: ${{steps.next_semantic_version.outputs.version_tag}}
           prerelease: true
           title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`${{ env.GITHUB_REF_SLUG }}`)"
           files: |
