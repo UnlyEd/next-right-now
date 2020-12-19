@@ -51,11 +51,13 @@ jobs:
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
+          echo "Deploying using git commit SHA: $GIT_COMMIT_SHA and branch/tag: $GIT_COMMIT_REF"
 
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the vercel.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
+          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
 
           CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
@@ -90,6 +92,8 @@ jobs:
           fi
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
+          GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
+          GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
 
   await-for-vercel-deployment:
     name: Await this deployment to be ready (Ubuntu 18.04)
@@ -207,7 +211,7 @@ jobs:
         uses: cypress-io/github-action@v2 # XXX See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.VERCEL_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
-          config-file: cypress/config-${{ env.CUSTOMER_REF_TO_DEPLOY }}.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config-file: cypress/config-customer-ci-cd.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
           # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.
@@ -297,6 +301,7 @@ jobs:
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           emulatedFormFactor: all # Run LightHouse against "mobile", "desktop", or "all" devices
           urls: ${{ env.VERCEL_DEPLOYMENT_URL }}, ${{ env.VERCEL_DEPLOYMENT_URL }}/en, ${{ env.VERCEL_DEPLOYMENT_URL }}/fr, ${{ env.VERCEL_DEPLOYMENT_URL }}/en-US, ${{ env.VERCEL_DEPLOYMENT_URL }}/fr-FR
+          locale: en
 
       # Upload HTML report create by lighthouse, could be useful
       - name: Upload artifacts
@@ -307,7 +312,6 @@ jobs:
 
       # Using a pre-build action to make the action fail if your score is too low. It can be really interesting to track a low score on a commit
       # You can remove this action IF you don't want lighthouse to be a blocking point in your CI
-      # This default values so you need to change them by your own criteria
       # Official documentation: https://github.com/foo-software/lighthouse-check-status-action
       - name: Handle Lighthouse Check results
         uses: foo-software/lighthouse-check-status-action@v1.0.1

@@ -1,0 +1,47 @@
+# Summary:
+# Automatically tag and release when changes land on the "main" branches.
+#
+# See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.1.2
+# See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
+# See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
+
+name: 'Auto release'
+on:
+  push:
+    branches:
+#      - main
+#      - master
+      - 'v2-*' # XXX NRN releases on v2 branches, but you'll likely want to release on either main or master
+
+jobs:
+  tag-and-release:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+        uses: rlespinasse/github-slug-action@v3.x
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
+      - uses: paulhatch/semantic-version@v3.1.2
+        id: next_semantic_version # Output: https://github.com/PaulHatch/semantic-version/blob/master/index.js#L63-L69
+        with: # See https://github.com/PaulHatch/semantic-version#usage
+          branch: ${{ env.GITHUB_REF_SLUG }} # Use current branch
+          tag_prefix: "v" # The prefix to use to identify tags
+          major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
+          minor_pattern: "(MINOR)" # Same as above except indicating a minor change
+          format: "${major}.${minor}.${patch}-${{ env.GITHUB_REF_SLUG }}" # A string to determine the format of the version output
+      - run: |
+          echo "Branch name: ${{ env.GITHUB_REF_SLUG }}"
+          echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
+          echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
+          echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
+      - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
+        with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{steps.next_semantic_version.outputs.version}}
+          prerelease: false
+          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`${{ env.GITHUB_REF_SLUG }}`)"
+          files: |
+            README.md
+            CHANGELOG.md
+            LICENSE

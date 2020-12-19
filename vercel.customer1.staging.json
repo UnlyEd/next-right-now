@@ -15,7 +15,7 @@
       "LOCIZE_API_KEY": "@nrn-locize-api-key-staging",
       "SENTRY_DSN": "@nrn-sentry-dsn",
       "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token"
-    }
+}
   },
   "alias": [
     "nrn-v2-mst-aptd-at-lcz-sty-c1-preview.vercel.app"

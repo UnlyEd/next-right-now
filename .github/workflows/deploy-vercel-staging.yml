@@ -54,6 +54,7 @@ jobs:
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
+          echo "Deploying using git commit SHA: $GIT_COMMIT_SHA and branch/tag: $GIT_COMMIT_REF"
 
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the vercel.json file, which is most useful when deployment is triggered through "push" event
@@ -67,7 +68,7 @@ jobs:
 
           # Deploy the customer on Vercel using the customer ref
           # Store the output in a variable so we can extract metadata from it
-          VERCEL_DEPLOYMENT_OUTPUT=`CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer --token $VERCEL_TOKEN`
+          VERCEL_DEPLOYMENT_OUTPUT=`GIT_COMMIT_REF=${GIT_COMMIT_REF} GIT_COMMIT_SHA=${GIT_COMMIT_SHA} CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:ci:gha --token $VERCEL_TOKEN`
 
           # Extract the Vercel deployment url from the deployment output
           VERCEL_DEPLOYMENT_URL=`echo $VERCEL_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
@@ -77,10 +78,10 @@ jobs:
           # Build the alias domain based on our own rules (NRN own rules)
           # Basically, if a branch starts with "v[0-9]" then we consider it to be a "preset branch" and we use the branch name as alias (e.g: "v2-mst-xxx")
           # Otherwise, we use the deployment name and suffix it using the branch name (e.g: "v2-mst-xxx-branch-name")
-          if [[ ${CURRENT_BRANCH##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
-            VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS=${CURRENT_BRANCH##*/}
+          if [[ ${GIT_COMMIT_REF##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
+            VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS=${GIT_COMMIT_REF##*/}
           else
-            VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name')-${CURRENT_BRANCH##*/}
+            VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name')-${GIT_COMMIT_REF##*/}
           fi
           echo "Resolved domain alias: " $VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS
 
@@ -135,7 +136,8 @@ jobs:
           fi
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
-          CURRENT_BRANCH: ${{ github.ref }} # Passing current branch to the worker
+          GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
+          GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
@@ -425,9 +427,8 @@ jobs:
         uses: foo-software/lighthouse-check-status-action@v1.0.1
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
-          # XXX We expect bad performances on staging, in particular because of client-side redirect upon first loading (preview mode causes a page refresh)
-          minAccessibilityScore: "10"
-          minBestPracticesScore: "0"
-          minPerformanceScore: "10"
-          minProgressiveWebAppScore: "10"
-          minSeoScore: "10"
+          minAccessibilityScore: "50"
+          minBestPracticesScore: "50"
+          minPerformanceScore: "30"
+          minProgressiveWebAppScore: "50"
+          minSeoScore: "50"
