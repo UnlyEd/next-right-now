@@ -28,7 +28,7 @@
     "deploy:customer2:production:simple": "yarn vercel:cleanup && yarn vercel:deploy --local-config=vercel.customer2.production.json --prod",
     "deploy:fake": "git commit --allow-empty -m \"Fake empty commit (force CI trigger)\"",
     "vercel:cleanup": "npx del-cli .vercel/ && npx del-cli .vercel/",
-    "vercel:deploy": "vercel -b GIT_COMMIT_REF=${GIT_COMMIT_REF} -e GIT_COMMIT_SHA=${GIT_COMMIT_SHA} --confirm --debug --force",
+    "vercel:deploy": "vercel -b GIT_COMMIT_REF=${GIT_COMMIT_REF} -b GIT_COMMIT_SHA=${GIT_COMMIT_SHA} --confirm --debug --force",
     "e2e": "yarn e2e:run",
     "e2e:all:production": "yarn e2e:customer1:production && yarn e2e:customer2:production",
     "e2e:customer1:production": "CYPRESS_STAGE=customer1 yarn e2e:run",
