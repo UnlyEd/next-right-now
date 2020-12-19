@@ -1,7 +1,6 @@
 const bundleAnalyzer = require('@next/bundle-analyzer');
 const nextSourceMaps = require('@zeit/next-source-maps');
-const gitCurrentBranchName = require('current-git-branch');
-const gitCommitInfo = require('git-commit-info');
+
 const packageJson = require('./package');
 const i18nConfig = require('./src/i18nConfig');
 
@@ -17,23 +16,14 @@ const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folde
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const date = new Date();
 
-// Those two commands rely on running `git` command in the shell, which isn't installed/available on Vercel.
-// They're only useful when building in a localhost environment.
-const commitInfo = gitCommitInfo();
-const currentBranchName = gitCurrentBranchName();
-
-// When deployed through GHA, both GIT_COMMIT_SHA and GIT_COMMIT_REF must be provided by GitHub Actions.
-// When deploying locally, those values are resolved automatically.
-const GIT_COMMIT_SHA = process.env.GIT_COMMIT_SHA || (commitInfo && commitInfo.hash); // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
-const GIT_COMMIT_REF = process.env.GIT_COMMIT_REF || currentBranchName; // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
-
-console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${GIT_COMMIT_SHA} and GIT_COMMIT_REF=${GIT_COMMIT_REF}`);
+console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${process.env.GIT_COMMIT_SHA} and GIT_COMMIT_REF=${process.env.GIT_COMMIT_REF}`);
 
 // When specifying GIT_COMMIT_TAGS by using `yarn --silent git:getReleasesAndTags`, we receive "v1.1.1 v1.1.1-customer1" and we transform it as ["v1.1.1", "v1.1.1-customer1"].
 // We use `filter` to make sure there are not empty element.
 // Default value is an empty array.
 const GIT_COMMIT_TAGS = (process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.split(" ").filter(tag => tag) : []);
 console.debug(`Commit deployed is defined as ${GIT_COMMIT_TAGS.join(",")}`)
+
 /**
  * This file is for advanced configuration of the Next.js framework.
  *
@@ -91,8 +81,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_VERSION: packageJson.version,
     NEXT_PUBLIC_APP_NAME_VERSION: `${packageJson.name}-${packageJson.version}`,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
-    GIT_COMMIT_SHA: GIT_COMMIT_SHA,
-    GIT_COMMIT_REF: GIT_COMMIT_REF,
+    GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA, // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
+    GIT_COMMIT_REF: process.env.GIT_COMMIT_REF, // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally)
     GIT_COMMIT_TAGS: GIT_COMMIT_TAGS,
   },
 
