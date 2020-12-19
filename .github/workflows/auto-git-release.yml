@@ -17,19 +17,21 @@ jobs:
   tag-and-release:
     runs-on: ubuntu-18.04
     steps:
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v3.x
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
       - uses: paulhatch/semantic-version@v3.1.2
         id: next_semantic_version # Output: https://github.com/PaulHatch/semantic-version/blob/master/index.js#L63-L69
         with: # See https://github.com/PaulHatch/semantic-version#usage
-          branch: ${{ github.ref }} # Use current branch XXX You might want to use main or master
+          branch: ${{ env.GITHUB_REF_SLUG }} # Use current branch XXX You might want to use main or master
           tag_prefix: "v" # The prefix to use to identify tags
           major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
-          format: "${major}.${minor}.${patch}-${{ github.ref }}.${increment}" # A string to determine the format of the version output
+          format: "${major}.${minor}.${patch}-${{ env.GITHUB_REF_SLUG }}.${increment}" # A string to determine the format of the version output
       - run: |
-          echo "Branch name: ${{ github.ref#refs/heads/ }}"
+          echo "Branch name: ${{ env.GITHUB_REF_SLUG }}"
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
           echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
           echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
@@ -38,7 +40,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{steps.next_semantic_version.outputs.version}}
           prerelease: true
-          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`${{ github.ref }}`)"
+          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`${{ env.GITHUB_REF_SLUG }}`)"
           files: |
             README.md
             CHANGELOG.md
