@@ -25,7 +25,7 @@ describe('Sanity checks > Browser data', () => {
 
   it(`should have "window.${CYPRESS_WINDOW_NS}.customer" defined`, () => {
     cy.get<Customer>('@customer').then((customer: Customer) => {
-      assert.isDefined(customer.ref);
+      assert.isDefined(customer.label);
     });
   });
 });
