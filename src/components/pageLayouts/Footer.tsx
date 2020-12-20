@@ -10,6 +10,7 @@ import { NRN_CO_BRANDING_LOGO_URL } from '../../constants';
 
 import useCustomer from '../../hooks/useCustomer';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
+import { Asset } from '../../types/data/Asset';
 import { Customer } from '../../types/data/Customer';
 import { Theme } from '../../types/data/Theme';
 import { SIZE_XS } from '../../utils/assets/logo';

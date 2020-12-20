@@ -46,8 +46,6 @@ const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const theme = useTheme<CustomerTheme>();
-  const { primaryColor, logo } = theme;
-  const { theme }: CustomerContext = React.useContext(customerContext);
   const { locale }: I18n = useI18n();
   const { primaryColor, logo } = theme;
 

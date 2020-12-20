@@ -1,7 +1,7 @@
-import { RichText } from '../RichText';
+import { I18nRichText } from '../I18nRichText';
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
-import { Theme } from './Theme';
 import { Product } from './Product';
+import { Theme } from './Theme';
 
 export type Customer = {
   id?: string;
@@ -10,7 +10,7 @@ export type Customer = {
   availableLanguages: string[];
   products?: Product[];
   theme?: Theme;
-  terms?: RichText;
-  termsDescription?: RichText;
-  privacyDescription?: RichText;
+  serviceLabel?: string;
+  termsDescription?: I18nRichText;
+  privacyDescription?: I18nRichText;
 } & GraphCMSSystemFields;

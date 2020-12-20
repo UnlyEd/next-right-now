@@ -2,7 +2,6 @@ import { isBrowser } from '@unly/utils';
 import map from 'lodash.map';
 
 import { NRN_DEFAULT_THEME } from '../../constants';
-import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Customer } from '../../types/data/Customer';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { Theme } from '../../types/data/Theme';
@@ -44,7 +43,7 @@ export const initCustomerTheme = (customer: Customer): CustomerTheme => {
   // Use all specified properties and fallback to the default value for those that are unspecified
   const customerTheme: CustomerTheme = {
     ...DEFAULT_THEME,
-    ...(theme as AirtableRecord<Theme>),
+    ...(theme as Theme),
     logo: customer?.theme?.logo,
     fonts: NRN_DEFAULT_THEME.fonts,
   };

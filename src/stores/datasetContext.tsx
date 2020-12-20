@@ -1,7 +1,7 @@
 import React from 'react';
-import { SanitizedAirtableDataset } from '../types/data/SanitizedAirtableDataset';
+import { GraphCMSDataset } from '../utils/graphCMSDataset/GraphCMSDataset';
 
-export type DatasetContext = SanitizedAirtableDataset;
+export type DatasetContext = GraphCMSDataset;
 
 /**
  * Uses native React Context API

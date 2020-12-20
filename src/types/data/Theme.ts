@@ -15,4 +15,5 @@ export type Theme = {
   errorColor?: string;
   onErrorColor?: string;
   logo?: Asset;
+  fonts?: string;
 } & GraphCMSSystemFields;

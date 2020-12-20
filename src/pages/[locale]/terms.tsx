@@ -23,8 +23,8 @@ import { createApolloClient } from '../../utils/gql/graphql';
 import { AMPLITUDE_PAGES } from '../../utils/analytics/amplitude';
 import { replaceAllOccurrences } from '../../utils/js/string';
 import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
+  getCommonStaticPaths,
+  getCommonStaticProps,
 } from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/terms';
@@ -36,7 +36,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExamplesCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -47,7 +47,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getExamplesCommonStaticProps(props);
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getCommonStaticProps(props);
 
   if ('props' in commonStaticProps) {
     const { customerRef, gcmsLocales } = commonStaticProps.props;
@@ -113,10 +113,9 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
   const { termsDescription, serviceLabel } = customer || {};
-  const termsRaw: string = termsDescription.html;
 
   // Replace dynamic values (like "{customerLabel}") by their actual value
-  const terms = replaceAllOccurrences(termsRaw, {
+  const terms = replaceAllOccurrences(termsDescription?.html, {
     serviceLabel: `**${serviceLabel}**`,
     customerLabel: `**${customer?.label}**`,
   });
@@ -126,7 +125,7 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={AMPLITUDE_PAGES.TERMS_PAGE}
       headProps={{
-        title: 'Terms - Next Right Now',
+        seoTitle: 'Terms - Next Right Now',
       }}
     >
       <LegalContent

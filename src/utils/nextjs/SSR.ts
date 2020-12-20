@@ -138,9 +138,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
     props: {
       apolloClient,
       bestCountryCodes,
-      serializedDataset: {
-        customer,
-      },
+      serializedDataset: null, // We don't send the dataset yet (we don't have any because we haven't fetched the database yet), but it must be done by SSR pages in"getServerSideProps"
       customerRef,
       i18nTranslations,
       headers: publicHeaders,

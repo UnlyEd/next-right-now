@@ -20,12 +20,12 @@ import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { stringifyQueryParameters } from '../../utils/app/router';
 import {
   i18nRedirect,
   stringifyQueryParameters,
 } from '../../utils/app/router';
 import { initCustomerTheme } from '../../utils/data/theme';
+import deserializeSafe from '../../utils/graphCMSDataset/deserializeSafe';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
 import { configureSentryI18n } from '../../utils/monitoring/sentry';
 import {
@@ -39,6 +39,7 @@ import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
+import { GraphCMSDataset } from '../../utils/graphCMSDataset/GraphCMSDataset';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
@@ -102,8 +103,8 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       // console.debug('serializedDataset', serializedDataset);
     }
 
-    const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
-    const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+    const dataset: GraphCMSDataset = deserializeSafe(serializedDataset);
+    const customer: Customer = find(dataset, { __typename: 'Customer' }) as Customer;
 
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser()) {
       // eslint-disable-next-line no-console
