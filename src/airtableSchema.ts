@@ -86,7 +86,11 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
         onSurfaceColor: {},
         errorColor: {},
         onErrorColor: {},
-        logo: {},
+        logo: {
+          transformations: {
+            asSingleRecord: true,
+          }
+        },
         logoTitle: {},
       },
     },

@@ -136,14 +136,13 @@ const Footer: React.FunctionComponent<Props> = () => {
           <div>
             <Logo
               id={'footer-logo-unly-brand'}
-              // @ts-ignore
               logo={{
                 url: NRN_CO_BRANDING_LOGO_URL,
                 link: {
                   url: 'https://github.com/unlyEd',
                   target: '_blank',
                 },
-              }}
+              } as unknown as Asset}
               width={100}
               height={50}
               sizesMultipliers={logoSizesMultipliers}
