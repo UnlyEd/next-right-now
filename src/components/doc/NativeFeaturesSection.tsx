@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from 'reactstrap';
 import I18nLink from '../i18n/I18nLink';
+import Btn from '../utils/Btn';
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
 import DocSection from './DocSection';
@@ -54,10 +55,10 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
 
               <div className={'buttons'}>
                 <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering'}>
-                  <Button color={'link'}>Learn more about <code>getServerSideProps</code></Button>
+                  <Btn mode={'primary-outline'}>Learn more about&nbsp;<code>getServerSideProps</code></Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/native-features/example-with-ssr'}>
-                  <Button color={'link'}>Example with <code>getServerSideProps</code></Button>
+                  <Btn mode={'primary-outline'}>Example with&nbsp;<code>getServerSideProps</code></Btn>
                 </I18nLink>
               </div>
 
@@ -90,10 +91,10 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
 
               <div className={'buttons'}>
                 <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation'}>
-                  <Button color={'link'}>Learn more about <code>getStaticProps</code></Button>
+                  <Btn mode={'primary-outline'}>Learn more about&nbsp;<code>getStaticProps</code></Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/native-features/example-with-ssg'}>
-                  <Button color={'link'}>Example with <code>getStaticProps</code></Button>
+                  <Btn mode={'primary-outline'}>Example with&nbsp;<code>getStaticProps</code></Btn>
                 </I18nLink>
               </div>
 
@@ -121,7 +122,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
 
               <div className={'buttons'}>
                 <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#the-fallback-key-required'}>
-                  <Button color={'link'}>Learn more about <code>getStaticProps</code> with <code>fallback</code> option</Button>
+                  <Btn mode={'primary-outline'}>Learn more about&nbsp;<code>getStaticProps</code> with <code>fallback</code> option</Btn>
                 </ExternalLink>
                 <I18nLink
                   href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
@@ -129,7 +130,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                     albumId: 1,
                   }}
                 >
-                  <Button color={'link'}>Example with <code>getStaticProps</code> and <code>fallback</code></Button>
+                  <Btn mode={'primary-outline'}>Example with&nbsp;<code>getStaticProps</code> and <code>fallback</code></Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -154,10 +155,10 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
 
               <div className={'buttons'}>
                 <ExternalLink href={'https://nextjs.org/blog/next-9-4#incremental-static-regeneration-beta'}>
-                  <Button color={'link'}>Learn more about <code>getStaticProps</code> with <code>revalidate</code> option</Button>
+                  <Btn mode={'primary-outline'}>Learn more about&nbsp;<code>getStaticProps</code> with <code>revalidate</code> option</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/native-features/example-with-ssg-and-revalidate'}>
-                  <Button color={'link'}>Example with <code>getStaticProps</code> and <code>revalidate</code></Button>
+                  <Btn mode={'primary-outline'}>Example with&nbsp;<code>getStaticProps</code> and <code>revalidate</code></Btn>
                 </I18nLink>
               </div>
 
@@ -228,10 +229,10 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes'}>
-                  <Button color={'link'}>Learn more about "optional catch-all routes" native feature</Button>
+                  <Btn mode={'primary-outline'}>Learn more about "optional catch-all routes" native feature</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/native-features/example-optional-catch-all-routes'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>

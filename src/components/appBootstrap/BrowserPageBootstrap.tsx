@@ -8,9 +8,13 @@ import { AmplitudeClient } from 'amplitude-js';
 import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import useCustomer from '../../hooks/useCustomer';
+import useDataset from '../../hooks/useDataset';
+import amplitudeContext from '../../stores/amplitudeContext';
+import { cypressContext } from '../../stores/cypressContext';
 import userConsentContext from '../../stores/userConsentContext';
 import { userSessionContext } from '../../stores/userSessionContext';
+import { Customer } from '../../types/data/Customer';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
@@ -19,7 +23,6 @@ import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps
 import { UserConsent } from '../../types/UserConsent';
 import { UserSemiPersistentSession } from '../../types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../../utils/analytics/amplitude';
-
 import initCookieConsent, { getUserConsent } from '../../utils/cookies/cookieConsent';
 import UniversalCookiesManager from '../../utils/cookies/UniversalCookiesManager';
 import {
@@ -28,7 +31,10 @@ import {
 } from '../../utils/iframe';
 import { configureSentryUser } from '../../utils/monitoring/sentry';
 import { detectLightHouse } from '../../utils/quality/lighthouse';
-import { detectCypress } from '../../utils/testing/cypress';
+import {
+  CYPRESS_WINDOW_NS,
+  detectCypress,
+} from '../../utils/testing/cypress';
 
 const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
 const logger = createLogger({
@@ -56,6 +62,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     locale,
   } = pageProps;
   const { t, i18n } = useTranslation();
+  const dataset = useDataset();
+  const customer: Customer = useCustomer();
   const isInIframe: boolean = isRunningInIframe();
   const iframeReferrer: string = getIframeReferrer();
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(); // On browser, we can access cookies directly (doesn't need req/res or page context)
@@ -96,6 +104,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   initCookieConsent({
     allowedPages: [ // We only allow it on those pages to avoid display that boring popup on every page
       `${window.location.origin}/${locale}/terms`,
+      `${window.location.origin}/${locale}/privacy`,
       `${window.location.origin}/${locale}/examples/built-in-features/cookies-consent`,
     ],
     amplitudeInstance,
@@ -104,6 +113,14 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     theme,
     userConsent,
   });
+
+  // XXX Inject data so that Cypress can use them to run dynamic tests.
+  //  Those data mustn't be sensitive. They'll be available in the DOM, no matter the stage of the app.
+  //  This is needed to run E2E tests that are specific to a customer. (dynamic testing)
+  window[CYPRESS_WINDOW_NS] = {
+    dataset,
+    customer,
+  };
 
   // In non-production stages, bind some utilities to the browser's DOM, for ease of quick testing
   if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
@@ -159,15 +176,19 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
         //  So, userProperties defined here then it will NOT be applied until the NEXT Amplitude event and this is likely gonna cause analytics issues
         // userProperties={{}}
       >
-        <userSessionContext.Provider value={{ ...userSession }}>
-          <userConsentContext.Provider value={{ ...userConsent }}>
-            <Component
-              {...injectedPageProps}
-              // @ts-ignore
-              error={err}
-            />
-          </userConsentContext.Provider>
-        </userSessionContext.Provider>
+        <cypressContext.Provider value={{ isCypressRunning }}>
+          <amplitudeContext.Provider value={{ amplitudeInstance }}>
+            <userSessionContext.Provider value={{ ...userSession }}>
+              <userConsentContext.Provider value={{ ...userConsent }}>
+                <Component
+                  {...injectedPageProps}
+                  // @ts-ignore
+                  error={err}
+                />
+              </userConsentContext.Provider>
+            </userSessionContext.Provider>
+          </amplitudeContext.Provider>
+        </cypressContext.Provider>
       </Amplitude>
     </AmplitudeProvider>
   );

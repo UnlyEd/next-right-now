@@ -63,7 +63,7 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'cookies-consent'}
       headProps={{
-        title: 'Cookies consent examples - Next Right Now',
+        seoTitle: 'Cookies consent examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

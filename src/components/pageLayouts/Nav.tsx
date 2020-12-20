@@ -23,9 +23,9 @@ import {
   Row,
   UncontrolledDropdown,
 } from 'reactstrap';
-
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { LogEvent } from '../../types/Amplitude';
+import { AirtableAttachment } from '../../types/data/AirtableAttachment';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Asset } from '../../types/data/Asset';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
@@ -48,8 +48,11 @@ const Nav: React.FunctionComponent<Props> = () => {
   const router: NextRouter = useRouter();
   const theme = useTheme<CustomerTheme>();
   const { primaryColor, logo: logoAirtable } = theme;
-  const logo: Asset = logoAirtable as AirtableRecord<Asset>;
+  const logo: AirtableAttachment = logoAirtable;
   const { locale }: I18n = useI18n();
+  // const logoAsAsset: Asset = {
+  //
+  // }
 
   return (
     <Amplitude>
@@ -151,7 +154,7 @@ const Nav: React.FunctionComponent<Props> = () => {
           <div className={'brand-logo'}>
             <AirtableAsset
               id={'nav-logo-brand'}
-              asset={logo}
+              asset={logo as unknown as Asset}
               linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
               transformationsOverride={{
                 height: 100,

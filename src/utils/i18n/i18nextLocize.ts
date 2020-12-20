@@ -6,6 +6,7 @@ import i18next, { i18n } from 'i18next';
 import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github.com/locize/i18next-locize-backend/issues/323#issuecomment-619625571
 import get from 'lodash.get';
 import map from 'lodash.map';
+import size from 'lodash.size';
 import { initReactI18next } from 'react-i18next';
 
 import {
@@ -195,6 +196,10 @@ export const locizeBackendOptions = {
   },
 };
 
+const shouldLog = (): boolean => {
+  return process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && process.env.NODE_ENV !== 'test';
+};
+
 /**
  * Builds Locize API endpoint based on the desired lang and namespace
  *
@@ -224,17 +229,23 @@ export const fetchBaseTranslations = async (lang: string): Promise<I18nextResour
   try {
     // Manually fetching locales from Locize API, for the "common" namespace of the current language
     // XXX We fetch manually from Locize, because if we use the i18next "preload" feature, it'll crash with Next (no serverless support)
-    logger.info(`Pre-fetching translations from ${locizeAPIEndpoint}`);
+    if (shouldLog()) {
+      logger.info(`Pre-fetching translations from ${locizeAPIEndpoint}`);
+    }
     const defaultI18nTranslationsResponse: Response = await fetch(locizeAPIEndpoint);
 
     try {
       i18nTranslations = await defaultI18nTranslationsResponse.json();
     } catch (e) {
-      logger.error(e.message, `Failed to extract JSON data from locize API response for "${lang}"`);
+      if (shouldLog()) {
+        logger.error(e.message, `Failed to extract JSON data from locize API response for "${lang}"`);
+      }
       Sentry.captureException(e);
     }
   } catch (e) {
-    logger.error(e.message, `Failed to fetch data from locize API for "${lang}"`);
+    if (shouldLog()) {
+      logger.error(e.message, `Failed to fetch data from locize API for "${lang}"`);
+    }
     Sentry.captureException(e);
   }
 
@@ -254,17 +265,23 @@ export const fetchCustomerVariationTranslations = async (lang: string): Promise<
   try {
     // Manually fetching locales from Locize API, for the "common" namespace of the customer language variation
     // XXX We fetch manually from Locize, because if we use the i18next "preload" feature, it'll crash with Next (no serverless support)
-    logger.info(`Pre-fetching "${customerVariationLang}" translations variation from ${customerVariationLocizeAPIEndpoint}`);
+    if (shouldLog()) {
+      logger.info(`Pre-fetching "${customerVariationLang}" translations variation from ${customerVariationLocizeAPIEndpoint}`);
+    }
     const customerVariationI18nTranslationsResponse: Response = await fetch(customerVariationLocizeAPIEndpoint);
 
     try {
       customerVariationI18nTranslations = await customerVariationI18nTranslationsResponse.json();
     } catch (e) {
-      logger.error(e.message, `Failed to extract JSON data from locize API response for "${customerVariationLang}"`);
+      if (shouldLog()) {
+        logger.error(e.message, `Failed to extract JSON data from locize API response for "${customerVariationLang}"`);
+      }
       Sentry.captureException(e);
     }
   } catch (e) {
-    logger.error(e.message, `Failed to fetch data from locize API for "${customerVariationLang}"`);
+    if (shouldLog()) {
+      logger.error(e.message, `Failed to fetch data from locize API for "${customerVariationLang}"`);
+    }
     Sentry.captureException(e);
   }
 
@@ -353,11 +370,15 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
     // If the memoized cache isn't too old, use it
     if (+date - memoizedI18nextResources.ts < 1000 * memoizedCacheMaxAge) {
       // If the i18next resources have been fetched previously, they're therefore available in the memory and we return them untouched to avoid network calls
-      logger.info('Translations were resolved from in-memory cache');
+      if (shouldLog()) {
+        logger.info('Translations were resolved from in-memory cache');
+      }
       return (memoizedI18nextResources).resources;
     } else {
       // Memoized cache is too old, we need to fetch from Locize API again
-      logger.info(`Translations from in-memory cache are too old (> ${memoizedCacheMaxAge} seconds) and thus have been invalidated`);
+      if (shouldLog()) {
+        logger.info(`Translations from in-memory cache are too old (> ${memoizedCacheMaxAge} seconds) and thus have been invalidated`);
+      }
     }
   }
   const i18nBaseTranslations: I18nextResources = await fetchBaseTranslations(lang);
@@ -369,7 +390,9 @@ export const fetchTranslations = async (lang: string): Promise<I18nextResources>
       [defaultNamespace]: i18nTranslations,
     },
   };
-  logger.info('Translations were resolved from Locize API and are now being memoized for subsequent calls');
+  if (shouldLog()) {
+    logger.info('Translations were resolved from Locize API and are now being memoized for subsequent calls');
+  }
 
   _memoizedI18nextResources[cacheIndexKey] = {
     resources: i18nextResources,
@@ -412,8 +435,10 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     initReactI18next, // passes i18next down to react-i18next
     i18nextLocizeBackend, // loads translations, saves new keys to it (when saveMissing: true) - https://github.com/locize/i18next-locize-backend
   ];
-  logger.info(`Using "react-i18next" plugin`);
-  logger.info(`Using "i18next-locize-backend" plugin`);
+  if (shouldLog()) {
+    logger.info(`Using "react-i18next" plugin`);
+    logger.info(`Using "i18next-locize-backend" plugin`);
+  }
 
   // Dynamically load different modules depending on whether we're running node or browser engine
   if (!isBrowser()) {
@@ -425,7 +450,9 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     // https://github.com/locize/locize-node-lastused
     const locizeNodeLastUsed = __non_webpack_require__('locize-lastused/cjs');
     plugins.push(locizeNodeLastUsed);
-    logger.info(`Using "locize-lastused" plugin`);
+    if (shouldLog()) {
+      logger.info(`Using "locize-lastused" plugin`);
+    }
 
   } else {
     // XXX Use "require" on the browser, always take the "default" export specifically
@@ -434,18 +461,22 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const locizeEditor = require('locize-editor').default;
     plugins.push(locizeEditor);
-    logger.info(`Using "locize-editor" plugin`);
+    if (shouldLog()) {
+      logger.info(`Using "locize-editor" plugin`);
+    }
   }
 
   const i18nInstance = i18next;
-  logger.info(`Using ${plugins.length} plugins in total`);
+  if (shouldLog()) {
+    logger.info(`Using ${size(plugins)} plugins in total`);
+  }
   map(plugins, (plugin) => i18nInstance.use(plugin));
   // @ts-ignore
   i18nInstance.init({ // XXX See https://www.i18next.com/overview/configuration-options
     resources: i18nTranslations,
     // preload: ['fr', 'en'], // XXX Supposed to preload languages, doesn't work with Next
     cleanCode: true, // language will be lowercased 'EN' --> 'en' while leaving full locales like 'en-US'
-    debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser(), // Only enable on non-production stages and only on browser (too much noise on server) XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
+    debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser() && process.env.NODE_ENV !== 'test', // Only enable on non-production stages and only on browser (too much noise on server) XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
     saveMissing: process.env.NEXT_PUBLIC_APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
     saveMissingTo: defaultNamespace,
     lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language

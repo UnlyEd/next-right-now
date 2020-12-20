@@ -58,7 +58,7 @@ const PackagesUpgradePage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'packages-upgrade'}
       headProps={{
-        title: 'Packages upgrade examples - Next Right Now',
+        seoTitle: 'Packages upgrade examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

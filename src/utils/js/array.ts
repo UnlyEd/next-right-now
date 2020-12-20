@@ -1,4 +1,6 @@
+import findIndex from 'lodash.findindex';
 import isArray from 'lodash.isarray';
+import size from 'lodash.size';
 
 /**
  * Finds the previous item of the current item, in an array of items.
@@ -12,11 +14,11 @@ export const findPreviousItem = <T>(currentItem: T, items: T[]): T => {
     return null;
   }
 
-  const currentItemIndex: number = items.indexOf(currentItem);
+  const currentItemIndex: number = findIndex(items, currentItem);
   let previousItemIndex = currentItemIndex - 1;
 
   if (previousItemIndex < 0) { // Handles array overflow
-    previousItemIndex = items.length - 1;
+    previousItemIndex = size(items) - 1;
   }
 
   return items[previousItemIndex];
@@ -34,10 +36,10 @@ export const findNextItem = <T>(currentItem: T, items: T[]): T => {
     return null;
   }
 
-  const currentItemIndex: number = items.indexOf(currentItem);
+  const currentItemIndex: number = findIndex(items, currentItem);
   let nextItemIndex = currentItemIndex + 1;
 
-  if (nextItemIndex >= items.length) { // Handles array overflow
+  if (nextItemIndex >= size(items)) { // Handles array overflow
     nextItemIndex = 0;
   }
 

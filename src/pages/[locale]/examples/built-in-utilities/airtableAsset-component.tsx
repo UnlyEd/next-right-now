@@ -14,6 +14,7 @@ import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
+import useCustomer from '../../../../hooks/useCustomer';
 import { AirtableRecord } from '../../../../types/data/AirtableRecord';
 import { Asset } from '../../../../types/data/Asset';
 import { Customer } from '../../../../types/data/Customer';
@@ -58,16 +59,15 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element => {
-  const { customer: airtableCustomer } = props;
-  const customer: Customer = airtableCustomer?.fields;
-  const airtableProducts: AirtableRecord<Product>[] = customer.products as AirtableRecord<Product>[];
+  const customer: Customer = useCustomer();
+  const airtableProducts: AirtableRecord<Product>[] = customer?.products;
 
   return (
     <DefaultLayout
       {...props}
       pageName={'airtable-component'}
       headProps={{
-        title: 'I18nLink component examples - Next Right Now',
+        seoTitle: 'I18nLink component examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
@@ -99,7 +99,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
         {
           map(airtableProducts, (airtableProduct) => {
-            const product: Product = airtableProduct.fields;
+            const product: Product = airtableProduct;
             const image: Asset = product.images?.[0];
 
             return (
@@ -155,7 +155,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
         {
           map(airtableProducts, (airtableProduct) => {
-            const product: Product = airtableProduct.fields;
+            const product: Product = airtableProduct;
             const image: Asset = product.images?.[0];
 
             return (
@@ -178,7 +178,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
           text={`
             {
               map(airtableProducts, (airtableProduct) => {
-                const product: Product = airtableProduct.fields;
+                const product: Product = airtableProduct;
                 const image: Asset = product.images?.[0];
 
                 return (
@@ -214,7 +214,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
         {
           map(airtableProducts, (airtableProduct) => {
-            const product: Product = airtableProduct.fields;
+            const product: Product = airtableProduct;
             const image: Asset = product.images?.[0];
 
             return (
@@ -240,7 +240,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
           text={`
             {
               map(airtableProducts, (airtableProduct) => {
-                const product: Product = airtableProduct.fields;
+                const product: Product = airtableProduct;
                 const image: Asset = product.images?.[0];
 
                 return (
@@ -272,7 +272,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
         {
           map(airtableProducts, (airtableProduct) => {
-            const product: Product = airtableProduct.fields;
+            const product: Product = airtableProduct;
             const image: Asset = product.images?.[0];
 
             return (
@@ -295,7 +295,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
           text={`
             {
               map(airtableProducts, (airtableProduct) => {
-                const product: Product = airtableProduct.fields;
+                const product: Product = airtableProduct;
                 const image: Asset = product.images?.[0];
 
                 return (
@@ -324,7 +324,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
 
         {
           map(airtableProducts, (airtableProduct) => {
-            const product: Product = airtableProduct.fields;
+            const product: Product = airtableProduct;
             const image: Asset = product.images?.[0];
 
             return (
@@ -347,7 +347,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
           text={`
             {
               map(airtableProducts, (airtableProduct) => {
-                const product: Product = airtableProduct.fields;
+                const product: Product = airtableProduct;
                 const image: Asset = product.images?.[0];
 
                 return (

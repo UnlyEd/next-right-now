@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import * as React from 'react';
+import { Fragment } from 'react';
 
 type Props = {
   error?: Error;
@@ -59,11 +60,11 @@ const ErrorDebug = (props: Props): JSX.Element => {
 
         {
           context && (
-            <>
+            <Fragment>
               <b>Error additional context</b>:<br />
               <code>{stringifiedContext}</code>
               <hr />
-            </>
+            </Fragment>
           )
         }
 

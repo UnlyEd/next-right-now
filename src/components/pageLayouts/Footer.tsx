@@ -6,6 +6,7 @@ import {
   Col,
   Row,
 } from 'reactstrap';
+import { NRN_CO_BRANDING_LOGO_URL } from '../../constants';
 
 import useCustomer from '../../hooks/useCustomer';
 import useUserSession, { UserSession } from '../../hooks/useUserSession';
@@ -71,9 +72,9 @@ const Footer: React.FunctionComponent<Props> = () => {
       <Row className={'justify-content-end'}>
         <Col md={4} xs={12} className={'column-left text-md-left mt-4'}>
           <AirtableAsset
-            id={'footer-logo-organisation-brand'}
+            id={'footer-logo'}
             asset={logo}
-            linkOverride={{ id: 'link-footer-logo-organisation-brand' }}
+            linkOverride={{ id: 'link-footer-logo' }}
           />
         </Col>
         <Col md={4} xs={12} className={'column-center align-items-end mt-4'}>
@@ -130,18 +131,18 @@ const Footer: React.FunctionComponent<Props> = () => {
         </Col>
         <Col md={4} xs={12} className={'column-right text-md-right mt-4'}>
           <div>
-            <I18nBtnChangeLocale />
+            <I18nBtnChangeLocale id={'footer-btn-change-locale'} />
           </div>
           <div>
             <Logo
               id={'footer-logo-unly-brand'}
               logo={{
-                url: '/static/images/LOGO_Powered_by_UNLY_monochrome_WHITE.svg',
+                url: NRN_CO_BRANDING_LOGO_URL,
                 link: {
-                  url: 'https://unly.org/',
+                  url: 'https://github.com/unlyEd',
                   target: '_blank',
                 },
-              }}
+              } as unknown as Asset}
               width={100}
               height={50}
               sizesMultipliers={logoSizesMultipliers}

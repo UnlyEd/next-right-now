@@ -1,6 +1,8 @@
+import size from 'lodash.size';
 import some from 'lodash.some';
 import React, {
   DependencyList,
+  Fragment,
   useState,
 } from 'react';
 
@@ -56,7 +58,7 @@ const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
     deps = [],
   } = props;
   // If any dep isn't defined, then it will render "null" first, and then trigger a re-render
-  const isAnyDepsNullish = deps.length ?
+  const isAnyDepsNullish = size(deps) ?
     // If any deps was provided, check if any is null-ish
     some(deps, (dependency: any): boolean => {
       return dependency === null || typeof dependency === 'undefined';
@@ -76,9 +78,9 @@ const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
   }
 
   return (
-    <>
+    <Fragment>
       {children}
-    </>
+    </Fragment>
   );
 };
 

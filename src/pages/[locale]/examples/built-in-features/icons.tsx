@@ -58,7 +58,7 @@ const ExampleIconsPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'icons'}
       headProps={{
-        title: 'Icons examples - Next Right Now',
+        seoTitle: 'Icons examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

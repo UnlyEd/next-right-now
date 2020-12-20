@@ -1,4 +1,5 @@
 import { css } from '@emotion/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticProps,
@@ -9,9 +10,11 @@ import {
   useRouter,
 } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
-import React from 'react';
-
+import React, { Fragment } from 'react';
+import { useTranslation } from 'react-i18next';
+import I18nLink from '../components/i18n/I18nLink';
 import DefaultLayout from '../components/pageLayouts/DefaultLayout';
+import Btn from '../components/utils/Btn';
 import { CommonServerSideParams } from '../types/nextjs/CommonServerSideParams';
 import { SoftPageProps } from '../types/pageProps/SoftPageProps';
 import { SSGPageProps } from '../types/pageProps/SSGPageProps';
@@ -20,7 +23,7 @@ import {
   LANG_EN,
   LANG_FR,
 } from '../utils/i18n/i18n';
-import { getExamplesCommonStaticProps } from '../utils/nextjs/SSG';
+import { getCommonStaticProps } from '../utils/nextjs/SSG';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -35,7 +38,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getExamplesCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getCommonStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -49,25 +52,25 @@ type Props = {} & SoftPageProps;
 
 const Fr404 = (): JSX.Element => {
   return (
-    <>
+    <Fragment>
       <h1>Page non trouvée</h1>
 
       <p>
         La page que vous recherchez n'existe pas
       </p>
-    </>
+    </Fragment>
   );
 };
 
 const En404 = (): JSX.Element => {
   return (
-    <>
+    <Fragment>
       <h1>Page not found</h1>
 
       <p>
         The page you're looking for doesn't exist
       </p>
-    </>
+    </Fragment>
   );
 };
 
@@ -83,6 +86,7 @@ const En404 = (): JSX.Element => {
  * @see https://nextjs.org/docs/advanced-features/custom-error-page#404-page
  */
 const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
+  const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const locale = router?.asPath?.split('/')?.[1] || DEFAULT_LOCALE;
   const lang: string = locale.split('-')?.[0];
@@ -107,7 +111,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'404'}
       headProps={{
-        title: '404 Not Found - Next Right Now',
+        seoTitle: '404 Not Found',
       }}
     >
       <div
@@ -115,7 +119,17 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
           text-align: center;
         `}
       >
+        <FontAwesomeIcon icon="exclamation-triangle" size={'8x'} />
         {content}
+
+        <I18nLink
+          href={`/`}
+        >
+          <Btn>
+            <FontAwesomeIcon icon="arrow-right" />
+            {t('404.indexPage.link', 'Accueil')}
+          </Btn>
+        </I18nLink>
       </div>
     </DefaultLayout>
   );

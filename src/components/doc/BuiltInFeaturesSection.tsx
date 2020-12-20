@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 
 import I18nLink from '../i18n/I18nLink';
+import Btn from '../utils/Btn';
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
 import DocSection from './DocSection';
@@ -34,13 +35,13 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://vercel.com/docs'}>
-                  <Button color={'link'}>Learn more about the Vercel cloud platform</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the Vercel cloud platform</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/online-deployment/'}>
-                  <Button color={'link'}>Learn how to configure and use Vercel</Button>
+                  <Btn mode={'primary-outline'}>Learn how to configure and use Vercel</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/hosting'}>
-                  <Button color={'link'}>Learn why we chose Vercel</Button>
+                  <Btn mode={'primary-outline'}>Learn why we chose Vercel</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -54,13 +55,13 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/env-and-stages.html'}>
-                  <Button color={'link'}>Learn more about the "env and stages" concept</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the "env and stages" concept</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://vercel.com/docs/cli?#commands/secrets'}>
-                  <Button color={'link'}>Learn how to configure Vercel secrets, using the CLI</Button>
+                  <Btn mode={'primary-outline'}>Learn how to configure Vercel secrets, using the CLI</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/stages-and-secrets'}>
-                  <Button color={'link'}>Learn more about their usage and differences</Button>
+                  <Btn mode={'primary-outline'}>Learn more about their usage and differences</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -77,7 +78,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
               </Alert>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/tenancy.html'}>
-                  <Button color={'link'}>Learn more about the "tenancy" concept and what <code>MST</code> means</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the "tenancy" concept and what&nbsp;MST means</Btn>
                 </ExternalLink>
               </div>
             </CardText>
@@ -91,13 +92,13 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/ci-cd.html'}>
-                  <Button color={'link'}>Learn more about the "CI/CD" concept</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the "CI/CD" concept</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/ci-cd/setup-github-actions.html'}>
-                  <Button color={'link'}>Learn how to setup CI/CD</Button>
+                  <Btn mode={'primary-outline'}>Learn how to setup CI/CD</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/manual-deployments'}>
-                  <Button color={'link'}>See how to bypass automated CI/CD and deploy manually</Button>
+                  <Btn mode={'primary-outline'}>See how to bypass automated CI/CD and deploy manually</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -111,13 +112,13 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/i18n.html'}>
-                  <Button color={'link'}>Learn more about the "i18n" concept</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the "i18n" concept</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/i18n/use-locize.html'}>
-                  <Button color={'link'}>Learn how to use the "Locize" vendor</Button>
+                  <Btn mode={'primary-outline'}>Learn how to use the "Locize" vendor</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/static-i18n'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -131,13 +132,13 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/monitoring.html'}>
-                  <Button color={'link'}>Learn more about the "Monitoring" concept</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the "Monitoring" concept</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/monitoring/use-sentry.html'}>
-                  <Button color={'link'}>Learn how to use the "Sentry" vendor</Button>
+                  <Btn mode={'primary-outline'}>Learn how to use the "Sentry" vendor</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/monitoring'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -151,7 +152,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-features/api'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -165,10 +166,10 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/css-in-js/use-emotion.html'}>
-                  <Button color={'link'}>Learn how to use the "Emotion" library</Button>
+                  <Btn mode={'primary-outline'}>Learn how to use the "Emotion" library</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/css-in-js'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -182,10 +183,10 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://github.com/osano/cookieconsent'}>
-                  <Button color={'link'}>Learn more about the "Cookie consent" library</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the "Cookie consent" library</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/cookies-consent'}>
-                  <Button color={'link'}>Learn more about user consent and its impact on analytics</Button>
+                  <Btn mode={'primary-outline'}>Learn more about user consent and its impact on analytics</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -199,13 +200,13 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/analytics.html'}>
-                  <Button color={'link'}>Learn more about the "Analytics" concept</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the "Analytics" concept</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/analytics/use-amplitude.html'}>
-                  <Button color={'link'}>Learn how to use the "Amplitude" vendor</Button>
+                  <Btn mode={'primary-outline'}>Learn how to use the "Amplitude" vendor</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/analytics'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -219,10 +220,10 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/testing.html'}>
-                  <Button color={'link'}>Learn more about the "Testing" concept</Button>
+                  <Btn mode={'primary-outline'}>Learn more about the "Testing" concept</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/testing/use-cypress.html'}>
-                  <Button color={'link'}>Learn how to use the "Cypress" library (E2E)</Button>
+                  <Btn mode={'primary-outline'}>Learn how to use the "Cypress" library (E2E)</Btn>
                 </ExternalLink>
               </div>
             </CardText>
@@ -236,10 +237,10 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://fontawesome.com/icons'}>
-                  <Button color={'link'}>See all available FA icons</Button>
+                  <Btn mode={'primary-outline'}>See all available FA icons</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/icons'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -253,10 +254,10 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://animate.style/'}>
-                  <Button color={'link'}>See all available animations</Button>
+                  <Btn mode={'primary-outline'}>See all available animations</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/animations'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -270,10 +271,10 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://reactstrap.github.io/components'}>
-                  <Button color={'link'}>See all available Reactstrap components</Button>
+                  <Btn mode={'primary-outline'}>See all available Reactstrap components</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/ui-components'}>
-                  <Button color={'link'}>See components examples</Button>
+                  <Btn mode={'primary-outline'}>See components examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -287,13 +288,13 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://pages.github.com/'}>
-                  <Button color={'link'}>Learn more about "GitHub pages"</Button>
+                  <Btn mode={'primary-outline'}>Learn more about "GitHub pages"</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://pmarsceill.github.io/just-the-docs/'}>
-                  <Button color={'link'}>Learn more about "just-the-docs" built-in template</Button>
+                  <Btn mode={'primary-outline'}>Learn more about "just-the-docs" built-in template</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-features/docs-site'}>
-                  <Button color={'link'}>Learn how to use it</Button>
+                  <Btn mode={'primary-outline'}>Learn how to use it</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -307,7 +308,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-features/md-as-jsx'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>

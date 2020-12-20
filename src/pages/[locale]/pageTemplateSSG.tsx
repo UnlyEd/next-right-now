@@ -8,6 +8,8 @@ import {
 import React from 'react';
 
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
+import useCustomer from '../../hooks/useCustomer';
+import { Customer } from '../../types/data/Customer';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
@@ -48,16 +50,12 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
-  const { customer: airtableCustomer } = props;
-  const customer = airtableCustomer?.fields;
+  const customer: Customer = useCustomer();
 
   return (
     <DefaultLayout
       {...props}
       pageName={'pageTemplateSSG'}
-      headProps={{
-        title: 'Page template SSG - Next Right Now',
-      }}
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSG pages</b>.<br />

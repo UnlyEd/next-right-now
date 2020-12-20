@@ -1,6 +1,6 @@
-import * as CSS from 'csstype';
+import { GenericObject } from './GenericObject';
 
 /**
  * Represents a CSS "styles" object.
  */
-export type CSSStyles = CSS.Properties<string | number>
+export type CSSStyles = GenericObject<string | number>;

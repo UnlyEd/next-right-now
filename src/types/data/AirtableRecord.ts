@@ -1,13 +1,14 @@
-import { BaseTableType } from '../../utils/api/fetchAirtableTable';
+import { GenericRecord } from '../../utils/data/record';
+import { AirtableRecordBaseFields } from './AirtableRecordBaseFields';
 
 /**
- * Airtable record fetched from their API
+ * Sanitized Airtable record.
  *
- * Uses generic "fields" field to allow extend using our own entities (Customer, Theme, etc.)
+ * A consolidated record has gone through the "sanitizeRecord" function.
+ * Relationships have been resolved, unnecessary fields have been filtered out and data is consistent as what a developer would expect.
+ *
+ * You should mostly use consolidated airtable records over non-consolidated ones.
  */
-export type AirtableRecord<Record extends {} = {}> = {
-  id?: string;
-  createdTime?: string;
-  fields?: Partial<Record>;
-  __typename?: BaseTableType; // Not available upon fetch, made available after sanitising
-};
+export type AirtableRecord<Fields extends GenericRecord = GenericRecord> = {}
+  & AirtableRecordBaseFields
+  & Fields;

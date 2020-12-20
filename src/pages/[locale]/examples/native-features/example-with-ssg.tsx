@@ -18,6 +18,8 @@ import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSide
 import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
+import useCustomer from '../../../../hooks/useCustomer';
+import { Customer } from '../../../../types/data/Customer';
 import { AirtableRecord } from '../../../../types/data/AirtableRecord';
 import { Product } from '../../../../types/data/Product';
 import { I18nLocale } from '../../../../types/i18n/I18nLocale';
@@ -62,15 +64,15 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleWithSSGPage: NextPage<Props> = (props): JSX.Element => {
-  const { customer } = props;
-  const products = customer?.fields?.products as AirtableRecord<Product>[];
+  const customer: Customer = useCustomer();
+  const products: AirtableRecord<Product>[] = customer?.products;
 
   return (
     <DefaultLayout
       {...props}
       pageName={'examples'}
       headProps={{
-        title: `${size(products)} products (SSG) - Next Right Now`,
+        seoTitle: `${size(products)} products (SSG) - Next Right Now`,
       }}
       Sidebar={NativeFeaturesSidebar}
     >

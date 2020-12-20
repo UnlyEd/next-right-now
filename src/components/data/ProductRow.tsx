@@ -20,7 +20,7 @@ const ProductRow: React.FunctionComponent<Props> = (props) => {
 
   return (
     <Row
-      key={product?.id}
+      key={product?.ref}
       className={'product-container'}
       css={css`
         background-color: white;

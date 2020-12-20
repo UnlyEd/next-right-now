@@ -1,6 +1,4 @@
-import { css } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
-import { useTheme } from 'emotion-theming';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -8,21 +6,18 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Container } from 'reactstrap';
-
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import Code from '../../components/utils/Code';
-import Markdown from '../../components/utils/Markdown';
+import LegalContent from '../../components/utils/LegalContent';
 import useCustomer from '../../hooks/useCustomer';
 import { Customer } from '../../types/data/Customer';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
+import { AMPLITUDE_PAGES } from '../../utils/analytics/amplitude';
 import { replaceAllOccurrences } from '../../utils/js/string';
 import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
+  getCommonStaticPaths,
+  getCommonStaticProps,
 } from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/terms';
@@ -34,7 +29,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExamplesCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -44,7 +39,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getExamplesCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getCommonStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -56,88 +51,29 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
+/**
+ * Terms page, that displays all legal-related information.
+ *
+ * Basically displays a bunch of markdown that's coming from the CMS.
+ */
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
-  const theme = useTheme<CustomerTheme>();
-  const { primaryColor } = theme;
-  const termsRaw: string = customer?.terms;
+  const { termsDescription, serviceLabel } = customer || {};
 
-  // Replace dynamic values like "{customerLabel}" by their actual value
-  const terms = replaceAllOccurrences(customer?.terms || '', {
+  // Replace dynamic values (like "{customerLabel}") by their actual value
+  const terms = replaceAllOccurrences(termsDescription, {
+    serviceLabel: `**${serviceLabel}**`,
     customerLabel: `**${customer?.label}**`,
   });
 
   return (
     <DefaultLayout
       {...props}
-      pageName={'terms'}
-      headProps={{
-        title: 'Terms - Next Right Now',
-      }}
+      pageName={AMPLITUDE_PAGES.TERMS_PAGE}
     >
-      <Container>
-        <div
-          css={css`
-            justify-content: center;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-
-            .source {
-              margin: auto;
-            }
-
-            .terms-content {
-              margin: 50px 150px 150px;
-
-              h1 {
-               color: ${primaryColor};
-               font-size: 35px;
-              }
-
-              h2 {
-               font-size: 20px;
-               margin-top: 35px;
-              }
-
-              h3 {
-               font-size: 17px;
-              }
-
-              h4 {
-               font-size: 13px;
-               font-weight: 300;
-              }
-
-              h5 {
-               font-size: 13px;
-               font-weight: 100;
-              }
-
-              h6 {
-               font-size: 10px;
-              }
-            }
-          `}
-        >
-          <div className={'terms-content'}>
-            {
-              <Markdown
-                text={terms}
-              />
-            }
-          </div>
-
-          <hr />
-
-          <div className={'source'}>
-            <h2>Field's value (fetched from Airtable API), as <code>Long text</code> (interpreted as Markdown):</h2>
-            <Code
-              text={`${termsRaw}`}
-            />
-          </div>
-        </div>
-      </Container>
+      <LegalContent
+        content={terms}
+      />
     </DefaultLayout>
   );
 };

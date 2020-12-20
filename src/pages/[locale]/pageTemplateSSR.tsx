@@ -7,10 +7,12 @@ import {
 import React from 'react';
 
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
+import useCustomer from '../../hooks/useCustomer';
+import { Customer } from '../../types/data/Customer';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { getExamplesCommonServerSideProps } from '../../utils/nextjs/SSR';
+import { getCommonServerSideProps } from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -32,7 +34,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getExamplesCommonServerSideProps;
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getCommonServerSideProps;
 
 /**
  * SSR pages are first rendered by the server
@@ -45,16 +47,12 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = ge
 type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
-  const { customer: airtableCustomer } = props;
-  const customer = airtableCustomer?.fields;
+  const customer: Customer = useCustomer();
 
   return (
     <DefaultLayout
       {...props}
       pageName={'products'}
-      headProps={{
-        title: `Page template SSR - Next Right Now`,
-      }}
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSR pages</b>.

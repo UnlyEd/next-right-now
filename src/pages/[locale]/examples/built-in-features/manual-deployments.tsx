@@ -57,7 +57,7 @@ const ManualDeploymentsPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'manual-deployments'}
       headProps={{
-        title: 'Manual-deployments examples - Next Right Now',
+        seoTitle: 'Manual-deployments examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

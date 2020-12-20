@@ -6,6 +6,7 @@ import get from 'lodash.get';
 import React from 'react';
 
 import { CSSStyles } from '../../types/CSSStyles';
+import { Asset } from '../../types/data/Asset';
 import { Link } from '../../types/data/Link';
 import { Logo as LogoType } from '../../types/data/Logo';
 import {
@@ -38,8 +39,8 @@ const Logo = (props: Props): JSX.Element => {
     logo,
     width = null,
     height = null,
-    defaults = {},
-    override = {},
+    defaults = {} as Asset,
+    override = {} as Asset,
     sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS,
     id,
     className = '',
@@ -51,8 +52,8 @@ const Logo = (props: Props): JSX.Element => {
     style = {},
     onClick = null,
   }: Props = props;
-  let resolvedLogoProps: LogoType = deepmerge.all([defaults, logo || {}, override]);
-  resolvedLogoProps = deepmerge.all([resolvedLogoProps, resolveSize({ logo: resolvedLogoProps, width: toPixels(width), height: toPixels(height) })]);
+  let resolvedLogoProps: LogoType = deepmerge.all([defaults, logo || {}, override]) as Asset;
+  resolvedLogoProps = deepmerge.all([resolvedLogoProps, resolveSize({ logo: resolvedLogoProps, width: toPixels(width), height: toPixels(height) })]) as Asset;
 
   if (resolvedLogoProps.linkUrl) {
     resolvedLogoProps.link = {

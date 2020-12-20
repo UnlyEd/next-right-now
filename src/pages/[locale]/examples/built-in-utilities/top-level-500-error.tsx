@@ -60,7 +60,7 @@ const TopLevel500ErrorPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'top-level-500-error'}
       headProps={{
-        title: 'Top-level 500 error example - Next Right Now',
+        seoTitle: 'Top-level 500 error example - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

@@ -3,8 +3,10 @@ import deepmerge from 'deepmerge';
 import isEmpty from 'lodash.isempty';
 import React from 'react';
 import { CSSStyles } from '../../types/CSSStyles';
-import { Asset } from '../../types/data/Asset';
-import { AssetTransformations } from '../../types/data/AssetTransformations';
+import {
+  Asset,
+  AssetTransformations,
+} from '../../types/data/Asset';
 import { Link } from '../../types/data/Link';
 import { cssToReactStyle } from '../../utils/css';
 
@@ -57,8 +59,8 @@ const AirtableAsset = (props: Props): JSX.Element => {
   const {
     asset,
     id,
-    defaults = {},
-    override = {},
+    defaults = {} as Asset,
+    override = {} as Asset,
     className = '',
     style = null,
     onClick = null,
@@ -69,8 +71,8 @@ const AirtableAsset = (props: Props): JSX.Element => {
     return null;
   }
   const identifier = id || `asset-${asset?.id}`;
-  const defaultClass = id ? `asset-${id}` : identifier;
-  const resolvedAssetProps: Asset = deepmerge.all([_defaultAsset, defaults, asset || {}, override]);
+  const dynamicClasses = (id ? `asset-${id}` : identifier) + (asset.ref ? ` ${asset.ref}` : '');
+  const resolvedAssetProps: Asset = deepmerge.all([_defaultAsset, defaults, asset || {}, override]) as Asset;
   const resolvedLinkProps: Link = deepmerge.all([
     _defaultLink,
     {
@@ -79,7 +81,7 @@ const AirtableAsset = (props: Props): JSX.Element => {
     },
     linkOverride,
   ]);
-  const transformations: AssetTransformations = transformationsOverride || asset.defaultTransformations;
+  const transformations: AssetTransformations = transformationsOverride || { width: asset.width, height: asset.height };
 
   // Convert "style" if it is a string, to a react style object (won't modify if already an object)
   resolvedAssetProps.style = cssToReactStyle(resolvedAssetProps.style);
@@ -102,7 +104,7 @@ const AirtableAsset = (props: Props): JSX.Element => {
         src={resolvedAssetProps.url}
         title={resolvedAssetProps.title || resolvedAssetProps.filename}
         alt={resolvedAssetProps.title || resolvedAssetProps.filename || resolvedAssetProps.url}
-        className={classnames(defaultClass, className, resolvedAssetProps.classes)}
+        className={classnames(dynamicClasses, className, resolvedAssetProps.classes)}
         style={deepmerge(style || {}, resolvedAssetProps.style || {})}
       />
     );

@@ -1,18 +1,16 @@
-import { css } from '@emotion/core';
 import React from 'react';
 
-const EnglishFlag = props => {
+type Props = {} & React.SVGProps<SVGSVGElement>;
+
+const EnglishFlag = (props: Props): JSX.Element => {
   return (
     <svg
       id="EnglishFlag_svg__Calque_3"
       x={0}
       y={0}
-      width="20px"
-      css={css`
-        padding-right: 20px;
-      `}
-      viewBox="0 0 35 17"
+      viewBox="0 0 30 17"
       xmlSpace="preserve"
+      width="20px"
       {...props}
     >
       <style>{'.EnglishFlag_svg__st2{fill:#002496}'}</style>
@@ -29,5 +27,4 @@ const EnglishFlag = props => {
   );
 };
 
-type Props = {} & React.SVGProps<SVGSVGElement>;
 export default EnglishFlag;

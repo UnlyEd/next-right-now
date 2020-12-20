@@ -62,7 +62,7 @@ const ExampleUIComponentsPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'ui-components'}
       headProps={{
-        title: 'UI components examples - Next Right Now',
+        seoTitle: 'UI components examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

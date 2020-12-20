@@ -1,10 +1,8 @@
-import { CUSTOMER2 } from '../../mocks/airtableDataset';
-import { AirtableRecord } from '../../types/data/AirtableRecord';
-import { Customer } from '../../types/data/Customer';
+import { CUSTOMER2 } from '../../mocks/mockedRawAirtableDataset';
 import hybridCache from '../caching/hybridCache';
 import { reset as cacheReset } from '../caching/memoryCacheStorage';
 import waitFor from '../timers/waitFor';
-import fetchAirtableTable, { GenericListApiResponse } from './fetchAirtableTable';
+import fetchAirtableTable  from './fetchAirtableTable';
 
 /**
  * @group integration
@@ -25,7 +23,6 @@ describe(`utils/api/fetchAirtable.ts`, () => {
       {
         ...CUSTOMER2,
         fields: { // Only list required fields, so that if Airtable API doesn't return optional fields, then the test still passes
-          products: CUSTOMER2.fields.products,
           theme: CUSTOMER2.fields.theme,
           ref: CUSTOMER2.fields.ref,
         },
@@ -36,7 +33,7 @@ describe(`utils/api/fetchAirtable.ts`, () => {
   describe(`fetchAirtableTable`, () => {
     describe(`should fetch correctly`, () => {
       test(`when not using any option`, async () => {
-        expect(await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer')).toMatchOneOf([
+        expect(await fetchAirtableTable('Customer')).toMatchOneOf([
           expectedShape,
           expectedShapeWithoutOptionalFields,
         ]);
@@ -57,7 +54,7 @@ describe(`utils/api/fetchAirtable.ts`, () => {
         // The first call should yield a cache miss and a cache set
         expect(await hybridCache('CustomerTable', async () => {
           ++counterDataResolverCalls;
-          return await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
+          return await fetchAirtableTable('Customer');
         })).toMatchOneOf([
           expectedShape,
           expectedShapeWithoutOptionalFields,
@@ -66,7 +63,7 @@ describe(`utils/api/fetchAirtable.ts`, () => {
         // The second call should yield a cache found
         expect(await hybridCache('CustomerTable', async () => {
           ++counterDataResolverCalls;
-          return await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
+          return await fetchAirtableTable('Customer');
         })).toMatchOneOf([
           expectedShape,
           expectedShapeWithoutOptionalFields,
@@ -91,7 +88,7 @@ describe(`utils/api/fetchAirtable.ts`, () => {
           // The first call should yield a cache miss and a cache set
           expect(await hybridCache('CustomerTable', async () => {
             ++counterDataResolverCalls;
-            return await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
+            return await fetchAirtableTable('Customer');
           }, { ttl: 1 })).toMatchOneOf([
             expectedShape,
             expectedShapeWithoutOptionalFields,
@@ -101,7 +98,7 @@ describe(`utils/api/fetchAirtable.ts`, () => {
           await waitFor(1001);
           expect(await hybridCache('CustomerTable', async () => {
             ++counterDataResolverCalls;
-            return await fetchAirtableTable<GenericListApiResponse<AirtableRecord<Customer>>>('Customer');
+            return await fetchAirtableTable('Customer');
           }, { ttl: 1 })).toMatchOneOf([
             expectedShape,
             expectedShapeWithoutOptionalFields,

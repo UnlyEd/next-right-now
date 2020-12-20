@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   Alert,
   Button,
@@ -16,11 +16,12 @@ import {
   Row,
   UncontrolledDropdown as Dropdown,
 } from 'reactstrap';
-
+import { CSSStyles } from '../../types/CSSStyles';
 import { Markdown as MarkdownType } from '../../types/Markdown';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
 import Tooltip from './SimpleTooltip';
+import classnames from 'classnames';
 
 const fileLabel = 'components/utils/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -30,6 +31,8 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 type Props = {
   text: MarkdownType;
   markdownOptions?: MarkdownOptions;
+  style?: CSSStyles;
+  className?: string;
 }
 
 const defaultMarkdownOptions: MarkdownOptions = {
@@ -62,6 +65,7 @@ const defaultMarkdownOptions: MarkdownOptions = {
     I18nBtnChangeLocale,
     Tooltip,
   },
+  disableParsingRawHTML: true, // XXX Won't be able to understand HTML tables within markdown when parsing is disabled, etc.
 };
 
 /**
@@ -70,7 +74,7 @@ const defaultMarkdownOptions: MarkdownOptions = {
  * @param props
  */
 const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { text, markdownOptions: _markdownOptions } = props;
+  const { text, markdownOptions: _markdownOptions, style, className } = props;
   const markdownOptions = deepmerge(defaultMarkdownOptions, _markdownOptions || {});
 
   // If providing a non-string input (like "null" or "undefined") then markdown-to-jsx will crash with "Cannot read property 'replace' of undefined" - See https://github.com/probablyup/markdown-to-jsx/issues/314
@@ -80,11 +84,16 @@ const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   try {
     return (
-      <MarkdownToJSX
-        options={markdownOptions}
+      <div
+        style={style}
+        className={classnames('markdown-container', className)}
       >
-        {text}
-      </MarkdownToJSX>
+        <MarkdownToJSX
+          options={markdownOptions}
+        >
+          {text}
+        </MarkdownToJSX>
+      </div>
     );
 
   } catch (e) {
@@ -96,9 +105,9 @@ const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
     });
 
     return (
-      <>
+      <Fragment>
         {text}
-      </>
+      </Fragment>
     );
   }
 };

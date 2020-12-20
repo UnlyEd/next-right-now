@@ -73,7 +73,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'static-i18n'}
       headProps={{
-        title: 'Static i18n examples - Next Right Now',
+        seoTitle: 'Static i18n examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
