@@ -8,12 +8,14 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import {
   faArrowCircleLeft,
   faArrowCircleRight,
+  faArrowRight,
   faBook,
   faBookReader,
   faCoffee,
   faHome,
   faQuestionCircle,
   faUserCog,
+  faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons';
 
 // See https://github.com/FortAwesome/react-fontawesome#integrating-with-other-tools-and-frameworks
@@ -46,10 +48,12 @@ library.add(
 library.add(
   faArrowCircleLeft,
   faArrowCircleRight,
+  faArrowRight,
   faBook,
   faBookReader,
   faCoffee,
   faHome,
   faQuestionCircle,
   faUserCog,
+  faExclamationTriangle,
 );
