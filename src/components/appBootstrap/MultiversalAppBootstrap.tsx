@@ -38,6 +38,7 @@ import { detectLightHouse } from '../../utils/quality/lighthouse';
 import { detectCypress } from '../../utils/testing/cypress';
 import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
+import ErrorDebug from '../errors/ErrorDebug';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
@@ -95,12 +96,26 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }: SSGPageProps | SSRPageProps = pageProps;
     configureSentryI18n(lang, locale);
 
+    if (typeof serializedDataset !== 'string') {
+      return (
+        <ErrorDebug
+          error={new Error(`Fatal error - Unexpected "serializedDataset" passed as page props.\n
+          Expecting string, but got "${typeof serializedDataset}".\n
+          This error is often caused by returning an invalid "serializedDataset" from a getStaticProps/getServerSideProps.\n
+          Make sure you return a correct value, using "serializeSafe".`)}
+          context={{
+            pageProps,
+          }}
+        />
+      );
+    }
+
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
       // XXX It's too cumbersome to do proper typings when type changes
       //  The "customer" was forwarded as a JSON-ish string (using Flatten) in order to avoid circular dependencies issues (SSG/SSR)
       //  It now being converted back into an object to be actually usable on all pages
       // eslint-disable-next-line no-console
-      console.debug('pageProps.serializedDataset length (bytes)', (serializedDataset as unknown as string).length);
+      console.debug('pageProps.serializedDataset length (bytes)', (serializedDataset as unknown as string)?.length);
       // console.debug('serializedDataset', serializedDataset);
     }
 
