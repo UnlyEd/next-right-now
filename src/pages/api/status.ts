@@ -45,6 +45,7 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       customerRef: process.env.NEXT_PUBLIC_CUSTOMER_REF,
       GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA,
       GIT_COMMIT_REF: process.env.GIT_COMMIT_REF,
+      GIT_COMMIT_TAGS: process.env.GIT_COMMIT_TAGS,
     });
   } catch (e) {
     logger.error(e.message);
