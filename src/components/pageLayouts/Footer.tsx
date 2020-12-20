@@ -64,7 +64,7 @@ const Footer: React.FunctionComponent<Props> = (props) => {
       }
 
       img {
-        max-width: 100%;
+        max-width: 300px;
       }
 
       .column-center {
