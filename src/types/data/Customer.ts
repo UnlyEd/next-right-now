@@ -22,10 +22,11 @@ export type Customer = {
   availableLanguages: string[];
   products?: AirtableRecord<Product>[];
   theme: AirtableRecord<Theme>;
-  terms?: I18nMarkdown;
-  termsEN?: Markdown;
-  termsFR?: Markdown;
   serviceLabel?: string;
-  termsDescription?: Markdown;
-  privacyDescription?: Markdown;
+  termsDescription?: I18nMarkdown;
+  termsDescriptionEN?: Markdown;
+  termsDescriptionFR?: Markdown;
+  privacyDescription?: I18nMarkdown;
+  privacyDescriptionEN?: Markdown;
+  privacyDescriptionFR?: Markdown;
 };
