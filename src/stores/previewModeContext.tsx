@@ -2,7 +2,7 @@ import React from 'react';
 import { PreviewData } from '../types/nextjs/PreviewData';
 
 export type PreviewModeContext = {
-  preview: boolean;
+  isPreviewModeEnabled: boolean;
   previewData: PreviewData;
 }
 

@@ -1,12 +1,13 @@
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
-
 import getTimestampsElapsedTime from '../time/getTimestampsElapsedTime';
+import waitFor from '../timers/waitFor';
+import { DiskStorageOptions } from './diskCacheStorage';
 import {
   CachedItem,
   HybridCacheStorage,
-  StorageOptions,
+  HybridStorageOptions,
 } from './hybridCacheStorage';
 
 const fileLabel = 'utils/cache/hybridCache';
@@ -22,9 +23,12 @@ type HybridCacheOptions = {
     type: 'disk';
     options: {
       filename: string;
+      prefix?: string;
+      suffix?: string;
     };
   };
   enabled: boolean; // Enabled by default
+  preDelay?: number; // Number of milliseconds to wait for before resolving the call (only used when the result isn't in the cache yet). Useful for adding some delay between parallel calls (e.g: API requests).
 }
 
 const defaultHybridCacheOptions: Required<HybridCacheOptions> = {
@@ -33,6 +37,7 @@ const defaultHybridCacheOptions: Required<HybridCacheOptions> = {
     type: 'memory',
   },
   enabled: true,
+  preDelay: 0,
 };
 
 /**
@@ -61,22 +66,21 @@ const defaultHybridCacheOptions: Required<HybridCacheOptions> = {
  * @param options HybridCacheOptions
  */
 const hybridCache = async <T>(keyResolver: string | (() => string), dataResolver: () => T, options: Partial<HybridCacheOptions> = defaultHybridCacheOptions): Promise<T> => {
-  const { ttl, enabled, storage } = deepmerge(defaultHybridCacheOptions, options);
+  const { ttl, enabled, storage, preDelay } = deepmerge(defaultHybridCacheOptions, options);
 
   if (!enabled) { // Bypasses cache completely
-    // eslint-disable-next-line no-console
-    logger.debug('Cache is disabled, bypassing');
+    logger.debug(`Cache is disabled, bypassing`);
     return dataResolver();
   }
   let cacheStorage: HybridCacheStorage;
-  let storageOptions: StorageOptions = {};
+  let storageOptions: HybridStorageOptions = {};
 
   if (storage.type === 'memory') {
     cacheStorage = require('./memoryCacheStorage');
   } else {
     cacheStorage = require('./diskCacheStorage');
     const { options } = storage;
-    storageOptions = options;
+    storageOptions = options as DiskStorageOptions;
   }
 
   let key: string;
@@ -95,12 +99,21 @@ const hybridCache = async <T>(keyResolver: string | (() => string), dataResolver
 
     // If TTL is disabled or if the cached value has not expired, then use the cache
     if (ttl === 0 || elapsedSeconds < ttl) {
+      // console.log(`Cache item used for ${key}`, ttl, elapsedSeconds);
       return value;
     } else {
-      logger.debug('Cache key has expired');
+      // console.log(`Cache item expired for ${key}`, ttl, elapsedSeconds);
+      logger.debug(`[${key}] Cache key has expired`);
     }
   } else {
-    logger.debug('Cache key does not exist');
+    // console.log(`Cache item not found for ${key}`);
+    logger.debug(`[${key}] Cache key does not exist`);
+  }
+
+  // If any preDelay is set, wait a bit before resolving the call
+  if (preDelay > 0) {
+    logger.debug(`[${key}] Waiting for ${preDelay}ms before resolving the data`);
+    await waitFor(preDelay);
   }
 
   const unMemoizedResult: T = await dataResolver();

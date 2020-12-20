@@ -32,6 +32,25 @@ const _defaultLink: Link = {
   className: '',
 };
 
+type Props = {
+  id: string;
+  asset: Asset;
+  transformationsOverride?: AssetTransformations;
+  defaults?: Asset;
+  override?: Asset;
+  className?: string;
+  style?: CSSStyles;
+  onClick?: () => void;
+  linkOverride?: {
+    id?: string;
+    url?: string;
+    target?: string;
+    style?: CSSStyles;
+    classes?: string;
+  };
+  forcePNGOutput?: boolean;
+}
+
 /**
  * Displays an asset, based on the provided props
  * Handles GraphCMS assets, including svg
@@ -169,24 +188,5 @@ GraphCMSAsset.propTypes = {
   }),
   forceOutputPNG: PropTypes.bool,
 };
-
-type Props = {
-  id: string;
-  asset: Asset;
-  transformationsOverride?: AssetTransformations;
-  defaults?: Asset;
-  override?: Asset;
-  className?: string;
-  style?: CSSStyles;
-  onClick?: () => void;
-  linkOverride?: {
-    id?: string;
-    url?: string;
-    target?: string;
-    style?: CSSStyles;
-    classes?: string;
-  };
-  forcePNGOutput?: boolean;
-}
 
 export default GraphCMSAsset;

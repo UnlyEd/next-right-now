@@ -9,6 +9,7 @@ declare global {
   namespace NodeJS {
     interface Global {
       muteConsole: () => any;
+      muteConsoleButLog: () => any;
       unmuteConsole: () => any;
     }
   }

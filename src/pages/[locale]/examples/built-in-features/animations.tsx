@@ -59,7 +59,7 @@ const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'animations'}
       headProps={{
-        title: 'Animations examples - Next Right Now',
+        seoTitle: 'Animations examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

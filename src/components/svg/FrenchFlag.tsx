@@ -3,8 +3,9 @@ import React from 'react';
 const FrenchFlag = props => {
   return (
     <svg
-      viewBox="0 0 35 17" {...props}
+      viewBox="0 0 35 17"
       width="20px"
+      {...props}
     >
       <style>
         {

@@ -17,5 +17,8 @@
       "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token"
     }
   },
+  "regions": [
+    "all"
+  ],
   "public": false
 }

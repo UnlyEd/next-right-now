@@ -59,7 +59,7 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'hocs'}
       headProps={{
-        title: 'HOCs examples - Next Right Now',
+        seoTitle: 'HOCs examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

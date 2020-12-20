@@ -58,7 +58,7 @@ const ExampleMonitoringPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'monitoring'}
       headProps={{
-        title: 'Monitoring examples - Next Right Now',
+        seoTitle: 'Monitoring examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

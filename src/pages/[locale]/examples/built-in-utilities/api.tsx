@@ -58,7 +58,7 @@ const ApiPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'api'}
       headProps={{
-        title: 'Api examples - Next Right Now',
+        seoTitle: 'Api examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

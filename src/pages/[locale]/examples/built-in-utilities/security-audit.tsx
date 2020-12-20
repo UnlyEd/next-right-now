@@ -58,7 +58,7 @@ const SecurityAuditPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'security-audit'}
       headProps={{
-        title: 'Security audit examples - Next Right Now',
+        seoTitle: 'Security audit examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

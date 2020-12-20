@@ -61,7 +61,7 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'index'}
       headProps={{
-        title: 'Homepage - Next Right Now',
+        seoTitle: 'Homepage - Next Right Now',
       }}
     >
       <Amplitude>

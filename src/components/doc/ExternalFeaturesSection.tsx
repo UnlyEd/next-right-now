@@ -8,6 +8,7 @@ import {
   CardText,
   CardTitle,
 } from 'reactstrap';
+import Btn from '../utils/Btn';
 
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
@@ -57,7 +58,7 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
 
               <div className={'buttons'}>
                 <ExternalLink href={'https://app.graphcms.com/b767f8ab435746e2909249461e2f1eb7/master'}>
-                  <Button color={'link'}>Go to GraphCMS</Button>
+                  <Btn mode={'primary-outline'}>Go to GraphCMS</Btn>
                 </ExternalLink>
               </div>
             </CardText>

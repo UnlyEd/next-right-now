@@ -3,18 +3,31 @@ import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
+import find from 'lodash.find';
+import includes from 'lodash.includes';
 import isEmpty from 'lodash.isempty';
+import size from 'lodash.size';
 import React, { useState } from 'react';
 import ErrorPage from '../../pages/_error';
+import { NO_AUTO_PREVIEW_MODE_KEY } from '../../pages/api/preview';
 import customerContext from '../../stores/customerContext';
+import datasetContext from '../../stores/datasetContext';
 import i18nContext from '../../stores/i18nContext';
 import previewModeContext from '../../stores/previewModeContext';
-import { Theme } from '../../types/data/Theme';
+import quickPreviewContext from '../../stores/quickPreviewContext';
+import { Customer } from '../../types/data/Customer';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { stringifyQueryParameters } from '../../utils/app/router';
+import {
+  i18nRedirect,
+  stringifyQueryParameters,
+} from '../../utils/app/router';
 import { initCustomerTheme } from '../../utils/data/theme';
+import deserializeSafe from '../../utils/graphCMSDataset/deserializeSafe';
+import { GraphCMSDataset } from '../../utils/graphCMSDataset/GraphCMSDataset';
+import { DEFAULT_LOCALE } from '../../utils/i18n/i18n';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
 import { configureSentryI18n } from '../../utils/monitoring/sentry';
 import {
@@ -25,6 +38,7 @@ import { detectLightHouse } from '../../utils/quality/lighthouse';
 import { detectCypress } from '../../utils/testing/cypress';
 import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
+import ErrorDebug from '../errors/ErrorDebug';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
@@ -75,34 +89,86 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     const {
-      customer,
+      serializedDataset,
       i18nTranslations,
       lang,
       locale,
     }: SSGPageProps | SSRPageProps = pageProps;
     configureSentryI18n(lang, locale);
 
-    let preview,
-      previewData;
+    if (typeof serializedDataset !== 'string') {
+      return (
+        <ErrorDebug
+          error={new Error(`Fatal error - Unexpected "serializedDataset" passed as page props.\n
+          Expecting string, but got "${typeof serializedDataset}".\n
+          This error is often caused by returning an invalid "serializedDataset" from a getStaticProps/getServerSideProps.\n
+          Make sure you return a correct value, using "serializeSafe".`)}
+          context={{
+            pageProps,
+          }}
+        />
+      );
+    }
+
+    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+      // XXX It's too cumbersome to do proper typings when type changes
+      //  The "customer" was forwarded as a JSON-ish string (using Flatten) in order to avoid circular dependencies issues (SSG/SSR)
+      //  It now being converted back into an object to be actually usable on all pages
+      // eslint-disable-next-line no-console
+      console.debug('pageProps.serializedDataset length (bytes)', (serializedDataset as unknown as string)?.length);
+      // console.debug('serializedDataset', serializedDataset);
+    }
+
+    const dataset: GraphCMSDataset = deserializeSafe(serializedDataset);
+    const customer: Customer = find(dataset, { __typename: 'Customer' }) as Customer;
+    let availableLanguages: string[] = customer?.availableLanguages;
+
+    if (isEmpty(availableLanguages)) {
+      // If no language have been set, apply default (fallback)
+      // XXX Applying proper default is critical to avoid an infinite loop
+      availableLanguages = [DEFAULT_LOCALE];
+    }
+
+    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser()) {
+      // eslint-disable-next-line no-console
+      console.debug(`pageProps.dataset (${size(Object.keys(dataset))} items)`, dataset);
+      // eslint-disable-next-line no-console
+      console.debug('dataset.customer', customer);
+    }
+
+    // If the locale used to display the page isn't available for this customer
+    // TODO This should be replaced by something better, ideally the pages for non-available locales shouldn't be generated at all and then this wouldn't be needed
+    if (!includes(availableLanguages, locale) && isBrowser()) {
+      // Then redirect to the same page using another locale (using the first available locale)
+      // XXX Be extra careful with this kind of redirects based on remote data!
+      //  It's easy to create an infinite redirect loop when the data aren't shaped as expected.
+      i18nRedirect(availableLanguages?.[0] || DEFAULT_LOCALE, router);
+      return null;
+    }
+
+    let isPreviewModeEnabled;
+    let previewData;
+    let isQuickPreviewPage;
 
     if ('preview' in pageProps) {
       // SSG
-      preview = pageProps.preview;
-      previewData = pageProps.previewData;
+      isPreviewModeEnabled = pageProps?.preview;
+      previewData = pageProps?.previewData;
 
       if (isBrowser()) {
         const queryParameters: string = stringifyQueryParameters(router);
         const isCypressRunning = detectCypress();
         const isLightHouseRunning = detectLightHouse();
+        const noAutoPreviewMode = new URLSearchParams(window?.location?.search)?.get(NO_AUTO_PREVIEW_MODE_KEY) === 'true';
 
         // XXX If we are running in staging stage and the preview mode is not enabled, then we force enable it
         //  We do this to enforce the staging stage is being used as a "preview environment" so it satisfies our publication workflow
         //  If we're running in development, then we don't enforce anything
         //  If we're running in production, then we force disable the preview mode, because we don't want to allow it in production
         // XXX Also, don't enable preview mode when Cypress or LightHouse are running to avoid bad performances
-        if (process.env.NEXT_PUBLIC_APP_STAGE === 'staging' && !preview && !isCypressRunning && !isLightHouseRunning) {
+        if (process.env.NEXT_PUBLIC_APP_STAGE === 'staging' && !isPreviewModeEnabled && !isCypressRunning && !isLightHouseRunning && !noAutoPreviewMode) {
           startPreviewMode(queryParameters);
-        } else if (process.env.NEXT_PUBLIC_APP_STAGE === 'production' && preview) {
+        } else if (process.env.NEXT_PUBLIC_APP_STAGE === 'production' && isPreviewModeEnabled) {
           logger.error('Preview mode is not allowed in production, but was detected as enabled. It will now be disabled by force.');
           Sentry.captureMessage('Preview mode is not allowed in production, but was detected as enabled. It will now be disabled by force.', Sentry.Severity.Error);
           stopPreviewMode(queryParameters);
@@ -110,8 +176,9 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       }
     } else {
       // SSR
-      preview = false;
+      isPreviewModeEnabled = false;
       previewData = null;
+      isQuickPreviewPage = pageProps?.isQuickPreviewPage;
     }
 
     if (!customer || !i18nTranslations || !lang || !locale) {
@@ -154,7 +221,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
-    const theme: Theme = initCustomerTheme(customer);
+    const customerTheme: CustomerTheme = initCustomerTheme(customer);
 
     /*
      * We split the rendering between server and browser
@@ -184,7 +251,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
           ...pageProps,
           i18nextInstance,
           isSSGFallbackInitialBuild: isSSGFallbackInitialBuild,
-          theme,
+          customerTheme,
         },
       };
     } else {
@@ -195,34 +262,38 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
           ...pageProps,
           i18nextInstance,
           isSSGFallbackInitialBuild: isSSGFallbackInitialBuild,
-          theme,
+          customerTheme,
         },
       };
     }
 
     return (
-      <previewModeContext.Provider value={{ preview, previewData }}>
-        <i18nContext.Provider value={{ lang, locale }}>
-          <customerContext.Provider value={customer}>
-            {/* XXX Global styles that applies to all pages go there */}
-            <MultiversalGlobalStyles theme={theme} />
+      <datasetContext.Provider value={dataset}>
+        <quickPreviewContext.Provider value={{ isQuickPreviewPage }}>
+          <previewModeContext.Provider value={{ isPreviewModeEnabled: isPreviewModeEnabled, previewData }}>
+            <i18nContext.Provider value={{ lang, locale }}>
+              <customerContext.Provider value={customer}>
+                {/* XXX Global styles that applies to all pages go there */}
+                <MultiversalGlobalStyles customerTheme={customerTheme} />
 
-            <ThemeProvider theme={theme}>
-              {
-                isBrowser() ? (
-                  <BrowserPageBootstrap
-                    {...browserPageBootstrapProps}
-                  />
-                ) : (
-                  <ServerPageBootstrap
-                    {...serverPageBootstrapProps}
-                  />
-                )
-              }
-            </ThemeProvider>
-          </customerContext.Provider>
-        </i18nContext.Provider>
-      </previewModeContext.Provider>
+                <ThemeProvider theme={customerTheme}>
+                  {
+                    isBrowser() ? (
+                      <BrowserPageBootstrap
+                        {...browserPageBootstrapProps}
+                      />
+                    ) : (
+                      <ServerPageBootstrap
+                        {...serverPageBootstrapProps}
+                      />
+                    )
+                  }
+                </ThemeProvider>
+              </customerContext.Provider>
+            </i18nContext.Provider>
+          </previewModeContext.Provider>
+        </quickPreviewContext.Provider>
+      </datasetContext.Provider>
     );
 
   } else {

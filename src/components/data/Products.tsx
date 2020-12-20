@@ -29,9 +29,12 @@ const Products: React.FunctionComponent<Props> = (props) => {
       `}
     >
       {
-        map(products, (product: Product) => {
+        map(products, (product: Product, i: number) => {
           return (
-            <ProductRow key={product.id} product={product} />
+            <ProductRow
+              key={product.id}
+              product={product}
+            />
           );
         })
       }

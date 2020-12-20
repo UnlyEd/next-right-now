@@ -1,5 +1,5 @@
 {
-  "//": "This file is used by CI/CD GitHub Actions and not meant to be used locally",
+  "//": "This file is used by CI/CD GitHub Actions (staging + production) and not meant to be used locally",
   "baseUrl": "https://nrn-customer.vercel.app",
   "projectId": "4dvdog",
   "screenshotsFolder": "cypress/screenshots/customer",
