@@ -1,4 +1,6 @@
 import { AirtableSchema } from './types/airtableDataset/AirtableSchema';
+import { GenericPostConsolidationTransformationValueInputProps } from './types/airtableDataset/FieldSchema';
+import { Product } from './types/data/Product';
 
 type Props = {}
 
@@ -63,7 +65,14 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
           isI18n: true,
         },
         images: {},
-        imagesTitle: {}, // TODO split by ', ' and build as array of strings
+        imagesTitle: {
+          consolidations: {
+            transformConsolidatedValue: (props: GenericPostConsolidationTransformationValueInputProps): string[] => {
+              const { sanitizedRecord: product } = props;
+              return product?.imagesTitle?.split(', ') || [];
+            },
+          }
+        },
         description: {
           isI18n: true,
         },
