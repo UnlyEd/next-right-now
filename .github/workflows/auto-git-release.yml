@@ -5,6 +5,7 @@
 # See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
 # See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
 
+
 name: 'Auto release'
 on:
   push:
