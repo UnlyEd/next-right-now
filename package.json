@@ -28,6 +28,7 @@
     "deploy:fake": "git commit --allow-empty -m \"Fake empty commit (force CI trigger)\"",
     "vercel:cleanup": "npx del-cli .vercel/ && npx del-cli .vercel/",
     "vercel:deploy": ". ./scripts/populate-git-env.sh && vercel -b GIT_COMMIT_TAGS=$GIT_COMMIT_TAGS -b GIT_COMMIT_REF=$GIT_COMMIT_REF -b GIT_COMMIT_SHA=$GIT_COMMIT_SHA --confirm --debug --force",
+    "script:populate-git-env:print": ". ./scripts/populate-git-env.sh && echo 'SHA: '${GIT_COMMIT_SHA} && echo 'REF (current branch/tag): '${GIT_COMMIT_REF} && echo 'TAGS: '${GIT_COMMIT_TAGS}",
     "git:getReleasesAndTags": "git tag --points-at HEAD | tr '\\r\\n' ' '",
     "git:getCommitSHA": "git rev-parse HEAD",
     "git:getCommitSHA:short": "git rev-parse --short HEAD",
