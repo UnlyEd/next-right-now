@@ -24,4 +24,5 @@ export type Theme = {
   errorColor?: string;
   onErrorColor?: string;
   logo?: AirtableAttachment;
+  fonts?: string;
 } & AirtableRecordBaseFields;

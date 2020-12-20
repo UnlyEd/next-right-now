@@ -1,6 +1,5 @@
 import { AirtableSchema } from './types/airtableDataset/AirtableSchema';
 import { GenericPostConsolidationTransformationValueInputProps } from './types/airtableDataset/FieldSchema';
-import { Product } from './types/data/Product';
 
 type Props = {}
 
@@ -53,7 +52,12 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
           },
         },
         serviceLabel: {},
-        privacyDescription: {},
+        termsDescription: {
+          isI18n: true,
+        },
+        privacyDescription: {
+          isI18n: true,
+        },
       },
     },
     Product: {
@@ -71,7 +75,7 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
               const { sanitizedRecord: product } = props;
               return product?.imagesTitle?.split(', ') || [];
             },
-          }
+          },
         },
         description: {
           isI18n: true,
@@ -95,10 +99,11 @@ export const getAirtableSchema = (props?: Props): AirtableSchema => {
         onSurfaceColor: {},
         errorColor: {},
         onErrorColor: {},
+        fonts: {},
         logo: {
           transformations: {
             asSingleRecord: true,
-          }
+          },
         },
         logoTitle: {},
       },
