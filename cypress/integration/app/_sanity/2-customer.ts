@@ -19,7 +19,7 @@ describe('Sanity checks > Browser data', () => {
   it(`should have "window.${CYPRESS_WINDOW_NS}.dataset" defined`, () => {
     cy.get('@dataset').then((dataset) => {
       assert.isDefined(dataset);
-      expect(Object.keys(dataset).length).to.be.greaterThan(1);
+      expect(Object.keys(dataset).length).to.be.greaterThan(0);
     });
   });
 
