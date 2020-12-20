@@ -15,8 +15,8 @@ describe('Index page', () => {
     cy.prepareDOMAliases();
   });
 
-  it('should display at least one module card', () => {
-    cy.get('.module-card').its('length').should('be.gte', 1);
+  it('should display a main title', () => {
+    cy.get('h1').should('have.length', 1).should('have.text', 'Next Right Now Demo');
   });
 });
 
