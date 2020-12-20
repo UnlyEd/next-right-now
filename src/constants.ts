@@ -6,7 +6,7 @@ export const NRN_DEFAULT_SERVICE_LABEL = process.env.NEXT_PUBLIC_APP_STAGE === '
 /**
  * Co-branding logo displayed in the footer ("powered by Unly")
  */
-export const NRN_CO_BRANDING_LOGO_URL = '/static/images/LOGO_Powered_by_UNLY_monochrome_WHITE.svg';
+export const NRN_CO_BRANDING_LOGO_URL = '/static/images/LOGO_Powered_by_UNLY_BLACK_BLUE.svg';
 
 /**
  * Fallback fonts used until our own fonts have been loaded by the browser.
