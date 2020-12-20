@@ -112,8 +112,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
         // source: '/:path*', // Match all paths, excluding "/"
         headers: [
           {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
+            key: 'Content-Security-Policy',
+            value: 'frame-ancestors *.stacker.app',
           },
         ],
       });
