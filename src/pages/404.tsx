@@ -119,7 +119,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
           text-align: center;
         `}
       >
-        <FontAwesomeIcon icon="exclamation-triangle" size={'8x'} />
+        <FontAwesomeIcon icon="exclamation-triangle" size={'4x'} />
         {content}
 
         <I18nLink
