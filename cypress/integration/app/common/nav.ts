@@ -18,7 +18,7 @@ describe('Common > Nav section', () => {
   });
 
   it('should have 3 links in the navigation bar', () => {
-    cy.get('#nav .navbar-nav > .nav-item').should('have.length', 3);
+    cy.get('#nav .navbar-nav > .nav-item').should('have.length', 5);
   });
 
   it('should have a link in the navbar that redirects to the home page', () => {

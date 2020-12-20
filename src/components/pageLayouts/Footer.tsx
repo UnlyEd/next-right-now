@@ -72,9 +72,9 @@ const Footer: React.FunctionComponent<Props> = () => {
       <Row className={'justify-content-end'}>
         <Col md={4} xs={12} className={'column-left text-md-left mt-4'}>
           <AirtableAsset
-            id={'footer-logo-organisation-brand'}
+            id={'footer-logo'}
             asset={logo}
-            linkOverride={{ id: 'link-footer-logo-organisation-brand' }}
+            linkOverride={{ id: 'link-footer-logo' }}
           />
         </Col>
         <Col md={4} xs={12} className={'column-center align-items-end mt-4'}>
