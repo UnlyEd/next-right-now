@@ -1,7 +1,7 @@
 # Summary:
 # Automatically tag and release when changes land on the "main" branches.
 #
-# See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.1.2
+# See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.2
 # See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
 # See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
 
@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
-      - uses: paulhatch/semantic-version@v3.1.2
+      - uses: paulhatch/semantic-version@v3.2
         id: next_semantic_version # Output: https://github.com/PaulHatch/semantic-version/blob/master/index.js#L63-L69
         with: # See https://github.com/PaulHatch/semantic-version#usage
           branch: ${{ env.GITHUB_REF_SLUG }} # Use current branch
@@ -30,6 +30,8 @@ jobs:
           major_pattern: "(MAJOR)" # A string which, if present in a git commit, indicates that a change represents a major (breaking) change
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
           format: "${major}.${minor}.${patch}-${{ env.GITHUB_REF_SLUG }}" # A string to determine the format of the version output
+          short_tags: false # If set to false, short tags like "v1" will not be considered, only full versions tags such as "v1.0.0" will be used to determine the version.
+          bump_each_commit: true # If this input is set to true, every commit will be treated as a new version, bumping the patch, minor, or major version based on the commit message.
       - run: |
           echo "Branch name: ${{ env.GITHUB_REF_SLUG }}"
           echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
