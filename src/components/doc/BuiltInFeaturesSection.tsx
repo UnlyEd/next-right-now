@@ -78,7 +78,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
               </Alert>
               <div className={'buttons'}>
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/tenancy.html'}>
-                  <Btn mode={'primary-outline'}>Learn more about the "tenancy" concept and what <code>MST</code> means</Btn>
+                  <Btn mode={'primary-outline'}>Learn more about the "tenancy" concept and what&nbsp;MST means</Btn>
                 </ExternalLink>
               </div>
             </CardText>

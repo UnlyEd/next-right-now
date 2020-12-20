@@ -55,7 +55,7 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
               <div className={'buttons'}>
                 <ExternalLink href={process.env.NEXT_PUBLIC_CUSTOMER_REF === 'customer1' ? 'https://nrn.my.stacker.app/login?api_token=be1050d1-de5e-4ae0-97c8-030a132f254b&ref=unly-nrn' : 'https://nrn.my.stacker.app/login?api_token=c3a703bc-c4cc-42ee-aeac-03643636dbb0&ref=unly-nrn'}>
                   <Btn mode={'primary-outline'}>
-                    Impersonate <b>Customer {process.env.NEXT_PUBLIC_CUSTOMER_REF === 'customer1' ? '1' : '2'} Admin</b> and play with this demo
+                    Impersonate&nbsp;<b>Customer {process.env.NEXT_PUBLIC_CUSTOMER_REF === 'customer1' ? '1' : '2'} Admin</b>&nbsp;and play with this demo
                   </Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://airtable.com/shrnxN46JDBkQV9u1'}>
