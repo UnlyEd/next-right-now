@@ -63,7 +63,7 @@ const TrackingUselessReRendersPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'tracking-useless-re-renders'}
       headProps={{
-        title: 'Tracking useless re-renders examples - Next Right Now',
+        seoTitle: 'Tracking useless re-renders examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

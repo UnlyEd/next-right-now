@@ -1,4 +1,3 @@
-import { css } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
@@ -10,21 +9,18 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Container } from 'reactstrap';
-
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import Code from '../../components/utils/Code';
-import Markdown from '../../components/utils/Markdown';
+import LegalContent from '../../components/utils/LegalContent';
 import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
 import withApollo from '../../hocs/withApollo';
 import useCustomer from '../../hooks/useCustomer';
 import { Customer } from '../../types/data/Customer';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-
 import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { createApolloClient } from '../../utils/gql/graphql';
+import { AMPLITUDE_PAGES } from '../../utils/analytics/amplitude';
 import { replaceAllOccurrences } from '../../utils/js/string';
 import {
   getExamplesCommonStaticPaths,
@@ -109,88 +105,33 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
+/**
+ * Terms page, that displays all legal-related information.
+ *
+ * Basically displays a bunch of markdown that's coming from the CMS.
+ */
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
-  const { theme } = customer;
-  const { primaryColor } = theme;
-  const termsRaw: string = customer?.terms?.html;
+  const { termsDescription, serviceLabel } = customer || {};
+  const termsRaw: string = termsDescription.html;
 
-  // Replace dynamic values like "{customerLabel}" by their actual value
-  const terms = replaceAllOccurrences(termsRaw || '', {
+  // Replace dynamic values (like "{customerLabel}") by their actual value
+  const terms = replaceAllOccurrences(termsRaw, {
+    serviceLabel: `**${serviceLabel}**`,
     customerLabel: `**${customer?.label}**`,
   });
 
   return (
     <DefaultLayout
       {...props}
-      pageName={'terms'}
+      pageName={AMPLITUDE_PAGES.TERMS_PAGE}
       headProps={{
         title: 'Terms - Next Right Now',
       }}
     >
-      <Container>
-        <div
-          css={css`
-            justify-content: center;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-
-            .source {
-              margin: auto;
-            }
-
-            .terms-content {
-              margin: 50px 150px 150px;
-
-              h1 {
-               color: ${primaryColor};
-               font-size: 35px;
-              }
-
-              h2 {
-               font-size: 20px;
-               margin-top: 35px;
-              }
-
-              h3 {
-               font-size: 17px;
-              }
-
-              h4 {
-               font-size: 13px;
-               font-weight: 300;
-              }
-
-              h5 {
-               font-size: 13px;
-               font-weight: 100;
-              }
-
-              h6 {
-               font-size: 10px;
-              }
-            }
-          `}
-        >
-          <div className={'terms-content'}>
-            {
-              <Markdown
-                text={terms}
-              />
-            }
-          </div>
-
-          <hr />
-
-          <div className={'source'}>
-            <h2>Field's value (fetched from GraphQL API), as <code>RichText</code> (interpreted as HTML):</h2>
-            <Code
-              text={`${termsRaw}`}
-            />
-          </div>
-        </div>
-      </Container>
+      <LegalContent
+        content={terms}
+      />
     </DefaultLayout>
   );
 };

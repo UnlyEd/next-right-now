@@ -7,19 +7,27 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+import { CYPRESS_WINDOW_NS } from '../../src/utils/testing/cypress';
+
+/**
+ * Prepare DOM aliases by fetching the customer data from the browser window and aliasing them for later use.
+ *
+ * @example cy.prepareDOMAliases();
+ */
+Cypress.Commands.add('prepareDOMAliases', () => {
+  return cy.window().then((window) => {
+    cy.get('.page-wrapper').then(() => { // Wait for the DOM element to be created by Next.js before trying to read any dynamic data from the "window" object
+      cy.log(`window[${CYPRESS_WINDOW_NS}]`, window[CYPRESS_WINDOW_NS]);
+
+      const {
+        customer,
+        dataset,
+      } = window[CYPRESS_WINDOW_NS];
+
+      // Use aliases to make our variables reusable across tests - See https://docs.cypress.io/guides/core-concepts/variables-and-aliases.html#Sharing-Context
+      cy.wrap(customer).as('customer');
+      cy.wrap(dataset).as('dataset');
+    });
+  });
+});

@@ -1,6 +1,5 @@
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { I18nextResources } from '../../utils/i18n/i18nextLocize';
-import { Customer } from '../data/Customer';
 
 /**
  * Page properties available on all pages, whether they're rendered statically, dynamically, from the server or the client
@@ -12,7 +11,7 @@ import { Customer } from '../data/Customer';
 export type MultiversalPageProps<E extends {} = {}> = {
   apolloState: NormalizedCacheObject;
   bestCountryCodes: string[];
-  customer: Customer;
+  serializedDataset: string; // Transferred from server to browser as JSON (using Flatten.stringify), then parsed on the browser/server within the MultiversalAppBootstrap
   customerRef: string;
   error?: Error; // Only defined if there was an error
   gcmsLocales: string;

@@ -26,6 +26,7 @@ describe('utils/data/record.ts', () => {
         null: null,
         notFound: NOT_FOUND,
         htmlEmptyParagraph: '<p></p>',
+        airtableEmptyLongTextField: '\n',
       };
 
       // @ts-expect-error
@@ -38,6 +39,7 @@ describe('utils/data/record.ts', () => {
       expect(hasValue(item, 'null')).toEqual(false);
       expect(hasValue(item, 'notFound')).toEqual(false);
       expect(hasValue(item, 'htmlEmptyParagraph')).toEqual(false);
+      expect(hasValue(item, 'airtableEmptyLongTextField')).toEqual(false);
     });
 
     // Edge cases, not handled yet

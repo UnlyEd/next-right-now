@@ -58,7 +58,7 @@ const HostingPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'hosting'}
       headProps={{
-        title: 'Hosting - Next Right Now',
+        seoTitle: 'Hosting - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

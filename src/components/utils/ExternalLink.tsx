@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -33,7 +33,7 @@ const ExternalLink: React.FunctionComponent<Props> = (props): JSX.Element => {
   } = props;
 
   return (
-    <>
+    <Fragment>
       {prefix}
       <a
         href={href}
@@ -44,7 +44,7 @@ const ExternalLink: React.FunctionComponent<Props> = (props): JSX.Element => {
         {children}
       </a>
       {suffix}
-    </>
+    </Fragment>
   );
 };
 

@@ -1,8 +1,7 @@
 import * as Sentry from '@sentry/node';
-import get from 'lodash.get';
 import { NextPageContext } from 'next';
 import NextError, { ErrorProps as NextErrorProps } from 'next/error';
-import React from 'react';
+import React, { Fragment } from 'react';
 
 export type ErrorPageProps = {
   err: Error;
@@ -62,7 +61,7 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
   }
 
   return (
-    <>
+    <Fragment>
       {
         // Render the children if provided, or return the native NextError component from Next
         children ? (
@@ -72,11 +71,11 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
             statusCode={statusCode}
             // Only display title in non-production stages, to avoid leaking debug information to end-users
             // When "null" is provided, it'll fallback to Next.js default message (based on the statusCode)
-            title={process.env.NEXT_PUBLIC_APP_STAGE !== 'production' ? get(err, 'message', null) : null}
+            title={process.env.NEXT_PUBLIC_APP_STAGE !== 'production' ? err?.message : null}
           />
         )
       }
-    </>
+    </Fragment>
   );
 };
 

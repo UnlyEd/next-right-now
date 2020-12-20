@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -14,4 +15,15 @@ export const mockResponse = (): NextApiResponse => {
   res.status = jest.fn().mockReturnValue(res);
   res.json = jest.fn().mockReturnValue(res);
   return res;
+};
+
+/**
+ * Mock the I18next T function ("translation").
+ * Does nothing but returning the default translation, or the key.
+ *
+ * @param key
+ * @param defaultTranslation
+ */
+export const t: TFunction = (key: string, defaultTranslation: string) => {
+  return defaultTranslation || key;
 };

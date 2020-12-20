@@ -18,7 +18,14 @@ const fetchJSON: <JSON = any>(
   init?: RequestInit,
 ) => Promise<JSON> = async (...args) => {
   const res = await fetch(...args);
-  if (!res.ok) throw new Error(res.statusText);
+  if (!res.ok) {
+    let errorMessage = res.statusText;
+    try {
+      errorMessage += ` - ${JSON.stringify(await res.json(), null, 2)}`;
+    } finally {
+      throw new Error(errorMessage);
+    }
+  }
   return res.json();
 };
 

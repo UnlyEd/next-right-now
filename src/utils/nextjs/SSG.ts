@@ -174,7 +174,9 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
     props: {
       apolloState: apolloClient.cache.extract(),
       bestCountryCodes,
-      customer,
+      serializedDataset: {
+        customer, // TODO serialize
+      }
       customerRef,
       i18nTranslations,
       gcmsLocales,

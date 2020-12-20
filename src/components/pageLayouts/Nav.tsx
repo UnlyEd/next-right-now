@@ -2,6 +2,7 @@ import { Amplitude } from '@amplitude/react-amplitude';
 import { css } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
+import { useTheme } from 'emotion-theming';
 import kebabCase from 'lodash.kebabcase';
 import map from 'lodash.map';
 import {
@@ -22,10 +23,11 @@ import {
   Row,
   UncontrolledDropdown,
 } from 'reactstrap';
-
 import useI18n, { I18n } from '../../hooks/useI18n';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { LogEvent } from '../../types/Amplitude';
+import { Asset } from '../../types/data/Asset';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { SidebarLink } from '../../types/SidebarLink';
 import {
   isActive,
@@ -43,6 +45,8 @@ type Props = {};
 const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
+  const theme = useTheme<CustomerTheme>();
+  const { primaryColor, logo } = theme;
   const { theme }: CustomerContext = React.useContext(customerContext);
   const { locale }: I18n = useI18n();
   const { primaryColor, logo } = theme;
@@ -147,10 +151,9 @@ const Nav: React.FunctionComponent<Props> = () => {
           <div className={'brand-logo'}>
             <GraphCMSAsset
               id={'nav-logo-brand'}
-              asset={logo}
+              asset={logo as unknown as Asset}
               linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
               transformationsOverride={{
-                width: 75,
                 height: 100,
               }}
             />

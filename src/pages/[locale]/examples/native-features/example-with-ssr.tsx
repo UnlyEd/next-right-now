@@ -136,7 +136,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'example-with-ssr'}
       headProps={{
-        title: `${size(products)} products (SSR) - Next Right Now`,
+        seoTitle: `${size(products)} products (SSR) - Next Right Now`,
       }}
       Sidebar={NativeFeaturesSidebar}
     >

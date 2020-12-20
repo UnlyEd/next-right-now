@@ -1,5 +1,6 @@
 node_modules
 .next
+cypress
 src/**/*.test*
 src/gql/**
 src/propTypes/**
