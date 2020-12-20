@@ -10,7 +10,7 @@ export const TERMS_PAGE_QUERY = gql`
     }){
       id
       label
-      terms {
+      termsDescription {
         html
       }
     }

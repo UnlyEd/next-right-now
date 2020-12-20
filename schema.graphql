@@ -150,6 +150,7 @@ type Color {
 
 "A B2B customer. All content belongs to a customer."
 type Customer implements Node {
+  availableLanguages: AvailableLanguages
   "The time the document was created"
   createdAt(
     "Variation of DateTime field to return, allows value from base document, current localization, or combined by returning the newer value of both"
@@ -183,6 +184,8 @@ type Customer implements Node {
     "Potential locales that should be returned"
     locales: [Locale!]! = [en, fr]
   ): [Customer!]!
+  privacyDescription: RichText
+  "Products"
   products(
     after: String,
     before: String,
@@ -210,7 +213,7 @@ type Customer implements Node {
   ref: String!
   "System stage field"
   stage: Stage!
-  terms: RichText
+  termsDescription: RichText
   theme(
     """
 
@@ -1147,6 +1150,7 @@ type RichText {
 }
 
 type Theme implements Node {
+  backgroundColor: String
   "The time the document was created"
   createdAt: DateTime!
   customer(
@@ -1170,6 +1174,8 @@ type Theme implements Node {
     "Potential stages that should be returned"
     stages: [Stage!]! = [PUBLISHED, DRAFT]
   ): [Theme!]!
+  errorColor: String
+  fonts: String
   "List of Theme versions"
   history(
     limit: Int! = 10,
@@ -1191,11 +1197,20 @@ type Theme implements Node {
     """
     locales: [Locale!]
   ): Asset!
+  onBackgroundColor: String
+  onErrorColor: String
+  onPrimaryColor: String
+  onSecondaryColor: String
+  onSurfaceColor: String
   primaryColor: String!
+  primaryColorVariant1: String
   "The time the document was published. Null on documents in draft stage."
   publishedAt: DateTime
+  secondaryColor: String
+  secondaryColorVariant1: String
   "System stage field"
   stage: Stage!
+  surfaceColor: String
   "The time the document was updated"
   updatedAt: DateTime!
 }
@@ -1249,7 +1264,14 @@ enum AssetOrderByInput {
   width_DESC
 }
 
+enum AvailableLanguages {
+  en
+  fr
+}
+
 enum CustomerOrderByInput {
+  availableLanguages_ASC
+  availableLanguages_DESC
   createdAt_ASC
   createdAt_DESC
   id_ASC
@@ -1332,14 +1354,38 @@ enum SystemDateTimeFieldVariation {
 }
 
 enum ThemeOrderByInput {
+  backgroundColor_ASC
+  backgroundColor_DESC
   createdAt_ASC
   createdAt_DESC
+  errorColor_ASC
+  errorColor_DESC
+  fonts_ASC
+  fonts_DESC
   id_ASC
   id_DESC
+  onBackgroundColor_ASC
+  onBackgroundColor_DESC
+  onErrorColor_ASC
+  onErrorColor_DESC
+  onPrimaryColor_ASC
+  onPrimaryColor_DESC
+  onSecondaryColor_ASC
+  onSecondaryColor_DESC
+  onSurfaceColor_ASC
+  onSurfaceColor_DESC
+  primaryColorVariant1_ASC
+  primaryColorVariant1_DESC
   primaryColor_ASC
   primaryColor_DESC
   publishedAt_ASC
   publishedAt_DESC
+  secondaryColorVariant1_ASC
+  secondaryColorVariant1_DESC
+  secondaryColor_ASC
+  secondaryColor_DESC
+  surfaceColor_ASC
+  surfaceColor_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
@@ -1962,15 +2008,18 @@ input CustomerConnectInput {
 }
 
 input CustomerCreateInput {
+  availableLanguages: AvailableLanguages
   createdAt: DateTime
   "label input for default locale (en)"
   label: String
   "Inline mutations for managing document localizations excluding the default locale"
   localizations: CustomerCreateLocalizationsInput
+  "privacyDescription input for default locale (en)"
+  privacyDescription: RichTextAST
   products: ProductCreateManyInlineInput
   ref: String!
-  "terms input for default locale (en)"
-  terms: RichTextAST
+  "termsDescription input for default locale (en)"
+  termsDescription: RichTextAST
   theme: ThemeCreateOneInlineInput
   updatedAt: DateTime
 }
@@ -1978,7 +2027,8 @@ input CustomerCreateInput {
 input CustomerCreateLocalizationDataInput {
   createdAt: DateTime
   label: String
-  terms: RichTextAST
+  privacyDescription: RichTextAST
+  termsDescription: RichTextAST
   updatedAt: DateTime
 }
 
@@ -2017,6 +2067,13 @@ input CustomerManyWhereInput {
   OR: [CustomerWhereInput!]
   "Contains search across all appropriate fields."
   _search: String
+  availableLanguages: AvailableLanguages
+  "All values that are contained in given list."
+  availableLanguages_in: [AvailableLanguages!]
+  "All values that are not equal to given value."
+  availableLanguages_not: AvailableLanguages
+  "All values that are not contained in given list."
+  availableLanguages_not_in: [AvailableLanguages!]
   createdAt: DateTime
   "All values greater than the given value."
   createdAt_gt: DateTime
@@ -2107,20 +2164,24 @@ input CustomerManyWhereInput {
 }
 
 input CustomerUpdateInput {
+  availableLanguages: AvailableLanguages
   "label input for default locale (en)"
   label: String
   "Manage document localizations"
   localizations: CustomerUpdateLocalizationsInput
+  "privacyDescription input for default locale (en)"
+  privacyDescription: RichTextAST
   products: ProductUpdateManyInlineInput
   ref: String
-  "terms input for default locale (en)"
-  terms: RichTextAST
+  "termsDescription input for default locale (en)"
+  termsDescription: RichTextAST
   theme: ThemeUpdateOneInlineInput
 }
 
 input CustomerUpdateLocalizationDataInput {
   label: String
-  terms: RichTextAST
+  privacyDescription: RichTextAST
+  termsDescription: RichTextAST
 }
 
 input CustomerUpdateLocalizationInput {
@@ -2156,17 +2217,21 @@ input CustomerUpdateManyInlineInput {
 }
 
 input CustomerUpdateManyInput {
+  availableLanguages: AvailableLanguages
   "label input for default locale (en)"
   label: String
   "Optional updates to localizations"
   localizations: CustomerUpdateManyLocalizationsInput
-  "terms input for default locale (en)"
-  terms: RichTextAST
+  "privacyDescription input for default locale (en)"
+  privacyDescription: RichTextAST
+  "termsDescription input for default locale (en)"
+  termsDescription: RichTextAST
 }
 
 input CustomerUpdateManyLocalizationDataInput {
   label: String
-  terms: RichTextAST
+  privacyDescription: RichTextAST
+  termsDescription: RichTextAST
 }
 
 input CustomerUpdateManyLocalizationInput {
@@ -2238,6 +2303,13 @@ input CustomerWhereInput {
   OR: [CustomerWhereInput!]
   "Contains search across all appropriate fields."
   _search: String
+  availableLanguages: AvailableLanguages
+  "All values that are contained in given list."
+  availableLanguages_in: [AvailableLanguages!]
+  "All values that are not equal to given value."
+  availableLanguages_not: AvailableLanguages
+  "All values that are not contained in given list."
+  availableLanguages_not_in: [AvailableLanguages!]
   createdAt: DateTime
   "All values greater than the given value."
   createdAt_gt: DateTime
@@ -2842,10 +2914,22 @@ input ThemeConnectInput {
 }
 
 input ThemeCreateInput {
+  backgroundColor: String
   createdAt: DateTime
   customer: CustomerCreateOneInlineInput
+  errorColor: String
+  fonts: String
   logo: AssetCreateOneInlineInput!
+  onBackgroundColor: String
+  onErrorColor: String
+  onPrimaryColor: String
+  onSecondaryColor: String
+  onSurfaceColor: String
   primaryColor: String!
+  primaryColorVariant1: String
+  secondaryColor: String
+  secondaryColorVariant1: String
+  surfaceColor: String
   updatedAt: DateTime
 }
 
@@ -2873,6 +2957,25 @@ input ThemeManyWhereInput {
   OR: [ThemeWhereInput!]
   "Contains search across all appropriate fields."
   _search: String
+  backgroundColor: String
+  "All values containing the given string."
+  backgroundColor_contains: String
+  "All values ending with the given string."
+  backgroundColor_ends_with: String
+  "All values that are contained in given list."
+  backgroundColor_in: [String!]
+  "All values that are not equal to given value."
+  backgroundColor_not: String
+  "All values not containing the given string."
+  backgroundColor_not_contains: String
+  "All values not ending with the given string"
+  backgroundColor_not_ends_with: String
+  "All values that are not contained in given list."
+  backgroundColor_not_in: [String!]
+  "All values not starting with the given string."
+  backgroundColor_not_starts_with: String
+  "All values starting with the given string."
+  backgroundColor_starts_with: String
   createdAt: DateTime
   "All values greater than the given value."
   createdAt_gt: DateTime
@@ -2889,6 +2992,44 @@ input ThemeManyWhereInput {
   "All values that are not contained in given list."
   createdAt_not_in: [DateTime!]
   customer: CustomerWhereInput
+  errorColor: String
+  "All values containing the given string."
+  errorColor_contains: String
+  "All values ending with the given string."
+  errorColor_ends_with: String
+  "All values that are contained in given list."
+  errorColor_in: [String!]
+  "All values that are not equal to given value."
+  errorColor_not: String
+  "All values not containing the given string."
+  errorColor_not_contains: String
+  "All values not ending with the given string"
+  errorColor_not_ends_with: String
+  "All values that are not contained in given list."
+  errorColor_not_in: [String!]
+  "All values not starting with the given string."
+  errorColor_not_starts_with: String
+  "All values starting with the given string."
+  errorColor_starts_with: String
+  fonts: String
+  "All values containing the given string."
+  fonts_contains: String
+  "All values ending with the given string."
+  fonts_ends_with: String
+  "All values that are contained in given list."
+  fonts_in: [String!]
+  "All values that are not equal to given value."
+  fonts_not: String
+  "All values not containing the given string."
+  fonts_not_contains: String
+  "All values not ending with the given string"
+  fonts_not_ends_with: String
+  "All values that are not contained in given list."
+  fonts_not_in: [String!]
+  "All values not starting with the given string."
+  fonts_not_starts_with: String
+  "All values starting with the given string."
+  fonts_starts_with: String
   id: ID
   "All values containing the given string."
   id_contains: ID
@@ -2909,7 +3050,121 @@ input ThemeManyWhereInput {
   "All values starting with the given string."
   id_starts_with: ID
   logo: AssetWhereInput
+  onBackgroundColor: String
+  "All values containing the given string."
+  onBackgroundColor_contains: String
+  "All values ending with the given string."
+  onBackgroundColor_ends_with: String
+  "All values that are contained in given list."
+  onBackgroundColor_in: [String!]
+  "All values that are not equal to given value."
+  onBackgroundColor_not: String
+  "All values not containing the given string."
+  onBackgroundColor_not_contains: String
+  "All values not ending with the given string"
+  onBackgroundColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onBackgroundColor_not_in: [String!]
+  "All values not starting with the given string."
+  onBackgroundColor_not_starts_with: String
+  "All values starting with the given string."
+  onBackgroundColor_starts_with: String
+  onErrorColor: String
+  "All values containing the given string."
+  onErrorColor_contains: String
+  "All values ending with the given string."
+  onErrorColor_ends_with: String
+  "All values that are contained in given list."
+  onErrorColor_in: [String!]
+  "All values that are not equal to given value."
+  onErrorColor_not: String
+  "All values not containing the given string."
+  onErrorColor_not_contains: String
+  "All values not ending with the given string"
+  onErrorColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onErrorColor_not_in: [String!]
+  "All values not starting with the given string."
+  onErrorColor_not_starts_with: String
+  "All values starting with the given string."
+  onErrorColor_starts_with: String
+  onPrimaryColor: String
+  "All values containing the given string."
+  onPrimaryColor_contains: String
+  "All values ending with the given string."
+  onPrimaryColor_ends_with: String
+  "All values that are contained in given list."
+  onPrimaryColor_in: [String!]
+  "All values that are not equal to given value."
+  onPrimaryColor_not: String
+  "All values not containing the given string."
+  onPrimaryColor_not_contains: String
+  "All values not ending with the given string"
+  onPrimaryColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onPrimaryColor_not_in: [String!]
+  "All values not starting with the given string."
+  onPrimaryColor_not_starts_with: String
+  "All values starting with the given string."
+  onPrimaryColor_starts_with: String
+  onSecondaryColor: String
+  "All values containing the given string."
+  onSecondaryColor_contains: String
+  "All values ending with the given string."
+  onSecondaryColor_ends_with: String
+  "All values that are contained in given list."
+  onSecondaryColor_in: [String!]
+  "All values that are not equal to given value."
+  onSecondaryColor_not: String
+  "All values not containing the given string."
+  onSecondaryColor_not_contains: String
+  "All values not ending with the given string"
+  onSecondaryColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onSecondaryColor_not_in: [String!]
+  "All values not starting with the given string."
+  onSecondaryColor_not_starts_with: String
+  "All values starting with the given string."
+  onSecondaryColor_starts_with: String
+  onSurfaceColor: String
+  "All values containing the given string."
+  onSurfaceColor_contains: String
+  "All values ending with the given string."
+  onSurfaceColor_ends_with: String
+  "All values that are contained in given list."
+  onSurfaceColor_in: [String!]
+  "All values that are not equal to given value."
+  onSurfaceColor_not: String
+  "All values not containing the given string."
+  onSurfaceColor_not_contains: String
+  "All values not ending with the given string"
+  onSurfaceColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onSurfaceColor_not_in: [String!]
+  "All values not starting with the given string."
+  onSurfaceColor_not_starts_with: String
+  "All values starting with the given string."
+  onSurfaceColor_starts_with: String
   primaryColor: String
+  primaryColorVariant1: String
+  "All values containing the given string."
+  primaryColorVariant1_contains: String
+  "All values ending with the given string."
+  primaryColorVariant1_ends_with: String
+  "All values that are contained in given list."
+  primaryColorVariant1_in: [String!]
+  "All values that are not equal to given value."
+  primaryColorVariant1_not: String
+  "All values not containing the given string."
+  primaryColorVariant1_not_contains: String
+  "All values not ending with the given string"
+  primaryColorVariant1_not_ends_with: String
+  "All values that are not contained in given list."
+  primaryColorVariant1_not_in: [String!]
+  "All values not starting with the given string."
+  primaryColorVariant1_not_starts_with: String
+  "All values starting with the given string."
+  primaryColorVariant1_starts_with: String
   "All values containing the given string."
   primaryColor_contains: String
   "All values ending with the given string."
@@ -2943,6 +3198,63 @@ input ThemeManyWhereInput {
   publishedAt_not: DateTime
   "All values that are not contained in given list."
   publishedAt_not_in: [DateTime!]
+  secondaryColor: String
+  secondaryColorVariant1: String
+  "All values containing the given string."
+  secondaryColorVariant1_contains: String
+  "All values ending with the given string."
+  secondaryColorVariant1_ends_with: String
+  "All values that are contained in given list."
+  secondaryColorVariant1_in: [String!]
+  "All values that are not equal to given value."
+  secondaryColorVariant1_not: String
+  "All values not containing the given string."
+  secondaryColorVariant1_not_contains: String
+  "All values not ending with the given string"
+  secondaryColorVariant1_not_ends_with: String
+  "All values that are not contained in given list."
+  secondaryColorVariant1_not_in: [String!]
+  "All values not starting with the given string."
+  secondaryColorVariant1_not_starts_with: String
+  "All values starting with the given string."
+  secondaryColorVariant1_starts_with: String
+  "All values containing the given string."
+  secondaryColor_contains: String
+  "All values ending with the given string."
+  secondaryColor_ends_with: String
+  "All values that are contained in given list."
+  secondaryColor_in: [String!]
+  "All values that are not equal to given value."
+  secondaryColor_not: String
+  "All values not containing the given string."
+  secondaryColor_not_contains: String
+  "All values not ending with the given string"
+  secondaryColor_not_ends_with: String
+  "All values that are not contained in given list."
+  secondaryColor_not_in: [String!]
+  "All values not starting with the given string."
+  secondaryColor_not_starts_with: String
+  "All values starting with the given string."
+  secondaryColor_starts_with: String
+  surfaceColor: String
+  "All values containing the given string."
+  surfaceColor_contains: String
+  "All values ending with the given string."
+  surfaceColor_ends_with: String
+  "All values that are contained in given list."
+  surfaceColor_in: [String!]
+  "All values that are not equal to given value."
+  surfaceColor_not: String
+  "All values not containing the given string."
+  surfaceColor_not_contains: String
+  "All values not ending with the given string"
+  surfaceColor_not_ends_with: String
+  "All values that are not contained in given list."
+  surfaceColor_not_in: [String!]
+  "All values not starting with the given string."
+  surfaceColor_not_starts_with: String
+  "All values starting with the given string."
+  surfaceColor_starts_with: String
   updatedAt: DateTime
   "All values greater than the given value."
   updatedAt_gt: DateTime
@@ -2961,9 +3273,21 @@ input ThemeManyWhereInput {
 }
 
 input ThemeUpdateInput {
+  backgroundColor: String
   customer: CustomerUpdateOneInlineInput
+  errorColor: String
+  fonts: String
   logo: AssetUpdateOneInlineInput
+  onBackgroundColor: String
+  onErrorColor: String
+  onPrimaryColor: String
+  onSecondaryColor: String
+  onSurfaceColor: String
   primaryColor: String
+  primaryColorVariant1: String
+  secondaryColor: String
+  secondaryColorVariant1: String
+  surfaceColor: String
 }
 
 input ThemeUpdateManyInlineInput {
@@ -2984,7 +3308,19 @@ input ThemeUpdateManyInlineInput {
 }
 
 input ThemeUpdateManyInput {
+  backgroundColor: String
+  errorColor: String
+  fonts: String
+  onBackgroundColor: String
+  onErrorColor: String
+  onPrimaryColor: String
+  onSecondaryColor: String
+  onSurfaceColor: String
   primaryColor: String
+  primaryColorVariant1: String
+  secondaryColor: String
+  secondaryColorVariant1: String
+  surfaceColor: String
 }
 
 input ThemeUpdateManyWithNestedWhereInput {
@@ -3040,6 +3376,25 @@ input ThemeWhereInput {
   OR: [ThemeWhereInput!]
   "Contains search across all appropriate fields."
   _search: String
+  backgroundColor: String
+  "All values containing the given string."
+  backgroundColor_contains: String
+  "All values ending with the given string."
+  backgroundColor_ends_with: String
+  "All values that are contained in given list."
+  backgroundColor_in: [String!]
+  "All values that are not equal to given value."
+  backgroundColor_not: String
+  "All values not containing the given string."
+  backgroundColor_not_contains: String
+  "All values not ending with the given string"
+  backgroundColor_not_ends_with: String
+  "All values that are not contained in given list."
+  backgroundColor_not_in: [String!]
+  "All values not starting with the given string."
+  backgroundColor_not_starts_with: String
+  "All values starting with the given string."
+  backgroundColor_starts_with: String
   createdAt: DateTime
   "All values greater than the given value."
   createdAt_gt: DateTime
@@ -3056,6 +3411,44 @@ input ThemeWhereInput {
   "All values that are not contained in given list."
   createdAt_not_in: [DateTime!]
   customer: CustomerWhereInput
+  errorColor: String
+  "All values containing the given string."
+  errorColor_contains: String
+  "All values ending with the given string."
+  errorColor_ends_with: String
+  "All values that are contained in given list."
+  errorColor_in: [String!]
+  "All values that are not equal to given value."
+  errorColor_not: String
+  "All values not containing the given string."
+  errorColor_not_contains: String
+  "All values not ending with the given string"
+  errorColor_not_ends_with: String
+  "All values that are not contained in given list."
+  errorColor_not_in: [String!]
+  "All values not starting with the given string."
+  errorColor_not_starts_with: String
+  "All values starting with the given string."
+  errorColor_starts_with: String
+  fonts: String
+  "All values containing the given string."
+  fonts_contains: String
+  "All values ending with the given string."
+  fonts_ends_with: String
+  "All values that are contained in given list."
+  fonts_in: [String!]
+  "All values that are not equal to given value."
+  fonts_not: String
+  "All values not containing the given string."
+  fonts_not_contains: String
+  "All values not ending with the given string"
+  fonts_not_ends_with: String
+  "All values that are not contained in given list."
+  fonts_not_in: [String!]
+  "All values not starting with the given string."
+  fonts_not_starts_with: String
+  "All values starting with the given string."
+  fonts_starts_with: String
   id: ID
   "All values containing the given string."
   id_contains: ID
@@ -3076,7 +3469,121 @@ input ThemeWhereInput {
   "All values starting with the given string."
   id_starts_with: ID
   logo: AssetWhereInput
+  onBackgroundColor: String
+  "All values containing the given string."
+  onBackgroundColor_contains: String
+  "All values ending with the given string."
+  onBackgroundColor_ends_with: String
+  "All values that are contained in given list."
+  onBackgroundColor_in: [String!]
+  "All values that are not equal to given value."
+  onBackgroundColor_not: String
+  "All values not containing the given string."
+  onBackgroundColor_not_contains: String
+  "All values not ending with the given string"
+  onBackgroundColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onBackgroundColor_not_in: [String!]
+  "All values not starting with the given string."
+  onBackgroundColor_not_starts_with: String
+  "All values starting with the given string."
+  onBackgroundColor_starts_with: String
+  onErrorColor: String
+  "All values containing the given string."
+  onErrorColor_contains: String
+  "All values ending with the given string."
+  onErrorColor_ends_with: String
+  "All values that are contained in given list."
+  onErrorColor_in: [String!]
+  "All values that are not equal to given value."
+  onErrorColor_not: String
+  "All values not containing the given string."
+  onErrorColor_not_contains: String
+  "All values not ending with the given string"
+  onErrorColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onErrorColor_not_in: [String!]
+  "All values not starting with the given string."
+  onErrorColor_not_starts_with: String
+  "All values starting with the given string."
+  onErrorColor_starts_with: String
+  onPrimaryColor: String
+  "All values containing the given string."
+  onPrimaryColor_contains: String
+  "All values ending with the given string."
+  onPrimaryColor_ends_with: String
+  "All values that are contained in given list."
+  onPrimaryColor_in: [String!]
+  "All values that are not equal to given value."
+  onPrimaryColor_not: String
+  "All values not containing the given string."
+  onPrimaryColor_not_contains: String
+  "All values not ending with the given string"
+  onPrimaryColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onPrimaryColor_not_in: [String!]
+  "All values not starting with the given string."
+  onPrimaryColor_not_starts_with: String
+  "All values starting with the given string."
+  onPrimaryColor_starts_with: String
+  onSecondaryColor: String
+  "All values containing the given string."
+  onSecondaryColor_contains: String
+  "All values ending with the given string."
+  onSecondaryColor_ends_with: String
+  "All values that are contained in given list."
+  onSecondaryColor_in: [String!]
+  "All values that are not equal to given value."
+  onSecondaryColor_not: String
+  "All values not containing the given string."
+  onSecondaryColor_not_contains: String
+  "All values not ending with the given string"
+  onSecondaryColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onSecondaryColor_not_in: [String!]
+  "All values not starting with the given string."
+  onSecondaryColor_not_starts_with: String
+  "All values starting with the given string."
+  onSecondaryColor_starts_with: String
+  onSurfaceColor: String
+  "All values containing the given string."
+  onSurfaceColor_contains: String
+  "All values ending with the given string."
+  onSurfaceColor_ends_with: String
+  "All values that are contained in given list."
+  onSurfaceColor_in: [String!]
+  "All values that are not equal to given value."
+  onSurfaceColor_not: String
+  "All values not containing the given string."
+  onSurfaceColor_not_contains: String
+  "All values not ending with the given string"
+  onSurfaceColor_not_ends_with: String
+  "All values that are not contained in given list."
+  onSurfaceColor_not_in: [String!]
+  "All values not starting with the given string."
+  onSurfaceColor_not_starts_with: String
+  "All values starting with the given string."
+  onSurfaceColor_starts_with: String
   primaryColor: String
+  primaryColorVariant1: String
+  "All values containing the given string."
+  primaryColorVariant1_contains: String
+  "All values ending with the given string."
+  primaryColorVariant1_ends_with: String
+  "All values that are contained in given list."
+  primaryColorVariant1_in: [String!]
+  "All values that are not equal to given value."
+  primaryColorVariant1_not: String
+  "All values not containing the given string."
+  primaryColorVariant1_not_contains: String
+  "All values not ending with the given string"
+  primaryColorVariant1_not_ends_with: String
+  "All values that are not contained in given list."
+  primaryColorVariant1_not_in: [String!]
+  "All values not starting with the given string."
+  primaryColorVariant1_not_starts_with: String
+  "All values starting with the given string."
+  primaryColorVariant1_starts_with: String
   "All values containing the given string."
   primaryColor_contains: String
   "All values ending with the given string."
@@ -3110,6 +3617,63 @@ input ThemeWhereInput {
   publishedAt_not: DateTime
   "All values that are not contained in given list."
   publishedAt_not_in: [DateTime!]
+  secondaryColor: String
+  secondaryColorVariant1: String
+  "All values containing the given string."
+  secondaryColorVariant1_contains: String
+  "All values ending with the given string."
+  secondaryColorVariant1_ends_with: String
+  "All values that are contained in given list."
+  secondaryColorVariant1_in: [String!]
+  "All values that are not equal to given value."
+  secondaryColorVariant1_not: String
+  "All values not containing the given string."
+  secondaryColorVariant1_not_contains: String
+  "All values not ending with the given string"
+  secondaryColorVariant1_not_ends_with: String
+  "All values that are not contained in given list."
+  secondaryColorVariant1_not_in: [String!]
+  "All values not starting with the given string."
+  secondaryColorVariant1_not_starts_with: String
+  "All values starting with the given string."
+  secondaryColorVariant1_starts_with: String
+  "All values containing the given string."
+  secondaryColor_contains: String
+  "All values ending with the given string."
+  secondaryColor_ends_with: String
+  "All values that are contained in given list."
+  secondaryColor_in: [String!]
+  "All values that are not equal to given value."
+  secondaryColor_not: String
+  "All values not containing the given string."
+  secondaryColor_not_contains: String
+  "All values not ending with the given string"
+  secondaryColor_not_ends_with: String
+  "All values that are not contained in given list."
+  secondaryColor_not_in: [String!]
+  "All values not starting with the given string."
+  secondaryColor_not_starts_with: String
+  "All values starting with the given string."
+  secondaryColor_starts_with: String
+  surfaceColor: String
+  "All values containing the given string."
+  surfaceColor_contains: String
+  "All values ending with the given string."
+  surfaceColor_ends_with: String
+  "All values that are contained in given list."
+  surfaceColor_in: [String!]
+  "All values that are not equal to given value."
+  surfaceColor_not: String
+  "All values not containing the given string."
+  surfaceColor_not_contains: String
+  "All values not ending with the given string"
+  surfaceColor_not_ends_with: String
+  "All values that are not contained in given list."
+  surfaceColor_not_in: [String!]
+  "All values not starting with the given string."
+  surfaceColor_not_starts_with: String
+  "All values starting with the given string."
+  surfaceColor_starts_with: String
   updatedAt: DateTime
   "All values greater than the given value."
   updatedAt_gt: DateTime
@@ -3146,23 +3710,23 @@ input VersionWhereInput {
 }
 
 
-scalar RGBAHue
-
-"Slate-compatible RichText AST"
-scalar RichTextAST
-
-scalar RGBATransparency
-
-scalar Hex
+"A date string, such as 2007-12-03 (YYYY-MM-DD), compliant with ISO 8601 standard for representation of dates using the Gregorian calendar."
+scalar Date
 
 "A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the date-timeformat outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representationof dates and times using the Gregorian calendar."
 scalar DateTime
 
-"The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
-scalar Long
+scalar Hex
 
 "Raw JSON value"
 scalar Json
 
-"A date string, such as 2007-12-03 (YYYY-MM-DD), compliant with ISO 8601 standard for representation of dates using the Gregorian calendar."
-scalar Date
+"The Long scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+scalar RGBAHue
+
+scalar RGBATransparency
+
+"Slate-compatible RichText AST"
+scalar RichTextAST
