@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element => {
-  const customer = useCustomer();
+  const customer: Customer = useCustomer();
   const airtableProducts: AirtableRecord<Product>[] = customer?.products;
 
   return (

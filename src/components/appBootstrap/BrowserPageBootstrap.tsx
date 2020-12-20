@@ -14,6 +14,7 @@ import amplitudeContext from '../../stores/amplitudeContext';
 import { cypressContext } from '../../stores/cypressContext';
 import userConsentContext from '../../stores/userConsentContext';
 import { userSessionContext } from '../../stores/userSessionContext';
+import { Customer } from '../../types/data/Customer';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
@@ -62,7 +63,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   } = pageProps;
   const { t, i18n } = useTranslation();
   const dataset = useDataset();
-  const customer = useCustomer();
+  const customer: Customer = useCustomer();
   const isInIframe: boolean = isRunningInIframe();
   const iframeReferrer: string = getIframeReferrer();
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(); // On browser, we can access cookies directly (doesn't need req/res or page context)

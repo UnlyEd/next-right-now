@@ -11,7 +11,7 @@ import { resolveVariantColor } from '../colors';
 /**
  * Initialises customer customerTheme, uses default values for unspecified properties.
  *
- * XXX We chose to handle default values here instead of "tableSchema" in order to handle default values properly,
+ * XXX We chose to handle default values here instead of "airtableSchema" in order to handle default values properly,
  *  even when there is no customer.modTFP relationship defined.
  *
  * @param customer

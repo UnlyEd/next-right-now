@@ -8,6 +8,7 @@ import React from 'react';
 
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import useCustomer from '../../hooks/useCustomer';
+import { Customer } from '../../types/data/Customer';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
@@ -46,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = ge
 type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
-  const customer = useCustomer();
+  const customer: Customer = useCustomer();
 
   return (
     <DefaultLayout

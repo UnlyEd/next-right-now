@@ -16,6 +16,7 @@ import ProductRow from '../../../components/data/ProductRow';
 import QuickPreviewLayout from '../../../components/pageLayouts/QuickPreviewLayout';
 import useCustomer from '../../../hooks/useCustomer';
 import { AirtableRecord } from '../../../types/data/AirtableRecord';
+import { Customer } from '../../../types/data/Customer';
 import { Product } from '../../../types/data/Product';
 import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
@@ -58,7 +59,7 @@ type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps
  * https://nrn-v2-mst-aptd-at-lcz-sty-c1.now.sh/quick-preview/preview-product?ref=kiunyu
  */
 const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
-  const customer = useCustomer();
+  const customer: Customer = useCustomer();
   const airtableProducts: AirtableRecord<Product>[] = customer?.products;
   const router: NextRouter = useRouter();
   const { query } = router;

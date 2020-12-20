@@ -1,5 +1,6 @@
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
+import find from 'lodash.find';
 import size from 'lodash.size';
 import {
   GetStaticPaths,
@@ -19,13 +20,17 @@ import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSide
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
 import ExternalLink from '../../../../components/utils/ExternalLink';
+import useCustomer from '../../../../hooks/useCustomer';
 import useI18n, { I18n } from '../../../../hooks/useI18n';
 import { AirtableRecord } from '../../../../types/data/AirtableRecord';
+import { Customer } from '../../../../types/data/Customer';
 import { Product } from '../../../../types/data/Product';
+import { SanitizedAirtableDataset } from '../../../../types/data/SanitizedAirtableDataset';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import deserializeSafe from '../../../../utils/airtableDataset/deserializeSafe';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
@@ -57,8 +62,9 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
   const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getExamplesCommonStaticProps(props);
 
   if ('props' in commonStaticProps) {
-    const { customer: airtableCustomer } = commonStaticProps?.props || {};
-    const customer = airtableCustomer?.fields;
+    const { serializedDataset } = commonStaticProps?.props || {};
+    const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
+    const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
 
     return deepmerge(commonStaticProps, {
       props: {
@@ -85,8 +91,9 @@ type Props = {
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
-  const { customer, builtAt } = props;
-  const products = customer?.fields?.products as AirtableRecord<Product>[];
+  const { builtAt } = props;
+  const customer: Customer = useCustomer();
+  const products: AirtableRecord<Product>[] = customer?.products;
   const { locale }: I18n = useI18n();
 
   return (
