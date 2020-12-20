@@ -12,6 +12,7 @@ import React from 'react';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import withApollo from '../../hocs/withApollo';
+import useCustomer from '../../hooks/useCustomer';
 import { Customer } from '../../types/data/Customer';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
@@ -102,15 +103,12 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
 type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
-  const { customer } = props;
+  const customer: Customer = useCustomer();
 
   return (
     <DefaultLayout
       {...props}
       pageName={'products'}
-      headProps={{
-        title: `Page template SSR - Next Right Now`,
-      }}
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSR pages</b>.
