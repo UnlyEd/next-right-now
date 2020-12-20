@@ -19,6 +19,7 @@ import {
 import NativeFeaturesSidebar from '../../../../../components/doc/NativeFeaturesSidebar';
 import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
+import Btn from '../../../../../components/utils/Btn';
 import ExternalLink from '../../../../../components/utils/ExternalLink';
 import songs from '../../../../../mocks/songs';
 import { CommonServerSideParams } from '../../../../../types/nextjs/CommonServerSideParams';
@@ -198,7 +199,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
                     albumId: id - 1,
                   }}
                 >
-                  <Button color={'link'}>Go to previous album</Button>
+                  <Btn mode={'primary-outline'}>Go to previous album</Btn>
                 </I18nLink>
               )
             }
@@ -209,13 +210,13 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
                 albumId: id + 1,
               }}
             >
-              <Button color={'link'}>Go to next album</Button>
+              <Btn mode={'primary-outline'}>Go to next album</Btn>
             </I18nLink>
 
           </div>
 
           <ExternalLink href={`/examples/native-features/example-with-ssg-and-fallback/${id + 2}`}>
-            <Button color={'link'}>Go to next+2 album (opens new tab)</Button>
+            <Btn mode={'primary-outline'}>Go to next+2 album (opens new tab)</Btn>
           </ExternalLink>
 
           <div>

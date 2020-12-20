@@ -65,11 +65,26 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
 
           .page-container {
             background-color: ${backgroundColor};
-            min-height: 400px;
+            min-height: 400px; // Avoids sidebar to display on top of the footer low height pages
 
             @media (max-width: 991.98px) {
               min-height: 300px;
             }
+          }
+
+          .container {
+            justify-content: center;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .container-white {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 30px;
           }
 
           #__next {
@@ -152,22 +167,6 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
           }
 
           // ----------- Override native elements -----------
-
-          h1 {
-            font-weight: 700;
-            font-size: 22px;
-          }
-
-          h2 {
-            font-weight: 600;
-            font-size: 20px;
-          }
-
-          h3 {
-            font-weight: 400;
-            font-size: 15px;
-            line-height: 16.5px;
-          }
 
           button {
             cursor: pointer;
