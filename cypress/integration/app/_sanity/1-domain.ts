@@ -1,9 +1,9 @@
 const baseUrl = Cypress.config().baseUrl;
 
 describe('Sanity checks > Domain', {
-  retries: {
-    runMode: 2, // Allows 2 retries (for a total of 3 attempts) to reduce the probability of failing the whole tests suite because Vercel hasn't finished to deploy yet (which makes Cypress fail by trying to test the Vercel "waiting page", instead of our app)
-  }
+  // retries: {
+  //   runMode: 2, // Allows 2 retries (for a total of 3 attempts) to reduce the probability of failing the whole tests suite because Vercel hasn't finished to deploy yet (which makes Cypress fail by trying to test the Vercel "waiting page", instead of our app)
+  // }
 }, () => {
   /*
   * Visits the home page before any test
@@ -12,7 +12,7 @@ describe('Sanity checks > Domain', {
     cy.visit('/en');
   });
 
-  it('should be running on the right domain', () => {
+  it(`should be running on the domain "${baseUrl}"`, () => {
     cy.url().then((url) => {
       cy.log(`Expected to be running on:`);
       cy.log(baseUrl);
@@ -22,3 +22,5 @@ describe('Sanity checks > Domain', {
     });
   });
 });
+
+export {};

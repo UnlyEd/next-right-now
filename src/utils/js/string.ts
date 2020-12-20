@@ -1,5 +1,6 @@
 import isPlainObject from 'lodash.isplainobject';
 import map from 'lodash.map';
+import size from 'lodash.size';
 
 import { GenericObject } from '../../types/GenericObject';
 
@@ -17,7 +18,7 @@ import { GenericObject } from '../../types/GenericObject';
  * @return {string}
  */
 export const replaceAllOccurrences = (initialString: string, variables: GenericObject<string>, prefix = '{', suffix = '}'): string => {
-  if (isPlainObject(variables) && Object.keys(variables).length) {
+  if (typeof initialString === 'string' && size(initialString) && isPlainObject(variables) && size(Object.keys(variables))) {
     let replacedString = initialString;
 
     // For each key to replace, replace it by its matching value, in the initial string
@@ -35,6 +36,18 @@ export const replaceAllOccurrences = (initialString: string, variables: GenericO
 };
 
 /**
+ * Airtable encodes "<" into "&#x3C;" and we need to decode it to display proper HTML content
+ *
+ * @param {string} string
+ * @return {string}
+ */
+export const unescapeHtml = (string: string): string => {
+  return replaceAllOccurrences(string, {
+    '&#x3C;': '<',
+  }, '', '');
+};
+
+/**
  * Remove the trailing slash of a string
  *
  * Useful for urls, in particular
@@ -42,7 +55,7 @@ export const replaceAllOccurrences = (initialString: string, variables: GenericO
  * @param string
  */
 export const removeTrailingSlash = (string: string): string => {
-  if (string[string.length - 1] === '/') {
+  if (string[size(string) - 1] === '/') {
     return string.slice(0, -1);
   }
 

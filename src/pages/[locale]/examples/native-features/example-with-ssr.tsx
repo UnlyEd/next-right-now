@@ -1,5 +1,8 @@
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult, QueryOptions } from 'apollo-client';
+import {
+  ApolloQueryResult,
+  QueryOptions,
+} from 'apollo-client';
 import size from 'lodash.size';
 import {
   GetServerSideProps,
@@ -21,12 +24,15 @@ import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import { EXAMPLE_WITH_SSR_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssr';
 import withApollo from '../../../../hocs/withApollo';
+import useDataset from '../../../../hooks/useDataset';
 import { Customer } from '../../../../types/data/Customer';
 import { Product } from '../../../../types/data/Product';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../../../types/pageProps/SSRPageProps';
+import { GraphCMSDataset } from '../../../../utils/graphCMSDataset/GraphCMSDataset';
+import serializeSafe from '../../../../utils/graphCMSDataset/serializeSafe';
 import {
   getCommonServerSideProps,
   GetCommonServerSidePropsResults,
@@ -42,7 +48,6 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  */
 type CustomPageProps = {
   [key: string]: any;
-  products: Product[];
 }
 
 type GetServerSidePageProps = CustomPageProps & SSRPageProps
@@ -53,7 +58,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
-  const commonServerSideProps: GetServerSidePropsResult<GetCommonServerSidePropsResults> = await getCommonServerSideProps(context);
+  const commonServerSideProps: GetServerSidePropsResult<Omit<GetCommonServerSidePropsResults, 'serializedDataset'>> = await getCommonServerSideProps(context);
 
   if ('props' in commonServerSideProps) {
 
@@ -103,14 +108,17 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       customer,
       products,
     } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+    const dataset = {
+      customer,
+      products,
+    };
 
     return {
       // Props returned here will be available as page properties (pageProps)
       props: {
         ...pageData,
         apolloState: apolloClient.cache.extract(),
-        customer,
-        products,
+        serializedDataset: serializeSafe(dataset),
       },
     };
   } else {
@@ -129,14 +137,15 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
 type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
-  const { products } = props;
+  const dataset: GraphCMSDataset = useDataset();
+  const { products } = dataset;
 
   return (
     <DefaultLayout
       {...props}
       pageName={'example-with-ssr'}
       headProps={{
-        title: `${size(products)} products (SSR) - Next Right Now`,
+        seoTitle: `${size(products)} products (SSR) - Next Right Now`,
       }}
       Sidebar={NativeFeaturesSidebar}
     >

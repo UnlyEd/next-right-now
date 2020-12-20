@@ -4,7 +4,6 @@ import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error'
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { IncomingMessage } from 'http';
-import get from 'lodash.get';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -32,6 +31,7 @@ import {
   fetchTranslations,
   I18nextResources,
 } from '../i18n/i18nextLocize';
+import { isQuickPreviewRequest } from '../quickPreview/quickPreview';
 
 /**
  * getExamplesCommonServerSideProps returns only part of the props expected in SSRPageProps
@@ -84,22 +84,23 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
     req,
     res,
   } = context;
+  const isQuickPreviewPage: boolean = isQuickPreviewRequest(req);
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
   const cookiesManager: UniversalCookiesManager = new UniversalCookiesManager(req, res); // Cannot be forwarded as pageProps, because contains circular refs
   const userSession: UserSemiPersistentSession = cookiesManager.getUserData();
   const { headers }: IncomingMessage = req;
   const publicHeaders: PublicHeaders = {
-    'accept-language': get(headers, 'accept-language'),
-    'user-agent': get(headers, 'user-agent'),
-    'host': get(headers, 'host'),
+    'accept-language': headers?.['accept-language'],
+    'user-agent': headers?.['user-agent'],
+    'host': headers?.host,
   };
   const hasLocaleFromUrl = !!query?.locale;
   // Resolve locale from query, fallback to browser headers
   const locale: string = hasLocaleFromUrl ? query?.locale as string : universalLanguageDetect({
     supportedLanguages: SUPPORTED_LANGUAGES, // Whitelist of supported languages, will be used to filter out languages that aren't supported
     fallbackLanguage: DEFAULT_LOCALE, // Fallback language in case the user's language cannot be resolved
-    acceptLanguageHeader: get(req, 'headers.accept-language'), // Optional - Accept-language header will be used when resolving the language on the server side
+    acceptLanguageHeader: req?.headers?.['accept-language'], // Optional - Accept-language header will be used when resolving the language on the server side
     serverCookies: readonlyCookies, // Optional - Cookie "i18next" takes precedence over navigator configuration (ex: "i18next: fr"), will only be used on the server side
     errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: GenericObject): void => {
       Sentry.withScope((scope): void => {
@@ -137,6 +138,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
     props: {
       apolloClient,
       bestCountryCodes,
+      serializedDataset: null, // We don't send the dataset yet (we don't have any because we haven't fetched the database yet), but it must be done by SSR pages in"getServerSideProps"
       customerRef,
       i18nTranslations,
       headers: publicHeaders,
@@ -149,6 +151,7 @@ export const getExamplesCommonServerSideProps: GetServerSideProps<GetCommonServe
       layoutQueryOptions,
       readonlyCookies,
       userSession,
+      isQuickPreviewPage,
     },
   };
 };

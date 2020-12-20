@@ -5,7 +5,6 @@
 
 const defaultLocale = 'en';
 const supportedLocales = [
-  { name: 'fr-FR', lang: 'fr' },
   { name: 'fr', lang: 'fr' },
   { name: 'en-US', lang: 'en' },
   { name: 'en', lang: 'en' },
@@ -14,6 +13,7 @@ const supportedLanguages = supportedLocales.map((item) => {
   return item.lang;
 });
 
+// XXX Available through utils/i18n/i18n
 module.exports = {
   defaultLocale: defaultLocale,
   supportedLocales: supportedLocales,

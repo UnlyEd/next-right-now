@@ -13,6 +13,7 @@ import { OnlyServerPageProps } from './OnlyServerPageProps';
 export type SSRPageProps<E extends OnlyServerPageProps = OnlyServerPageProps> = {
   // Props that are specific to SSR
   isServerRendering: boolean;
+  isQuickPreviewPage: boolean;
 } & MultiversalPageProps // Generic props that are provided immediately, no matter what
   & Partial<MultiversalAppBootstrapPageProps> // Pages served by SSR eventually benefit from props injected by the MultiversalAppBootstrap component
   & E;

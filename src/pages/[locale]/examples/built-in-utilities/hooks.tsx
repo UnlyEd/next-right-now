@@ -60,7 +60,7 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'hooks'}
       headProps={{
-        title: 'Hooks examples - Next Right Now',
+        seoTitle: 'Hooks examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

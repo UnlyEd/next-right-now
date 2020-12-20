@@ -59,7 +59,7 @@ const ExampleCssInJsPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'css-in-js'}
       headProps={{
-        title: 'CSS-in-JS examples - Next Right Now',
+        seoTitle: 'CSS-in-JS examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

@@ -57,7 +57,7 @@ const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'bundle-analysis'}
       headProps={{
-        title: 'Bundle analysis examples - Next Right Now',
+        seoTitle: 'Bundle analysis examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

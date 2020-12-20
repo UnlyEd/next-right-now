@@ -9,6 +9,7 @@ import {
 } from 'reactstrap';
 
 import I18nLink from '../i18n/I18nLink';
+import Btn from '../utils/Btn';
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
 import DocSection from './DocSection';
@@ -33,7 +34,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/i18nLink-component'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -47,7 +48,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/hooks'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -61,7 +62,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/hocs'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -75,7 +76,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/api'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -89,7 +90,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/errors-handling'}>
-                  <Button color={'link'}>See how errors are handled</Button>
+                  <Btn mode={'primary-outline'}>See how errors are handled</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -103,7 +104,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/bundle-analysis'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -117,7 +118,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/svg-to-react'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -131,7 +132,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/security-audit'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -145,7 +146,7 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/examples/built-in-utilities/packages-upgrade'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -159,10 +160,10 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <ExternalLink href={'https://medium.com/hootsuite-engineering/react-re-render-optimization-7d369e0bf701'}>
-                  <Button color={'link'}>Learn how to use the React Profiler</Button>
+                  <Btn mode={'primary-outline'}>Learn how to use the React Profiler</Btn>
                 </ExternalLink>
                 <I18nLink href={'/examples/built-in-utilities/tracking-useless-re-renders'}>
-                  <Button color={'link'}>See usage examples</Button>
+                  <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>

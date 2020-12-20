@@ -58,7 +58,7 @@ const StagesAndSecretsPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'stages-and-secrets'}
       headProps={{
-        title: 'Stages & secrets - Next Right Now',
+        seoTitle: 'Stages & secrets - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

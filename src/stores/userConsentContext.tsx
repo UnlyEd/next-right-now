@@ -3,6 +3,11 @@ import { UserConsent } from '../types/UserConsent';
 
 export type UserConsentContext = UserConsent
 
+/**
+ * Initial context, used by default until the Context Provider is initialised.
+ *
+ * @default Empty object, to allow for destructuring even when the context hasn't been initialised (on the server)
+ */
 const initialContext = {};
 
 /**

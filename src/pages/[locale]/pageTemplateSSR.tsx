@@ -12,11 +12,13 @@ import React from 'react';
 import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import withApollo from '../../hocs/withApollo';
+import useCustomer from '../../hooks/useCustomer';
 import { Customer } from '../../types/data/Customer';
 import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
+import serializeSafe from '../../utils/graphCMSDataset/serializeSafe';
 import {
   getCommonServerSideProps,
   GetCommonServerSidePropsResults,
@@ -45,7 +47,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
-  const commonServerSideProps: GetServerSidePropsResult<GetCommonServerSidePropsResults> = await getCommonServerSideProps(context);
+  const commonServerSideProps: GetServerSidePropsResult<Omit<GetCommonServerSidePropsResults, 'serializedDataset'>> = await getCommonServerSideProps(context);
 
   if ('props' in commonServerSideProps) {
     const {
@@ -77,13 +79,16 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
     const {
       customer,
     } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+    const dataset = {
+      customer,
+    };
 
     return {
       // Props returned here will be available as page properties (pageProps)
       props: {
         ...pageData,
         apolloState: apolloClient.cache.extract(),
-        customer,
+        serializedDataset: serializeSafe(dataset),
       },
     };
   } else {
@@ -102,15 +107,12 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
 type Props = CustomPageProps & (SSRPageProps & SSGPageProps<OnlyBrowserPageProps>);
 
 const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
-  const { customer } = props;
+  const customer: Customer = useCustomer();
 
   return (
     <DefaultLayout
       {...props}
       pageName={'products'}
-      headProps={{
-        title: `Page template SSR - Next Right Now`,
-      }}
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSR pages</b>.

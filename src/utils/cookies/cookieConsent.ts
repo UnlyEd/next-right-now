@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/node';
 import { AmplitudeClient } from 'amplitude-js';
 import { TFunction } from 'i18next';
 import BrowserCookies from 'js-cookie';
@@ -81,7 +82,7 @@ export const shouldDisplayConsentPopup = (allowedPages: string[] | null): boolea
  * @see https://www.osano.com/cookieconsent/documentation/javascript-api/
  * @see https://www.osano.com/cookieconsent/download/
  */
-const init = (options: InitOptions): void => {
+const initCookieConsent = (options: InitOptions): void => {
   const {
     allowedPages = null,
     amplitudeInstance,
@@ -91,7 +92,7 @@ const init = (options: InitOptions): void => {
     userConsent,
   } = options;
   const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
-  const { primaryColor } = theme;
+  const { primaryColor, surfaceColor, onSurfaceColor, onPrimaryColor } = theme;
 
   if (!shouldDisplayConsentPopup(allowedPages)) {
     return;
@@ -132,11 +133,12 @@ const init = (options: InitOptions): void => {
     position: 'bottom-right',
     palette: {
       popup: {
-        background: '#fff',
+        background: surfaceColor,
+        text: onSurfaceColor,
       },
       button: {
-        background: '#fff',
-        text: primaryColor,
+        background: primaryColor,
+        text: onPrimaryColor,
       },
     },
     // elements: {
@@ -176,7 +178,7 @@ const init = (options: InitOptions): void => {
      * Triggers when the lib initialises
      * Will provide the value contained in CONSENT_COOKIE_NAME cookie
      */
-    onInitialise: function(status) {
+    onInitialise: function (status) {
       console.info('onInitialise', `User consent from "${CONSENT_COOKIE_NAME}" cookie:`, status);
     },
 
@@ -189,7 +191,7 @@ const init = (options: InitOptions): void => {
      * @param status
      * @param previousChoice
      */
-    onStatusChange: function(status, previousChoice) {
+    onStatusChange: function (status, previousChoice) {
       console.info('onStatusChange', status, previousChoice);
       if (status === 'deny') {
         // Store user choice, then disable analytics tracking
@@ -221,7 +223,7 @@ const init = (options: InitOptions): void => {
      * It may seems fine when not using "opt-out" type, but when consent is given by default then users might discard their previous choice (deny) and revoke it without knowing.
      * This should be fixed in the CC OSS lib.
      */
-    onRevokeChoice: function() {
+    onRevokeChoice: function () {
       console.info('onRevokeChoice');
       console.info(`Previous choice has been revoked, "${CONSENT_COOKIE_NAME}" cookie has been deleted.`);
     },
@@ -229,18 +231,25 @@ const init = (options: InitOptions): void => {
     /**
      * Triggers when the popup opens
      */
-    onPopupOpen: function() {
+    onPopupOpen: function () {
       console.info('onPopupOpen');
     },
 
     /**
      * Triggers when the popup closes
      */
-    onPopupClose: function() {
+    onPopupClose: function () {
       console.info('onPopupClose');
     },
   };
-  cc.initialise(cookieConsentSettings);
+
+  try {
+    cc.initialise(cookieConsentSettings);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    Sentry.captureException(e);
+  }
 };
 
-export default init;
+export default initCookieConsent;

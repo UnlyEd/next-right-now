@@ -58,7 +58,7 @@ const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'graphql'}
       headProps={{
-        title: 'GraphQL examples - Next Right Now',
+        seoTitle: 'GraphQL examples - Next Right Now',
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >

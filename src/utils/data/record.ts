@@ -93,7 +93,7 @@ export const findRecordByField = <T extends GenericRecord>(records: Array<T>, va
 export const hasValue = (record: GenericRecord, propertyPath: string): boolean => {
   const value = get(record, propertyPath, NOT_FOUND);
 
-  if ((value === NOT_FOUND || value === '' || value === '<p></p>' || (typeof value === 'object' && isEmpty(value))) && value !== 0 && value !== false) {
+  if ((value === NOT_FOUND || value === '' || value === '<p></p>' || value === '\n' || (typeof value === 'object' && isEmpty(value))) && value !== 0 && value !== false) {
     return false;
   } else {
     return !!value;
@@ -187,7 +187,9 @@ export const filterSelectedRecords = (
     });
   }
 
-  return xOrBy(allRecords, clonedSelectedRecords || [], 'id');
+  const filteredRecords: GenericRecord[] = xOrBy(allRecords, clonedSelectedRecords || [], 'id');
+
+  return isArray(filteredRecords) ? filteredRecords : [];
 };
 
 /**
@@ -198,7 +200,7 @@ export const filterSelectedRecords = (
  * @param {string} field
  * @return {SerializedRecord}
  */
-export const serializeRecord = <T extends GenericRecord>(record: T, field = 'name'): SerializedRecord => {
+export const serializeRecord = <T extends GenericRecord>(record: T, field = 'ref'): SerializedRecord => {
   return get(record, field, undefined);
 };
 
@@ -212,6 +214,6 @@ export const serializeRecord = <T extends GenericRecord>(record: T, field = 'nam
  * @param {string} field
  * @return {T}
  */
-export const deserializeRecord = <T extends GenericRecord>(serializedRecord: SerializedRecord, records: T[], field = 'name'): T => {
+export const deserializeRecord = <T extends GenericRecord>(serializedRecord: SerializedRecord, records: T[], field = 'ref'): T => {
   return findRecordByField(records, serializedRecord, field);
 };

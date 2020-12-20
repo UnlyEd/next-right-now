@@ -19,6 +19,7 @@ import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
 import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
 import { prepareGraphCMSLocaleHeader } from '../gql/graphcms';
 import { createApolloClient } from '../gql/graphql';
+import serializeSafe from '../graphCMSDataset/serializeSafe';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -168,13 +169,16 @@ export const getExamplesCommonStaticProps: GetStaticProps<SSGPageProps, CommonSe
   const {
     customer,
   } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+  const dataset = {
+    customer,
+  };
 
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
       apolloState: apolloClient.cache.extract(),
       bestCountryCodes,
-      customer,
+      serializedDataset: serializeSafe(dataset),
       customerRef,
       i18nTranslations,
       gcmsLocales,

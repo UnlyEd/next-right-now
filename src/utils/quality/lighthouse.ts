@@ -4,7 +4,7 @@
  * Returns null when not executed from the browser.
  */
 export const detectLightHouse = (): boolean | null => {
-  if (typeof window) {
+  if (typeof window !== 'undefined') {
     return navigator?.userAgent?.indexOf('Chrome-Lighthouse') > -1;
   }
 

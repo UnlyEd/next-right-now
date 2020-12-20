@@ -32,7 +32,7 @@ export type SidebarProps = {
 
 type Props = {
   children: React.ReactNode;
-  headProps: HeadProps;
+  headProps?: HeadProps;
   pageName: string;
   Sidebar?: React.FunctionComponent<SidebarProps>;
 } & SoftPageProps;
@@ -88,9 +88,9 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
 
       {
         // XXX You may want to enable preview mode during non-production stages only
-        // process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && (
-        <PreviewModeBanner />
-        // )
+        process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && (
+          <PreviewModeBanner />
+        )
       }
 
       {

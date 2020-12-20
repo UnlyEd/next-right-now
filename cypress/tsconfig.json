@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "./**/*.ts*"
+  ],
+  "exclude": [],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "jsx": "react",
+    "types": [
+      "cypress"
+    ],
+    "sourceMap": false,
+    "isolatedModules": true
+  }
+}

@@ -4,5 +4,6 @@
   "screenshotsFolder": "cypress/screenshots/development",
   "videosFolder": "cypress/videos/development",
   "env": {},
-  "ignoreTestFiles": "*.md"
+  "ignoreTestFiles": "*.md",
+  "experimentalComponentTesting": true
 }

@@ -61,7 +61,7 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'svg-to-react'}
       headProps={{
-        title: 'SVG to React examples - Next Right Now',
+        seoTitle: 'SVG to React examples - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >

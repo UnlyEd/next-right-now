@@ -19,15 +19,15 @@ function template(
   return typeScriptTpl.ast`
 import React from 'react';
 
+type Props = {
+
+} & React.SVGProps<SVGSVGElement>;
+
 const ${componentName} = (props: Props): JSX.Element => {
   return (
     ${jsx}
   );
 };
-
-type Props = {
-
-} & React.SVGProps<SVGSVGElement>;
 
 export default ${componentName};
 `;

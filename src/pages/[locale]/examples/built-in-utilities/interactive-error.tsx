@@ -62,7 +62,7 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={'interactive-error'}
       headProps={{
-        title: 'Page 500 error example - Next Right Now',
+        seoTitle: 'Page 500 error example - Next Right Now',
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
