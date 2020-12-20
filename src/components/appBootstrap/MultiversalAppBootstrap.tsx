@@ -26,6 +26,8 @@ import {
 } from '../../utils/app/router';
 import { initCustomerTheme } from '../../utils/data/theme';
 import deserializeSafe from '../../utils/graphCMSDataset/deserializeSafe';
+import { GraphCMSDataset } from '../../utils/graphCMSDataset/GraphCMSDataset';
+import { DEFAULT_LOCALE } from '../../utils/i18n/i18n';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
 import { configureSentryI18n } from '../../utils/monitoring/sentry';
 import {
@@ -39,7 +41,6 @@ import DefaultErrorLayout from '../errors/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
-import { GraphCMSDataset } from '../../utils/graphCMSDataset/GraphCMSDataset';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({
@@ -105,6 +106,13 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
     const dataset: GraphCMSDataset = deserializeSafe(serializedDataset);
     const customer: Customer = find(dataset, { __typename: 'Customer' }) as Customer;
+    let availableLanguages: string[] = customer?.availableLanguages;
+
+    if (isEmpty(availableLanguages)) {
+      // If no language have been set, apply default (fallback)
+      // XXX Applying proper default is critical to avoid an infinite loop
+      availableLanguages = [DEFAULT_LOCALE];
+    }
 
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser()) {
       // eslint-disable-next-line no-console
@@ -115,9 +123,11 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
     // If the locale used to display the page isn't available for this customer
     // TODO This should be replaced by something better, ideally the pages for non-available locales shouldn't be generated at all and then this wouldn't be needed
-    if (!includes(customer?.availableLanguages, locale) && isBrowser()) {
+    if (!includes(availableLanguages, locale) && isBrowser()) {
       // Then redirect to the same page using another locale (using the first available locale)
-      i18nRedirect(customer?.availableLanguages?.[0], router);
+      // XXX Be extra careful with this kind of redirects based on remote data!
+      //  It's easy to create an infinite redirect loop when the data aren't shaped as expected.
+      i18nRedirect(availableLanguages?.[0] || DEFAULT_LOCALE, router);
       return null;
     }
 
