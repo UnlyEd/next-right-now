@@ -102,7 +102,7 @@ class AppDocument extends Document<DocumentRenderProps> {
             // For customer/stage/version based styles, could be handy in rare cases
             `${process.env.NEXT_PUBLIC_CUSTOMER_REF}`,
             `stage-${process.env.NEXT_PUBLIC_APP_STAGE}`,
-            `v${process.env.NEXT_PUBLIC_APP_VERSION}`, // From package.json:version
+            `v${process.env.NEXT_PUBLIC_APP_VERSION_RELEASE}`,
           )}
         >
           <Main />

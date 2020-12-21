@@ -29,7 +29,6 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
     res.json({
       appStage: process.env.NEXT_PUBLIC_APP_STAGE,
       appName: process.env.NEXT_PUBLIC_APP_NAME,
-      appVersion: process.env.NEXT_PUBLIC_APP_VERSION,
       appRelease: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
       appBuildTime: process.env.NEXT_PUBLIC_APP_BUILD_TIME,
       appBuildTimestamp: process.env.NEXT_PUBLIC_APP_BUILD_TIMESTAMP,
