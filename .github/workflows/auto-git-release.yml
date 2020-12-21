@@ -36,7 +36,6 @@ jobs:
           echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
           echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
 
-      # Auto-release when a commit hit "master"
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
         if: startsWith(env.GITHUB_REF_SLUG, 'v2-') || env.GITHUB_REF_SLUG == 'master' || env.GITHUB_REF_SLUG == 'main' # If master, mark release as official release
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
@@ -49,7 +48,6 @@ jobs:
             CHANGELOG.md
             LICENSE
 
-      # Auto-release (as pre-release) when a commit hit another branch
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
         if: !startsWith(env.GITHUB_REF_SLUG, 'v2-') && env.GITHUB_REF_SLUG != 'master' && env.GITHUB_REF_SLUG != 'main' # If not master, mark release as pre-release and include branch name to avoid tagging conflicts
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
