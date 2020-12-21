@@ -50,6 +50,8 @@
     "doc:start": "cd docs/ && bundle exec jekyll serve --config _config-development.yml",
     "doc:start:fast": "cd docs/ && bundle exec jekyll serve --config _config-development.yml --incremental",
     "doc:gem:install": "cd docs/ && bundle install",
+    "bump:major": "git commit --allow-empty -m \"(MAJOR) Empty commit, bumps MAJOR version\"",
+    "bump:minor": "git commit --allow-empty -m \"(MINOR) Empty commit, bumps MINOR version\"",
     "lint": "esw src/ -w --ext .ts --ext .tsx",
     "lint:once": "eslint src/ --ext .ts --ext .tsx",
     "lint:fix": "eslint src/ --ext .ts --ext .tsx --fix",
