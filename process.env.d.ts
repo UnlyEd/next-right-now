@@ -20,7 +20,6 @@ declare global {
       NEXT_PUBLIC_AMPLITUDE_API_KEY: string;
       NEXT_PUBLIC_APP_BUILD_ID: string;
       NEXT_PUBLIC_APP_NAME: string;
-      NEXT_PUBLIC_APP_VERSION: string;
       NEXT_PUBLIC_APP_NAME_VERSION: string;
       NEXT_PUBLIC_APP_VERSION_RELEASE: string;
       NEXT_PUBLIC_APP_STAGE: 'test' | 'development' | 'staging' | 'production';

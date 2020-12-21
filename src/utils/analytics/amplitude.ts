@@ -99,7 +99,7 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       console.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
     }
 
-    amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
+    amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION_RELEASE); // e.g: v1.0.0
 
     // We're only doing this when detecting a new session, as it won't be executed multiple times for the same session anyway, and it avoids noise
     if (amplitudeInstance.isNewSession()) {
@@ -162,13 +162,13 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
       sameSite: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
     });
 
-    amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
+    amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION_RELEASE); // e.g: v1.0.0
 
     // Sen metrics to our analytics service
     amplitudeInstance.logEvent(`report-web-vitals`, {
       app: {
         name: process.env.NEXT_PUBLIC_APP_NAME,
-        version: process.env.NEXT_PUBLIC_APP_VERSION,
+        release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
         stage: process.env.NEXT_PUBLIC_APP_STAGE,
         preset: process.env.NEXT_PUBLIC_NRN_PRESET,
       },

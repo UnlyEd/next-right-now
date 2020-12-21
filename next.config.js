@@ -19,8 +19,12 @@ console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC
 
 // We use `filter` to make sure there are not empty element.
 // Default value is an empty array.
-const commitPrettyTags = process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.split(" ").filter((tag) => tag).join(", ") : [];
-console.debug(`Deployment will be tagged automatically, using GIT_COMMIT_TAGS: "${commitPrettyTags}"`)
+const GIT_COMMIT_TAGS = process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.trim() : '';
+console.debug(`Deployment will be tagged automatically, using GIT_COMMIT_TAGS: "${GIT_COMMIT_TAGS}"`);
+
+// Iterate over all tags and extract the first the match "v*" and extract only the version number ("v${major}.${minor}.${patch})
+const APP_RELEASE_TAG = GIT_COMMIT_TAGS ? GIT_COMMIT_TAGS.split(' ').find((tag) => tag.startsWith('v')).split('-')[0] : 'unknown';
+console.debug(`Release version resolved from tags: "${APP_RELEASE_TAG}" (matching first tag starting with "v")`);
 
 /**
  * This file is for advanced configuration of the Next.js framework.
@@ -76,8 +80,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_BUILD_TIME: date.toString(),
     NEXT_PUBLIC_APP_BUILD_TIMESTAMP: +date,
     NEXT_PUBLIC_APP_NAME: packageJson.name,
-    NEXT_PUBLIC_APP_VERSION: packageJson.version,
-    NEXT_PUBLIC_APP_NAME_VERSION: `${packageJson.name}-${packageJson.version}`,
+    NEXT_PUBLIC_APP_NAME_VERSION: `${packageJson.name}-${APP_RELEASE_TAG}`,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
     GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA, // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")
     GIT_COMMIT_REF: process.env.GIT_COMMIT_REF, // Resolve commit ref (branch/tag) from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")
@@ -210,7 +213,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
       process.env.IS_SERVER_INITIAL_BUILD = '1';
     }
 
-    const APP_VERSION_RELEASE = `${packageJson.version}_${buildId}`;
+    const APP_VERSION_RELEASE = APP_RELEASE_TAG || buildId;
     config.plugins.map((plugin, i) => {
       if (plugin.definitions) { // If it has a "definitions" key, then we consider it's the DefinePlugin where ENV vars are stored
         // Dynamically add some "public env" variables that will be replaced during the build through "DefinePlugin"

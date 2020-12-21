@@ -122,7 +122,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                     eventProperties={{
                       app: {
                         name: process.env.NEXT_PUBLIC_APP_NAME,
-                        version: process.env.NEXT_PUBLIC_APP_VERSION,
+                        release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
                         stage: process.env.NEXT_PUBLIC_APP_STAGE,
                         preset: process.env.NEXT_PUBLIC_NRN_PRESET,
                       },
@@ -160,7 +160,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                   sameSite: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
                 });
 
-                amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION); // e.g: 1.0.0
+                amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION_RELEASE); // e.g: v1.0.0
 
                 // We're only doing this when detecting a new session, as it won't be executed multiple times for the same session anyway, and it avoids noise
                 if (amplitudeInstance.isNewSession()) {

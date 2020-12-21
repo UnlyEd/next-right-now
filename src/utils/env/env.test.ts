@@ -41,15 +41,6 @@ describe(`utils/env/env.ts`, () => {
       }
     });
 
-    test(`NEXT_PUBLIC_APP_VERSION`, async () => {
-      // This ENV var is injected by Webpack and not available when running the tests suite when building a local build (because webpack hasn't been executed yet)
-      if (process.env.NODE_ENV === 'production') {
-        expect(process.env.NEXT_PUBLIC_APP_VERSION, 'NEXT_PUBLIC_APP_VERSION must be defined but is not').toBeDefined();
-      } else {
-        expect(process.env.NEXT_PUBLIC_APP_VERSION, 'NEXT_PUBLIC_APP_VERSION should not be defined when building a non-production release').not.toBeDefined();
-      }
-    });
-
     test(`NEXT_PUBLIC_APP_VERSION_RELEASE`, async () => {
       // This ENV var is injected by Webpack and not available when running the tests suite when building a local build (because webpack hasn't been executed yet)
       if (process.env.NODE_ENV === 'production') {
