@@ -20,7 +20,7 @@ console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC
 // We use `filter` to make sure there are not empty element.
 // Default value is an empty array.
 const commitPrettyTags = process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.split(" ").filter((tag) => tag).join(", ") : [];
-console.debug(`Deployment will be tagged automatically, using git commit tags: "${commitPrettyTags}"`)
+console.debug(`Deployment will be tagged automatically, using GIT_COMMIT_TAGS: "${commitPrettyTags}"`)
 
 /**
  * This file is for advanced configuration of the Next.js framework.
@@ -81,7 +81,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
     GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA, // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")
     GIT_COMMIT_REF: process.env.GIT_COMMIT_REF, // Resolve commit ref (branch/tag) from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")
-    GIT_COMMIT_TAGS: process.env.GIT_COMMIT_TAGS, // Resolve commit tags/releases from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")
+    GIT_COMMIT_TAGS: process.env.GIT_COMMIT_TAGS || '', // Resolve commit tags/releases from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")
   },
 
   /**
