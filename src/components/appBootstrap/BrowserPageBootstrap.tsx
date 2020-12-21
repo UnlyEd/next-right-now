@@ -149,7 +149,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
         eventProperties={{
           app: {
             name: process.env.NEXT_PUBLIC_APP_NAME,
-            version: process.env.NEXT_PUBLIC_APP_VERSION,
+            release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
             stage: process.env.NEXT_PUBLIC_APP_STAGE,
             preset: process.env.NEXT_PUBLIC_NRN_PRESET,
           },
