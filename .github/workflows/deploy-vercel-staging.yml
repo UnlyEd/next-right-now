@@ -244,7 +244,7 @@ jobs:
       - name: Calling Webhook (if provided)
         uses: joelwmale/webhook-action@master
         with:
-          url: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
+          url: 'https://n8n.hmartin.fr/webhook/5f1cb9ac-dee3-4f43-a171-9f0f79f43fd2'
           body: |
             {
               "GIT_COMMIT_REF": ${{ env.GIT_COMMIT_REF }},
