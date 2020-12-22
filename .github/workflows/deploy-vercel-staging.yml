@@ -246,11 +246,11 @@ jobs:
         with:
           url: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
           body: |
-          '{
-            "GIT_COMMIT_REF": ${{ env.GIT_COMMIT_REF }},
-            "GIT_COMMIT_SHA": ${{ env.GIT_COMMIT_SHA }},
-            "GIT_COMMIT_TAGS": ${{ env.GIT_COMMIT_TAGS }},
-          }'
+            {
+              "GIT_COMMIT_REF": ${{ env.GIT_COMMIT_REF }},
+              "GIT_COMMIT_SHA": ${{ env.GIT_COMMIT_SHA }},
+              "GIT_COMMIT_TAGS": ${{ env.GIT_COMMIT_TAGS }},
+            }
 
 
   # Runs E2E tests against the Vercel deployment
