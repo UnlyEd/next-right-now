@@ -235,6 +235,24 @@ jobs:
       - name: Display deployment status
         run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
 
+  webhook-callback-after-deployment:
+    name: Call custom webhook after deployment (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    needs: await-for-vercel-deployment
+    if: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
+    steps:
+      - name: Calling Webhook (if provided)
+        uses: joelwmale/webhook-action@master
+        with:
+          url: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
+          body: |
+          fromJSON({
+          "GIT_COMMIT_REF": env.GIT_COMMIT_REF,
+          "GIT_COMMIT_SHA": env.GIT_COMMIT_SHA,
+          "GIT_COMMIT_TAGS": env.GIT_COMMIT_TAGS,
+        })
+
+
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
