@@ -241,7 +241,7 @@ jobs:
     needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
-      - name: Expose environment
+      - name: Expose environment & fetch webhook (if provided)
         run: |
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
