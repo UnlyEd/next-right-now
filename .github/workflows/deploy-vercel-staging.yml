@@ -246,7 +246,7 @@ jobs:
         with:
           url: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
           body: |
-          ${{ fromJSON({
+          ${{ toJSON({
             "GIT_COMMIT_REF": env.GIT_COMMIT_REF,
             "GIT_COMMIT_SHA": env.GIT_COMMIT_SHA,
             "GIT_COMMIT_TAGS": env.GIT_COMMIT_TAGS,
