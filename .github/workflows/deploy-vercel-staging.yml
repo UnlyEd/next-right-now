@@ -252,7 +252,8 @@ jobs:
           if [ -n "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
             . ./scripts/populate-git-env.sh
 
-            echo "Fetching webhook..."
+            echo "Got there variables in environment: 'GIT_COMMIT_SHA': $GIT_COMMIT_SHA 'GIT_COMMIT_REF': $GIT_COMMIT_REF 'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS
+            echo "Fetching webhook at $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK"
 
             curl -X POST \
             $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK \

@@ -159,6 +159,39 @@ jobs:
       - name: Display deployment status
         run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
 
+  webhook-callback-after-deployment:
+    name: Call custom webhook after deployment (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    needs: await-for-vercel-deployment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - name: Expose environment
+        run: |
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+
+          VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
+
+          # Checking if a webhook is defined
+          if [ -n "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
+            . ./scripts/populate-git-env.sh
+
+            echo "Got there variables in environment: 'GIT_COMMIT_SHA': $GIT_COMMIT_SHA 'GIT_COMMIT_REF': $GIT_COMMIT_REF 'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS
+            echo "Fetching webhook at $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK"
+
+            curl -X POST \
+            $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK \
+            --data "{ \
+              'GIT_COMMIT_SHA': $GIT_COMMIT_SHA \
+              'GIT_COMMIT_REF': $GIT_COMMIT_REF \
+              'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS \
+            }"
+
+          fi
+        env:
+          GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
+          GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
+
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
