@@ -243,12 +243,16 @@ jobs:
       - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
       - name: Expose environment
         run: |
-          echo "VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=https://n8n.hmartin.fr/webhook/5f1cb9ac-dee3-4f43-a171-9f0f79f43fd2" >> $GITHUB_ENV
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+
+          cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' >> testfile.txt
+
           # Parse bash script to provide the same environment
           . ./scripts/populate-git-env.sh
-          echo "GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(yarn --silent git:getCommitSHA)}" >> $GITHUB_ENV
-          echo "GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(yarn --silent git:getCommitRef)}" >> $GITHUB_ENV
-          echo "GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(yarn --silent git:getReleasesAndTags)}" >> $GITHUB_ENV
+          echo "GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(yarn --silent git:getCommitSHA)}" >> testfile.txt
+          echo "GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(yarn --silent git:getCommitRef)}" >> testfile.txt
+          echo "GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(yarn --silent git:getReleasesAndTags)}" >> testfile.txt
       - name: Calling Webhook (if provided)
         uses: zzzze/webhook-trigger@master
         if: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}

@@ -14,7 +14,8 @@
       "AIRTABLE_BASE_ID": "@nrn-airtable-base-id",
       "LOCIZE_API_KEY": "@nrn-locize-api-key-staging",
       "SENTRY_DSN": "@nrn-sentry-dsn",
-      "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token"
+      "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token",
+      "VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK": "https://n8n.hmartin.fr/webhook/5f1cb9ac-dee3-4f43-a171-9f0f79f43fd2"
 }
   },
   "alias": [
