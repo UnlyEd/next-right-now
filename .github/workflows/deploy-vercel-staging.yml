@@ -251,9 +251,6 @@ jobs:
           # Checking if a webhook is defined
           if [ -n "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
             . ./scripts/populate-git-env.sh
-            GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(yarn --silent git:getCommitSHA)}
-            GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(yarn --silent git:getCommitRef)}
-            GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(yarn --silent git:getReleasesAndTags)}
 
             echo "Fetching webhook..."
 
@@ -266,18 +263,9 @@ jobs:
             }"
 
           fi
-
-      - name: Calling Webhook (if provided)
-        uses: zzzze/webhook-trigger@master
-        if: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
-        with:
-          webhook_url: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
-          data: |
-            {
-              "GIT_COMMIT_REF": ${{ env.GIT_COMMIT_REF }},
-              "GIT_COMMIT_SHA": ${{ env.GIT_COMMIT_SHA }},
-              "GIT_COMMIT_TAGS": ${{ env.GIT_COMMIT_TAGS }},
-            }
+        env:
+          GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
+          GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
 
 
   # Runs E2E tests against the Vercel deployment
