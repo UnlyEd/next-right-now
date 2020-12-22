@@ -245,13 +245,10 @@ jobs:
         run: |
           echo "VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=https://n8n.hmartin.fr/webhook/5f1cb9ac-dee3-4f43-a171-9f0f79f43fd2" >> $GITHUB_ENV
           # Parse bash script to provide the same environment
-          while read -r line; do
-            # If line isn't a comment
-            if [[ "$line" != "#"* ]];then
-              # Export each variable without the 'export '
-              echo "${line#*export }" >> $GITHUB_ENV
-            fi
-          done < scripts/populate-git-env.sh
+          . ./scripts/populate-git-env.sh
+          echo "GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(yarn --silent git:getCommitSHA)}" >> $GITHUB_ENV
+          echo "GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(yarn --silent git:getCommitRef)}" >> $GITHUB_ENV
+          echo "GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(yarn --silent git:getReleasesAndTags)}" >> $GITHUB_ENV
       - name: Calling Webhook (if provided)
         uses: zzzze/webhook-trigger@master
         if: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
