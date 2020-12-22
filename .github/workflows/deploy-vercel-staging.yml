@@ -239,7 +239,7 @@ jobs:
     name: Call custom webhook after deployment (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
-    if: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
+    if: env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
     steps:
       - name: Calling Webhook (if provided)
         uses: joelwmale/webhook-action@master
