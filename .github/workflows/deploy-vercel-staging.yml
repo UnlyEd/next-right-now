@@ -250,9 +250,9 @@ jobs:
 
           # Parse bash script to provide the same environment
           . ./scripts/populate-git-env.sh
-          echo "GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(yarn --silent git:getCommitSHA)}" >> testfile.txt
-          echo "GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(yarn --silent git:getCommitRef)}" >> testfile.txt
-          echo "GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(yarn --silent git:getReleasesAndTags)}" >> testfile.txt
+          echo "GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(yarn --silent git:getCommitSHA)}" >> $GITHUB_ENV
+          echo "GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(yarn --silent git:getCommitRef)}" >> $GITHUB_ENV
+          echo "GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(yarn --silent git:getReleasesAndTags)}" >> $GITHUB_ENV
       - name: Calling Webhook (if provided)
         uses: zzzze/webhook-trigger@master
         if: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
