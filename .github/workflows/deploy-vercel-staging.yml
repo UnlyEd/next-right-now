@@ -239,12 +239,12 @@ jobs:
     name: Call custom webhook after deployment (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
-    if: env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
     steps:
       - name: Calling Webhook (if provided)
         uses: joelwmale/webhook-action@master
+        if: env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
         with:
-          url: 'https://n8n.hmartin.fr/webhook/5f1cb9ac-dee3-4f43-a171-9f0f79f43fd2'
+          url: ${{ env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK }}
           body: |
             {
               "GIT_COMMIT_REF": ${{ env.GIT_COMMIT_REF }},
