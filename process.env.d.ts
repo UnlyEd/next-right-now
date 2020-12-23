@@ -32,6 +32,7 @@ declare global {
       UNLY_SIMPLE_LOGGER_ENV: NEXT_PUBLIC_APP_STAGE;
 
       // Git env variables
+      GIT_COMMIT_SHA_SHORT: string;
       GIT_COMMIT_SHA: string;
       GIT_COMMIT_REF: string;
       GIT_COMMIT_TAGS: string;
