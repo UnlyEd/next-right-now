@@ -215,21 +215,44 @@ jobs:
             curl -X POST \
               $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK \
               --header "Content-Type: application/json"
-              --data "{ \
+              --data '{ \
                 "MANUAL_TRIGGER_CUSTOMER": "$MANUAL_TRIGGER_CUSTOMER", \
                 "CUSTOMER_REF": "$CUSTOMER_REF_TO_DEPLOY", \
                 "STAGE": "staging", \
                 "GIT_COMMIT_SHA": "$GIT_COMMIT_SHA", \
                 "GIT_COMMIT_REF": "$GIT_COMMIT_REF", \
-                "GIT_COMMIT_TAGS": "$GIT_COMMIT_TAGS" \
-              }"
+                "GIT_COMMIT_TAGS": "$GIT_COMMIT_TAGS", \
+                "GITHUB_REF_SLUG": "$GITHUB_REF_SLUG", \
+                "GITHUB_HEAD_REF_SLUG": "$GITHUB_HEAD_REF_SLUG", \
+                "GITHUB_BASE_REF_SLUG": "$GITHUB_BASE_REF_SLUG", \
+                "GITHUB_EVENT_REF_SLUG": "$GITHUB_EVENT_REF_SLUG", \
+                "GITHUB_REPOSITORY_SLUG": "$GITHUB_REPOSITORY_SLUG", \
+                "GITHUB_REF_SLUG_URL": "$GITHUB_REF_SLUG_URL", \
+                "GITHUB_HEAD_REF_SLUG_URL": "$GITHUB_HEAD_REF_SLUG_URL", \
+                "GITHUB_BASE_REF_SLUG_URL": "$GITHUB_BASE_REF_SLUG_URL", \
+                "GITHUB_EVENT_REF_SLUG_URL": "$GITHUB_EVENT_REF_SLUG_URL", \
+                "GITHUB_REPOSITORY_SLUG_URL": "$GITHUB_REPOSITORY_SLUG_URL", \
+                "GITHUB_SHA_SHORT": "$GITHUB_SHA_SHORT" \
+              }'
 
           else
-            echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.production.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
+            echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.production.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
           fi
         env:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
+          # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+          GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
+          GITHUB_HEAD_REF_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG }}
+          GITHUB_BASE_REF_SLUG: ${{ env.GITHUB_BASE_REF_SLUG }}
+          GITHUB_EVENT_REF_SLUG: ${{ env.GITHUB_EVENT_REF_SLUG }}
+          GITHUB_REPOSITORY_SLUG: ${{ env.GITHUB_REPOSITORY_SLUG }}
+          GITHUB_REF_SLUG_URL: ${{ env.GITHUB_REF_SLUG_URL }}
+          GITHUB_HEAD_REF_SLUG_URL: ${{ env.GITHUB_HEAD_REF_SLUG_URL }}
+          GITHUB_BASE_REF_SLUG_URL: ${{ env.GITHUB_BASE_REF_SLUG_URL }}
+          GITHUB_EVENT_REF_SLUG_URL: ${{ env.GITHUB_EVENT_REF_SLUG_URL }}
+          GITHUB_REPOSITORY_SLUG_URL: ${{ env.GITHUB_REPOSITORY_SLUG_URL }}
+          GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
 
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
