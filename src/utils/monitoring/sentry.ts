@@ -93,9 +93,9 @@ export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string
     scope.setTag('host', req?.headers?.host);
     scope.setTag('url', req?.url);
     scope.setTag('method', req?.method);
-    scope.setContext('query', req?.query);
-    scope.setContext('cookies', req?.cookies);
-    scope.setContext('body', req?.body);
+    scope.setExtra('query', req?.query);
+    scope.setExtra('body', req?.body);
+    scope.setExtra('cookies', req?.cookies);
     scope.setContext('headers', req?.headers);
 
     map(tags, (value: string, tag: string) => {
