@@ -15,7 +15,7 @@
       "LOCIZE_API_KEY": "The Locize API Key shouldn't be used in production (see https://github.com/locize/i18next-locize-backend#backend-options) because it's related to development-only features, and it's sensitive.",
       "SENTRY_DSN": "@nrn-sentry-dsn",
       "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token",
-      "VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK": ""
+      "VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK": "https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/api/webhooks/deploymentCompleted"
     }
   },
   "regions": [
