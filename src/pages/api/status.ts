@@ -24,7 +24,7 @@ const logger = createLogger({
  */
 export const status = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
-    configureReq(req, { fileLabel }, { body: req?.body, query: req?.query });
+    configureReq(req, { fileLabel });
 
     res.json({
       appStage: process.env.NEXT_PUBLIC_APP_STAGE,
