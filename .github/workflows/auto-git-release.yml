@@ -56,9 +56,9 @@ jobs:
         if: ${{ !startsWith(env.GITHUB_REF_SLUG, 'v2-') && env.GITHUB_REF_SLUG != 'master' && env.GITHUB_REF_SLUG != 'main' }} # If not master, mark release as pre-release and include branch name to avoid tagging conflicts
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.${{ env.GITHUB_REF_SLUG }}-prerelease"
+          automatic_release_tag: "v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.0-rc-${{ env.GITHUB_REF_SLUG }}"
           prerelease: true
-          title: "Automatic pre-release v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.${{ env.GITHUB_REF_SLUG }}-prerelease"
+          title: "Automatic pre-release `v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.0-rc-${{ env.GITHUB_REF_SLUG }}`"
           files: |
             README.md
             CHANGELOG.md
