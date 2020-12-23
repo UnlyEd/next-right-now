@@ -102,7 +102,7 @@ const GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING = '.github/workflows/deploy-verce
  */
 const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
-    configureReq(req, { fileLabel });
+    configureReq(req, { fileLabel }, { body: req?.body, query: req?.query });
     Sentry.captureEvent({
       message: 'API endpoint "startVercelDeployment" invoked.',
       level: Sentry.Severity.Log,

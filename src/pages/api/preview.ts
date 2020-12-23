@@ -62,7 +62,7 @@ type EndpointRequest = NextApiRequest & {
  */
 export const preview = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
-    configureReq(req, { fileLabel });
+    configureReq(req, { fileLabel }, { body: req?.body, query: req?.query });
 
     const {
       stop = 'false',

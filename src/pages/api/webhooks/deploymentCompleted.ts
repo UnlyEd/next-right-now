@@ -85,7 +85,7 @@ type EndpointRequest = NextApiRequest & {
  */
 export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
-    configureReq(req, { fileLabel });
+    configureReq(req, { fileLabel }, { body: req?.body, query: req?.query });
     const body = JSON.parse(req?.body);
 
     // eslint-disable-next-line no-console
