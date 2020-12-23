@@ -259,7 +259,7 @@ jobs:
         run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
 
   send-webhook-callback-once-deployment-ready:
-    name: Call webhook defined by the customer once deployment is completed (Ubuntu 18.04)
+    name: Invoke webhook callback url defined by the customer (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
     steps:
@@ -290,7 +290,6 @@ jobs:
             echo "Calling webhook at '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK'"
             curl -X POST \
               $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK \
-              --header "Content-Type: application/json" \
               --data '{ \
                 "MANUAL_TRIGGER_CUSTOMER": "$MANUAL_TRIGGER_CUSTOMER", \
                 "CUSTOMER_REF": "$CUSTOMER_REF_TO_DEPLOY", \
