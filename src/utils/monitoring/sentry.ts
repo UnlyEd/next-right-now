@@ -4,6 +4,7 @@ import map from 'lodash.map';
 import { NextApiRequest } from 'next';
 
 import { UserSession } from '../../hooks/useUserSession';
+import { GenericObject } from '../../types/GenericObject';
 
 /**
  * Initialize Sentry and export it.
@@ -89,6 +90,13 @@ export const configureSentryI18n = (lang: string, locale: string): void => {
  * @see https://www.npmjs.com/package/@sentry/node
  */
 export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string }, contexts?: { [key: string]: any }): void => {
+  let parsedBody: GenericObject = {};
+  try {
+    // Try to parse the request body. Might fail and it's not an issue if that happens.
+    // If it's valid JSON then it'll become easier to debug it through Sentry UI than reading a stringified JSON version.
+    parsedBody = JSON.parse(req?.body);
+  } catch (e) {} // Do nothing, as "body" is not necessarily supposed to contain valid stringified JSON
+
   Sentry.configureScope((scope) => {
     scope.setTag('host', req?.headers?.host);
     scope.setTag('url', req?.url);
@@ -97,6 +105,7 @@ export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string
     scope.setExtra('body', req?.body);
     scope.setExtra('cookies', req?.cookies);
     scope.setContext('headers', req?.headers);
+    scope.setContext('parsedBody', parsedBody);
 
     map(tags, (value: string, tag: string) => {
       scope.setTag(tag, value);
