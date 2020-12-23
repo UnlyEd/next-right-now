@@ -182,6 +182,7 @@ jobs:
       - name: Display deployment status
         run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
 
+  # Send a HTTP call to the webhook url that's provided in the customer configuration file (vercel.*.json)
   send-webhook-callback-once-deployment-ready:
     name: Invoke webhook callback url defined by the customer (Ubuntu 18.04)
     runs-on: ubuntu-18.04
@@ -302,12 +303,12 @@ jobs:
           echo "Url where to run E2E tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
 
-      # Run the E2E tests against the new Vercel deployment
+      # Runs the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
         uses: cypress-io/github-action@v2 # See https://github.com/cypress-io/github-action
         with:
-          wait-on: ${{ env.VERCEL_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
-          config-file: cypress/config-customer-ci-cd.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
+          config-file: 'cypress/config-customer-ci-cd.json' # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
           # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.
@@ -330,7 +331,7 @@ jobs:
           name: videos
           path: cypress/videos/
 
-  # Run Lighthouse reports in parallel of E2E tests
+  # Runs LightHouse reports in parallel of E2E tests
   run-lighthouse-tests:
     name: Run LightHouse checks (Ubuntu 18.04)
     runs-on: ubuntu-18.04
@@ -383,11 +384,11 @@ jobs:
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
-      # In order to store reports and then upload it, we need to create the folder before any tests
+      # To store reports and then upload them, we must create the folder beforehand
       - name: Create temporary folder for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
 
-      # It runs the lighthouse report for a provided url and create a HTML report in the specified directory
+      # Runs LightHouse for a given url and create HTML reports in the specified directory (outputDirectory)
       # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
       - name: Run Lighthouse
         uses: foo-software/lighthouse-check-action@v2.0.5
@@ -399,7 +400,8 @@ jobs:
           urls: ${{ env.VERCEL_DEPLOYMENT_URL }}, ${{ env.VERCEL_DEPLOYMENT_URL }}/en, ${{ env.VERCEL_DEPLOYMENT_URL }}/fr, ${{ env.VERCEL_DEPLOYMENT_URL }}/en-US, ${{ env.VERCEL_DEPLOYMENT_URL }}/fr-FR
           locale: en
 
-      # Upload HTML report create by lighthouse, could be useful
+      # Upload HTML report created by lighthouse as an artifact.
+      # XXX Disable this if you don't use them, as they are a bit heavy (~3MB) and might cost you money, if you're using a private repository
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:

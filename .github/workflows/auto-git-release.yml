@@ -1,5 +1,8 @@
 # Summary:
-# Automatically tag and release when changes land on the "main" branches.
+# Automatically tag and release when changes land on any branch.
+# Tag and release changes on the master branch, as releases. (one release per commit)
+# Tag and pre-release changes on the other branches, as pre-releases with a "x" as "patch" indicator.
+#  (one release per branch, the release is updated at every push)
 #
 # Dependencies overview:
 # - See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.2
@@ -50,9 +53,9 @@ jobs:
             CHANGELOG.md
             LICENSE
 
-      # Auto-release (as pre-release) in a shared tag (using the branch's name) when a commit hit another branch
+      # Auto-release (as pre-release) in a shared tag (using the branch's name) when a commit hits another branch
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
-        # When using "!", mut use expression syntax - See https://github.community/t/if-not-startswith-mutually-exclusive-steps/141841/2?u=vadorequest
+        # When using "!", must use expression syntax - See https://github.community/t/if-not-startswith-mutually-exclusive-steps/141841/2?u=vadorequest
         if: ${{ !startsWith(env.GITHUB_REF_SLUG, 'v2-') && env.GITHUB_REF_SLUG != 'master' && env.GITHUB_REF_SLUG != 'main' }} # If not master, mark release as pre-release and include branch name to avoid tagging conflicts
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
