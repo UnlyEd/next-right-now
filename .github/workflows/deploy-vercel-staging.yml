@@ -290,6 +290,8 @@ jobs:
             echo "Calling webhook at '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK'"
             curl -X POST \
               $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK \
+              --header "Accept: application/json" \
+              --header "Content-type: application/json" \
               --data '{ \
                 "MANUAL_TRIGGER_CUSTOMER": "$MANUAL_TRIGGER_CUSTOMER", \
                 "CUSTOMER_REF": "$CUSTOMER_REF_TO_DEPLOY", \
