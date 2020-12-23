@@ -3,6 +3,8 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
+import { GenericObject } from '../../../types/GenericObject';
+import { convertRequestBodyToJSObject } from '../../../utils/api/convertRequestBodyToJSObject';
 
 import Sentry, {
   ALERT_TYPES,
@@ -91,11 +93,14 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
     configureReq(req, { fileLabel });
 
     // eslint-disable-next-line no-console
-    console.log(`Trying to parse body: "${req?.body}"`);
-    const bodyParsed = JSON.parse(req?.body);
+    console.log(`Received body of type "${typeof req?.body}":`);
+    // eslint-disable-next-line no-console
+    console.log(req?.body);
+
+    const parsedBody: GenericObject = convertRequestBodyToJSObject(req);
 
     // eslint-disable-next-line no-console
-    console.debug('body (parsed)', bodyParsed);
+    console.debug('body (parsed)', parsedBody);
 
     Sentry.withScope((scope): void => {
       scope.setTag('alertType', ALERT_TYPES.VERCEL_DEPLOYMENT_COMPLETED);

@@ -5,6 +5,7 @@ import { NextApiRequest } from 'next';
 
 import { UserSession } from '../../hooks/useUserSession';
 import { GenericObject } from '../../types/GenericObject';
+import { convertRequestBodyToJSObject } from '../api/convertRequestBodyToJSObject';
 
 /**
  * Initialize Sentry and export it.
@@ -106,9 +107,7 @@ export const configureSentryI18n = (lang: string, locale: string): void => {
 export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string }, contexts?: { [key: string]: any }): void => {
   let parsedBody: GenericObject = {};
   try {
-    // Try to parse the request body. Might fail and it's not an issue if that happens.
-    // If it's valid JSON then it'll become easier to debug it through Sentry UI than reading a stringified JSON version.
-    parsedBody = JSON.parse(req?.body);
+    parsedBody = convertRequestBodyToJSObject(req);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
