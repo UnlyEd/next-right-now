@@ -1,9 +1,10 @@
 # Summary:
 # Automatically tag and release when changes land on the "main" branches.
 #
-# See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.2
-# See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
-# See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
+# Dependencies overview:
+# - See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.2
+# - See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
+# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
 
 name: 'Auto release'
 on:
@@ -16,11 +17,11 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
-        uses: rlespinasse/github-slug-action@v3.x
-      - uses: actions/checkout@v2
+        uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
+      - uses: actions/checkout@v2 # See https://github.com/actions/checkout
         with:
           fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
-      - uses: paulhatch/semantic-version@v3.2
+      - uses: paulhatch/semantic-version@v3.2 # See https://github.com/PaulHatch/semantic-version
         id: next_semantic_version # Output: https://github.com/PaulHatch/semantic-version/blob/master/index.js#L63-L69
         with: # See https://github.com/PaulHatch/semantic-version#usage
           branch: ${{ env.GITHUB_REF_SLUG }} # Use current branch

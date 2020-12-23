@@ -1,6 +1,29 @@
 # Summary:
-# Creates a new deployment on Vercel's platform, when anything is pushed in any branch (except for the "master" branch).
-# Read ./README.md for extensive documentation
+# Creates a new preview deployment on Vercel's platform, when anything is pushed in any branch (except for the "master" branch).
+# Once the deployment has been performed by Vercel, we wait for its status to reach the "READY" state before doing anything else.defaults:
+# - Once ready, an HTTP call is sent to the webhook that is configured within the customer config file (VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK). (optional)
+# - Once ready, E2E tests are executed on the newly deployed domain (Cypress).
+# - Once ready, quality tests are executed on the newly deployed domain (LightHouse).
+#
+# This workflow can also be triggered using "Workflow Dispatch".
+#   See https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch
+#   See https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#workflow_dispatch
+# This workflow can also be triggered using the API (uses Workflow Dispatch in the background).
+#   See src/pages/api/startVercelDeployment.ts
+#
+# LEARN MORE AT https://unlyed.github.io/next-right-now/guides/ci-cd/
+#
+# Dependencies overview:
+# - See https://github.com/actions/setup-node https://github.com/actions/setup-node/tree/v1
+# - See https://github.com/actions/checkout https://github.com/actions/checkout/tree/v1
+# - See https://github.com/actions/upload-artifact https://github.com/actions/upload-artifact/tree/v1
+# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
+# - See https://github.com/jwalton/gh-find-current-pr https://github.com/jwalton/gh-find-current-pr/tree/v1
+# - See https://github.com/peter-evans/create-or-update-comment https://github.com/peter-evans/create-or-update-comment/tree/v1
+# - See https://github.com/UnlyEd/github-action-await-vercel https://github.com/UnlyEd/github-action-await-vercel/tree/v1.1.1
+# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/v3.x
+# - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
+# - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
 
 name: Deploy to Vercel (staging)
 
@@ -30,7 +53,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Installing node.js
-        uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
+        uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
         with:
           node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
 
@@ -42,7 +65,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: setup-environment
     steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Deploying on Vercel (staging)
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
@@ -141,7 +164,7 @@ jobs:
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
-        uses: jwalton/gh-find-current-pr@v1
+        uses: jwalton/gh-find-current-pr@v1 # See https://github.com/jwalton/gh-find-current-pr
         id: pr_id_finder
         if: always() # It forces the job to be always executed, even if a previous job fail.
         with:
@@ -149,7 +172,7 @@ jobs:
 
       # On deployment failure, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (Deployment failure)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
         if: steps.pr_id_finder.outputs.number && failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -161,7 +184,7 @@ jobs:
 
       # On deployment success, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (Deployment success)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
         if: steps.pr_id_finder.outputs.number && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -224,7 +247,7 @@ jobs:
 
       # Wait for deployment to be ready, before running E2E (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
       - name: Awaiting Vercel deployment to be ready
-        uses: UnlyEd/github-action-await-vercel@v1.1.1
+        uses: UnlyEd/github-action-await-vercel@v1.1.1 # See https://github.com/UnlyEd/github-action-await-vercel
         id: await-vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
@@ -240,7 +263,9 @@ jobs:
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
     steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
+      - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+        uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
       - name: Expose git environment variables and call webhook (if provided)
         # Workflow overview:
         #  - Resolves webhook url from customer config file
@@ -282,7 +307,6 @@ jobs:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
 
-
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
@@ -292,7 +316,7 @@ jobs:
     container: cypress/included:3.8.3
     needs: await-for-vercel-deployment
     steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
@@ -332,7 +356,7 @@ jobs:
 
       # Run the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
-        uses: cypress-io/github-action@v2 # XXX See https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v2 # See https://github.com/cypress-io/github-action
         with:
           wait-on: ${{ env.VERCEL_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
           config-file: cypress/config-customer-ci-cd.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
@@ -360,7 +384,7 @@ jobs:
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
-        uses: jwalton/gh-find-current-pr@v1
+        uses: jwalton/gh-find-current-pr@v1 # See https://github.com/jwalton/gh-find-current-pr
         id: pr_id_finder
         if: always() # It forces the job to be always executed, even if a previous job fail.
         with:
@@ -368,7 +392,7 @@ jobs:
 
       # On E2E failure, add a comment to the PR with additional information, if there is an open PR for the current branch
       - name: Comment PR (E2E failure)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
         if: steps.pr_id_finder.outputs.number && failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -379,7 +403,7 @@ jobs:
 
       # On E2E success, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (E2E success)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
         if: steps.pr_id_finder.outputs.number && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -395,7 +419,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
     steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
@@ -472,7 +496,7 @@ jobs:
       # You can remove this action IF you don't want lighthouse to be a blocking point in your CI
       # Official documentation: https://github.com/foo-software/lighthouse-check-status-action
       - name: Handle Lighthouse Check results
-        uses: foo-software/lighthouse-check-status-action@v1.0.1
+        uses: foo-software/lighthouse-check-status-action@v1.0.1 # See https://github.com/foo-software/lighthouse-check-action
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
           minAccessibilityScore: "50"
