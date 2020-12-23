@@ -30,35 +30,35 @@ jobs:
           minor_pattern: "(MINOR)" # Same as above except indicating a minor change
           format: "${major}.${minor}.${patch}-${{ env.GITHUB_REF_SLUG }}" # A string to determine the format of the version output
           short_tags: false # If set to false, short tags like "v1" will not be considered, only full versions tags such as "v1.0.0" will be used to determine the version.
-          bump_each_commit: startsWith(env.GITHUB_REF_SLUG, 'v2-') || env.GITHUB_REF_SLUG == 'master' || env.GITHUB_REF_SLUG == 'main' # Auto bump commit if we're on the main branch, but not on other branches (to avoid creating too many releases) - If this input is set to true, every commit will be treated as a new version, bumping the patch, minor, or major version based on the commit message.
+          bump_each_commit: true # If this input is set to true, every commit will be treated as a new version, bumping the patch, minor, or major version based on the commit message.
       - run: |
           echo "Branch name: ${{ env.GITHUB_REF_SLUG }}"
-          echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
-          echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
-          echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
+          echo ${{ join(steps.next_semantic_version.outputs.*, ' - ') }}
+          echo "Next version: ${{ steps.next_semantic_version.outputs.version }}"
+          echo "Next version tag: ${{ steps.next_semantic_version.outputs.version_tag }}"
 
       # Auto-release when a commit hit "master"
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
         if: startsWith(env.GITHUB_REF_SLUG, 'v2-') || env.GITHUB_REF_SLUG == 'master' || env.GITHUB_REF_SLUG == 'main' # If master, mark release as official release
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: v${{steps.next_semantic_version.outputs.version}}
+          automatic_release_tag: "v${{ steps.next_semantic_version.outputs.version }}"
           prerelease: false
-          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (from `${{ env.GITHUB_REF_SLUG }}`)"
+          title: "Automatic release ${{ steps.next_semantic_version.outputs.version_tag }} (from `${{ env.GITHUB_REF_SLUG }}`)"
           files: |
             README.md
             CHANGELOG.md
             LICENSE
 
-      # Auto-release (as pre-release) when a commit hit another branch
+      # Auto-release (as pre-release) in a shared tag (using the branch's name) when a commit hit another branch
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
         # When using "!", mut use expression syntax - See https://github.community/t/if-not-startswith-mutually-exclusive-steps/141841/2?u=vadorequest
         if: ${{ !startsWith(env.GITHUB_REF_SLUG, 'v2-') && env.GITHUB_REF_SLUG != 'master' && env.GITHUB_REF_SLUG != 'main' }} # If not master, mark release as pre-release and include branch name to avoid tagging conflicts
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: v${{steps.next_semantic_version.outputs.version}}-prerelease
+          automatic_release_tag: "v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.${{ env.GITHUB_REF_SLUG }}-prerelease"
           prerelease: true
-          title: "Automatic pre-release ${{steps.next_semantic_version.outputs.version_tag}}-prerelease (from `${{ env.GITHUB_REF_SLUG }}`)"
+          title: "Automatic pre-release v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.${{ env.GITHUB_REF_SLUG }}-prerelease"
           files: |
             README.md
             CHANGELOG.md
