@@ -86,13 +86,20 @@ type EndpointRequest = NextApiRequest & {
 export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req, { fileLabel });
+    const body = JSON.parse(req?.body);
 
     // eslint-disable-next-line no-console
-    console.debug('query', req?.query);
+    console.debug('body (raw)', req?.body);
     // eslint-disable-next-line no-console
-    console.debug('body', req?.body);
+    console.debug('body (parsed)', body);
 
-    res.end(200);
+    Sentry.withScope((scope): void => {
+      scope.setContext('body', body);
+      Sentry.captureMessage(`[deploymentCompleted] Received webhook callback.`);
+    });
+
+    res.status(200);
+    res.end();
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);

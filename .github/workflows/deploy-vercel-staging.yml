@@ -264,15 +264,16 @@ jobs:
 
             echo "Calling webhook at '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK'"
             curl -X POST \
-            $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK \
-            --data "{ \
-              'MANUAL_TRIGGER_CUSTOMER': $MANUAL_TRIGGER_CUSTOMER \
-              'CUSTOMER_REF': $CUSTOMER_REF_TO_DEPLOY \
-              'STAGE': staging \
-              'GIT_COMMIT_SHA': $GIT_COMMIT_SHA \
-              'GIT_COMMIT_REF': $GIT_COMMIT_REF \
-              'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS \
-            }"
+              $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK \
+              --header "Content-Type: application/json"
+              --data "{ \
+                "MANUAL_TRIGGER_CUSTOMER": "$MANUAL_TRIGGER_CUSTOMER", \
+                "CUSTOMER_REF": "$CUSTOMER_REF_TO_DEPLOY", \
+                "STAGE": "staging", \
+                "GIT_COMMIT_SHA": "$GIT_COMMIT_SHA", \
+                "GIT_COMMIT_REF": "$GIT_COMMIT_REF", \
+                "GIT_COMMIT_TAGS": "$GIT_COMMIT_TAGS" \
+              }"
 
           else
             echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
