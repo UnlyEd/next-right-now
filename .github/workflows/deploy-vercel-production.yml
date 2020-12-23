@@ -307,7 +307,8 @@ jobs:
       - name: Run E2E tests (Cypress)
         uses: cypress-io/github-action@v2 # See https://github.com/cypress-io/github-action
         with:
-          wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
+          # XXX We disabled "wait-on" option, because it's useless. Cypress will fail anyway, because it gets redirected to some internal Vercel URL if the domain isn't yet available - See https://github.com/cypress-io/github-action/issues/270
+          # wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
           config-file: 'cypress/config-customer-ci-cd.json' # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
