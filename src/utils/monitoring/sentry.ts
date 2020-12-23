@@ -47,6 +47,20 @@ if (process.env.SENTRY_DSN) {
 }
 
 /**
+ * Alert types, meant to be assigned to "alertType" tag when reporting a message/exception/event to Sentry.
+ *
+ * Then, you can configure your own Sentry Alerts using the "alertType" tag and perform specific data processing.
+ * @example If the event's tags match "alertType equals 'vercel-deployment-invoked'", then send it to Slack channel.
+ *
+ * @see https://sentry.io/organizations/unly/alerts/next-right-now/new/
+ */
+export const ALERT_TYPES = {
+  VERCEL_DEPLOYMENT_INVOKED: 'vercel-deployment-invoked',
+  VERCEL_DEPLOYMENT_TRIGGERED: 'vercel-deployment-triggered',
+  VERCEL_DEPLOYMENT_COMPLETED: 'vercel-deployment-completed',
+};
+
+/**
  * Configure Sentry tags for the current user.
  *
  * Allows to track all Sentry events related to a particular user.
@@ -95,7 +109,8 @@ export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string
     // Try to parse the request body. Might fail and it's not an issue if that happens.
     // If it's valid JSON then it'll become easier to debug it through Sentry UI than reading a stringified JSON version.
     parsedBody = JSON.parse(req?.body);
-  } catch (e) {} // Do nothing, as "body" is not necessarily supposed to contain valid stringified JSON
+  } catch (e) {
+  } // Do nothing, as "body" is not necessarily supposed to contain valid stringified JSON
 
   Sentry.configureScope((scope) => {
     scope.setTag('host', req?.headers?.host);

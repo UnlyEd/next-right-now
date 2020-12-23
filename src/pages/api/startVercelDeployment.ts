@@ -7,7 +7,10 @@ import {
 import redirect from '../../utils/app/redirect';
 import dispatchWorkflowByPath from '../../utils/gitHubActions/dispatchWorkflowByPath';
 
-import Sentry, { configureReq } from '../../utils/monitoring/sentry';
+import Sentry, {
+  ALERT_TYPES,
+  configureReq,
+} from '../../utils/monitoring/sentry';
 
 const fileLabel = 'api/startVercelDeployment';
 const logger = createLogger({
@@ -103,9 +106,14 @@ const GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING = '.github/workflows/deploy-verce
 const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req, { fileLabel });
-    Sentry.captureEvent({
-      message: 'API endpoint "startVercelDeployment" invoked.',
-      level: Sentry.Severity.Log,
+
+    Sentry.withScope((scope): void => {
+      scope.setTag('alertType', ALERT_TYPES.VERCEL_DEPLOYMENT_INVOKED);
+
+      Sentry.captureEvent({
+        message: 'API endpoint "startVercelDeployment" invoked.',
+        level: Sentry.Severity.Log,
+      });
     });
 
     const {

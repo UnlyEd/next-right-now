@@ -4,7 +4,10 @@ import {
   NextApiResponse,
 } from 'next';
 
-import Sentry, { configureReq } from '../../../utils/monitoring/sentry';
+import Sentry, {
+  ALERT_TYPES,
+  configureReq,
+} from '../../../utils/monitoring/sentry';
 
 const fileLabel = 'api/webhooks/deploymentCompleted';
 const logger = createLogger({
@@ -94,8 +97,12 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
     console.debug('body (parsed)', body);
 
     Sentry.withScope((scope): void => {
-      scope.setContext('body', body);
-      Sentry.captureMessage(`[deploymentCompleted] Received webhook callback.`);
+      scope.setTag('alertType', ALERT_TYPES.VERCEL_DEPLOYMENT_COMPLETED);
+
+      Sentry.captureEvent({
+        message: `[deploymentCompleted] Received webhook callback.`,
+        level: Sentry.Severity.Log,
+      });
     });
 
     res.status(200);
