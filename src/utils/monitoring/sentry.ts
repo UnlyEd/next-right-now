@@ -110,6 +110,8 @@ export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string
     // If it's valid JSON then it'll become easier to debug it through Sentry UI than reading a stringified JSON version.
     parsedBody = JSON.parse(req?.body);
   } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
   } // Do nothing, as "body" is not necessarily supposed to contain valid stringified JSON
 
   Sentry.configureScope((scope) => {

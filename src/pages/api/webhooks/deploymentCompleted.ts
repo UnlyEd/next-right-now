@@ -15,7 +15,7 @@ const logger = createLogger({
 });
 
 type EndpointRequest = NextApiRequest & {
-  query: {
+  body: {
     /**
      * Value that was typed in the GHA web page, as "Customer to deploy".
      *
@@ -89,12 +89,13 @@ type EndpointRequest = NextApiRequest & {
 export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req, { fileLabel });
-    const body = JSON.parse(req?.body);
 
     // eslint-disable-next-line no-console
-    console.debug('body (raw)', req?.body);
+    console.log(`Trying to parse body: "${req?.body}"`);
+    const bodyParsed = JSON.parse(req?.body);
+
     // eslint-disable-next-line no-console
-    console.debug('body (parsed)', body);
+    console.debug('body (parsed)', bodyParsed);
 
     Sentry.withScope((scope): void => {
       scope.setTag('alertType', ALERT_TYPES.VERCEL_DEPLOYMENT_COMPLETED);
@@ -111,10 +112,8 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
     Sentry.captureException(e);
     logger.error(e.message);
 
-    res.json({
-      error: true,
-      message: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? undefined : e.message,
-    });
+    res.status(500);
+    res.end();
   }
 };
 
