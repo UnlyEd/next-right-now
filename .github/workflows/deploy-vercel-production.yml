@@ -213,7 +213,8 @@ jobs:
             echo "'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS"
 
             # Generates JSON using a bash function - See https://stackoverflow.com/a/57369772/2391795
-            # End Of File must be at the beginning of the line with no space/tab before or after - See https://stackoverflow.com/a/12909284/2391795
+            # "End Of File" must be at the beginning of the line with no space/tab before or after - See https://stackoverflow.com/a/12909284/2391795
+            # But, when executed by GitHub Action, it must be inside the "run" section instead
             generate_post_data() {
               cat <<EOF
             {
