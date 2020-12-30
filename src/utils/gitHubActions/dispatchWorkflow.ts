@@ -1,6 +1,6 @@
 import { createLogger } from '@unly/utils-simple-logger';
 import { WorkflowsAPIResponse } from '../../types/githubActions/WorkflowsAPIResponse';
-import Sentry from '../monitoring/sentry';
+import Sentry, { ALERT_TYPES } from '../monitoring/sentry';
 
 const fileLabel = 'utils/githubActions/dispatchWorkflow';
 const logger = createLogger({
@@ -43,9 +43,13 @@ export const dispatchWorkflow = async (workflowsList: WorkflowsAPIResponse, plat
       scope.setContext('workflowDetails', workflowDetails);
     });
 
-    Sentry.captureEvent({
-      message: 'Triggering Vercel deployment.',
-      level: Sentry.Severity.Log,
+    Sentry.withScope((scope): void => {
+      scope.setTag('alertType', ALERT_TYPES.VERCEL_DEPLOYMENT_TRIGGERED);
+
+      Sentry.captureEvent({
+        message: 'Triggering Vercel deployment.',
+        level: Sentry.Severity.Log,
+      });
     });
 
     logger.debug(`Fetching "${url}", using workflow path: "${workflowFilePath}", with request body: ${JSON.stringify(body, null, 2)}`);

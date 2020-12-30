@@ -14,6 +14,7 @@ const noRedirectBlacklistedPaths = ['_next', 'api']; // Paths that mustn't have 
 const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folders, files) under /public directory should be added there, to avoid redirection when an asset isn't found
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const date = new Date();
+const GIT_COMMIT_SHA_SHORT = process.env.GIT_COMMIT_SHA.substring(0, 8);
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${process.env.GIT_COMMIT_SHA} and GIT_COMMIT_REF=${process.env.GIT_COMMIT_REF}`);
 
@@ -23,7 +24,7 @@ const GIT_COMMIT_TAGS = process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAG
 console.debug(`Deployment will be tagged automatically, using GIT_COMMIT_TAGS: "${GIT_COMMIT_TAGS}"`);
 
 // Iterate over all tags and extract the first the match "v*" and extract only the version number ("v${major}.${minor}.${patch})
-const APP_RELEASE_TAG = GIT_COMMIT_TAGS ? GIT_COMMIT_TAGS.split(' ').find((tag) => tag.startsWith('v')).split('-')[0] : 'unknown';
+const APP_RELEASE_TAG = GIT_COMMIT_TAGS ? GIT_COMMIT_TAGS.split(' ').find((tag) => tag.startsWith('v')).split('-')[0] : `unknown-${GIT_COMMIT_SHA_SHORT}`;
 console.debug(`Release version resolved from tags: "${APP_RELEASE_TAG}" (matching first tag starting with "v")`);
 
 /**
@@ -82,6 +83,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     NEXT_PUBLIC_APP_NAME: packageJson.name,
     NEXT_PUBLIC_APP_NAME_VERSION: `${packageJson.name}-${APP_RELEASE_TAG}`,
     UNLY_SIMPLE_LOGGER_ENV: process.env.NEXT_PUBLIC_APP_STAGE, // Used by @unly/utils-simple-logger - Fix missing staging logs because otherwise it believes we're in production
+    GIT_COMMIT_SHA_SHORT,
     GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA, // Resolve commit hash from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")
     GIT_COMMIT_REF: process.env.GIT_COMMIT_REF, // Resolve commit ref (branch/tag) from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")
     GIT_COMMIT_TAGS: process.env.GIT_COMMIT_TAGS || '', // Resolve commit tags/releases from ENV first (set through CI), fallbacks to reading git (when used locally, through "/scripts/populate-git-env.sh")

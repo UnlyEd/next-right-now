@@ -47,12 +47,8 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       GIT_COMMIT_TAGS: process.env.GIT_COMMIT_TAGS,
     });
   } catch (e) {
+    Sentry.captureException(e);
     logger.error(e.message);
-
-    Sentry.withScope((scope): void => {
-      scope.setTag('fileLabel', fileLabel);
-      Sentry.captureException(e);
-    });
 
     res.json({
       error: true,

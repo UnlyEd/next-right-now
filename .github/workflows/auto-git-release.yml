@@ -1,9 +1,13 @@
 # Summary:
-# Automatically tag and release when changes land on the "main" branches.
+# Automatically tag and release when changes land on any branch.
+# Tag and release changes on the master branch, as releases. (one release per commit)
+# Tag and pre-release changes on the other branches, as pre-releases with a "x" as "patch" indicator.
+#  (one release per branch, the release is updated at every push)
 #
-# See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.2
-# See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
-# See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
+# Dependencies overview:
+# - See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.2
+# - See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
+# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
 
 name: 'Auto release'
 on:
@@ -16,11 +20,11 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
-        uses: rlespinasse/github-slug-action@v3.x
-      - uses: actions/checkout@v2
+        uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
+      - uses: actions/checkout@v2 # See https://github.com/actions/checkout
         with:
           fetch-depth: 0 # See https://github.com/PaulHatch/semantic-version#important-note-regarding-the-checkout-action
-      - uses: paulhatch/semantic-version@v3.2
+      - uses: paulhatch/semantic-version@v3.2 # See https://github.com/PaulHatch/semantic-version
         id: next_semantic_version # Output: https://github.com/PaulHatch/semantic-version/blob/master/index.js#L63-L69
         with: # See https://github.com/PaulHatch/semantic-version#usage
           branch: ${{ env.GITHUB_REF_SLUG }} # Use current branch
@@ -32,32 +36,32 @@ jobs:
           bump_each_commit: true # If this input is set to true, every commit will be treated as a new version, bumping the patch, minor, or major version based on the commit message.
       - run: |
           echo "Branch name: ${{ env.GITHUB_REF_SLUG }}"
-          echo ${{join(steps.next_semantic_version.outputs.*, ' - ')}}
-          echo "Next version: ${{steps.next_semantic_version.outputs.version}}"
-          echo "Next version tag: ${{steps.next_semantic_version.outputs.version_tag}}"
+          echo ${{ join(steps.next_semantic_version.outputs.*, ' - ') }}
+          echo "Next version: ${{ steps.next_semantic_version.outputs.version }}"
+          echo "Next version tag: ${{ steps.next_semantic_version.outputs.version_tag }}"
 
       # Auto-release when a commit hit "master"
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
         if: startsWith(env.GITHUB_REF_SLUG, 'v2-') || env.GITHUB_REF_SLUG == 'master' || env.GITHUB_REF_SLUG == 'main' # If master, mark release as official release
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: v${{steps.next_semantic_version.outputs.version}}
+          automatic_release_tag: "v${{ steps.next_semantic_version.outputs.version }}"
           prerelease: false
-          title: "Automatic release ${{steps.next_semantic_version.outputs.version_tag}} (`${{ env.GITHUB_REF_SLUG }}`)"
+          title: "Automatic release ${{ steps.next_semantic_version.outputs.version_tag }} (from `${{ env.GITHUB_REF_SLUG }}`)"
           files: |
             README.md
             CHANGELOG.md
             LICENSE
 
-      # Auto-release (as pre-release) when a commit hit another branch
+      # Auto-release (as pre-release) in a shared tag (using the branch's name) when a commit hits another branch
       - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
-        # When using "!", mut use expression syntax - See https://github.community/t/if-not-startswith-mutually-exclusive-steps/141841/2?u=vadorequest
+        # When using "!", must use expression syntax - See https://github.community/t/if-not-startswith-mutually-exclusive-steps/141841/2?u=vadorequest
         if: ${{ !startsWith(env.GITHUB_REF_SLUG, 'v2-') && env.GITHUB_REF_SLUG != 'master' && env.GITHUB_REF_SLUG != 'main' }} # If not master, mark release as pre-release and include branch name to avoid tagging conflicts
         with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: v${{steps.next_semantic_version.outputs.version}}
+          automatic_release_tag: "v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.x-rc-${{ env.GITHUB_REF_SLUG }}"
           prerelease: true
-          title: "Automatic pre-release ${{steps.next_semantic_version.outputs.version_tag}} (`${{ env.GITHUB_REF_SLUG }}`)"
+          title: "Automatic pre-release `v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.x-rc-${{ env.GITHUB_REF_SLUG }}`"
           files: |
             README.md
             CHANGELOG.md
