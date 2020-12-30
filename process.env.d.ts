@@ -31,6 +31,12 @@ declare global {
       SENTRY_DSN: string;
       UNLY_SIMPLE_LOGGER_ENV: NEXT_PUBLIC_APP_STAGE;
 
+      // Git env variables
+      GIT_COMMIT_SHA_SHORT: string;
+      GIT_COMMIT_SHA: string;
+      GIT_COMMIT_REF: string;
+      GIT_COMMIT_TAGS: string;
+
       // Vendor env variables
       AWS_EXECUTION_ENV: string;
       AWS_LAMBDA_FUNCTION_MEMORY_SIZE: string;

@@ -14,7 +14,8 @@
       "AIRTABLE_BASE_ID": "@nrn-airtable-base-id",
       "LOCIZE_API_KEY": "@nrn-locize-api-key-staging",
       "SENTRY_DSN": "@nrn-sentry-dsn",
-      "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token"
+      "GITHUB_DISPATCH_TOKEN": "@nrn-github-dispatch-token",
+      "VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK": "https://nrn-v2-mst-aptd-at-lcz-sty-c2-preview.vercel.app/api/webhooks/deploymentCompleted"
     }
   },
   "alias": [

@@ -1,6 +1,9 @@
 # Summary:
 # Run Unit and coverage tests, then upload it to Code Climate dashboard
 # Read ./README.md for extensive documentation
+#
+# Dependencies overview:
+# - https://github.com/paambaati/codeclimate-action https://github.com/paambaati/codeclimate-action/tree/v2.6.0
 
 name: Update Code Climate test coverage
 

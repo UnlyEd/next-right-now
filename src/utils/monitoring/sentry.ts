@@ -4,6 +4,8 @@ import map from 'lodash.map';
 import { NextApiRequest } from 'next';
 
 import { UserSession } from '../../hooks/useUserSession';
+import { GenericObject } from '../../types/GenericObject';
+import { convertRequestBodyToJSObject } from '../api/convertRequestBodyToJSObject';
 
 /**
  * Initialize Sentry and export it.
@@ -44,6 +46,20 @@ if (process.env.SENTRY_DSN) {
     scope.setTag('runtimeEngine', isBrowser() ? 'browser' : 'server');
   });
 }
+
+/**
+ * Alert types, meant to be assigned to "alertType" tag when reporting a message/exception/event to Sentry.
+ *
+ * Then, you can configure your own Sentry Alerts using the "alertType" tag and perform specific data processing.
+ * @example If the event's tags match "alertType equals 'vercel-deployment-invoked'", then send it to Slack channel.
+ *
+ * @see https://sentry.io/organizations/unly/alerts/next-right-now/new/
+ */
+export const ALERT_TYPES = {
+  VERCEL_DEPLOYMENT_INVOKED: 'vercel-deployment-invoked',
+  VERCEL_DEPLOYMENT_TRIGGERED: 'vercel-deployment-triggered',
+  VERCEL_DEPLOYMENT_COMPLETED: 'vercel-deployment-completed',
+};
 
 /**
  * Configure Sentry tags for the current user.
@@ -89,14 +105,23 @@ export const configureSentryI18n = (lang: string, locale: string): void => {
  * @see https://www.npmjs.com/package/@sentry/node
  */
 export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string }, contexts?: { [key: string]: any }): void => {
+  let parsedBody: GenericObject = {};
+  try {
+    parsedBody = convertRequestBodyToJSObject(req);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  } // Do nothing, as "body" is not necessarily supposed to contain valid stringified JSON
+
   Sentry.configureScope((scope) => {
     scope.setTag('host', req?.headers?.host);
     scope.setTag('url', req?.url);
     scope.setTag('method', req?.method);
-    scope.setContext('query', req?.query);
-    scope.setContext('cookies', req?.cookies);
-    scope.setContext('body', req?.body);
+    scope.setExtra('query', req?.query);
+    scope.setExtra('body', req?.body);
+    scope.setExtra('cookies', req?.cookies);
     scope.setContext('headers', req?.headers);
+    scope.setContext('parsedBody', parsedBody);
 
     map(tags, (value: string, tag: string) => {
       scope.setTag(tag, value);

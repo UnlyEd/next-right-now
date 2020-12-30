@@ -168,7 +168,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
 
     amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION_RELEASE); // e.g: v1.0.0
 
-    // Sen metrics to our analytics service
+    // Send metrics to our analytics service
     amplitudeInstance.logEvent(`report-web-vitals`, {
       app: {
         name: process.env.NEXT_PUBLIC_APP_NAME,

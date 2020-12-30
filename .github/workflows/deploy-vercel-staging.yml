@@ -1,6 +1,29 @@
 # Summary:
-# Creates a new deployment on Vercel's platform, when anything is pushed in any branch (except for the "master" branch).
-# Read ./README.md for extensive documentation
+# Creates a new preview deployment on Vercel's platform, when anything is pushed in any branch (except for the "master" branch).
+# Once the deployment has been performed by Vercel, we wait for its status to reach the "READY" state before doing anything else.defaults:
+# - Once ready, an HTTP call is sent to the webhook that is configured within the customer config file (VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK). (optional)
+# - Once ready, E2E tests are executed on the newly deployed domain (Cypress).
+# - Once ready, quality tests are executed on the newly deployed domain (LightHouse).
+#
+# This workflow can also be triggered using "Workflow Dispatch".
+#   See https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch
+#   See https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#workflow_dispatch
+# This workflow can also be triggered using the API (uses Workflow Dispatch in the background).
+#   See src/pages/api/startVercelDeployment.ts
+#
+# LEARN MORE AT https://unlyed.github.io/next-right-now/guides/ci-cd/
+#
+# Dependencies overview:
+# - See https://github.com/actions/setup-node https://github.com/actions/setup-node/tree/v1
+# - See https://github.com/actions/checkout https://github.com/actions/checkout/tree/v1
+# - See https://github.com/actions/upload-artifact https://github.com/actions/upload-artifact/tree/v1
+# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
+# - See https://github.com/jwalton/gh-find-current-pr https://github.com/jwalton/gh-find-current-pr/tree/v1
+# - See https://github.com/peter-evans/create-or-update-comment https://github.com/peter-evans/create-or-update-comment/tree/v1
+# - See https://github.com/UnlyEd/github-action-await-vercel https://github.com/UnlyEd/github-action-await-vercel/tree/v1.1.1
+# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/v3.x
+# - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
+# - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
 
 name: Deploy to Vercel (staging)
 
@@ -30,7 +53,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Installing node.js
-        uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
+        uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
         with:
           node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
 
@@ -42,7 +65,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: setup-environment
     steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Deploying on Vercel (staging)
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
@@ -141,7 +164,7 @@ jobs:
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
-        uses: jwalton/gh-find-current-pr@v1
+        uses: jwalton/gh-find-current-pr@v1 # See https://github.com/jwalton/gh-find-current-pr
         id: pr_id_finder
         if: always() # It forces the job to be always executed, even if a previous job fail.
         with:
@@ -149,7 +172,7 @@ jobs:
 
       # On deployment failure, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (Deployment failure)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
         if: steps.pr_id_finder.outputs.number && failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -161,7 +184,7 @@ jobs:
 
       # On deployment success, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (Deployment success)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
         if: steps.pr_id_finder.outputs.number && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -171,6 +194,7 @@ jobs:
             Commit ${{ github.sha }} successfully deployed to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
             Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
 
+  # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
   await-for-vercel-deployment:
     name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
@@ -224,7 +248,7 @@ jobs:
 
       # Wait for deployment to be ready, before running E2E (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
       - name: Awaiting Vercel deployment to be ready
-        uses: UnlyEd/github-action-await-vercel@v1.1.1
+        uses: UnlyEd/github-action-await-vercel@v1.1.1 # See https://github.com/UnlyEd/github-action-await-vercel
         id: await-vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
@@ -235,6 +259,104 @@ jobs:
       - name: Display deployment status
         run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
 
+  # Send a HTTP call to the webhook url that's provided in the customer configuration file (vercel.*.json)
+  send-webhook-callback-once-deployment-ready:
+    name: Invoke webhook callback url defined by the customer (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    needs: await-for-vercel-deployment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
+      - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+        uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
+      - name: Expose git environment variables and call webhook (if provided)
+        # Workflow overview:
+        #  - Resolves webhook url from customer config file
+        #  - If a webhook url was defined, send a
+        run: |
+          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
+          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
+
+          VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
+
+          # Checking if a webhook url is defined
+          if [ -n "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
+            # Run script that populates git-related variables as ENV variables
+            echo "Running script populate-git-env.sh"
+            . ./scripts/populate-git-env.sh
+
+            echo "Resolved git variables:"
+            echo "'GIT_COMMIT_SHA': $GIT_COMMIT_SHA"
+            echo "'GIT_COMMIT_REF': $GIT_COMMIT_REF"
+            echo "'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS"
+
+            # Generates JSON using a bash function - See https://stackoverflow.com/a/57369772/2391795
+            # "End Of File" must be at the beginning of the line with no space/tab before or after - See https://stackoverflow.com/a/12909284/2391795
+            # But, when executed by GitHub Action, it must be inside the "run" section instead
+            generate_post_data() {
+              cat <<EOF
+            {
+              "MANUAL_TRIGGER_CUSTOMER": "${MANUAL_TRIGGER_CUSTOMER}",
+              "CUSTOMER_REF": "${CUSTOMER_REF_TO_DEPLOY}",
+              "STAGE": "staging",
+              "GIT_COMMIT_SHA": "${GIT_COMMIT_SHA}",
+              "GIT_COMMIT_REF": "${GIT_COMMIT_REF}",
+              "GIT_COMMIT_TAGS": "${GIT_COMMIT_TAGS}",
+              "GITHUB_REF_SLUG": "${GITHUB_REF_SLUG}",
+              "GITHUB_HEAD_REF_SLUG": "${GITHUB_HEAD_REF_SLUG}",
+              "GITHUB_BASE_REF_SLUG": "${GITHUB_BASE_REF_SLUG}",
+              "GITHUB_EVENT_REF_SLUG": "${GITHUB_EVENT_REF_SLUG}",
+              "GITHUB_REPOSITORY_SLUG": "${GITHUB_REPOSITORY_SLUG}",
+              "GITHUB_REF_SLUG_URL": "${GITHUB_REF_SLUG_URL}",
+              "GITHUB_HEAD_REF_SLUG_URL": "${GITHUB_HEAD_REF_SLUG_URL}",
+              "GITHUB_BASE_REF_SLUG_URL": "${GITHUB_BASE_REF_SLUG_URL}",
+              "GITHUB_EVENT_REF_SLUG_URL": "${GITHUB_EVENT_REF_SLUG_URL}",
+              "GITHUB_REPOSITORY_SLUG_URL": "${GITHUB_REPOSITORY_SLUG_URL}",
+              "GITHUB_SHA_SHORT": "${GITHUB_SHA_SHORT}"
+            }
+          EOF
+            }
+
+            echo "Print generate_post_data():"
+            echo "$(generate_post_data)"
+
+            echo "Calling webhook at '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK'"
+            echo "Sending HTTP request (curl):"
+            curl POST \
+              "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" \
+              -vs \
+              --header "Accept: application/json" \
+              --header "Content-type: application/json" \
+              --data "$(generate_post_data)" \
+              2>&1 | sed '/^* /d; /bytes data]$/d; s/> //; s/< //'
+
+            # XXX See https://stackoverflow.com/a/54225157/2391795
+            # -vs - add headers (-v) but remove progress bar (-s)
+            # 2>&1 - combine stdout and stderr into single stdout
+            # sed - edit response produced by curl using the commands below
+            #   /^* /d - remove lines starting with '* ' (technical info)
+            #   /bytes data]$/d - remove lines ending with 'bytes data]' (technical info)
+            #   s/> // - remove '> ' prefix
+            #   s/< // - remove '< ' prefix
+
+          else
+            echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
+          fi
+        env:
+          GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
+          GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
+          # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+          GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
+          GITHUB_HEAD_REF_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG }}
+          GITHUB_BASE_REF_SLUG: ${{ env.GITHUB_BASE_REF_SLUG }}
+          GITHUB_EVENT_REF_SLUG: ${{ env.GITHUB_EVENT_REF_SLUG }}
+          GITHUB_REPOSITORY_SLUG: ${{ env.GITHUB_REPOSITORY_SLUG }}
+          GITHUB_REF_SLUG_URL: ${{ env.GITHUB_REF_SLUG_URL }}
+          GITHUB_HEAD_REF_SLUG_URL: ${{ env.GITHUB_HEAD_REF_SLUG_URL }}
+          GITHUB_BASE_REF_SLUG_URL: ${{ env.GITHUB_BASE_REF_SLUG_URL }}
+          GITHUB_EVENT_REF_SLUG_URL: ${{ env.GITHUB_EVENT_REF_SLUG_URL }}
+          GITHUB_REPOSITORY_SLUG_URL: ${{ env.GITHUB_REPOSITORY_SLUG_URL }}
+          GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
+
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
@@ -244,7 +366,7 @@ jobs:
     container: cypress/included:3.8.3
     needs: await-for-vercel-deployment
     steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
         run: |
           apt update -y >/dev/null && apt install -y jq >/dev/null
@@ -282,12 +404,13 @@ jobs:
           echo "Url where to run E2E tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
 
-      # Run the E2E tests against the new Vercel deployment
+      # Runs the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
-        uses: cypress-io/github-action@v2 # XXX See https://github.com/cypress-io/github-action
+        uses: cypress-io/github-action@v2 # See https://github.com/cypress-io/github-action
         with:
-          wait-on: ${{ env.VERCEL_DEPLOYMENT_URL }} # Be sure that the endpoint is ready by pinging it before starting tests, it has a timeout of 60seconds
-          config-file: cypress/config-customer-ci-cd.json # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          # XXX We disabled "wait-on" option, because it's useless. Cypress will fail anyway, because it gets redirected to some internal Vercel URL if the domain isn't yet available - See https://github.com/cypress-io/github-action/issues/270
+          # wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
+          config-file: 'cypress/config-customer-ci-cd.json' # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
           # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.
@@ -312,15 +435,15 @@ jobs:
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
-        uses: jwalton/gh-find-current-pr@v1
+        uses: jwalton/gh-find-current-pr@v1 # See https://github.com/jwalton/gh-find-current-pr
         id: pr_id_finder
-        if: always() # It forces the job to be always executed, even if a previous job fail.
+        if: always() # Forces the job to be always executed, even if a previous job fail.
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # On E2E failure, add a comment to the PR with additional information, if there is an open PR for the current branch
       - name: Comment PR (E2E failure)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
         if: steps.pr_id_finder.outputs.number && failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -331,7 +454,7 @@ jobs:
 
       # On E2E success, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (E2E success)
-        uses: peter-evans/create-or-update-comment@v1
+        uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
         if: steps.pr_id_finder.outputs.number && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -341,13 +464,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Run Lighthouse reports in parallel of E2E tests
+  # Runs LightHouse reports in parallel of E2E tests
   run-lighthouse-tests:
     name: Run LightHouse checks (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
     steps:
-      - uses: actions/checkout@v1 # Get last commit pushed - XXX See https://github.com/actions/checkout
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
@@ -394,11 +517,11 @@ jobs:
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
-      # In order to store reports and then upload it, we need to create the folder before any tests
+      # To store reports and then upload them, we must create the folder beforehand
       - name: Create temporary folder for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
 
-      # It runs the lighthouse report for a provided url and create a HTML report in the specified directory
+      # Runs LightHouse for a given url and create HTML reports in the specified directory (outputDirectory)
       # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
       - name: Run Lighthouse
         uses: foo-software/lighthouse-check-action@v2.0.5
@@ -413,7 +536,8 @@ jobs:
           urls: ${{ env.VERCEL_DEPLOYMENT_URL }}, ${{ env.VERCEL_DEPLOYMENT_URL }}/en, ${{ env.VERCEL_DEPLOYMENT_URL }}/fr
           locale: en
 
-      # Upload HTML report create by lighthouse, could be useful
+      # Upload HTML report created by lighthouse as an artifact.
+      # XXX Disable this if you don't use them, as they are a bit heavy (~3MB) and might cost you money, if you're using a private repository
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
@@ -424,7 +548,7 @@ jobs:
       # You can remove this action IF you don't want lighthouse to be a blocking point in your CI
       # Official documentation: https://github.com/foo-software/lighthouse-check-status-action
       - name: Handle Lighthouse Check results
-        uses: foo-software/lighthouse-check-status-action@v1.0.1
+        uses: foo-software/lighthouse-check-status-action@v1.0.1 # See https://github.com/foo-software/lighthouse-check-action
         with:
           lighthouseCheckResults: ${{ steps.lighthouseCheck.outputs.lighthouseCheckResults }}
           minAccessibilityScore: "50"
