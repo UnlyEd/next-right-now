@@ -312,7 +312,7 @@ jobs:
               "GITHUB_REPOSITORY_SLUG_URL": "${GITHUB_REPOSITORY_SLUG_URL}",
               "GITHUB_SHA_SHORT": "${GITHUB_SHA_SHORT}"
             }
-EOF
+          EOF
             }
 
             echo "Print generate_post_data():"
