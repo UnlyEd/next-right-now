@@ -180,7 +180,7 @@ jobs:
           timeout: 90 # Wait for 90 seconds before failing
 
       - name: Display deployment status
-        run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
+        run: "echo The deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
 
   # Send a HTTP call to the webhook url that's provided in the customer configuration file (vercel.*.json)
   send-webhook-callback-once-deployment-ready:
