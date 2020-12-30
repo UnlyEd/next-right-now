@@ -31,7 +31,7 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       appName: process.env.NEXT_PUBLIC_APP_NAME,
       appRelease: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
       appBuildTime: process.env.NEXT_PUBLIC_APP_BUILD_TIME,
-      appBuildTimeISO: (new Date(process.env.NEXT_PUBLIC_APP_BUILD_TIME)).toISOString(),
+      appBuildTimeISO: (new Date(process.env.NEXT_PUBLIC_APP_BUILD_TIME || null)).toISOString(),
       appBuildTimestamp: process.env.NEXT_PUBLIC_APP_BUILD_TIMESTAMP,
       appBuildId: process.env.NEXT_PUBLIC_APP_BUILD_ID,
       nodejs: process.version,
