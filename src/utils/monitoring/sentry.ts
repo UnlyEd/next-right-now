@@ -57,7 +57,9 @@ if (process.env.SENTRY_DSN) {
  */
 export const ALERT_TYPES = {
   VERCEL_DEPLOYMENT_INVOKED: 'vercel-deployment-invoked',
-  VERCEL_DEPLOYMENT_TRIGGERED: 'vercel-deployment-triggered',
+  VERCEL_DEPLOYMENT_TRIGGER_ATTEMPT: 'vercel-deployment-trigger-attempt',
+  VERCEL_DEPLOYMENT_TRIGGER_ATTEMPT_FAILED: 'vercel-deployment-trigger-attempt-failed',
+  VERCEL_DEPLOYMENT_TRIGGER_ATTEMPT_SUCCEEDED: 'vercel-deployment-trigger-attempt-succeeded',
   VERCEL_DEPLOYMENT_COMPLETED: 'vercel-deployment-completed',
 };
 
@@ -110,7 +112,7 @@ export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string
     parsedBody = convertRequestBodyToJSObject(req);
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(e);
+    // console.error(e);
   } // Do nothing, as "body" is not necessarily supposed to contain valid stringified JSON
 
   Sentry.configureScope((scope) => {
