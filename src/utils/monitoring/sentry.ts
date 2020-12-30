@@ -112,7 +112,7 @@ export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string
     parsedBody = convertRequestBodyToJSObject(req);
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(e);
+    // console.error(e);
   } // Do nothing, as "body" is not necessarily supposed to contain valid stringified JSON
 
   Sentry.configureScope((scope) => {
