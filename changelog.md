@@ -22,6 +22,16 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2020-12-30
+    - [Handle GitHub private repositories](https://github.com/UnlyEd/next-right-now/pull/236)
+    - [Invoke custom webhook url once a Vercel deployment is "completed"](https://github.com/UnlyEd/next-right-now/pull/235)
+- 2020-12-22
+    - [DevOps - Resolve app version from git tags, instead of package.json](https://github.com/UnlyEd/next-right-now/pull/234)
+- 2020-12-19
+    - [Await Vercel deployment to be ready before running E2E](https://github.com/UnlyEd/next-right-now/pull/221)
+    - [Provide in api/status the git commit metadata (SHA/branch/tag) used to make a Vercel deployment](https://github.com/UnlyEd/next-right-now/pull/225)
+    - [Add an action that releases automatically when a change lands on the main branches](https://github.com/UnlyEd/next-right-now/pull/227) + various fixes regarding auto-releasing (WIP)
+        - From now on, Next Right Now automatically creates tags and releases. This was WIP at the time, but has been improved by the end of 2020.
 - 2020-11-21
     - [Update documentation about ENV vars](https://github.com/UnlyEd/next-right-now/pull/215)
     - [Improve LightHouse performances](https://github.com/UnlyEd/next-right-now/pull/214)
