@@ -213,6 +213,7 @@ jobs:
             echo "'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS"
 
             # Generates JSON using a bash function - See https://stackoverflow.com/a/57369772/2391795
+            # End Of File must be at the beginning of the line with no space/tab before or after - See https://stackoverflow.com/a/12909284/2391795
             generate_post_data() {
               cat <<EOF
             {
@@ -234,7 +235,7 @@ jobs:
               "GITHUB_REPOSITORY_SLUG_URL": "${GITHUB_REPOSITORY_SLUG_URL}",
               "GITHUB_SHA_SHORT": "${GITHUB_SHA_SHORT}"
             }
-            EOF
+EOF
             }
 
             echo "Print generate_post_data():"
