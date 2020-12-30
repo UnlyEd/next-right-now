@@ -212,30 +212,52 @@ jobs:
             echo "'GIT_COMMIT_REF': $GIT_COMMIT_REF"
             echo "'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS"
 
+            # Generates JSON using a bash function - See https://stackoverflow.com/a/57369772/2391795
+            generate_post_data() {
+              cat <<EOF
+            {
+              "MANUAL_TRIGGER_CUSTOMER": "${MANUAL_TRIGGER_CUSTOMER}",
+              "CUSTOMER_REF": "${CUSTOMER_REF_TO_DEPLOY}",
+              "STAGE": "staging",
+              "GIT_COMMIT_SHA": "${GIT_COMMIT_SHA}",
+              "GIT_COMMIT_REF": "${GIT_COMMIT_REF}",
+              "GIT_COMMIT_TAGS": "${GIT_COMMIT_TAGS}",
+              "GITHUB_REF_SLUG": "${GITHUB_REF_SLUG}",
+              "GITHUB_HEAD_REF_SLUG": "${GITHUB_HEAD_REF_SLUG}",
+              "GITHUB_BASE_REF_SLUG": "${GITHUB_BASE_REF_SLUG}",
+              "GITHUB_EVENT_REF_SLUG": "${GITHUB_EVENT_REF_SLUG}",
+              "GITHUB_REPOSITORY_SLUG": "${GITHUB_REPOSITORY_SLUG}",
+              "GITHUB_REF_SLUG_URL": "${GITHUB_REF_SLUG_URL}",
+              "GITHUB_HEAD_REF_SLUG_URL": "${GITHUB_HEAD_REF_SLUG_URL}",
+              "GITHUB_BASE_REF_SLUG_URL": "${GITHUB_BASE_REF_SLUG_URL}",
+              "GITHUB_EVENT_REF_SLUG_URL": "${GITHUB_EVENT_REF_SLUG_URL}",
+              "GITHUB_REPOSITORY_SLUG_URL": "${GITHUB_REPOSITORY_SLUG_URL}",
+              "GITHUB_SHA_SHORT": "${GITHUB_SHA_SHORT}"
+            }
+            EOF
+            }
+
+            echo "Print generate_post_data():"
+            echo "$(generate_post_data)"
+
             echo "Calling webhook at '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK'"
-            curl -X POST \
-              $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK \
+            echo "Sending HTTP request (curl):"
+            curl POST \
+              "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" \
+              -vs \
               --header "Accept: application/json" \
               --header "Content-type: application/json" \
-              --data '{ \
-                "MANUAL_TRIGGER_CUSTOMER": "$MANUAL_TRIGGER_CUSTOMER", \
-                "CUSTOMER_REF": "$CUSTOMER_REF_TO_DEPLOY", \
-                "STAGE": "staging", \
-                "GIT_COMMIT_SHA": "$GIT_COMMIT_SHA", \
-                "GIT_COMMIT_REF": "$GIT_COMMIT_REF", \
-                "GIT_COMMIT_TAGS": "$GIT_COMMIT_TAGS", \
-                "GITHUB_REF_SLUG": "$GITHUB_REF_SLUG", \
-                "GITHUB_HEAD_REF_SLUG": "$GITHUB_HEAD_REF_SLUG", \
-                "GITHUB_BASE_REF_SLUG": "$GITHUB_BASE_REF_SLUG", \
-                "GITHUB_EVENT_REF_SLUG": "$GITHUB_EVENT_REF_SLUG", \
-                "GITHUB_REPOSITORY_SLUG": "$GITHUB_REPOSITORY_SLUG", \
-                "GITHUB_REF_SLUG_URL": "$GITHUB_REF_SLUG_URL", \
-                "GITHUB_HEAD_REF_SLUG_URL": "$GITHUB_HEAD_REF_SLUG_URL", \
-                "GITHUB_BASE_REF_SLUG_URL": "$GITHUB_BASE_REF_SLUG_URL", \
-                "GITHUB_EVENT_REF_SLUG_URL": "$GITHUB_EVENT_REF_SLUG_URL", \
-                "GITHUB_REPOSITORY_SLUG_URL": "$GITHUB_REPOSITORY_SLUG_URL", \
-                "GITHUB_SHA_SHORT": "$GITHUB_SHA_SHORT" \
-              }'
+              --data "$(generate_post_data)" \
+              2>&1 | sed '/^* /d; /bytes data]$/d; s/> //; s/< //'
+
+            # XXX See https://stackoverflow.com/a/54225157/2391795
+            # -vs - add headers (-v) but remove progress bar (-s)
+            # 2>&1 - combine stdout and stderr into single stdout
+            # sed - edit response produced by curl using the commands below
+            #   /^* /d - remove lines starting with '* ' (technical info)
+            #   /bytes data]$/d - remove lines ending with 'bytes data]' (technical info)
+            #   s/> // - remove '> ' prefix
+            #   s/< // - remove '< ' prefix
 
           else
             echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.production.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
