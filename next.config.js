@@ -23,8 +23,8 @@ console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC
 const GIT_COMMIT_TAGS = process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.trim() : '';
 console.debug(`Deployment will be tagged automatically, using GIT_COMMIT_TAGS: "${GIT_COMMIT_TAGS}"`);
 
-// Iterate over all tags and extract the first the match "v*" and extract only the version number ("v${major}.${minor}.${patch})
-const APP_RELEASE_TAG = GIT_COMMIT_TAGS ? GIT_COMMIT_TAGS.split(' ').find((tag) => tag.startsWith('v')).split('-')[0] : `unknown-${GIT_COMMIT_SHA_SHORT}`;
+// Iterate over all tags and extract the first the match "v*"
+const APP_RELEASE_TAG = GIT_COMMIT_TAGS ? GIT_COMMIT_TAGS.split(' ').find((tag) => tag.startsWith('v')) : `unknown-${GIT_COMMIT_SHA_SHORT}`;
 console.debug(`Release version resolved from tags: "${APP_RELEASE_TAG}" (matching first tag starting with "v")`);
 
 /**

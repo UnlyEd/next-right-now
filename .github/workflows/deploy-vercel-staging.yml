@@ -257,7 +257,7 @@ jobs:
           timeout: 90 # Wait for 90 seconds before failing
 
       - name: Display deployment status
-        run: "echo My deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
+        run: "echo The deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
 
   # Send a HTTP call to the webhook url that's provided in the customer configuration file (vercel.*.json)
   send-webhook-callback-once-deployment-ready:
@@ -271,7 +271,8 @@ jobs:
       - name: Expose git environment variables and call webhook (if provided)
         # Workflow overview:
         #  - Resolves webhook url from customer config file
-        #  - If a webhook url was defined, send a
+        #  - If a webhook url was defined in the customer config file, send an HTTP request, as POST request, with a JSON request body dynamically generated
+        #  - Prints the headers of the POST HTTP request (curl)
         run: |
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
           CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"

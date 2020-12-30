@@ -12,7 +12,7 @@ import { GenericObject } from '../../types/GenericObject';
 export const convertRequestBodyToJSObject = <T = unknown>(req: NextApiRequest): GenericObject<T> => {
   let parsedBody: GenericObject<T> = {};
 
-  if (typeof req?.body === 'string') {
+  if (typeof req?.body === 'string' && req?.body?.length > 0) {
     parsedBody = JSON.parse(req?.body);
   } else {
     parsedBody = req.body;
