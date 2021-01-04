@@ -6,4 +6,16 @@
 name: Mock "Deploy to Vercel (production)"
 
 on:
+  # Empty "workflow_dispatch", trick that will display the "Run workflow" button on https://github.com/UnlyEd/next-right-now/actions?query=workflow%3A%22Deploy+to+Vercel+%28staging%29%22
   workflow_dispatch:
+
+jobs:
+  # Mock job that does nothing meaningful, just print a simple Hello world
+  # Avoids our Actions to fail when commits are pushed onto the "gh-pages" branch
+  hello-world:
+    runs-on: ubuntu-latest
+    name: Hello world
+    steps:
+      - run: |
+          echo "Hello world"
+        name: "Print 'Hello world'"
