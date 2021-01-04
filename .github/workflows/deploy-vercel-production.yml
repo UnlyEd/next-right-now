@@ -3,7 +3,7 @@
 # Trick to force GitHub UI to show the "Run workflow" button on all branches
 # See https://github.community/t/cant-trigger-workflow-manually/121740/53?u=vadorequest
 
-name: Mock "Deploy to Vercel (production)"
+name: Deploy to Vercel (production)
 
 on:
   # Empty "workflow_dispatch", trick that will display the "Run workflow" button on https://github.com/UnlyEd/next-right-now/actions?query=workflow%3A%22Deploy+to+Vercel+%28staging%29%22
