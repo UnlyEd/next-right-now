@@ -9,11 +9,12 @@ Next Right Now (NRN) is meant to help you build **production-grade** projects us
 
 NRN is maintained with several purposes in mind:
 - To be used as a **boilerplate** to quickly deploy a **new** project.
-    - It is used in production by ourselves, and thus covers enterprise-grade features and needs.
+    - It is used in production by [Unly](http://unly.org/), and thus covers enterprise-grade features and needs.
     - It has been used to build production-grade websites within 2h time during a French COVID-19 hackathon. (March 2020)
-    - It has been used to build [NRN Admin](https://github.com/UnlyEd/next-right-now-admin)
+    - It has been used to build [Unly Solidarity](https://solidarity.unly.org/en), a fully static website meant to help French students find various solutions regarding the COVID-19 pandemic.
+    - It has been used to build [NRN Admin](https://github.com/UnlyEd/next-right-now-admin) _(Now unmaintained/discontinued)_
 - To be used as an **educational** resource, meant to be used as a **learning/teaching** resource, even if you don't use it as a boilerplate.
-- Provide various boilerplate [presets](./concepts/presets), to get started with the preset that matches the closest your needs.
+- Provide various [presets](./concepts/presets), to help you getting started with the preset that matches the closest your needs.
 - To be **flexible** and allow for extensive **customisation**, based on your own needs and use-cases.
 
 Don't hesitate to share your opinion about your ["getting started"](https://github.com/UnlyEd/next-right-now/issues/14) experience!
