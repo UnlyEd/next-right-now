@@ -123,6 +123,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: start-production-deployment
     steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Resolving deployment url from Vercel
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
