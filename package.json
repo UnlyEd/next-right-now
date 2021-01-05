@@ -45,8 +45,6 @@
     "e2e:run": "CYPRESS_STAGE=${CYPRESS_STAGE:-development}; cypress run --config-file cypress/config-$CYPRESS_STAGE.json",
     "e2e:run:spec:common": "CYPRESS_STAGE=${CYPRESS_STAGE:-development}; cypress run --config-file cypress/config-$CYPRESS_STAGE.json --spec 'cypress/integration/app/common/*.js'",
     "e2e:ci": "yarn e2e:install && cypress run --record",
-    "preversion": "yarn lint:once && yarn test:once",
-    "release": "yarn bump --commit --tag && git add CHANGELOG.md README.md && git commit --amend --no-edit && git push && git push --tags",
     "doc:start": "cd docs/ && bundle exec jekyll serve --config _config-development.yml",
     "doc:start:fast": "cd docs/ && bundle exec jekyll serve --config _config-development.yml --incremental",
     "doc:gem:install": "cd docs/ && bundle install",
@@ -220,7 +218,6 @@
     "react-test-renderer": "16.13.1",
     "ts-jest": "26.3.0",
     "typescript": "4.0.2",
-    "vercel": "21.0.0",
-    "version-bump-prompt": "6.1.0"
+    "vercel": "21.0.0"
   }
 }
