@@ -23,7 +23,7 @@
     "deploy:customer1:production": "yarn deploy:customer1:production:simple && yarn e2e:customer1:production",
     "deploy:customer1:production:simple": "yarn vercel:cleanup && yarn vercel:deploy --local-config=vercel.customer1.production.json --prod",
     "deploy:customer2:all": "yarn deploy:customer2 && yarn deploy:customer2:production",
-    "deploy:customer2": "yarn vercel:cleanup && yarn vercel:deploy --local-config=vercel.customer2.staging.json --debug",
+    "deploy:customer2": "yarn vercel:cleanup && yarn vercel:deploy --local-config=vercel.customer2.staging.json",
     "deploy:customer2:production": "yarn deploy:customer2:production:simple && yarn e2e:customer2:production",
     "deploy:customer2:production:simple": "yarn vercel:cleanup && yarn vercel:deploy --local-config=vercel.customer2.production.json --prod",
     "deploy:fake": "git commit --allow-empty -m \"Fake empty commit (force CI trigger)\"",
