@@ -15,19 +15,29 @@ Advices and "must-know" things regarding GraphQL usage.
 
 ---
 
-## Overview
+## Configure in-editor GraphQL support, for WebStorm IDE
 
-### Dependencies
+Install [JS GraphQL IntelliJ Plugin](https://github.com/jimkyndemeyer/js-graphql-intellij-plugin): GraphQL language support for WebStorm, IntelliJ IDEA and
+other IDEs based on the IntelliJ Platform.
 
-#### GraphQL deps
+The plugin is available using WebStorm directly. To install it, open your IDE "Settings", "Plugins", "Marketplace" and search for "GraphQL".
+
+The plugin is built-in and should be available as soon as you open the project using WebStorm.
+
+The usage of both `gql` and the IntelliJ GraphQL plugin is awesome, it allows writing GraphQL queries (see `src/gql`) and have auto-completion and validation
+from WebStorm itself.
+
+To refresh the GraphQL spec, just run the `.graphqlconfig` file by opening it and run the stage you want to sync (usually staging).
+
+## Dependencies
+
+### GraphQL deps
 
 - [`graphql`](https://www.npmjs.com/package/graphql): Client for connecting to a GraphQL endpoint.
 - [`graphql-tag`](https://www.npmjs.com/package/graphql-tag): Helpful utilities for parsing GraphQL queries.
   Useful to write plain-text GraphQL query using the `gql` tag, that can be validated by other tools, such as **JS GraphQL IntelliJ Plugin**.
 
-
-
-#### `react-apollo` deps
+### `react-apollo` deps
 
 We use [Apollo](https://github.com/apollographql/react-apollo) to manipulate our GraphQL endpoint.
 

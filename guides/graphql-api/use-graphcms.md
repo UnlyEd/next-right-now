@@ -17,22 +17,24 @@ Advices and "must-know" things regarding GraphCMS usage.
 
 ---
 
-## Next version (upcoming, not ready):
+## Existing versions
 
-> The "next" version is in beta, **we don't recommend to use it yet as of now (March 2020)**, because it's not stable nor documented
+### Legacy (AKA "v1")
 
-https://graphcms.com/
+[Legacy](https://legacy.graphcms.com/)
 
-https://graphcms.com/docs
+This version is known as the v1 and will shut down on February 1st, 2021.
 
----
+It's the version that was used by the NRN Demos, until November 2020.
+Note that some videos and content might still showcase this outdated version.
 
-## Current version (used by this boilerplate):
+### Current (AKA "v2")
+[https://graphcms.com/](https://graphcms.com/)
 
-https://docs.graphcms.com/docs/introduction
+[Docs](https://graphcms.com/docs)
 
-> GraphCMS version don't have a "name" (v1, v2)
-> They call the current version "current" or "legacy" and the next version "next"
+Released in early 2020.
+Currently being used by the NRN Demo.
 
 ---
 
@@ -92,6 +94,12 @@ Nevertheless, we've built another open source tool to help deal with this kind o
 It uses a "reliability-first" design, to make sure that it always works, even if things are broken behind. It's basically a cache system on top of GraphCMS.
 
 We use it since September 2019 and haven't suffered any downtime since then, no matter what.
+
+---
+
+### Vercel integration
+
+GraphCMS released a [Vercel integration](https://graphcms.com/blog/graphcms-vercel-integration) on January 6th, 2021.
 
 ---
 

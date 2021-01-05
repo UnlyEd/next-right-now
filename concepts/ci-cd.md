@@ -1,5 +1,8 @@
 ---
-layout: default title: CI/CD parent: Concepts nav_order: 60
+layout: default
+title: CI/CD
+parent: Concepts
+nav_order: 60
 ---
 
 # Continuous Integration & Continuous Deployment (CI/CD)

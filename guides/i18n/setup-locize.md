@@ -24,7 +24,7 @@ The app will throw an error if the `NEXT_PUBLIC_LOCIZE_PROJECT_ID` is not valid.
 - **Tip**: You can skip creating your own Locize account if you use the default `NEXT_PUBLIC_LOCIZE_PROJECT_ID` in `.env`,
 but note that **new keys won't be created automatically** because `LOCIZE_API_KEY` in `.env` doesn't hold a valid value and should be defined in `.env.local` with a proper value, instead.
 
-- [Create a free (2w trial) account on Locize](https://www.locize.app/register?ref=unly-nrn)
+- [Create a free (2 weeks trial) account on Locize](https://www.locize.app/register?ref=unly-nrn)
 - Make sure to keep `i18n format: i18next/locizify` (by default)
 - Make sure to select `publish format: json nested`
 - Add French and English languages (french is required for the demo to work properly)

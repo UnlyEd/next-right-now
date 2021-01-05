@@ -31,11 +31,89 @@ Guide about how to properly configure Sentry.
 
 That's it! Your Sentry account is ready to use!
 
-### Additional Sentry documentation
+## Configuring Sentry alerts
 
-- [Official "Getting started" guide](https://docs.sentry.io/error-reporting/quickstart/?platform=javascript)
-- [Capturing errors](https://docs.sentry.io/error-reporting/capturing/?platform=javascript)
-- [Configuration](https://docs.sentry.io/error-reporting/configuration/?platform=javascript)
-- [Using "context" for events](https://docs.sentry.io/enriching-error-data/context/?platform=javascript)
-- [Using "breadcrumbs" for events](https://docs.sentry.io/enriching-error-data/breadcrumbs/?platform=javascript)
-- [How to blacklist sensitive data tracking (GDPR, security)](https://docs.sentry.io/data-management/sensitive-data/)
+At Unly, we use Sentry to forward issues to our Slack channel automatically.
+
+While this is completely optional, and merely a recommandation/guide from us, we advise you to do something similar so you get notified when things go wrong.
+
+### Slack configuration and notifications
+
+We use 3 different Slack channels:
+- Production
+- Staging
+- Development
+
+Each channel is configured by our Slack members differently. Our Customer Success team has access to the Production channel only, to avoid disturbing them needlessly.
+Developers have access to all channels, but the Development channel is muted for everyone. It's still useful to manually check if something happens there, when debugging something locally.
+
+### Sentry alerts configuration
+
+We split our alerts in two parts:
+- The unknown events and issues
+- The known events (those with an `alertType` tag set)
+
+This helps to configure the Slack behavior slightly differently. Also, we route some specific alerts to specific Slack channels based on their `alertType` value, for specific teams and purposes.
+
+The below configuration is how we recommend configuring your Sentry alerts.
+The 2 first alerts are the most important, others are merely examples of what you could do.
+They make most sense if you need to deal with different alerting behavior based on the `alertType` value.
+
+#### Alert - Production all events
+
+- Environment: `production`
+- Name: Production all events
+- When "additional triggers": `any`
+    - A new issue is created
+    - The event occurs
+- If: None
+- Then: Send a Slack notification to `#oss-nrn-monitoring-production`
+    Tags: `appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+- Action interval: 5mn
+
+#### Alert - Staging all events
+
+- Environment: `staging`
+- Name: Staging all events
+- When "additional triggers": `any`
+    - A new issue is created
+    - The event occurs
+- If: None
+- Then: Send a Slack notification to `#oss-nrn-monitoring-staging`
+    Tags: `appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+- Action interval: 5mn
+
+#### Alert - Development all events
+
+- Environment: `development`
+- Name: Development all events
+- When "additional triggers": `any`
+    - A new issue is created
+    - The event occurs
+- If: None
+- Then: Send a Slack notification to `#oss-nrn-monitoring-development`
+    Tags: `appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+- Action interval: 5mn
+
+#### Alert - [Prod] All events with "alertType" set
+
+- Environment: `production`
+- Name: [Prod] All events with "alertType" set
+- When "additional triggers": None
+- If: The event's tags match alertType is set
+- Then: Send a Slack notification to `#oss-nrn-monitoring-production`
+    Tags: `alertType, appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+- Action interval: 5mn
+
+#### Alert - [!Prod] All events with "alertType" set
+
+- Environment: `All environments`
+- Name: [!Prod] All events with "alertType" set
+- When "additional triggers": None
+- If: The event's tags match alertType is set
+  The event's environment value doesn't contain production
+- Then: Send a Slack notification to `#oss-nrn-monitoring-staging`
+    Tags: `alertType, appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+- Action interval: 5mn
+
+
