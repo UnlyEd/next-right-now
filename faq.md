@@ -11,11 +11,29 @@ nav_order: 70
 
 ---
 
+## Where can I see a change log of what's changed in Next Right Now?
+
+We provide a [CHANGELOG](./changelog) listing our most important changes. They're also released in our [Community Discussion](https://github.com/UnlyEd/next-right-now/discussions/166).
+
+Additionally, as of December 2020, you can see [all releases](https://github.com/UnlyEd/next-right-now/releases) that are automatically created and describe changes, per preset.
+
+---
+
+## How can I subscribe to changes made to Next Right Now, to be notified in the future?
+
+[Subscribe to the discussion](https://github.com/UnlyEd/next-right-now/discussions/166) to be notified when new releases are made, and participate in the
+discussion about what has changed!
+
+---
+
+
 ## Can I use NRN on Windows?
 
 {% include windows-concerns.md %}
 
 [See original question](https://github.com/UnlyEd/next-right-now/issues/55)
+
+---
 
 ## I try to deploy locally, but I get "The specified scope does not exist"
 
@@ -31,6 +49,8 @@ Error! The specified scope does not exist
 1. Remove the whole line `"scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",` in all `vercel.*.json` files.
     - **Tip**: Don't forget `vercel.json` is a **symlink** and **shouldn't** to be modified (run `ln vercel.staging.json vercel.json` if you messed it up :wink:)
 
+---
+
 ## How is the `i18nextInstance` passed to react?
 
 <div class="code-example" markdown="1">
@@ -43,6 +63,8 @@ Error! The specified scope does not exist
 
 [See original question](https://github.com/UnlyEd/next-right-now/issues/14#issuecomment-601557549)
 
+---
+
 ## Should I be keeping the `MST` tenancy design even though I don't have use for it?
 
 <div class="code-example" markdown="1">
@@ -53,6 +75,7 @@ See our guide about ["How to remove MST"](../guides/tenancy/remove-MST).
 
 [See original question](https://github.com/UnlyEd/next-right-now/issues/151)
 
+---
 
 ## How do I remove plugins/features I do not want?
 
@@ -68,6 +91,8 @@ If you don't find what you're looking for, you can open a discussion/issue on gi
 
 [See original question](https://github.com/UnlyEd/next-right-now/issues/151)
 
+---
+
 ## What is `MultiversalAppBootstrap`?
 
 <div class="code-example" markdown="1">
@@ -77,6 +102,8 @@ If you don't find what you're looking for, you can open a discussion/issue on gi
 See the [Application Bootstrap concept](../concepts/app-bootstrap).
 
 If you don't find what you're looking for, you can open a discussion/issue on github.
+
+---
 
 ## What's the NRN page lifecycle?
 
