@@ -23,7 +23,7 @@ A preset is a predefined set of features that are built-in and thus "ready-to-us
 - Each preset lives in the same NRN Github repository, but in a distinct **branch**.
 - Each preset has its own dedicated demo and "how to install" documentation.
 
-> Presets are **opt-in**, meaning that you, as a developer, get to choose which one you use.
+> Presets are **opt-in**, meaning that you, as a developer, get to choose which one to use.
 >
 > This decision is **up to you** only, and you will likely choose the preset that matches the closest your business needs/requirements.
 
@@ -40,21 +40,23 @@ The boilerplate was built with re-usability in mind, but also tries to solve non
 
 Those are non-trivial features, and they can't always be build using open source software.
 
-They are non-trivial to build from scratch, and the use of established standards and worldwide known vendors sometimes helps a lot.
+**They are non-trivial to build from scratch**, and the use of established standards and worldwide known vendors sometimes helps a lot.
 
 Presets are meant to provide various possibilities of recommended "base code". For instance, you may want to use:
-- Multi-tenants or Multiple Single-Tenants or Single Tenant
+- Multi-tenancy, or Multiple Single-Tenancy (hybrid), or Single Tenancy
 - Static i18n using a vendor (e.g: Locize), or implemented using static files (no vendor), or maybe you don't need this feature at all
 - Sentry to monitor your app (client + server sides), but maybe you already use another different vendor and would like to stick with it
-- Analytics, but because you may use SSG only, and your needs are small then Google Analytics may be a better fit for you and avoid additional complexity
+- Analytics, but because your needs are small then Google Analytics may be a better fit than Amplitude for you, and might help avoid learning yet another product
 - Etc.
 
 NRN currently covers quite a few features, and relies on 3rd party vendors for some of those features.
-The more feature NRN covers and the stronger the need for "opt-in predefined set of features" feels like a necessity.
+The more feature NRN covers, the stronger the need for "opt-in predefined set of features" became a necessity.
 
-We don't intend of supporting all possible variations though, but we'll try to focus on the basic ones and most requested ones.
+### Limitations
 
-The more presets we will offer, and the easiest it will be for any newcomer to get started quickly with a preset that matches their needs as closely as possible.
+We don't intend of supporting all possible variations though, but we'll try to focus on the basic ones, and most requested ones.
+
+The more presets we will offer, and the easiest it will be for any newcomer to get started quickly with a preset that matches their needs as closely as possible, although at the price of ease of maintenance of those multiple presets.
 
 > For instance, when creating [NRN Admin](https://github.com/UnlyEd/next-right-now-admin), we got started from the `v1-ssr-mst-aptd-gcms-lcz-sty` preset and **had to manually remove MST and i18n** because we didn't need those.
 >
@@ -70,8 +72,10 @@ Here is a short list of all presets that **we consider to support in the future*
 - ST (as an alternative to current MST), for people who don't need the extra tenancy complexity
     - Basically, only deploy one site, not several (no monorepo design)
     - Simplifies config, scripts, CI
+    - [See tracking issue](https://github.com/UnlyEd/next-right-now/issues/175)
 - In-app static i18n instead of Locize vendor, which will help towards making NRN "free" (no built-in paid vendor)
     - [A Locize alternative has been asked by the community](https://github.com/UnlyEd/next-right-now/issues/16)
+  - [See tracking issue](https://github.com/UnlyEd/next-right-now/issues/176)
 
 ---
 
@@ -80,20 +84,21 @@ Here is a short list of all presets that **we consider to support in the future*
 We **do not plan** on providing presets for:
 - Different monitoring tool than Sentry, as it is one of the best out there, provides a generous free plan, and does the job really well.
 - Different analytics tool than Amplitude, as it is the most flexible analytics tool we've experienced.
-    For instance, Google Analytics feels like some stuff invented during Stone age in comparison, and GA doesn't even play well at all with CSR rendering.
+    - For instance, Google Analytics feels like some stuff invented during Stone age in comparison, and GA doesn't even play well at all with CSR rendering.
+    - **Edit 2021**: Following the Beta release of [Google Analytics 4](https://www.blog.google/products/marketingplatform/analytics/new_google_analytics/), we might revisit our stance once it'll be out of Beta. It works very much similarly to Amplitude, at first glance.
 - Different css-in-js tool than Emotion, as we've studied the market quite intensively before picking Emotion, and it's very flexible about usage and covers lots of needs.
-    _We haven't been limited by Emotion in any way, within a year!_
+    _We haven't been limited by Emotion in any way, since mid-2019!_
 - Different CI/CD tools than Github Actions, as it is becoming quite used worldwide and very powerful, for free. There is nothing that matches it, and we don't plan on using GitLab or BitBucket in a foreseen future.
 
-> We will therefore not provide any preset for those tools, but the **community is free to open a Github issue** and discuss needs and eventually propose a contribution through PR.
+> We will therefore not provide any preset with replacements for those tools, but the **community is free to open a Github issue** and discuss the needs and eventually propose a contribution through a PR.
 >
-> We are therefore open to add more/new tooling, but we must discuss it together first! :wink:
+> We are open to add more/new tooling, but we must discuss it together first! :wink:
 
 ## How do I know which preset is best for me?
 
 A "preset" is nothing more than a pre-configured set of features that are built-in within.
 
-So, to decide which one you need, you must compare what features are available versus what features you actually need.
+So, to decide which one you need, you must compare what features are available versus what features you need (and the ones you might need in the future).
 Also, some presets include non-free vendors, or vendors that only provide a limited plan.
 Depending on those things, you may choose one preset over another.
 
@@ -104,11 +109,11 @@ Here is a summary of all features that are provided through presets:
     - Also, depending on your needs, you may want to rely on a professional vendor to store, provide and help with i18n.
         - For instance, our team love Locize for its [in-context editor](https://docs.locize.com/more/incontext-editor), because it really helps translators understand the context of a sentence, and our marketing/product team can make small changes without having to bother developers.
 - **Connect with external APIs**: Do you need to use external APIs? It's very much likely for any app nowadays.
-    If so, you should start with a preset that provides built-in support. Make sure to select one fitting your needs, we only provide built-in support for GraphQL at the moment.
+    If so, you should start with a preset that provides built-in support. Make sure to select one fitting your needs, we only provide built-in support for GraphQL and Airtable APIs, at the moment.
 - **Monitoring**: Do you need to monitor what happens on your server and be warned about bugs and crashes? **We bet you do**.
 - **Analytics**: Do you need to track usage of your features and know how many users visited your site this month? **We bet you do**.
 
-- **Tip**: Read our [**Vendors overview**](../reference/vendors)
+> **Tip**: Read our [**Vendors overview**](../reference/vendors)
 
 ---
 

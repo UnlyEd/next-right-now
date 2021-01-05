@@ -2,7 +2,7 @@
 layout: default
 title: GraphQL
 parent: Concepts
-nav_order: 30
+nav_order: 80
 ---
 
 # GraphQL
@@ -19,6 +19,10 @@ GraphQL is a query language for your API, and a server-side runtime for executin
 {% include page-toc.md %}
 
 ---
+
+## Usage of GraphQL with Next Right Now
+
+GraphQL is used by all presets including `gcms` in their name. (i.e: [`v2-mst-aptd-gcms-lcz-sty`](../available-presets/v2-mst-aptd-gcms-lcz-sty))
 
 ## Why GraphQL over REST?
 
@@ -41,12 +45,12 @@ If you're not familiar with the differences between REST and GraphQL:
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< Application bootstrap](./app-bootstrap){: .btn }
+        [< Testing](./testing){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Guides: GraphQL API](../guides/graphql-api){: .btn .btn-blue }
+        [Guides: GraphQL API](../guides/graphql-api){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
-    [I18n >](./i18n){: .btn .btn-purple }
+        [Getting started: Pick your preset >](../available-presets){: .btn .btn-purple }
     </span>
 </div>

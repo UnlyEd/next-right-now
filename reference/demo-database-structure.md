@@ -12,13 +12,24 @@ nav_order: 30
 
 ---
 
+## Airtable vendor
+
+> Data structure of the Airtable database used as example.
+>
+> This is useful if you wish to understand the relationships and data structure of the demo.
+>
+> You can "Copy base" (top right) if you wish to quickly duplicate the base to make it your own.
+> It can be a good starting point if you're using Next Right Now as a boilerplate for your own project!
+
+[See Base configuration](https://airtable.com/shrnxN46JDBkQV9u1)
+
 ## GraphCMS vendor
 
 > Data structure of the GraphCMS database used as example.
 >
-> This is only useful if you wish to understand the relationships and data structure of the demo.
+> This is useful if you wish to understand the relationships and data structure of the demo.
 >
-> It's only useful if try to rebuild the demo on your own GraphCMS endpoint (after cloning, for example).
+> It's useful if try to rebuild the demo on your own GraphCMS endpoint (after cloning, for example).
 
 - customer
     - ref - Single line text, required, unique

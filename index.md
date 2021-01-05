@@ -98,6 +98,7 @@ Here is an overview of all the features included in this boilerplate:
     - Bootstrap support (thanks to [Reactstrap](https://reactstrap.github.io/))
     - Node debug mode for the server side
     - Proper handling of sensitive information _(e.g: token)_ using [Vercel secrets](https://vercel.com/docs/v2/serverless-functions/env-and-secrets)
+    - Cookie consent popup (thanks to [`cookieconsent`](https://www.npmjs.com/package/cookieconsent))
 - Built-in **scripts** (in `package.json`)
     - Convert SVG to TSX components (thanks to [SVGR](https://github.com/gregberge/svgr))
     - Tunnel to make your local development accessible online (thanks to [ngrok](https://ngrok.com/))
