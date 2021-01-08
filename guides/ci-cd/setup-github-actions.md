@@ -10,9 +10,9 @@ nav_order: 10
 {: .no_toc }
 
 <div class="code-example" markdown="1">
-Automated actions configured through GitHub Actions
+Automated actions configured through GitHub Actions.
 
-This documentation explains how our GitHub actions integrate themselves with the Vercel platform
+This documentation explains how our GitHub actions integrate themselves with the Vercel platform.
 </div>
 
 {% include page-toc.md %}
@@ -23,7 +23,7 @@ This documentation explains how our GitHub actions integrate themselves with the
 
 ### Requirements
 
-> List of necessary requirements for the `Github Actions <> Vercel` to work properly.
+> List of necessary requirements for NRN `Github Actions <> Vercel` custom integration to work properly.
 
 #### Required GitHub secrets:
 
