@@ -199,11 +199,9 @@ jobs:
         uses: UnlyEd/github-action-store-variable@v1.0.1
         with:
           variables: |
-            MANUAL_TRIGGER_CUSTOMER=${{ env.MANUAL_TRIGGER_CUSTOMER }}
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
             VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
             VERCEL_DEPLOYMENT=${{ env.VERCEL_DEPLOYMENT }}
-            VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS=${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}
 
 
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
@@ -243,7 +241,7 @@ jobs:
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
         uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
 
-      - name: Restore VERCEL_DEPLOYMENT
+      - name: Restore CUSTOMER_REF_TO_DEPLOY
         uses: UnlyEd/github-action-store-variable@v1.0.1
         id: restore-variable
         with:
