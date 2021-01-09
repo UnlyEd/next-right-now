@@ -17,28 +17,30 @@ Advices and "must-know" things regarding Emotion usage.
 
 ---
 
-## Overview
+## Usage
 
-> Emotion is a library designed for writing css styles with JavaScript. [https://emotion.sh/docs/introduction](https://emotion.sh/docs/introduction)
+We won't cover usage of Emotion in this documentation, please refer to the [official documentation](https://emotion.sh/docs/introduction) about how to
+use it.
 
-Next.js provides CSS-in-js using [`styled-jsx`](https://github.com/vercel/styled-jsx), but we dislike it for several reasons.
-It's not very intuitive to write styles that way and it needs extra dependencies/configuration to work with nested components and such.
+Next Right Now supports the following ways of using Emotion:
+- [Using `css` prop](https://emotion.sh/docs/css-prop)
+- [Using `styled component`](https://emotion.sh/docs/styled)
 
-Instead, we use [Emotion](https://emotion.sh/docs/introduction) in this project,
-which allows to write components using either the `styled` notation, or the `css` notation.
+It's up to you to decide how you prefer to use Emotion. Next Right Now doesn't advise or enforce any strong opinion on this matter, it's a personal choice.
 
-It's strongly recommended to read the [official documentation](https://emotion.sh/docs/introduction) about how to use it.
+> At Unly, we usually use the `css` prop. In some rare cases, we find the `styled component` approach makes more sense. We eventually use both, but have a preference for the `css` way.
 
-### Note about `/** @jsx jsx */`
+### SSR
 
-When using Emotion, the file must start with `/** @jsx jsx */` on top of it.
-- [Explanation](https://stackoverflow.com/questions/53803466/what-does-the-comment-jsx-jsx-do-in-the-emotion-css-in-js-library)
-- [Official doc](https://emotion.sh/docs/css-prop#jsx-pragma)
-
-> **TL;DR** _It basically tells the babel compiler to do something different and won't work if not specified._
+SSR is already configured and compatible with Next.js, since Emotion v10. [Source](https://emotion.sh/docs/ssr#nextjs)
+You don't have anything to do.
 
 ## Dependencies
 
 - [`@emotion/core`](https://emotion.sh/docs/css-prop): Necessary to use emotion, with built-in `css` notation support.
-- [`@emotion/styled`](https://emotion.sh/docs/styled): Necessary to used the `styled` notation.
+- [`@emotion/styled`](https://emotion.sh/docs/styled): Necessary to use the `styled` notation.
 - [`emotion-theming`](https://www.npmjs.com/package/emotion-theming): Theming library inspired by styled-components
+
+## Resource
+
+- [Introduction to Emotion](https://emotion.sh/docs/introduction)

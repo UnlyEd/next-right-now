@@ -10,7 +10,7 @@ nav_order: 10
 {: .no_toc }
 
 <div class="code-example" markdown="1">
-Step by step guide about how to create and properly configure your Airtable account.
+Step-by-step guide about how to create and properly configure your Airtable account.
 </div>
 
 {% include page-toc.md %}

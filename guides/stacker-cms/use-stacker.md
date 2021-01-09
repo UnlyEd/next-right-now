@@ -17,8 +17,14 @@ Advices and "must-know" things regarding Stacker usage.
 
 ---
 
-## Overview
+## Usage
 
-Airtable is very similar to Excel and Google Sheets. It's more user-friendly than both, but not as powerful sometimes.
+We won't cover how to use Stacker in this documentation.
+Please refer to their [official documentation](https://docs.stacker.app/?ref=unly-nrn).
 
-I strongly recommend you [join their Slack channel](https://stacker-customers.slack.com) for getting some support.
+## Slack Support
+
+[Join their Slack channel](https://stacker-customers.slack.com) for getting proper support. _(they're awesome and very helpful, even for free customers!)_
+
+
+
