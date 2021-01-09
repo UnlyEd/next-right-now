@@ -27,6 +27,8 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2021-01-09
+    - [Documentation update](https://github.com/UnlyEd/next-right-now/pull/238)
 - 2020-12-30
     - [Handle GitHub private repositories](https://github.com/UnlyEd/next-right-now/pull/236)
     - [Invoke custom webhook url once a Vercel deployment is "completed"](https://github.com/UnlyEd/next-right-now/pull/235)
