@@ -2,7 +2,7 @@
 layout: default
 title: Video tutorials
 parent: Getting started
-nav_order: 10
+nav_order: 40
 ---
 
 # Video tutorials
