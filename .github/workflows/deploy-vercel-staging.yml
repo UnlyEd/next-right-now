@@ -180,7 +180,7 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             :x:&nbsp; Deployment **FAILED**
-            Commit ${{ github.sha }} failed to deploy to [${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}](${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }})
+            Commit ${{ github.sha }} failed to deploy to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
             [click to see logs](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks)
 
       # On deployment success, add a comment to the PR, if there is an open PR for the current branch
@@ -357,7 +357,7 @@ jobs:
         uses: cypress-io/github-action@v2 # See https://github.com/cypress-io/github-action
         with:
           # XXX We disabled "wait-on" option, because it's useless. Cypress will fail anyway, because it gets redirected to some internal Vercel URL if the domain isn't yet available - See https://github.com/cypress-io/github-action/issues/270
-          # wait-on: '${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
+          # wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
           config-file: 'cypress/config-customer-ci-cd.json' # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
           config: baseUrl=${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
