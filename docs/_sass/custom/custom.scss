@@ -1,9 +1,28 @@
 // XXX Overrides CSS styles - See https://pmarsceill.github.io/just-the-docs/docs/customization/#override-and-completely-custom-styles
 
 blockquote {
-  border-left: #f4f1fa 1px solid;
-  padding-left: 15px;
-  margin-left: 10px;
+  background: #f9f9f9;
+  border-left: 3px solid #a493f2;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+
+  &:before,
+  &:after {
+    color: #a493f2;
+  }
+
+  &:before {
+    content: '"';
+  }
+
+  &:after {
+    content: '"';
+  }
+
+  p:first-child,
+  p:last-child {
+    display: inline;
+  }
 }
 
 .pagination-section {
