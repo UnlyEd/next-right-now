@@ -17,15 +17,6 @@ Advices and "must-know" things regarding Sentry usage.
 
 ---
 
-## Overview
-
-Sentry provides open-source and hosted error monitoring that helps all software teams discover, triage, and prioritize errors in real-time.
-
-We use Sentry to catch errors that happen within the application.
-They are available at [https://sentry.io/](https://sentry.io/) for any developers in the team.
-
-Those errors can be sent automatically to a Slack channel (config is very flexible since 2019).
-
 ## Using `ALERT_TYPES`
 
 NRN comes with built-in `ALERT_TYPES` for existing alerts, defined in the `sentry.ts` file.
@@ -49,9 +40,7 @@ This way, we always use the same import, which is linked to the right package ba
 
 [See #164](https://github.com/UnlyEd/next-right-now/issues/164)
 
----
-
-### Additional Sentry documentation
+### Resources
 
 - [https://sentry.io/welcome/](https://sentry.io/welcome/)
 - [https://docs.sentry.io/](https://docs.sentry.io/)

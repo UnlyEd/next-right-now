@@ -6,14 +6,36 @@ nav_order: 30
 has_children: true
 ---
 
+<div class="code-example" markdown="1">
+<span markdown="1">
+    Make sure you've checked our [Concept: I18n](../../concepts/i18n) page.
+</span>
+</div>
+
+---
+
+# About I18n
+
+Internationalization is split in several parts:
+- Routing: How to resolve the proper page.
+- Content translation: How to programmatically translate a translation key into its translated value.
+- Content management: How to allow human to configure and translate content.
+
+The Next.js framework only offers a solution for the "Routing" part, and does so since the `v10` release.
+
+Next Right Now offers a solution for the "Routing", "Content Translation" and "Content management" parts, as described below.
+
 # Official I18n routing implementation
 
-NRN uses its own i18n routing implementation instead of the official implementation.
+**NRN uses its own i18n routing implementation instead of the official implementation.**
+
 This is because the Next.js framework released an i18n routing implementation [since `v10`](https://nextjs.org/docs/advanced-features/i18n-routing) in the summer of 2020, while NRN released its own implementation in early 2020.
 
-Even though the official implementation and NRN implementation are compatible and look much alike, NRN hasn't updated its own implementation because the official implementation doesn't generate a prefix url for the default locale, and **this is a breaking change**.
+Even though the official implementation and NRN implementation **are compatible and look much alike**, NRN hasn't updated its own implementation because the official implementation doesn't generate a prefix url for the default locale, and **this is a breaking change**.
 
 [This issue is being tracked in #194](https://github.com/UnlyEd/next-right-now/issues/194).
+
+---
 
 # Next Right Now I18n routing implementation
 
@@ -57,7 +79,9 @@ Also, it would be necessary if you want to export your Next.js app, as it can't 
 
 In such cases, the proper way to go would be to change the `rewrites` implementation, so that paths without a `locale` are redirected to the `en` version of the page directly.
 
-# Next Right Now "Content localization"
+---
+
+# Next Right Now "Content localization", using open-source libraries
 
 The Next.js framework doesn't yet provide any way to translate the content, although it is mentioned in the [official RFC](https://github.com/vercel/next.js/discussions/17078) as an upcoming feature.
 
@@ -66,10 +90,13 @@ Next Right Now provides a built-in way of translating content, by using the [`i1
 Please refer to their respective documentation to learn more about how they should be used.
 You can also find various usage example in our [demos](https://nrn-default.now.sh/en/examples/built-in-features/static-i18n).
 
-# Professional "Localization as a service", using Locize
+---
+
+# Next Right Now "Content management", using a professional "Localization as a service" (Locize)
 
 [Locize](https://locize.com/?ref=unly-nrn) is a SaaS platform meant to help you manage translations.
-It's been built by the authors of i18next and react-i18next as a way for them to monetize their open-source contributions.
+
+**It's been built by the authors of i18next and react-i18next as a way for them to monetize their open-source contributions.**
 
 If you use i18next and react-i18next, then using Locize is the logical next move for any non-trivial app.
 
