@@ -40,13 +40,25 @@ The secret `GITHUB_TOKEN` is automatically provided by GitHub and you don't have
 
 ## Optional global GitHub secrets
 
-### Enabling GitHub Action debugging logs
+### Enabling GitHub Action runner diagnostic logs
 
 By adding the below GitHub Secret, all your GitHub
-Actions [will print more logs](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/enabling-debug-logging). This is very useful to
-understand what happens within the actions you're using.
+Actions [will print more logs](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/enabling-debug-logging#enabling-runner-diagnostic-logging).
+This is very useful to understand what happens within the actions you're using.
+
+- `ACTIONS_RUNNER_DEBUG`: `true`
+
+> Sometimes, enabling this might be requested by other Actions maintainers when you encounter issues with their action.
+
+### Enabling GitHub Action step debug logs
+
+By adding the below GitHub Secret, all your GitHub
+Actions [will print more logs](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/enabling-debug-logging#enabling-step-debug-logging).
+This is very useful to understand what happens within the actions you're using.
 
 - `ACTIONS_STEP_DEBUG`: `true`
+
+> This is the most useful debug, and directly prints debug steps in the logs.
 
 ## Pricing
 
