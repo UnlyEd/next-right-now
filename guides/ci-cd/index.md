@@ -19,6 +19,35 @@ has_children: true
 > GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub.
 > Make code reviews, branch management, and issue triaging work the way you want. - [GitHub Actions](https://github.com/features/actions)
 
+## Triggers and Actions
+
+Every time a commit is pushed to the repository, or a branch is merged, **automated actions are triggered**.
+
+Those actions are managed through **Github Actions**.
+
+Next Right Now comes built-in with several GitHub Actions that are described in this section (see below "Table of contents").
+
+## About GitHub Secrets
+
+> GitHub Secrets must be added on Github settings "secrets" page
+>
+> E.g: [https://github.com/UnlyEd/next-right-now/settings/secrets](https://github.com/UnlyEd/next-right-now/settings/secrets) for NRN
+
+Secrets are a very common way to provide variables to GitHub
+Actions [securely](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets). Secrets are encrypted and aren't printed in logs.
+
+The secret `GITHUB_TOKEN` is automatically provided by GitHub and you don't have to do anything to use it. You can simply use it from your workflow files (.yml).
+
+## Optional global GitHub secrets
+
+### Enabling GitHub Action debugging logs
+
+By adding the below GitHub Secret, all your GitHub
+Actions [will print more logs](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/enabling-debug-logging). This is very useful to
+understand what happens within the actions you're using.
+
+- `ACTIONS_STEP_DEBUG`: `true`
+
 ## Pricing
 
 GitHub Actions is completely **free for open source projects**.
@@ -82,3 +111,24 @@ We're considering a few action plans to limit risks associated with using extern
     - Currently considering [https://github.com/marketplace/actions/ensure-sha-pinned-actions](https://github.com/marketplace/actions/ensure-sha-pinned-actions)
 
 [See #224](https://github.com/UnlyEd/next-right-now/issues/224)
+
+---
+
+## Resources
+
+[Official documentation](https://help.github.com/en/actions/automating-your-workflow-with-github-actions)
+
+Most useful documentation links:
+
+- [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#about-yaml-syntax-for-workflows](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#about-yaml-syntax-for-workflows)
+- [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#on](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#on)
+- [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idneeds](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idneeds)
+- [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idruns-on](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#jobsjob_idruns-on)
+- [https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet)
+
+### Bash advanced commands
+
+* _**[jq](https://cameronnokes.com/blog/working-with-json-in-bash-using-jq/)**_:
+  JSON parser for bash
+* _**[tr](http://linuxcommand.org/lc3_man_pages/tr1.html)**_:
+  Bash editor, used to remove characters
