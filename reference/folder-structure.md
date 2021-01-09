@@ -13,6 +13,8 @@ Overview of the project folder and files structure
 
 ---
 
+> Note: The folder structure under `src` will change in 2021. Read more [here](https://github.com/UnlyEd/next-right-now/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc).
+
 - `cypress`: Folder used by Cypress (E2E), see ["Getting started"](https://docs.cypress.io/guides/getting-started/installing-cypress.html#npm-install)
 - `public`: Static files, see ["Static file serving](https://nextjs.org/docs/basic-features/static-file-serving)
 - `src`: Source code of the app

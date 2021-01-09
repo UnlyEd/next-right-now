@@ -39,12 +39,12 @@ You can also run them non-interactively using `yarn e2e:run` script.
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< CI/CD](./ci-cd){: .btn }
+        [< CI/CD](./ci-cd){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Guides: Testing](../guides/testing){: .btn .btn-blue }
+        [Guides: Testing](../guides/testing){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
-    [Getting started: Pick your preset >](../available-presets){: .btn .btn-purple }
+        [GraphQL >](./graphql){: .btn .btn-purple }
     </span>
 </div>

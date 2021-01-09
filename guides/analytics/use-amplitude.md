@@ -34,9 +34,9 @@ We've used it, and we really don't recommend it for any SPA, especially when pla
 Instead, we use (and recommend) Amplitude.
 The world of analytics is huge, and isn't cheap.
 
-Amplitude allows to track events and users behaviour, who are two very different things, even if events are related to users.
+Amplitude allows tracking events and users behaviour, who are two very different things, even if events are related to users.
 
-It's simply the best one we've worked with over the past 2 years.
+It's simply the best one we've worked with since 2018.
 
 It's much more flexible than Google Analytics. Also, it plays much better with isomorphic apps and SPA.
 
@@ -67,9 +67,10 @@ Also, their react integration is really good, even though it's not officially ma
 
 ### Known limitations
 
-- Amplitude doesn't provide any backend-compatible API.
-    It's not an issue for NRN, and avoids sending multiple events due to SSR/CSR, but it could be a limitation depending on your businness needs.
+- ~~Amplitude doesn't provide any backend-compatible API.~~
+    ~~It's not an issue for NRN, and avoids sending multiple events due to SSR/CSR, but it could be a limitation depending on your business needs.~~
     See [https://github.com/amplitude/Amplitude-JavaScript/issues/164](https://github.com/amplitude/Amplitude-JavaScript/issues/164)
+    - They released [`Amplitude-Node`](https://github.com/amplitude/Amplitude-Node) since then. We haven't tried it and it's not used by NRN.
 
 ---
 

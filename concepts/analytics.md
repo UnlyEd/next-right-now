@@ -36,12 +36,12 @@ It is a pillar to any serious business website, and it is quite complicated to d
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< I18n](./i18n){: .btn }
+        [< I18n](./i18n){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Guides: Analytics](../guides/analytics){: .btn .btn-blue }
+        [Guides: Analytics](../guides/analytics){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
-    [Monitoring >](./monitoring){: .btn .btn-purple }
+        [Monitoring >](./monitoring){: .btn .btn-purple }
     </span>
 </div>

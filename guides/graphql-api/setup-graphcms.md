@@ -10,7 +10,7 @@ nav_order: 10
 {: .no_toc }
 
 <div class="code-example" markdown="1">
-Step by step guide about how to create and properly configure your GraphCMS account.
+Step-by-step guide about how to create and properly configure your GraphCMS account.
 </div>
 
 {% include page-toc.md %}
@@ -27,6 +27,8 @@ Step by step guide about how to create and properly configure your GraphCMS acco
 [![GraphCMS configuration video tutorial](https://img.youtube.com/vi/ig5a7LXTiBM/maxresdefault.jpg)](http://youtu.be/ig5a7LXTiBM?hd=1)
 
 > This video explains how to create a GraphCMS account and configure locales, versions, auth tokens and gives an overview of the settings.
+>
+> _This video is outdated, as it was recorded in February 2020, when NRN Demo was using the GraphCMS v1. Since then, the Demo has been upgraded to v2, and the UI has changed a bit._
 
 ---
 

@@ -16,7 +16,7 @@ nav_order: 20
 **Hybrid-tenancy** (HT) is an architecture which leverages (micro)services that are **both single and multi-tenants** to **optimize** the balance of performance, scale, and security.
 
 **Multiple single-tenancy** (MST) is an architecture in which a **single base code** of a software application allows to **deploy multiple tenants**, each with **their own infrastructure**.
-The infrastructure itself **may** be **completely isolated** from other tenants (ST), or **partially shared** (HT, e.g: different servers, but same DB).
+The infrastructure itself **may** be **completely isolated** from other tenants (ST), or **partially shared** (HT) (e.g: different servers, but same DB).
 </div>
 
 {% include page-toc.md %}
@@ -81,11 +81,11 @@ So, you definitely need to have **some isolation**.
 Sometimes it's preferred to **completely isolate each tenant by replicating the whole infrastructure**.
 Sometimes, you just need to **replicate the most critical components**.
 
-For instance, our Hybrid Tenancy replicates **only the server** on which the customer app runs, but it uses **the same database** for all customers.
+For instance, the Hybrid Tenancy used in the NRN demo replicates **only the server** on which the customer app runs, but it uses **the same database** for all customers.
 
-> To mitigate potential network issues, we've put a [GraphQL proxy cache](https://github.com/UnlyEd/GraphCMS-cache-boilerplate) in between our app and our API, so that even if the DB/API fails, the app won't crash (cache will take over).
+> At Unly, to mitigate potential network issues, we've put a [GraphQL proxy cache](https://github.com/UnlyEd/GraphCMS-cache-boilerplate) in between our app and our API, so that even if the DB/API fails, the app won't crash (cache will take over).
 
-That's what's called Hybrid tenancy. You take the best of both worlds (ST/MT), and build something that fits your business needs (HT).
+That's what's called Hybrid tenancy. You take the best of both worlds (ST/MT), and build a hybrid tenancy design that fits your business needs.
 
 ---
 
@@ -97,18 +97,19 @@ They all share the same source code (within reason, e.g: not major versions), an
 So, it's not really a new way of designing a tenancy system, but rather an **architecture designed to deploy multiple tenants easily**, through CI/CD actions.
 
 Using NRN, this design allows you to quickly deploy a new tenant by writing a few scripts:
-- Create `deploy:customerX`: Deploy the new customer to staging
-- Create `deploy:customerX:production`: Deploy the new customer to production
-- Create `vercel.customerX.staging.json`: Vercel config for staging environment
-- Create `vercel.customerX.production.json`: Vercel config for production environment
+- Run `deploy:customerX`: Deploy the new customer to staging
+    - Uses `vercel.customerX.staging.json`: Vercel config for staging environment
+- Run `deploy:customerX:production`: Deploy the new customer to production
+    - Uses `vercel.customerX.production.json`: Vercel config for production environment
 
 Those scripts and config files would automatically generate a whole new Vercel project the first time you'd run the deploy scripts.
 This new project would run on its own server and own domain name.
 
 It would be completely **isolated** from other tenants, only the database would be **shared**.
-But you could even use a **different database** if you wished to do so! (through `vercel.customerX.*.json`)
+But you could even use a **different database** if you wished to do so! _For the sake of simplicity we decided to use a shared database for the NRN demos._
 
-This is what we call "Multiple Single-Tenancy" for now, there is probably a better terminology out there, but the concept isn't widely known/used and we didn't find any.
+This is what we call "Multiple Single-Tenancy".
+_There might be a better terminology out there, but the concept isn't widely known/used, and we didn't find any._
 
 ---
 

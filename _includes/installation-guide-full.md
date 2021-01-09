@@ -3,7 +3,7 @@ This local installation guide is meant to guide you through the installation pro
 
 ##### Pre-requisites
 
-{% include vercel-online-deployment-pre-requisites.md %}
+{% include vercel-online-hosting-pre-requisites.md %}
 {: .mb-6 }
 
 ##### Install steps
@@ -22,7 +22,7 @@ Configuring each vendor is probably the most time-consuming, but you don't have 
 Create an account for all required 3rd party vendors below, and follow their installation guide
 
 {% if hosting == 'vercel' -%}
-1. [Learn how to setup Vercel](../guides/online-deployment/setup-vercel)
+1. [Learn how to setup Vercel](../guides/online-hosting/setup-vercel)
 {%- endif %}
 
 {% if gql-api == 'gcms' -%}
@@ -47,3 +47,10 @@ Create an account for all required 3rd party vendors below, and follow their ins
 
 1. [Learn how to setup Cypress](../guides/testing/setup-cypress)
 
+1. [Learn how to setup GitHub Actions](../guides/ci-cd)
+
+##### Recommended
+
+- [Learn about the built-in scripts and utilities](../guides/scripts-and-utilities)
+- [Learn about the built-in API endpoints](../guides/api-endpoints)
+- [Read the FAQ](../faq)

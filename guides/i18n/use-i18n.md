@@ -17,10 +17,10 @@ Advices and "must-know" things regarding i18n usage.
 
 ---
 
-## Overview
+## Built-in i18next and react-i18next
 
-### Dependencies
+Next Right Now provides a built-in way of translating content, by using the [`i18next`](https://www.i18next.com/)
+and [`react-i18next`](https://react.i18next.com/) open-source libraries.
 
-- [`@unly/universal-language-detector`](https://github.com/UnlyEd/universal-language-detector): Language detector that works universally (browser + server) - Meant to be used with a universal framework, such as Next.js
-
-We only rely on this library, which hides away the complexity of universal language detection.
+Please refer to their respective documentation to learn more about how they should be used. You can also find various usage example in
+our [demos](https://nrn-default.now.sh/en/examples/built-in-features/static-i18n).

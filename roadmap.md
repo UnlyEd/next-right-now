@@ -17,7 +17,10 @@ This page is about what we intend to do in NRN in the future. It's meant to prov
     - Until now, I've focused mostly on 1-2 presets and improved them as much as I can to reduce the amount of work needed when new presets will be added.
 - Release [`HybridCache` current implementation](https://github.com/UnlyEd/next-right-now/pull/92) as its own NPM package (basically extract it from NRN for easier re-use in other projects)
     - No particular hurry, it doesn't feel like it's something requested by the community
+- Release [`AirtableDataset` current implementation](https://github.com/UnlyEd/next-right-now/tree/30d83e961b6267ee7704d21b70004ee167f95ff5/src/types/airtableDataset) from [#229](https://github.com/UnlyEd/next-right-now/pull/229) as its own NPM package (basically extract it from NRN for easier re-use in other projects)
+    - No particular hurry, it doesn't feel like it's something requested by the community
 - Unit tests for UI components and utilities, especially for the most important ones
     - Feel free to pick a UI component or utility and make a PR about it (one component/utility at a time, please) if you'd like to
+- Integrate StoryBook
 
-Check out [this discussion](https://github.com/UnlyEd/next-right-now/discussions/137) if you want to contribute to the project! Our [contributing guide](https://unlyed.github.io/next-right-now/contributing.html) may be helpful as well.
+Check out [this discussion](https://github.com/UnlyEd/next-right-now/discussions/137) if you want to contribute to the project! Our [contributing guide](https://unlyed.github.io/next-right-now/contributing) may be helpful as well.

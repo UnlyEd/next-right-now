@@ -17,14 +17,11 @@ Advices and "must-know" things regarding Sentry usage.
 
 ---
 
-## Overview
+## Using `ALERT_TYPES`
 
-Sentry provides open-source and hosted error monitoring that helps all software teams discover, triage, and prioritize errors in real-time.
+NRN comes with built-in `ALERT_TYPES` for existing alerts, defined in the `sentry.ts` file.
 
-We use Sentry to catch errors that happen within the application.
-They are available at [https://sentry.io/](https://sentry.io/) for any developers in the team.
-
-Those errors can be sent automatically to a Slack channel (config is very flexible since 2019).
+Feel free to add more alert types, they're mostly useful to help you increase the observability of your backend, by helping you to make sense of what's happening.
 
 ### Dependencies
 
@@ -33,15 +30,23 @@ Those errors can be sent automatically to a Slack channel (config is very flexib
 
 Sentry provides 2 different packages, with different abilities (but a very similar API) for browser and server usage.
 
-#### A note about Sentry usage
+#### A note about `@sentry/node` usage _(Webpack trick)_
 
-In the source code, we always use `@sentry/node`, which is automatically converted at build step by babel. (see `next.config.js`)
+In the source code, we always use `@sentry/node`, which is automatically converted at build step by Webpack. (see `next.config.js`)
 
 This way, we always use the same import, which is linked to the right package based on the runtime engine target.
 
----
+### What about `@sentry/react`?
 
-## Resources
+[See #164](https://github.com/UnlyEd/next-right-now/issues/164)
+
+### Resources
 
 - [https://sentry.io/welcome/](https://sentry.io/welcome/)
 - [https://docs.sentry.io/](https://docs.sentry.io/)
+- [Official "Getting started" guide](https://docs.sentry.io/error-reporting/quickstart/?platform=javascript)
+- [Capturing errors](https://docs.sentry.io/error-reporting/capturing/?platform=javascript)
+- [Configuration](https://docs.sentry.io/error-reporting/configuration/?platform=javascript)
+- [Using "context" for events](https://docs.sentry.io/enriching-error-data/context/?platform=javascript)
+- [Using "breadcrumbs" for events](https://docs.sentry.io/enriching-error-data/breadcrumbs/?platform=javascript)
+- [How to blacklist sensitive data tracking (GDPR, security)](https://docs.sentry.io/data-management/sensitive-data/)

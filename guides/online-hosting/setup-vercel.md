@@ -10,7 +10,7 @@ nav_order: 10
 {: .no_toc }
 
 <div class="code-example" markdown="1">
-Step by step guide about how to create and properly configure your Vercel account.
+Step-by-step guide about how to create and properly configure your Vercel account.
 </div>
 
 {% include page-toc.md %}
@@ -19,7 +19,7 @@ Step by step guide about how to create and properly configure your Vercel accoun
 
 ## Create your Vercel account
 
-> Creating a Vercel account is **necessary** to deploy the application online (staging/production stages)
+> Creating a Vercel account is **necessary** to deploy the application online (staging/production stages) using Vercel as a hosting provider.
 
 - [Create a free account on Vercel](https://vercel.com/signup?ref=unly-nrn)
 
@@ -29,11 +29,12 @@ Step by step guide about how to create and properly configure your Vercel accoun
 
 ### Pre-requisites
 
-{% include vercel-online-deployment-pre-requisites.md %}
+{% include vercel-online-hosting-pre-requisites.md %}
 {: .mb-6 }
 
 ### Deploying on Vercel (manually)
 
+1. `yarn start` - Will start the project locally, and create the `.vercel` folder.
 1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already.
     This command will fail if any secret is missing.
 1. Add a `scope` line in all `vercel.*.json` files using the `orgId` in `.vercel/project.json` (this folder is created when running `npx vercel`, which was called when you run the above `yarn start`)
@@ -94,14 +95,12 @@ While there can be multiple staging deployments, **there is only one production 
 
 ### Configuring custom Vercel <> Github Actions integration
 
-Our simple but useful automated CI/CD process basically deploys all branches as Vercel preview deployments, except for master which is automatically deployed in production.
+Our automated CI/CD process basically deploys all branches as Vercel preview deployments, except for commits pushed to `main` or `master` branches, which are automatically deployed in production.
 
 {: .mt-6 }
-##### Video Tutorial - How to configure Github Actions integration (7 minutes)
+##### How to configure Github Actions integration
 
-[![Tutorial - How to configure Github Actions integration](https://img.youtube.com/vi/hPQu6jgOyC0/maxresdefault.jpg)](http://youtu.be/hPQu6jgOyC0?hd=1)
-
-> In this tutorial, we will see how to configure our custom Vercel <> Github Actions integration (CI/CD)
+See [How to setup Github Actions](../ci-cd/setup-github-actions)
 
 ### Configuring Vercel secrets (manually)
 
@@ -109,18 +108,18 @@ This documentation is in-case-of you'd need to configure secrets through the CLI
 
 - Each secret must be added manually, one by one
 - A secret starts with `@`
-- Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects _(Vercel is working on this, to avoid leaking secrets from one project to another, but hasn't released anything yet)_
-- Take a look at `.env.example` for secrets to use by default (you can use them for testing purpose, it's fine, they're not sensitive)
+- Secrets are global to the whole team, that's why they're all prefixed by `nrn-`, so that they don't conflict with other projects
+- Take a look at `.env.example` for secrets to use by default _(you can use them for testing purpose, it's fine, they're not sensitive)_
 - Example: `vercel secrets add nrn-locize-project-id 658fc999-dfa8-4307-b9d7-b4870ad5b968`
 
-- **Tip**: If you don't provide all secrets, the app will fail to deploy. The Vercel CLI will complain about missing secrets and abort the build.
+- **Tip**: If any secret is not set, the app will fail to deploy. The Vercel CLI will complain about missing secrets and abort the build.
 
 ### Configuring Vercel deployment regions
 
 You may want to deploy Vercel to multiple regions in the world, depending on your use case
 
-By default (if not specified), it will only deploy to the closest region, which is probably **not** what you want to do!
+By default (if not specified), NRN tries to deploy to all regions (see `vercel.*.json:regions`), but this will only be effective if you are under a Vercel plan that allows it.
 
 Please see the [official documentation](https://vercel.com/docs/v2/network/regions-and-providers#routing).
 
-- **Tip**: Note that this is an advanced feature which requires a paying account, it's not available for free
+- **Tip**: Note that this is an advanced feature which requires a paying account, it's not available for free.

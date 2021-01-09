@@ -48,7 +48,7 @@ Part of it is documented in [`MultiversalAppBootstrap`](https://github.com/UnlyE
 
 The term `Multiversal` is meant for "code that runs on all situations", to make it obvious it's always executed, no matter what.
 
-The idea behind that `Multiversal` term _(which we invented ourselves)_ is that while `Universal` is well-known by developers and stands for code that runs on both the client and the server (or, for apps/tools that are compatible with both, depending on who wrote the definition), `Multiversal` stands for "code running no matter what".
+> The idea behind that `Multiversal` term _(which we invented ourselves)_ is that while `Universal` is well-known by developers and stands for code that runs on both the client and the server (or, for apps/tools that are compatible with both, depending on who wrote the definition), `Multiversal` stands for "code running no matter what".
 
 Because, you might not want to run some code, depending on the execution context ("browser" vs "server during ssg build" vs "server during SSR").
 
@@ -79,12 +79,12 @@ Those are small, but important differences that affect the application and how c
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< Tenancy](./tenancy){: .btn }
+        [< Tenancy](./tenancy){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Guides: Tenancy](../guides/tenancy){: .btn .btn-blue }
+        [Guides: Tenancy](../guides/tenancy){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
-    [GraphQL >](./graphql){: .btn .btn-purple }
+        [> I18n](./i18n){: .btn .btn-purple }
     </span>
 </div>

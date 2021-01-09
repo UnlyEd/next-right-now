@@ -16,17 +16,15 @@ Make sure you've checked our [Pre-requisites](./pre-requisites) page.
 
 ---
 
-
 This short tutorial will explain how to perform a super quick (~5mn) local installation (for local-only testing purpose, without deploying anything online)
 
 This tutorial uses the [**`{{ site.nrn_default_preset }}`**](../available-presets) preset.
 
-> It doesn't really matter if the selected preset fits your needs, the goal here is to give your a tour of what NRN can do for you, as quickly as possible.
+> It doesn't really matter if the selected preset fits your needs, the goal here is to give you a tour of what NRN can do for you, as quickly as possible.
 
-## Step by step installation
+## Step-by-step installation
 
 {% include installation-guide-quick-start.md preset=site.nrn_default_preset %}
-
 
 ---
 
@@ -38,10 +36,13 @@ Learn more about NRN concepts before getting your hands dirty&nbsp;:wink:
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< Video tutorials](./video-tutorials){: .btn }
+    [< Pre-requisites](./pre-requisites){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Concept: Presets >](../concepts/presets){: .btn .btn-purple }
+    [Watch video tutorials](./video-tutorials){: .btn .btn-blue }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Concepts: Introduction >](../concepts){: .btn .btn-purple }
     </span>
 </div>
 
