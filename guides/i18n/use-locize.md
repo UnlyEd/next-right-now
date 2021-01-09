@@ -50,17 +50,43 @@ Once you're ready to ship the content to production, the `production` version ca
 
 > **Tip**: New i18n keys are added automatically in the `development` stage, as they are being added to the source code, thanks to the `saveMissing` [option](src/utils/i18nextLocize.ts). _This can also be a bit boring with HMR, because useless keys may be created while programming._
 
-#### Locize additional services
+## Custom "per-customer" variation (namespace)
+
+It is possible to create per-customer Locize namespaces to store translations that are related to one customer, and only use those for that customer.
+
+Assuming you have the following Locize namespaces in your project:
+- fr
+- en
+
+You can create the following namespaces:
+- fr-x-customer1
+- en-x-customer1
+
+> `x` stands for "custom variation". In Locize language, a "namespace" is a "localization variation".
+
+Once those namespaces have been created, you can simply override any sentence you want, and it will apply only to this customer, instead of the sentence configured in the fallback language (fr, en).
+
+You do not need to translate all sentences again, only those you wish to be different for this customer.
+Sentences will automatically fall back to the language namespace if no translation is found in the customer namespace.
+
+### How does it work?
+
+There is no magic behind it, NRN simply always fetches the variations for the customer, alongside the language namespaces.
+
+If no variation namespace is found then nothing particular is done.
+But, if a variation namespace does exist (e.g: `fr-x-customer1`) then it'll merge all translations from `fr` and `fr-x-customer1` namespaces.
+
+## Locize additional services
 
 Locize provides a few [additional services](https://locize.com/services.html?ref=unly-nrn). Some are free, some are paid.
 
-#### Other additional services
+## Other additional services
 
 - One interesting thing is the ability to share part of the project to be translated by a third party using [`Crowdbased`](https://locize.com/services.html?ref=unly-nrn), without sharing the whole project.
 - There are also several paid [Translation services](https://locize.com/services.html?ref=unly-nrn), where you can pay people to translate your content.
 - It is also possible to enable [Audit](https://locize.com/services.html?ref=unly-nrn), which allows to audit every change to our translations, and keep changes up to 10 years. (_expensive_)
 
-### Dependencies
+## Dependencies
 
 We rely on those packages to manage the translations:
 - [`i18next-locize-backend`](https://www.npmjs.com/package/i18next-locize-backend): This is an i18next backend to be used for locize service. It will load resources from locize server using xhr.
@@ -80,7 +106,8 @@ It was quite complicated to configure Next with Locize, mostly because of the un
 
 We were inspired by [this SO question](https://stackoverflow.com/questions/55994799/how-to-integrate-next-i18next-nextjs-locize/58782594).
 
+## Resources
 
-https://locize.com/
-https://docs.locize.com/
-https://www.i18next.com/overview/for-enterprises#locize
+- [https://locize.com/](https://locize.com/)
+- [https://docs.locize.com/](https://docs.locize.com/)
+- [https://www.i18next.com/overview/for-enterprises#locize](https://www.i18next.com/overview/for-enterprises#locize)

@@ -29,7 +29,7 @@ Step by step guide about how to create and properly configure your Vercel accoun
 
 ### Pre-requisites
 
-{% include vercel-online-deployment-pre-requisites.md %}
+{% include vercel-online-hosting-pre-requisites.md %}
 {: .mb-6 }
 
 ### Deploying on Vercel (manually)

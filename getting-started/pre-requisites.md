@@ -16,7 +16,7 @@ NRN expects the following to be already installed on your computer:
     - It's not really a requirement, but a good practice for any developer working on multiple projects (which eventually leads to working on different nodejs versions).
         - [NVM for Unix](https://github.com/nvm-sh/nvm) (run the [install script](https://github.com/nvm-sh/nvm#install--update-script))
         - [NVM for Windows](https://github.com/coreybutler/nvm-windows) (download the [latest `nvm-setup.zip`](https://github.com/coreybutler/nvm-windows/releases))
-    - **If you don't use NVM**, then please use node `v12` for the next steps. [Because that's what's used by Vercel hosting](../guides/online-deployment/use-vercel)
+    - **If you don't use NVM**, then please use node `v12` for the next steps. [Because that's what's used by Vercel hosting](../guides/online-hosting/use-vercel)
 - Node.js should be installed (it's installed by NVM, so you're probably already covered)
 - _(Optional)_ [Yarn](https://classic.yarnpkg.com/en/docs/install/) is preferred over NPM, for various reasons. All our example use Yarn, but you can theoretically use either.
 
