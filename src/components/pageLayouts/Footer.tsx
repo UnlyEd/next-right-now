@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 
 import { NRN_CO_BRANDING_LOGO_URL } from '../../constants';
 import useCustomer from '../../hooks/useCustomer';
-import useUserSession, { UserSession } from '../../hooks/useUserSession';
 import { CSSStyles } from '../../types/CSSStyles';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Asset } from '../../types/data/Asset';
@@ -16,7 +15,6 @@ import AirtableAsset from '../assets/AirtableAsset';
 import Logo from '../assets/Logo';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
-import DisplayOnBrowserMount from '../rehydration/DisplayOnBrowserMount';
 
 type Props = {
   style?: CSSStyles;
@@ -27,12 +25,15 @@ const Footer: React.FunctionComponent<Props> = (props) => {
     style,
   } = props;
   const { t } = useTranslation();
-  const { deviceId }: UserSession = useUserSession();
   const customer: Customer = useCustomer();
   const { availableLanguages } = customer;
   const shouldDisplayI18nButton = availableLanguages?.length > 1;
   const theme = useTheme<CustomerTheme>();
-  const { backgroundColor, onBackgroundColor, logo } = theme;
+  const {
+    backgroundColor,
+    onBackgroundColor,
+    logo,
+  } = theme;
   const logoSizesMultipliers = [
     {
       size: SIZE_XS,
@@ -137,33 +138,6 @@ const Footer: React.FunctionComponent<Props> = (props) => {
             {t('footer.privacy.link', 'Politique de confidentialité')}
           </div>
         </I18nLink>
-        <div
-          css={css`
-            margin-top: 10px;
-
-            i {
-              cursor: help;
-            }
-          `}
-        >
-          <i
-            title={'This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses userSessionContext store provider)'}
-          >
-            Device id (analytics):<br />
-            <DisplayOnBrowserMount
-              // When using SSR, we want to render the deviceId immediately because we have access to it through server cookies
-              // When using SSG, we need to wait for the browser render because we don't have access to the cookies when generating the static page
-              // To test the different behaviours, refresh the both /examples and /products page with JS disabled
-              // and notice how the deviceId is properly included in the HTML with SSR (/products), unlike SSG (/examples) where it's empty
-
-              // XXX This example showcase this complex behaviour. You may want to do something similar for a "Profile" section in <Nav>,
-              //  that can be rendered using both SSG/SSR depending on the page, where SSR should render the component but SSG should wait for browser re-render
-              deps={[deviceId]}
-            >
-              <code>{deviceId}</code>
-            </DisplayOnBrowserMount>
-          </i>
-        </div>
       </section>
       {
         shouldDisplayI18nButton && (

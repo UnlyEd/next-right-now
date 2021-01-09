@@ -51,7 +51,7 @@ if (process.env.SENTRY_DSN) {
  * Alert types, meant to be assigned to "alertType" tag when reporting a message/exception/event to Sentry.
  *
  * Then, you can configure your own Sentry Alerts using the "alertType" tag and perform specific data processing.
- * @example If the event's tags match "alertType equals 'vercel-deployment-invoked'", then send it to Slack channel.
+ * @example If the event's tags match "alertType equals 'vercel-deployment-invoked'", then send it to a dedicated Slack channel.
  *
  * @see https://sentry.io/organizations/unly/alerts/next-right-now/new/
  */

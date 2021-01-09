@@ -79,6 +79,7 @@ export const shouldDisplayConsentPopup = (allowedPages: string[] | null): boolea
  *
  * @param options
  *
+ * @see https://github.com/osano/cookieconsent
  * @see https://www.osano.com/cookieconsent/documentation/
  * @see https://www.osano.com/cookieconsent/documentation/javascript-api/
  * @see https://www.osano.com/cookieconsent/download/
