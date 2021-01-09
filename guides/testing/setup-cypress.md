@@ -40,4 +40,6 @@ Therefore, you don't have to pay for Cypress.
 
 But, if you wish to benefit from the [Cypress Dashboard](https://www.cypress.io/dashboard) and store your Cypress recordings then you might be interested in buying a [Cypress plan](https://www.cypress.io/pricing/).
 
-> If you buy a plan, you should **set the `orgId`** in your `cypress/config-*.json` so that recordings will be stored on your Cypress account, and can then be accessed through the Dashboard.
+> If you buy a plan, you should **set the `orgId`** in all your `cypress/config-*.json` so that recordings will be stored on your Cypress account, and can then be accessed through the Dashboard.
+>
+> Alternatively, you could also add it only to `cypress/config-customer-ci-cd.json` if you only wish to track recordings performed through CI/CD, but not the local runs.

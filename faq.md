@@ -111,6 +111,12 @@ See the [Application Bootstrap page lifecycle](../concepts/app-bootstrap#whats-t
 
 ---
 
+## There are a lot of scripts in the `package.json` file, are they documented?
+
+See the [scripts documentation](../guides/scripts-and-utilities/#scripts), where all commands are thoroughly explained.
+
+---
+
 <div class="pagination-section space-even">
     <span class="fs-4" markdown="1">
     [CHANGELOG](./changelog){: .btn .btn }
