@@ -1,4 +1,5 @@
 import { Amplitude } from '@amplitude/react-amplitude';
+import { css } from '@emotion/core';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -19,6 +20,7 @@ import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import withApollo from '../../../../hocs/withApollo';
 import useUserConsent from '../../../../hooks/useUserConsent';
+import useUserSession, { UserSession } from '../../../../hooks/useUserSession';
 import { LogEvent } from '../../../../types/Amplitude';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
@@ -60,7 +62,11 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
-  const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = useUserConsent();
+  const {
+    isUserOptedOutOfAnalytics,
+    hasUserGivenAnyCookieConsent,
+  } = useUserConsent();
+  const { deviceId }: UserSession = useUserSession();
 
   return (
     <DefaultLayout
@@ -260,6 +266,59 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                 </Amplitude>
               `}
             />
+
+            <hr />
+
+            <div
+              css={css`
+                margin-top: 10px;
+
+                i {
+                  cursor: help;
+                }
+              `}
+            >
+              <h2>
+                Your Amplitude <code>Device ID</code>
+              </h2>
+
+              <Alert color={'info'}>
+                This is only informational, your activity on this website is being tracked for analytics purposes and demonstration on how to perform analytics with Next.js and Amplitude (this uses userSessionContext store provider).
+              </Alert>
+
+              <DisplayOnBrowserMount
+                // When using SSR, we want to render the deviceId immediately because we have access to it through server cookies
+                // When using SSG, we need to wait for the browser render because we don't have access to the cookies when generating the static page
+                // To test the different behaviours, refresh the both /examples and /products page with JS disabled
+                // and notice how the deviceId is properly included in the HTML with SSR (/products), unlike SSG (/examples) where it's empty
+
+                // XXX This example showcase this complex behaviour. You may want to do something similar for a "Profile" section in <Nav>,
+                //  that can be rendered using both SSG/SSR depending on the page, where SSR should render the component but SSG should wait for browser re-render
+                deps={[deviceId]}
+              >
+                <code>{deviceId}</code>
+              </DisplayOnBrowserMount>
+
+              <br />
+              <br />
+
+              <Code
+                text={`
+                  <DisplayOnBrowserMount
+                    // When using SSR, we want to render the deviceId immediately because we have access to it through server cookies
+                    // When using SSG, we need to wait for the browser render because we don't have access to the cookies when generating the static page
+                    // To test the different behaviours, refresh the both /examples and /products page with JS disabled
+                    // and notice how the deviceId is properly included in the HTML with SSR (/products), unlike SSG (/examples) where it's empty
+
+                    // XXX This example showcase this complex behaviour. You may want to do something similar for a "Profile" section in <Nav>,
+                    //  that can be rendered using both SSG/SSR depending on the page, where SSR should render the component but SSG should wait for browser re-render
+                    deps={[deviceId]}
+                  >
+                    <code>{deviceId}</code>
+                  </DisplayOnBrowserMount>
+                `}
+              />
+            </div>
 
           </DocPage>
         )}
