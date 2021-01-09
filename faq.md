@@ -71,7 +71,7 @@ Error! The specified scope does not exist
   **Question**: _I don't find the "plugin" system that highly customizable since "plugins" seem to already be bundled into the 2 main templates you offer, and I have been having hard time trying to rip things out that I don't need (i18n/locize, example app, MST tenancy (although looks like I can opt out by not using certain vercel json files), and etc.)._
 </div>
 
-See our guide about ["How to remove MST"](../guides/tenancy/remove-MST).
+See our guide about ["How to remove MST"](./guides/tenancy/remove-MST).
 
 [See original question](https://github.com/UnlyEd/next-right-now/issues/151)
 
@@ -83,7 +83,7 @@ See our guide about ["How to remove MST"](../guides/tenancy/remove-MST).
   **Question**: _I don't find the "plugin" system that highly customizable since "plugins" seem to already be bundled into the 2 main templates you offer, and I have been having hard time trying to rip things out that I don't need (i18n/locize, example app, MST tenancy, etc.)._
 </div>
 
-See our ["How to remove X" guides](../guides). **Each tool has its own "How to remove" section.**
+See our ["How to remove X" guides](./guides). **Each tool has its own "How to remove" section.**
 
 If you don't find what you're looking for, you can open a discussion/issue on github.
 
@@ -99,7 +99,7 @@ If you don't find what you're looking for, you can open a discussion/issue on gi
   **Question**: _I would like to understand the purpose of this component `MultiversalAppBootstrap.tsx` and its siblings components `BrowserPageBootstrap.tsx`, `ServerPageBootstrap.tsx` and `UniversalGlobalStyles.tsx`, I may have missed something in the documentation. But I don't understand its usefulness knowing that we have `_app` and `_document`... are to separate the logic of each type of rendering, or only for maintainability purposes?_
 </div>
 
-See the [Application Bootstrap concept](../concepts/app-bootstrap).
+See the [Application Bootstrap concept](./concepts/app-bootstrap).
 
 If you don't find what you're looking for, you can open a discussion/issue on github.
 
@@ -107,13 +107,13 @@ If you don't find what you're looking for, you can open a discussion/issue on gi
 
 ## What's the NRN page lifecycle?
 
-See the [Application Bootstrap page lifecycle](../concepts/app-bootstrap#whats-the-nrn-page-lifecycle).
+See the [Application Bootstrap page lifecycle](./concepts/app-bootstrap#whats-the-nrn-page-lifecycle).
 
 ---
 
 ## There are a lot of scripts in the `package.json` file, are they documented?
 
-See the [scripts documentation](../guides/scripts-and-utilities/#scripts), where all commands are thoroughly explained.
+See the [scripts documentation](./guides/scripts-and-utilities/#scripts), where all commands are thoroughly explained.
 
 ---
 
