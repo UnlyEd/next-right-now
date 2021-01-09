@@ -95,13 +95,13 @@ Here is an overview of all the features included in this boilerplate:
     - An `/api/startVercelDeployment` endpoint to showcase how you could trigger a Vercel deployment from a 3rd party tool (CMS, Back-Office, etc.)
         - _At Unly, our Customer Success team use it to update our customer platforms through a [Stacker](https://stacker.app/?ref=nrn) user interface, simply by clicking on a button!_
     - An `/api/preview` endpoint to enable/disable Next.js SSG Preview Mode.
-- Built-in **utilities**
+- Built-in **[utilities](./guides/scripts-and-utilities/#utilities)**
     - Font Awesome icons as react components, with SSR support (thanks to [Font Awesome](https://github.com/FortAwesome/react-fontawesome))
     - Bootstrap support (thanks to [Reactstrap](https://reactstrap.github.io/))
     - Node debug mode for the server side
     - Proper handling of sensitive information _(e.g: token)_ using [Vercel secrets](https://vercel.com/docs/v2/serverless-functions/env-and-secrets)
     - Cookie consent popup (thanks to [`cookieconsent`](https://www.npmjs.com/package/cookieconsent))
-- Built-in **scripts** (in `package.json`)
+- Built-in **[scripts](./guides/scripts-and-utilities/#scripts)** (in `package.json`)
     - Convert SVG to TSX components (thanks to [SVGR](https://github.com/gregberge/svgr))
     - Tunnel to make your local development accessible online (thanks to [ngrok](https://ngrok.com/))
     - Bundle analysis, to know which dependencies take the most space in your JS bundle

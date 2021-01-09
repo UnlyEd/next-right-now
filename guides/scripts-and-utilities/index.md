@@ -3,7 +3,7 @@ layout: default
 title: Scripts and utilities
 parent: Guides
 nav_order: 120
-has_children: true
+has_children: false
 ---
 
 <div class="code-example" markdown="1">
@@ -131,7 +131,8 @@ Here is a documented version of the Next Right Now built-in scripts:
     // You'll need Ruby and Jekyll installed, see https://jekyllrb.com/docs/
     "doc:gem:install": "cd docs/ && bundle install",
 
-    // Open the online documentation running "yarn doc:online" (cross-platform)
+    // Open the online documentation running "yarn doc" (cross-platform)
+    "doc": "yarn doc:online",
     "doc:online": "open-cli https://unlyed.github.io/next-right-now/",
     "doc:online:scripts": "open-cli https://unlyed.github.io/next-right-now/guides/scripts-and-utilities",
 
@@ -192,4 +193,72 @@ Here is a documented version of the Next Right Now built-in scripts:
 
 </div>
 
+---
+
 # Utilities
+
+Next Right Now comes built-in with a few utilities that could come in handy:
+
+## Font Awesome
+
+Font Awesome icons are available as React component.
+
+### Usage
+
+```js
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+<FontAwesomeIcon icon="exclamation-triangle" size={'4x'}/>
+```
+
+[See documentation](https://fontawesome.com/how-to-use/on-the-web/using-with/react#get-started)
+
+### Configuration
+
+Unfortunately, it's not automated, and you need to manually specify each Font-Awesome icon you wish to use as a component, in [`font-awesome.ts`](https://github.com/UnlyEd/next-right-now/blob/5a04c14f84756646568f7f4fec98b73964cc4c5c/src/utils/icons/font-awesome.ts#L51).
+
+```js
+import {
+  faExclamationTriangle,
+} from '@fortawesome/free-solid-svg-icons';
+
+// Import @fortawesome/free-solid-svg-icons
+library.add(
+    faExclamationTriangle,
+);
+```
+
+Once a FA icon has been configured (imported) it can be used anywhere in the Next.js app.
+
+## Reactstrap (Bootstrap)
+
+You can use any [Reactstrap component](https://reactstrap.github.io/components/alerts/) right away.
+
+> We're thinking about introducing [ChakraUI](https://chakra-ui.com/docs/principles) instead of Reactstrap, we might do so in the future, in a new preset.
+>
+> If so, we'd probably create a "UI library" guide to explain a bit more our motivations.
+
+## Interactive Debug mode
+
+[Learn more](../ide/use-webstorm#interactive-debug-mode)
+
+## Proper handling or sensitive information, using Vercel secrets
+
+[Learn more](../../concepts/env-and-stages)
+
+## Cookie consent popup
+
+A cookie consent popup is automatically instantiated on all "legal" pages of the site.
+It relies on Osano open source `cookieconsent` library (v3).
+
+[See documentation](https://github.com/osano/cookieconsent)
+
+You can customise the behavior of the popup and change on which page it'll display, [see example](https://github.com/UnlyEd/next-right-now/blob/128ec019aa8718fe4647f57f3639b1af9ffcb190/src/components/appBootstrap/BrowserPageBootstrap.tsx#L103-L115).
+
+You can also customise the configuration of the `cookieconsent` library itself, [see default configuration](https://github.com/UnlyEd/next-right-now/blob/30d83e961b6267ee7704d21b70004ee167f95ff5/src/utils/cookies/cookieConsent.ts#L112-L245).
+
+[Open demo](https://nrn-default.now.sh/en/terms)
+
+The default configuration of the `cookieconsent` library is meant to cover a basic use-case and will most likely not be what you need exactly.
+
+Our goal isn't to cover all use-cases, but simply to provide a good-enough base, which can be tailored to your needs as you see fit.
