@@ -42,7 +42,7 @@ Tested on Windows 8 (using Babun and WebStorm) and Windows 10 (using VSCode).
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< Video tutorials](./video-tutorials){: .btn }
+    [< Getting started](./){: .btn }
     </span>
     <span class="fs-4" markdown="1">
     [Quick start >](./quick-start){: .btn .btn-purple }

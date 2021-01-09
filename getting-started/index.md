@@ -37,7 +37,7 @@ Here is the order we recommend:
     [< Introduction](../){: .btn }
     </span>
     <span class="fs-4" markdown="1">
-    [Watch video tutorials](./video-tutorials){: .btn .btn-blue }
+    [Pre-requisites](./pre-requisites){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
     [Quick start >](./quick-start){: .btn .btn-purple }

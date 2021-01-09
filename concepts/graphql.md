@@ -26,9 +26,13 @@ GraphQL is used by all presets including `gcms` in their name. (i.e: [`v2-mst-ap
 
 ## Why GraphQL over REST?
 
-Some of the REST(ful/-ish) issues are as follows:
+> If you want to learn about the pros/cons of GraphQL vs other API protocols, we suggest reading [Comparing API Architectural Styles: SOAP vs REST vs GraphQL vs RPC](https://levelup.gitconnected.com/comparing-api-architectural-styles-soap-vs-rest-vs-graphql-vs-rpc-84a3720adefa)
+
+Some issues of the REST API are:
 - We often call multiple endpoints to fetch the data required for one page, screen or for a particular component tree.
+    - Airtable API (REST-ish) is a good example. You need to send 30 HTTP request to fetch the data from 30 different tables, but you only need one request when using GraphQL.
 - The data returned is non-negotiable. We cannot opt to not receive certain return values unless we explicitly code it in the route handling logic. This will in turn introduce more complexity to the request body.
+    - Or you won't have the option implemented, at all. And it depends on the API implementation, all REST APIs are implemented differently and very few have a solid foundation.
 - If an endpoint is updated with a different response value, all installed apps or front-end clients will also need to be updated to handle that change. To overcome this, versioning has become a standard practice with RESTful APIs, along with managing deprecation for an entire API version, rather than just particular endpoints.
 - Although global validation mechanisms such as authentication can be handled through middleware, validating request bodies on a per-endpoint basis is often repetitive and introduces more boilerplate code.
 

@@ -36,7 +36,10 @@ Learn more about NRN concepts before getting your hands dirty&nbsp;:wink:
 
 <div class="pagination-section">
     <span class="fs-4" markdown="1">
-    [< pre-requisites](./pre-requisites){: .btn }
+    [< Pre-requisites](./pre-requisites){: .btn }
+    </span>
+    <span class="fs-4" markdown="1">
+    [Watch video tutorials](./video-tutorials){: .btn .btn-blue }
     </span>
     <span class="fs-4" markdown="1">
     [Concepts: Introduction >](../concepts){: .btn .btn-purple }
