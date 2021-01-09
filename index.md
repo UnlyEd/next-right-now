@@ -9,7 +9,7 @@ nav_order: 10
 
 ---
 
-# Introduction to NRN
+# Motivations
 
 <div class="code-example" markdown="1">
 Next Right Now (NRN) is meant to help you build **production-grade** projects using the **Next.js framework**.
