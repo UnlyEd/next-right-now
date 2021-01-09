@@ -15,9 +15,9 @@ Guide about how to remove the Multi Single Tenancy feature, to use only one tena
 
 ---
 
-## Overview
+## About the Multi Single Tenancy (MST)
 
-Right now, NRN only provides a MST design because [that's just easier to maintain](https://github.com/UnlyEd/next-right-now/issues/151#issuecomment-683463185).
+Right now, NRN only provides a MST design because [that's just easier to maintain than several tenancy models](https://github.com/UnlyEd/next-right-now/issues/151#issuecomment-683463185).
 
 Long story short, if you find yourself using a preset with MST design built-in, but don't have any use for it, you can:
 - Keep it and only use one tenant. The impact would be very small, it will definitely work properly, even though you only use one tenant.
@@ -25,7 +25,6 @@ Long story short, if you find yourself using a preset with MST design built-in, 
     - _I don't advise anybody not familiar with the NRN source code doing that, it's not super-complicated, but you need to understand what happens on Vercel and Github Actions quite well._
 
 Also, if you think you might use it someday, then better to keep it for now then, because it's much harder to configure it properly than to remove it.
-
 
 ## Step-by-step guide
 
@@ -43,8 +42,8 @@ Removing MST is fairly simple, when you know what you're looking for :wink:.
 - Update the Github Actions scripts in `.github/workflows` to make sure the E2E tests use the proper JSON file (`run-2e2-tests` action)
 - You'll need to update the GHA deployment scripts to run the proper deployment command (ignoring stuff related to the customer)
     - Basically, stuff like this
-    - `yarn deploy:$(cat vercel.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production:simple --token $VERCEL_TOKEN`
-    - should become
-    - `yarn deploy:production:simple --token $VERCEL_TOKEN`
+        - `yarn deploy:$(cat vercel.json | jq -r '.build.env.NEXT_PUBLIC_CUSTOMER_REF'):production:simple --token $VERCEL_TOKEN`
+        - should become
+        - `yarn deploy:production:simple --token $VERCEL_TOKEN`
 
 That should be all, make sure to do things step by step (GHA, then E2E, etc.) and things in between because it's likely to break things if you're not careful.

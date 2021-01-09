@@ -6,17 +6,17 @@ nav_order: 110
 has_children: true
 ---
 
-<div class="pagination-section">
-    <span class="fs-4" markdown="1">
-    [Concepts: Tenancy](../concepts/tenancy){: .btn .btn-blue }
-    </span>
+<div class="code-example" markdown="1">
+<span markdown="1">
+    Make sure you've checked our [Concept: Tenancy](../../concepts/tenancy) page.
+</span>
 </div>
 
 ---
 
-Guide about how to change how the NRN tenancy system works.
-
 ## Overview
+
+> This is an explanation guide about how the NRN tenancy system works.
 
 The tenancy system affects a very small part of the whole source code, but it's critical to get it right nonetheless because that's one of the main thing on what everything else relies on.
 
