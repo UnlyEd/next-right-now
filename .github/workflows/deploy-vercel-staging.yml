@@ -196,7 +196,7 @@ jobs:
             Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
 
       - name: Store variables for next jobs
-        uses: UnlyEd/github-action-store-variable@v1.0.0
+        uses: UnlyEd/github-action-store-variable@v1.0.1
         with:
           variables: |
             MANUAL_TRIGGER_CUSTOMER=${{ env.MANUAL_TRIGGER_CUSTOMER }}
@@ -215,7 +215,7 @@ jobs:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
       - name: Restore VERCEL_DEPLOYMENT
-        uses: UnlyEd/github-action-store-variable@v1.0.0
+        uses: UnlyEd/github-action-store-variable@v1.0.1
         id: restore-variable
         with:
           variables: VERCEL_DEPLOYMENT
@@ -244,7 +244,7 @@ jobs:
         uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
 
       - name: Restore VERCEL_DEPLOYMENT
-        uses: UnlyEd/github-action-store-variable@v1.0.0
+        uses: UnlyEd/github-action-store-variable@v1.0.1
         id: restore-variable
         with:
           variables: CUSTOMER_REF_TO_DEPLOY
@@ -258,7 +258,7 @@ jobs:
           VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
 
           # Checking if a webhook url is defined
-          if [ -n "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
+          if [ -n  "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
             # Run script that populates git-related variables as ENV variables
             echo "Running script populate-git-env.sh"
             . ./scripts/populate-git-env.sh
@@ -348,7 +348,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Restore VERCEL_DEPLOYMENT_URL
-        uses: UnlyEd/github-action-store-variable@v1.0.0
+        uses: UnlyEd/github-action-store-variable@v1.0.1
         id: restore-variable
         with:
           variables: VERCEL_DEPLOYMENT_URL
@@ -423,7 +423,7 @@ jobs:
       - name: Create temporary folder for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
       - name: Restore VERCEL_DEPLOYMENT_URL
-        uses: UnlyEd/github-action-store-variable@v1.0.0
+        uses: UnlyEd/github-action-store-variable@v1.0.1
         id: restore-variable
         with:
           variables: VERCEL_DEPLOYMENT_URL
