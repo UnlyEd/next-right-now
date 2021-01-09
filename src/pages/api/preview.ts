@@ -22,32 +22,34 @@ const logger = createLogger({
  */
 export const NO_AUTO_PREVIEW_MODE_KEY = 'noAutoPreviewMode';
 
-type EndpointRequest = NextApiRequest & {
-  query: {
-    /**
-     * Whether to start/stop the Preview Mode.
-     *
-     * @example ?stop=true Will stop the preview mode.
-     * @example ?stop=false Will start the preview mode.
-     * @default ?stop=false
-     */
-    stop: string;
+type EndpointRequestQuery = {
+  /**
+   * Whether to start/stop the Preview Mode.
+   *
+   * @example ?stop=true Will stop the preview mode.
+   * @example ?stop=false Will start the preview mode.
+   * @default ?stop=false
+   */
+  stop: string;
 
-    /**
-     * Url to redirect to once the preview mode has been started/stopped.
-     *
-     * @example ?redirectTo=/en
-     * @example ?redirectTo=/fr/solutions
-     * @default ?redirectTo=/
-     */
-    redirectTo: string;
-  }
+  /**
+   * Url to redirect to once the preview mode has been started/stopped.
+   *
+   * @example ?redirectTo=/en
+   * @example ?redirectTo=/fr/solutions
+   * @default ?redirectTo=/
+   */
+  redirectTo: string;
+}
+
+type EndpointRequest = NextApiRequest & {
+  query: EndpointRequestQuery;
 };
 
 /**
- * Preview Mode API
+ * Preview Mode API.
  *
- * Enables and disables preview mode
+ * Enables and disables preview mode.
  *
  * The official example uses a security token to enable the preview mode, we don't.
  * This is a choice, as we don't need/want to protect our preview mode.
@@ -56,6 +58,7 @@ type EndpointRequest = NextApiRequest & {
  *
  * @param req
  * @param res
+ * @method GET
  *
  * @see https://nextjs.org/docs/advanced-features/preview-mode#step-1-create-and-access-a-preview-api-route
  * @see https://nextjs.org/docs/advanced-features/preview-mode#clear-the-preview-mode-cookies
@@ -67,7 +70,7 @@ export const preview = async (req: EndpointRequest, res: NextApiResponse): Promi
     const {
       stop = 'false',
       redirectTo = '/',
-    } = req.query;
+    }: EndpointRequestQuery = req.query;
     // Add NO_AUTO_PREVIEW_MODE_KEY parameter to query, to avoid running into infinite loops if the Preview mode couldn't start
     // Useful when the cookie created by Next.js cannot be written (Incognito mode)
     const safeRedirectUrl = appendQueryParameter(filterExternalAbsoluteUrl(redirectTo as string), `${NO_AUTO_PREVIEW_MODE_KEY}=true`);

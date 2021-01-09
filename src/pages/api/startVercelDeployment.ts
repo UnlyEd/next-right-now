@@ -17,68 +17,70 @@ const logger = createLogger({
   label: fileLabel,
 });
 
+type EndpointRequestQuery = {
+  /**
+   * Customer authentication token. (security)
+   *
+   * Used to make sure "naked" calls to the endpoint won't trigger a production deployment.
+   *  E.g: A bot calling "/api/startVercelDeployment" will not trigger a deployment, because no token is provided.
+   *
+   * Used to make sure the request is authenticated, by using a token that belongs to the current customer.
+   *  E.g: A customer A might call the "/api/startVercelDeployment" endpoint of another customer B, using the token of customer A will not work.
+   *
+   * @example ?customerAuthToken=customer1 Token for customer1
+   * @example ?customerAuthToken=customer2 Token for customer2
+   */
+  customerAuthToken: string;
+
+  /**
+   * Release reference of the platform.
+   * Basically, a Git commit hash, branch name, or tag.
+   *
+   * The ref used will be used to locate what version of the source code should be used for the deployment.
+   *
+   * XXX By design, should use the same ref as the one used by the staging environment, by default.
+   *  This way, a customer who deploys a new version always use the same source code version as the staging version they have tested upon.
+   *
+   * @example ?platformReleaseRef=main
+   * @example ?platformReleaseRef=nrn-v2-mst-aptd-gcms-lcz-sty-c1
+   * @example ?platformReleaseRef=my-git-branch
+   * @example ?platformReleaseRef=my-git-tag
+   * @example ?platformReleaseRef=252b76314184fbeaa236c336c70ea42ca89e0e87
+   */
+  platformReleaseRef?: string;
+
+  /**
+   * Url to redirect to, once the deployment has been triggered.
+   *
+   * Will not wait for the actual deployment to be done, will not return whether the trigger was successful either.
+   *
+   * XXX We can't wait for the deployment to be performed by Vercel, as it'd definitely be longer than the maximum allowed serverless function running time (10-60sec depending on your Vercel plan).
+   *  Thus, we redirect as early as possible and don't wait for any kind of feedback.
+   *
+   * XXX You'll need to implement your own business logic if you want to subscribe to the GitHub Action.
+   *  Implementing a dedicated GitHub Action workflow, which in turn will calls your own API to update the status of each steps might be the way to go.
+   *
+   * @default "/"
+   * @example ?redirectTo=/
+   * @example ?redirectTo=https://google.com
+   */
+  redirectTo?: string;
+
+  /**
+   * Force option to avoid being redirected.
+   *
+   * Meant to be used when debugging, to avoid being redirected all the time, but stay on the page instead.
+   * XXX Using any non-empty value will enable this option. (prefer using "true")
+   *
+   * @example ?forceNoRedirect=true Will not redirect
+   * @example ?forceNoRedirect=1 Will not redirect
+   * @example ?forceNoRedirect=false Will not redirect
+   */
+  forceNoRedirect?: string;
+};
+
 type EndpointRequest = NextApiRequest & {
-  query: {
-    /**
-     * Customer authentication token. (security)
-     *
-     * Used to make sure "naked" calls to the endpoint won't trigger a production deployment.
-     *  E.g: A bot calling "/api/startVercelDeployment" will not trigger a deployment, because no token is provided.
-     *
-     * Used to make sure the request is authenticated, by using a token that belongs to the current customer.
-     *  E.g: A customer A might call the "/api/startVercelDeployment" endpoint of another customer B, using the token of customer A will not work.
-     *
-     * @example ?customerAuthToken=customer1 Token for customer1
-     * @example ?customerAuthToken=customer2 Token for customer2
-     */
-    customerAuthToken: string;
-
-    /**
-     * Release reference of the platform.
-     * Basically, a Git commit hash, branch name, or tag.
-     *
-     * The ref used will be used to locate what version of the source code should be used for the deployment.
-     *
-     * XXX By design, should use the same ref as the one used by the staging environment, by default.
-     *  This way, a customer who deploys a new version always use the same source code version as the staging version they have tested upon.
-     *
-     * @example ?platformReleaseRef=main
-     * @example ?platformReleaseRef=nrn-v2-mst-aptd-gcms-lcz-sty-c1
-     * @example ?platformReleaseRef=my-git-branch
-     * @example ?platformReleaseRef=my-git-tag
-     * @example ?platformReleaseRef=252b76314184fbeaa236c336c70ea42ca89e0e87
-     */
-    platformReleaseRef?: string;
-
-    /**
-     * Url to redirect to, once the deployment has been triggered.
-     *
-     * Will not wait for the actual deployment to be done, will not return whether the trigger was successful either.
-     *
-     * XXX We can't wait for the deployment to be performed by Vercel, as it'd definitely be longer than the maximum allowed serverless function running time (10-60sec depending on your Vercel plan).
-     *  Thus, we redirect as early as possible and don't wait for any kind of feedback.
-     *
-     * XXX You'll need to implement your own business logic if you want to subscribe to the GitHub Action.
-     *  Implementing a dedicated GitHub Action workflow, which in turn will calls your own API to update the status of each steps might be the way to go.
-     *
-     * @default "/"
-     * @example ?redirectTo=/
-     * @example ?redirectTo=https://google.com
-     */
-    redirectTo?: string;
-
-    /**
-     * Force option to avoid being redirected.
-     *
-     * Meant to be used when debugging, to avoid being redirected all the time, but stay on the page instead.
-     * XXX Using any non-empty value will enable this option. (prefer using "true")
-     *
-     * @example ?forceNoRedirect=true Will not redirect
-     * @example ?forceNoRedirect=1 Will not redirect
-     * @example ?forceNoRedirect=false Will not redirect
-     */
-    forceNoRedirect?: string;
-  }
+  query: EndpointRequestQuery;
 };
 
 const GITHUB_ACTION_WORKFLOW_FILE_PATH_PRODUCTION = '.github/workflows/deploy-vercel-production.yml';
@@ -120,7 +122,7 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
       customerAuthToken,
       platformReleaseRef = process.env.NEXT_PUBLIC_NRN_PRESET, // XXX Because the NEXT_PUBLIC_NRN_PRESET contains the branch's name, it's suitable as a good default, for NRN. (But, you won't want this default in a private fork)
       redirectTo = '/',
-    } = req?.query;
+    }: EndpointRequestQuery = req?.query;
     const forceNoRedirect = !!size(req?.query?.forceNoRedirect); // Any non-empty value is considered as true
     const statusCode = forceNoRedirect ? 200 : 302; // Using a statusCode of 200 will break the redirection, making it ineffective
 
