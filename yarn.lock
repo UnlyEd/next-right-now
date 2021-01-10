@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@amplitude/eslint-config-typescript@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@amplitude/eslint-config-typescript/-/eslint-config-typescript-1.1.0.tgz#f6d876febda6f4470564e806576e43750d60a094"
+  integrity sha512-N8sKkwtFakPD2/cSOrBnM5Wudjp4qeDD69U1cG7dZ6DDczxBhUEqnJDJ0wiYmKMPXqr+bmFOsDdbCcOmb/CLYA==
+
 "@amplitude/react-amplitude@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@amplitude/react-amplitude/-/react-amplitude-1.0.0.tgz#60145d02de035fc457e28e173f90aa33af2d149a"
@@ -10,10 +15,25 @@
     lodash.debounce "^4.0.8"
     shallowequal "^1.0.2"
 
+"@amplitude/types@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@amplitude/types/-/types-1.1.1.tgz#30a177fb4a20a9e477c885c678b17f8b734f0145"
+  integrity sha512-mTgIzQO1BOOgIhNyeXxNDRY2jx/Rzr0VZuwryvpbM7v7XY2RDZh2g3jzhk/b3fbKgYPY6L48Kf6e4hVtHsmIgA==
+  dependencies:
+    "@amplitude/eslint-config-typescript" "^1.1.0"
+
 "@amplitude/ua-parser-js@0.7.24":
   version "0.7.24"
   resolved "https://registry.yarnpkg.com/@amplitude/ua-parser-js/-/ua-parser-js-0.7.24.tgz#2ce605af7d2c38d4a01313fb2385df55fbbd69aa"
   integrity sha512-VbQuJymJ20WEw0HtI2np7EdC3NJGUWi8+Xdbc7uk8WfMIF308T0howpzkQ3JFMN7ejnrcSM/OyNGveeE3TP3TA==
+
+"@amplitude/utils@^1.0.5":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@amplitude/utils/-/utils-1.1.1.tgz#f5c41001031d7e90f97a48e09474ddd9a338fe6d"
+  integrity sha512-qAsyQLNjGSh98q/dQajnLVAanf2SdbXcjEDJuoiC/INnS/KhEr3ixkS/30WuabYyWxFRJmkhrGBxGuebuV7J1Q==
+  dependencies:
+    "@amplitude/types" "^1.1.1"
+    tslib "^1.9.3"
 
 "@ampproject/toolbox-core@^2.6.0":
   version "2.6.0"
@@ -2798,10 +2818,10 @@
   resolved "https://registry.yarnpkg.com/@tokenizer/token/-/token-0.1.1.tgz#f0d92c12f87079ddfd1b29f614758b9696bc29e3"
   integrity sha512-XO6INPbZCxdprl+9qa/AAbFFOMzzwqYxpjPgLICrMD6C2FCw6qfJOPcBk6JqqPLSaZ/Qx87qn4rpPmPMwaAK6w==
 
-"@types/amplitude-js@5.11.0":
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/@types/amplitude-js/-/amplitude-js-5.11.0.tgz#2d45f43e701d52407a5b57547a42d321c6d3c1b4"
-  integrity sha512-d+ELEiXtU8H/wVtmGPxTiPuyZW5HWEdKrOWGO99Y1eOvJuSLw3g/b6xlB9+snUOW5P8AYDhCHh8TzT6Vsz8jzQ==
+"@types/amplitude-js@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@types/amplitude-js/-/amplitude-js-7.0.0.tgz#69570ce73c64247255bfa6e6919ad5da472baa62"
+  integrity sha512-bp2Fc/3UKlykGDLgfBYHtixawo2HU0vijvMhCfje+IALW7pedzSyoagscoEEDr6msf3Tn7VNDuZIXO/ZYTEteg==
 
 "@types/babel__core@^7.0.0":
   version "7.1.10"
@@ -3853,12 +3873,13 @@ ally.js@1.4.1:
     css.escape "^1.5.0"
     platform "1.3.3"
 
-amplitude-js@7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/amplitude-js/-/amplitude-js-7.1.1.tgz#3e3282be836aa4245eb2d6e52f16ecbb81c0b6d2"
-  integrity sha512-grEQf0p4V/q4aIcGYdGEJ6EquBXu91R/RorsYTQvh9O6sxjpwHf5vSDICQJq7twEElBrSHoSF77GUvC9ZTBj4A==
+amplitude-js@7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/amplitude-js/-/amplitude-js-7.4.0.tgz#e66e31f3bed7857ea2a86a10209878c7ac2f4ccd"
+  integrity sha512-5n/a8VSTRAGURKBFiJww1dwQmhVCGjDlw0VRuxhPRaJ2L7jNpqnErZH0Cl9b9UgVp3mknhLynsrQ6Tl2YHm4Ug==
   dependencies:
     "@amplitude/ua-parser-js" "0.7.24"
+    "@amplitude/utils" "^1.0.5"
     blueimp-md5 "^2.10.0"
     query-string "5"
 
