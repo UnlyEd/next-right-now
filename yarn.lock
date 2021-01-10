@@ -4491,10 +4491,10 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.2.tgz#a85c4eda59155f0d71186b6e6ad9b875813779ab"
-  integrity sha512-vlGn0bcySYl/iV+BGA544JkkZP5LB3jsmkeKLFQakCOwCM3AOk7VkldBz4jrzSe+Z0Ezn99NVXa1o45cQY4R6A==
+bootstrap@4.5.3:
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.3.tgz#c6a72b355aaf323920be800246a6e4ef30997fe6"
+  integrity sha512-o9ppKQioXGqhw8Z7mah6KdTYpNQY//tipnkxppWhPbiSWdD+1raYsnhwEZjkTHYbGee4cVQ0Rx65EhOY/HNLcQ==
 
 boxen@^4.2.0:
   version "4.2.0"
@@ -14371,10 +14371,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vercel@21.0.0:
-  version "21.0.0"
-  resolved "https://registry.yarnpkg.com/vercel/-/vercel-21.0.0.tgz#4be0218649bd86f781f99a7c4a3ef2f83407f03e"
-  integrity sha512-xe0rc9Fj+CgT226TAgN0YVMgiHvs6QsPzIR6K5m2Dqc8aQjueaM0a4aTHxPErQAS6h32O7TC0QtTyyEwBtVGNw==
+vercel@21.0.1:
+  version "21.0.1"
+  resolved "https://registry.yarnpkg.com/vercel/-/vercel-21.0.1.tgz#85d8052dcdf93f9fc62b6404d3a8cd8b8a1b2874"
+  integrity sha512-N3xS1ydENdtC/i4RrJXg7Z9C0XSA8c0PQSM58WG+TkYY7BvSihv5kLqQHjzj9AXHkaY76bTfEpSLi1kmp0PjnQ==
   dependencies:
     "@vercel/build-utils" "2.6.1-canary.0"
     "@vercel/go" "1.1.6"
