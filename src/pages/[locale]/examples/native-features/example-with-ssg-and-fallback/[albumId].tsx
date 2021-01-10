@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
@@ -11,11 +11,7 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import {
-  Alert,
-  Button,
-} from 'reactstrap';
-
+import { Alert } from 'reactstrap';
 import NativeFeaturesSidebar from '../../../../../components/doc/NativeFeaturesSidebar';
 import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
@@ -131,8 +127,16 @@ type Props = {
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element => {
-  const { albumId, album, isSSGFallbackInitialBuild } = props;
-  const { id, title, awaitedForMs } = album;
+  const {
+    albumId,
+    album,
+    isSSGFallbackInitialBuild,
+  } = props;
+  const {
+    id,
+    title,
+    awaitedForMs,
+  } = album;
 
   return (
     <DefaultLayout
@@ -188,9 +192,9 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
 
           <div
             css={css`
-            display: flex;
-            justify-content: center;
-          `}
+              display: flex;
+              justify-content: center;
+            `}
           >
             {
               id > 0 && (
@@ -204,7 +208,14 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
                 </I18nLink>
               )
             }
-            {' | '}
+            <Btn
+              mode={'primary-outline'}
+              css={css`
+                border-width: 0;
+              `}
+            >
+              {' | '}
+            </Btn>
             <I18nLink
               href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
               params={{

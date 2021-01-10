@@ -1,6 +1,8 @@
-import { css } from '@emotion/core';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import classnames from 'classnames';
-import { useTheme } from 'emotion-theming';
 import React, { ReactNode } from 'react';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { ReactButtonProps } from '../../types/react/ReactButtonProps';
@@ -35,7 +37,7 @@ const Btn: React.FunctionComponent<Props> = (props): JSX.Element => {
     transparent,
     ...rest
   } = props;
-  const customerTheme = useTheme<CustomerTheme>();
+  const customerTheme = useTheme();
   const {
     color,
     backgroundColor,

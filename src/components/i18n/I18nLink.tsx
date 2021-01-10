@@ -3,7 +3,6 @@ import isEmpty from 'lodash.isempty';
 import map from 'lodash.map';
 import NextLink from 'next/link';
 import React from 'react';
-
 import useI18n, { I18n } from '../../hooks/useI18n';
 import {
   I18nRoute,

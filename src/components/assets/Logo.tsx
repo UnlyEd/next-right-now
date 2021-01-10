@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import React from 'react';
 import stylePropType from 'react-style-proptype';
-
 import LogoPropTypes from '../../propTypes/LogoPropTypes';
 import { CSSStyles } from '../../types/CSSStyles';
 import { Asset } from '../../types/data/Asset';

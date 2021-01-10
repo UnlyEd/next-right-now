@@ -10,7 +10,6 @@ import {
   Alert,
   Button,
 } from 'reactstrap';
-
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';

@@ -1,7 +1,9 @@
-import { css } from '@emotion/core';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
-import { useTheme } from 'emotion-theming';
 import {
   NextRouter,
   useRouter,
@@ -45,7 +47,7 @@ const QuickPreviewBanner: React.FunctionComponent<Props> = (props): JSX.Element 
   } = props;
   const {
     secondaryColor, secondaryColorVariant1, onSecondaryColor,
-  } = useTheme<CustomerTheme>();
+  } = useTheme();
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const customer: Customer = useCustomer();

@@ -1,7 +1,7 @@
+import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ThemeProvider } from 'emotion-theming';
 import { i18n } from 'i18next';
 import find from 'lodash.find';
 import includes from 'lodash.includes';

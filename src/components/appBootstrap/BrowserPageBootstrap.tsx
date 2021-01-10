@@ -2,10 +2,10 @@ import {
   Amplitude,
   AmplitudeProvider,
 } from '@amplitude/react-amplitude';
+import { useTheme } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { AmplitudeClient } from 'amplitude-js';
-import { useTheme } from 'emotion-theming';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useCustomer from '../../hooks/useCustomer';
@@ -76,7 +76,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     cookiesManager,
     userSession,
   };
-  const theme = useTheme<CustomerTheme>();
+  const theme = useTheme();
   const isCypressRunning = detectCypress();
   const isLightHouseRunning = detectLightHouse();
 

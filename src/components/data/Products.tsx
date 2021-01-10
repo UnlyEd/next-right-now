@@ -1,8 +1,7 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import map from 'lodash.map';
 import React from 'react';
 import { Container } from 'reactstrap';
-
 import { Product } from '../../types/data/Product';
 import ProductRow from './ProductRow';
 
