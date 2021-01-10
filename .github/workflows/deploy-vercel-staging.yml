@@ -252,6 +252,7 @@ jobs:
         id: restore-variable
         with:
           variables: |
+            MANUAL_TRIGGER_CUSTOMER
             CUSTOMER_REF_TO_DEPLOY
 
       - name: Expose git environment variables and call webhook (if provided)
