@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import React from 'react';
-
 import Text from './utils/Text';
 
 type Props = {}

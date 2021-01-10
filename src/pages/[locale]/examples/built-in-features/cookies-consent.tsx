@@ -8,7 +8,6 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import I18nLink from '../../../../components/i18n/I18nLink';

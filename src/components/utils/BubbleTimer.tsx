@@ -3,7 +3,6 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-
 import { CSSStyles } from '../../types/CSSStyles';
 import AnimatedTextBubble from '../svg/AnimatedTextBubble';
 

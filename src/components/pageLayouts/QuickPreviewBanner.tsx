@@ -1,7 +1,9 @@
-import { css } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
-import { useTheme } from '@emotion/react';
 import {
   NextRouter,
   useRouter,

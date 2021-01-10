@@ -1,8 +1,10 @@
 import { Amplitude } from '@amplitude/react-amplitude';
-import { css } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
-import { useTheme } from '@emotion/react';
 import kebabCase from 'lodash.kebabcase';
 import map from 'lodash.map';
 import {
@@ -26,7 +28,6 @@ import {
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { LogEvent } from '../../types/Amplitude';
 import { AirtableAttachment } from '../../types/data/AirtableAttachment';
-import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Asset } from '../../types/data/Asset';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { SidebarLink } from '../../types/SidebarLink';

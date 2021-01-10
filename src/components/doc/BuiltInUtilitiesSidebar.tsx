@@ -9,7 +9,6 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-
 import { SidebarLink } from '../../types/SidebarLink';
 import I18nLink from '../i18n/I18nLink';
 import { SidebarProps } from '../pageLayouts/DefaultLayout';

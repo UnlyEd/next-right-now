@@ -1,6 +1,8 @@
-import { css } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useTheme } from '@emotion/react';
 import {
   NextRouter,
   useRouter,
@@ -10,7 +12,6 @@ import {
   Trans,
   useTranslation,
 } from 'react-i18next';
-
 import usePreviewMode, { PreviewMode } from '../../hooks/usePreviewMode';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { stringifyQueryParameters } from '../../utils/app/router';
@@ -18,8 +19,8 @@ import {
   startPreviewMode,
   stopPreviewMode,
 } from '../../utils/nextjs/previewMode';
-import ExternalLink from '../utils/ExternalLink';
 import Btn from '../utils/Btn';
+import ExternalLink from '../utils/ExternalLink';
 import Tooltip from '../utils/Tooltip';
 
 type Props = {}

@@ -4,7 +4,6 @@ import {
   useRouter,
 } from 'next/router';
 import React from 'react';
-
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { i18nRedirect } from '../../utils/app/router';
 import { LANG_FR } from '../../utils/i18n/i18n';

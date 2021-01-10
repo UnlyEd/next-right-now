@@ -1,8 +1,9 @@
-import { css } from '@emotion/react';
-import { useTheme } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { NRN_CO_BRANDING_LOGO_URL } from '../../constants';
 import useCustomer from '../../hooks/useCustomer';
 import { CSSStyles } from '../../types/CSSStyles';

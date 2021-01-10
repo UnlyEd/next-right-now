@@ -1,5 +1,7 @@
-import { css } from '@emotion/react';
-import { useTheme } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React, { ReactNode } from 'react';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 

@@ -16,7 +16,6 @@ import {
   Container,
 } from 'reactstrap';
 import { v1 as uuid } from 'uuid';
-
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';

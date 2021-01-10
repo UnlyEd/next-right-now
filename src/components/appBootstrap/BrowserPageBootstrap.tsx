@@ -2,10 +2,10 @@ import {
   Amplitude,
   AmplitudeProvider,
 } from '@amplitude/react-amplitude';
+import { useTheme } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { AmplitudeClient } from 'amplitude-js';
-import { useTheme } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useCustomer from '../../hooks/useCustomer';

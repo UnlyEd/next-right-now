@@ -1,13 +1,11 @@
 import React from 'react';
 import {
-  Button,
   Card,
   CardBody,
   CardSubtitle,
   CardText,
   CardTitle,
 } from 'reactstrap';
-
 import I18nLink from '../i18n/I18nLink';
 import Btn from '../utils/Btn';
 import Cards from '../utils/Cards';

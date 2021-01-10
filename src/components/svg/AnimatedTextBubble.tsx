@@ -1,7 +1,6 @@
 import { css } from '@emotion/core';
 import { useTheme } from 'emotion-theming';
 import React from 'react';
-
 import { Theme } from '../../types/data/Theme';
 
 const AnimatedTextBubble = props => {

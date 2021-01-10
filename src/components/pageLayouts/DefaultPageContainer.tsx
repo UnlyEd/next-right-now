@@ -1,9 +1,10 @@
-import { css } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import classnames from 'classnames';
-import { useTheme } from '@emotion/react';
 import React from 'react';
 import { Container } from 'reactstrap';
-
 import SidebarToggle from '../doc/SidebarToggle';
 import { SidebarProps } from './DefaultLayout';
 

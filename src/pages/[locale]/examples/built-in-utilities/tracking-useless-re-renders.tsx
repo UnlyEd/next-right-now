@@ -10,7 +10,6 @@ import {
   Alert,
   Button,
 } from 'reactstrap';
-
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import I18nLink from '../../../../components/i18n/I18nLink';

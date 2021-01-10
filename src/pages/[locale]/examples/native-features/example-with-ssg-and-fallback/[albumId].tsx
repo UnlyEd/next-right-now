@@ -12,7 +12,6 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-
 import NativeFeaturesSidebar from '../../../../../components/doc/NativeFeaturesSidebar';
 import I18nLink from '../../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
