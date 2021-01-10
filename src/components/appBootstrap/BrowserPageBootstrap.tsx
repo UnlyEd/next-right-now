@@ -5,7 +5,7 @@ import {
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { AmplitudeClient } from 'amplitude-js';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useCustomer from '../../hooks/useCustomer';

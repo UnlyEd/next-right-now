@@ -1,7 +1,7 @@
 import {
   css,
   Global,
-} from '@emotion/core';
+} from '@emotion/react';
 import React from 'react';
 import { NRN_DEFAULT_FALLBACK_FONTS } from '../../constants';
 import { CustomerTheme } from '../../types/data/CustomerTheme';

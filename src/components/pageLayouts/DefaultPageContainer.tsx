@@ -1,6 +1,6 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import classnames from 'classnames';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import React from 'react';
 import { Container } from 'reactstrap';
 
