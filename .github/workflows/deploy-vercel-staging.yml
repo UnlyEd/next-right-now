@@ -265,7 +265,7 @@ jobs:
           echo "Vercel deployment webhook url: " $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
 
           # Checking if a webhook url is defined
-          if [ -n  "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
+          if [ -n "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
             # Run script that populates git-related variables as ENV variables
             echo "Running script populate-git-env.sh"
             . ./scripts/populate-git-env.sh
@@ -374,7 +374,7 @@ jobs:
           config: baseUrl=${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
           # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.
-          #          DEBUG: "cypress:*" # Enable all logs. See https://docs.cypress.io/guides/references/troubleshooting.html#Print-DEBUG-logs
+          # DEBUG: "cypress:*" # Enable all logs. See https://docs.cypress.io/guides/references/troubleshooting.html#Print-DEBUG-logs
           DEBUG: "cypress:server:util:process_profiler" # Enable logs for "memory and CPU usage". See https://docs.cypress.io/guides/references/troubleshooting.html#Log-memory-and-CPU-usage
 
       # On E2E failure, upload screenshots
