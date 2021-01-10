@@ -1,3 +1,4 @@
+import { CYPRESS_WINDOW_NS } from '../../src/utils/testing/cypress';
 
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -6,8 +7,6 @@
 // For more comprehensive examples of custom
 // commands please read more here:
 // https://on.cypress.io/custom-commands
-
-import { CYPRESS_WINDOW_NS } from '../../src/utils/testing/cypress';
 
 /**
  * Prepare DOM aliases by fetching the customer data from the browser window and aliasing them for later use.
