@@ -12,15 +12,14 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-
 import AllProducts from '../../../../components/data/AllProducts';
 import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
 import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import useCustomer from '../../../../hooks/useCustomer';
-import { Customer } from '../../../../types/data/Customer';
 import { AirtableRecord } from '../../../../types/data/AirtableRecord';
+import { Customer } from '../../../../types/data/Customer';
 import { Product } from '../../../../types/data/Product';
 import { I18nLocale } from '../../../../types/i18n/I18nLocale';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';

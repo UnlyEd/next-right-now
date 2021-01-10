@@ -2,7 +2,6 @@ import {
   GetStaticPaths,
   GetStaticProps,
 } from 'next';
-
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
 import ExampleWithSSGPage, {

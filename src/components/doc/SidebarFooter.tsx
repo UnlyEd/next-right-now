@@ -1,8 +1,7 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import I18nLink from '../i18n/I18nLink';
 
 type Props = {

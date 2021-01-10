@@ -1,5 +1,7 @@
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React from 'react';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { ReactDivProps } from '../../types/react/ReactDivProps';
@@ -32,7 +34,7 @@ const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
     transparent,
     ...rest
   } = props;
-  const customerTheme = useTheme<CustomerTheme>();
+  const customerTheme = useTheme();
   const {
     color,
     backgroundColor,

@@ -1,10 +1,9 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import React from 'react';
 import {
   Col,
   Row,
 } from 'reactstrap';
-
 import { Asset } from '../../types/data/Asset';
 import { Product } from '../../types/data/Product';
 import AirtableAsset from '../assets/AirtableAsset';

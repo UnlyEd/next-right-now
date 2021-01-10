@@ -1,7 +1,8 @@
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
+import classnames from 'classnames';
 import deepmerge from 'deepmerge';
-import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
+import MarkdownToJSXLib, { MarkdownToJSX } from 'markdown-to-jsx';
 import React, { Fragment } from 'react';
 import {
   Alert,
@@ -21,7 +22,6 @@ import { Markdown as MarkdownType } from '../../types/Markdown';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
 import Tooltip from './SimpleTooltip';
-import classnames from 'classnames';
 
 const fileLabel = 'components/utils/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -30,12 +30,12 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 
 type Props = {
   text: MarkdownType;
-  markdownOptions?: MarkdownOptions;
+  markdownOptions?: MarkdownToJSX.Options;
   style?: CSSStyles;
   className?: string;
 }
 
-const defaultMarkdownOptions: MarkdownOptions = {
+const defaultMarkdownOptions: MarkdownToJSX.Options = {
   // Make some of our own components available
   overrides: { // See https://github.com/probablyup/markdown-to-jsx#optionsoverrides---override-any-html-tags-representation
     // All links should open in a new tab, and ensure proper security by default
@@ -88,11 +88,11 @@ const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
         style={style}
         className={classnames('markdown-container', className)}
       >
-        <MarkdownToJSX
+        <MarkdownToJSXLib
           options={markdownOptions}
         >
           {text}
-        </MarkdownToJSX>
+        </MarkdownToJSXLib>
       </div>
     );
 

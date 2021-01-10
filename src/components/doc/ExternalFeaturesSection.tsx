@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Alert,
-  Button,
   Card,
   CardBody,
   CardSubtitle,
@@ -9,7 +8,6 @@ import {
   CardTitle,
 } from 'reactstrap';
 import Btn from '../utils/Btn';
-
 import Cards from '../utils/Cards';
 import ExternalLink from '../utils/ExternalLink';
 import DocSection from './DocSection';

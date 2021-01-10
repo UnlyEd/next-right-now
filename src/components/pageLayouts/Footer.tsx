@@ -1,8 +1,9 @@
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { NRN_CO_BRANDING_LOGO_URL } from '../../constants';
 import useCustomer from '../../hooks/useCustomer';
 import { CSSStyles } from '../../types/CSSStyles';
@@ -28,7 +29,7 @@ const Footer: React.FunctionComponent<Props> = (props) => {
   const customer: Customer = useCustomer();
   const { availableLanguages } = customer;
   const shouldDisplayI18nButton = availableLanguages?.length > 1;
-  const theme = useTheme<CustomerTheme>();
+  const theme = useTheme();
   const {
     backgroundColor,
     onBackgroundColor,

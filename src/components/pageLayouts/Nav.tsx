@@ -1,8 +1,10 @@
 import { Amplitude } from '@amplitude/react-amplitude';
-import { css } from '@emotion/core';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
-import { useTheme } from 'emotion-theming';
 import kebabCase from 'lodash.kebabcase';
 import map from 'lodash.map';
 import {
@@ -26,7 +28,6 @@ import {
 import useI18n, { I18n } from '../../hooks/useI18n';
 import { LogEvent } from '../../types/Amplitude';
 import { AirtableAttachment } from '../../types/data/AirtableAttachment';
-import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Asset } from '../../types/data/Asset';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { SidebarLink } from '../../types/SidebarLink';
@@ -46,7 +47,7 @@ type Props = {};
 const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
-  const theme = useTheme<CustomerTheme>();
+  const theme = useTheme();
   const { primaryColor, logo: logoAirtable } = theme;
   const logo: AirtableAttachment = logoAirtable;
   const { locale }: I18n = useI18n();

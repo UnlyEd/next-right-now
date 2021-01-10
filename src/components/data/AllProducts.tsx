@@ -1,6 +1,5 @@
 import filter from 'lodash.filter';
 import React from 'react';
-
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Product } from '../../types/data/Product';
 import Products from './Products';

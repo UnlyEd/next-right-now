@@ -9,7 +9,6 @@ import {
   useRouter,
 } from 'next/router';
 import React, { useState } from 'react';
-
 import ErrorPage from '../../pages/_error';
 import { GenericObject } from '../../types/GenericObject';
 import { SoftPageProps } from '../../types/pageProps/SoftPageProps';

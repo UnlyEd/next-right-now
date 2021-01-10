@@ -1,10 +1,9 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import React from 'react';
 import {
   Alert,
   Jumbotron,
 } from 'reactstrap';
-
 import { LogEvent } from '../../types/Amplitude';
 import I18nLink from '../i18n/I18nLink';
 import ExternalLink from '../utils/ExternalLink';
