@@ -91,8 +91,8 @@
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
-    "@emotion/core": "10.0.35",
-    "@emotion/styled": "10.0.27",
+    "@emotion/react": "11.1.4",
+    "@emotion/styled": "11.0.0",
     "@fortawesome/fontawesome-svg-core": "1.2.32",
     "@fortawesome/free-brands-svg-icons": "5.15.1",
     "@fortawesome/free-regular-svg-icons": "5.15.1",
@@ -113,7 +113,6 @@
     "css-to-react-native": "3.0.0",
     "csstype": "3.0.6",
     "deepmerge": "4.2.2",
-    "emotion-theming": "10.0.27",
     "flatted": "3.1.0",
     "i18next": "19.8.4",
     "i18next-locize-backend": "4.1.8",
@@ -160,7 +159,7 @@
   },
   "devDependencies": {
     "@cypress/react": "4.16.3",
-    "@emotion/babel-preset-css-prop": "10.0.27",
+    "@emotion/eslint-plugin": "11.0.0",
     "@next/bundle-analyzer": "10.0.5",
     "@svgr/cli": "5.5.0",
     "@types/amplitude-js": "7.0.0",
