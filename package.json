@@ -154,9 +154,9 @@
     "recompose": "0.30.0",
     "tinycolor2": "1.4.2",
     "type-fest": "0.16.0",
-    "uuid": "8.3.0",
+    "uuid": "8.3.2",
     "webfontloader": "1.6.28",
-    "winston": "3.2.1"
+    "winston": "3.3.3"
   },
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "10.0.27",
