@@ -47,7 +47,7 @@ const QuickPreviewBanner: React.FunctionComponent<Props> = (props): JSX.Element 
   } = props;
   const {
     secondaryColor, secondaryColorVariant1, onSecondaryColor,
-  } = useTheme<CustomerTheme>();
+  } = useTheme();
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const customer: Customer = useCustomer();
