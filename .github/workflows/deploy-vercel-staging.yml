@@ -21,6 +21,7 @@
 # - See https://github.com/jwalton/gh-find-current-pr https://github.com/jwalton/gh-find-current-pr/tree/v1
 # - See https://github.com/peter-evans/create-or-update-comment https://github.com/peter-evans/create-or-update-comment/tree/v1
 # - See https://github.com/UnlyEd/github-action-await-vercel https://github.com/UnlyEd/github-action-await-vercel/tree/v1.1.1
+# - See https://github.com/UnlyEd/github-action-store-variable https://github.com/UnlyEd/github-action-store-variable/tree/v1.0.1
 # - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/v3.x
 # - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
 # - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
@@ -195,8 +196,10 @@ jobs:
             Commit ${{ github.sha }} successfully deployed to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
             Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
 
+      # At the end of the job, store all variables we will need in the following jobs
+      # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
       - name: Store variables for next jobs
-        uses: UnlyEd/github-action-store-variable@v1.0.1
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         with:
           variables: |
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
@@ -211,11 +214,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
+      # Restore variables stored in previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v1.0.1
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
-          variables: VERCEL_DEPLOYMENT_DOMAIN
+          variables: |
+            VERCEL_DEPLOYMENT_DOMAIN
 
       # Wait for deployment to be ready, before running E2E (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
       - name: Awaiting Vercel deployment to be ready
@@ -240,19 +245,23 @@ jobs:
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
         uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
 
-      - name: Restore CUSTOMER_REF_TO_DEPLOY
-        uses: UnlyEd/github-action-store-variable@v1.0.1
+      # Restore variables stored in previous jobs
+      - name: Restore variables
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
-          variables: CUSTOMER_REF_TO_DEPLOY
+          variables: |
+            CUSTOMER_REF_TO_DEPLOY
 
       - name: Expose git environment variables and call webhook (if provided)
         # Workflow overview:
         #  - Resolves webhook url from customer config file
         #  - If a webhook url was defined in the customer config file, send an HTTP request, as POST request, with a JSON request body dynamically generated
         #  - Prints the headers of the POST HTTP request (curl)
+        # TODO Convert this into an external bash script if possible, to simplify this step as much as possible
         run: |
           VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
+          echo "Vercel deployment webhook url: " $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
 
           # Checking if a webhook url is defined
           if [ -n  "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
@@ -318,6 +327,7 @@ jobs:
             echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
           fi
         env:
+          CUSTOMER_REF_TO_DEPLOY: ${{ fromJson(steps.restore-variable.outputs.variables).CUSTOMER_REF_TO_DEPLOY }}
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
           # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
@@ -332,7 +342,6 @@ jobs:
           GITHUB_EVENT_REF_SLUG_URL: ${{ env.GITHUB_EVENT_REF_SLUG_URL }}
           GITHUB_REPOSITORY_SLUG_URL: ${{ env.GITHUB_REPOSITORY_SLUG_URL }}
           GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
-          CUSTOMER_REF_TO_DEPLOY: ${{ fromJson(steps.restore-variable.outputs.variables).CUSTOMER_REF_TO_DEPLOY }}
 
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
@@ -344,11 +353,15 @@ jobs:
     needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
-      - name: Restore VERCEL_DEPLOYMENT_URL
-        uses: UnlyEd/github-action-store-variable@v1.0.1
+
+      # Restore variables stored in previous jobs
+      - name: Restore variables
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
-          variables: VERCEL_DEPLOYMENT_URL
+          variables: |
+            VERCEL_DEPLOYMENT_URL
+
       # Runs the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
         uses: cypress-io/github-action@v2 # See https://github.com/cypress-io/github-action
@@ -416,14 +429,18 @@ jobs:
     needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
+
       # To store reports and then upload them, we must create the folder beforehand
       - name: Create temporary folder for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
-      - name: Restore VERCEL_DEPLOYMENT_URL
-        uses: UnlyEd/github-action-store-variable@v1.0.1
+
+      # Restore variables stored in previous jobs
+      - name: Restore variables
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           variables: VERCEL_DEPLOYMENT_URL
+
       # Runs LightHouse for a given url and create HTML reports in the specified directory (outputDirectory)
       # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
       - name: Run Lighthouse
