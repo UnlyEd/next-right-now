@@ -1,3 +1,4 @@
+
 /// <reference types="Cypress" />
 
 /// JSON fixture file can be loaded directly using
