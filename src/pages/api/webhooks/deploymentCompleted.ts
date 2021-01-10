@@ -3,7 +3,6 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { GenericObject } from '../../../types/GenericObject';
 import { convertRequestBodyToJSObject } from '../../../utils/api/convertRequestBodyToJSObject';
 
 import Sentry, {
