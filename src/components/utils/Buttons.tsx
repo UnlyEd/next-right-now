@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import React, { Fragment } from 'react';
 import { Row } from 'reactstrap';
 import Btn from './Btn';

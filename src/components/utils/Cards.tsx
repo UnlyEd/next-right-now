@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import classnames from 'classnames';
 import React, { ReactNode } from 'react';
 import { CardDeck } from 'reactstrap';
