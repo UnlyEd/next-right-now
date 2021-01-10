@@ -9,7 +9,7 @@ import I18nLink from './I18nLink';
  * @group unit
  * @group components
  */
-describe('I18nLink', () => {
+describe.skip('I18nLink', () => {
   const I18nLinkTest = (props) => {
     const { locale = 'en', href, text = 'Text', ...rest } = props;
 
