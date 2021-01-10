@@ -16,7 +16,7 @@ type Props = {
  * Meant to be used to display anything that is legal-related (privacy policies, terms of use, etc.)
  */
 const LegalContent: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const theme = useTheme<CustomerTheme>();
+  const theme = useTheme();
   const { primaryColor } = theme;
   const { content} = props;
 

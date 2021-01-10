@@ -46,7 +46,7 @@ type Props = {};
 const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
-  const theme = useTheme<CustomerTheme>();
+  const theme = useTheme();
   const { primaryColor, logo: logoAirtable } = theme;
   const logo: AirtableAttachment = logoAirtable;
   const { locale }: I18n = useI18n();

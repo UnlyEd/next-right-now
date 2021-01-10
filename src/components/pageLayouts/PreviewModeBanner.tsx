@@ -61,7 +61,7 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
   const { t } = useTranslation();
   const {
     secondaryColor, secondaryColorVariant1, onSecondaryColor,
-  } = useTheme<CustomerTheme>();
+  } = useTheme();
 
   if (process.env.NEXT_PUBLIC_APP_STAGE === 'production') {
     return null;

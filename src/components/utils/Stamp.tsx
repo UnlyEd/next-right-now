@@ -17,7 +17,7 @@ export const Stamp: React.FunctionComponent<Props> = (props): JSX.Element => {
     children,
     ...rest
   } = props;
-  const { secondaryColorVariant1, secondaryColor } = useTheme<CustomerTheme>();
+  const { secondaryColorVariant1, secondaryColor } = useTheme();
 
   return (
     <div

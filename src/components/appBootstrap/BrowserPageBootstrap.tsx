@@ -76,7 +76,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     cookiesManager,
     userSession,
   };
-  const theme = useTheme<CustomerTheme>();
+  const theme = useTheme();
   const isCypressRunning = detectCypress();
   const isLightHouseRunning = detectLightHouse();
 

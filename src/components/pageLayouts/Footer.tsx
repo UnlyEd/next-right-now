@@ -28,7 +28,7 @@ const Footer: React.FunctionComponent<Props> = (props) => {
   const customer: Customer = useCustomer();
   const { availableLanguages } = customer;
   const shouldDisplayI18nButton = availableLanguages?.length > 1;
-  const theme = useTheme<CustomerTheme>();
+  const theme = useTheme();
   const {
     backgroundColor,
     onBackgroundColor,

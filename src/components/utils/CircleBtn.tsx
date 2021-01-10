@@ -32,7 +32,7 @@ const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
     transparent,
     ...rest
   } = props;
-  const customerTheme = useTheme<CustomerTheme>();
+  const customerTheme = useTheme();
   const {
     color,
     backgroundColor,
