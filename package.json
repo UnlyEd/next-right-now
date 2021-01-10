@@ -163,7 +163,7 @@
     "@next/bundle-analyzer": "10.0.5",
     "@svgr/cli": "5.5.0",
     "@types/amplitude-js": "7.0.0",
-    "@types/cookies": "0.7.4",
+    "@types/cookies": "0.7.6",
     "@types/jest": "26.0.13",
     "@types/jest-expect-message": "1.0.2",
     "@types/js-cookie": "2.2.6",
