@@ -215,7 +215,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
-      # Restore variables stored in previous jobs
+      # Restore variables stored by previous jobs
       - name: Restore variables
         uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
@@ -246,7 +246,7 @@ jobs:
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
         uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
 
-      # Restore variables stored in previous jobs
+      # Restore variables stored by previous jobs
       - name: Restore variables
         uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
@@ -355,7 +355,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
-      # Restore variables stored in previous jobs
+      # Restore variables stored by previous jobs
       - name: Restore variables
         uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
@@ -428,7 +428,7 @@ jobs:
       - name: Create temporary folder for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
 
-      # Restore variables stored in previous jobs
+      # Restore variables stored by previous jobs
       - name: Restore variables
         uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
