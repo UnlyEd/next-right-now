@@ -97,7 +97,7 @@ jobs:
           VERCEL_DEPLOYMENT_URL=`echo $VERCEL_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
           echo "Deployment url: " $VERCEL_DEPLOYMENT_URL
           echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
-          echo "VERCEL_DEPLOYMENT=${VERCEL_DEPLOYMENT_URL#https://}" >> $GITHUB_ENV
+          echo "VERCEL_DEPLOYMENT_DOMAIN=${VERCEL_DEPLOYMENT_URL#https://}" >> $GITHUB_ENV
 
           # Build the alias domain based on our own rules (NRN own rules)
           # Basically, if a branch starts with "v[0-9]" then we consider it to be a "preset branch" and we use the branch name as alias (e.g: "v2-mst-xxx")
@@ -201,8 +201,7 @@ jobs:
           variables: |
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
             VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
-            VERCEL_DEPLOYMENT=${{ env.VERCEL_DEPLOYMENT }}
-
+            VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
 
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
   await-for-vercel-deployment:
@@ -212,11 +211,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
-      - name: Restore VERCEL_DEPLOYMENT
+      - name: Restore variables
         uses: UnlyEd/github-action-store-variable@v1.0.1
         id: restore-variable
         with:
-          variables: VERCEL_DEPLOYMENT
+          variables: VERCEL_DEPLOYMENT_DOMAIN
 
       # Wait for deployment to be ready, before running E2E (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
       - name: Awaiting Vercel deployment to be ready
@@ -225,7 +224,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
         with:
-          deployment-url: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT }} # Must only contain the domain name (no http prefix, etc.)
+          deployment-url: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_DOMAIN }} # Must only contain the domain name (no http prefix, etc.)
           timeout: 90 # Wait for 90 seconds before failing
 
       - name: Display deployment status
