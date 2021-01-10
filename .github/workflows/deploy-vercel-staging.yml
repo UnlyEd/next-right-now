@@ -205,6 +205,7 @@ jobs:
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
             VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
             VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
+            GITHUB_PULL_REQUEST_ID=${{ steps.pr_id_finder.outputs.number }}
 
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
   await-for-vercel-deployment:
@@ -361,6 +362,7 @@ jobs:
         with:
           variables: |
             VERCEL_DEPLOYMENT_URL
+            GITHUB_PULL_REQUEST_ID
 
       # Runs the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
@@ -391,32 +393,24 @@ jobs:
           name: videos
           path: cypress/videos/
 
-      # We need to find the PR id. Will be used later to comment on that PR.
-      - name: Finding Pull Request ID
-        uses: jwalton/gh-find-current-pr@v1 # See https://github.com/jwalton/gh-find-current-pr
-        id: pr_id_finder
-        if: always() # Forces the job to be always executed, even if a previous job fail.
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
       # On E2E failure, add a comment to the PR with additional information, if there is an open PR for the current branch
       - name: Comment PR (E2E failure)
         uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
-        if: steps.pr_id_finder.outputs.number && failure()
+        if: fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          issue-number: ${{ fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID }}
           body: |
             :x:&nbsp; E2E tests **FAILED** for commit ${{ github.sha }} previously deployed at [${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}](${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }})
-            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ steps.pr_id_finder.outputs.number }}/checks) section
+            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID }}/checks) section
 
       # On E2E success, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (E2E success)
         uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
-        if: steps.pr_id_finder.outputs.number && success()
+        if: fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ steps.pr_id_finder.outputs.number }}
+          issue-number: ${{ fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID }}
           body: |
             :white_check_mark:&nbsp; E2E tests **SUCCESS** for commit ${{ github.sha }} previously deployed at [${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}](${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }})
         env:
