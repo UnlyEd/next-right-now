@@ -159,6 +159,7 @@
     "winston": "3.3.3"
   },
   "devDependencies": {
+    "@cypress/react": "4.16.3",
     "@emotion/babel-preset-css-prop": "10.0.27",
     "@next/bundle-analyzer": "10.0.5",
     "@svgr/cli": "5.5.0",
@@ -199,8 +200,7 @@
     "concurrently": "5.3.0",
     "cross-env": "7.0.3",
     "current-git-branch": "1.1.0",
-    "cypress": "6.0.1",
-    "cypress-react-unit-test": "4.17.1",
+    "cypress": "6.2.1",
     "del-cli": "3.0.1",
     "dotenv": "8.2.0",
     "eslint": "7.8.1",
