@@ -9,6 +9,7 @@ import { CSSStyles } from '../../types/CSSStyles';
 import { AirtableRecord } from '../../types/data/AirtableRecord';
 import { Asset } from '../../types/data/Asset';
 import { Customer } from '../../types/data/Customer';
+import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { SIZE_XS } from '../../utils/assets/logo';
 import AirtableAsset from '../assets/AirtableAsset';
 import Logo from '../assets/Logo';
