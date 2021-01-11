@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 import React from 'react';
 
-import Text from './utils/Text';
-
 type Props = {}
 
 /**
@@ -10,17 +8,15 @@ type Props = {}
  */
 const ComponentTemplate: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
-    <Text
+    <div
       css={css`
         margin: 30px;
-    `}
-    >
-      {`
-        This component is a template meant to be duplicated to quickly get started with new React components.
-
-        Feel free to adapt it at your convenience
       `}
-    </Text>
+    >
+      This component is a template meant to be duplicated to quickly get started with new React components.<br />
+      <br />
+      Feel free to adapt it at your convenience
+    </div>
   );
 };
 
