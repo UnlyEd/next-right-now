@@ -60,7 +60,9 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
         }
 
         // Only applied to the main application
-        body.nrn {
+        body.nrn,
+        // And when included within Storybook
+        body.sb-show-main {
           background-color: ${backgroundColor};
 
           .page-container {
@@ -98,18 +100,19 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
         // Applied to all elements marked with ".nrn"
         // Those will be applied even into iframes.
         // If there are iframes being displayed, they'll inherit the below behaviors.
-        .nrn {
+        .nrn,
+        .sb-show-main {
           // ----------- Application-wide custom elements -----------
 
 
           // ----------- Color system utilities -----------
 
           a {
-           color: ${primaryColor};
+            color: ${primaryColor};
 
-           &:hover {
-             color: ${primaryColorVariant1};
-           }
+            &:hover {
+              color: ${primaryColorVariant1};
+            }
           }
 
           .pcolor,
@@ -172,7 +175,7 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
             cursor: pointer;
 
             &:focus {
-             outline: 0; // Overrides Bootstrap default behavior
+              outline: 0; // Overrides Bootstrap default behavior
             }
 
             &.disabled {
@@ -247,7 +250,7 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
         // ----------- React-Select override -----------
 
         .select {
-          *  {
+          * {
             color: ${primaryColor} !important;
           }
         }

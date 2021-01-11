@@ -1,5 +1,6 @@
 // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import '../src/components/appBootstrap/MultiversalGlobalExternalStyles';
+import '../src/components/appBootstrap/MultiversalGlobalStyles';
 
 /**
  * Story Global parameters for Storybook.
@@ -12,7 +13,7 @@ import '../src/components/appBootstrap/MultiversalGlobalExternalStyles';
  */
 export const parameters = {
   actions: {
-    argTypesRegex: '^on[A-Z].*'
+    argTypesRegex: '^on[A-Z].*',
   },
   options: {
     // See https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
