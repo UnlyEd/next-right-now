@@ -74,7 +74,7 @@ jobs:
           echo "Custom aliases: " $VERCEL_DEPLOYMENT_ALIASES_JSON
 
           # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
-          readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json)
+          readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.storybook.json)
 
           # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
           VERCEL_DEPLOYMENT_ALIASES_COUNT=${#VERCEL_DEPLOYMENT_ALIASES[@]}
@@ -129,4 +129,4 @@ jobs:
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed **Storybook static site** to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
-            Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
+            Deployment aliased as [nrn-v2-mst-aptd-at-lcz-sty-storybook](https://nrn-v2-mst-aptd-at-lcz-sty-storybook.vercel.app)
