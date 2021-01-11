@@ -9,8 +9,5 @@
   "alias": [
     "nrn-v2-mst-aptd-at-lcz-sty-storybook"
   ],
-  "regions": [
-    "all"
-  ],
   "public": false
 }
