@@ -24,6 +24,7 @@ const withHOCTemplate = ({}: Options = {}) => <OriginalProps extends {}>(
       console.log('WithHOCTemplate props', this.props);
 
       return (
+        // @ts-ignore
         <WrappedComponent {...this.props} />
       );
     }

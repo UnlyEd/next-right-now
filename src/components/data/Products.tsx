@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import map from 'lodash.map';
 import React from 'react';
 import { Container } from 'reactstrap';

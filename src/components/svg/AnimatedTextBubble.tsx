@@ -1,14 +1,19 @@
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React from 'react';
 
-import { Theme } from '../../types/data/Theme';
-
 const AnimatedTextBubble = props => {
-  const theme: Theme = useTheme();
+  const theme = useTheme();
   const { surfaceColor } = theme;
   return (
-    <div style={{ width: '100%', marginLeft: '20px' }}>
+    <div
+      style={{
+        width: '100%',
+        marginLeft: '20px',
+      }}
+    >
       <svg
         viewBox="0 0 33 21" width="50px" {...props}
         css={css`
@@ -20,7 +25,7 @@ const AnimatedTextBubble = props => {
               transform: translateY(-4px);
             }
             30% {
-             transform: translateY(0px);
+              transform: translateY(0px);
             }
             100% {
               transform: translateY(0px);

@@ -1,8 +1,8 @@
 import { Amplitude } from '@amplitude/react-amplitude';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import kebabCase from 'lodash.kebabcase';
 import map from 'lodash.map';
 import {
@@ -45,7 +45,7 @@ type Props = {};
 const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
-  const theme = useTheme<CustomerTheme>();
+  const theme = useTheme();
   const { locale }: I18n = useI18n();
   const { primaryColor, logo } = theme;
 

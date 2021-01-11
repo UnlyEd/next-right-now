@@ -1,6 +1,6 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useTheme } from 'emotion-theming';
+import { useTheme } from '@emotion/react';
 import {
   NextRouter,
   useRouter,
@@ -61,7 +61,7 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
   const { t } = useTranslation();
   const {
     secondaryColor, secondaryColorVariant1, onSecondaryColor,
-  } = useTheme<CustomerTheme>();
+  } = useTheme();
 
   if (process.env.NEXT_PUBLIC_APP_STAGE === 'production') {
     return null;

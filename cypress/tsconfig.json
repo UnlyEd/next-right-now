@@ -6,7 +6,6 @@
   "exclude": [],
   "compilerOptions": {
     "baseUrl": ".",
-    "jsx": "react",
     "types": [
       "cypress"
     ],
