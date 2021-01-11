@@ -27,6 +27,11 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2021-01-11
+    - [Implement restore-variable to clean our actions](https://github.com/UnlyEd/next-right-now/pull/239)
+    - [Deps - Upgrade `v2-mst-aptd-at-lcz-sty` packages (January 2021)](https://github.com/UnlyEd/next-right-now/pull/245)
+    - [Deps - Upgrade `v2-mst-aptd-gcms-lcz-sty` packages (January 2021)](https://github.com/UnlyEd/next-right-now/pull/246)
+    - [Deps - Upgrade to Emotion v11 (from v10) [BREAKING CHANGES]](https://github.com/UnlyEd/next-right-now/pull/247)
 - 2021-01-09
     - [Documentation update](https://github.com/UnlyEd/next-right-now/pull/238)
 - 2020-12-30
