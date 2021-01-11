@@ -48,6 +48,10 @@ jobs:
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
+
+          echo "Installing dependencies"
+          yarn install
+
           echo "Building and deploying StoryBook static site"
 
           # Deploy the customer on Vercel using the customer ref
