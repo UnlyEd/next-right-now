@@ -62,49 +62,52 @@ const Footer: React.FunctionComponent<Props> = (props) => {
           padding: 20px;
           height: 40vh;
         }
-      }
 
-      img {
-        max-width: 300px;
-      }
+        #footer-logo {
+          max-width: 200px; // Opinionated limit
+        }
 
-      .column-center {
-        align-self: flex-end;
-      }
+        img {
+          max-width: 300px;
+        }
 
-      .column-right {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
+        .column-center {
+          align-self: flex-end;
+        }
 
-      .credits {
-        opacity: 0.35;
-        margin-left: 20px
-      }
+        .column-right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
 
-      .credits-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        .credits {
+          opacity: 0.35;
+          margin-left: 20px
+        }
 
-        @media (max-width: 991.98px) {
-          display: block;
+        .credits-container {
+          display: flex;
           align-items: center;
           justify-content: center;
-          text-align: center;
-        }
-      }
 
-      .links {
-        color: ${onBackgroundColor};
-
-        @media (max-width: 991.98px) {
-          align-items: center;
-          justify-content: center;
-          text-align: center;
+          @media (max-width: 991.98px) {
+            display: block;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+          }
         }
-      }
+
+        .links {
+          color: ${onBackgroundColor};
+
+          @media (max-width: 991.98px) {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+          }
+        }
       `}
     >
       <section className="credits-container">
