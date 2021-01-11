@@ -6,7 +6,7 @@
 # Dependencies overview:
 # - See https://github.com/actions/setup-node https://github.com/actions/setup-node/tree/v1
 # - See https://github.com/actions/checkout https://github.com/actions/checkout/tree/v1
-# - See https://github.com/actions/upload-artifact https://github.com/actions/upload-artifact/tree/v1
+# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
 # - See https://github.com/jwalton/gh-find-current-pr https://github.com/jwalton/gh-find-current-pr/tree/v1
 # - See https://github.com/peter-evans/create-or-update-comment https://github.com/peter-evans/create-or-update-comment/tree/v1
 
@@ -42,12 +42,17 @@ jobs:
     needs: setup-environment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
+
+      - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+        uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
+
       - name: Deploying on Vercel
         # Workflow overview:
         #   - TODO
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
+          echo "Current branch: ${GITHUB_REF_SLUG}"
 
           echo "Installing dependencies"
           yarn install
@@ -91,6 +96,8 @@ jobs:
           fi
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
+          # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+          GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
