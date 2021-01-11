@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 
 import ErrorDebug from './ErrorDebug';
 
-type Props = {
+export type Props = {
   error: Error;
   context?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
@@ -19,7 +19,10 @@ type Props = {
  * @param props
  */
 const DefaultErrorLayout = (props: Props): JSX.Element => {
-  const { error } = props;
+  const {
+    error,
+    context,
+  } = props;
   const errorEventId = Sentry.captureException(error);
 
   return (
@@ -59,6 +62,7 @@ const DefaultErrorLayout = (props: Props): JSX.Element => {
         process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && (
           <ErrorDebug
             error={error}
+            context={context}
           />
         )
       }
