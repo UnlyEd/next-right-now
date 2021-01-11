@@ -6,7 +6,7 @@
   "exclude": [],
   "compilerOptions": {
     "baseUrl": ".",
-    "jsx": "react",
+    "jsxImportSource": "@emotion/react",
     "types": [
       "cypress"
     ],
