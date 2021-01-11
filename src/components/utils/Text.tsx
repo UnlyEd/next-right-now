@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { DOMAttributes } from 'react';
 
 type Props = {
   children: string;
   tag?: string | React.ReactType;
-}
+} & DOMAttributes<any>
 
 /**
  * Automatically break lines for text
