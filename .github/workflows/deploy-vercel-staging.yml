@@ -398,7 +398,7 @@ jobs:
       # On E2E failure, add a comment to the PR with additional information, if there is an open PR for the current branch
       - name: Comment PR (E2E failure)
         uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
-        if: fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID && success()
+        if: fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID && failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID }}
