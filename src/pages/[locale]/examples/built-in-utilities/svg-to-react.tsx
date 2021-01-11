@@ -11,7 +11,7 @@ import { Alert } from 'reactstrap';
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import EnglishFlag from '../../../../components/svg/EnglishFlag';
+import EnglishFlag from '../../../../components/svg/EnglishHybridFlag';
 import FrenchFlag from '../../../../components/svg/FrenchFlag';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
