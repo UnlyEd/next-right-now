@@ -1,5 +1,5 @@
-import { css } from '@emotion/core';
-import { useTheme } from 'emotion-theming';
+import { css } from '@emotion/react';
+import { useTheme } from '@emotion/react';
 import React, { ReactNode } from 'react';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 
@@ -17,7 +17,7 @@ export const Stamp: React.FunctionComponent<Props> = (props): JSX.Element => {
     children,
     ...rest
   } = props;
-  const { secondaryColorVariant1, secondaryColor } = useTheme<CustomerTheme>();
+  const { secondaryColorVariant1, secondaryColor } = useTheme();
 
   return (
     <div

@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
