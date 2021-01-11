@@ -68,13 +68,14 @@
     "test:coverage": "NODE_ENV=test jest --coverage",
     "test:coverage:group:no-integration": "NODE_ENV=test jest --group=-integration --coverage",
     "test:config": "NODE_ENV=test jest --showConfig",
+    "sb": "yarn storybook",
+    "storybook": "start-storybook -p 6006",
+    "storybook:export": "build-storybook",
     "codemod:update-react-imports": "npx react-codemod update-react-imports src/",
     "codemod:name-default-component": "npx @next/codemod name-default-component src/",
     "codemod:withamp-to-config": "npx @next/codemod withamp-to-config src/",
     "security:audit": "yarn audit",
-    "packages:upgrade": "yarn upgrade-interactive --latest",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "packages:upgrade": "yarn upgrade-interactive --latest"
   },
   "next-unused": {
     "alias": {},
