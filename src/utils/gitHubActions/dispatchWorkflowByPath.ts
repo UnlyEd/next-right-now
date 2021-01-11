@@ -58,7 +58,7 @@ export const dispatchWorkflowByPath = async (platformReleaseRef: string, workflo
 
       logger.error(message);
       Sentry.withScope((scope): void => {
-        scope.setContext('response (raw)', response);
+        scope.setExtra('response (raw)', response);
         scope.setContext('results (parsed)', results);
         Sentry.captureException(message);
       });

@@ -8,7 +8,7 @@ module.exports = {
     //  can see this setting in tsconfig.jest.json -> "jsx": "react"
     //  See https://github.com/vercel/next.js/issues/8663
     'ts-jest': {
-      tsConfig: 'tsconfig.jest.json',
+      tsconfig: 'tsconfig.jest.json',
     },
   },
   modulePathIgnorePatterns: [
