@@ -11,7 +11,8 @@ import { Alert } from 'reactstrap';
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import EnglishFlag from '../../../../components/svg/EnglishHybridFlag';
+import EnglishHybridFlag from '../../../../components/svg/EnglishHybridFlag';
+import EnglishUkFlag from '../../../../components/svg/EnglishUkFlag';
 import FrenchFlag from '../../../../components/svg/FrenchFlag';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
@@ -71,7 +72,8 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
           If you use SVGs, you may want to easily convert those as React components so that they're easier to work with (custom props, dynamic colors/size, etc.).<br />
           That's what we did with the country flags:<br />
           <FrenchFlag />
-          <EnglishFlag />
+          <EnglishHybridFlag />
+          <EnglishUkFlag />
           <br />
           It'd be very easy to update those components to add some additional capabilities, such as resizing them through props, because they're React components.
         </p>
