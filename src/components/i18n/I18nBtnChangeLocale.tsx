@@ -10,7 +10,7 @@ import { i18nRedirect } from '../../utils/app/router';
 import { LANG_FR } from '../../utils/i18n/i18n';
 import ToggleLanguagesButton from '../utils/ToggleLanguagesButton';
 
-type Props = {
+export type Props = {
   id: string;
   onClick?: (any) => void;
 }
