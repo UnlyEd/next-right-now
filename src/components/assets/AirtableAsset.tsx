@@ -10,7 +10,10 @@ import {
 import { Link } from '../../types/data/Link';
 import { cssToReactStyle } from '../../utils/css';
 
-type Props = {
+export type Props = {
+  /**
+   * Asset, extends Airtable attachment, e.g: image, document, etc.
+   */
   asset: Asset;
   id?: string;
   transformationsOverride?: AssetTransformations;
