@@ -74,6 +74,7 @@ jobs:
         #   - Get stdout from deploy command (stderr prints build steps and stdout prints deployment url, which is what we are really looking for)
         #   - Set the deployment url that will be included in the eventual PR comment
         #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
+        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)

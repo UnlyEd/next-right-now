@@ -70,6 +70,7 @@ jobs:
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
         #   - Deploy the customer in production
+        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)

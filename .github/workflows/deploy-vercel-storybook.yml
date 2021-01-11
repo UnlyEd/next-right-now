@@ -1,5 +1,5 @@
 # Summary:
-# TODO
+# Builds a static version of the Storybook website and triggers a new deployment on Vercel's platform, when anything is pushed in any branch.
 #
 # LEARN MORE AT https://unlyed.github.io/next-right-now/guides/ci-cd/
 #
@@ -48,7 +48,9 @@ jobs:
 
       - name: Deploying on Vercel
         # Workflow overview:
-        #   - TODO
+        #   - Install yarn dependencies (necessary to build the Storybook static site)
+        #   - Starts a Vercel deployment, using vercel.storybook.json
+        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)
           vercel --version
