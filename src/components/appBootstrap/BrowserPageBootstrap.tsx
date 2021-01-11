@@ -2,10 +2,10 @@ import {
   Amplitude,
   AmplitudeProvider,
 } from '@amplitude/react-amplitude';
+import { useTheme } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import { AmplitudeClient } from 'amplitude-js';
-import { useTheme } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useCustomer from '../../hooks/useCustomer';
@@ -15,7 +15,6 @@ import { cypressContext } from '../../stores/cypressContext';
 import userConsentContext from '../../stores/userConsentContext';
 import { userSessionContext } from '../../stores/userSessionContext';
 import { Customer } from '../../types/data/Customer';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { MultiversalAppBootstrapPageProps } from '../../types/nextjs/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../../types/nextjs/MultiversalAppBootstrapProps';
 import { MultiversalPageProps } from '../../types/pageProps/MultiversalPageProps';
@@ -61,7 +60,10 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     lang,
     locale,
   } = pageProps;
-  const { t, i18n } = useTranslation();
+  const {
+    t,
+    i18n,
+  } = useTranslation();
   const dataset = useDataset();
   const customer: Customer = useCustomer();
   const isInIframe: boolean = isRunningInIframe();
@@ -89,7 +91,10 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   });
 
   const userConsent: UserConsent = getUserConsent();
-  const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
+  const {
+    isUserOptedOutOfAnalytics,
+    hasUserGivenAnyCookieConsent,
+  } = userConsent;
   const amplitudeInstance: AmplitudeClient = getAmplitudeInstance({
     customerRef,
     iframeReferrer,
