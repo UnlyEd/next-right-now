@@ -9,7 +9,7 @@ import { Asset } from '../../../types/data/Asset';
 const defaultLogoUrl = 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png';
 
 export default {
-  title: 'Utilities/AirtableAsset',
+  title: 'Next Right Now/Utilities/AirtableAsset',
   component: AirtableAsset,
   argTypes: {},
 } as Meta;

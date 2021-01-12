@@ -91,9 +91,9 @@ export const parameters = {
     storySort: {
       method: 'alphabetical',
       order: [
-        'Next Right Now', // Should be first
-        'Utilities',
-        'Storybook Examples', // Should be last, if kept
+        'App', // Should be first
+        'Next Right Now', // Should be second, if kept around
+        'Storybook Examples', // Should be last, if kept around
       ],
     },
   },

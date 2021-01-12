@@ -7,7 +7,7 @@ import I18nLink, { Props } from '../../../components/i18n/I18nLink';
 import styles from './I18nLink.module.css';
 
 export default {
-  title: 'Utilities/I18nLink',
+  title: 'Next Right Now/Utilities/I18nLink',
   component: I18nLink,
   argTypes: {
     wrapChildrenAsLink: {
