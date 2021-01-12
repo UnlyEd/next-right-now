@@ -1,4 +1,7 @@
-import { Meta } from '@storybook/react/types-6-0';
+import {
+  Meta,
+  Story,
+} from '@storybook/react/types-6-0';
 import React from 'react';
 import DisplayOnBrowserMount, { Props } from '../../../components/rehydration/DisplayOnBrowserMount';
 
@@ -8,7 +11,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const DefaultExample: React.VFC<Props> = () => {
+export const DefaultExample: Story<Props> = () => {
   return (
     <DisplayOnBrowserMount>
       This will be displayed only on the browser.<br />

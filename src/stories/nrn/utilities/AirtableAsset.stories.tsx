@@ -1,4 +1,7 @@
-import { Meta } from '@storybook/react/types-6-0';
+import {
+  Meta,
+  Story,
+} from '@storybook/react/types-6-0';
 import React from 'react';
 import AirtableAsset, { Props } from '../../../components/assets/AirtableAsset';
 import { Asset } from '../../../types/data/Asset';
@@ -11,14 +14,26 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const DefaultAirtableLogo: React.VFC<Props> = () => {
+export const DynamicAirtableLogo: Story<Props> = (props) => {
   return (
     <AirtableAsset
-      id={'default-logo'}
-      asset={{
-        url: defaultLogoUrl,
-        linkUrl: defaultLogoUrl,
-      } as Asset}
+      {...props}
     />
   );
+};
+DynamicAirtableLogo.args = {
+  id: 'default-logo',
+  className: 'default-class',
+  asset: {
+    url: defaultLogoUrl,
+    linkUrl: 'https://github.com/UnlyEd/next-right-now',
+  } as Asset,
+  transformationsOverride: {
+    width: 300,
+    height: 100,
+  },
+  style: {
+    backgroundColor: 'white',
+  },
+  onClick: () => console.log('click on asset'),
 };

@@ -60,6 +60,15 @@ module.exports = {
     },
 
     /**
+     * Storybook Addon Knobs has been replaced by Controls and is being deprecated, it will be removed in v7.
+     *
+     * It is listed below for documentation purpose and help you avoid using it thinking it's still legit.
+     *
+     * @see https://github.com/storybookjs/storybook/blob/next/addons/controls/README.md#how-will-this-replace-addon-knobs
+     */
+    // '@storybook/addon-knobs',
+
+    /**
      * We use Google Analytics for tracking analytics usage.
      *
      * It's much easier to setup than Amplitude, because there is an official dedicated plugin for this.

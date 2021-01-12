@@ -1,4 +1,7 @@
-import { Meta } from '@storybook/react/types-6-0';
+import {
+  Meta,
+  Story,
+} from '@storybook/react/types-6-0';
 import React from 'react';
 import I18nBtnChangeLocale, { Props } from '../../../components/i18n/I18nBtnChangeLocale';
 
@@ -8,7 +11,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const DefaultExample: React.VFC<Props> = () => {
+export const DefaultExample: Story<Props> = () => {
   return (
     <I18nBtnChangeLocale
       id={'default-example'}

@@ -1,4 +1,7 @@
-import { Meta } from '@storybook/react/types-6-0';
+import {
+  Meta,
+  Story,
+} from '@storybook/react/types-6-0';
 import React from 'react';
 import DefaultErrorLayout, { Props } from '../../../components/errors/DefaultErrorLayout';
 
@@ -8,7 +11,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const ErrorInDefaultLayout: React.VFC<Props> = () => {
+export const ErrorInDefaultLayout: Story<Props> = () => {
   return (
     <DefaultErrorLayout
       error={new Error('Error example for Storybook')}
@@ -16,7 +19,7 @@ export const ErrorInDefaultLayout: React.VFC<Props> = () => {
   );
 };
 
-export const ErrorInDefaultLayoutWithContext: React.VFC<Props> = () => {
+export const ErrorInDefaultLayoutWithContext: Story<Props> = () => {
   return (
     <DefaultErrorLayout
       error={new Error('Error example for Storybook')}
