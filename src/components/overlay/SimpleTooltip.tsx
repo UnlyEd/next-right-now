@@ -1,7 +1,7 @@
 import React from 'react';
-import Tooltip from '../overlay/Tooltip';
+import Tooltip from './Tooltip';
 
-type Props = {
+export type Props = {
   children: React.ReactElement;
   placement?: string;
   text: string;
