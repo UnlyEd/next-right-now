@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="App/Custom components" />
+
+# Custom components
+Next Right Now doesn't enforce a particular way to write your components **stories**, but we've got some advices:
+- `src/stories/sb-examples` contains the default Storybook examples. They're contains useful links and resources you should probably keep around.
+- `src/stories/nrn` contains Next Right Now components. Feel free to delete those you don't need! We suggest keeping the documentation for those you use.
+- `src/stories/app` is for you, you can rename it, split it into several folder, do as you want.
+
+> We suggest not renaming Next Right Now and Storybook existing stories if you plan on using Next Right Now as a boilerplate, as it would make sync with NRN harder.
+
+# Folders and stories
+
+Folders don't dictate in which section your stories will be displayed.
+
+> You can have different folders publishing stories in the same section, it depends on the Story `title`, not its file path.
+>
+> You can perfectly mix NRN native components with your own (put them in the same section).
+
+# Storybook configuration documentation
+
+Many efforts have been put into Storybook configuration documentation.
+
+The best place to start discovering what Next Right Now has done for you are:
+- `.storybook/main.js`: Describes all the addons being installed and why. With links to their respective documentation.
+- `storybook/manager.js`: Describes the Storybook configuration.
+- `storybook/preview.js`: Describes the Storybook "component preview" configuration.
+  It is the "story preview entrypoint" and contains the whole Preview configuration.

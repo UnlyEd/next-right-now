@@ -1,4 +1,3 @@
-// Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { ThemeProvider } from '@emotion/react';
 import '@storybook/addon-console'; // Automatically forwards all logs in the "Actions" panel - See https://github.com/storybookjs/storybook-addon-console
@@ -8,7 +7,7 @@ import find from 'lodash.find';
 import React from 'react';
 import { withNextRouter } from 'storybook-addon-next-router';
 import { withPerformance } from 'storybook-addon-performance';
-import '../src/components/appBootstrap/MultiversalGlobalExternalStyles';
+import '../src/components/appBootstrap/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import MultiversalGlobalStyles from '../src/components/appBootstrap/MultiversalGlobalStyles';
 import amplitudeContext from '../src/stores/amplitudeContext';
 import customerContext from '../src/stores/customerContext';
