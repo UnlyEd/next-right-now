@@ -167,6 +167,7 @@
     "@emotion/babel-preset-css-prop": "11.0.0",
     "@emotion/eslint-plugin": "11.0.0",
     "@next/bundle-analyzer": "10.0.5",
+    "@storybook/addon-a11y": "6.1.14",
     "@storybook/addon-actions": "6.1.14",
     "@storybook/addon-essentials": "6.1.14",
     "@storybook/addon-google-analytics": "6.1.14",

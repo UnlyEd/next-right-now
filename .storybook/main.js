@@ -79,6 +79,13 @@ module.exports = {
     '@storybook/addon-google-analytics',
 
     /**
+     * This storybook addon can be helpful to make your UI components more accessible.
+     *
+     * @see https://www.npmjs.com/package/@storybook/addon-a11y
+     */
+    '@storybook/addon-a11y',
+
+    /**
      * Adds support for CSS Modules.
      *
      * Even though Next Right Now doesn't encourage the use of CSS Modules,
