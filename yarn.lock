@@ -2609,6 +2609,13 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
+"@storybook/addon-console@1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-console/-/addon-console-1.2.2.tgz#018cd712e1ed6eee1a7eae57c3d96f1fbbedc191"
+  integrity sha512-aTuYoz1Fit9PAhy0VDTjQ5rovRz5a+DgPRIaA5cktkiA9Y0ikK/cu525DDZLTh7oNMOt0fmRYyYPtknTMyeXrQ==
+  dependencies:
+    global "^4.3.2"
+
 "@storybook/addon-controls@6.1.14":
   version "6.1.14"
   resolved "https://registry.yarnpkg.com/@storybook/addon-controls/-/addon-controls-6.1.14.tgz#3f4f9e60763facecb654867881533785454ea16d"

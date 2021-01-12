@@ -14,7 +14,8 @@ module.exports = {
     /**
      * Present including "essential" Storybook addons, such as:
      *
-     * - Actions - The Toolbars addon controls global story rendering options from Storybook's toolbar UI.
+     * - Actions - Storybook Addon Actions can be used to display data received by event handlers in Storybook.
+     *    It's where the action you do are being logged.
      *
      * - Backgrounds - Storybook Addon Backgrounds can be used to change background colors inside the preview in Storybook.
      *

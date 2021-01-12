@@ -1,6 +1,7 @@
 // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { ThemeProvider } from '@emotion/react';
+import '@storybook/addon-console'; // Automatically forwards all logs in the "Actions" panel - See https://github.com/storybookjs/storybook-addon-console
 import { addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import find from 'lodash.find';
