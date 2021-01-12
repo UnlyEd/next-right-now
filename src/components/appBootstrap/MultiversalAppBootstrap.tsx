@@ -1,7 +1,7 @@
+import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ThemeProvider } from '@emotion/react';
 import { i18n } from 'i18next';
 import find from 'lodash.find';
 import includes from 'lodash.includes';
@@ -261,8 +261,18 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     return (
       <datasetContext.Provider value={dataset}>
         <quickPreviewContext.Provider value={{ isQuickPreviewPage }}>
-          <previewModeContext.Provider value={{ isPreviewModeEnabled: isPreviewModeEnabled, previewData }}>
-            <i18nContext.Provider value={{ lang, locale }}>
+          <previewModeContext.Provider
+            value={{
+              isPreviewModeEnabled: isPreviewModeEnabled,
+              previewData,
+            }}
+          >
+            <i18nContext.Provider
+              value={{
+                lang,
+                locale,
+              }}
+            >
               <customerContext.Provider value={customer}>
                 {/* XXX Global styles that applies to all pages go there */}
                 <MultiversalGlobalStyles customerTheme={customerTheme} />

@@ -8,10 +8,10 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const I18nBtnChangeLocaleFooter: React.VFC<Props> = () => {
+export const DefaultExample: React.VFC<Props> = () => {
   return (
     <I18nBtnChangeLocale
-      id={'footer'}
+      id={'default-example'}
     />
   );
 };
