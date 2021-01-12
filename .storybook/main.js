@@ -4,6 +4,13 @@ const fetch = require('node-fetch');
 
 const toPath = (_path) => path.join(process.cwd(), _path);
 
+try {
+  require('../.jest-test-results.json');
+  console.warn(`[Storybook Jest config] Found "/.jest-test-results.json". \nStories will properly use Jest tests. \nRunning "yarn:test" in parallel of storybook will keep Storybook up-to-date with the latest test result.`);
+} catch (e) {
+  console.warn(`[Storybook Jest config] The test results file couldn't be found in "/.jest-test-results.json". \nStories will not use Jest tests. \nRunning "yarn test:generate-output" prior to running storybook will fix this. \nAlternatively, running "yarn:test" in parallel of storybook will keep Storybook up-to-date with the latest test result.`);
+}
+
 /**
  * Fetches translations from Locize and store them in the filesystem.
  * They will be loaded in preview.js, which will configure Locize so that components can display their translations.
@@ -152,6 +159,13 @@ module.exports = {
      * @see https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css How to use CSS Modules with Next.js
      */
     'storybook-css-modules-preset',
+
+    /**
+     * Brings Jest results in storybook.
+     *
+     * @see https://github.com/storybookjs/storybook/tree/master/addons/jest
+     */
+    '@storybook/addon-jest',
 
     /**
      * A storybook addon to help better understand and debug performance for React components.
