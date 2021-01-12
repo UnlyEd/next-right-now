@@ -69,6 +69,19 @@ module.exports = {
     '@storybook/addon-knobs',
 
     /**
+     * This Storybook plugin uses @storybook/addon-knobs but creates the knobs automatically based on PropTypes, Flow and Typescript.
+     *
+     * Requires @storybook/addon-knobs to be installed and referenced as addon.
+     * Requires loading both @storybook/addon-knobs and storybook-addon-smart-knobs decorators.
+     *
+     * Requires "babel-plugin-react-docgen":
+     * - Special babel
+     *
+     * @see https://github.com/storybookjs/addon-smart-knobs
+     */
+    'storybook-addon-smart-knobs',
+
+    /**
      * We use Google Analytics for tracking analytics usage.
      *
      * It's much easier to setup than Amplitude, because there is an official dedicated plugin for this.

@@ -3,15 +3,17 @@
  *
  * Nevertheless, configuring the webpack.config.js seems to work fine.
  *
- * @param config
- * @param mode
+ * @param config Base config
+ * @param env development | production - Depends on the webpack compilation mode
+ * @param defaultConfig
  * @return {Promise<*>}
  * @see https://storybook.js.org/docs/react/configure/webpack
  * @see https://storybook.js.org/docs/react/configure/webpack#using-your-existing-config
  */
 module.exports = async ({
   config,
-  mode,
+  env,
+  defaultConfig,
 }) => {
   /**
    * Fixes npm packages that depend on `fs` module, etc.
@@ -32,5 +34,29 @@ module.exports = async ({
   // Because StoryBook only compiles for client and has no server runtime, we must replace backend-related libs like @sentry/node to their browser counterpart
   config.resolve.alias['@sentry/node'] = '@sentry/browser';
 
+  // TODO Unsafe
+  defaultConfig.module.rules[0].use[0].options.plugins = [
+    require.resolve('babel-plugin-react-docgen'),
+  ];
+
   return config;
+  // return {
+  //   ...config,
+  //   ...{
+  //     ...config.module,
+  //     ...{
+  //       ...config.module.rules,
+  //       ...{
+  //         ...config.module.rules.use,
+  //         ...{
+  //           ...config.module.rules.use.options,
+  //           ...[
+  //             ...config.module.rules.use.options.plugins,
+  //             'babel-plugin-react-docgen',
+  //           ],
+  //         },
+  //       },
+  //     },
+  //   },
+  // };
 };

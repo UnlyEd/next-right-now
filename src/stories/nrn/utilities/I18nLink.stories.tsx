@@ -1,10 +1,11 @@
 import {
-  object,
   text,
+  object,
   withKnobs,
 } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react/types-6-0';
 import React from 'react';
+import { withSmartKnobs } from 'storybook-addon-smart-knobs';
 import I18nLink, { Props } from '../../../components/i18n/I18nLink';
 import styles from './I18nLink.module.css';
 
@@ -13,6 +14,7 @@ export default {
   component: I18nLink,
   argTypes: {},
   decorators: [
+    withSmartKnobs,
     withKnobs,
   ],
 } as Meta;
