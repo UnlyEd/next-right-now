@@ -12,7 +12,7 @@ import {
 
 type ParamValueToForward = string | number | Array<string | number>;
 
-type Props = {
+export type Props = {
   as?: string;
   children: React.ReactNode;
   className?: string;
