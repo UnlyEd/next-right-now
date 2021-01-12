@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 import I18nLink, { Props } from '../../../components/i18n/I18nLink';
+import styles from './I18nLink.module.css';
 
 export default {
   title: 'Utilities/I18nLink',
@@ -14,6 +15,17 @@ export const SimpleLink: React.VFC<Props> = () => {
       href={`/`}
     >
       Link
+    </I18nLink>
+  );
+};
+
+export const LinkWithCSSModule: React.VFC<Props> = () => {
+  return (
+    <I18nLink
+      href={`/`}
+      className={styles.red}
+    >
+      Homepage (red)
     </I18nLink>
   );
 };

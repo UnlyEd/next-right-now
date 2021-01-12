@@ -16161,6 +16161,11 @@ storybook-addon-next-router@2.0.3:
   resolved "https://registry.yarnpkg.com/storybook-addon-next-router/-/storybook-addon-next-router-2.0.3.tgz#24cb0233c03749a9b416f5b191bbcd17545a3d3b"
   integrity sha512-1/q3ZYpN2Hae8ePL553J4rzVEh2rF+mVPvui2+Q7LEVvCTFgcB3Iow9xCA0P9nxNjg+oPs8Xkpb0ahXkwUAIcQ==
 
+storybook-css-modules-preset@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/storybook-css-modules-preset/-/storybook-css-modules-preset-1.0.5.tgz#8963bab91c42a66fc757610323d280d76a06d07b"
+  integrity sha512-NcGOdU7Woh1RMz7ftaDh6ThePRaW/5Cuh5AH5lK+5D9ue5X9cFxSvkWCZUswcGOS8Z6GNifeTx7UoH6nuWZPFg==
+
 stream-browserify@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-3.0.0.tgz#22b0a2850cdf6503e73085da1fc7b7d0c2122f2f"

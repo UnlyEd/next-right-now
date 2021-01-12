@@ -16,5 +16,16 @@ module.exports = {
      * @see https://github.com/storybookjs/storybook/tree/master/addons/google-analytics
      */
     '@storybook/addon-google-analytics',
+
+    /**
+     * Adds support for CSS Modules.
+     *
+     * Even though Next Right Now doesn't encourage the use of CSS Modules,
+     * we thought it's an interesting feature to support, which is natively supported by Next.js.
+     *
+     * @see https://www.npmjs.com/package/storybook-css-modules-preset How to configure Storybook to support CSS Modules
+     * @see https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css How to use CSS Modules with Next.js
+     */
+    'storybook-css-modules-preset',
   ],
 };
