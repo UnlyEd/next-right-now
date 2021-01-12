@@ -87,6 +87,15 @@ module.exports = {
      */
     '@storybook/addon-a11y',
 
+    /**
+     * Shows stories source in the addon panel. (display the source code of the story in a dedicated panel)
+     *
+     * Adds an "Story" tab.
+     *
+     * @see https://github.com/storybookjs/storybook/tree/master/addons/storysource
+     */
+    '@storybook/addon-storysource',
+
     // ------------------- Non official addons below ------------------
 
     /**

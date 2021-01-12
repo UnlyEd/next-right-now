@@ -172,6 +172,7 @@
     "@storybook/addon-essentials": "6.1.14",
     "@storybook/addon-google-analytics": "6.1.14",
     "@storybook/addon-links": "6.1.14",
+    "@storybook/addon-storysource": "6.1.14",
     "@storybook/react": "6.1.14",
     "@svgr/cli": "5.5.0",
     "@types/amplitude-js": "7.0.0",
