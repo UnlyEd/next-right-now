@@ -1,5 +1,9 @@
 import React from 'react';
 
+export type Props = {
+  fill: string;
+};
+
 /**
  * An animated composant featuring 3 animated dots "...".
  *
@@ -8,7 +12,7 @@ import React from 'react';
  *
  * @see https://animate.style
  */
-const Animated3Dots = (props): JSX.Element => {
+const Animated3Dots = (props: Props): JSX.Element => {
   return (
     <svg
       id="AnimatedBubble_svg__Calque_1"

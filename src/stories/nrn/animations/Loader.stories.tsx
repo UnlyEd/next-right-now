@@ -6,9 +6,9 @@ import React from 'react';
 import Loader, { Props } from '../../../components/animations/Loader';
 
 export default {
-  title: 'Next Right Now/Utilities/Loader',
+  title: 'Next Right Now/Animations/Loader',
   component: Loader,
   argTypes: {},
 } as Meta;
 
-export const Loading: Story<Props> = () => <Loader />;
+export const Animation: Story<Props> = () => <Loader />;
