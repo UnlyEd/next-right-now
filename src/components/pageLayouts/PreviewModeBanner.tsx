@@ -20,7 +20,7 @@ import {
 } from '../../utils/nextjs/previewMode';
 import ExternalLink from '../utils/ExternalLink';
 import Btn from '../utils/Btn';
-import Tooltip from '../utils/Tooltip';
+import Tooltip from '../overlay/Tooltip';
 
 type Props = {}
 

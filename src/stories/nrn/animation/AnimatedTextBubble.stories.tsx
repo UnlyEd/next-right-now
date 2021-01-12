@@ -6,7 +6,7 @@ import React from 'react';
 import AnimatedTextBubble, { Props } from '../../../components/svg/AnimatedTextBubble';
 
 export default {
-  title: 'Next Right Now/Animations/AnimatedTextBubble',
+  title: 'Next Right Now/Animation/AnimatedTextBubble',
   component: AnimatedTextBubble,
   argTypes: {},
 } as Meta;

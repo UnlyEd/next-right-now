@@ -6,7 +6,7 @@ import React from 'react';
 import DefaultErrorLayout, { Props } from '../../../components/errors/DefaultErrorLayout';
 
 export default {
-  title: 'Next Right Now/Layouts/DefaultErrorLayout',
+  title: 'Next Right Now/Layout/DefaultErrorLayout',
   component: DefaultErrorLayout,
   argTypes: {},
 } as Meta;

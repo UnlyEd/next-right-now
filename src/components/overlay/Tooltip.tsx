@@ -1,7 +1,7 @@
 import RCTooltip from 'rc-tooltip';
 import React from 'react';
 
-type Props = {
+export type Props = {
   children: React.ReactElement;
   overlay: React.ReactElement;
   trigger?: Array<string>;

@@ -6,7 +6,7 @@ import React from 'react';
 import Loader, { Props } from '../../../components/animations/Loader';
 
 export default {
-  title: 'Next Right Now/Animations/Loader',
+  title: 'Next Right Now/Animation/Loader',
   component: Loader,
   argTypes: {},
 } as Meta;

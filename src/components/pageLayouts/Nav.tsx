@@ -39,7 +39,7 @@ import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '../doc/BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '../doc/BuiltInUtilitiesSidebar';
 import { NATIVE_FEATURES_SIDEBAR_LINKS } from '../doc/NativeFeaturesSidebar';
 import I18nLink from '../i18n/I18nLink';
-import Tooltip from '../utils/Tooltip';
+import Tooltip from '../overlay/Tooltip';
 
 type Props = {};
 

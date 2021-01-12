@@ -6,7 +6,7 @@ import React from 'react';
 import Animated3Dots, { Props } from '../../../components/svg/Animated3Dots';
 
 export default {
-  title: 'Next Right Now/Animations/Animated3Dots',
+  title: 'Next Right Now/Animation/Animated3Dots',
   component: Animated3Dots,
   argTypes: {},
 } as Meta;

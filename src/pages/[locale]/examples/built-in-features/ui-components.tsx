@@ -16,7 +16,7 @@ import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import Code from '../../../../components/dataDisplay/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
-import Tooltip from '../../../../components/utils/Tooltip';
+import Tooltip from '../../../../components/overlay/Tooltip';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
