@@ -20,16 +20,28 @@ import { getAmplitudeInstance } from '../src/utils/analytics/amplitude';
 import { initCustomerTheme } from '../src/utils/data/theme';
 import dataset from './mock/sb-dataset';
 
+/**
+ * Mock variables used to initialize all stories.
+ *
+ * Mocking those ensures the components relying on them will work as expected.
+ *
+ * About Amplitude analytics:
+ * - We don't want to track analytics using Amplitude.
+ * - All analytics is disabled when running a component through Storybook preview.
+ *
+ * XXX We will consider using Google Analytics for this, using a specific storybook plugin instead. (will be much easier to implement/use)
+ */
 const customer = find(dataset, { __typename: 'Customer' });
 const customerTheme = initCustomerTheme(customer);
-const customerRef = 'storybook';
-const lang = 'en';
-const locale = 'en';
+const customerRef = 'storybook'; // Fake customer ref
+const lang = 'en'; // Default language, not sure if it should be dynamic
+const locale = 'en'; // Default language, not sure if it should be dynamic
+const amplitudeApiKey = ''; // Use invalid amplitude tracking key to force disable all amplitude analytics
 const userConsent = {
-  isUserOptedOutOfAnalytics: true,
+  isUserOptedOutOfAnalytics: true, // Disables all amplitude analytics tracking (even if a proper api key was being used)
   hasUserGivenAnyCookieConsent: false,
 };
-const userId = 'storybook';
+const userId = 'storybook'; // Fake id (would avoid user tracking even if correct api key was being used)
 const amplitudeInstance = getAmplitudeInstance({
   customerRef,
   iframeReferrer: null,
@@ -58,9 +70,9 @@ export const parameters = {
     storySort: {
       method: 'alphabetical',
       order: [
-        'Next Right Now',
+        'Next Right Now', // Should be first
         'Utilities',
-        'Storybook Examples',
+        'Storybook Examples', // Should be last, if kept
       ],
     },
   },
@@ -69,6 +81,9 @@ export const parameters = {
 /**
  * Allow to use Next.js Router in Storybook stories.
  *
+ * If you need to customise a component/story, then you should see https://github.com/lifeiscontent/storybook-addon-next-router#as-a-decorator-in-a-story
+ * You'll need to specify the Router behavior per-story if the below default config doesn't suit you.
+ *
  * @see https://github.com/lifeiscontent/storybook-addon-next-router#usage-in-previewjs
  */
 addDecorator(
@@ -76,17 +91,25 @@ addDecorator(
     path: '/', // defaults to `/`
     asPath: '/', // defaults to `/`
     query: {}, // defaults to `{}`
+    // @formatter:off Disables odd WebStorm formatting for next line
     push() {}, // defaults to using addon actions integration, can override any method in the router
+    // @formatter:on
   }),
 );
 
 /**
- * Decorators in .storybook/preview.js are used for context mocking.
+ *  Decorators in .storybook/preview.js are used for context mocking.
  *
  * Basically, they play a similar role to _app and appBootstrap components (MultiversalAppBootstrap, etc.)
  *
- * @type {(function(*))[]}
+ * Like parameters, decorators can be defined globally, at the component level and for a single story (as we’ve seen).
+ * All decorators, defined at all levels that apply to a story will run whenever that story is rendered, in the order:
+ * - Global decorators, in the order they are defined
+ * - Component decorators, in the order they are defined
+ * - Story decorators, in the order they are defined.
+ *
  * @see https://storybook.js.org/docs/react/writing-stories/decorators#context-for-mocking
+ * @see https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
  */
 export const decorators = [
   (Story) => (
@@ -110,7 +133,7 @@ export const decorators = [
               <ThemeProvider theme={customerTheme}>
                 <AmplitudeProvider
                   amplitudeInstance={amplitudeInstance}
-                  apiKey={process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY}
+                  apiKey={amplitudeApiKey}
                   userId={userId}
                 >
                   <Amplitude
@@ -118,7 +141,7 @@ export const decorators = [
                       app: {
                         name: customerRef,
                         release: customerRef,
-                        stage: 'development',
+                        stage: `storybook-${process.env.NODE_ENV}`,
                       },
                       page: {
                         url: location.href,
