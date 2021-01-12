@@ -81,6 +81,8 @@ module.exports = {
     /**
      * This storybook addon can be helpful to make your UI components more accessible.
      *
+     * Adds an "Accessibility" tab.
+     *
      * @see https://www.npmjs.com/package/@storybook/addon-a11y
      */
     '@storybook/addon-a11y',
@@ -101,8 +103,28 @@ module.exports = {
     /**
      * A storybook addon to help better understand and debug performance for React components.
      *
+     * Adds a "Performance" tab.
+     *
      * @see https://github.com/atlassian-labs/storybook-addon-performance
      */
-    'storybook-addon-performance/register'
+    'storybook-addon-performance/register',
+
+    /**
+     * Offers suggestions on how you can improve the HTML, CSS and UX of your components to be more mobile-friendly.
+     *
+     * Adds a "Mobile" tab.
+     *
+     * @see https://github.com/aholachek/storybook-mobile
+     */
+    'storybook-mobile',
+
+    /**
+     * A Storybook addon that embed Figma, websites, PDF or images in the addon panel.
+     *
+     * Adds a "Design" tab.
+     *
+     * @see https://github.com/pocka/storybook-addon-designs
+     */
+    'storybook-addon-designs',
   ],
 };
