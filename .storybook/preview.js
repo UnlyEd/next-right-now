@@ -29,7 +29,11 @@ import dataset from './mock/sb-dataset';
  * - We don't want to track analytics using Amplitude.
  * - All analytics is disabled when running a component through Storybook preview.
  *
- * XXX We will consider using Google Analytics for this, using a specific storybook plugin instead. (will be much easier to implement/use)
+ * About Google analytics:
+ * - We use Google Analytics for tracking analytics usage.
+ * - It's much easier to setup than Amplitude, because there is an official dedicated plugin for this.
+ * - See ".storybook/manager.js" for GA configuration.
+ * - See https://github.com/storybookjs/storybook/tree/master/addons/google-analytics
  */
 const customer = find(dataset, { __typename: 'Customer' });
 const customerTheme = initCustomerTheme(customer);
