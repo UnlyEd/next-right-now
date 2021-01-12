@@ -164,6 +164,7 @@
   },
   "devDependencies": {
     "@cypress/react": "4.16.3",
+    "@emotion/babel-preset-css-prop": "11.0.0",
     "@emotion/eslint-plugin": "11.0.0",
     "@next/bundle-analyzer": "10.0.5",
     "@storybook/addon-actions": "6.1.11",
