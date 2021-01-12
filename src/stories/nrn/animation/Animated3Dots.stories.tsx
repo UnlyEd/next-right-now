@@ -11,4 +11,4 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Animation: Story<Props> = () => <Animated3Dots fill={'blue'} />;
+export const DefaultExample: Story<Props> = () => <Animated3Dots fill={'blue'} />;

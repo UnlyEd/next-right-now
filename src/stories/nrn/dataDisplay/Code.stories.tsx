@@ -11,7 +11,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Animation: Story<Props> = () => {
+export const LoaderComponentExample: Story<Props> = () => {
   return (
     <Code
       text={`

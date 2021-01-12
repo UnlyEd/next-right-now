@@ -11,7 +11,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Animation: Story<Props> = () => {
+export const DefaultExample: Story<Props> = () => {
   return (
     <Tooltip
       overlay={<span>Tooltip!</span>}

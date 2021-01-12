@@ -6,7 +6,7 @@ import React from 'react';
 import DisplayOnBrowserMount, { Props } from '../../../components/rehydration/DisplayOnBrowserMount';
 
 export default {
-  title: 'Next Right Now/Rehydration/DisplayOnBrowserMount',
+  title: 'Next Right Now/React rehydration/DisplayOnBrowserMount',
   component: DisplayOnBrowserMount,
   argTypes: {},
 } as Meta;

@@ -11,4 +11,4 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const Animation: Story<Props> = () => <Loader />;
+export const DefaultExample: Story<Props> = () => <Loader />;
