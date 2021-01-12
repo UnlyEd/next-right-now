@@ -5,6 +5,7 @@ import { addDecorator } from '@storybook/react';
 import find from 'lodash.find';
 import React from 'react';
 import { withNextRouter } from 'storybook-addon-next-router';
+import { withPerformance } from 'storybook-addon-performance';
 import '../src/components/appBootstrap/MultiversalGlobalExternalStyles';
 import MultiversalGlobalStyles from '../src/components/appBootstrap/MultiversalGlobalStyles';
 import amplitudeContext from '../src/stores/amplitudeContext';
@@ -182,3 +183,10 @@ export const decorators = [
     </datasetContext.Provider>
   ),
 ];
+
+/**
+ * Enables storybook-addon-performance for all stories by default.
+ *
+ * @see https://github.com/atlassian-labs/storybook-addon-performance#installation
+ */
+addDecorator(withPerformance);

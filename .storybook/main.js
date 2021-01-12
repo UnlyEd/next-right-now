@@ -85,6 +85,8 @@ module.exports = {
      */
     '@storybook/addon-a11y',
 
+    // ------------------- Non official addons below ------------------
+
     /**
      * Adds support for CSS Modules.
      *
@@ -95,5 +97,12 @@ module.exports = {
      * @see https://nextjs.org/docs/basic-features/built-in-css-support#adding-component-level-css How to use CSS Modules with Next.js
      */
     'storybook-css-modules-preset',
+
+    /**
+     * A storybook addon to help better understand and debug performance for React components.
+     *
+     * @see https://github.com/atlassian-labs/storybook-addon-performance
+     */
+    'storybook-addon-performance/register'
   ],
 };
