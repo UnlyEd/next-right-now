@@ -2,6 +2,7 @@
 import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { ThemeProvider } from '@emotion/react';
 import { addDecorator } from '@storybook/react';
+import { themes } from '@storybook/theming';
 import find from 'lodash.find';
 import React from 'react';
 import { withNextRouter } from 'storybook-addon-next-router';
@@ -61,6 +62,16 @@ const amplitudeInstance = getAmplitudeInstance({
  * @see https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
  * @see https://github.com/storybookjs/storybook/blob/master/addons/actions/ADVANCED.md#configuration
  * @see https://storybook.js.org/docs/react/essentials/backgrounds#configuration
+ *
+ * Theme:
+ * Configure Storybook theme, using dark by default.
+ * You can customise this behavior per story using parameters.
+ * Configuring the theme in "manager.js" didn't work out.
+ * Also, the "Docs" section is better using the "normal" theme, for readability.
+ *
+ * @see https://storybook.js.org/docs/react/configure/theming#global-theming Global theming
+ * @see https://storybook.js.org/docs/react/configure/theming#theming-docs Per story theming (parameter)
+ * @see https://storybook.js.org/docs/react/configure/theming#create-a-theme-quickstart Creating your own theme
  */
 export const parameters = {
   actions: {
@@ -75,6 +86,7 @@ export const parameters = {
     expanded: true,
   },
   options: {
+    theme: themes.dark,
     // See https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
     storySort: {
       method: 'alphabetical',
@@ -84,6 +96,9 @@ export const parameters = {
         'Storybook Examples', // Should be last, if kept
       ],
     },
+  },
+  docs: {
+    theme: themes.normal,
   },
 };
 
