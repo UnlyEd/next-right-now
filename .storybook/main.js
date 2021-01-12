@@ -60,6 +60,15 @@ module.exports = {
     },
 
     /**
+     * Storybook Addon Knobs allow you to edit props dynamically using the Storybook UI.
+     * You can also use Knobs as a dynamic variable inside stories in Storybook.
+     *
+     * @see https://github.com/storybookjs/storybook/tree/master/addons/knobs
+     * @see https://github.com/storybookjs/storybook/tree/master/addons/knobs#with-react
+     */
+    '@storybook/addon-knobs',
+
+    /**
      * We use Google Analytics for tracking analytics usage.
      *
      * It's much easier to setup than Amplitude, because there is an official dedicated plugin for this.

@@ -170,6 +170,7 @@
     "@storybook/addon-actions": "6.1.11",
     "@storybook/addon-essentials": "6.1.11",
     "@storybook/addon-google-analytics": "6.1.12",
+    "@storybook/addon-knobs": "6.1.12",
     "@storybook/addon-links": "6.1.11",
     "@storybook/react": "6.1.11",
     "@svgr/cli": "5.5.0",
