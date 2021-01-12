@@ -1,3 +1,10 @@
+try {
+  require('../.jest-test-results.json');
+  console.warn(`[Storybook Jest config] Found "/.jest-test-results.json". \nStories will properly use Jest tests. \nRunning "yarn:test" in parallel of storybook will keep Storybook up-to-date with the latest test result.`);
+} catch (e) {
+  console.warn(`[Storybook Jest config] The test results file couldn't be found in "/.jest-test-results.json". \nStories will not use Jest tests. \nRunning "yarn test:generate-output" prior to running storybook will fix this. \nAlternatively, running "yarn:test" in parallel of storybook will keep Storybook up-to-date with the latest test result.`);
+}
+
 module.exports = {
   stories: [
     '../src/**/*.stories.mdx',
@@ -84,6 +91,13 @@ module.exports = {
      * @see https://www.npmjs.com/package/@storybook/addon-a11y
      */
     '@storybook/addon-a11y',
+
+    /**
+     * Brings Jest results in storybook.
+     *
+     * @see https://github.com/storybookjs/storybook/tree/master/addons/jest
+     */
+    '@storybook/addon-jest',
 
     /**
      * Adds support for CSS Modules.

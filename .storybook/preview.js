@@ -1,6 +1,7 @@
 // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { ThemeProvider } from '@emotion/react';
+import { withTests } from '@storybook/addon-jest';
 import { addDecorator } from '@storybook/react';
 import find from 'lodash.find';
 import React from 'react';
@@ -182,3 +183,25 @@ export const decorators = [
     </datasetContext.Provider>
   ),
 ];
+
+let testResults;
+
+try {
+  testResults = require('../.jest-test-results.json');
+
+  /**
+   * Configure Jest Storybook for all stories.
+   *
+   * Each story must define which test it's associated to, to show the associated tests results in the preview.
+   * See https://github.com/storybookjs/storybook/tree/master/addons/jest#usage
+   *
+   * @see https://github.com/storybookjs/storybook/tree/master/addons/jest
+   */
+  addDecorator(
+    withTests({
+      results: testResults,
+    }),
+  );
+} catch (e) {
+}
+
