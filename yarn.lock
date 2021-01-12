@@ -3995,6 +3995,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/reactstrap@8.7.2":
+  version "8.7.2"
+  resolved "https://registry.yarnpkg.com/@types/reactstrap/-/reactstrap-8.7.2.tgz#0ab86f35e472e8f2002eaf8c7a42193c9cea6add"
+  integrity sha512-8sYGS/LhG+ic8vhLwxhuVn+TSqS1lKzplm9BHv4JaQoetStAi9uOqP2VREfefIRT3JnOq5Y+G7Afdryvn+UgZQ==
+  dependencies:
+    reactstrap "*"
+
 "@types/request@^2.48.2":
   version "2.48.5"
   resolved "https://registry.yarnpkg.com/@types/request/-/request-2.48.5.tgz#019b8536b402069f6d11bee1b2c03e7f232937a0"
@@ -15157,7 +15164,7 @@ reactcss@^1.2.0:
   dependencies:
     lodash "^4.0.1"
 
-reactstrap@8.8.1:
+reactstrap@*, reactstrap@8.8.1:
   version "8.8.1"
   resolved "https://registry.yarnpkg.com/reactstrap/-/reactstrap-8.8.1.tgz#181ba837b797994f8d4571497d8a5eb678abfd8a"
   integrity sha512-Sv+JdQNrr0J96rUpI19slm21A1T++Xv97mhO5C9gq1bz8qdOQE0fXhF0/HxYcxyUops8Rdmwsli+8iu+yy9N/w==
