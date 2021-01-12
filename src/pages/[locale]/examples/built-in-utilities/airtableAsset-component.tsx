@@ -12,7 +12,7 @@ import AirtableAsset from '../../../../components/assets/AirtableAsset';
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../../components/utils/Code';
+import Code from '../../../../components/dataDisplay/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import useCustomer from '../../../../hooks/useCustomer';
 import { AirtableRecord } from '../../../../types/data/AirtableRecord';

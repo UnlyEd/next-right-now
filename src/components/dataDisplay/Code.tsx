@@ -5,7 +5,7 @@ import {
 } from 'react-code-blocks';
 import { CSSStyles } from '../../types/CSSStyles';
 
-type Props = {
+export type Props = {
   codeBlockStyle?: CSSStyles;
   codeContainerStyle?: CSSStyles;
   text: string;

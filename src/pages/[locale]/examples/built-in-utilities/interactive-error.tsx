@@ -13,7 +13,7 @@ import {
 
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../../components/utils/Code';
+import Code from '../../../../components/dataDisplay/Code';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';

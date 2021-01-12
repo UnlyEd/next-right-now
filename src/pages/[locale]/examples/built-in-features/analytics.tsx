@@ -17,7 +17,7 @@ import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSi
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
-import Code from '../../../../components/utils/Code';
+import Code from '../../../../components/dataDisplay/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import useUserConsent from '../../../../hooks/useUserConsent';
 import useUserSession, { UserSession } from '../../../../hooks/useUserSession';

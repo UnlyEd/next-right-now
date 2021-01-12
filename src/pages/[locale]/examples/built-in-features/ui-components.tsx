@@ -14,7 +14,7 @@ import {
 import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../../components/utils/Code';
+import Code from '../../../../components/dataDisplay/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import Tooltip from '../../../../components/utils/Tooltip';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
