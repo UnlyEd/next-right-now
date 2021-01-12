@@ -5,7 +5,7 @@ import {
 import React from 'react';
 
 export type Props = {
-  fill: string;
+  fill?: string;
 };
 
 const AnimatedTextBubble = (props: Props) => {
