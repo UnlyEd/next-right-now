@@ -38,6 +38,8 @@ const ErrorDebug = (props: Props): JSX.Element => {
         Note that debug information about the error are also available on the server/browser console.
       </i>
 
+      <hr />
+
       <h2>Debug information:</h2>
 
       <pre
