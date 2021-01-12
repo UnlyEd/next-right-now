@@ -15,4 +15,3 @@ export const DefaultExample: React.VFC<Props> = () => {
     />
   );
 };
-// I18nBtnChangeLocaleFooter.displayName = 'I18n Btn Change Locale';
