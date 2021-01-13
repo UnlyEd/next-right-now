@@ -68,7 +68,7 @@ They make most sense if you need to deal with different alerting behavior based 
     - The event occurs
 - If: None
 - Then: Send a Slack notification to `#oss-nrn-monitoring-production`
-    Tags: `appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+    Tags: `alertType, stage, appName, release, buildTimeISO, customerRef, host, url, runtimeEngine, device, lang, level, nodejs, iframe, fileLabel, userId`
 - Action interval: 5mn
 
 #### Alert - Staging all events
@@ -80,7 +80,7 @@ They make most sense if you need to deal with different alerting behavior based 
     - The event occurs
 - If: None
 - Then: Send a Slack notification to `#oss-nrn-monitoring-staging`
-    Tags: `appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+    Tags: `alertType, stage, appName, release, buildTimeISO, customerRef, host, url, runtimeEngine, device, lang, level, nodejs, iframe, fileLabel, userId`
 - Action interval: 5mn
 
 #### Alert - Development all events
@@ -92,7 +92,7 @@ They make most sense if you need to deal with different alerting behavior based 
     - The event occurs
 - If: None
 - Then: Send a Slack notification to `#oss-nrn-monitoring-development`
-    Tags: `appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+    Tags: `alertType, stage, appName, release, buildTimeISO, customerRef, host, url, runtimeEngine, device, lang, level, nodejs, iframe, fileLabel, userId`
 - Action interval: 5mn
 
 #### Alert - [Prod] All events with "alertType" set
@@ -102,7 +102,7 @@ They make most sense if you need to deal with different alerting behavior based 
 - When "additional triggers": None
 - If: The event's tags match alertType is set
 - Then: Send a Slack notification to `#oss-nrn-monitoring-production`
-    Tags: `alertType, appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+    Tags: `alertType, stage, appName, release, buildTimeISO, customerRef, host, url, runtimeEngine, device, lang, level, nodejs, iframe, fileLabel, userId`
 - Action interval: 5mn
 
 #### Alert - [!Prod] All events with "alertType" set
@@ -113,7 +113,7 @@ They make most sense if you need to deal with different alerting behavior based 
 - If: The event's tags match alertType is set
   The event's environment value doesn't contain production
 - Then: Send a Slack notification to `#oss-nrn-monitoring-staging`
-    Tags: `alertType, appName, appVersion, institution, host, url, environment, release, runtimeEngine, lang, level, nodejs, memory, buildTime, iframe, fileLabel`
+    Tags: `alertType, stage, appName, release, buildTimeISO, customerRef, host, url, runtimeEngine, device, lang, level, nodejs, iframe, fileLabel, userId`
 - Action interval: 5mn
 
 
