@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -67,13 +68,18 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
     >
       <DocPage>
         <h1 className={'pcolor'}>SVG to react component examples</h1>
-
-        <p>
+        <p
+          css={css`
+            .flags{
+              margin: 10px 20px 10px 0;
+            }
+          `}
+        >
           If you use SVGs, you may want to easily convert those as React components so that they're easier to work with (custom props, dynamic colors/size, etc.).<br />
           That's what we did with the country flags:<br />
-          <FrenchFlag />
-          <EnglishHybridFlag />
-          <EnglishUkFlag />
+          <FrenchFlag className={'flags'}/>
+          <EnglishHybridFlag className={'flags'}/>
+          <EnglishUkFlag className={'flags'}/>
           <br />
           It'd be very easy to update those components to add some additional capabilities, such as resizing them through props, because they're React components.
         </p>
