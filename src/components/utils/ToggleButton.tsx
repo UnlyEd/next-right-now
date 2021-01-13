@@ -89,7 +89,6 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
           + .tgl-btn {
             background: #f0f0f0;
             border-radius: 2em;
-            padding: 2px;
             transition: all .4s ease;
 
             &:after {
@@ -108,7 +107,6 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
           + .tgl-btn {
             background: #fbfbfb;
             border-radius: 2em;
-            padding: 2px;
             transition: all .4s ease;
             border: 1px solid #e8eae9;
 
@@ -126,7 +124,7 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
             }
 
             &:active {
-              box-shadow: inset 0 0 0 2em #e8eae9;
+              box-shadow: inset 0 0 0 0em #e8eae9;
 
               &:after {
                 padding-right: .8em;
