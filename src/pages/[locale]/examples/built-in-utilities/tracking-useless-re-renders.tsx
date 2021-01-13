@@ -15,7 +15,7 @@ import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilities
 import DocPage from '../../../../components/doc/DocPage';
 import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../../components/dataDisplay/Code';
+import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';

@@ -13,7 +13,7 @@ import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
 import EnglishFlag from '../../../../components/svg/EnglishFlag';
 import FrenchFlag from '../../../../components/svg/FrenchFlag';
-import Code from '../../../../components/dataDisplay/Code';
+import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';

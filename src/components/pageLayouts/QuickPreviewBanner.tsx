@@ -13,7 +13,7 @@ import { Customer } from '../../types/data/Customer';
 import { CustomerTheme } from '../../types/data/CustomerTheme';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import Btn from '../utils/Btn';
-import Tooltip from '../overlay/Tooltip';
+import Tooltip from '../utils/Tooltip';
 
 const fileLabel = 'components/pageLayouts/QuickPreviewBanner';
 const logger = createLogger({

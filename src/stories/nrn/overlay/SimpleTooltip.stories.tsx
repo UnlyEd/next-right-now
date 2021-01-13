@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import SimpleTooltip, { Props } from '../../../components/overlay/SimpleTooltip';
+import SimpleTooltip, { Props } from '../../../components/utils/SimpleTooltip';
 
 export default {
   title: 'Next Right Now/Overlay/SimpleTooltip',

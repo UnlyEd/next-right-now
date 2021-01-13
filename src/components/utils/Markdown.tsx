@@ -21,7 +21,7 @@ import { CSSStyles } from '../../types/CSSStyles';
 import { Markdown as MarkdownType } from '../../types/Markdown';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
-import Tooltip from '../overlay/SimpleTooltip';
+import Tooltip from './SimpleTooltip';
 
 const fileLabel = 'components/utils/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
