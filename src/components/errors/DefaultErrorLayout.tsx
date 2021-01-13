@@ -2,12 +2,13 @@ import { css } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import * as React from 'react';
 import { Button } from 'reactstrap';
+import { GenericObject } from '../../types/GenericObject';
 
 import ErrorDebug from './ErrorDebug';
 
 type Props = {
   error: Error;
-  context?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  context?: GenericObject;
 }
 
 /**
@@ -19,7 +20,7 @@ type Props = {
  * @param props
  */
 const DefaultErrorLayout = (props: Props): JSX.Element => {
-  const { error } = props;
+  const { error, context } = props;
   const errorEventId = Sentry.captureException(error);
 
   return (
@@ -59,6 +60,7 @@ const DefaultErrorLayout = (props: Props): JSX.Element => {
         process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && (
           <ErrorDebug
             error={error}
+            context={context}
           />
         )
       }

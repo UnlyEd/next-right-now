@@ -37,8 +37,8 @@ if (process.env.SENTRY_DSN) {
     scope.setTag('appName', process.env.NEXT_PUBLIC_APP_NAME);
     scope.setTag('appVersion', process.env.NEXT_PUBLIC_APP_VERSION);
     scope.setTag('appNameVersion', process.env.NEXT_PUBLIC_APP_NAME_VERSION);
-    scope.setTag('appVersionRelease', process.env.NEXT_PUBLIC_APP_VERSION_RELEASE);
     scope.setTag('appBuildTime', process.env.NEXT_PUBLIC_APP_BUILD_TIME);
+    scope.setTag('buildTimeISO', (new Date(process.env.NEXT_PUBLIC_APP_BUILD_TIME || null)).toISOString());
     scope.setTag('appBuildId', process.env.NEXT_PUBLIC_APP_BUILD_ID);
     scope.setTag('nodejs', process.version);
     scope.setTag('nodejsAWS', process.env.AWS_EXECUTION_ENV || null); // Optional - Available on production environment only
