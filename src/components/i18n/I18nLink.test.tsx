@@ -10,11 +10,25 @@ import I18nLink from './I18nLink';
  * @group components
  */
 describe('I18nLink', () => {
+  beforeEach(() => {
+    global.console = global.muteConsole();
+  });
+
   const I18nLinkTest = (props) => {
-    const { locale = 'en', href, text = 'Text', ...rest } = props;
+    const {
+      locale = 'en',
+      href,
+      text = 'Text',
+      ...rest
+    } = props;
 
     return (
-      <i18nContext.Provider value={{ lang: null, locale: locale }}>
+      <i18nContext.Provider
+        value={{
+          lang: null,
+          locale: locale,
+        }}
+      >
         <I18nLink
           href={href}
           {...rest}
