@@ -12,8 +12,8 @@ import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilities
 import DocPage from '../../../../components/doc/DocPage';
 import I18nLink from '../../../../components/i18n/I18nLink';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
+import Btn from '../../../../components/utils/Btn';
 import Code from '../../../../components/utils/Code';
-import ExternalLink from '../../../../components/utils/ExternalLink';
 import withApollo from '../../../../hocs/withApollo';
 import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
@@ -82,19 +82,18 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
           This page doesn't exist and should display a 404 page.
         </Alert>
 
-        <Alert color={'danger'}>
-          Clicking on the link doesn't do anything, I don't know if it's meant to be a feature, but
-          <ExternalLink href={'https://github.com/vercel/next.js/issues/13516'} suffix={null}>this is probably a bug</ExternalLink>.
-        </Alert>
-
         <p>
-          <I18nLink href={'/404-csr'}>This is a client-side navigation (CSR)</I18nLink>
+          <Btn mode={'primary-outline'}>
+            <I18nLink href={'/404-csr'}>This is a client-side navigation (CSR)</I18nLink>
+          </Btn>
         </p>
 
         <Code
           text={`
-            <I18nLink href={'/404-csr'}>This is a client-side navigation (CSR)</I18nLink>
-          `}
+            <Btn mode={'primary-outline'}>
+              <I18nLink href={'/404-csr'}>This is a client-side navigation (CSR)</I18nLink>
+            </Btn>
+      `}
         />
         <br />
 
@@ -106,12 +105,16 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
 
         <p>
           <i>This is not CSR, it's not necessarily SSR either, it can be either static rendering or SSR.</i><br />
-          <a href={'/404-static'}>This is a normal navigation</a>
+          <Btn mode={'primary-outline'}>
+            <a href={'/404-static'}>This is a normal navigation</a>
+          </Btn>
         </p>
 
         <Code
           text={`
-            <a href={'/404-static'}>This is a normal navigation</a>
+            <Btn mode={'primary-outline'}>
+              <a href={'/404-static'}>This is a normal navigation</a>
+            </Btn>
           `}
         />
         <br />
@@ -150,16 +153,22 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
         <br />
 
         <p>
-          <I18nLink href={'/examples/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink><br />
-          <a href={'/examples/built-in-utilities/top-level-500-error'}>This is a normal navigation</a>
+          <Btn mode={'primary-outline'}>
+            <I18nLink href={'/examples/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink><br />
+          </Btn>
+          <Btn mode={'primary-outline'}>
+            <a href={'/examples/built-in-utilities/top-level-500-error'}>This is a normal navigation</a>
+          </Btn>
         </p>
         <br />
 
         <hr />
 
-        <h2>500 - Interactive error</h2>
+        <h2>Interactive error (simulating User interaction)</h2>
 
-        <I18nLink href={'/examples/built-in-utilities/interactive-error'}>Go to interactive error page</I18nLink><br />
+        <Btn mode={'primary-outline'}>
+          <I18nLink href={'/examples/built-in-utilities/interactive-error'}>Go to interactive error page</I18nLink><br />
+        </Btn>
 
         <br />
 
