@@ -11,7 +11,7 @@ export default {
   component: I18nLink,
   argTypes: {
     wrapChildrenAsLink: {
-      table: {
+      control: {
         disable: true, // Disable field because it crashes the UI when being used (expected behavior but bad UX)
       },
     },
