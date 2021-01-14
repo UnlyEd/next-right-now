@@ -5,12 +5,12 @@ import { CustomerTheme } from '../../types/data/CustomerTheme';
  */
 export type ComponentThemeMode =
   'primary' | // Primary color for background, on-primary color for text
+  'primary-outline' | // Primary color for text and for border, on-primary color for background
   'primary-reverse' | // Primary color for text, on-primary color for background
   'primary-variant' | // Primary variant color for background, on-primary color for text
-  'primary-outline' | // Primary color for text and for border, on-primary color for background
   'secondary' | // Secondary color for background, on-secondary color for text
-  'secondary-reverse' | // Secondary color for text, on-secondary color for background
   'secondary-outline' | // Secondary color for text and for border, on-secondary color for background
+  'secondary-reverse' | // Secondary color for text, on-secondary color for background
   'secondary-variant'; // Secondary variant color for background, on-secondary color for text
 
 /**
