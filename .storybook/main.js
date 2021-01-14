@@ -1,6 +1,6 @@
-const path = require("path")
-
+const { promises: fs } = require('fs');
 const path = require('path');
+const fetch = require('node-fetch');
 
 const toPath = (_path) => path.join(process.cwd(), _path);
 
@@ -153,6 +153,36 @@ module.exports = {
    * @see https://storybook.js.org/docs/react/configure/overview#configure-your-storybook-project
    */
   webpackFinal: async (config) => {
+    const {
+      mode: environment,
+      plugins,
+      module,
+    } = config;
+    const version = environment === 'development' ? 'latest' : 'production';
+    const languages = ['en', 'fr'];
+    const namespaces = ['common'];
+    const allI18nTranslations = {};
+
+    for (let i = 0; i < languages.length; i++) {
+      const lang = languages[i];
+      for (let j = 0; j < namespaces.length; j++) {
+        const namespace = namespaces[j];
+        const locizeAPIEndpoint = `https://api.locize.app/${process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID}/${version}/${lang}/${namespace}`;
+        console.log('Fetching translations from:', locizeAPIEndpoint);
+        const defaultI18nTranslationsResponse = await fetch(locizeAPIEndpoint);
+        const i18nTranslations = await defaultI18nTranslationsResponse.json();
+
+        allI18nTranslations[lang] = allI18nTranslations[lang] || {};
+        allI18nTranslations[lang][namespace] = i18nTranslations;
+      }
+    }
+
+    // Store translations
+    const translationCacheFile = path.join(__dirname, '.sb-translations.cache.json');
+    console.log('Writing translations cache to:', translationCacheFile);
+
+    await fs.writeFile(translationCacheFile, JSON.stringify(allI18nTranslations, null, 2), 'utf8');
+
     return {
       ...config,
       resolve: {
