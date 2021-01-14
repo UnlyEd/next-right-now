@@ -13,7 +13,7 @@ import {
 
 export type Props = {
   /**
-   * What's displayed within the button.
+   * What's being displayed within the button.
    */
   children: ReactNode;
 

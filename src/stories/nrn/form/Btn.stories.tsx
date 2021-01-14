@@ -5,12 +5,21 @@ import {
 import React from 'react';
 import Btn, { Props } from '../../../components/utils/Btn';
 
+type PropsWithText = Props & { text?: string };
+
 export default {
   title: 'Next Right Now/Form/Btn',
   component: Btn,
+  argTypes: {
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+  }
 } as Meta;
 
-export const BtnDynamicExample: Story<Props & { text?: string }> = (props) => {
+const Template: Story<PropsWithText> = (props) => {
   const { text = 'Default text' } = props;
 
   return (
@@ -22,4 +31,11 @@ export const BtnDynamicExample: Story<Props & { text?: string }> = (props) => {
       {text}
     </Btn>
   );
+};
+
+export const BtnDynamicExample: Story<Props> = Template.bind({});
+
+export const BtnDynamicTextExample: Story<PropsWithText> = Template.bind({});
+BtnDynamicTextExample.args = {
+  text: 'Hello',
 };
