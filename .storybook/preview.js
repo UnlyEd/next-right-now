@@ -20,6 +20,8 @@ import userConsentContext from '../src/stores/userConsentContext';
 import { userSessionContext } from '../src/stores/userSessionContext';
 import { getAmplitudeInstance } from '../src/utils/analytics/amplitude';
 import { initCustomerTheme } from '../src/utils/data/theme';
+import i18nextLocize, { fetchTranslations } from '../src/utils/i18n/i18nextLocize';
+import '../src/utils/icons/font-awesome';
 import dataset from './mock/sb-dataset';
 
 /**
@@ -53,6 +55,11 @@ const amplitudeInstance = getAmplitudeInstance({
   userId,
   userConsent: userConsent,
 });
+
+(async () => {
+  const i18nTranslations = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+  i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
+})();
 
 /**
  * Story Global parameters for Storybook.
