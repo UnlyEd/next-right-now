@@ -4,6 +4,40 @@ const fetch = require('node-fetch');
 
 const toPath = (_path) => path.join(process.cwd(), _path);
 
+/**
+ * Fetches translations from Locize and store them in the filesystem.
+ * They will be loaded in preview.js, which will configure Locize so that components can display their translations.
+ *
+ * @param environment
+ */
+const fetchLocizeTranslation = async (environment) => {
+  const cacheFileName = '.sb-translations.cache.json';
+  const version = environment === 'development' ? 'latest' : 'production';
+  const languages = ['en', 'fr'];
+  const namespaces = ['common'];
+  const allI18nTranslations = {};
+
+  for (let i = 0; i < languages.length; i++) {
+    const lang = languages[i];
+    for (let j = 0; j < namespaces.length; j++) {
+      const namespace = namespaces[j];
+      const locizeAPIEndpoint = `https://api.locize.app/${process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID}/${version}/${lang}/${namespace}`;
+      console.log('Fetching translations from:', locizeAPIEndpoint);
+      const defaultI18nTranslationsResponse = await fetch(locizeAPIEndpoint);
+      const i18nTranslations = await defaultI18nTranslationsResponse.json();
+
+      allI18nTranslations[lang] = allI18nTranslations[lang] || {};
+      allI18nTranslations[lang][namespace] = i18nTranslations;
+    }
+  }
+
+  // Store translations
+  const translationCacheFile = path.join(__dirname, cacheFileName);
+  console.log('Writing translations cache to:', translationCacheFile);
+
+  await fs.writeFile(translationCacheFile, JSON.stringify(allI18nTranslations, null, 2), 'utf8');
+};
+
 module.exports = {
   stories: [
     '../src/**/*.stories.mdx',
@@ -158,30 +192,7 @@ module.exports = {
       plugins,
       module,
     } = config;
-    const version = environment === 'development' ? 'latest' : 'production';
-    const languages = ['en', 'fr'];
-    const namespaces = ['common'];
-    const allI18nTranslations = {};
-
-    for (let i = 0; i < languages.length; i++) {
-      const lang = languages[i];
-      for (let j = 0; j < namespaces.length; j++) {
-        const namespace = namespaces[j];
-        const locizeAPIEndpoint = `https://api.locize.app/${process.env.NEXT_PUBLIC_LOCIZE_PROJECT_ID}/${version}/${lang}/${namespace}`;
-        console.log('Fetching translations from:', locizeAPIEndpoint);
-        const defaultI18nTranslationsResponse = await fetch(locizeAPIEndpoint);
-        const i18nTranslations = await defaultI18nTranslationsResponse.json();
-
-        allI18nTranslations[lang] = allI18nTranslations[lang] || {};
-        allI18nTranslations[lang][namespace] = i18nTranslations;
-      }
-    }
-
-    // Store translations
-    const translationCacheFile = path.join(__dirname, '.sb-translations.cache.json');
-    console.log('Writing translations cache to:', translationCacheFile);
-
-    await fs.writeFile(translationCacheFile, JSON.stringify(allI18nTranslations, null, 2), 'utf8');
+    await fetchLocizeTranslation(environment);
 
     return {
       ...config,

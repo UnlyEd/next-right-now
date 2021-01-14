@@ -56,6 +56,7 @@ const amplitudeInstance = getAmplitudeInstance({
   userConsent: userConsent,
 });
 
+// Configure translations (Locize)
 const i18nTranslations = require('./.sb-translations.cache.json');
 i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
 
