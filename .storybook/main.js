@@ -1,6 +1,8 @@
 const path = require("path")
 
-const toPath = (_path) => path.join(process.cwd(), _path)
+const path = require('path');
+
+const toPath = (_path) => path.join(process.cwd(), _path);
 
 module.exports = {
   stories: [
@@ -167,11 +169,11 @@ module.exports = {
            *
            * @see https://github.com/storybookjs/storybook/issues/13277#issuecomment-751747964
            */
-          "@emotion/core": toPath("node_modules/@emotion/react"),
-          "@emotion/styled": toPath("node_modules/@emotion/styled"),
-          "emotion-theming": toPath("node_modules/@emotion/react"),
-        }
-      }
+          '@emotion/core': toPath('node_modules/@emotion/react'),
+          '@emotion/styled': toPath('node_modules/@emotion/styled'),
+          'emotion-theming': toPath('node_modules/@emotion/react'),
+        },
+      },
     };
-  }
+  },
 };
