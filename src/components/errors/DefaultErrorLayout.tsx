@@ -2,12 +2,13 @@ import { css } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import * as React from 'react';
 import { Button } from 'reactstrap';
+import { GenericObject } from '../../types/GenericObject';
 
 import ErrorDebug from './ErrorDebug';
 
 export type Props = {
   error: Error;
-  context?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  context?: GenericObject;
 }
 
 /**

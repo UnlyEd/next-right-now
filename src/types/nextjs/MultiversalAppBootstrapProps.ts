@@ -2,7 +2,7 @@ import {
   NextComponentType,
   NextPageContext,
 } from 'next';
-import { NextRouter } from 'next/router';
+import { Router } from 'next/router';
 
 import { MultiversalPageProps } from '../pageProps/MultiversalPageProps';
 
@@ -16,7 +16,7 @@ export type MultiversalAppBootstrapProps<PP extends MultiversalPageProps = Multi
   Component?: NextComponentType<NextPageContext>; // Page component, not provided if pageProps.statusCode is 3xx or 4xx
   err?: Error; // Only defined if there was an error
   pageProps?: PP; // Props forwarded to the Page component
-  router?: NextRouter;
+  router?: Router;
 
   // XXX Next.js internals (unstable API) - See https://github.com/vercel/next.js/discussions/12558#discussioncomment-9177
   __N_SSG?: boolean; // Stands for "server-side generated" or "static site generation", indicates the page was generated through getStaticProps

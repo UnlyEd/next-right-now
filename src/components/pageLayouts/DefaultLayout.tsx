@@ -67,6 +67,10 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     level: Sentry.Severity.Debug,
   });
 
+  Sentry.configureScope((scope): void => {
+    scope.setTag('fileLabel', fileLabel);
+  });
+
   return (
     <Amplitude
       eventProperties={(inheritedProps): GenericObject => ({

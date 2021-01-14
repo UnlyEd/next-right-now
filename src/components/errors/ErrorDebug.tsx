@@ -1,10 +1,11 @@
 import { css } from '@emotion/react';
 import * as React from 'react';
 import { Fragment } from 'react';
+import { GenericObject } from '../../types/GenericObject';
 
 type Props = {
   error?: Error;
-  context?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  context?: GenericObject;
 }
 
 /**

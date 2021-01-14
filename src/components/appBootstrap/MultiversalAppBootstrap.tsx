@@ -30,6 +30,7 @@ import {
 import { initCustomerTheme } from '../../utils/data/theme';
 import i18nextLocize from '../../utils/i18n/i18nextLocize';
 import { configureSentryI18n } from '../../utils/monitoring/sentry';
+import getComponentName from '../../utils/nextjs/getComponentName';
 import {
   startPreviewMode,
   stopPreviewMode,
@@ -38,7 +39,6 @@ import { detectLightHouse } from '../../utils/quality/lighthouse';
 import { detectCypress } from '../../utils/testing/cypress';
 import Loader from '../animations/Loader';
 import DefaultErrorLayout from '../errors/DefaultErrorLayout';
-import ErrorDebug from '../errors/ErrorDebug';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
@@ -65,6 +65,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   } = props;
   // When using SSG with "fallback: true" and the page hasn't been generated yet then isSSGFallbackInitialBuild is true
   const [isSSGFallbackInitialBuild] = useState<boolean>(isEmpty(pageProps) && router?.isFallback === true);
+  const pageComponentName = getComponentName(props.Component);
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -72,12 +73,70 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     level: Sentry.Severity.Debug,
   });
 
+  // Configure meaningful Next.js props in Sentry for easier debugging (all errors will report the props being passed to the page)
+  // Filter out all entities that are too large, which might cause Sentry to fail sending the request
+  Sentry.configureScope((scope): void => {
+    const {
+      Component,
+      pageProps,
+      err,
+      router,
+      ...restProps
+    } = props;
+    const {
+      asPath,
+      basePath,
+      defaultLocale,
+      isFallback,
+      isSsr,
+      locale,
+      locales,
+      pathname,
+      query,
+      ...restRouter // Other router props aren't interesting to track and are being ignored
+    } = router;
+    const {
+      serializedDataset, // Size might be too big
+      i18nTranslations, // Size might be too big
+      ...restPageProps
+    } = pageProps; // XXX Exclude all non-meaningful props that might be too large for Sentry to handle, to avoid "403 Entity too large"
+    const serializedDatasetLength = (serializedDataset || '').length;
+
+    // Track meaningful _app.props + unknown props. Other props (router, pageProps) will be tracked in another Sentry context for readability (DX)
+    scope.setContext('_app.props (filtered)', {
+      pageComponentName: pageComponentName,
+      err: props.err,
+      ...restProps,
+    });
+    scope.setTag('hasCaughtNextErr', !!props?.err);
+    scope.setContext('_app.router (filtered)', {
+      asPath,
+      basePath,
+      defaultLocale,
+      isFallback,
+      isSsr,
+      locale,
+      locales,
+      pathname,
+      query,
+    });
+    scope.setContext('_app.pageProps (filtered)', {
+      serializedDatasetLength,
+      ...restPageProps,
+    });
+    scope.setContext('build', {
+      buildTime: process.env.NEXT_PUBLIC_BUILD_TIME,
+      buildTimeISO: (new Date(process.env.NEXT_PUBLIC_APP_BUILD_TIME || null)).toISOString(),
+      buildId: process.env.NEXT_PUBLIC_APP_BUILD_ID,
+    });
+  });
+
   if (isBrowser() && process.env.NEXT_PUBLIC_APP_STAGE !== 'production') { // Avoids log clutter on server
     console.debug('MultiversalAppBootstrap.props', props); // eslint-disable-line no-console
   }
 
   // Display a loader (we could use a skeleton too) when this happens, so that the user doesn't face a white page until the page is generated and displayed
-  if (isSSGFallbackInitialBuild && router.isFallback) { // When router.isFallback becomes "false", then it'll mean the page has been generated and rendered and we can display it, instead of the loader
+  if (isSSGFallbackInitialBuild && router?.isFallback) { // When router.isFallback becomes "false", then it'll mean the page has been generated and rendered and we can display it, instead of the loader
     return (
       <Loader />
     );
@@ -96,18 +155,50 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }: SSGPageProps | SSRPageProps = pageProps;
     configureSentryI18n(lang, locale);
 
+    // Unrecoverable error, we can't even display the layout because we don't have the minimal required information to properly do so.
+    // The reason can be a UI crash (something broke due to the user's interaction) and a top-level error was thrown in props.err.
+    // Or, it can be because no serializedDataset was provided.
+    // Either way, we display the error page, which will take care of reporting the error to Sentry and display an error message depending on the environment.
     if (typeof serializedDataset !== 'string') {
-      return (
-        <ErrorDebug
-          error={new Error(`Fatal error - Unexpected "serializedDataset" passed as page props.\n
+      // eslint-disable-next-line no-console
+      console.log('props', props);
+
+      if (props.err) {
+        const error = new Error(`Fatal error - A top-level error was thrown by the application, which caused the Page.props to be lost. \n
+        The page cannot be shown to the end-user, an error page will be displayed.`);
+        logger.error(error);
+
+        return (
+          <ErrorPage
+            err={props.err}
+            statusCode={500}
+            isReadyToRender={true}
+          >
+            <DefaultErrorLayout
+              error={props.err}
+              context={pageProps}
+            />
+          </ErrorPage>
+        );
+      } else {
+        const error = new Error(`Fatal error - Unexpected "serializedDataset" passed as page props.\n
           Expecting string, but got "${typeof serializedDataset}".\n
           This error is often caused by returning an invalid "serializedDataset" from a getStaticProps/getServerSideProps.\n
-          Make sure you return a correct value, using "serializeSafe".`)}
-          context={{
-            pageProps,
-          }}
-        />
-      );
+          Make sure you return a correct value, using "serializeSafe".`);
+
+        return (
+          <ErrorPage
+            err={error}
+            statusCode={500}
+            isReadyToRender={true}
+          >
+            <DefaultErrorLayout
+              error={error}
+              context={pageProps}
+            />
+          </ErrorPage>
+        );
+      }
     }
 
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
@@ -182,33 +273,39 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
         // E.g: This will happens when an instance was deployed for a customer, but the customer.ref was changed since then.
         if (process.env.NEXT_PUBLIC_CUSTOMER_REF !== customer?.ref) {
           error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
-            `An error happened, the app cannot start. (customer doesn't match)` :
-            `Fatal error when bootstraping the app. The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}".`,
+            `Fatal error - An error happened, the page cannot be displayed. (customer doesn't match)` :
+            `Fatal error when bootstrapping the app. The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}".`,
           );
         } else {
           error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
-            `An error happened, the app cannot start.` :
-            `Fatal error when bootstraping the app. It might happen when lang/locale/translations couldn't be resolved.`,
+            `Fatal error - An error happened, the page cannot be displayed.` :
+            `Fatal error when bootstrapping the app. It might happen when lang/locale/translations couldn't be resolved.`,
           );
         }
-
-        // If the error wasn't detected by Next, then we log it to Sentry to make sure we'll be notified
-        Sentry.withScope((scope): void => {
-          scope.setContext('props', props);
-          Sentry.captureException(error);
-        });
       } else {
         // If an error was detected by Next, then it means the current state is due to a top-level that was caught before
         // We don't have anything to do, as it's automatically logged into Sentry
+        const error = new Error(`Fatal error - Misconfiguration detected, the page cannot be displayed.`);
+        logger.error(error);
       }
 
       return (
-        <ErrorPage err={error} statusCode={500} isReadyToRender={true}>
+        <ErrorPage
+          err={error}
+          statusCode={500}
+          isReadyToRender={true}
+        >
           <DefaultErrorLayout
             error={error}
+            context={pageProps}
           />
         </ErrorPage>
       );
+    } else if (props?.err) {
+      // If an error was caught by Next.js (but wasn't fatal since we reached this point), we log it to Sentry to make sure we'll be notified
+      Sentry.withScope((scope): void => {
+        Sentry.captureException(props.err);
+      });
     }
 
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
