@@ -11,7 +11,7 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const LoaderComponentExample: Story<Props> = () => {
+export const DefaultExample: Story<Props> = () => {
   return (
     <Code
       text={`
