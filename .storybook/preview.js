@@ -9,7 +9,7 @@ import { withNextRouter } from 'storybook-addon-next-router';
 import { withPerformance } from 'storybook-addon-performance';
 import '../src/components/appBootstrap/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import MultiversalGlobalStyles from '../src/components/appBootstrap/MultiversalGlobalStyles';
-import { defaultLocale, supportedLocales } from '../src/i18nConfig';
+import { defaultLocale, getLangFromLocale, supportedLocales } from '../src/i18nConfig';
 import amplitudeContext from '../src/stores/amplitudeContext';
 import customerContext from '../src/stores/customerContext';
 import { cypressContext } from '../src/stores/cypressContext';
@@ -25,41 +25,8 @@ import i18nextLocize from '../src/utils/i18n/i18nextLocize';
 import '../src/utils/icons/font-awesome';
 import dataset from './mock/sb-dataset';
 
-/**
- * Mock variables used to initialize all stories.
- *
- * Mocking those ensures the components relying on them will work as expected.
- *
- * About Amplitude analytics:
- * - We don't want to track analytics using Amplitude.
- * - All analytics is disabled when running a component through Storybook preview.
- *
- * About Google analytics, see ".storybook/main.js" documentation.
- */
-const customer = find(dataset, { __typename: 'Customer' });
-const customerTheme = initCustomerTheme(customer);
-const customerRef = 'storybook'; // Fake customer ref
-const locale = defaultLocale;
-const lang = (supportedLocales.find((locale) => locale.name === defaultLocale)).name;
-const amplitudeApiKey = ''; // Use invalid amplitude tracking key to force disable all amplitude analytics
-const userConsent = {
-  isUserOptedOutOfAnalytics: true, // Disables all amplitude analytics tracking (even if a proper api key was being used)
-  hasUserGivenAnyCookieConsent: false,
-};
-const userId = 'storybook'; // Fake id (would avoid user tracking even if correct api key was being used)
-const amplitudeInstance = getAmplitudeInstance({
-  customerRef,
-  iframeReferrer: null,
-  isInIframe: false,
-  lang,
-  locale,
-  userId,
-  userConsent: userConsent,
-});
-
-// Configure translations (Locize)
+// Loads translations from local file cache (Locize)
 const i18nTranslations = require('./.sb-translations.cache.json');
-i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
 
 /**
  * Story Global parameters for Storybook.
@@ -127,7 +94,7 @@ export const globalTypes = { // paintbrush github
   locale: {
     name: 'Locale',
     description: 'Global locale for components',
-    defaultValue: locale,
+    defaultValue: defaultLocale,
     toolbar: {
       icon: 'globe', // See https://www.chromatic.com/component?appId=5a375b97f4b14f0020b0cda3&name=Basics%7CIcon&mode=interactive&buildNumber=13899
       items: supportedLocales.map(locale => locale.name),
@@ -155,7 +122,7 @@ addDecorator(
 );
 
 /**
- *  Decorators in .storybook/preview.js are used for context mocking.
+ * Decorators in .storybook/preview.js are used for context mocking.
  *
  * Basically, they play a similar role to _app and appBootstrap components (MultiversalAppBootstrap, etc.)
  *
@@ -169,67 +136,107 @@ addDecorator(
  * @see https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
  */
 export const decorators = [
-  (Story) => (
-    <datasetContext.Provider value={dataset}>
-      <quickPreviewContext.Provider value={false}>
-        <previewModeContext.Provider
-          value={{
-            isPreviewModeEnabled: false,
-            previewData: null,
-          }}
-        >
-          <i18nContext.Provider
+  /**
+   * Mock variables used to initialize all stories.
+   *
+   * Mocking those ensures the components relying on them will work as expected.
+   *
+   * About Amplitude analytics:
+   * - We don't want to track analytics using Amplitude.
+   * - All analytics is disabled when running a component through Storybook preview.
+   *
+   * About Google analytics, see ".storybook/main.js" documentation.
+   *
+   * @see https://storybook.js.org/docs/react/essentials/toolbars-and-globals#create-a-decorator Context and globals
+   */
+  (Story, context) => {
+    // Configure i18n. In Storybook, the locale can be set from the top Toolbar.
+    const locale = context?.globals?.locale || defaultLocale;
+    const lang = getLangFromLocale(locale);
+    i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
+
+    const customer = find(dataset, { __typename: 'Customer' });
+    const customerTheme = initCustomerTheme(customer);
+    const customerRef = 'storybook'; // Fake customer ref
+    const amplitudeApiKey = ''; // Use invalid amplitude tracking key to force disable all amplitude analytics
+    const userConsent = {
+      isUserOptedOutOfAnalytics: true, // Disables all amplitude analytics tracking (even if a proper api key was being used)
+      hasUserGivenAnyCookieConsent: false,
+    };
+    const userId = 'storybook'; // Fake id (would avoid user tracking even if correct api key was being used)
+    const amplitudeInstance = getAmplitudeInstance({
+      customerRef,
+      iframeReferrer: null,
+      isInIframe: false,
+      lang,
+      locale,
+      userId,
+      userConsent: userConsent,
+    });
+
+    // Configure all providers, similarly to what being done by MultiversalAppBootstrap and BrowserPageBootstrap
+    return (
+      <datasetContext.Provider value={dataset}>
+        <quickPreviewContext.Provider value={false}>
+          <previewModeContext.Provider
             value={{
-              lang: lang,
-              locale: locale,
+              isPreviewModeEnabled: false,
+              previewData: null,
             }}
           >
-            <customerContext.Provider value={customer}>
-              <MultiversalGlobalStyles customerTheme={customerTheme} />
+            <i18nContext.Provider
+              value={{
+                lang: lang,
+                locale: locale,
+              }}
+            >
+              <customerContext.Provider value={customer}>
+                <MultiversalGlobalStyles customerTheme={customerTheme} />
 
-              <ThemeProvider theme={customerTheme}>
-                <AmplitudeProvider
-                  amplitudeInstance={amplitudeInstance}
-                  apiKey={amplitudeApiKey}
-                  userId={userId}
-                >
-                  <Amplitude
-                    eventProperties={{
-                      app: {
-                        name: customerRef,
-                        release: customerRef,
-                        stage: `storybook-${process.env.NODE_ENV}`,
-                      },
-                      page: {
-                        url: location.href,
-                        path: location.pathname,
-                        origin: location.origin,
-                      },
-                      customer: {
-                        ref: customerRef,
-                      },
-                      lang: lang,
-                      locale: locale,
-                    }}
+                <ThemeProvider theme={customerTheme}>
+                  <AmplitudeProvider
+                    amplitudeInstance={amplitudeInstance}
+                    apiKey={amplitudeApiKey}
+                    userId={userId}
                   >
-                    <cypressContext.Provider value={false}>
-                      <amplitudeContext.Provider value={{ amplitudeInstance }}>
-                        <userSessionContext.Provider value={null}>
-                          <userConsentContext.Provider value={null}>
-                            <Story />
-                          </userConsentContext.Provider>
-                        </userSessionContext.Provider>
-                      </amplitudeContext.Provider>
-                    </cypressContext.Provider>
-                  </Amplitude>
-                </AmplitudeProvider>
-              </ThemeProvider>
-            </customerContext.Provider>
-          </i18nContext.Provider>
-        </previewModeContext.Provider>
-      </quickPreviewContext.Provider>
-    </datasetContext.Provider>
-  ),
+                    <Amplitude
+                      eventProperties={{
+                        app: {
+                          name: customerRef,
+                          release: customerRef,
+                          stage: `storybook-${process.env.NODE_ENV}`,
+                        },
+                        page: {
+                          url: location.href,
+                          path: location.pathname,
+                          origin: location.origin,
+                        },
+                        customer: {
+                          ref: customerRef,
+                        },
+                        lang: lang,
+                        locale: locale,
+                      }}
+                    >
+                      <cypressContext.Provider value={false}>
+                        <amplitudeContext.Provider value={{ amplitudeInstance }}>
+                          <userSessionContext.Provider value={null}>
+                            <userConsentContext.Provider value={null}>
+                              <Story />
+                            </userConsentContext.Provider>
+                          </userSessionContext.Provider>
+                        </amplitudeContext.Provider>
+                      </cypressContext.Provider>
+                    </Amplitude>
+                  </AmplitudeProvider>
+                </ThemeProvider>
+              </customerContext.Provider>
+            </i18nContext.Provider>
+          </previewModeContext.Provider>
+        </quickPreviewContext.Provider>
+      </datasetContext.Provider>
+    );
+  },
 ];
 
 /**
