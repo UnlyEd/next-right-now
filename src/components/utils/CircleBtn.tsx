@@ -1,7 +1,8 @@
-import { css } from '@emotion/react';
-import { useTheme } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React from 'react';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { ReactDivProps } from '../../types/react/ReactDivProps';
 import {
   ComponentThemeMode,
@@ -41,6 +42,7 @@ const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <div
+      // @ts-ignore
       css={css`
         width: 100%;
         min-width: 10px;
@@ -87,7 +89,7 @@ const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
           position: relative;
           width: 30px; // XXX Related to the width of the root component, must be higher than "max-width - min-width"
         }
-    `}
+      `}
       {...rest}
     >
       <div className={'space-container'} />

@@ -25,6 +25,7 @@ const ToggleLanguagesButton: React.FunctionComponent<Props> = (props): JSX.Eleme
   } = props;
 
   return (
+    // @ts-ignore
     <ToggleButton
       id={id}
       valueOn={flag1}
