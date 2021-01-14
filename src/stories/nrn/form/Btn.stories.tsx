@@ -10,13 +10,6 @@ type PropsWithText = Props & { text?: string };
 export default {
   title: 'Next Right Now/Form/Btn',
   component: Btn,
-  argTypes: {
-    children: {
-      control: {
-        disable: true,
-      },
-    },
-  }
 } as Meta;
 
 const Template: Story<PropsWithText> = (props) => {

@@ -31,9 +31,13 @@ const i18nTranslations = require('./.sb-translations.cache.json');
 /**
  * Story Global parameters for Storybook.
  *
- * Couldn't find a documentation reference for all options.
+ * Parameters are a set of static, named metadata about a story, typically used to control the behavior of Storybook features and addons.
+ * Parameters are applied at the top-level and act as default values.
  *
- * @see https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
+ * XXX They can be overridden per component and per story.
+ *  See https://storybook.js.org/docs/react/writing-stories/parameters#rules-of-parameter-inheritance
+ *
+ * @see https://storybook.js.org/docs/react/writing-stories/parameters Parameters documentation
  * @see https://github.com/storybookjs/storybook/blob/master/addons/actions/ADVANCED.md#configuration
  * @see https://storybook.js.org/docs/react/essentials/backgrounds#configuration
  *
@@ -58,6 +62,23 @@ export const parameters = {
      * @see https://storybook.js.org/docs/react/essentials/controls#show-full-documentation-for-each-property
      */
     expanded: true,
+  },
+
+  /**
+   * Configure stories argTypes for all stories (default).
+   *
+   * Can be overridden per-story.
+   *
+   * @see https://storybook.js.org/docs/react/essentials/controls
+   */
+  argTypes: {
+    // Disable children control by default, as it's often JSX and not user-friendly
+    // Also, can often crash the app if not proper children is passed down, bad UX
+    children: {
+      control: {
+        disable: true,
+      },
+    },
   },
   options: {
     theme: themes.dark,
