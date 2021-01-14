@@ -13,10 +13,10 @@ const dataset = {
     'theme': {
       '__typename': 'Theme',
       'id': 'recrcZANU6L73OA9v',
-      'primaryColor': 'black',
+      'primaryColor': '#00536F',
       'primaryColorVariant1': null,
       'onPrimaryColor': null,
-      'secondaryColor': null,
+      'secondaryColor': '#C90016',
       'secondaryColorVariant1': null,
       'onSecondaryColor': null,
       'backgroundColor': null,
