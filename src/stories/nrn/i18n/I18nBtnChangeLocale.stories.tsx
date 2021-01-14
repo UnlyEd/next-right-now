@@ -11,10 +11,15 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const DefaultExample: Story<Props> = () => {
+const Template: Story<Props> = (props) => {
   return (
     <I18nBtnChangeLocale
-      id={'default-example'}
+      {...props}
     />
   );
+};
+
+export const DynamicExample: Story<Props> = Template.bind({});
+DynamicExample.args = {
+  id: 'default-example',
 };

@@ -11,7 +11,18 @@ import { LANG_FR } from '../../utils/i18n/i18n';
 import ToggleLanguagesButton from '../utils/ToggleLanguagesButton';
 
 export type Props = {
+  /**
+   * HTML id attribute. Must be unique.
+   */
   id: string;
+
+  /**
+   * Click event handler. Changes the select language.
+   *
+   * Doesn't work on Storybook, but you can change the language with the top toolbar item. [See issue](https://github.com/storybookjs/storybook/issues/13634).
+   *
+   * @default defaultHandleClick
+   */
   onClick?: (any) => void;
 }
 
