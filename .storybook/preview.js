@@ -9,6 +9,7 @@ import { withNextRouter } from 'storybook-addon-next-router';
 import { withPerformance } from 'storybook-addon-performance';
 import '../src/components/appBootstrap/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import MultiversalGlobalStyles from '../src/components/appBootstrap/MultiversalGlobalStyles';
+import { defaultLocale, supportedLocales } from '../src/i18nConfig';
 import amplitudeContext from '../src/stores/amplitudeContext';
 import customerContext from '../src/stores/customerContext';
 import { cypressContext } from '../src/stores/cypressContext';
@@ -38,8 +39,8 @@ import dataset from './mock/sb-dataset';
 const customer = find(dataset, { __typename: 'Customer' });
 const customerTheme = initCustomerTheme(customer);
 const customerRef = 'storybook'; // Fake customer ref
-const lang = 'en'; // Default language, not sure if it should be dynamic
-const locale = 'en'; // Default language, not sure if it should be dynamic
+const locale = defaultLocale;
+const lang = (supportedLocales.find((locale) => locale.name === defaultLocale)).name;
 const amplitudeApiKey = ''; // Use invalid amplitude tracking key to force disable all amplitude analytics
 const userConsent = {
   isUserOptedOutOfAnalytics: true, // Disables all amplitude analytics tracking (even if a proper api key was being used)
@@ -105,6 +106,32 @@ export const parameters = {
   },
   docs: {
     theme: themes.normal,
+  },
+};
+
+/**
+ * Storybook ships with toolbar items to control the viewport and background the story renders in.
+ *
+ * Below, we extend the native toolbar to add a few more options, such as i18n.
+ * Those global types can then be used in decorators, for both global decorators and story decorators.
+ *
+ * @description toolbar.item Can be either an array of plain strings, or a MenuItem.
+ *  See https://storybook.js.org/docs/react/essentials/toolbars-and-globals#advanced-usage
+ *
+ * @description toolbar.icon The icon the will be displayed in the top toolbar.
+ *  See https://www.chromatic.com/component?appId=5a375b97f4b14f0020b0cda3&name=Basics%7CIcon&mode=interactive&buildNumber=13899
+ *
+ * @see https://storybook.js.org/docs/react/essentials/toolbars-and-globals
+ */
+export const globalTypes = { // paintbrush github
+  locale: {
+    name: 'Locale',
+    description: 'Global locale for components',
+    defaultValue: locale,
+    toolbar: {
+      icon: 'globe', // See https://www.chromatic.com/component?appId=5a375b97f4b14f0020b0cda3&name=Basics%7CIcon&mode=interactive&buildNumber=13899
+      items: supportedLocales.map(locale => locale.name),
+    },
   },
 };
 
