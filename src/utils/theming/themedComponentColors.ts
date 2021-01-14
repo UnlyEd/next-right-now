@@ -32,12 +32,23 @@ export type ThemedComponentColors = {
 export type ThemedComponentProps = {
   /**
    * Display mode.
+   *
+   * - `primary`: Primary color for background, on-primary color for text
+   * - `primary-outline`: Primary color for text and for border, on-primary color for background
+   * - `primary-reverse`: Primary color for text, on-primary color for background
+   * - `primary-variant`: Primary variant color for background, on-primary color for text
+   * - `secondary`: Secondary color for background, on-secondary color for text
+   * - `secondary-outline`: Secondary color for text and for border, on-secondary color for background
+   * - `secondary-reverse`: Secondary color for text, on-secondary color for background
+   * - `secondary-variant`: Secondary variant color for background, on-secondary color for text
+   *
    * @default primary
    */
   mode?: ComponentThemeMode;
 
   /**
    * Whether the background is transparent.
+   *
    * @default false
    */
   transparent?: boolean;
