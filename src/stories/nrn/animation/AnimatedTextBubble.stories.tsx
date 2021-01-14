@@ -8,7 +8,14 @@ import AnimatedTextBubble, { Props } from '../../../components/svg/AnimatedTextB
 export default {
   title: 'Next Right Now/Animation/AnimatedTextBubble',
   component: AnimatedTextBubble,
-  argTypes: {},
+  argTypes: {
+    fill: {
+      control: 'color',
+    },
+  },
 } as Meta;
 
-export const DefaultExample: Story<Props> = () => <AnimatedTextBubble fill={'blue'} />;
+export const DefaultExample: Story<Props> = (props) => <AnimatedTextBubble {...props} />;
+DefaultExample.args = {
+  fill: 'blue',
+};

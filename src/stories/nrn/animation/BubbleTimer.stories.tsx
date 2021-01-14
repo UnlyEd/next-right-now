@@ -11,15 +11,18 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const DefaultExample: Story<Props> = () => {
-  const duration = 2000;
+export const DefaultExample: Story<Props> = (props) => {
+  const { duration } = props;
 
   return (
     <BubbleTimer
-      fill={'blue'}
-      duration={duration}
+      {...props}
     >
       <p>Content displayed after {duration}ms has passed.</p>
     </BubbleTimer>
   );
+};
+DefaultExample.args = {
+  fill: 'blue',
+  duration: 2000,
 };

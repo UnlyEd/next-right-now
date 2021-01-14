@@ -8,7 +8,14 @@ import Animated3Dots, { Props } from '../../../components/svg/Animated3Dots';
 export default {
   title: 'Next Right Now/Animation/Animated3Dots',
   component: Animated3Dots,
-  argTypes: {},
+  argTypes: {
+    fill: {
+      control: 'color',
+    },
+  },
 } as Meta;
 
-export const DefaultExample: Story<Props> = () => <Animated3Dots fill={'blue'} />;
+export const DefaultExample: Story<Props> = (props) => <Animated3Dots {...props} />;
+DefaultExample.args = {
+  fill: 'blue',
+};

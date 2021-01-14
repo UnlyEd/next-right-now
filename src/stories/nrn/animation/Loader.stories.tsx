@@ -8,7 +8,11 @@ import Loader, { Props } from '../../../components/animations/Loader';
 export default {
   title: 'Next Right Now/Animation/Loader',
   component: Loader,
-  argTypes: {},
+  parameters: {
+    controls: {
+      hideNoControlsWarning: true,
+    },
+  },
 } as Meta;
 
 export const DefaultExample: Story<Props> = () => <Loader />;
