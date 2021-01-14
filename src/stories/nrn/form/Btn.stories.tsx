@@ -26,9 +26,9 @@ const Template: Story<PropsWithText> = (props) => {
   );
 };
 
-export const BtnDynamicExample: Story<Props> = Template.bind({});
+export const DynamicExample: Story<Props> = Template.bind({});
 
-export const BtnDynamicTextExample: Story<PropsWithText> = Template.bind({});
-BtnDynamicTextExample.args = {
+export const DynamicExampleWithText: Story<PropsWithText> = Template.bind({});
+DynamicExampleWithText.args = {
   text: 'Hello',
 };
