@@ -90,7 +90,7 @@ export const parameters = {
  *
  * @see https://storybook.js.org/docs/react/essentials/toolbars-and-globals
  */
-export const globalTypes = { // paintbrush github
+export const globalTypes = {
   locale: {
     name: 'Locale',
     description: 'Global locale for components',
@@ -150,10 +150,15 @@ export const decorators = [
    * @see https://storybook.js.org/docs/react/essentials/toolbars-and-globals#create-a-decorator Context and globals
    */
   (Story, context) => {
+    // console.log('context', context) // Prints useful information about the Story's configuration
     // Configure i18n. In Storybook, the locale can be set from the top Toolbar.
     const locale = context?.globals?.locale || defaultLocale;
     const lang = getLangFromLocale(locale);
-    i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
+
+    // Applies i18next configuration with Locize backend
+    // Extra features like saveMissing, etc. will be disabled in production because Storybook doesn't have access to NEXT_PUBLIC_* environment variables there
+    // Although, they are configured in the same way as the Next.js app during development mode
+    i18nextLocize(lang, i18nTranslations);
 
     const customer = find(dataset, { __typename: 'Customer' });
     const customerTheme = initCustomerTheme(customer);
