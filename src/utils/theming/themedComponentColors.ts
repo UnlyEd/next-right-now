@@ -30,7 +30,16 @@ export type ThemedComponentColors = {
  * Props used by any themed component.
  */
 export type ThemedComponentProps = {
+  /**
+   * Display mode.
+   * @default primary
+   */
   mode?: ComponentThemeMode;
+
+  /**
+   * Whether the background is transparent.
+   * @default false
+   */
   transparent?: boolean;
 }
 

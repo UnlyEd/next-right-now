@@ -1,8 +1,9 @@
-import { css } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import classnames from 'classnames';
-import { useTheme } from '@emotion/react';
 import React, { ReactNode } from 'react';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { ReactButtonProps } from '../../types/react/ReactButtonProps';
 import {
   ComponentThemeMode,
@@ -10,8 +11,15 @@ import {
   ThemedComponentProps,
 } from '../../utils/theming/themedComponentColors';
 
-type Props = {
+export type Props = {
+  /**
+   * What's displayed within the button.
+   */
   children: ReactNode;
+
+  /**
+   * Always adds the "btn" class, more CSS classes can be added.
+   */
   className?: string;
 } & ReactButtonProps & ThemedComponentProps;
 
@@ -21,9 +29,10 @@ type Props = {
  * Button meant to highlight a potential user interaction.
  * Themed component.
  *
- * Used for:
- *  - Navigate to another page
- *  - Validate an action
+ * Used to:
+ *
+ * - Navigate to another page
+ * - Validate an action
  *
  * @param props
  */
