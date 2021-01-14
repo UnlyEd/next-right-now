@@ -71,7 +71,7 @@
     "test:coverage:group:no-integration": "NODE_ENV=test jest --group=-integration --coverage",
     "test:config": "NODE_ENV=test jest --showConfig",
     "sb": "yarn storybook",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -h localhost -p 6006",
     "storybook:export": "build-storybook",
     "codemod:update-react-imports": "npx react-codemod update-react-imports src/",
     "codemod:name-default-component": "npx @next/codemod name-default-component src/",
