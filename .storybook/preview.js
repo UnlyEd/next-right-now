@@ -70,7 +70,7 @@ export const parameters = {
    * @deprecated Should not be used at the moment. See https://github.com/storybookjs/storybook/issues/11697
    * @see https://storybook.js.org/docs/react/essentials/controls
    */
-  argTypes: {},
+  // argTypes: {},
   options: {
     theme: themes.dark,
     // See https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories

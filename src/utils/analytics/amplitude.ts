@@ -63,7 +63,10 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       userId,
       userConsent,
     } = props;
-    const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
+    const {
+      isUserOptedOutOfAnalytics,
+      hasUserGivenAnyCookieConsent,
+    } = userConsent;
 
     Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
       scope.setTag('iframe', `${isInIframe}`);
@@ -94,11 +97,17 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
     // Disable analytics tracking entirely if the user has opted-out
     if (isUserOptedOutOfAnalytics) {
       amplitudeInstance.setOptOut(true); // If true, then no events will be logged or sent.
-      console.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
+
+      if (process.env.STORYBOOK !== 'true') {
+        console.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
+      }
     } else {
       // Re-enable tracking (necessary if it was previously disabled!)
       amplitudeInstance.setOptOut(false);
-      console.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
+
+      if (process.env.STORYBOOK !== 'true') {
+        console.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
+      }
     }
 
     amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION_RELEASE); // e.g: v1.0.0
