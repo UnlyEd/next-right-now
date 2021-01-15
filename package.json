@@ -73,6 +73,7 @@
     "sb": "yarn storybook",
     "storybook": "STORYBOOK=true start-storybook -h localhost -p 6006",
     "storybook:export": "STORYBOOK=true build-storybook",
+    "sb:upgrade": "sb upgrade",
     "codemod:update-react-imports": "npx react-codemod update-react-imports src/",
     "codemod:name-default-component": "npx @next/codemod name-default-component src/",
     "codemod:withamp-to-config": "npx @next/codemod withamp-to-config src/",
