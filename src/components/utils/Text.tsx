@@ -23,7 +23,10 @@ type Props = {
  * @param props
  */
 export const Text: React.FunctionComponent<Props> = (props) => {
-  const { children, tag: Wrapper = 'div' } = props;
+  const {
+    children,
+    tag: Wrapper = 'div',
+  } = props;
 
   return (
     <Wrapper

@@ -74,7 +74,12 @@ const defaultMarkdownOptions: MarkdownToJSX.Options = {
  * @param props
  */
 const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { text, markdownOptions: _markdownOptions, style, className } = props;
+  const {
+    text,
+    markdownOptions: _markdownOptions,
+    style,
+    className,
+  } = props;
   const markdownOptions = deepmerge(defaultMarkdownOptions, _markdownOptions || {});
 
   // If providing a non-string input (like "null" or "undefined") then markdown-to-jsx will crash with "Cannot read property 'replace' of undefined" - See https://github.com/probablyup/markdown-to-jsx/issues/314

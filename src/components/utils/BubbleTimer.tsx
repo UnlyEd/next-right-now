@@ -19,7 +19,11 @@ export type Props = {
 }
 
 const BubbleTimer: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { children, duration = 200, ...rest } = props;
+  const {
+    children,
+    duration = 200,
+    ...rest
+  } = props;
   const [isWaiting, setIsWaiting] = useState(true);
 
   useEffect(() => {

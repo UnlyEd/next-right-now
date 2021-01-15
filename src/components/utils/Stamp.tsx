@@ -1,7 +1,8 @@
-import { css } from '@emotion/react';
-import { useTheme } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React, { ReactNode } from 'react';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 
 type Props = {
   children: ReactNode;
@@ -17,14 +18,17 @@ export const Stamp: React.FunctionComponent<Props> = (props): JSX.Element => {
     children,
     ...rest
   } = props;
-  const { secondaryColorVariant1, secondaryColor } = useTheme();
+  const {
+    secondaryColorVariant1,
+    secondaryColor,
+  } = useTheme();
 
   return (
     <div
       className={'stamp'}
       css={css`
-         margin-bottom: 5px;
-         cursor: help;
+        margin-bottom: 5px;
+        cursor: help;
 
         .stamp-box {
           position: relative;
@@ -64,11 +68,11 @@ export const Stamp: React.FunctionComponent<Props> = (props): JSX.Element => {
           }
         }
 
-        .stamp-text{
+        .stamp-text {
           margin-top: 4px;
           display: contents;
         }
-    `}
+      `}
       {...rest}
     >
       <div className={'stamp-box'}>

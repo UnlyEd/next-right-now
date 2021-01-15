@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { ReactNode } from 'react';
 import Btn from './Btn';
-import Tooltip from './Tooltip';
 import EllipsisText from './EllipsisText';
+import Tooltip from './Tooltip';
 
 export type Props = {
   /**

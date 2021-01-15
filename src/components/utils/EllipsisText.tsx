@@ -61,7 +61,7 @@ const EllipsisText: React.FunctionComponent<Props> = (props): JSX.Element => {
     widthSmall = '140px',
     forceSingleLine = true,
     title,
-    children
+    children,
   } = props;
 
   const dynamicProps = {};

@@ -24,7 +24,10 @@ export type Props = {
  * @param props
  */
 const Cards: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { children, maxCards = 3 } = props;
+  const {
+    children,
+    maxCards = 3,
+  } = props;
 
   return (
     <CardDeck
