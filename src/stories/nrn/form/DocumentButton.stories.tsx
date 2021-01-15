@@ -31,5 +31,5 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
 
 export const DynamicExample: Story<PropsWithChildrenMock> = Template.bind({});
 DynamicExample.args = {
-  text: 'PDF file',
+  text: 'My awesome PDF file',
 };

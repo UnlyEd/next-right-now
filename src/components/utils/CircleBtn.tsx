@@ -11,7 +11,16 @@ import {
 } from '../../utils/theming/themedComponentColors';
 
 export type Props = {
+  /**
+   * React children, usually text.
+   */
   children: React.ReactNode;
+
+  /**
+   * CSS margin. Can be pixels, em, etc.
+   *
+   * @default 0px
+   */
   margin?: string;
 } & ReactDivProps & ThemedComponentProps;
 

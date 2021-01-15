@@ -5,6 +5,9 @@ import Tooltip from './Tooltip';
 import EllipsisText from './EllipsisText';
 
 export type Props = {
+  /**
+   * React children, usually text.
+   */
   children: ReactNode;
 }
 
