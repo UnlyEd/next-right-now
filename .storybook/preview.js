@@ -71,9 +71,17 @@ export const parameters = {
    * @see https://storybook.js.org/docs/react/essentials/controls
    */
   // argTypes: {},
+
+  /**
+   * Options.
+   * Couldn't find centralized documentation about it.
+   */
   options: {
     theme: themes.dark,
-    // See https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
+
+    /**
+     * @see https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
+     */
     storySort: {
       method: 'alphabetical',
       order: [
