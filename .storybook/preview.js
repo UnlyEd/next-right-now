@@ -65,26 +65,12 @@ export const parameters = {
   },
 
   /**
-   * Configure stories argTypes for all stories (default).
+   * Configure stories argTypes for all stories.
    *
-   * Can be overridden per-story.
-   *
+   * @deprecated Should not be used at the moment. See https://github.com/storybookjs/storybook/issues/11697
    * @see https://storybook.js.org/docs/react/essentials/controls
    */
-  argTypes: {
-    /**
-     * Disables children control by default, as it's often JSX and not user-friendly.
-     * Also, can often crash the app if not proper children is passed down, bad UX.
-     */
-    children: {
-      table: {
-        disable: true,
-      },
-      control: {
-        disable: true,
-      },
-    },
-  },
+  argTypes: {},
   options: {
     theme: themes.dark,
     // See https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories

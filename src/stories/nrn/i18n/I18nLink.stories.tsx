@@ -4,35 +4,29 @@ import {
 } from '@storybook/react/types-6-0';
 import React from 'react';
 import I18nLink, { Props } from '../../../components/i18n/I18nLink';
+import withChildrenMock from '../../shared/hocs/withChildrenMock';
 import styles from './I18nLink.module.css';
 
 type PropsWithChildrenMock = {
-  _sbChildrenMock?: string;
+  text?: string;
 } & Props;
 
+// @ts-ignore
 export default {
   title: 'Next Right Now/I18n/I18nLink',
   component: I18nLink,
-  argTypes: {
-    children: {
-      table: {
-        disable: false,
-      },
-    },
-    _sbChildrenMock: {
-      description: `Children mock.<br /><br /><i>This property doesn't really exist in the component.<br />It is made available to help manipulate the <code>children</code> from Storybook</i>.<br /><br />You must use <code>children</code> instead during actual code implementation.`,
-    },
+  argTypes: withChildrenMock({
     wrapChildrenAsLink: {
       control: {
         disable: true, // Disable field because it crashes the UI when being used (expected behavior but bad UX)
       },
     },
-  },
+  }),
 } as Meta;
 
 export const DynamicLink: Story<PropsWithChildrenMock> = (props) => {
   const {
-    _sbChildrenMock,
+    text,
     ...rest
   } = props;
 
@@ -40,12 +34,12 @@ export const DynamicLink: Story<PropsWithChildrenMock> = (props) => {
     <I18nLink
       {...rest}
     >
-      {_sbChildrenMock || 'Default text'}
+      {text || 'Default text'}
     </I18nLink>
   );
 };
 DynamicLink.args = {
-  _sbChildrenMock: 'Link',
+  text: 'Link',
   href: '/some/nested/page/[id]',
   locale: 'en',
   className: 'my-class',
