@@ -10,27 +10,24 @@ import {
   ThemedComponentProps,
 } from '../../utils/theming/themedComponentColors';
 
-type Props = {
+export type Props = {
   children: React.ReactNode;
   margin?: string;
 } & ReactDivProps & ThemedComponentProps;
 
 /**
- * Displays a 1-3 characters, or an icon, within a perfect circle.
+ * Displays a 1-3 characters, or an icon, within a as-close-as-perfect circle.
+ *
+ * Example: Can be used in replacement of Reactstrap Badge.
  *
  * Themed component.
- *
- * Used by:
- *  - Contact slider button
- *  - Report button
- *  - Size/number of label
  */
 const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     margin = '0',
     mode = 'primary-reverse' as ComponentThemeMode,
-    transparent,
+    isTransparent,
     ...rest
   } = props;
   const customerTheme = useTheme();
@@ -38,7 +35,7 @@ const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
     color,
     backgroundColor,
     borderColor,
-  } = resolveThemedComponentColors(customerTheme, mode, transparent);
+  } = resolveThemedComponentColors(customerTheme, mode, isTransparent);
 
   return (
     <div

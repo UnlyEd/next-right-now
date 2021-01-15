@@ -41,7 +41,7 @@ const Btn: React.FunctionComponent<Props> = (props): JSX.Element => {
     children,
     className,
     mode = 'primary' as ComponentThemeMode,
-    transparent,
+    isTransparent,
     ...rest
   } = props;
   const customerTheme = useTheme();
@@ -53,7 +53,7 @@ const Btn: React.FunctionComponent<Props> = (props): JSX.Element => {
     hoverBackgroundColor,
     hoverBorderColor,
     hoverBoxShadowColor,
-  } = resolveThemedComponentColors(customerTheme, mode, transparent);
+  } = resolveThemedComponentColors(customerTheme, mode, isTransparent);
 
   return (
     <button

@@ -51,11 +51,11 @@ export type ThemedComponentProps = {
    *
    * @default false
    */
-  transparent?: boolean;
+  isTransparent?: boolean;
 }
 
 /**
- * Resolves the colors of the component, based on the selected "mode" and various options (transparent, etc.).
+ * Resolves the colors of the component, based on the selected "mode" and various options (isTransparent, etc.).
  *
  * @param customerTheme
  * @param mode
