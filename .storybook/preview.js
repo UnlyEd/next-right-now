@@ -72,9 +72,14 @@ export const parameters = {
    * @see https://storybook.js.org/docs/react/essentials/controls
    */
   argTypes: {
-    // Disable children control by default, as it's often JSX and not user-friendly
-    // Also, can often crash the app if not proper children is passed down, bad UX
+    /**
+     * Disables children control by default, as it's often JSX and not user-friendly.
+     * Also, can often crash the app if not proper children is passed down, bad UX.
+     */
     children: {
+      table: {
+        disable: true,
+      },
       control: {
         disable: true,
       },
@@ -143,9 +148,7 @@ addDecorator(
 );
 
 /**
- * Decorators in .storybook/preview.js are used for context mocking.
- *
- * Basically, they play a similar role to _app and appBootstrap components (MultiversalAppBootstrap, etc.)
+ * Decorators in .storybook/preview.js are useful to mock Stories.
  *
  * Like parameters, decorators can be defined globally, at the component level and for a single story (as we’ve seen).
  * All decorators, defined at all levels that apply to a story will run whenever that story is rendered, in the order:
@@ -161,6 +164,7 @@ export const decorators = [
    * Mock variables used to initialize all stories.
    *
    * Mocking those ensures the components relying on them will work as expected.
+   * Basically, plays a similar role to _app and appBootstrap components (MultiversalAppBootstrap, etc.)
    *
    * About Amplitude analytics:
    * - We don't want to track analytics using Amplitude.

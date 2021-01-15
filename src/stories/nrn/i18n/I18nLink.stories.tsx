@@ -6,10 +6,22 @@ import React from 'react';
 import I18nLink, { Props } from '../../../components/i18n/I18nLink';
 import styles from './I18nLink.module.css';
 
+type PropsWithChildrenMock = {
+  _sbChildrenMock?: string;
+} & Props;
+
 export default {
   title: 'Next Right Now/I18n/I18nLink',
   component: I18nLink,
   argTypes: {
+    children: {
+      table: {
+        disable: false,
+      },
+    },
+    _sbChildrenMock: {
+      description: `Children mock.<br /><br /><i>This property doesn't really exist in the component.<br />It is made available to help manipulate the <code>children</code> from Storybook</i>.<br /><br />You must use <code>children</code> instead during actual code implementation.`,
+    },
     wrapChildrenAsLink: {
       control: {
         disable: true, // Disable field because it crashes the UI when being used (expected behavior but bad UX)
@@ -18,9 +30,9 @@ export default {
   },
 } as Meta;
 
-export const DynamicLink: Story<Props & { text?: string }> = (props) => {
+export const DynamicLink: Story<PropsWithChildrenMock> = (props) => {
   const {
-    text,
+    _sbChildrenMock,
     ...rest
   } = props;
 
@@ -28,13 +40,13 @@ export const DynamicLink: Story<Props & { text?: string }> = (props) => {
     <I18nLink
       {...rest}
     >
-      {text}
+      {_sbChildrenMock || 'Default text'}
     </I18nLink>
   );
 };
 DynamicLink.args = {
-  text: 'Link',
-  href: '/some/nested/page',
+  _sbChildrenMock: 'Link',
+  href: '/some/nested/page/[id]',
   locale: 'en',
   className: 'my-class',
   params: {
