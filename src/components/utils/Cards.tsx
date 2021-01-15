@@ -3,13 +3,23 @@ import classnames from 'classnames';
 import React, { ReactNode } from 'react';
 import { CardDeck } from 'reactstrap';
 
-type Props = {
+export type Props = {
+  /**
+   * Must be an array of `Card`.
+   */
   children: ReactNode;
-  maxCards?: number; // Max cards per row
+
+  /**
+   * Max cards per row.
+   * Current implementation only support `2 | 3`.
+   *
+   * @default 3
+   */
+  maxCards?: number;
 }
 
 /**
- * Wrapper for Reactstrap <Card> component, to display cards as a Deck and apply common styling on all cards
+ * Wrapper for Reactstrap `Card` component, to display cards as a Deck and apply common styling on all cards.
  *
  * @param props
  */
