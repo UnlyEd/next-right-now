@@ -27,7 +27,7 @@ const defaultOptions: Partial<Options> = {};
  *
  * @see Inspired from https://gist.github.com/rosskevin/6c103846237ecbc77862ea0f3218187d
  */
-const withHOCTemplate = ({}: Options = defaultOptions) => <OriginalProps extends {}>(
+const withHOCTemplate = ({}: Options = defaultOptions as Options) => <OriginalProps extends {}>(
   WrappedComponent: React.ComponentType<OriginalProps & InjectedProps>,
 ): React.ComponentClass<OriginalProps> => {
   class WithHOCTemplate extends React.Component<OriginalProps & ExternalProps> {

@@ -41,9 +41,14 @@ const withChildrenMock = (argTypes: ArgTypes, options?: Options): ArgTypes => {
         },
       },
 
-
+      /**
+       * `children` mock field, meant to replace the `children` prop by providing interactivity (controls enabled).
+       * Must be added to the Story `args` with a default value to be interactive.
+       *
+       * @default text
+       */
       [childrenMockName]: {
-        description: `Children mock.<br /><br /><i>This property doesn't really exist in the component.<br />It is made available to help manipulate the <code>children</code> from Storybook</i>.<br /><br />You must use <code>children</code> instead during actual code implementation.`,
+        description: `<code>children</code> mock.<br /><br /><span className="tip">Mock</span><i>This property doesn't really exist in the component.<br />It is made available to help manipulate the <code>children</code> from Storybook</i>.<br /><br />You must use <code>children</code> instead during actual code implementation.`,
       },
     };
 
