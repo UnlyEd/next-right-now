@@ -45,9 +45,7 @@ export type Props = {
    *
    * Example:
    *
-   * `/products` with `query={{ userId: 1 }}` becomes `/products?userId=1`
-   *
-   * <span className="tip">BUG</span> Doesn't work well when used with `query`!
+   * `/products/[id]` with `params={{ id: 5 }}` becomes `/products/5`
    */
   params?: { [key: string]: ParamValueToForward };
 
@@ -74,8 +72,6 @@ export type Props = {
    * Example:
    *
    * `/products` with `query={{ userId: 1 }}` becomes `/products?userId=1`
-   *
-   * <span className="tip">BUG</span> Doesn't work well when used with `params`!
    */
   query?: { [key: string]: ParamValueToForward };
 
