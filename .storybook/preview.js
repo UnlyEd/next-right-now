@@ -20,6 +20,7 @@ import quickPreviewContext from '../src/stores/quickPreviewContext';
 import userConsentContext from '../src/stores/userConsentContext';
 import { userSessionContext } from '../src/stores/userSessionContext';
 import { getAmplitudeInstance } from '../src/utils/analytics/amplitude';
+import '../src/utils/app/ignoreNoisyWarningsHacks';
 import { initCustomerTheme } from '../src/utils/data/theme';
 import i18nextLocize from '../src/utils/i18n/i18nextLocize';
 import '../src/utils/icons/font-awesome';
