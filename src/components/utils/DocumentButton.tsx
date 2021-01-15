@@ -4,7 +4,7 @@ import Btn from './Btn';
 import Tooltip from './Tooltip';
 import EllipsisText from './EllipsisText';
 
-type Props = {
+export type Props = {
   children: ReactNode;
 }
 
