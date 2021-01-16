@@ -72,7 +72,7 @@
     "test:config": "NODE_ENV=test jest --showConfig",
     "sb": "yarn storybook",
     "storybook": "STORYBOOK=true start-storybook -h localhost -p 6006 --no-manager-cache",
-    "storybook:export": "STORYBOOK=true build-storybook --no-manager-cache",
+    "storybook:export": "STORYBOOK=true build-storybook",
     "sb:upgrade": "sb upgrade",
     "codemod:update-react-imports": "npx react-codemod update-react-imports src/",
     "codemod:name-default-component": "npx @next/codemod name-default-component src/",
