@@ -5,12 +5,12 @@ import { CustomerTheme } from '../../types/data/CustomerTheme';
  */
 export type ComponentThemeMode =
   'primary' | // Primary color for background, on-primary color for text
+  'primary-outline' | // Primary color for text and for border, on-primary color for background
   'primary-reverse' | // Primary color for text, on-primary color for background
   'primary-variant' | // Primary variant color for background, on-primary color for text
-  'primary-outline' | // Primary color for text and for border, on-primary color for background
   'secondary' | // Secondary color for background, on-secondary color for text
-  'secondary-reverse' | // Secondary color for text, on-secondary color for background
   'secondary-outline' | // Secondary color for text and for border, on-secondary color for background
+  'secondary-reverse' | // Secondary color for text, on-secondary color for background
   'secondary-variant'; // Secondary variant color for background, on-secondary color for text
 
 /**
@@ -30,12 +30,32 @@ export type ThemedComponentColors = {
  * Props used by any themed component.
  */
 export type ThemedComponentProps = {
+  /**
+   * Display mode.
+   *
+   * - `primary`: Primary color for background, on-primary color for text
+   * - `primary-outline`: Primary color for text and for border, on-primary color for background
+   * - `primary-reverse`: Primary color for text, on-primary color for background
+   * - `primary-variant`: Primary variant color for background, on-primary color for text
+   * - `secondary`: Secondary color for background, on-secondary color for text
+   * - `secondary-outline`: Secondary color for text and for border, on-secondary color for background
+   * - `secondary-reverse`: Secondary color for text, on-secondary color for background
+   * - `secondary-variant`: Secondary variant color for background, on-secondary color for text
+   *
+   * @default primary
+   */
   mode?: ComponentThemeMode;
-  transparent?: boolean;
+
+  /**
+   * Whether the background is transparent.
+   *
+   * @default false
+   */
+  isTransparent?: boolean;
 }
 
 /**
- * Resolves the colors of the component, based on the selected "mode" and various options (transparent, etc.).
+ * Resolves the colors of the component, based on the selected "mode" and various options (isTransparent, etc.).
  *
  * @param customerTheme
  * @param mode

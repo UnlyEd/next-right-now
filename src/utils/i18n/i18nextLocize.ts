@@ -197,7 +197,7 @@ export const locizeBackendOptions = {
 };
 
 const shouldLog = (): boolean => {
-  return process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && process.env.NODE_ENV !== 'test';
+  return process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && process.env.NODE_ENV !== 'test' && process.env.STORYBOOK !== 'true';
 };
 
 /**
@@ -476,7 +476,7 @@ const createI18nextLocizeInstance = (lang: string, i18nTranslations: I18nextReso
     resources: i18nTranslations,
     // preload: ['fr', 'en'], // XXX Supposed to preload languages, doesn't work with Next
     cleanCode: true, // language will be lowercased 'EN' --> 'en' while leaving full locales like 'en-US'
-    debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser() && process.env.NODE_ENV !== 'test', // Only enable on non-production stages and only on browser (too much noise on server) XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
+    debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser() && process.env.NODE_ENV !== 'test' && process.env.STORYBOOK !== 'true', // Only enable on non-production stages and only on browser (too much noise on server) and not when used through Storybook XXX Note that missing keys will be created on the server first, so you should enable server logs if you need to debug "saveMissing" feature
     saveMissing: process.env.NEXT_PUBLIC_APP_STAGE === 'development', // Only save missing translations on development environment, to avoid outdated keys to be created from older staging deployments
     saveMissingTo: defaultNamespace,
     lng: lang, // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language

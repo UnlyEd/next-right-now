@@ -1,38 +1,71 @@
 import { css } from '@emotion/react';
 import React from 'react';
 
-type Props = {
+export type Props = {
+  /**
+   * HTML id attribute. Must be unique.
+   *
+   * <span className="tip">XXX</span> The component will not be interactive without a unique id!
+   */
   id: string;
-  mode?: 'light' | 'ios' | 'skewed' | 'flat' | 'flip';
+
+  /**
+   * Display mode.
+   *
+   * @default flip
+   */
+  mode?: 'flat' | 'flip' | 'ios' | 'light' | 'skewed';
+
+  /**
+   * Options for `flip` display mode.
+   *
+   * @default { useBackgroundColor: true }
+   */
   flipModeOptions?: {
     useBackgroundColor?: boolean;
   };
-  valueOn: any;
-  valueOff: any;
+
+  /**
+   * Content to display when the toggle is "on" (`checked = true`).
+   */
+  contentOn: any;
+
+  /**
+   * Content to display when the toggle is "off" (`checked = false`).
+   */
+  contentOff: any;
+
+  /**
+   * Whether the toggle is checked.
+   *
+   * Should be a controlled property.
+   */
   isChecked?: boolean;
 } & React.HTMLProps<HTMLSpanElement>;
 
 /**
  * Toggle button (as checkbox) between two possible values.
  *
- * @param props
+ * Provides several display modes.
+ *
  * @see https://codepen.io/mallendeo/pen/eLIiG
  */
 const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     id,
-    mode = 'flip',
+    mode = 'flat',
     flipModeOptions = {
-      useBackgroundColor: false,
+      useBackgroundColor: true,
     },
-    valueOn,
-    valueOff,
+    contentOn,
+    contentOff,
     isChecked,
     ...rest
   } = props;
 
   return (
     <span
+      // @ts-ignore
       css={css`
         .tgl {
           display: none;
@@ -170,12 +203,12 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
 
             &:after {
               left: 100%;
-              content: ${valueOn};
+              content: ${contentOn};
             }
 
             &:before {
               left: 0;
-              content: ${valueOff};
+              content: ${contentOff};
             }
 
             &:active {
@@ -254,14 +287,14 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
             }
 
             &:after {
-              content: ${valueOn};
+              content: ${contentOn};
               background: ${flipModeOptions?.useBackgroundColor ? '#02C66F' : 'initial'};
               transform: rotateY(-180deg);
             }
 
             &:before {
               background: ${flipModeOptions?.useBackgroundColor ? '#FF3A19' : 'initial'};
-              content: ${valueOff};
+              content: ${contentOff};
             }
 
             &:active:before {

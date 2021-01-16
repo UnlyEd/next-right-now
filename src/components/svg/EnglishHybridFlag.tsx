@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
+
 type Props = {} & React.SVGProps<SVGSVGElement>;
 
 const SvgEnglishHybridFlag = (props: Props): JSX.Element => {
   return (
+    // @ts-ignore
     <svg
       id="EnglishHybridFlag_svg__Calque_1"
       data-name="Calque 1"
@@ -14,7 +16,7 @@ const SvgEnglishHybridFlag = (props: Props): JSX.Element => {
       <defs>
         <style>
           {
-            ".EnglishHybridFlag_svg__cls-1{fill:#bf2333}.EnglishHybridFlag_svg__cls-2,.EnglishHybridFlag_svg__cls-4{fill:#fff}.EnglishHybridFlag_svg__cls-4{fill-rule:evenodd}.EnglishHybridFlag_svg__cls-5{fill:#283575}.EnglishHybridFlag_svg__cls-6{fill:#d0232e}"
+            '.EnglishHybridFlag_svg__cls-1{fill:#bf2333}.EnglishHybridFlag_svg__cls-2,.EnglishHybridFlag_svg__cls-4{fill:#fff}.EnglishHybridFlag_svg__cls-4{fill-rule:evenodd}.EnglishHybridFlag_svg__cls-5{fill:#283575}.EnglishHybridFlag_svg__cls-6{fill:#d0232e}'
           }
         </style>
       </defs>

@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="App/.Custom components" />
+
+# Getting started
+
+> The documentation regarding Storybook is hosted on this Storybook demo, not on the [Documentation site](https://unlyed.github.io/next-right-now).
+
+<div className="tip-wrapper">
+  <span className="tip">Tip</span>
+  <a href={'/?path=/story/next-right-now-welcome-to-nrn--page'}>Read our: "Welcome to Next Right Now" section!</a>
+</div>
+
+---
+
+<div className="subheading">Custom components</div>
+
+Next Right Now doesn't enforce a particular way to write your components **stories**, but we've got some advices:
+- `src/stories/sb-examples` contains the default Storybook examples. They contain useful links and resources you should probably keep around.
+- `src/stories/nrn` contains Next Right Now components. Feel free to delete those you don't need them! We suggest keeping the Storybook documentation for those you use.
+- `src/stories/app` is for you, you can rename it, split it into several folder, do as you want.
+
+> We suggest not renaming Next Right Now and Storybook existing stories if you plan on using Next Right Now as a boilerplate, as it would make sync with NRN harder.
+
+<div className="subheading">Folders and stories</div>
+
+Folders don't dictate in which section your stories will be displayed.
+
+> You can have different folders within `src/stories` publishing stories in the same section, it depends on the Story `title`, not its file path.
+
+Therefore, you could mix NRN native components with your own (put them in the same section but in different folders), if you'd like to do it this way.
+
+<div className="subheading">Storybook configuration documentation</div>
+
+Many efforts have been put into Storybook configuration documentation.
+
+The best place to start discovering what Next Right Now has done for you are:
+- `.storybook/main.js`: Describes all the addons being installed and why. With links to their respective documentation.
+- `storybook/manager.js`: Describes the Storybook UI customization.
+- `storybook/preview.js`: Describes the Storybook "component preview" configuration.
+It is the "story preview entrypoint" and contains the whole Preview configuration.
+  - It's where you can customise the `storySort`, to manipulate the ordering of the stories.
+
+---
+
+<div className="tip-wrapper">
+  <span className="tip">Tip</span>Edit the Markdown in{' '}
+  <code>src/stories/app/README.stories.mdx</code>
+</div>
