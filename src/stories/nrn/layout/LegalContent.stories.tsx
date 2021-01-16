@@ -12,7 +12,7 @@ export default {
 } as Meta;
 
 const Template: Story<Props> = (props) => {
-  const {content} = props;
+  const { content } = props;
 
   return (
     <LegalContent {...props}>
@@ -23,8 +23,7 @@ const Template: Story<Props> = (props) => {
 
 export const DynamicExample: Story<Props> = Template.bind({});
 DynamicExample.args = {
-  content:
-`# This is a legal content component
+  content: `# This is a legal content component
 
 You can use it to build pages (terms, privacy, etc.) using Markdown.
 

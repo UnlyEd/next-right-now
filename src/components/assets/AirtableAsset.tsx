@@ -14,7 +14,7 @@ export type Props = {
   /**
    * Asset, extends Airtable attachment, e.g: image, document, etc.
    *
-   * <span className="tip">XXX</span>The `asset` will be merged with `_defaultAsset`.
+   * <span className="tip">XXX</span> The `asset` will be merged with `_defaultAsset`.
    */
   asset: Asset;
 
