@@ -39,13 +39,14 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
 
           // add default box-sizing for this scope
           &,
-            &:after,
-            &:before,
+          &:after,
+          &:before,
           & *,
-            & *:after,
-            & *:before,
+          & *:after,
+          & *:before,
           & + .tgl-btn {
-              box-sizing: border-box;
+            box-sizing: border-box;
+
             &::selection {
               background: none;
             }
@@ -61,7 +62,7 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
             user-select: none;
 
             &:after,
-                &:before {
+            &:before {
               position: relative;
               display: block;
               content: "";
@@ -88,7 +89,6 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
           + .tgl-btn {
             background: #f0f0f0;
             border-radius: 2em;
-            padding: 2px;
             transition: all .4s ease;
 
             &:after {
@@ -107,21 +107,16 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
           + .tgl-btn {
             background: #fbfbfb;
             border-radius: 2em;
-            padding: 2px;
             transition: all .4s ease;
             border: 1px solid #e8eae9;
 
             &:after {
               border-radius: 2em;
               background: #fbfbfb;
-              transition:
-                left .3s cubic-bezier(
-                  0.175, 0.885, 0.320, 1.275
-                ),
-                padding .3s ease, margin .3s ease;
-              box-shadow:
-                0 0 0 1px rgba(0,0,0,.1),
-                0 4px 0 rgba(0,0,0,.08);
+              transition: left .3s cubic-bezier(0.175, 0.885, 0.320, 1.275),
+              padding .3s ease, margin .3s ease;
+              box-shadow: 0 0 0 1px rgba(0, 0, 0, .1),
+              0 4px 0 rgba(0, 0, 0, .08);
             }
 
             &:hover:after {
@@ -129,7 +124,7 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
             }
 
             &:active {
-              box-shadow: inset 0 0 0 2em #e8eae9;
+              box-shadow: inset 0 0 0 0em #e8eae9;
 
               &:after {
                 padding-right: .8em;
@@ -138,14 +133,15 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
           }
 
           &:checked + .tgl-btn {
-              background: #86d993;
+            background: #86d993;
 
-              &:active {
-                box-shadow: none;
-                &:after {
-                  margin-left: -.8em;
-                }
+            &:active {
+              box-shadow: none;
+
+              &:after {
+                margin-left: -.8em;
               }
+            }
           }
         }
 
@@ -169,7 +165,7 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
               line-height: 2em;
               font-weight: bold;
               color: #fff;
-              text-shadow: 0 1px 0 rgba(0,0,0,.4);
+              text-shadow: 0 1px 0 rgba(0, 0, 0, .4);
             }
 
             &:after {
@@ -193,6 +189,7 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
 
           &:checked + .tgl-btn {
             background: #86d993;
+
             &:before {
               left: -100%;
             }

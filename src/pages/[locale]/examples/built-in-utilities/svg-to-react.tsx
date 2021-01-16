@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -11,7 +12,8 @@ import { Alert } from 'reactstrap';
 import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
 import DocPage from '../../../../components/doc/DocPage';
 import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import EnglishFlag from '../../../../components/svg/EnglishFlag';
+import EnglishHybridFlag from '../../../../components/svg/EnglishHybridFlag';
+import EnglishUkFlag from '../../../../components/svg/EnglishUkFlag';
 import FrenchFlag from '../../../../components/svg/FrenchFlag';
 import Code from '../../../../components/utils/Code';
 import ExternalLink from '../../../../components/utils/ExternalLink';
@@ -67,12 +69,18 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
     >
       <DocPage>
         <h1 className={'pcolor'}>SVG to react component examples</h1>
-
-        <p>
+        <p
+          css={css`
+            .flags{
+              margin: 10px 20px 10px 0;
+            }
+          `}
+        >
           If you use SVGs, you may want to easily convert those as React components so that they're easier to work with (custom props, dynamic colors/size, etc.).<br />
           That's what we did with the country flags:<br />
-          <FrenchFlag />
-          <EnglishFlag />
+          <FrenchFlag className={'flags'}/>
+          <EnglishHybridFlag className={'flags'}/>
+          <EnglishUkFlag className={'flags'}/>
           <br />
           It'd be very easy to update those components to add some additional capabilities, such as resizing them through props, because they're React components.
         </p>
