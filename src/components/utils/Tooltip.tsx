@@ -10,9 +10,11 @@ export type Props = {
   children: React.ReactElement;
 
   /**
-   * Text that will be displayed as the tooltip.
+   * Component that will be displayed as the tooltip.
    *
-   * Usually, something like `<span>Tooltip content</span>`
+   * Usually, something like `<span>Tooltip content</span>`.
+   *
+   * <span className="tip">XXX</span> If the content isn't placed in an element _(e.g: Fragment)_, [the whole React app will crash](https://github.com/react-component/tooltip/issues/239)!
    */
   overlay: (() => React.ReactNode) | React.ReactNode;
 
