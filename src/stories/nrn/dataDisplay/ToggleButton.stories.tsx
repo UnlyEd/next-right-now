@@ -27,9 +27,9 @@ const Template: Story<Props> = (props) => {
     <ToggleButton
       contentOn={contentOn || 'On'}
       contentOff={contentOff || 'Off'}
-      {...props}
       isChecked
       onClick={(): void => setIsChecked(!isChecked)}
+      {...props}
     />
   );
 };
