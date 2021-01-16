@@ -13,15 +13,59 @@ import { cssToReactStyle } from '../../utils/css';
 export type Props = {
   /**
    * Asset, extends Airtable attachment, e.g: image, document, etc.
+   *
+   * <span className="tip">XXX</span>The `asset` will be merged with `_defaultAsset`.
    */
   asset: Asset;
+
+  /**
+   * HTML id attribute. Must be unique.
+   */
   id?: string;
+
+  /**
+   * Overrides transformations.
+   *
+   * @default null
+   */
   transformationsOverride?: AssetTransformations;
+
+  /**
+   * Default `asset` properties.
+   *
+   * @default {}
+   */
   defaults?: Asset;
+
+  /**
+   * Overrides `asset` properties.
+   *
+   * @default {}
+   */
   override?: Asset;
+
+  /**
+   * CSS classes.
+   */
   className?: string;
+
+  /**
+   * CSS styles
+   *
+   * @default null
+   */
   style?: CSSStyles;
+
+  /**
+   * Click event.
+   */
   onClick?: () => void;
+
+  /**
+   * Overrides `Link` element properties.
+   *
+   * @default {}
+   */
   linkOverride?: {
     id?: string;
     url?: string;
@@ -33,7 +77,7 @@ export type Props = {
 
 const _defaultAsset = {
   id: null,
-  url: '', // TODO use link of default missing image
+  url: '',
   title: '',
   alt: '',
   style: null,
@@ -49,14 +93,9 @@ const _defaultLink: Link = {
 };
 
 /**
- * Displays an asset, based on the provided props
- * Handles GraphCMS assets, including svg
- * Should be used to display assets coming from GraphCMS (handles transformations)
+ * Displays an asset hosted on Airtable CDN. (`https://dl.airtable.com`)
  *
- * @param props
- * @return {null|*}
- *
- * @see Transformations https://docs.graphcms.com/developers/assets/transformations/transforming-url-structure
+ * **Handles images only**, doesn't handle documents (PDF, etc.)
  */
 const AirtableAsset = (props: Props): JSX.Element => {
   const {
