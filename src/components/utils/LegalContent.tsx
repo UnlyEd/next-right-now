@@ -7,7 +7,7 @@ import { Container } from 'reactstrap';
 import { Markdown as TextAsMarkdown } from '../../types/Markdown';
 import Markdown from './Markdown';
 
-type Props = {
+export type Props = {
   content: TextAsMarkdown;
 }
 
