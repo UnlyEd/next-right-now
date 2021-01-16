@@ -12,10 +12,13 @@ import {
   faBook,
   faBookReader,
   faCoffee,
-  faHome,
-  faQuestionCircle,
-  faUserCog,
   faExclamationTriangle,
+  faFileAlt,
+  faHome,
+  faLink,
+  faQuestionCircle,
+  faSync,
+  faUserCog,
 } from '@fortawesome/free-solid-svg-icons';
 
 // See https://github.com/FortAwesome/react-fontawesome#integrating-with-other-tools-and-frameworks
@@ -52,8 +55,12 @@ library.add(
   faBook,
   faBookReader,
   faCoffee,
-  faHome,
-  faQuestionCircle,
-  faUserCog,
   faExclamationTriangle,
-);
+  faFileAlt,
+  faHome,
+  faLink,
+  faQuestionCircle,
+  faSync,
+  faUserCog,
+)
+;

@@ -1,14 +1,30 @@
+import { TooltipProps } from 'rc-tooltip/lib/Tooltip';
 import React from 'react';
-import Tooltip from './Tooltip';
+import Tooltip, { TooltipPlacement } from './Tooltip';
 
-type Props = {
+export type Props = {
+  /**
+   * React children, usually text.
+   */
   children: React.ReactElement;
-  placement?: string;
+
+  /**
+   * Tooltip's placement.
+   *
+   * @default top
+   */
+  placement?: TooltipPlacement;
+
+  /**
+   * Tooltip's text.
+   *
+   * Displayed as an overlay within a `<div>` element.
+   */
   text: string;
-}
+} & Partial<TooltipProps>;
 
 /**
- * Tooltip with simplified props meant to be used from Markdown
+ * Tooltip with simplified props meant to be used from Markdown.
  *
  * @example <Tooltip text="Help text">Click me</Tooltip>
  */

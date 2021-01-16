@@ -1,0 +1,6 @@
+/* This is a basic example to check Storybook supports using CSS Modules */
+.red {
+  margin: 10px;
+  padding: 10px;
+  background-color: red;
+}

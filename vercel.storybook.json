@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "nrn-v2-mst-aptd-at-lcz-sty-storybook",
+  "scope": "team_qnVfSEVc2WwmOE1OYhZr4VST",
+  "env": {},
+  "build": {
+    "env": {}
+  },
+  "alias": [
+    "nrn-v2-mst-aptd-at-lcz-sty-storybook"
+  ],
+  "public": false
+}

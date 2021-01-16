@@ -1,8 +1,10 @@
 import { Amplitude } from '@amplitude/react-amplitude';
-import { css } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classnames from 'classnames';
-import { useTheme } from '@emotion/react';
 import kebabCase from 'lodash.kebabcase';
 import map from 'lodash.map';
 import {
@@ -26,8 +28,8 @@ import {
 import useI18n, { I18n } from '../../hooks/useI18n';
 import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { LogEvent } from '../../types/Amplitude';
+import { AirtableAttachment } from '../../types/data/AirtableAttachment';
 import { Asset } from '../../types/data/Asset';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { SidebarLink } from '../../types/SidebarLink';
 import {
   isActive,
@@ -40,12 +42,17 @@ import { NATIVE_FEATURES_SIDEBAR_LINKS } from '../doc/NativeFeaturesSidebar';
 import I18nLink from '../i18n/I18nLink';
 import Tooltip from '../utils/Tooltip';
 
-type Props = {};
+export type Props = {};
 
 const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const theme = useTheme();
+  const {
+    primaryColor,
+    logo: logoAirtable,
+  } = theme;
+  const logo: AirtableAttachment = logoAirtable;
   const { locale }: I18n = useI18n();
   const { primaryColor, logo } = theme;
 
@@ -83,12 +90,12 @@ const Nav: React.FunctionComponent<Props> = () => {
             }
 
             .navItemsMenu {
-              padding:0 10px;
+              padding: 0 10px;
 
               @media (max-width: 991.98px) {
                 a {
                   font-size: 12px;
-                  color: rgba(0,0,0,0.30) !important;
+                  color: rgba(0, 0, 0, 0.30) !important;
                 }
               }
             }
@@ -150,7 +157,11 @@ const Nav: React.FunctionComponent<Props> = () => {
             <GraphCMSAsset
               id={'nav-logo-brand'}
               asset={logo as unknown as Asset}
-              linkOverride={{ id: 'nav-open-app-link', url: resolveI18nHomePage(locale)?.i18nHref || '/', target: null }} // Force link to redirect to home
+              linkOverride={{
+                id: 'nav-open-app-link',
+                url: resolveI18nHomePage(locale)?.i18nHref || '/',
+                target: null,
+              }} // Force link to redirect to home
               transformationsOverride={{
                 height: 100,
               }}
@@ -189,7 +200,11 @@ const Nav: React.FunctionComponent<Props> = () => {
                     <DropdownItem header>Native features</DropdownItem>
                     {
                       map(NATIVE_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
-                        const { label, href, params = null } = link;
+                        const {
+                          label,
+                          href,
+                          params = null,
+                        } = link;
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
@@ -206,7 +221,11 @@ const Nav: React.FunctionComponent<Props> = () => {
                     <DropdownItem header>Built-in features</DropdownItem>
                     {
                       map(BUILT_IN_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
-                        const { label, href, params = null } = link;
+                        const {
+                          label,
+                          href,
+                          params = null,
+                        } = link;
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
@@ -223,7 +242,11 @@ const Nav: React.FunctionComponent<Props> = () => {
                     <DropdownItem header>Built-in utilities</DropdownItem>
                     {
                       map(BUILT_IN_UTILITIES_SIDEBAR_LINKS, (link: SidebarLink) => {
-                        const { label, href, params = null } = link;
+                        const {
+                          label,
+                          href,
+                          params = null,
+                        } = link;
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>

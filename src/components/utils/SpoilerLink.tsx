@@ -1,12 +1,45 @@
 import classnames from 'classnames';
 import React, { useState } from 'react';
 
-type Props = {
+export type Props = {
+  /**
+   * Element displayed within a `span`, until it is clicked.
+   *
+   * Is hidden once clicked.
+   */
   previewElement: JSX.Element;
+
+  /**
+   * Element displayed within a `Link` once the preview element has been clicked.
+   *
+   * Redirects to another web page, or can open the email/phone using the browser's native feature.
+   *
+   * Doesn't have built-in analytics event support. Those need to be implemented by the caller.
+   */
   spoilerElement: JSX.Element;
+
+  /**
+   * CSS classes.
+   */
   className?: string;
+
+  /**
+   * The path or URL to navigate to.
+   *
+   * Usually something like "tel:XXXXX" or "mailto:john.doe@somewhere.com"
+   */
   href: string;
+
+  /**
+   * Link target.
+   *
+   * @default _blank
+   */
   target?: string;
+
+  /**
+   * HTML id attribute. Must be unique.
+   */
   id?: string;
 }
 
@@ -14,16 +47,9 @@ type Props = {
  * Displays a preview element until the preview is clicked, then displays the spoiler element.
  * Meant to be used to hide some information until the preview is clicked.
  *
- * The spoiler element is a link, which redirects to another web page, or can open the email/phone native.
- * Doesn't have built-in analytics event support. Those need to be implemented by the caller.
- *
- * XXX Defining the "key" attributes will ensure each instance is treated completely separately and won't share its state with another instance.
- *
- * The elements types are hardcoded:
- *  - previewElement is a clickable <span> element
- *  - spoilerElement is a clickable <a> element
+ * > <span className="tip">XXX</span> Defining the "key" attributes will ensure each instance is treated completely separately and won't share its state with another instance.
  */
-const SpoilerButton: React.FunctionComponent<Props> = (props): JSX.Element => {
+const SpoilerLink: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     previewElement,
     spoilerElement,
@@ -59,4 +85,4 @@ const SpoilerButton: React.FunctionComponent<Props> = (props): JSX.Element => {
   }
 };
 
-export default SpoilerButton;
+export default SpoilerLink;

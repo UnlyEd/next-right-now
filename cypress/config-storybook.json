@@ -1,0 +1,11 @@
+{
+  "//": "This file is used by CI/CD GitHub Actions (deploy-vercel-storybook) and not meant to be used locally",
+  "baseUrl": "http://localhost:6006",
+  "projectId": "4dvdog",
+  "screenshotsFolder": "cypress/screenshots/storybook",
+  "videosFolder": "cypress/videos/storybook",
+  "integrationFolder": "cypress/integration-storybook",
+  "env": {},
+  "ignoreTestFiles": "*.md",
+  "experimentalComponentTesting": true
+}

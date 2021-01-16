@@ -6,7 +6,7 @@ import { GenericObject } from '../../types/GenericObject';
 
 import ErrorDebug from './ErrorDebug';
 
-type Props = {
+export type Props = {
   error: Error;
   context?: GenericObject;
 }
@@ -20,7 +20,10 @@ type Props = {
  * @param props
  */
 const DefaultErrorLayout = (props: Props): JSX.Element => {
-  const { error, context } = props;
+  const {
+    error,
+    context,
+  } = props;
   const errorEventId = Sentry.captureException(error);
 
   return (

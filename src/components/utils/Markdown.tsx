@@ -21,6 +21,7 @@ import { CSSStyles } from '../../types/CSSStyles';
 import { Markdown as MarkdownType } from '../../types/Markdown';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
+import Btn from './Btn';
 import Tooltip from './SimpleTooltip';
 
 const fileLabel = 'components/utils/Markdown';
@@ -28,10 +29,29 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
   label: fileLabel,
 });
 
-type Props = {
+export type Props = {
+  /**
+   * Markdown as text.
+   *
+   * Usually comes from a content source, such as a CMS, file, etc.
+   */
   text: MarkdownType;
+
+  /**
+   * Parsing options of the [`markdown-to-jsx` library](https://github.com/probablyup/markdown-to-jsx/blob/master/README.md#parsing-options).
+   *
+   * @see https://github.com/probablyup/markdown-to-jsx/blob/master/README.md#parsing-options
+   */
   markdownOptions?: MarkdownToJSX.Options;
+
+  /**
+   * CSS styles.
+   */
   style?: CSSStyles;
+
+  /**
+   * CSS classes.
+   */
   className?: string;
 }
 
@@ -61,6 +81,7 @@ const defaultMarkdownOptions: MarkdownToJSX.Options = {
     Row,
 
     // Our own components
+    Btn,
     I18nLink,
     I18nBtnChangeLocale,
     Tooltip,
@@ -69,12 +90,17 @@ const defaultMarkdownOptions: MarkdownToJSX.Options = {
 };
 
 /**
- * Display "text" property as Markdown, using the "markdown-to-jsx" library
+ * Display the "text" property as Markdown, using the "markdown-to-jsx" library.
  *
- * @param props
+ * @see https://github.com/probablyup/markdown-to-jsx
  */
 const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { text, markdownOptions: _markdownOptions, style, className } = props;
+  const {
+    text,
+    markdownOptions: _markdownOptions,
+    style,
+    className,
+  } = props;
   const markdownOptions = deepmerge(defaultMarkdownOptions, _markdownOptions || {});
 
   // If providing a non-string input (like "null" or "undefined") then markdown-to-jsx will crash with "Cannot read property 'replace' of undefined" - See https://github.com/probablyup/markdown-to-jsx/issues/314

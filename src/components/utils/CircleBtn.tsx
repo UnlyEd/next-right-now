@@ -1,7 +1,8 @@
-import { css } from '@emotion/react';
-import { useTheme } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React from 'react';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { ReactDivProps } from '../../types/react/ReactDivProps';
 import {
   ComponentThemeMode,
@@ -9,27 +10,33 @@ import {
   ThemedComponentProps,
 } from '../../utils/theming/themedComponentColors';
 
-type Props = {
+export type Props = {
+  /**
+   * React children, usually text.
+   */
   children: React.ReactNode;
+
+  /**
+   * CSS margin. Can be pixels, em, etc.
+   *
+   * @default 0px
+   */
   margin?: string;
 } & ReactDivProps & ThemedComponentProps;
 
 /**
- * Displays a 1-3 characters, or an icon, within a perfect circle.
+ * Displays a 1-3 characters, or an icon, within a as-close-as-perfect circle.
  *
- * Themed component.
+ * Example: Can be used in replacement of Reactstrap Badge.
  *
- * Used by:
- *  - Contact slider button
- *  - Report button
- *  - Size/number of label
+ * Implements `ThemedComponentColors`.
  */
 const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     margin = '0',
     mode = 'primary-reverse' as ComponentThemeMode,
-    transparent,
+    isTransparent,
     ...rest
   } = props;
   const customerTheme = useTheme();
@@ -37,10 +44,11 @@ const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
     color,
     backgroundColor,
     borderColor,
-  } = resolveThemedComponentColors(customerTheme, mode, transparent);
+  } = resolveThemedComponentColors(customerTheme, mode, isTransparent);
 
   return (
     <div
+      // @ts-ignore
       css={css`
         width: 100%;
         min-width: 10px;
@@ -87,7 +95,7 @@ const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
           position: relative;
           width: 30px; // XXX Related to the width of the root component, must be higher than "max-width - min-width"
         }
-    `}
+      `}
       {...rest}
     >
       <div className={'space-container'} />

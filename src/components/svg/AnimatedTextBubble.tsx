@@ -4,9 +4,14 @@ import {
 } from '@emotion/react';
 import React from 'react';
 
-const AnimatedTextBubble = props => {
+export type Props = {
+  fill?: string;
+};
+
+const AnimatedTextBubble = (props: Props) => {
   const theme = useTheme();
   const { surfaceColor } = theme;
+
   return (
     <div
       style={{

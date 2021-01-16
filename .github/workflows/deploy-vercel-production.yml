@@ -21,7 +21,6 @@
 # - See https://github.com/jwalton/gh-find-current-pr https://github.com/jwalton/gh-find-current-pr/tree/v1
 # - See https://github.com/peter-evans/create-or-update-comment https://github.com/peter-evans/create-or-update-comment/tree/v1
 # - See https://github.com/UnlyEd/github-action-await-vercel https://github.com/UnlyEd/github-action-await-vercel/tree/v1.1.1
-# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/v3.x
 # - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
 # - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
 
@@ -71,6 +70,7 @@ jobs:
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
         #   - Deploy the customer in production
+        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)
