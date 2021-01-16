@@ -31,3 +31,25 @@ Cypress.Commands.add('prepareDOMAliases', () => {
     });
   });
 });
+
+/**
+ * Finds an iframe and returns it "body" HTML element.
+ *
+ * XXX Alternatively, look for the cypress-iframe NPM plugin if you need more iframe-related features! See https://www.npmjs.com/package/cypress-iframe
+ *
+ * @example cy.findIframe();
+ * @see https://www.cypress.io/blog/2020/02/12/working-with-iframes-in-cypress/
+ */
+Cypress.Commands.add('findIframe', (iframeSelector) => {
+  // get the iframe > document > body
+  // and retry until the body element is not empty
+  cy.log('findIframe')
+
+  return cy
+    .get(iframeSelector, { log: false })
+    .its('0.contentDocument.body', { log: false }).should('not.be.empty')
+    // wraps "body" DOM element to allow
+    // chaining more Cypress commands, like ".find(...)"
+    // https://on.cypress.io/wrap
+    .then((body) => cy.wrap(body, { log: false }))
+})
