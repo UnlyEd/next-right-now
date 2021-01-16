@@ -4,7 +4,10 @@ import {
 } from '@emotion/react';
 import React, { ReactNode } from 'react';
 
-type Props = {
+export type Props = {
+  /**
+   * React children, usually text.
+   */
   children: ReactNode;
 }
 

@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 
 export type Props = {
   /**
-   * React children, usually contains text.
+   * React children, usually text.
    */
   children: ReactNode;
 
