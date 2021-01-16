@@ -78,8 +78,6 @@ export const parameters = {
    * Couldn't find centralized documentation about it.
    */
   options: {
-    theme: themes.dark,
-
     /**
      * @see https://storybook.js.org/docs/react/writing-stories/naming-components-and-hierarchy#sorting-stories
      */
