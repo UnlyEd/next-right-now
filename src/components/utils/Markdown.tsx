@@ -29,10 +29,29 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
   label: fileLabel,
 });
 
-type Props = {
+export type Props = {
+  /**
+   * Markdown as text.
+   *
+   * Usually comes from a content source, such as a CMS, file, etc.
+   */
   text: MarkdownType;
+
+  /**
+   * Parsing options of the [`markdown-to-jsx` library](https://github.com/probablyup/markdown-to-jsx/blob/master/README.md#parsing-options).
+   *
+   * @see https://github.com/probablyup/markdown-to-jsx/blob/master/README.md#parsing-options
+   */
   markdownOptions?: MarkdownToJSX.Options;
+
+  /**
+   * CSS styles.
+   */
   style?: CSSStyles;
+
+  /**
+   * CSS classes.
+   */
   className?: string;
 }
 
@@ -71,9 +90,9 @@ const defaultMarkdownOptions: MarkdownToJSX.Options = {
 };
 
 /**
- * Display "text" property as Markdown, using the "markdown-to-jsx" library
+ * Display the "text" property as Markdown, using the "markdown-to-jsx" library.
  *
- * @param props
+ * @see https://github.com/probablyup/markdown-to-jsx
  */
 const Markdown: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
