@@ -28,9 +28,13 @@ const ToggleLanguagesButton: React.FunctionComponent<Props> = (props): JSX.Eleme
     // @ts-ignore
     <ToggleButton
       id={id}
-      valueOn={flag1}
-      valueOff={flag2}
+      contentOn={flag1}
+      contentOff={flag2}
       isChecked={isChecked}
+      mode={'flip'}
+      flipModeOptions={{
+        useBackgroundColor: false,
+      }}
       {...rest}
     />
   );
