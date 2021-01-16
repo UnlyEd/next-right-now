@@ -7,7 +7,7 @@ import Btn from '../../../components/utils/Btn';
 import SpoilerLink, { Props } from '../../../components/utils/SpoilerLink';
 
 export default {
-  title: 'Next Right Now/Form/SpoilerLink',
+  title: 'Next Right Now/Data display/SpoilerLink',
   component: SpoilerLink,
   argTypes: {},
 } as Meta;

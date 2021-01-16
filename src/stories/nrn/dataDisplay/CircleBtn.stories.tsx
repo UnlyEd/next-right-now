@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Btn, { Props } from '../../../components/utils/Btn';
+import CircleBtn, { Props } from '../../../components/utils/CircleBtn';
 import withChildrenMock from '../../shared/hocs/withChildrenMock';
 
 type PropsWithChildrenMock = Props & {
@@ -11,8 +11,8 @@ type PropsWithChildrenMock = Props & {
 };
 
 export default {
-  title: 'Next Right Now/Form/Btn',
-  component: Btn,
+  title: 'Next Right Now/Data display/CircleBtn',
+  component: CircleBtn,
   argTypes: withChildrenMock({}),
 } as Meta;
 
@@ -21,16 +21,16 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
 
   return (
     // @ts-ignore
-    <Btn
+    <CircleBtn
       {...props}
       onClick={(): void => console.info('Click')}
     >
       {text || 'Default text'}
-    </Btn>
+    </CircleBtn>
   );
 };
 
 export const DynamicExample: Story<PropsWithChildrenMock> = Template.bind({});
 DynamicExample.args = {
-  text: 'Hello',
+  text: '42',
 };

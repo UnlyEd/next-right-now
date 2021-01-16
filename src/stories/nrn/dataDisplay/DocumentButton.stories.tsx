@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import ExternalLink, { Props } from '../../../components/utils/ExternalLink';
+import DocumentButton, { Props } from '../../../components/utils/DocumentButton';
 import withChildrenMock from '../../shared/hocs/withChildrenMock';
 
 type PropsWithChildrenMock = Props & {
@@ -11,8 +11,8 @@ type PropsWithChildrenMock = Props & {
 };
 
 export default {
-  title: 'Next Right Now/Form/ExternalLink',
-  component: ExternalLink,
+  title: 'Next Right Now/Data display/DocumentButton',
+  component: DocumentButton,
   argTypes: withChildrenMock({}),
 } as Meta;
 
@@ -21,22 +21,15 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
 
   return (
     // @ts-ignore
-    <ExternalLink
+    <DocumentButton
       {...props}
-      onClick={(): void => console.info('Click')}
     >
       {text || 'Default text'}
-    </ExternalLink>
+    </DocumentButton>
   );
 };
 
 export const DynamicExample: Story<PropsWithChildrenMock> = Template.bind({});
 DynamicExample.args = {
-  text: 'Open (another tab)',
-  href: '/',
-  nofollow: true,
-  noopener: true,
-  noreferrer: false,
-  prefix: ' ',
-  suffix: ' ',
+  text: 'My awesome PDF file',
 };

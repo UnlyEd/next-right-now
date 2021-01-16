@@ -13,7 +13,7 @@ type PropsWithChildrenMock = Props & {
 };
 
 export default {
-  title: 'Next Right Now/Form/LinkButton',
+  title: 'Next Right Now/Data display/LinkButton',
   component: LinkButton,
   subcomponents: { ExternalLink },
   argTypes: withChildrenMock({}),

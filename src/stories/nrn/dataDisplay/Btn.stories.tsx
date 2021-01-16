@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import DocumentButton, { Props } from '../../../components/utils/DocumentButton';
+import Btn, { Props } from '../../../components/utils/Btn';
 import withChildrenMock from '../../shared/hocs/withChildrenMock';
 
 type PropsWithChildrenMock = Props & {
@@ -11,8 +11,8 @@ type PropsWithChildrenMock = Props & {
 };
 
 export default {
-  title: 'Next Right Now/Form/DocumentButton',
-  component: DocumentButton,
+  title: 'Next Right Now/Data display/Btn',
+  component: Btn,
   argTypes: withChildrenMock({}),
 } as Meta;
 
@@ -21,15 +21,16 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
 
   return (
     // @ts-ignore
-    <DocumentButton
+    <Btn
       {...props}
+      onClick={(): void => console.info('Click')}
     >
       {text || 'Default text'}
-    </DocumentButton>
+    </Btn>
   );
 };
 
 export const DynamicExample: Story<PropsWithChildrenMock> = Template.bind({});
 DynamicExample.args = {
-  text: 'My awesome PDF file',
+  text: 'Hello',
 };
