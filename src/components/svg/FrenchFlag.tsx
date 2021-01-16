@@ -1,24 +1,19 @@
-import React from 'react';
+import React from "react";
+type Props = {} & React.SVGProps<SVGSVGElement>;
 
-const FrenchFlag = props => {
+const SvgFrenchFlag = (props: Props): JSX.Element => {
   return (
     <svg
-      viewBox="0 0 35 17"
-      width="20px"
+      data-name="Calque 1"
+      xmlns="http://www.w3.org/2000/svg"
+      width={24.43}
+      height={12.91}
       {...props}
     >
-      <style>
-        {
-          '.FrenchFlag_svg__st4,.FrenchFlag_svg__st6{display:inline;fill:#fff}.FrenchFlag_svg__st6{fill:#002496}'
-        }
-      </style>
-      <g id="FrenchFlag_svg__Calque_2">
-        <path fill="#002496" d="M0-.089h10v17.178H0z" />
-        <path fill="#fff" d="M10-.089h10v17.178H10z" />
-        <path fill="#ed2839" d="M20-.089h10v17.178H20z" />
-      </g>
+      <path fill="#012169" d="M0 0h7.98v12.91H0z" />
+      <path fill="#c8102e" d="M16.45 0h7.98v12.91h-7.98z" />
     </svg>
   );
 };
 
-export default FrenchFlag;
+export default SvgFrenchFlag;
