@@ -120,15 +120,6 @@ module.exports = {
     '@storybook/addon-google-analytics',
 
     /**
-     * This storybook addon can be helpful to make your UI components more accessible.
-     *
-     * Adds an "Accessibility" tab.
-     *
-     * @see https://www.npmjs.com/package/@storybook/addon-a11y
-     */
-    '@storybook/addon-a11y',
-
-    /**
      * Shows stories source in the addon panel. (display the source code of the story in a dedicated panel)
      *
      * Adds an "Story" tab.
@@ -136,6 +127,15 @@ module.exports = {
      * @see https://github.com/storybookjs/storybook/tree/master/addons/storysource
      */
     '@storybook/addon-storysource',
+
+    /**
+     * This storybook addon can be helpful to make your UI components more accessible.
+     *
+     * Adds an "Accessibility" tab.
+     *
+     * @see https://www.npmjs.com/package/@storybook/addon-a11y
+     */
+    '@storybook/addon-a11y',
 
     // ------------------- Non official addons below ------------------
 
