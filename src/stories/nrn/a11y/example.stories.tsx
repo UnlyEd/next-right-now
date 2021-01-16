@@ -3,6 +3,11 @@ import React from 'react';
 
 export default {
   title: 'Next Right Now/A11y/Button (default example)',
+  parameters: {
+    controls: {
+      hideNoControlsWarning: true,
+    },
+  },
 } as Meta;
 
 export const accessible = () => <button>Accessible button</button>;

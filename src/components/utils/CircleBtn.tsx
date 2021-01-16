@@ -29,7 +29,7 @@ export type Props = {
  *
  * Example: Can be used in replacement of Reactstrap Badge.
  *
- * Themed component.
+ * Implements `ThemedComponentColors`.
  */
 const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {

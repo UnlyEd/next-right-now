@@ -24,17 +24,9 @@ export type Props = {
 } & ReactButtonProps & ThemedComponentProps;
 
 /**
- * "Call to Action" button.
+ * Flexible HTML `button` component that can take many shapes and be used with various colors and background colors.
  *
- * Button meant to highlight a potential user interaction.
- * Themed component.
- *
- * Used to:
- *
- * - Navigate to another page
- * - Validate an action
- *
- * @param props
+ * Implements `ThemedComponentColors`.
  */
 const Btn: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
