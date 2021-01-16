@@ -49,7 +49,7 @@ export type Props = {
  *
  * > <span className="tip">XXX</span> Defining the "key" attributes will ensure each instance is treated completely separately and won't share its state with another instance.
  */
-const SpoilerButton: React.FunctionComponent<Props> = (props): JSX.Element => {
+const SpoilerLink: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     previewElement,
     spoilerElement,
@@ -85,4 +85,4 @@ const SpoilerButton: React.FunctionComponent<Props> = (props): JSX.Element => {
   }
 };
 
-export default SpoilerButton;
+export default SpoilerLink;

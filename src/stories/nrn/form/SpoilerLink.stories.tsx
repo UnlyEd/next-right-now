@@ -3,18 +3,17 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import SpoilerButton, { Props } from '../../../components/utils/SpoilerButton';
-import withChildrenMock from '../../shared/hocs/withChildrenMock';
+import SpoilerLink, { Props } from '../../../components/utils/SpoilerLink';
 
 export default {
-  title: 'Next Right Now/Form/SpoilerButton',
-  component: SpoilerButton,
+  title: 'Next Right Now/Form/SpoilerLink',
+  component: SpoilerLink,
   argTypes: {},
 } as Meta;
 
 const Template: Story<Props> = (props) => {
   return (
-    <SpoilerButton
+    <SpoilerLink
       {...props}
     />
   );
