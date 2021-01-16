@@ -41,8 +41,8 @@ const defaultOptions: Partial<Options> = {
 };
 
 /**
- * Mocks the "argTypes" to automatically disable `children` control and add a mock field (default: `text`) with default documentation.
- * Helps avoid code duplication
+ * Mocks the "argTypes" to disable `propName` (default: `children`) control and add a mock field (default: `text`) with built-in documentation.
+ * Helps avoid code duplication, while avoid misunderstanding about what are the real props and the mocked props.
  */
 const withPropMock = (argTypes: ArgTypes, options?: Options): ArgTypes => {
   const {
