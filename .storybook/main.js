@@ -124,9 +124,12 @@ module.exports = {
      *
      * Adds an "Story" tab.
      *
+     * XXX Disabled for now, because of https://github.com/storybookjs/storybook/issues/13657 (brings no useful information at the moment)
+     *  Better to use the Docs panel and display source code, that's a good workaround for now.
+     *
      * @see https://github.com/storybookjs/storybook/tree/master/addons/storysource
      */
-    '@storybook/addon-storysource',
+    // '@storybook/addon-storysource',
 
     /**
      * This storybook addon can be helpful to make your UI components more accessible.
