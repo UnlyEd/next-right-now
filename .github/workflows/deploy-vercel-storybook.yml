@@ -147,6 +147,35 @@ jobs:
             VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
             GITHUB_PULL_REQUEST_ID=${{ steps.pr_id_finder.outputs.number }}
 
+  # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
+  await-for-vercel-deployment:
+    name: Await current deployment to be ready (Ubuntu 18.04)
+    runs-on: ubuntu-18.04
+    needs: start-staging-deployment
+    steps:
+      - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
+
+      # Restore variables stored by previous jobs
+      - name: Restore variables
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        id: restore-variable
+        with:
+          variables: |
+            VERCEL_DEPLOYMENT_DOMAIN
+
+      # Wait for deployment to be ready, before running E2E (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
+      - name: Awaiting Vercel deployment to be ready
+        uses: UnlyEd/github-action-await-vercel@v1.1.1 # See https://github.com/UnlyEd/github-action-await-vercel
+        id: await-vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
+        with:
+          deployment-url: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_DOMAIN }} # Must only contain the domain name (no http prefix, etc.)
+          timeout: 90 # Wait for 90 seconds before failing
+
+      - name: Display deployment status
+        run: "echo The deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
+
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
