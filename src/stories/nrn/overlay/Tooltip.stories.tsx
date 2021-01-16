@@ -4,19 +4,42 @@ import {
 } from '@storybook/react/types-6-0';
 import React from 'react';
 import Tooltip, { Props } from '../../../components/utils/Tooltip';
+import withChildrenMock from '../../shared/hocs/withChildrenMock';
+
+type PropsWithChildrenMock = Props & {
+  text?: string;
+  tooltipText?: string;
+};
 
 export default {
   title: 'Next Right Now/Overlay/Tooltip',
   component: Tooltip,
-  argTypes: {},
+  argTypes: withChildrenMock({}),
 } as Meta;
 
-export const DefaultExample: Story<Props> = () => {
+const Template: Story<PropsWithChildrenMock> = (props) => {
+  const {
+    text,
+    tooltipText,
+    ...rest
+  } = props;
+
   return (
     <Tooltip
-      overlay={<span>Tooltip!</span>}
+      overlay={(
+        <span>{tooltipText}</span>
+      )}
+      {...rest}
     >
-      <span>Hover me</span>
+      <span>{text || 'Default text'}</span>
     </Tooltip>
   );
+};
+
+export const DynamicExample: Story<PropsWithChildrenMock> = Template.bind({});
+DynamicExample.args = {
+  text: 'Hello',
+  tooltipText: 'Hello',
+  trigger: ['hover', 'click', 'focus'],
+  placement: 'top',
 };

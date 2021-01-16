@@ -30,5 +30,5 @@ const Template: Story<Props> = (props) => {
 
 export const DynamicExample: Story<Props> = Template.bind({});
 DynamicExample.args = {
-  id: 'toggle-language-button',
+  id: 'toggle-languages-button',
 };
