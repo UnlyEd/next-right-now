@@ -3,6 +3,8 @@ import { TooltipProps } from 'rc-tooltip/lib/Tooltip';
 import { ActionType } from 'rc-trigger/lib/interface';
 import React from 'react';
 
+export type TooltipPlacement = 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+
 export type Props = {
   /**
    * React children, usually text.
@@ -30,7 +32,7 @@ export type Props = {
    *
    * @default top
    */
-  placement?: 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+  placement?: TooltipPlacement;
 } & TooltipProps;
 
 /**
