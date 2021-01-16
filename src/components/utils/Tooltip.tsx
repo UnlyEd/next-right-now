@@ -28,7 +28,7 @@ export type Props = {
    *
    * @default top
    */
-  placement?: string;
+  placement?: 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 } & TooltipProps;
 
 /**
