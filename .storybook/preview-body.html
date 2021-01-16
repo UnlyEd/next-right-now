@@ -6,6 +6,18 @@
 
 <style>
   /*
+    Override styles
+  */
+
+  /*
+    Make text color white because dark mode is enabled and text cannot be read properly without it,
+    because bootstrap forces "pre" elements to be white
+  */
+  #docs-root .sbdocs-preview pre.prismjs {
+    color: whitesmoke;
+  }
+
+  /*
     Default Storybook CSS
     (it was nice, so we kept it around)
   */
