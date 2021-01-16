@@ -15,6 +15,7 @@ import {
   faExclamationTriangle,
   faFileAlt,
   faHome,
+  faLink,
   faQuestionCircle,
   faSync,
   faUserCog,
@@ -57,7 +58,9 @@ library.add(
   faExclamationTriangle,
   faFileAlt,
   faHome,
+  faLink,
   faQuestionCircle,
   faSync,
   faUserCog,
-);
+)
+;
