@@ -3,6 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
+import Btn from '../../../components/utils/Btn';
 import SpoilerLink, { Props } from '../../../components/utils/SpoilerLink';
 
 export default {
@@ -26,6 +27,18 @@ DynamicExample.args = {
   ),
   spoilerElement: (
     <span>Arya Stark's phone number is 000000000</span>
+  ),
+  className: '',
+  href: 'tel:000000000',
+};
+
+export const DynamicExampleWithBtn: Story<Props> = Template.bind({});
+DynamicExampleWithBtn.args = {
+  previewElement: (
+    <Btn>Spoil me!</Btn>
+  ),
+  spoilerElement: (
+    <Btn mode={'primary-reverse'}>Arya Stark's phone number is 000000000</Btn>
   ),
   className: '',
   href: 'tel:000000000',
