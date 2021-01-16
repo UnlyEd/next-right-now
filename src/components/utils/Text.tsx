@@ -2,14 +2,14 @@ import React, { DOMAttributes } from 'react';
 
 type Props = {
   children: string;
-  tag?: string | React.ReactType;
+  tag?: string | React.ElementType;
 } & DOMAttributes<any>;
 
 /**
- * Automatically break lines for text
- * Allow usage of HTML (but not React components)
+ * Automatically break lines for text.
+ * Allow usage of HTML (but not React components).
  *
- * Avoids relying on <br /> for every line break
+ * Avoids relying on <br /> for every line break.
  *
  * @example
  * <Text>
