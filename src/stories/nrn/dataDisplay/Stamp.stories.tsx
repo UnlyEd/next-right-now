@@ -5,7 +5,7 @@ import {
 import React from 'react';
 import EllipsisText from '../../../components/utils/EllipsisText';
 import Stamp, { Props } from '../../../components/utils/Stamp';
-import withChildrenMock from '../../shared/hocs/withChildrenMock';
+import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {
   text?: string | React.ReactElement;
@@ -14,7 +14,7 @@ type PropsWithChildrenMock = Props & {
 export default {
   title: 'Next Right Now/Data display/Stamp',
   component: Stamp,
-  argTypes: withChildrenMock({}),
+  argTypes: withPropMock({}),
 } as Meta;
 
 const Template: Story<PropsWithChildrenMock> = (props) => {

@@ -5,7 +5,7 @@ import {
 import React from 'react';
 import ExternalLink from '../../../components/utils/ExternalLink';
 import LinkButton, { Props } from '../../../components/utils/LinkButton';
-import withChildrenMock from '../../shared/hocs/withChildrenMock';
+import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {
   text?: string;
@@ -16,7 +16,7 @@ export default {
   title: 'Next Right Now/Data display/LinkButton',
   component: LinkButton,
   subcomponents: { ExternalLink },
-  argTypes: withChildrenMock({}),
+  argTypes: withPropMock({}),
 } as Meta;
 
 const Template: Story<PropsWithChildrenMock> = (props) => {

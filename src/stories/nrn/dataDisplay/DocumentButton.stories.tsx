@@ -4,7 +4,7 @@ import {
 } from '@storybook/react/types-6-0';
 import React from 'react';
 import DocumentButton, { Props } from '../../../components/utils/DocumentButton';
-import withChildrenMock from '../../shared/hocs/withChildrenMock';
+import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {
   text?: string;
@@ -13,7 +13,7 @@ type PropsWithChildrenMock = Props & {
 export default {
   title: 'Next Right Now/Data display/DocumentButton',
   component: DocumentButton,
-  argTypes: withChildrenMock({}),
+  argTypes: withPropMock({}),
 } as Meta;
 
 const Template: Story<PropsWithChildrenMock> = (props) => {

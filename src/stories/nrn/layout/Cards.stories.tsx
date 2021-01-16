@@ -15,12 +15,11 @@ import I18nLink from '../../../components/i18n/I18nLink';
 import Btn from '../../../components/utils/Btn';
 import Cards, { Props } from '../../../components/utils/Cards';
 import ExternalLink from '../../../components/utils/ExternalLink';
-import withChildrenMock from '../../shared/hocs/withChildrenMock';
 
 export default {
   title: 'Next Right Now/Layout/Cards',
   component: Cards,
-  argTypes: withChildrenMock({}, { hasChildrenMock: false }),
+  argTypes: {},
 } as Meta;
 
 const Template: Story<Props> = (props) => {

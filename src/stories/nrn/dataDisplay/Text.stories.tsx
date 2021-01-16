@@ -4,7 +4,7 @@ import {
 } from '@storybook/react/types-6-0';
 import React from 'react';
 import Text, { Props } from '../../../components/utils/Text';
-import withChildrenMock from '../../shared/hocs/withChildrenMock';
+import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {
   text?: string;
@@ -13,7 +13,7 @@ type PropsWithChildrenMock = Props & {
 export default {
   title: 'Next Right Now/Data display/Text',
   component: Text,
-  argTypes: withChildrenMock({}),
+  argTypes: withPropMock({}),
 } as Meta;
 
 const Template: Story<PropsWithChildrenMock> = (props) => {

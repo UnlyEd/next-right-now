@@ -4,7 +4,7 @@ import {
 } from '@storybook/react/types-6-0';
 import React from 'react';
 import I18nLink, { Props } from '../../../components/i18n/I18nLink';
-import withChildrenMock from '../../shared/hocs/withChildrenMock';
+import withPropMock from '../../shared/hocs/withPropMock';
 import styles from './I18nLink.module.css';
 
 type PropsWithChildrenMock = {
@@ -15,7 +15,7 @@ type PropsWithChildrenMock = {
 export default {
   title: 'Next Right Now/I18n/I18nLink',
   component: I18nLink,
-  argTypes: withChildrenMock({
+  argTypes: withPropMock({
     wrapChildrenAsLink: {
       control: {
         disable: true, // Disable field because it crashes the UI when being used (expected behavior but bad UX)

@@ -4,7 +4,7 @@ import {
 } from '@storybook/react/types-6-0';
 import React from 'react';
 import SimpleTooltip, { Props } from '../../../components/utils/SimpleTooltip';
-import withChildrenMock from '../../shared/hocs/withChildrenMock';
+import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {
   text?: string;
@@ -14,7 +14,7 @@ type PropsWithChildrenMock = Props & {
 export default {
   title: 'Next Right Now/Overlay/SimpleTooltip',
   component: SimpleTooltip,
-  argTypes: withChildrenMock({}),
+  argTypes: withPropMock({}),
 } as Meta;
 
 const Template: Story<PropsWithChildrenMock> = (props) => {
