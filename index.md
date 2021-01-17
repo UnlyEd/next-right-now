@@ -66,22 +66,22 @@ Here is an overview of all the features included in this boilerplate:
 
 ### Common features (available in all presets):
 
-- **Stages** (development, staging, production)
-- **TypeScript** advanced support
-- **Storybook** static site, to host the documentation of your React components
+- **[Stages](./concepts/env-and-stages)** (development, staging, production)
+- **[TypeScript](./reference/typescript)** advanced support
+- **[Storybook](./guides/storybook/)** static site, to host the documentation of your React components
     - Hosted on Vercel (using a dedicated project)
     - Automatically kept up-to-date (thanks to [GitHub Actions](https://github.com/features/actions))
 - Various **rendering** capabilities, which allow for **hybrid** configuration
     - Next.js allow [per-page rendering configuration](https://nextjs.org/docs/basic-features/pages#pre-rendering), meaning you can build hybrid SSG/SSR apps
 - React hooks over HOC (functional components over classes)
-- **Testing** advanced support
+- **[Testing](./guides/testing)** advanced support
     - TS-friendly (thanks to [ts-jest](https://github.com/kulshekhar/ts-jest))
     - End-to-end (E2E) automated tests (thanks to [Cypress](https://www.cypress.io/) and Github Actions), with TS support
     - Other tests, such as unit tests, etc. (thanks to [Jest](https://jestjs.io/), [Jest extended](https://github.com/jest-community/jest-extended))
 - Powerful **CSS-in-JS** styles, SSR & CSR friendly, JSX-friendly, styled-component friendly (thanks to [Emotion](https://github.com/emotion-js/emotion))
 - **Font** support (SSR/CSR friendly, no FOUT effect) (thanks to [WebFontLoader](https://github.com/typekit/webfontloader))
 - Support for **Next.js SSG Preview Mode for the whole site**, automatically enabled in staging, _disabled in production by default_.
-- **Integrated CI/CD pipeline** (thanks to [GitHub Actions](https://github.com/features/actions)), which provides:
+- **[Integrated CI/CD pipeline](./guides/ci-cd)** (thanks to [GitHub Actions](https://github.com/features/actions)), which provides:
     - **Automated deployments to preview domains and production domains** (thanks to [Vercel](https://vercel.com/))
         - Including a dedicated "per-deployment domain", for fast feedback loop and testing means, in an online environment (staging)
         - Including a dedicated "per-branch domain", for fast feedback loop and testing means, in an online environment with a url which is automatically updated as
@@ -92,7 +92,7 @@ Here is an overview of all the features included in this boilerplate:
     - **Automated GitHub tags and [releases](https://github.com/UnlyEd/next-right-now/releases)** _(since December 2020)_
         - All changes landing into a non-preset branch are automatically tagged and released as pre-release (the pre-release points to the latest commit on the branch)
         - All changes landing into a preset branch are automatically tagged and released
-- Built-in **API endpoints**
+- Built-in **[API endpoints](./guides/api-endpoints)**
     - An [`/api/status`](https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app/api/status) endpoint to showcases some environment variables that are built-in and ready to use (Git metadata (SHA, branch, tag), deployment date, AWS metadata (region, node version, memory) etc.)
         - _At Unly, our Customer Success team use it to manually check some metadata about a deployment._
     - An `/api/startVercelDeployment` endpoint to showcase how you could trigger a Vercel deployment from a 3rd party tool (CMS, Back-Office, etc.)
