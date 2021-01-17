@@ -1,5 +1,5 @@
-import { CustomerTheme } from '../data/types/CustomerTheme';
-import { resolveVariantColor } from '../theming/colors';
+import { CustomerTheme } from '../modules/data/types/CustomerTheme';
+import { resolveVariantColor } from '../modules/theming/colors';
 
 export const NRN_DEFAULT_SERVICE_LABEL = process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'Next Right Now' : `[${process.env.NEXT_PUBLIC_APP_STAGE === 'staging' ? 'Preview' : 'Dev'}] Next Right Now`;
 

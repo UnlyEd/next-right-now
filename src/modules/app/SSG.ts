@@ -6,7 +6,7 @@ import {
   GetStaticPropsResult,
 } from 'next';
 import { getAirtableSchema } from '../airtable/airtableSchema';
-import { supportedLocales } from '../config/i18nConfig';
+import { supportedLocales } from '../i18n/i18nConfig';
 import { AirtableSchema } from '../airtable/types/AirtableSchema';
 import { AirtableDatasets } from '../data/types/AirtableDatasets';
 import { SanitizedAirtableDataset } from '../data/types/SanitizedAirtableDataset';

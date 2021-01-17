@@ -1,7 +1,7 @@
 import { isBrowser } from '@unly/utils';
 import map from 'lodash.map';
 
-import { NRN_DEFAULT_THEME } from '../config/constants';
+import { NRN_DEFAULT_THEME } from '../../common/constants';
 import { AirtableRecord } from '../data/types/AirtableRecord';
 import { Customer } from '../data/types/Customer';
 import { CustomerTheme } from '../data/types/CustomerTheme';

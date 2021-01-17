@@ -3,7 +3,7 @@ import {
   defaultLocale,
   supportedLanguages,
   supportedLocales,
-} from '../config/i18nConfig';
+} from './i18nConfig';
 import { I18nLocale } from './types/I18nLocale';
 
 export const LANG_EN = 'en';

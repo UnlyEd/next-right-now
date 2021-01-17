@@ -5,7 +5,7 @@ import {
   NextApiResponse,
 } from 'next';
 
-import { supportedLocales } from '../../config/i18nConfig';
+import { supportedLocales } from '../i18nConfig';
 import redirect from '../../../common/utils/redirect';
 import {
   acceptLanguageHeaderLookup,

@@ -12,7 +12,7 @@ import { Alert } from 'reactstrap';
 import DocPage from '../../../../../common/components/nrnDoc/DocPage';
 import NativeFeaturesSidebar from '../../../../../common/components/nrnDoc/NativeFeaturesSidebar';
 import I18nLink from '../../../../../modules/i18n/components/I18nLink';
-import { supportedLocales } from '../../../../../modules/config/i18nConfig';
+import { supportedLocales } from '../../../../../modules/i18n/i18nConfig';
 import { I18nLocale } from '../../../../../modules/i18n/types/I18nLocale';
 import { CommonServerSideParams } from '../../../../../modules/bootstrapping/types/CommonServerSideParams';
 import { StaticPath } from '../../../../../modules/bootstrapping/types/StaticPath';

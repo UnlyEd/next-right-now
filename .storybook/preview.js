@@ -10,7 +10,7 @@ import { withNextRouter } from 'storybook-addon-next-router';
 import { withPerformance } from 'storybook-addon-performance';
 import '../src/modules/bootstrapping/components/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import MultiversalGlobalStyles from '../src/modules/bootstrapping/components/MultiversalGlobalStyles';
-import { defaultLocale, getLangFromLocale, supportedLocales } from '../src/modules/config/i18nConfig';
+import { defaultLocale, getLangFromLocale, supportedLocales } from '../src/modules/i18n/i18nConfig';
 import amplitudeContext from '../src/modules/amplitude/context/amplitudeContext';
 import customerContext from '../src/modules/data/contexts/customerContext';
 import { cypressContext } from '../src/modules/testing/contexts/cypressContext';
