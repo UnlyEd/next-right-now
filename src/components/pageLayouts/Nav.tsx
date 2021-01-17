@@ -26,9 +26,7 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import useI18n, { I18n } from '../../hooks/useI18n';
-import customerContext, { CustomerContext } from '../../stores/customerContext';
 import { LogEvent } from '../../types/Amplitude';
-import { AirtableAttachment } from '../../types/data/AirtableAttachment';
 import { Asset } from '../../types/data/Asset';
 import { SidebarLink } from '../../types/SidebarLink';
 import {
@@ -48,13 +46,11 @@ const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const theme = useTheme();
+  const { locale }: I18n = useI18n();
   const {
     primaryColor,
-    logo: logoAirtable,
+    logo,
   } = theme;
-  const logo: AirtableAttachment = logoAirtable;
-  const { locale }: I18n = useI18n();
-  const { primaryColor, logo } = theme;
 
   return (
     <Amplitude>
@@ -205,6 +201,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                           href,
                           params = null,
                         } = link;
+
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
@@ -226,6 +223,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                           href,
                           params = null,
                         } = link;
+
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
@@ -247,6 +245,7 @@ const Nav: React.FunctionComponent<Props> = () => {
                           href,
                           params = null,
                         } = link;
+
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
