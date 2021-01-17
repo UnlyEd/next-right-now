@@ -37,3 +37,6 @@ DynamicAirtableLogo.args = {
   },
   onClick: () => console.log('click on asset'),
 };
+DynamicAirtableLogo.parameters = {
+  jest: ['AirtableAsset.test.tsx'],
+};
