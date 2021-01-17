@@ -27,6 +27,8 @@ This changelog is meant to provide a good overview of the biggest changes in the
 
 Here is a short list of the most valuable changes and new features.
 
+- 2021-01-17
+    - [Add Storybook static site, hosted on Vercel](https://github.com/UnlyEd/next-right-now/pull/251)
 - 2021-01-13
     - [Improve Sentry monitoring for all pages + improve bootstrap error handling and monitoring](https://github.com/UnlyEd/next-right-now/commit/7fd4523e59528dfaaf418b601a3830559360c9d4)
     - [Improve demo about error handling](https://github.com/UnlyEd/next-right-now/commit/d00f799c11ddf5cdc4cd17c56d5f0d19569d2629)
