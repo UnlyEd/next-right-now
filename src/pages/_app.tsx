@@ -9,7 +9,7 @@ import { NextWebVitalsMetricsReport } from '../modules/webVitals/types/NextWebVi
 import { SSGPageProps } from '../modules/app/types/SSGPageProps';
 import { SSRPageProps } from '../modules/app/types/SSRPageProps';
 import { sendWebVitals } from '../modules/amplitude/amplitude';
-import '../utils/app/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
+import '../common/utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
 import '../modules/fontAwesome/fontAwesome';
 import '../modules/sentry/sentry';
 import '../modules/wdyr/wdyr';

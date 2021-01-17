@@ -13,7 +13,7 @@ import MultiversalGlobalStyles from '../src/modules/bootstrapping/components/Mul
 import { defaultLocale, getLangFromLocale, supportedLocales } from '../src/modules/config/i18nConfig';
 import amplitudeContext from '../src/modules/amplitude/context/amplitudeContext';
 import customerContext from '../src/modules/data/contexts/customerContext';
-import { cypressContext } from '../src/modules/tests/cypressContext';
+import { cypressContext } from '../src/modules/testing/contexts/cypressContext';
 import datasetContext from '../src/modules/data/contexts/datasetContext';
 import i18nContext from '../src/modules/i18n/contexts/i18nContext';
 import previewModeContext from '../src/modules/previewMode/contexts/previewModeContext';
