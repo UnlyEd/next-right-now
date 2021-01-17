@@ -47,7 +47,7 @@
     "e2e:run": "CYPRESS_STAGE=${CYPRESS_STAGE:-development}; cypress run --config-file cypress/config-$CYPRESS_STAGE.json",
     "e2e:run:spec:common": "CYPRESS_STAGE=${CYPRESS_STAGE:-development}; cypress run --config-file cypress/config-$CYPRESS_STAGE.json --spec 'cypress/integration/app/common/*.js'",
     "e2e:ci": "yarn e2e:install && cypress run --record",
-    "e2e:sb": "",
+    "e2e:sb": "yarn e2e:sb:run",
     "e2e:sb:run": "cypress run --config-file cypress/config-storybook.json",
     "e2e:sb:open": "cypress open --config-file cypress/config-storybook.json",
     "doc:start": "cd docs/ && bundle exec jekyll serve --config _config-development.yml",
