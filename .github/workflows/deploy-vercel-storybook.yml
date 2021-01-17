@@ -33,7 +33,8 @@ on:
       - 'cypress/integration-storybook/**'
       - 'src/stories/**'
       - 'src/components/**'
-#      - 'src/*/components/**' # For later?
+      #      - 'src/*/components/**' # For later?
+      - 'package.json'
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
