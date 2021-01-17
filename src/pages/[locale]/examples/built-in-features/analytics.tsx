@@ -13,22 +13,22 @@ import {
   Button,
 } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
-import DocPage from '../../../../components/doc/DocPage';
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
-import Code from '../../../../components/utils/Code';
-import ExternalLink from '../../../../components/utils/ExternalLink';
-import useUserConsent from '../../../../hooks/useUserConsent';
-import useUserSession, { UserSession } from '../../../../hooks/useUserSession';
-import { LogEvent } from '../../../../types/Amplitude';
-import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import BuiltInFeaturesSidebar from '../../../../common/components/nrnDoc/BuiltInFeaturesSidebar';
+import DocPage from '../../../../common/components/nrnDoc/DocPage';
+import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DisplayOnBrowserMount from '../../../../common/components/rehydration/DisplayOnBrowserMount';
+import Code from '../../../../common/components/dataDisplay/Code';
+import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
+import useUserConsent from '../../../../modules/userConsent/hooks/useUserConsent';
+import useUserSession, { UserSession } from '../../../../modules/user/useUserSession';
+import { LogEvent } from '../../../../modules/amplitude/types/Amplitude';
+import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
-} from '../../../../utils/nextjs/SSG';
+} from '../../../../modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/analytics';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -7,16 +7,16 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import useCustomer from '../../hooks/useCustomer';
-import { Customer } from '../../types/data/Customer';
-import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
+import DefaultLayout from '../../common/components/pageLayouts/DefaultLayout';
+import useCustomer from '../../modules/data/hooks/useCustomer';
+import { Customer } from '../../modules/data/types/Customer';
+import { CommonServerSideParams } from '../../modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../modules/app/types/SSGPageProps';
 import {
   getCommonStaticPaths,
   getCommonStaticProps,
-} from '../../utils/nextjs/SSG';
+} from '../../modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSG';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

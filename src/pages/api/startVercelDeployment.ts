@@ -4,13 +4,13 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import redirect from '../../utils/app/redirect';
-import dispatchWorkflowByPath from '../../utils/gitHubActions/dispatchWorkflowByPath';
+import redirect from '../../common/utils/redirect';
+import dispatchWorkflowByPath from '../../modules/githubActions/dispatchWorkflowByPath';
 
 import Sentry, {
   ALERT_TYPES,
   configureReq,
-} from '../../utils/monitoring/sentry';
+} from '../../modules/sentry/sentry';
 
 const fileLabel = 'api/startVercelDeployment';
 const logger = createLogger({

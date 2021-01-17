@@ -9,17 +9,17 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
-import DocPage from '../../../../components/doc/DocPage';
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../../components/utils/Code';
-import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import BuiltInFeaturesSidebar from '../../../../common/components/nrnDoc/BuiltInFeaturesSidebar';
+import DocPage from '../../../../common/components/nrnDoc/DocPage';
+import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import Code from '../../../../common/components/dataDisplay/Code';
+import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
-} from '../../../../utils/nextjs/SSG';
+} from '../../../../modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/icons';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

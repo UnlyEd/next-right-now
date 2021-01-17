@@ -11,10 +11,10 @@ import {
   CardText,
   CardTitle,
 } from 'reactstrap';
-import I18nLink from '../../../components/i18n/I18nLink';
-import Btn from '../../../components/utils/Btn';
-import Cards, { Props } from '../../../components/utils/Cards';
-import ExternalLink from '../../../components/utils/ExternalLink';
+import I18nLink from '../../../modules/i18n/components/I18nLink';
+import Btn from '../../../common/components/dataDisplay/Btn';
+import Cards, { Props } from '../../../common/components/dataDisplay/Cards';
+import ExternalLink from '../../../common/components/dataDisplay/ExternalLink';
 
 export default {
   title: 'Next Right Now/Layout/Cards',

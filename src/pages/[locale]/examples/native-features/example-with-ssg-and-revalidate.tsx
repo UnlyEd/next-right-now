@@ -15,27 +15,27 @@ import {
   Container,
 } from 'reactstrap';
 
-import AllProducts from '../../../../components/data/AllProducts';
-import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
-import ExternalLink from '../../../../components/utils/ExternalLink';
-import useCustomer from '../../../../hooks/useCustomer';
-import useI18n, { I18n } from '../../../../hooks/useI18n';
-import { AirtableRecord } from '../../../../types/data/AirtableRecord';
-import { Customer } from '../../../../types/data/Customer';
-import { Product } from '../../../../types/data/Product';
-import { SanitizedAirtableDataset } from '../../../../types/data/SanitizedAirtableDataset';
-import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
-import { StaticPropsInput } from '../../../../types/nextjs/StaticPropsInput';
-import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import deserializeSafe from '../../../../utils/airtableDataset/deserializeSafe';
+import AllProducts from '../../../../common/components/dataDisplay/AllProducts';
+import NativeFeaturesSidebar from '../../../../common/components/nrnDoc/NativeFeaturesSidebar';
+import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DisplayOnBrowserMount from '../../../../common/components/rehydration/DisplayOnBrowserMount';
+import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
+import useCustomer from '../../../../modules/data/hooks/useCustomer';
+import useI18n, { I18n } from '../../../../modules/i18n/hooks/useI18n';
+import { AirtableRecord } from '../../../../modules/data/types/AirtableRecord';
+import { Customer } from '../../../../modules/data/types/Customer';
+import { Product } from '../../../../modules/data/types/Product';
+import { SanitizedAirtableDataset } from '../../../../modules/data/types/SanitizedAirtableDataset';
+import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
+import { StaticPropsInput } from '../../../../modules/bootstrapping/types/StaticPropsInput';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
+import deserializeSafe from '../../../../modules/airtable/utils/deserializeSafe';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
-} from '../../../../utils/nextjs/SSG';
-import timeDifference from '../../../../utils/time/timeDifference';
+} from '../../../../modules/app/SSG';
+import timeDifference from '../../../../modules/date/timeDifference';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

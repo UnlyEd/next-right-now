@@ -3,12 +3,12 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { convertRequestBodyToJSObject } from '../../../utils/api/convertRequestBodyToJSObject';
+import { convertRequestBodyToJSObject } from '../../../modules/api/convertRequestBodyToJSObject';
 
 import Sentry, {
   ALERT_TYPES,
   configureReq,
-} from '../../../utils/monitoring/sentry';
+} from '../../../modules/sentry/sentry';
 
 const fileLabel = 'api/webhooks/deploymentCompleted';
 const logger = createLogger({

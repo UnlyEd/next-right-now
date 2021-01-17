@@ -13,24 +13,24 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import NativeFeaturesSidebar from '../../../../../components/doc/NativeFeaturesSidebar';
-import I18nLink from '../../../../../components/i18n/I18nLink';
-import DefaultLayout from '../../../../../components/pageLayouts/DefaultLayout';
-import Btn from '../../../../../components/utils/Btn';
-import ExternalLink from '../../../../../components/utils/ExternalLink';
-import songs from '../../../../../mocks/songs';
-import { CommonServerSideParams } from '../../../../../types/nextjs/CommonServerSideParams';
-import { StaticPath } from '../../../../../types/nextjs/StaticPath';
-import { StaticPathsOutput } from '../../../../../types/nextjs/StaticPathsOutput';
-import { StaticPropsInput } from '../../../../../types/nextjs/StaticPropsInput';
-import { OnlyBrowserPageProps } from '../../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../../types/pageProps/SSGPageProps';
-import { getRandomInt } from '../../../../../utils/math/random';
+import NativeFeaturesSidebar from '../../../../../common/components/nrnDoc/NativeFeaturesSidebar';
+import I18nLink from '../../../../../modules/i18n/components/I18nLink';
+import DefaultLayout from '../../../../../common/components/pageLayouts/DefaultLayout';
+import Btn from '../../../../../common/components/dataDisplay/Btn';
+import ExternalLink from '../../../../../common/components/dataDisplay/ExternalLink';
+import songs from '../../../../../modules/tests/mocks/songs';
+import { CommonServerSideParams } from '../../../../../modules/bootstrapping/types/CommonServerSideParams';
+import { StaticPath } from '../../../../../modules/bootstrapping/types/StaticPath';
+import { StaticPathsOutput } from '../../../../../modules/bootstrapping/types/StaticPathsOutput';
+import { StaticPropsInput } from '../../../../../modules/bootstrapping/types/StaticPropsInput';
+import { OnlyBrowserPageProps } from '../../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../../modules/app/types/SSGPageProps';
+import { getRandomInt } from '../../../../../modules/js/random';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
-} from '../../../../../utils/nextjs/SSG';
-import waitFor from '../../../../../utils/timers/waitFor';
+} from '../../../../../modules/app/SSG';
+import waitFor from '../../../../../common/utils/waitFor';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-fallback/[albumId]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

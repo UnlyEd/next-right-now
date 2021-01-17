@@ -17,21 +17,21 @@ import {
 } from 'reactstrap';
 import { v1 as uuid } from 'uuid';
 
-import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
-import DocPage from '../../../../components/doc/DocPage';
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import DisplayOnBrowserMount from '../../../../components/rehydration/DisplayOnBrowserMount';
-import Code from '../../../../components/utils/Code';
-import ExternalLink from '../../../../components/utils/ExternalLink';
-import useI18n, { I18n } from '../../../../hooks/useI18n';
-import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { resolveCustomerVariationLang } from '../../../../utils/i18n/i18n';
+import BuiltInFeaturesSidebar from '../../../../common/components/nrnDoc/BuiltInFeaturesSidebar';
+import DocPage from '../../../../common/components/nrnDoc/DocPage';
+import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DisplayOnBrowserMount from '../../../../common/components/rehydration/DisplayOnBrowserMount';
+import Code from '../../../../common/components/dataDisplay/Code';
+import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
+import useI18n, { I18n } from '../../../../modules/i18n/hooks/useI18n';
+import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
+import { resolveCustomerVariationLang } from '../../../../modules/i18n/i18n';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
-} from '../../../../utils/nextjs/SSG';
+} from '../../../../modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

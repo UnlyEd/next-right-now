@@ -11,19 +11,19 @@ import {
   Container,
 } from 'reactstrap';
 
-import AllProducts from '../../../../components/data/AllProducts';
-import NativeFeaturesSidebar from '../../../../components/doc/NativeFeaturesSidebar';
+import AllProducts from '../../../../common/components/dataDisplay/AllProducts';
+import NativeFeaturesSidebar from '../../../../common/components/nrnDoc/NativeFeaturesSidebar';
 
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import ExternalLink from '../../../../components/utils/ExternalLink';
-import useCustomer from '../../../../hooks/useCustomer';
-import { AirtableRecord } from '../../../../types/data/AirtableRecord';
-import { Customer } from '../../../../types/data/Customer';
-import { Product } from '../../../../types/data/Product';
-import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import { SSRPageProps } from '../../../../types/pageProps/SSRPageProps';
-import { getExamplesCommonServerSideProps } from '../../../../utils/nextjs/SSR';
+import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
+import useCustomer from '../../../../modules/data/hooks/useCustomer';
+import { AirtableRecord } from '../../../../modules/data/types/AirtableRecord';
+import { Customer } from '../../../../modules/data/types/Customer';
+import { Product } from '../../../../modules/data/types/Product';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
+import { SSRPageProps } from '../../../../modules/app/types/SSRPageProps';
+import { getExamplesCommonServerSideProps } from '../../../../modules/app/SSR';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

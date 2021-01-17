@@ -6,7 +6,7 @@ import {
 import {
   mockRequest,
   mockResponse,
-} from '../../utils/testing/tests-mocks';
+} from '../../modules/testing/mocks/tests-mocks';
 import error from './error';
 
 /**

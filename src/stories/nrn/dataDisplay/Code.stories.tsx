@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Code, { Props } from '../../../components/utils/Code';
+import Code, { Props } from '../../../common/components/dataDisplay/Code';
 
 export default {
   title: 'Next Right Now/Data display/Code',

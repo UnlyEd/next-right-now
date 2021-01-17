@@ -12,7 +12,7 @@ import Document, {
 } from 'next/document';
 import React from 'react';
 
-import { DEFAULT_LOCALE } from '../utils/i18n/i18n';
+import { DEFAULT_LOCALE } from '../modules/i18n/i18n';
 
 const fileLabel = 'pages/_document';
 const logger = createLogger({

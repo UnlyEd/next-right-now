@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React, { useState } from 'react';
-import ToggleButton, { Props } from '../../../components/utils/ToggleButton';
+import ToggleButton, { Props } from '../../../common/components/dataDisplay/ToggleButton';
 
 export default {
   title: 'Next Right Now/Data display/ToggleButton',

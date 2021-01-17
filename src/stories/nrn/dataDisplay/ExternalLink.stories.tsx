@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import ExternalLink, { Props } from '../../../components/utils/ExternalLink';
+import ExternalLink, { Props } from '../../../common/components/dataDisplay/ExternalLink';
 import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {

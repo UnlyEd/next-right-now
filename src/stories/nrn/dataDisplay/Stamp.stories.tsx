@@ -3,8 +3,8 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import EllipsisText from '../../../components/utils/EllipsisText';
-import Stamp, { Props } from '../../../components/utils/Stamp';
+import EllipsisText from '../../../common/components/dataDisplay/EllipsisText';
+import Stamp, { Props } from '../../../common/components/dataDisplay/Stamp';
 import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {

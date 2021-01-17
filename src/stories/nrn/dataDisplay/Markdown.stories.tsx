@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Markdown, { Props } from '../../../components/utils/Markdown';
+import Markdown, { Props } from '../../../common/components/dataDisplay/Markdown';
 
 export default {
   title: 'Next Right Now/Data display/Markdown',

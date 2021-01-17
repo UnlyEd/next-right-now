@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Footer, { Props } from '../../../components/pageLayouts/Footer';
+import Footer, { Props } from '../../../common/components/pageLayouts/Footer';
 
 export default {
   title: 'Next Right Now/Layout/Footer',

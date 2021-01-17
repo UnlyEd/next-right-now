@@ -12,18 +12,18 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import I18nLink from '../components/i18n/I18nLink';
-import DefaultLayout from '../components/pageLayouts/DefaultLayout';
-import Btn from '../components/utils/Btn';
-import { CommonServerSideParams } from '../types/nextjs/CommonServerSideParams';
-import { SoftPageProps } from '../types/pageProps/SoftPageProps';
-import { SSGPageProps } from '../types/pageProps/SSGPageProps';
+import I18nLink from '../modules/i18n/components/I18nLink';
+import DefaultLayout from '../common/components/pageLayouts/DefaultLayout';
+import Btn from '../common/components/dataDisplay/Btn';
+import { CommonServerSideParams } from '../modules/bootstrapping/types/CommonServerSideParams';
+import { SoftPageProps } from '../modules/app/types/SoftPageProps';
+import { SSGPageProps } from '../modules/app/types/SSGPageProps';
 import {
   DEFAULT_LOCALE,
   LANG_EN,
   LANG_FR,
-} from '../utils/i18n/i18n';
-import { getCommonStaticProps } from '../utils/nextjs/SSG';
+} from '../modules/i18n/i18n';
+import { getCommonStaticProps } from '../modules/app/SSG';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -6,13 +6,13 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import useCustomer from '../../hooks/useCustomer';
-import { Customer } from '../../types/data/Customer';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { getCommonServerSideProps } from '../../utils/nextjs/SSR';
+import DefaultLayout from '../../common/components/pageLayouts/DefaultLayout';
+import useCustomer from '../../modules/data/hooks/useCustomer';
+import { Customer } from '../../modules/data/types/Customer';
+import { OnlyBrowserPageProps } from '../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../modules/app/types/SSGPageProps';
+import { SSRPageProps } from '../../modules/app/types/SSRPageProps';
+import { getCommonServerSideProps } from '../../modules/app/SSR';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

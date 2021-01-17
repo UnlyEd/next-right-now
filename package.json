@@ -10,7 +10,7 @@
     "analyse:bundle:development": "ANALYZE_BUNDLE=true yarn start",
     "analyse:bundle:production": ". ./scripts/populate-git-env.sh && ANALYZE_BUNDLE=true next build",
     "analyse:unused": "next-unused",
-    "svg": "npx svgr -d src/svg src/svg --ext tsx --template src/utils/svg/svgTemplate.ts",
+    "svg": "npx svgr -d svg-to-react svg-to-react --ext tsx --template svg-to-react/svgTemplate.ts",
     "deploy": "yarn deploy:customer1",
     "deploy:all": "yarn deploy:customer1 && yarn deploy:customer2",
     "deploy:all:production": "yarn deploy:customer1:production && yarn deploy:customer2:production",

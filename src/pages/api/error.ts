@@ -4,7 +4,7 @@ import {
   NextApiResponse,
 } from 'next';
 
-import Sentry, { configureReq } from '../../utils/monitoring/sentry';
+import Sentry, { configureReq } from '../../modules/sentry/sentry';
 
 const fileLabel = 'api/error';
 const logger = createLogger({

@@ -8,20 +8,20 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import BuiltInFeaturesSection from '../../../components/doc/BuiltInFeaturesSection';
-import BuiltInUtilitiesSection from '../../../components/doc/BuiltInUtilitiesSection';
-import ExternalFeaturesSection from '../../../components/doc/ExternalFeaturesSection';
-import IntroductionSection from '../../../components/doc/IntroductionSection';
-import NativeFeaturesSection from '../../../components/doc/NativeFeaturesSection';
-import DefaultLayout from '../../../components/pageLayouts/DefaultLayout';
-import { LogEvent } from '../../../types/Amplitude';
-import { CommonServerSideParams } from '../../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../types/pageProps/SSGPageProps';
+import BuiltInFeaturesSection from '../../../common/components/nrnDoc/BuiltInFeaturesSection';
+import BuiltInUtilitiesSection from '../../../common/components/nrnDoc/BuiltInUtilitiesSection';
+import ExternalFeaturesSection from '../../../common/components/nrnDoc/ExternalFeaturesSection';
+import IntroductionSection from '../../../common/components/nrnDoc/IntroductionSection';
+import NativeFeaturesSection from '../../../common/components/nrnDoc/NativeFeaturesSection';
+import DefaultLayout from '../../../common/components/pageLayouts/DefaultLayout';
+import { LogEvent } from '../../../modules/amplitude/types/Amplitude';
+import { CommonServerSideParams } from '../../../modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../modules/app/types/SSGPageProps';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
-} from '../../../utils/nextjs/SSG';
+} from '../../../modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -11,16 +11,16 @@ import {
   Button,
 } from 'reactstrap';
 
-import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../../components/utils/Code';
-import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
+import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import Code from '../../../../common/components/dataDisplay/Code';
+import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
-} from '../../../../utils/nextjs/SSG';
+} from '../../../../modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/interactive-error';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

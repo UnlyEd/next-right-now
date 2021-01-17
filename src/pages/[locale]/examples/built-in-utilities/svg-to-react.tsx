@@ -9,21 +9,21 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInUtilitiesSidebar from '../../../../components/doc/BuiltInUtilitiesSidebar';
-import DocPage from '../../../../components/doc/DocPage';
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import EnglishHybridFlag from '../../../../components/svg/EnglishHybridFlag';
-import EnglishUkFlag from '../../../../components/svg/EnglishUkFlag';
-import FrenchFlag from '../../../../components/svg/FrenchFlag';
-import Code from '../../../../components/utils/Code';
-import ExternalLink from '../../../../components/utils/ExternalLink';
-import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
+import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
+import DocPage from '../../../../common/components/nrnDoc/DocPage';
+import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import EnglishHybridFlag from '../../../../common/components/svg/EnglishHybridFlag';
+import EnglishUkFlag from '../../../../common/components/svg/EnglishUkFlag';
+import FrenchFlag from '../../../../common/components/svg/FrenchFlag';
+import Code from '../../../../common/components/dataDisplay/Code';
+import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
+import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
-} from '../../../../utils/nextjs/SSG';
+} from '../../../../modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/svg-to-react';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
