@@ -30,7 +30,7 @@ import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/
 import { StaticPropsInput } from '../../../../modules/bootstrapping/types/StaticPropsInput';
 import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
-import deserializeSafe from '../../../../modules/airtable/deserializeSafe';
+import deserializeSafe from '../../../../modules/serialize/deserializeSafe';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,

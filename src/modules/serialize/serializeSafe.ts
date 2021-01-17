@@ -1,5 +1,5 @@
 import { stringify as stringifySafe } from 'flatted';
-import { Flatted } from '../serialize/Flatted';
+import { Flatted } from './types/Flatted';
 import { GenericObject } from '../data/types/GenericObject';
 
 export const serializeSafe = <T>(value: GenericObject | any[]): Flatted<T> => {
