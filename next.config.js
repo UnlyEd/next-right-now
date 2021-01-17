@@ -285,5 +285,5 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   //   pagesBufferLength: 2,
   // },
 
-  poweredByHeader: 'Next Right Now - With love - https://github.com/UnlyEd/next-right-now', // See https://nextjs.org/docs/api-reference/next.config.js/disabling-x-powered-by
+  poweredByHeader: false, // See https://nextjs.org/docs/api-reference/next.config.js/disabling-x-powered-by
 }));
