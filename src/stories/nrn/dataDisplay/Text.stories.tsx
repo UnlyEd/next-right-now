@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Text, { Props } from '../../../common/components/dataDisplay/Text';
+import Text, { Props } from '@/common/components/dataDisplay/Text';
 import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {

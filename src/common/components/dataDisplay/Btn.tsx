@@ -4,12 +4,8 @@ import {
 } from '@emotion/react';
 import classnames from 'classnames';
 import React, { ReactNode } from 'react';
-import { ReactButtonProps } from '../../../modules/react/types/ReactButtonProps';
-import {
-  ComponentThemeMode,
-  resolveThemedComponentColors,
-  ThemedComponentProps,
-} from '../../../modules/theming/themedComponentColors';
+import { ReactButtonProps } from '@/modules/react/types/ReactButtonProps';
+import { ComponentThemeMode, resolveThemedComponentColors, ThemedComponentProps } from '@/modules/theming/themedComponentColors';
 
 export type Props = {
   /**

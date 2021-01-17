@@ -10,8 +10,8 @@ import {
   NavLink,
 } from 'reactstrap';
 
-import { SidebarLink } from '../../../modules/data/types/SidebarLink';
-import I18nLink from '../../../modules/i18n/components/I18nLink';
+import { SidebarLink } from '@/modules/data/types/SidebarLink';
+import I18nLink from '@/modules/i18n/components/I18nLink';
 import { SidebarProps } from '../layouts/DefaultLayout';
 import SidebarFooter from './SidebarFooter';
 

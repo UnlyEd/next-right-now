@@ -37,7 +37,7 @@ import {
 } from '../../previewMode/previewMode';
 import { detectLightHouse } from '../../lightHouse/lighthouse';
 import { detectCypress } from '../../testing/cypress';
-import Loader from '../../../common/components/animations/Loader';
+import Loader from '@/common/components/animations/Loader';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';

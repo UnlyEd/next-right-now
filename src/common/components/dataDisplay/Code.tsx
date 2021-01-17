@@ -4,7 +4,7 @@ import {
   dracula,
 } from 'react-code-blocks';
 import { CodeBlockProps } from 'react-code-blocks/dist/components/CodeBlock';
-import { CSSStyles } from '../../../modules/css/types/CSSStyles';
+import { CSSStyles } from '@/modules/css/types/CSSStyles';
 
 export type Props = {
   /**

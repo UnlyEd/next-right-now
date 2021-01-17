@@ -5,9 +5,9 @@ import {
   Row,
 } from 'reactstrap';
 
-import { Asset } from '../../../modules/data/types/Asset';
-import { Product } from '../../../modules/data/types/Product';
-import AirtableAsset from '../../../modules/airtable/components/AirtableAsset';
+import { Asset } from '@/modules/data/types/Asset';
+import { Product } from '@/modules/data/types/Product';
+import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
 import Markdown from './Markdown';
 
 type Props = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import ToggleButton from '../../../common/components/dataDisplay/ToggleButton';
+import ToggleButton from '@/common/components/dataDisplay/ToggleButton';
 
 export type Props = {
   /**

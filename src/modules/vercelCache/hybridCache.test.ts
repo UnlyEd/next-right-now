@@ -1,4 +1,4 @@
-import waitFor from '../../common/utils/waitFor';
+import waitFor from '@/common/utils/waitFor';
 import { reset as inDiskCacheReset } from './diskCacheStorage';
 import cache from './hybridCache';
 import { HybridStorageOptions } from './types/hybridCacheStorage';

@@ -8,15 +8,12 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
-import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
-import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
-} from '../../../../modules/app/SSG';
+import BuiltInUtilitiesSidebar from '@/common/components/nrnDoc/BuiltInUtilitiesSidebar';
+import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/top-level-500-error';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

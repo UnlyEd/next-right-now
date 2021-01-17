@@ -23,10 +23,7 @@ import { UserSemiPersistentSession } from '../../userSession/types/UserSemiPersi
 import { getAmplitudeInstance } from '../../amplitude/amplitude';
 import initCookieConsent, { getUserConsent } from '../../userConsent/cookieConsent';
 import UniversalCookiesManager from '../../cookiesManager/UniversalCookiesManager';
-import {
-  getIframeReferrer,
-  isRunningInIframe,
-} from '../../../common/utils/iframe';
+import { getIframeReferrer, isRunningInIframe } from '@/common/utils/iframe';
 import { configureSentryUser } from '../../sentry/sentry';
 import { detectLightHouse } from '../../lightHouse/lighthouse';
 import {

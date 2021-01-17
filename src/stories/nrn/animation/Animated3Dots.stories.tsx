@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Animated3Dots, { Props } from '../../../common/components/animations/Animated3Dots';
+import Animated3Dots, { Props } from '@/common/components/animations/Animated3Dots';
 
 export default {
   title: 'Next Right Now/Animation/Animated3Dots',

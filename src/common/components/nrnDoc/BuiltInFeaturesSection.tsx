@@ -7,7 +7,7 @@ import {
   CardText,
   CardTitle,
 } from 'reactstrap';
-import I18nLink from '../../../modules/i18n/components/I18nLink';
+import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from '../dataDisplay/Btn';
 import Cards from '../dataDisplay/Cards';
 import ExternalLink from '../dataDisplay/ExternalLink';

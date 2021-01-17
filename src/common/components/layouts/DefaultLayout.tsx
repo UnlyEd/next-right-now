@@ -11,15 +11,15 @@ import {
 import React, { useState } from 'react';
 
 import ErrorPage from '../../../pages/_error';
-import { GenericObject } from '../../../modules/data/types/GenericObject';
-import { SoftPageProps } from '../../../modules/app/types/SoftPageProps';
-import Sentry from '../../../modules/sentry/sentry';
-import DefaultErrorLayout from '../../../modules/errorHandling/DefaultErrorLayout';
+import { GenericObject } from '@/modules/data/types/GenericObject';
+import { SoftPageProps } from '@/modules/app/types/SoftPageProps';
+import Sentry from '@/modules/sentry/sentry';
+import DefaultErrorLayout from '@/modules/errorHandling/DefaultErrorLayout';
 import DefaultPageContainer from './DefaultPageContainer';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
 import Nav from './Nav';
-import PreviewModeBanner from '../../../modules/previewMode/components/PreviewModeBanner';
+import PreviewModeBanner from '@/modules/previewMode/components/PreviewModeBanner';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({

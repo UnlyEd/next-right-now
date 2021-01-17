@@ -12,16 +12,16 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
-import ProductRow from '../../../common/components/dataDisplay/ProductRow';
-import QuickPreviewLayout from '../../../modules/quickPreview/components/QuickPreviewLayout';
-import useCustomer from '../../../modules/data/hooks/useCustomer';
-import { AirtableRecord } from '../../../modules/data/types/AirtableRecord';
-import { Customer } from '../../../modules/data/types/Customer';
-import { Product } from '../../../modules/data/types/Product';
-import { OnlyBrowserPageProps } from '../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../modules/app/types/SSGPageProps';
-import { SSRPageProps } from '../../../modules/app/types/SSRPageProps';
-import { getExamplesCommonServerSideProps } from '../../../modules/app/SSR';
+import ProductRow from '@/common/components/dataDisplay/ProductRow';
+import QuickPreviewLayout from '@/modules/quickPreview/components/QuickPreviewLayout';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Customer } from '@/modules/data/types/Customer';
+import { Product } from '@/modules/data/types/Product';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { SSRPageProps } from '@/modules/app/types/SSRPageProps';
+import { getExamplesCommonServerSideProps } from '@/modules/app/SSR';
 
 const fileLabel = 'pages/[locale]/airtable-live-preview/preview-product';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -3,12 +3,8 @@ import {
   useTheme,
 } from '@emotion/react';
 import React from 'react';
-import { ReactDivProps } from '../../../modules/react/types/ReactDivProps';
-import {
-  ComponentThemeMode,
-  resolveThemedComponentColors,
-  ThemedComponentProps,
-} from '../../../modules/theming/themedComponentColors';
+import { ReactDivProps } from '@/modules/react/types/ReactDivProps';
+import { ComponentThemeMode, resolveThemedComponentColors, ThemedComponentProps } from '@/modules/theming/themedComponentColors';
 
 export type Props = {
   /**

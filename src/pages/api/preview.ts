@@ -5,8 +5,8 @@ import {
   NextApiResponse,
 } from 'next';
 
-import { filterExternalAbsoluteUrl } from '../../modules/js/url';
-import Sentry, { configureReq } from '../../modules/sentry/sentry';
+import { filterExternalAbsoluteUrl } from '@/modules/js/url';
+import Sentry, { configureReq } from '@/modules/sentry/sentry';
 
 const fileLabel = 'api/preview';
 const logger = createLogger({

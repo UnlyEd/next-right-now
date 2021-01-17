@@ -5,16 +5,16 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NRN_CO_BRANDING_LOGO_URL } from '../../constants';
-import useCustomer from '../../../modules/data/hooks/useCustomer';
-import { CSSStyles } from '../../../modules/css/types/CSSStyles';
-import { AirtableRecord } from '../../../modules/data/types/AirtableRecord';
-import { Asset } from '../../../modules/data/types/Asset';
-import { Customer } from '../../../modules/data/types/Customer';
-import AirtableAsset from '../../../modules/airtable/components/AirtableAsset';
-import { SIZE_XS } from '../../utils/logo';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { CSSStyles } from '@/modules/css/types/CSSStyles';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Asset } from '@/modules/data/types/Asset';
+import { Customer } from '@/modules/data/types/Customer';
+import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
+import { SIZE_XS } from '@/utils/logo';
 import Logo from '../dataDisplay/Logo';
-import I18nBtnChangeLocale from '../../../modules/i18n/components/I18nBtnChangeLocale';
-import I18nLink from '../../../modules/i18n/components/I18nLink';
+import I18nBtnChangeLocale from '@/modules/i18n/components/I18nBtnChangeLocale';
+import I18nLink from '@/modules/i18n/components/I18nLink';
 
 export type Props = {
   style?: CSSStyles;

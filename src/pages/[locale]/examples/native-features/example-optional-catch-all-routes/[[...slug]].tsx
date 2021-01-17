@@ -9,18 +9,18 @@ import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import DocPage from '../../../../../common/components/nrnDoc/DocPage';
-import NativeFeaturesSidebar from '../../../../../common/components/nrnDoc/NativeFeaturesSidebar';
-import I18nLink from '../../../../../modules/i18n/components/I18nLink';
-import { supportedLocales } from '../../../../../modules/i18n/i18nConfig';
-import { I18nLocale } from '../../../../../modules/i18n/types/I18nLocale';
-import { CommonServerSideParams } from '../../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { StaticPath } from '../../../../../modules/bootstrapping/types/StaticPath';
-import { StaticPathsOutput } from '../../../../../modules/bootstrapping/types/StaticPathsOutput';
-import { OnlyBrowserPageProps } from '../../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../../modules/app/types/SSGPageProps';
-import { getExamplesCommonStaticProps } from '../../../../../modules/app/SSG';
-import DefaultLayout from '../../../../../common/components/layouts/DefaultLayout';
+import DocPage from '@/common/components/nrnDoc/DocPage';
+import NativeFeaturesSidebar from '@/common/components/nrnDoc/NativeFeaturesSidebar';
+import I18nLink from '@/modules/i18n/components/I18nLink';
+import { supportedLocales } from '@/modules/i18n/i18nConfig';
+import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { StaticPath } from '@/modules/bootstrapping/types/StaticPath';
+import { StaticPathsOutput } from '@/modules/bootstrapping/types/StaticPathsOutput';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { getExamplesCommonStaticProps } from '@/modules/app/SSG';
+import DefaultLayout from '@/common/components/layouts/DefaultLayout';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-optional-catch-all-routes/[[...slug]]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

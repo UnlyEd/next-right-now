@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { ReactLinkProps } from '../../../modules/react/types/ReactLinkProps';
+import { ReactLinkProps } from '@/modules/react/types/ReactLinkProps';
 
 export type Props = {
   /**

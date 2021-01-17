@@ -1,9 +1,5 @@
 import { createLogger } from '@unly/utils-simple-logger';
-import {
-  GITHUB_API_BASE_URL,
-  GITHUB_OWNER_NAME,
-  GITHUB_REPO_NAME,
-} from '../../common/constants';
+import { GITHUB_API_BASE_URL, GITHUB_OWNER_NAME, GITHUB_REPO_NAME } from '@/common/constants';
 import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 import Sentry from '../sentry/sentry';
 import dispatchWorkflow from './dispatchWorkflow';

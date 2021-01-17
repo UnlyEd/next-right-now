@@ -6,19 +6,16 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import DefaultLayout from '../../common/components/layouts/DefaultLayout';
-import LegalContent from '../../common/components/dataDisplay/LegalContent';
-import useCustomer from '../../modules/data/hooks/useCustomer';
-import { Customer } from '../../modules/data/types/Customer';
-import { CommonServerSideParams } from '../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../modules/app/types/SSGPageProps';
-import { AMPLITUDE_PAGES } from '../../modules/amplitude/amplitude';
-import { replaceAllOccurrences } from '../../modules/js/string';
-import {
-  getCommonStaticPaths,
-  getCommonStaticProps,
-} from '../../modules/app/SSG';
+import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import LegalContent from '@/common/components/dataDisplay/LegalContent';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { Customer } from '@/modules/data/types/Customer';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';
+import { replaceAllOccurrences } from '@/modules/js/string';
+import { getCommonStaticPaths, getCommonStaticProps } from '@/modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/privacy';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
