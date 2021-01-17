@@ -12,7 +12,7 @@ import {
 
 import { SidebarLink } from '../../../modules/data/types/SidebarLink';
 import I18nLink from '../../../modules/i18n/components/I18nLink';
-import { SidebarProps } from '../../../common/components/pageLayouts/DefaultLayout';
+import { SidebarProps } from '../layouts/DefaultLayout';
 import SidebarFooter from './SidebarFooter';
 
 type Props = SidebarProps;

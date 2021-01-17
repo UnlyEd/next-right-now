@@ -9,7 +9,7 @@ import React from 'react';
 
 import BuiltInFeaturesSidebar from '../../../../common/components/nrnDoc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../common/components/nrnDoc/DocPage';
-import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
 import AnimatedLoader from '../../../../common/components/animations/AnimatedLoader';
 import Code from '../../../../common/components/dataDisplay/Code';
 import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';

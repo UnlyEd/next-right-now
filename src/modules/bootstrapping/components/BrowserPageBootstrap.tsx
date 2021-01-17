@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import useCustomer from '../../data/hooks/useCustomer';
 import useDataset from '../../data/hooks/useDataset';
 import amplitudeContext from '../../amplitude/context/amplitudeContext';
-import { cypressContext } from '../../modules/tests/cypressContext';
 import userConsentContext from '../../userConsent/contexts/userConsentContext';
 import { userSessionContext } from '../../userSession/userSessionContext';
 import { Customer } from '../../data/types/Customer';
@@ -34,6 +33,7 @@ import {
   CYPRESS_WINDOW_NS,
   detectCypress,
 } from '../../testing/cypress';
+import { cypressContext } from '../../testing/contexts/cypressContext';
 
 const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
 const logger = createLogger({

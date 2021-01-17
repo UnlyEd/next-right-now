@@ -38,10 +38,10 @@ import {
 import { detectLightHouse } from '../../lightHouse/lighthouse';
 import { detectCypress } from '../../testing/cypress';
 import Loader from '../../../common/components/animations/Loader';
-import DefaultErrorLayout from '../../../common/components/pageLayouts/DefaultErrorLayout';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
+import DefaultErrorLayout from '../../errorHandling/DefaultErrorLayout';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({

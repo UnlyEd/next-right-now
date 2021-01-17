@@ -14,7 +14,7 @@ import {
 import AllProducts from '../../../../common/components/dataDisplay/AllProducts';
 import NativeFeaturesSidebar from '../../../../common/components/nrnDoc/NativeFeaturesSidebar';
 
-import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
 import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
 import useCustomer from '../../../../modules/data/hooks/useCustomer';
 import { AirtableRecord } from '../../../../modules/data/types/AirtableRecord';

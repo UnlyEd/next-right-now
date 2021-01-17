@@ -15,7 +15,7 @@ import {
   resolveSize,
   SizeMultiplier,
   toPixels,
-} from '../../utils/assets/logo';
+} from '../../utils/logo';
 
 type Props = {
   id: string;
@@ -53,7 +53,14 @@ const Logo = (props: Props): JSX.Element => {
     onClick = null,
   }: Props = props;
   let resolvedLogoProps: LogoType = deepmerge.all([defaults, logo || {}, override]) as Asset;
-  resolvedLogoProps = deepmerge.all([resolvedLogoProps, resolveSize({ logo: resolvedLogoProps, width: toPixels(width), height: toPixels(height) })]) as Asset;
+  resolvedLogoProps = deepmerge.all([
+    resolvedLogoProps,
+    resolveSize({
+      logo: resolvedLogoProps,
+      width: toPixels(width),
+      height: toPixels(height),
+    }),
+  ]) as Asset;
 
   if (resolvedLogoProps.linkUrl) {
     resolvedLogoProps.link = {

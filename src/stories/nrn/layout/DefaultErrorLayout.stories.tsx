@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import DefaultErrorLayout, { Props } from '../../../common/components/pageLayouts/DefaultErrorLayout';
+import DefaultErrorLayout, { Props } from '../../../modules/errorHandling/DefaultErrorLayout';
 
 export default {
   title: 'Next Right Now/Layout/DefaultErrorLayout',

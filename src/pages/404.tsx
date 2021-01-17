@@ -13,7 +13,6 @@ import {
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import I18nLink from '../modules/i18n/components/I18nLink';
-import DefaultLayout from '../common/components/pageLayouts/DefaultLayout';
 import Btn from '../common/components/dataDisplay/Btn';
 import { CommonServerSideParams } from '../modules/bootstrapping/types/CommonServerSideParams';
 import { SoftPageProps } from '../modules/app/types/SoftPageProps';
@@ -24,6 +23,7 @@ import {
   LANG_FR,
 } from '../modules/i18n/i18n';
 import { getCommonStaticProps } from '../modules/app/SSG';
+import DefaultLayout from '../common/components/layouts/DefaultLayout';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

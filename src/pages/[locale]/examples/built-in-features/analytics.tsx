@@ -12,23 +12,23 @@ import {
   Alert,
   Button,
 } from 'reactstrap';
+import Code from '../../../../common/components/dataDisplay/Code';
+import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
+import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
 
 import BuiltInFeaturesSidebar from '../../../../common/components/nrnDoc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../common/components/nrnDoc/DocPage';
-import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
 import DisplayOnBrowserMount from '../../../../common/components/rehydration/DisplayOnBrowserMount';
-import Code from '../../../../common/components/dataDisplay/Code';
-import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
-import useUserConsent from '../../../../modules/userConsent/hooks/useUserConsent';
-import useUserSession, { UserSession } from '../../../../modules/user/useUserSession';
 import { LogEvent } from '../../../../modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
 } from '../../../../modules/app/SSG';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
+import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
+import useUserConsent from '../../../../modules/userConsent/hooks/useUserConsent';
+import useUserSession, { UserSession } from '../../../../modules/userSession/useUserSession';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/analytics';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

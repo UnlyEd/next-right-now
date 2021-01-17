@@ -8,22 +8,21 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-
-import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DocPage from '../../../../common/components/nrnDoc/DocPage';
-import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
-import EnglishHybridFlag from '../../../../common/components/svg/EnglishHybridFlag';
-import EnglishUkFlag from '../../../../common/components/svg/EnglishUkFlag';
-import FrenchFlag from '../../../../common/components/svg/FrenchFlag';
+import EnglishHybridFlag from '../../../../common/components/countryFlags/EnglishHybridFlag';
+import EnglishUkFlag from '../../../../common/components/countryFlags/EnglishUkFlag';
+import FrenchFlag from '../../../../common/components/countryFlags/FrenchFlag';
 import Code from '../../../../common/components/dataDisplay/Code';
 import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
-import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
+import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
+import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
+import DocPage from '../../../../common/components/nrnDoc/DocPage';
 import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
 } from '../../../../modules/app/SSG';
+import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
+import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/svg-to-react';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -70,16 +69,16 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
         <h1 className={'pcolor'}>SVG to react component examples</h1>
         <p
           css={css`
-            .flags{
+            .flags {
               margin: 10px 20px 10px 0;
             }
           `}
         >
           If you use SVGs, you may want to easily convert those as React components so that they're easier to work with (custom props, dynamic colors/size, etc.).<br />
           That's what we did with the country flags:<br />
-          <FrenchFlag className={'flags'}/>
-          <EnglishHybridFlag className={'flags'}/>
-          <EnglishUkFlag className={'flags'}/>
+          <FrenchFlag className={'flags'} />
+          <EnglishHybridFlag className={'flags'} />
+          <EnglishUkFlag className={'flags'} />
           <br />
           It'd be very easy to update those components to add some additional capabilities, such as resizing them through props, because they're React components.
         </p>

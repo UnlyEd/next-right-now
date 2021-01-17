@@ -16,7 +16,7 @@ import {
 import AllProducts from '../../../../common/components/dataDisplay/AllProducts';
 import NativeFeaturesSidebar from '../../../../common/components/nrnDoc/NativeFeaturesSidebar';
 import I18nLink from '../../../../modules/i18n/components/I18nLink';
-import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
 import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
 import useCustomer from '../../../../modules/data/hooks/useCustomer';
 import { AirtableRecord } from '../../../../modules/data/types/AirtableRecord';

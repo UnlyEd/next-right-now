@@ -13,7 +13,7 @@ import {
 import BuiltInFeaturesSidebar from '../../../../common/components/nrnDoc/BuiltInFeaturesSidebar';
 import DocPage from '../../../../common/components/nrnDoc/DocPage';
 import I18nLink from '../../../../modules/i18n/components/I18nLink';
-import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
 import Code from '../../../../common/components/dataDisplay/Code';
 import Markdown from '../../../../common/components/dataDisplay/Markdown';
 import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';

@@ -15,10 +15,8 @@ import { Alert } from 'reactstrap';
 
 import NativeFeaturesSidebar from '../../../../../common/components/nrnDoc/NativeFeaturesSidebar';
 import I18nLink from '../../../../../modules/i18n/components/I18nLink';
-import DefaultLayout from '../../../../../common/components/pageLayouts/DefaultLayout';
 import Btn from '../../../../../common/components/dataDisplay/Btn';
 import ExternalLink from '../../../../../common/components/dataDisplay/ExternalLink';
-import songs from '../../../../../modules/tests/mocks/songs';
 import { CommonServerSideParams } from '../../../../../modules/bootstrapping/types/CommonServerSideParams';
 import { StaticPath } from '../../../../../modules/bootstrapping/types/StaticPath';
 import { StaticPathsOutput } from '../../../../../modules/bootstrapping/types/StaticPathsOutput';
@@ -31,6 +29,8 @@ import {
   getExamplesCommonStaticProps,
 } from '../../../../../modules/app/SSG';
 import waitFor from '../../../../../common/utils/waitFor';
+import DefaultLayout from '../../../../../common/components/layouts/DefaultLayout';
+import songs from '../../../../../modules/testing/mocks/songs';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-fallback/[albumId]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -1,4 +1,4 @@
-import { CUSTOMER2 } from '../../tests/mocks/mockedRawAirtableDataset';
+import { CUSTOMER2 } from '../testing/mocks/mockedRawAirtableDataset';
 import { getFieldBestAvailableTranslation } from './airtableField';
 
 /**

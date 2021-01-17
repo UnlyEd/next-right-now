@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
+
 type Props = {} & React.SVGProps<SVGSVGElement>;
 
 const SvgFrenchFlag = (props: Props): JSX.Element => {
   return (
+    // @ts-ignore
     <svg
       data-name="Calque 1"
       xmlns="http://www.w3.org/2000/svg"

@@ -9,8 +9,8 @@ import { Container } from 'reactstrap';
 import { GenericObject } from '../../data/types/GenericObject';
 import { SoftPageProps } from '../../app/types/SoftPageProps';
 import Sentry from '../../sentry/sentry';
-import Head, { HeadProps } from '../../../common/components/pageLayouts/Head';
 import QuickPreviewBanner from './QuickPreviewBanner';
+import Head, { HeadProps } from '../../../common/components/layouts/Head';
 
 const fileLabel = 'components/pageLayouts/QuickPreviewLayout';
 const logger = createLogger({

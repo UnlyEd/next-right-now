@@ -9,7 +9,7 @@ import {
 import React from 'react';
 
 import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
 import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';

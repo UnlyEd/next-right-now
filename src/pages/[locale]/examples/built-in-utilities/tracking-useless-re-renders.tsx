@@ -14,7 +14,7 @@ import {
 import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
 import DocPage from '../../../../common/components/nrnDoc/DocPage';
 import I18nLink from '../../../../modules/i18n/components/I18nLink';
-import DefaultLayout from '../../../../common/components/pageLayouts/DefaultLayout';
+import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
 import Code from '../../../../common/components/dataDisplay/Code';
 import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
 import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';

@@ -6,7 +6,7 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import DefaultLayout from '../../common/components/pageLayouts/DefaultLayout';
+import DefaultLayout from '../../common/components/layouts/DefaultLayout';
 import LegalContent from '../../common/components/dataDisplay/LegalContent';
 import useCustomer from '../../modules/data/hooks/useCustomer';
 import { Customer } from '../../modules/data/types/Customer';

@@ -13,7 +13,6 @@ import BuiltInUtilitiesSection from '../../../common/components/nrnDoc/BuiltInUt
 import ExternalFeaturesSection from '../../../common/components/nrnDoc/ExternalFeaturesSection';
 import IntroductionSection from '../../../common/components/nrnDoc/IntroductionSection';
 import NativeFeaturesSection from '../../../common/components/nrnDoc/NativeFeaturesSection';
-import DefaultLayout from '../../../common/components/pageLayouts/DefaultLayout';
 import { LogEvent } from '../../../modules/amplitude/types/Amplitude';
 import { CommonServerSideParams } from '../../../modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '../../../modules/app/types/OnlyBrowserPageProps';
@@ -22,6 +21,7 @@ import {
   getExamplesCommonStaticPaths,
   getExamplesCommonStaticProps,
 } from '../../../modules/app/SSG';
+import DefaultLayout from '../../../common/components/layouts/DefaultLayout';
 
 const fileLabel = 'pages/[locale]/examples/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
