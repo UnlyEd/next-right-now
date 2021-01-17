@@ -5,6 +5,11 @@ import {
 import React from 'react';
 
 export type Props = {
+  /**
+   * Color of the dots.
+   *
+   * @default
+   */
   fill?: string;
 };
 
