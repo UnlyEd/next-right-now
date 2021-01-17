@@ -68,6 +68,9 @@ Here is an overview of all the features included in this boilerplate:
 
 - **Stages** (development, staging, production)
 - **TypeScript** advanced support
+- **Storybook** static site, to host the documentation of your React components
+    - Hosted on Vercel (using a dedicated project)
+    - Automatically kept up-to-date (thanks to [GitHub Actions](https://github.com/features/actions))
 - Various **rendering** capabilities, which allow for **hybrid** configuration
     - Next.js allow [per-page rendering configuration](https://nextjs.org/docs/basic-features/pages#pre-rendering), meaning you can build hybrid SSG/SSR apps
 - React hooks over HOC (functional components over classes)

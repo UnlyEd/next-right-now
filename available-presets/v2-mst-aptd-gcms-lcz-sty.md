@@ -44,11 +44,21 @@ Please note `v2-mst-aptd-at-lcz-sty` has since become the main preset, and provi
 
 ### Built-in features
 
+List of built-in features **specific to this preset**.
+
+> For an overview of features included in all presets, check out the ["Benefits" section](../#common-features-available-in-all-presets).
+
 {% include features/features-table.md %}
 
 ### Demo
 
 {% include preset/demo.md %}
+
+### Storybook - UI components documentation
+
+Check out the [online Storybook documentation](https://nrn-v2-mst-aptd-gcms-lcz-sty-storybook.vercel.app/){:target="_blank"} for this preset.
+
+> Each preset has its own Storybook documentation, because a few components are different.
 
 ### Built-in 3rd party vendors
 
