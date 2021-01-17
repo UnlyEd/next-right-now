@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/node';
 import map from 'lodash.map';
-import { AirtableRecord } from '../../data/types/AirtableRecord';
-import { GenericObject } from '../../data/types/GenericObject';
+import { AirtableRecord } from '../data/types/AirtableRecord';
+import { GenericObject } from '../data/types/GenericObject';
 
 /**
  * Resolve a fallback record and apply it as fallback using deep merge.

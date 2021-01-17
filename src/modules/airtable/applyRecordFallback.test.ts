@@ -1,6 +1,6 @@
-import { AirtableRecord } from '../../data/types/AirtableRecord';
-import { Customer } from '../../data/types/Customer';
-import { Theme } from '../../data/types/Theme';
+import { AirtableRecord } from '../data/types/AirtableRecord';
+import { Customer } from '../data/types/Customer';
+import { Theme } from '../data/types/Theme';
 import applyRecordFallback from './applyRecordFallback';
 
 /**

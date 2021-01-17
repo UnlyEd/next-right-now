@@ -2,12 +2,12 @@ import get from 'lodash.get';
 import isArray from 'lodash.isarray';
 import map from 'lodash.map';
 import size from 'lodash.size';
-import { AirtableDBTable } from '../types/AirtableDBTable';
-import { AirtableSchema } from '../types/AirtableSchema';
-import { FieldSchema } from '../types/FieldSchema';
-import { TableSchema } from '../types/TableSchema';
-import { AirtableRecord } from '../../data/types/AirtableRecord';
-import { SanitizedAirtableDataset } from '../../data/types/SanitizedAirtableDataset';
+import { AirtableDBTable } from './types/AirtableDBTable';
+import { AirtableSchema } from './types/AirtableSchema';
+import { FieldSchema } from './types/FieldSchema';
+import { TableSchema } from './types/TableSchema';
+import { AirtableRecord } from '../data/types/AirtableRecord';
+import { SanitizedAirtableDataset } from '../data/types/SanitizedAirtableDataset';
 import { handleUnresolvedRelationship } from './handleUnresolvedRelationship';
 
 /**

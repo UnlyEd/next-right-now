@@ -2,9 +2,9 @@ import * as Sentry from '@sentry/node';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';
-import { AirtableDBTable } from '../types/AirtableDBTable';
-import { GenericAirtableRecordsListApiResponse } from '../types/GenericAirtableRecordsListApiResponse';
-import fetchJSON from '../../api/fetchJSON';
+import { AirtableDBTable } from './types/AirtableDBTable';
+import { GenericAirtableRecordsListApiResponse } from './types/GenericAirtableRecordsListApiResponse';
+import fetchJSON from '../api/fetchJSON';
 
 const AT_API_BASE_PATH = 'https://api.airtable.com';
 const AT_API_VERSION = 'v0';

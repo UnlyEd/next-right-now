@@ -17,9 +17,9 @@ import { StaticPath } from '../bootstrapping/types/StaticPath';
 import { StaticPathsOutput } from '../bootstrapping/types/StaticPathsOutput';
 import { StaticPropsInput } from '../bootstrapping/types/StaticPropsInput';
 import { SSGPageProps } from './types/SSGPageProps';
-import consolidateSanitizedAirtableDataset from '../airtable/utils/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '../airtable/utils/fetchAndSanitizeAirtableDatasets';
-import serializeSafe from '../airtable/utils/serializeSafe';
+import consolidateSanitizedAirtableDataset from '../airtable/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '../airtable/fetchAndSanitizeAirtableDatasets';
+import serializeSafe from '../airtable/serializeSafe';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,

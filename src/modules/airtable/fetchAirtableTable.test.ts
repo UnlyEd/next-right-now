@@ -1,8 +1,8 @@
-import hybridCache from '../../vercelCache/hybridCache';
-import { reset as cacheReset } from '../../vercelCache/memoryCacheStorage';
-import waitFor from '../../../common/utils/waitFor';
+import hybridCache from '../vercelCache/hybridCache';
+import { reset as cacheReset } from '../vercelCache/memoryCacheStorage';
+import waitFor from '../../common/utils/waitFor';
 import fetchAirtableTable  from './fetchAirtableTable';
-import { CUSTOMER2 } from '../../testing/mocks/mockedRawAirtableDataset';
+import { CUSTOMER2 } from '../testing/mocks/mockedRawAirtableDataset';
 
 /**
  * @group integration
@@ -46,9 +46,9 @@ describe(`utils/api/fetchAirtable.ts`, () => {
       });
 
       test(`when using the default TTL`, async () => {
-        const counterCacheMissBefore = require('../../vercelCache/memoryCacheStorage').counterCacheMiss;
-        const counterCacheFoundBefore = require('../../vercelCache/memoryCacheStorage').counterCacheFound;
-        const counterCacheSetBefore = require('../../vercelCache/memoryCacheStorage').counterCacheSet;
+        const counterCacheMissBefore = require('../vercelCache/memoryCacheStorage').counterCacheMiss;
+        const counterCacheFoundBefore = require('../vercelCache/memoryCacheStorage').counterCacheFound;
+        const counterCacheSetBefore = require('../vercelCache/memoryCacheStorage').counterCacheSet;
         let counterDataResolverCalls = 0;
 
         // The first call should yield a cache miss and a cache set
@@ -70,9 +70,9 @@ describe(`utils/api/fetchAirtable.ts`, () => {
         ]);
         expect(counterDataResolverCalls).toEqual(1); // Shouldn't be called but use data from cache instead
 
-        const counterCacheMissAfter = require('../../vercelCache/memoryCacheStorage').counterCacheMiss;
-        const counterCacheFoundAfter = require('../../vercelCache/memoryCacheStorage').counterCacheFound;
-        const counterCacheSetAfter = require('../../vercelCache/memoryCacheStorage').counterCacheSet;
+        const counterCacheMissAfter = require('../vercelCache/memoryCacheStorage').counterCacheMiss;
+        const counterCacheFoundAfter = require('../vercelCache/memoryCacheStorage').counterCacheFound;
+        const counterCacheSetAfter = require('../vercelCache/memoryCacheStorage').counterCacheSet;
         expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1); // Cache should have been missed only once, during first call
         expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1); // Cache should have been found only once, during second call
         expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 1); // Cache should have been set only once, during first call
@@ -80,9 +80,9 @@ describe(`utils/api/fetchAirtable.ts`, () => {
 
       describe(`should fetch multiple times and miss the cache`, () => {
         test(`when using TTL of 1 second and waiting more than 1 second between calls`, async () => {
-          const counterCacheMissBefore = require('../../vercelCache/memoryCacheStorage').counterCacheMiss;
-          const counterCacheFoundBefore = require('../../vercelCache/memoryCacheStorage').counterCacheFound;
-          const counterCacheSetBefore = require('../../vercelCache/memoryCacheStorage').counterCacheSet;
+          const counterCacheMissBefore = require('../vercelCache/memoryCacheStorage').counterCacheMiss;
+          const counterCacheFoundBefore = require('../vercelCache/memoryCacheStorage').counterCacheFound;
+          const counterCacheSetBefore = require('../vercelCache/memoryCacheStorage').counterCacheSet;
           let counterDataResolverCalls = 0;
 
           // The first call should yield a cache miss and a cache set
@@ -105,9 +105,9 @@ describe(`utils/api/fetchAirtable.ts`, () => {
           ]);
           expect(counterDataResolverCalls).toEqual(2); // Should have been called to resolve data again
 
-          const counterCacheMissAfter = require('../../vercelCache/memoryCacheStorage').counterCacheMiss;
-          const counterCacheFoundAfter = require('../../vercelCache/memoryCacheStorage').counterCacheFound;
-          const counterCacheSetAfter = require('../../vercelCache/memoryCacheStorage').counterCacheSet;
+          const counterCacheMissAfter = require('../vercelCache/memoryCacheStorage').counterCacheMiss;
+          const counterCacheFoundAfter = require('../vercelCache/memoryCacheStorage').counterCacheFound;
+          const counterCacheSetAfter = require('../vercelCache/memoryCacheStorage').counterCacheSet;
           expect(counterCacheMissAfter).toEqual(counterCacheMissBefore + 1); // Cache should have been missed only once, during first call
           expect(counterCacheFoundAfter).toEqual(counterCacheFoundBefore + 1); // Cache should have been found only once, during second call (but was not used because expired)
           expect(counterCacheSetAfter).toEqual(counterCacheSetBefore + 2); // Cache should have been set twice, during first call (cache miss) and second call (TTL expired)

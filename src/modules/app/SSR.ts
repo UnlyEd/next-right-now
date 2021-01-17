@@ -18,9 +18,9 @@ import { CommonServerSideParams } from '../bootstrapping/types/CommonServerSideP
 import { PublicHeaders } from './types/PublicHeaders';
 import { SSRPageProps } from './types/SSRPageProps';
 import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';
-import consolidateSanitizedAirtableDataset from '../airtable/utils/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '../airtable/utils/fetchAndSanitizeAirtableDatasets';
-import serializeSafe from '../airtable/utils/serializeSafe';
+import consolidateSanitizedAirtableDataset from '../airtable/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '../airtable/fetchAndSanitizeAirtableDatasets';
+import serializeSafe from '../airtable/serializeSafe';
 import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
 import {
   DEFAULT_LOCALE,
