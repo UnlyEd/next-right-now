@@ -10,9 +10,10 @@ Changelog
 > This changelog **doesn't follow Semantic Versioning**.
 
 - We upgrade the **major** version when adding a new preset that changes how Next apps are meant to be used/built, resulting in a non-trivial **redesign of the NRN base code**.
-  - Such as the big SSG change in v9.3, which uses a completely different paradigm
+  - Such as the big SSG change in Next.js v9.3 release, which uses a completely different paradigm
 
-This changelog is meant to provide a good overview of the biggest changes in the NRN project, such as a preset release history, but it is not meant to warn about non-backward compatible changes within presets.
+This changelog is meant to provide a good overview of the biggest changes in the NRN project,
+such as a preset release history, but it is not meant to warn about non-backward compatible changes within presets.
 
 ---
 ## Want to subscribe?
@@ -61,7 +62,8 @@ Here is a short list of the most valuable changes and new features.
 - 2020-10-20
     - [GHA - Enable Cypress debug logs for CPU/Memory usage by default](https://github.com/UnlyEd/next-right-now/commit/383862e34d288f5a435b921fd4b1a2ba89b3254f)
     - Allow triggering workflows manually through [GitHub Actions page](https://github.com/UnlyEd/next-right-now/actions)
-        - Wasn't possible before because there weren't any workflows [in the main branch](https://github.com/UnlyEd/next-right-now/tree/gh-pages/.github/workflows) (`gh-pages`) - See https://github.community/t/cant-trigger-workflow-manually/121740/53?u=vadorequest
+        - Wasn't possible before because there weren't any workflows [in the main branch](https://github.com/UnlyEd/next-right-now/tree/gh-pages/.github/workflows)
+          (`gh-pages`) - See https://github.community/t/cant-trigger-workflow-manually/121740/53?u=vadorequest
 - 2020-10-18
     - [Improve GHA - Do not crash Github build when Vercel aliasing fails](https://github.com/UnlyEd/next-right-now/pull/180)
 - 2020-10-17
