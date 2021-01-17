@@ -19,7 +19,7 @@ import { StaticPropsInput } from '../bootstrapping/types/StaticPropsInput';
 import { SSGPageProps } from './types/SSGPageProps';
 import consolidateSanitizedAirtableDataset from '../airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '../airtable/fetchAndSanitizeAirtableDatasets';
-import serializeSafe from '../serialize/serializeSafe';
+import serializeSafe from '../serializeSafe/serializeSafe';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,

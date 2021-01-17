@@ -20,7 +20,7 @@ import { SSRPageProps } from './types/SSRPageProps';
 import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';
 import consolidateSanitizedAirtableDataset from '../airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '../airtable/fetchAndSanitizeAirtableDatasets';
-import serializeSafe from '../serialize/serializeSafe';
+import serializeSafe from '../serializeSafe/serializeSafe';
 import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
 import {
   DEFAULT_LOCALE,

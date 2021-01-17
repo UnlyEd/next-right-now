@@ -22,7 +22,7 @@ import { SanitizedAirtableDataset } from '../../data/types/SanitizedAirtableData
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import { SSGPageProps } from '../../app/types/SSGPageProps';
 import { SSRPageProps } from '../../app/types/SSRPageProps';
-import deserializeSafe from '../../serialize/deserializeSafe';
+import deserializeSafe from '../../serializeSafe/deserializeSafe';
 import {
   i18nRedirect,
   stringifyQueryParameters,
