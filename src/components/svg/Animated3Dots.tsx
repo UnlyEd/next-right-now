@@ -1,7 +1,12 @@
 import React from 'react';
 
 export type Props = {
-  fill: string;
+  /**
+   * Color of the dots.
+   *
+   * @default white
+   */
+  fill?: string;
 };
 
 /**
