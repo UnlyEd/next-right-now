@@ -6,7 +6,7 @@ import React from 'react';
 import GraphCMSAsset, { Props } from '../../../components/assets/GraphCMSAsset';
 import { Asset } from '../../../types/data/Asset';
 
-const defaultLogoUrl = 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png';
+const defaultLogoUrl = 'https://media.graphcms.com/EKw3Em7aRkqaYmowHWAN';
 
 export default {
   title: 'Next Right Now/Asset/GraphCMSAsset',
