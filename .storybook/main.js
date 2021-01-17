@@ -6,9 +6,9 @@ const toPath = (_path) => path.join(process.cwd(), _path);
 
 try {
   require('../.jest-test-results.json');
-  console.warn(`[Storybook Jest config] Found "/.jest-test-results.json". \nStories will properly use Jest tests. \nRunning "yarn:test" in parallel of storybook will keep Storybook up-to-date with the latest test result.`);
+  console.warn(`[Storybook Jest config] Found "/.jest-test-results.json". \nStories will display the latest Jest test results. \nRunning "yarn:test" in parallel of storybook will keep Storybook up-to-date with the latest test result.`);
 } catch (e) {
-  console.warn(`[Storybook Jest config] The test results file couldn't be found in "/.jest-test-results.json". \nStories will not use Jest tests. \nRunning "yarn test:generate-output" prior to running storybook will fix this. \nAlternatively, running "yarn:test" in parallel of storybook will keep Storybook up-to-date with the latest test result.`);
+  console.warn(`[Storybook Jest config] The test results file couldn't be found in "/.jest-test-results.json". \nStories will not display Jest test results. \nRunning "yarn test:generate-output" prior to running storybook will fix this.`);
 }
 
 /**
