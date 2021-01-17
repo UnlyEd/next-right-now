@@ -2772,7 +2772,7 @@
     prop-types "^15.7.2"
     regenerator-runtime "^0.13.7"
 
-"@storybook/addons@6.1.14":
+"@storybook/addons@6.1.14", "@storybook/addons@^6.1.11":
   version "6.1.14"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-6.1.14.tgz#2b81304bbe696923df95cdcf85cfc592d10f4065"
   integrity sha512-HlpmV7aejp/MeW8bo/WKME3i71gi0men9qcwoovjDjnSF6jXoNLT336a5udKXdHqYSZgzdyURlgLtilCWkWaJQ==
@@ -2787,7 +2787,7 @@
     global "^4.3.2"
     regenerator-runtime "^0.13.7"
 
-"@storybook/addons@^5.3.18", "@storybook/addons@^5.3.19":
+"@storybook/addons@^5.3.18":
   version "5.3.21"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-5.3.21.tgz#ee312c738c33e8c34dc11777ef93522c3c36e56a"
   integrity sha512-Ji/21WADTLVbTbiKcZ64BcL0Es+h1Afxx3kNmGJqPSTUYroCwIFCT9mUzCqU6G+YyWaISAmTii5UJkTwMkChwA==
@@ -2800,7 +2800,7 @@
     global "^4.3.2"
     util-deprecate "^1.0.2"
 
-"@storybook/api@5.3.21", "@storybook/api@^5.3.18", "@storybook/api@^5.3.19":
+"@storybook/api@5.3.21", "@storybook/api@^5.3.18":
   version "5.3.21"
   resolved "https://registry.yarnpkg.com/@storybook/api/-/api-5.3.21.tgz#8f1772de53b65e1a65d2f0257463d621a8617c58"
   integrity sha512-K1o4an/Rx8daKRDooks6qzN6ZGyqizeacZZbair3F8CsSfTgrr2zCcf9pgKojLQa9koEmMHlcdb2KnS+GwPEgA==
@@ -2826,7 +2826,7 @@
     telejson "^3.2.0"
     util-deprecate "^1.0.2"
 
-"@storybook/api@6.1.14":
+"@storybook/api@6.1.14", "@storybook/api@^6.1.11":
   version "6.1.14"
   resolved "https://registry.yarnpkg.com/@storybook/api/-/api-6.1.14.tgz#20035dd336aba1c5a0f8c83c8c14a2edaf4db891"
   integrity sha512-gWcC/xEW8HL5DsocLujHBUdoNsl4YW1Zx1Y4SBbLCyrhj8v4JudJpylwJpOUBDe/GESXq1zqvNKvUPtI8DQNyw==
@@ -2864,14 +2864,14 @@
     qs "^6.6.0"
     telejson "^5.0.2"
 
-"@storybook/channels@5.3.21", "@storybook/channels@^5.3.19":
+"@storybook/channels@5.3.21":
   version "5.3.21"
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-5.3.21.tgz#53ba622b171d68b3b102983a62aa05149a49497b"
   integrity sha512-OXoFs9XtBVg/cCk6lYMrxkzaNlJRf54ABdorp7YAAj7S9tRL1JxOZHxmjNQwEoiRvssmem2rAWtEAxfuEANsAA==
   dependencies:
     core-js "^3.0.1"
 
-"@storybook/channels@6.1.14":
+"@storybook/channels@6.1.14", "@storybook/channels@^6.1.11":
   version "6.1.14"
   resolved "https://registry.yarnpkg.com/@storybook/channels/-/channels-6.1.14.tgz#c479190ebb853a603f3ed90fc470534a02eb46eb"
   integrity sha512-vP19IB2FXj8SiFbQ9ETljEBienL+KRMLgMzz3Ta3nZj/OfjJJbIuj42ZfexQGV4mS0Bo+OW+qT7VMIY6fulnFw==
@@ -2919,7 +2919,7 @@
     core-js "^3.0.1"
     global "^4.3.2"
 
-"@storybook/components@6.1.14":
+"@storybook/components@6.1.14", "@storybook/components@^6.1.0":
   version "6.1.14"
   resolved "https://registry.yarnpkg.com/@storybook/components/-/components-6.1.14.tgz#4ea47edfa0a3e4a26882aa5a1eb90c1ec86e6f71"
   integrity sha512-Nxsp/9o1tqfY8s6RBWNHyM03A5D9k56Kr/4VNa++CbDrz1+TIxpYlDgS4sllUlXyvICLfk3sUtg3KS5CPl2iZA==
@@ -2945,7 +2945,7 @@
     react-textarea-autosize "^8.1.1"
     ts-dedent "^2.0.0"
 
-"@storybook/components@^5.3.18", "@storybook/components@^5.3.19":
+"@storybook/components@^5.3.18":
   version "5.3.21"
   resolved "https://registry.yarnpkg.com/@storybook/components/-/components-5.3.21.tgz#17ee371a2455c6e807c3d3135a9266e63ad7651a"
   integrity sha512-42QQk6qZl6wrtajP8yNCfmNS2t8Iod5QY+4V/l6iNnnT9O+j6cWOlnO+ZyvjNv0Xm0zIOt+VyVjdkKh8FUjQmA==
@@ -2972,14 +2972,14 @@
     simplebar-react "^1.0.0-alpha.6"
     ts-dedent "^1.1.0"
 
-"@storybook/core-events@5.3.21", "@storybook/core-events@^5.3.18", "@storybook/core-events@^5.3.19":
+"@storybook/core-events@5.3.21", "@storybook/core-events@^5.3.18":
   version "5.3.21"
   resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-5.3.21.tgz#41d81c3f107302a032545fc86ff344230c04b9e9"
   integrity sha512-/Zsm1sKAh6pzQv8jQUmuhM7nuM01ZljIRKy8p2HjPNlMjDB5yaRkBfyeAUXUg+qXNI6aHVWa4jGdPEdwwY4oLA==
   dependencies:
     core-js "^3.0.1"
 
-"@storybook/core-events@6.1.14":
+"@storybook/core-events@6.1.14", "@storybook/core-events@^6.1.11":
   version "6.1.14"
   resolved "https://registry.yarnpkg.com/@storybook/core-events/-/core-events-6.1.14.tgz#a3165e32cefd6be7326bbad4b8140653bdfa0426"
   integrity sha512-tpM3VDvzqgRY7S17CRglgt1625rxNoyEwrLQiNcZkUPyO0rpaacPqVEbPCtcTmUeboI1bLdnSQIjT9B0/Y2Pww==
@@ -3197,7 +3197,7 @@
     regenerator-runtime "^0.13.7"
     source-map "^0.7.3"
 
-"@storybook/theming@5.3.21", "@storybook/theming@^5.3.19":
+"@storybook/theming@5.3.21":
   version "5.3.21"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-5.3.21.tgz#ae2dc101aa57c3be4df1724ae729e11bad118e0b"
   integrity sha512-FZbxjizqdO9lV5LUixPio/7+6UdPiswCzTJn8Hcot9uwwgfnrViRdN7xyjmSYRqv9nHP3OlYbtdeCAgZ4aPq8g==
@@ -3215,7 +3215,7 @@
     resolve-from "^5.0.0"
     ts-dedent "^1.1.0"
 
-"@storybook/theming@6.1.14":
+"@storybook/theming@6.1.14", "@storybook/theming@^6.1.11":
   version "6.1.14"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.1.14.tgz#fecb66cab22d3b3218b4a98a9c210eb8a7be91e8"
   integrity sha512-S+t30y4FqBTXWoVr+dtxVJ/ywiQGHBclBd9aUunbdCV4mMFra5InNo2CWn+RJlNEauLZ93gRIEzSFchIbzLk1A==
@@ -13259,10 +13259,10 @@ node-libs-browser@^2.2.1:
     util "^0.11.0"
     vm-browserify "^1.0.1"
 
-node-mocks-http@1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/node-mocks-http/-/node-mocks-http-1.9.0.tgz#6000c570fc4b809603782309be81c73a71d85b71"
-  integrity sha512-ILf7Ws8xyX9Rl2fLZ7xhZBovrRwgaP84M13esndP6V17M/8j25TpwNzb7Im8U9XCo6fRhdwqiQajWXpsas/E6w==
+node-mocks-http@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/node-mocks-http/-/node-mocks-http-1.10.0.tgz#6c80a4a50577396dfd2410e3de79ed14112d7a23"
+  integrity sha512-dFnwFc2i8m1EKpN8F9Tn42rAkfopah2FbNN2qETh+cmIT71XRzwwNXeXUd58WWX7r3Wgk1r54vGcUR9DeExAOQ==
   dependencies:
     accepts "^1.3.7"
     depd "^1.1.0"
@@ -16542,10 +16542,10 @@ store2@^2.7.1:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
 
-storybook-addon-designs@5.4.2:
-  version "5.4.2"
-  resolved "https://registry.yarnpkg.com/storybook-addon-designs/-/storybook-addon-designs-5.4.2.tgz#5cd98c2e1665e610c4fb190cfe8310d720657057"
-  integrity sha512-NByEwHN18GZIYD3YmsswcpKfa/R7nlY0fTYt4M158UwZgfg08Mf6v06zhq0I3MaL7CF/DdjBVIIXT13nlSi5BA==
+storybook-addon-designs@5.4.3:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/storybook-addon-designs/-/storybook-addon-designs-5.4.3.tgz#ab4209e180e94c848f5920dc1ebbb075b4283303"
+  integrity sha512-rSEC/jX0ig8qnQz1AzbEU+s2lmlDyZTCEy3Jh//XSBiZWycm0uPbP1vcknVXHbbGhkvHRvoyROqssiCjX661ZA==
   dependencies:
     react-pdf "^4.0.5"
 
@@ -16554,17 +16554,17 @@ storybook-addon-next-router@2.0.3:
   resolved "https://registry.yarnpkg.com/storybook-addon-next-router/-/storybook-addon-next-router-2.0.3.tgz#24cb0233c03749a9b416f5b191bbcd17545a3d3b"
   integrity sha512-1/q3ZYpN2Hae8ePL553J4rzVEh2rF+mVPvui2+Q7LEVvCTFgcB3Iow9xCA0P9nxNjg+oPs8Xkpb0ahXkwUAIcQ==
 
-storybook-addon-performance@0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-performance/-/storybook-addon-performance-0.13.0.tgz#4ac938275453c65bc67ec3884062621999b41557"
-  integrity sha512-TrlDjUMob71nyQywmJGWjUyTnZra+VlcQ1Ume5Vd5jRYefviKQom3eIEAp4eDeC0XbTfZ/eH0TEIIrfjgbF26g==
+storybook-addon-performance@0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/storybook-addon-performance/-/storybook-addon-performance-0.14.0.tgz#d5cf3afc1bbc630f626b67d489ba55e9cd76a12b"
+  integrity sha512-Aa/d2B0N2lEc2bTM6arrNkPRELphwp5n90mzvcjT6ls69q486g3e11CLUE/g0roR6dk1hdOkENJLr+ELoMq41g==
   dependencies:
-    "@storybook/addons" "^5.3.19"
-    "@storybook/api" "^5.3.19"
-    "@storybook/channels" "^5.3.19"
-    "@storybook/components" "^5.3.19"
-    "@storybook/core-events" "^5.3.19"
-    "@storybook/theming" "^5.3.19"
+    "@storybook/addons" "^6.1.11"
+    "@storybook/api" "^6.1.11"
+    "@storybook/channels" "^6.1.11"
+    "@storybook/components" "^6.1.0"
+    "@storybook/core-events" "^6.1.11"
+    "@storybook/theming" "^6.1.11"
     "@testing-library/dom" "^7.22.0"
     "@testing-library/jest-dom" "^5.11.2"
     "@xstate/react" "1.0.0-rc.3"
