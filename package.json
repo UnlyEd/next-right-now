@@ -241,6 +241,7 @@
     "node-mocks-http": "1.10.0",
     "open-cli": "6.0.1",
     "react-test-renderer": "17.0.1",
+    "relative-to-alias": "2.0.1",
     "storybook-addon-designs": "5.4.3",
     "storybook-addon-next-router": "2.0.3",
     "storybook-addon-performance": "0.14.0",
