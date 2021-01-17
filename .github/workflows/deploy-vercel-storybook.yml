@@ -25,6 +25,16 @@ on:
   push: # Triggers on each pushed commit
     branches:
       - '*'
+    # Only run the workflow when there are changes made to files, in any of the below paths
+    # Optimize our CI/CD by not running Storybook needlessly (faster deploy, lower cost)
+    paths:
+      - '.github/workflows/deploy-vercel-storybook.yml'
+      - '.storybook/**'
+      - 'cypress/integration-storybook/**'
+      - 'src/stories/**'
+      - 'src/components/**'
+      #      - 'src/*/components/**' # For later?
+      - 'package.json'
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
