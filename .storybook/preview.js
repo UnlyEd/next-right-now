@@ -1,6 +1,7 @@
 import { Amplitude, AmplitudeProvider } from '@amplitude/react-amplitude';
 import { ThemeProvider } from '@emotion/react';
 import '@storybook/addon-console'; // Automatically forwards all logs in the "Actions" panel - See https://github.com/storybookjs/storybook-addon-console
+import { withTests } from '@storybook/addon-jest';
 import { addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import find from 'lodash.find';
@@ -167,7 +168,7 @@ export const decorators = [
    *
    * @see https://storybook.js.org/docs/react/essentials/toolbars-and-globals#create-a-decorator Context and globals
    */
-  (Story, context) => {
+    (Story, context) => {
     // console.log('context', context) // Prints useful information about the Story's configuration
     // Configure i18n. In Storybook, the locale can be set from the top Toolbar.
     const locale = context?.globals?.locale || defaultLocale;
@@ -270,3 +271,25 @@ export const decorators = [
  * @see https://github.com/atlassian-labs/storybook-addon-performance#installation
  */
 addDecorator(withPerformance);
+
+/**
+ * Configure Jest Storybook for all stories.
+ *
+ * Each story must define which test it's associated to, to show the associated tests results in the preview.
+ * See https://github.com/storybookjs/storybook/tree/master/addons/jest#usage
+ *
+ * @see https://github.com/storybookjs/storybook/tree/master/addons/jest
+ */
+try {
+  let testResults;
+  testResults = require('../.jest-test-results.json');
+
+  addDecorator(
+    withTests({
+      results: testResults,
+    }),
+  );
+} catch (e) {
+  console.log(`Couldn't find ../.jest-test-results.json, Jest tests might not work properly.`)
+}
+
