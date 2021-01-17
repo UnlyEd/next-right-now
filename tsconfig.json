@@ -15,11 +15,6 @@
         "src/modules/*"
       ]
     },
-    // Attempts to run codemod
-    // npx relative-to-alias --src src --alias 'common' --alias-path './src/common/*' --extensions 'ts,tsx'  --language 'typescript' -i
-    // npx relative-to-alias --src src --alias 'components' --alias-path './src/common/components/*' --extensions 'ts,tsx'  --language 'typescript'
-    // npx relative-to-alias --src src --alias 'utils' --alias-path './src/common/utils/*' --extensions 'ts,tsx'  --language 'typescript'
-    // npx relative-to-alias --src src --alias 'modules' --alias-path './src/modules/*' --extensions 'ts,tsx'  --language 'typescript'
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

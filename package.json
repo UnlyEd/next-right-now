@@ -81,6 +81,7 @@
     "codemod:update-react-imports": "npx react-codemod update-react-imports src/",
     "codemod:name-default-component": "npx @next/codemod name-default-component src/",
     "codemod:withamp-to-config": "npx @next/codemod withamp-to-config src/",
+    "codemod:module-path-aliases": "npx relative-to-alias --src src --alias '@/common' --alias-path './src/common' --extensions 'ts,tsx'  --language 'typescript' && npx relative-to-alias --src src --alias '@/components' --alias-path './src/common/components' --extensions 'ts,tsx'  --language 'typescript' && npx relative-to-alias --src src --alias '@/utils' --alias-path './src/common/utils' --extensions 'ts,tsx'  --language 'typescript' && npx relative-to-alias --src src --alias '@/modules' --alias-path './src/modules' --extensions 'ts,tsx'  --language 'typescript'",
     "security:audit": "yarn audit",
     "packages:upgrade": "yarn upgrade-interactive --latest"
   },
