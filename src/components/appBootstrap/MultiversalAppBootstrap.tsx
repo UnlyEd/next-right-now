@@ -367,8 +367,18 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     return (
       <datasetContext.Provider value={dataset}>
         <quickPreviewContext.Provider value={{ isQuickPreviewPage }}>
-          <previewModeContext.Provider value={{ isPreviewModeEnabled: isPreviewModeEnabled, previewData }}>
-            <i18nContext.Provider value={{ lang, locale }}>
+          <previewModeContext.Provider
+            value={{
+              isPreviewModeEnabled: isPreviewModeEnabled,
+              previewData,
+            }}
+          >
+            <i18nContext.Provider
+              value={{
+                lang,
+                locale,
+              }}
+            >
               <customerContext.Provider value={customer}>
                 {/* XXX Global styles that applies to all pages go there */}
                 <MultiversalGlobalStyles customerTheme={customerTheme} />

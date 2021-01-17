@@ -1,7 +1,9 @@
-import { css } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
-import { useTheme } from '@emotion/react';
 import {
   NextRouter,
   useRouter,
@@ -10,7 +12,6 @@ import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import useCustomer from '../../hooks/useCustomer';
 import { Customer } from '../../types/data/Customer';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import Btn from '../utils/Btn';
 import Tooltip from '../utils/Tooltip';
@@ -20,7 +21,7 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-type Props = {
+export type Props = {
   ExplanationTooltipOverlay?: React.FunctionComponent;
   LeftActions?: React.FunctionComponent;
   quickPreviewTitle?: string;
@@ -44,7 +45,9 @@ const QuickPreviewBanner: React.FunctionComponent<Props> = (props): JSX.Element 
     quickPreviewTitle,
   } = props;
   const {
-    secondaryColor, secondaryColorVariant1, onSecondaryColor,
+    secondaryColor,
+    secondaryColorVariant1,
+    onSecondaryColor,
   } = useTheme();
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
@@ -87,7 +90,7 @@ const QuickPreviewBanner: React.FunctionComponent<Props> = (props): JSX.Element 
               align-items: center;
             }
           }
-      `}
+        `}
       >
         <div className={'left-actions-container'}>
           {

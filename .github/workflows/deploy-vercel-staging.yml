@@ -22,7 +22,6 @@
 # - See https://github.com/peter-evans/create-or-update-comment https://github.com/peter-evans/create-or-update-comment/tree/v1
 # - See https://github.com/UnlyEd/github-action-await-vercel https://github.com/UnlyEd/github-action-await-vercel/tree/v1.1.1
 # - See https://github.com/UnlyEd/github-action-store-variable https://github.com/UnlyEd/github-action-store-variable/tree/v1.0.1
-# - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/v3.x
 # - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
 # - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
 
@@ -75,6 +74,7 @@ jobs:
         #   - Get stdout from deploy command (stderr prints build steps and stdout prints deployment url, which is what we are really looking for)
         #   - Set the deployment url that will be included in the eventual PR comment
         #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
+        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
           # Print the version of the "vercel" CLI being used (helps debugging)
@@ -372,7 +372,7 @@ jobs:
         with:
           # XXX We disabled "wait-on" option, because it's useless. Cypress will fail anyway, because it gets redirected to some internal Vercel URL if the domain isn't yet available - See https://github.com/cypress-io/github-action/issues/270
           # wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
-          config-file: 'cypress/config-customer-ci-cd.json' # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
+          config-file: 'cypress/config-customer-ci-cd.json' # Use Cypress config file for CI/CD, and override it below
           config: baseUrl=${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
           # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.

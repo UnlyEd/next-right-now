@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { DOMAttributes } from 'react';
 
-type Props = {
+export type Props = {
+  /**
+   * React children, usually text.
+   */
   children: string;
-  tag?: string | React.ReactType;
-}
+
+  /**
+   * HTML tag. (`span`, `div`, etc.)
+   *
+   * @default div
+   */
+  tag?: string | React.ElementType;
+} & DOMAttributes<any>;
 
 /**
- * Automatically break lines for text
- * Allow usage of HTML (but not React components)
+ * Automatically break lines for text.
+ * Allow usage of HTML (but not React components).
  *
- * Avoids relying on <br /> for every line break
+ * Avoids relying on <code>&lt;br /&gt;</code> for every line break.
  *
  * @example
  * <Text>
@@ -19,11 +28,12 @@ type Props = {
  *     Another line, which will respect line break
  *  `}
  * </Text>
- *
- * @param props
  */
 export const Text: React.FunctionComponent<Props> = (props) => {
-  const { children, tag: Wrapper = 'div' } = props;
+  const {
+    children,
+    tag: Wrapper = 'div',
+  } = props;
 
   return (
     <Wrapper

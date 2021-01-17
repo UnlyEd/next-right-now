@@ -1,21 +1,21 @@
-import { css } from '@emotion/react';
-import { useTheme } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { NRN_CO_BRANDING_LOGO_URL } from '../../constants';
 import useCustomer from '../../hooks/useCustomer';
 import { CSSStyles } from '../../types/CSSStyles';
 import { Asset } from '../../types/data/Asset';
 import { Customer } from '../../types/data/Customer';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { SIZE_XS } from '../../utils/assets/logo';
 import GraphCMSAsset from '../assets/GraphCMSAsset';
 import Logo from '../assets/Logo';
 import I18nBtnChangeLocale from '../i18n/I18nBtnChangeLocale';
 import I18nLink from '../i18n/I18nLink';
 
-type Props = {
+export type Props = {
   style?: CSSStyles;
 };
 

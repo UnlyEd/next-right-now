@@ -7,15 +7,23 @@ import React, {
 import { CSSStyles } from '../../types/CSSStyles';
 import AnimatedTextBubble from '../svg/AnimatedTextBubble';
 
-type Props = {
+export type Props = {
   children: React.ReactElement;
+  /**
+   * @default 200
+   */
   duration?: number;
   className?: string;
   style?: CSSStyles;
+  fill?: string;
 }
 
 const BubbleTimer: React.FunctionComponent<Props> = (props): JSX.Element => {
-  const { children, duration = 200, ...rest } = props;
+  const {
+    children,
+    duration = 200,
+    ...rest
+  } = props;
   const [isWaiting, setIsWaiting] = useState(true);
 
   useEffect(() => {

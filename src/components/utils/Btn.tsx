@@ -1,8 +1,9 @@
-import { css } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import classnames from 'classnames';
-import { useTheme } from '@emotion/react';
 import React, { ReactNode } from 'react';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { ReactButtonProps } from '../../types/react/ReactButtonProps';
 import {
   ComponentThemeMode,
@@ -10,29 +11,29 @@ import {
   ThemedComponentProps,
 } from '../../utils/theming/themedComponentColors';
 
-type Props = {
+export type Props = {
+  /**
+   * What's being displayed within the button.
+   */
   children: ReactNode;
+
+  /**
+   * Always adds the "btn" class, more CSS classes can be added.
+   */
   className?: string;
 } & ReactButtonProps & ThemedComponentProps;
 
 /**
- * "Call to Action" button.
+ * Flexible HTML `button` component that can take many shapes and be used with various colors and background colors.
  *
- * Button meant to highlight a potential user interaction.
- * Themed component.
- *
- * Used for:
- *  - Navigate to another page
- *  - Validate an action
- *
- * @param props
+ * Implements `ThemedComponentColors`.
  */
 const Btn: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     className,
     mode = 'primary' as ComponentThemeMode,
-    transparent,
+    isTransparent,
     ...rest
   } = props;
   const customerTheme = useTheme();
@@ -44,7 +45,7 @@ const Btn: React.FunctionComponent<Props> = (props): JSX.Element => {
     hoverBackgroundColor,
     hoverBorderColor,
     hoverBoxShadowColor,
-  } = resolveThemedComponentColors(customerTheme, mode, transparent);
+  } = resolveThemedComponentColors(customerTheme, mode, isTransparent);
 
   return (
     <button

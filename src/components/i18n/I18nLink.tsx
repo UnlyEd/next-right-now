@@ -12,26 +12,102 @@ import {
 
 type ParamValueToForward = string | number | Array<string | number>;
 
-type Props = {
+export type Props = {
+  /**
+   * Optional decorator for the path that will be shown in the browser URL bar.
+   */
   as?: string;
+
+  /**
+   * React node as children.
+   */
   children: React.ReactNode;
+
+  /**
+   * Additional CSS classes.
+   */
   className?: string;
+
+  /**
+   * The path or URL to navigate to.
+   */
   href: string;
+
+  /**
+   * The active locale is automatically prepended. locale allows for providing a different locale.
+   *
+   * @default current locale
+   */
   locale?: string; // The locale can be specified, but it'll fallback to the current locale if unspecified
+
+  /**
+   * Parameters to inject into the url, necessary when using route params (other than `locale`).
+   *
+   * Example:
+   *
+   * `/products/[id]` with `params={{ id: 5 }}` becomes `/products/5`
+   */
   params?: { [key: string]: ParamValueToForward };
+
+  /**
+   * Forces Link to send the href property to its child.
+   *
+   * @default false
+   */
   passHref?: boolean;
+
+  /**
+   * Prefetch the page in the background.
+   * Any <Link /> that is in the viewport (initially or through scroll) will be preloaded.
+   * Prefetch can be disabled by passing prefetch={false}.
+   * Pages using Static Generation will preload JSON files with the data for faster page transitions.
+   *
+   * @default true
+   */
   prefetch?: boolean;
+
+  /**
+   * Query to inject to the url, necessary when using route query param.
+   *
+   * Example:
+   *
+   * `/products` with `query={{ userId: 1 }}` becomes `/products?userId=1`
+   */
   query?: { [key: string]: ParamValueToForward };
+
+  /**
+   * Replace the current history state instead of adding a new url into the stack.
+   *
+   * @default false
+   */
   replace?: boolean;
+
+  /**
+   * Scroll to the top of the page after a navigation.
+   *
+   * @default true
+   */
   scroll?: boolean;
+
+  /**
+   * Update the path of the current page without rerunning `getStaticProps`, `getServerSideProps` or `getInitialProps`.
+   *
+   * @default false
+   */
   shallow?: boolean;
+
+  /**
+   * Disabled on Storybook, as it crashes the UI.
+   */
   wrapChildrenAsLink?: boolean; // Helper to avoid writing redundant code
 };
 
 /**
  * Wrapper around the native Next.js <Link> component. Handles localised links.
  *
- * Use the current active locale by default
+ * Uses the current active locale by default.
+ *
+ * [Read why we don't use the official Next.js `Link` component](https://unlyed.github.io/next-right-now/guides/i18n/#official-i18n-routing-implementation) <span className="tip ml-2">Tip</span>
  *
  * @example Recommended usage
  *  <I18nLink href={`/`}>Homepage</I18nLink>

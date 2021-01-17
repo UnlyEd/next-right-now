@@ -6,7 +6,6 @@ import map from 'lodash.map';
 import PropTypes from 'prop-types';
 import React from 'react';
 import stylePropType from 'react-style-proptype';
-
 import GraphCMSAssetPropTypes from '../../propTypes/GraphCMSAssetPropTypes';
 import GraphCMSAssetTransformationsPropTypes from '../../propTypes/GraphCMSAssetTransformationsPropTypes';
 import { CSSStyles } from '../../types/CSSStyles';
@@ -14,6 +13,80 @@ import { Asset } from '../../types/data/Asset';
 import { AssetTransformations } from '../../types/data/AssetTransformations';
 import { Link } from '../../types/data/Link';
 import { cssToReactStyle } from '../../utils/css';
+
+export type Props = {
+  /**
+   * Asset, extends Airtable attachment, e.g: image, document, etc.
+   *
+   * <span className="tip">XXX</span> The `asset` will be merged with `_defaultAsset`.
+   */
+  asset: Asset;
+
+  /**
+   * HTML id attribute. Must be unique.
+   */
+  id: string;
+
+  /**
+   * Overrides transformations.
+   *
+   * @default null
+   */
+  transformationsOverride?: AssetTransformations;
+
+  /**
+   * Default `asset` properties.
+   *
+   * @default {}
+   */
+  defaults?: Asset;
+
+  /**
+   * Overrides `asset` properties.
+   *
+   * @default {}
+   */
+  override?: Asset;
+
+  /**
+   * CSS classes.
+   */
+  className?: string;
+
+  /**
+   * CSS styles
+   *
+   * @default null
+   */
+  style?: CSSStyles;
+
+  /**
+   * Click event.
+   */
+  onClick?: () => void;
+
+  /**
+   * Overrides `Link` element properties.
+   *
+   * @default {}
+   */
+  linkOverride?: {
+    id?: string;
+    url?: string;
+    target?: string;
+    style?: CSSStyles;
+    classes?: string;
+  };
+
+  /**
+   * Whether to force output format to be PNG, allows to display PDF files as images.
+   *
+   * It bypasses the usage of SVG files.
+   *
+   * @default false
+   */
+  forcePNGOutput?: boolean;
+}
 
 const _defaultAsset = {
   id: null,
@@ -31,25 +104,6 @@ const _defaultLink: Link = {
   style: null,
   className: '',
 };
-
-type Props = {
-  id: string;
-  asset: Asset;
-  transformationsOverride?: AssetTransformations;
-  defaults?: Asset;
-  override?: Asset;
-  className?: string;
-  style?: CSSStyles;
-  onClick?: () => void;
-  linkOverride?: {
-    id?: string;
-    url?: string;
-    target?: string;
-    style?: CSSStyles;
-    classes?: string;
-  };
-  forcePNGOutput?: boolean;
-}
 
 /**
  * Displays an asset, based on the provided props

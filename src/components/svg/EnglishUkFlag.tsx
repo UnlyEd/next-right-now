@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
+
 type Props = {} & React.SVGProps<SVGSVGElement>;
 
 const SvgEnglishUkFlag = (props: Props): JSX.Element => {
   return (
+    // @ts-ignore
     <svg
       id="EnglishUkFlag_svg__Calque_1"
       data-name="Calque 1"
@@ -14,7 +16,7 @@ const SvgEnglishUkFlag = (props: Props): JSX.Element => {
       <defs>
         <style>
           {
-            ".EnglishUkFlag_svg__cls-1{fill:#c7102e}.EnglishUkFlag_svg__cls-2{fill:#faf9fa}.EnglishUkFlag_svg__cls-3{fill:#012068}"
+            '.EnglishUkFlag_svg__cls-1{fill:#c7102e}.EnglishUkFlag_svg__cls-2{fill:#faf9fa}.EnglishUkFlag_svg__cls-3{fill:#012068}'
           }
         </style>
       </defs>

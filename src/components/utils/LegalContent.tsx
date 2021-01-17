@@ -1,12 +1,13 @@
-import { css } from '@emotion/react';
-import { useTheme } from '@emotion/react';
+import {
+  css,
+  useTheme,
+} from '@emotion/react';
 import React from 'react';
 import { Container } from 'reactstrap';
-import { CustomerTheme } from '../../types/data/CustomerTheme';
 import { Markdown as TextAsMarkdown } from '../../types/Markdown';
 import Markdown from './Markdown';
 
-type Props = {
+export type Props = {
   content: TextAsMarkdown;
 }
 
@@ -18,7 +19,7 @@ type Props = {
 const LegalContent: React.FunctionComponent<Props> = (props): JSX.Element => {
   const theme = useTheme();
   const { primaryColor } = theme;
-  const { content} = props;
+  const { content } = props;
 
   return (
     <Container>
@@ -28,31 +29,31 @@ const LegalContent: React.FunctionComponent<Props> = (props): JSX.Element => {
             margin: 50px 150px 150px;
 
             h1 {
-             color: ${primaryColor};
-             font-size: 35px;
+              color: ${primaryColor};
+              font-size: 35px;
             }
 
             h2 {
-             font-size: 20px;
-             margin-top: 35px;
+              font-size: 20px;
+              margin-top: 35px;
             }
 
             h3 {
-             font-size: 17px;
+              font-size: 17px;
             }
 
             h4 {
-             font-size: 13px;
-             font-weight: 300;
+              font-size: 13px;
+              font-weight: 300;
             }
 
             h5 {
-             font-size: 13px;
-             font-weight: 100;
+              font-size: 13px;
+              font-weight: 100;
             }
 
             h6 {
-             font-size: 10px;
+              font-size: 10px;
             }
 
             table {
