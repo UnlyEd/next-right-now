@@ -135,7 +135,7 @@ jobs:
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed **Storybook static site** to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
-            Deployment aliased as [nrn-v2-mst-aptd-at-lcz-sty-storybook](https://nrn-v2-mst-aptd-at-lcz-sty-storybook.vercel.app)
+            Deployment aliased as [nrn-v2-mst-aptd-gcms-lcz-sty-storybook](https://nrn-v2-mst-aptd-gcms-lcz-sty-storybook.vercel.app)
 
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
