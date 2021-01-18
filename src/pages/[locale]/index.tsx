@@ -8,7 +8,7 @@ import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import DocsHomePage, {
   getStaticPaths as getStaticPathsHomePage,
   getStaticProps as getStaticPropsHomePage,
-} from './examples/';
+} from './demo/';
 
 /*
   XXX This page is an "alias", it basically imports the whole /examples/index page and export it back
