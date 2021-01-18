@@ -1,9 +1,4 @@
 {
-  "extends": "../tsconfig.json",
-  "include": [
-    "./**/*.ts*"
-  ],
-  "exclude": [],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -19,11 +14,6 @@
       "@/modules/*": [
         "../src/modules/*"
       ]
-    },
-    "types": [
-      "cypress"
-    ],
-    "sourceMap": false,
-    "isolatedModules": true
+    }
   }
 }

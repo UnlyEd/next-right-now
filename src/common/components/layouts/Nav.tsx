@@ -25,20 +25,17 @@ import {
   Row,
   UncontrolledDropdown,
 } from 'reactstrap';
-import useI18n, { I18n } from '../../../modules/i18n/hooks/useI18n';
-import { LogEvent } from '../../../modules/amplitude/types/Amplitude';
-import { AirtableAttachment } from '../../../modules/data/types/AirtableAttachment';
-import { Asset } from '../../../modules/data/types/Asset';
-import { SidebarLink } from '../../../modules/data/types/SidebarLink';
-import {
-  isActive,
-  resolveI18nHomePage,
-} from '../../../modules/i18n/i18nRouter';
-import AirtableAsset from '../../../modules/airtable/components/AirtableAsset';
+import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
+import { LogEvent } from '@/modules/amplitude/types/Amplitude';
+import { AirtableAttachment } from '@/modules/data/types/AirtableAttachment';
+import { Asset } from '@/modules/data/types/Asset';
+import { SidebarLink } from '@/modules/data/types/SidebarLink';
+import { isActive, resolveI18nHomePage } from '@/modules/i18n/i18nRouter';
+import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
 import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '../nrnDoc/BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '../nrnDoc/BuiltInUtilitiesSidebar';
 import { NATIVE_FEATURES_SIDEBAR_LINKS } from '../nrnDoc/NativeFeaturesSidebar';
-import I18nLink from '../../../modules/i18n/components/I18nLink';
+import I18nLink from '@/modules/i18n/components/I18nLink';
 import Tooltip from '../dataDisplay/Tooltip';
 
 export type Props = {};

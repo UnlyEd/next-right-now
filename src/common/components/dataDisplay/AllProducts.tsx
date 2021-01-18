@@ -1,8 +1,8 @@
 import filter from 'lodash.filter';
 import React from 'react';
 
-import { AirtableRecord } from '../../../modules/data/types/AirtableRecord';
-import { Product } from '../../../modules/data/types/Product';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Product } from '@/modules/data/types/Product';
 import Products from './Products';
 
 type Props = {

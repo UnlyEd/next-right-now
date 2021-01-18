@@ -1,6 +1,6 @@
 import hybridCache from '../vercelCache/hybridCache';
 import { reset as cacheReset } from '../vercelCache/memoryCacheStorage';
-import waitFor from '../../common/utils/waitFor';
+import waitFor from '@/common/utils/waitFor';
 import fetchAirtableTable  from './fetchAirtableTable';
 import { CUSTOMER2 } from '../testing/mocks/mockedRawAirtableDataset';
 

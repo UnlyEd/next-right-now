@@ -8,18 +8,15 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DocPage from '../../../../common/components/nrnDoc/DocPage';
-import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
-import Code from '../../../../common/components/dataDisplay/Code';
-import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
-import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
-import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
-} from '../../../../modules/app/SSG';
+import BuiltInUtilitiesSidebar from '@/common/components/nrnDoc/BuiltInUtilitiesSidebar';
+import DocPage from '@/common/components/nrnDoc/DocPage';
+import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import Code from '@/common/components/dataDisplay/Code';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/packages-upgrade';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import SimpleTooltip, { Props } from '../../../common/components/dataDisplay/SimpleTooltip';
+import SimpleTooltip, { Props } from '@/common/components/dataDisplay/SimpleTooltip';
 import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {

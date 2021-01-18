@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import getTimestampsElapsedTime from '../date/getTimestampsElapsedTime';
-import waitFor from '../../common/utils/waitFor';
+import waitFor from '@/common/utils/waitFor';
 import { DiskStorageOptions } from './diskCacheStorage';
 import {
   CachedItem,

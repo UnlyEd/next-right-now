@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import LegalContent, { Props } from '../../../common/components/dataDisplay/LegalContent';
+import LegalContent, { Props } from '@/common/components/dataDisplay/LegalContent';
 
 export default {
   title: 'Next Right Now/Layout/LegalContent',

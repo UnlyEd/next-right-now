@@ -13,8 +13,8 @@ import { useTranslation } from 'react-i18next';
 import useCustomer from '../../data/hooks/useCustomer';
 import { Customer } from '../../data/types/Customer';
 import I18nBtnChangeLocale from '../../i18n/components/I18nBtnChangeLocale';
-import Btn from '../../../common/components/dataDisplay/Btn';
-import Tooltip from '../../../common/components/dataDisplay/Tooltip';
+import Btn from '@/common/components/dataDisplay/Btn';
+import Tooltip from '@/common/components/dataDisplay/Tooltip';
 
 const fileLabel = 'components/pageLayouts/QuickPreviewBanner';
 const logger = createLogger({

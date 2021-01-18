@@ -1,5 +1,20 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/common/*": [
+        "src/common/*"
+      ],
+      "@/components/*": [
+        "src/common/components/*"
+      ],
+      "@/utils/*": [
+        "src/common/utils/*"
+      ],
+      "@/modules/*": [
+        "src/modules/*"
+      ]
+    },
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

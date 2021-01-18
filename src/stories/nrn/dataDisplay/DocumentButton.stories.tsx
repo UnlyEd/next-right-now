@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import DocumentButton, { Props } from '../../../common/components/dataDisplay/DocumentButton';
+import DocumentButton, { Props } from '@/common/components/dataDisplay/DocumentButton';
 import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {

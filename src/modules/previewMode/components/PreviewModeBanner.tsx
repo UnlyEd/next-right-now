@@ -18,9 +18,9 @@ import {
   startPreviewMode,
   stopPreviewMode,
 } from '../previewMode';
-import Btn from '../../../common/components/dataDisplay/Btn';
-import ExternalLink from '../../../common/components/dataDisplay/ExternalLink';
-import Tooltip from '../../../common/components/dataDisplay/Tooltip';
+import Btn from '@/common/components/dataDisplay/Btn';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import Tooltip from '@/common/components/dataDisplay/Tooltip';
 
 export type Props = {}
 

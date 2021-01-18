@@ -1,7 +1,7 @@
 import map from 'lodash.map';
 
-import { Logo } from '../../modules/data/types/Logo';
-import { GenericObject } from '../../modules/data/types/GenericObject';
+import { Logo } from '@/modules/data/types/Logo';
+import { GenericObject } from '@/modules/data/types/GenericObject';
 
 export const SIZE_XS = 'xs';
 export const SIZE_SM = 'sm';

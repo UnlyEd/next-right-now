@@ -17,21 +17,18 @@ import {
 } from 'reactstrap';
 import { v1 as uuid } from 'uuid';
 
-import BuiltInFeaturesSidebar from '../../../../common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '../../../../common/components/nrnDoc/DocPage';
-import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
-import DisplayOnBrowserMount from '../../../../common/components/rehydration/DisplayOnBrowserMount';
-import Code from '../../../../common/components/dataDisplay/Code';
-import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
-import useI18n, { I18n } from '../../../../modules/i18n/hooks/useI18n';
-import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
-import { resolveCustomerVariationLang } from '../../../../modules/i18n/i18n';
-import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
-} from '../../../../modules/app/SSG';
+import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
+import DocPage from '@/common/components/nrnDoc/DocPage';
+import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
+import Code from '@/common/components/dataDisplay/Code';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { resolveCustomerVariationLang } from '@/modules/i18n/i18n';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

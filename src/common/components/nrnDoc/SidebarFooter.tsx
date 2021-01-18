@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import I18nLink from '../../../modules/i18n/components/I18nLink';
+import I18nLink from '@/modules/i18n/components/I18nLink';
 
 type Props = {
   previousSectionHref?: string; // If not defined, then won't show the previous section link

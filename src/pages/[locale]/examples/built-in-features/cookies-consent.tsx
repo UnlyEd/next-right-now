@@ -9,20 +9,17 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '../../../../common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '../../../../common/components/nrnDoc/DocPage';
-import I18nLink from '../../../../modules/i18n/components/I18nLink';
-import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
-import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
-import useUserConsent from '../../../../modules/userConsent/hooks/useUserConsent';
-import { LogEvent } from '../../../../modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
-import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
-} from '../../../../modules/app/SSG';
+import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
+import DocPage from '@/common/components/nrnDoc/DocPage';
+import I18nLink from '@/modules/i18n/components/I18nLink';
+import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
+import { LogEvent } from '@/modules/amplitude/types/Amplitude';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-features/cookies-consent';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

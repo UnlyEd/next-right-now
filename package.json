@@ -81,6 +81,10 @@
     "codemod:update-react-imports": "npx react-codemod update-react-imports src/",
     "codemod:name-default-component": "npx @next/codemod name-default-component src/",
     "codemod:withamp-to-config": "npx @next/codemod withamp-to-config src/",
+    "codemod:module-path-aliases": "yarn codemod:module-path-aliases:src && yarn codemod:module-path-aliases:cypress && yarn codemod:module-path-aliases:sb",
+    "codemod:module-path-aliases:src": "npx relative-to-alias --src 'src' --alias '@/common' --alias-path './src/common' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src 'src' --alias '@/components' --alias-path './src/common/components' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src 'src' --alias '@/utils' --alias-path './src/common/utils' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src 'src' --alias '@/modules' --alias-path './src/modules' --extensions 'js,ts,tsx'  --language 'typescript'",
+    "codemod:module-path-aliases:cypress": "npx relative-to-alias --src 'cypress' --alias '@/common' --alias-path './src/common' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src 'cypress' --alias '@/components' --alias-path './src/common/components' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src 'cypress' --alias '@/utils' --alias-path './src/common/utils' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src 'cypress' --alias '@/modules' --alias-path './src/modules' --extensions 'js,ts,tsx'  --language 'typescript'",
+    "codemod:module-path-aliases:sb": "npx relative-to-alias --src '.storybook' --alias '@/common' --alias-path './src/common' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src '.storybook' --alias '@/components' --alias-path './src/common/components' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src '.storybook' --alias '@/utils' --alias-path './src/common/utils' --extensions 'js,ts,tsx'  --language 'typescript' && npx relative-to-alias --src '.storybook' --alias '@/modules' --alias-path './src/modules' --extensions 'js,ts,tsx'  --language 'typescript'",
     "security:audit": "yarn audit",
     "packages:upgrade": "yarn upgrade-interactive --latest"
   },
@@ -241,6 +245,7 @@
     "node-mocks-http": "1.10.0",
     "open-cli": "6.0.1",
     "react-test-renderer": "17.0.1",
+    "relative-to-alias": "2.0.1",
     "storybook-addon-designs": "5.4.3",
     "storybook-addon-next-router": "2.0.3",
     "storybook-addon-performance": "0.14.0",

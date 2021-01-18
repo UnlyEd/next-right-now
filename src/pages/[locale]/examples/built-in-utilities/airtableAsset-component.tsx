@@ -8,24 +8,21 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import AirtableAsset from '../../../../modules/airtable/components/AirtableAsset';
-import BuiltInUtilitiesSidebar from '../../../../common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DocPage from '../../../../common/components/nrnDoc/DocPage';
-import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
-import Code from '../../../../common/components/dataDisplay/Code';
-import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
-import useCustomer from '../../../../modules/data/hooks/useCustomer';
-import { AirtableRecord } from '../../../../modules/data/types/AirtableRecord';
-import { Asset } from '../../../../modules/data/types/Asset';
-import { Customer } from '../../../../modules/data/types/Customer';
-import { Product } from '../../../../modules/data/types/Product';
-import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
-import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
-} from '../../../../modules/app/SSG';
+import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
+import BuiltInUtilitiesSidebar from '@/common/components/nrnDoc/BuiltInUtilitiesSidebar';
+import DocPage from '@/common/components/nrnDoc/DocPage';
+import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import Code from '@/common/components/dataDisplay/Code';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Asset } from '@/modules/data/types/Asset';
+import { Customer } from '@/modules/data/types/Customer';
+import { Product } from '@/modules/data/types/Product';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/built-in-utilities/airtable-component';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

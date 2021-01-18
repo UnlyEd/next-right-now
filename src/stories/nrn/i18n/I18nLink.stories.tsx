@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import I18nLink, { Props } from '../../../modules/i18n/components/I18nLink';
+import I18nLink, { Props } from '@/modules/i18n/components/I18nLink';
 import withPropMock from '../../shared/hocs/withPropMock';
 import styles from './I18nLink.module.css';
 

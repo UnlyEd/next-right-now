@@ -3,7 +3,7 @@ import {
   NextApiResponse,
 } from 'next';
 
-import localeMiddleware from '../../modules/i18n/middlewares/localeMiddleware';
+import localeMiddleware from '@/modules/i18n/middlewares/localeMiddleware';
 
 /**
  * I18n language/locale auto-detection.

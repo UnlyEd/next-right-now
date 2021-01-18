@@ -13,24 +13,21 @@ import {
   Container,
 } from 'reactstrap';
 
-import AllProducts from '../../../../common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '../../../../common/components/nrnDoc/NativeFeaturesSidebar';
-import I18nLink from '../../../../modules/i18n/components/I18nLink';
-import DefaultLayout from '../../../../common/components/layouts/DefaultLayout';
-import ExternalLink from '../../../../common/components/dataDisplay/ExternalLink';
-import useCustomer from '../../../../modules/data/hooks/useCustomer';
-import { AirtableRecord } from '../../../../modules/data/types/AirtableRecord';
-import { Customer } from '../../../../modules/data/types/Customer';
-import { Product } from '../../../../modules/data/types/Product';
-import { I18nLocale } from '../../../../modules/i18n/types/I18nLocale';
-import { CommonServerSideParams } from '../../../../modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../modules/app/types/SSGPageProps';
-import { SUPPORTED_LOCALES } from '../../../../modules/i18n/i18n';
-import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
-} from '../../../../modules/app/SSG';
+import AllProducts from '@/common/components/dataDisplay/AllProducts';
+import NativeFeaturesSidebar from '@/common/components/nrnDoc/NativeFeaturesSidebar';
+import I18nLink from '@/modules/i18n/components/I18nLink';
+import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Customer } from '@/modules/data/types/Customer';
+import { Product } from '@/modules/data/types/Product';
+import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { SUPPORTED_LOCALES } from '@/modules/i18n/i18n';
+import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

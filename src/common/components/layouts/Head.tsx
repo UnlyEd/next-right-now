@@ -6,8 +6,8 @@ import {
   NRN_DEFAULT_FONT,
   NRN_DEFAULT_SERVICE_LABEL,
 } from '../../constants';
-import { I18nLocale } from '../../../modules/i18n/types/I18nLocale';
-import { SUPPORTED_LOCALES } from '../../../modules/i18n/i18n';
+import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
+import { SUPPORTED_LOCALES } from '@/modules/i18n/i18n';
 
 export type HeadProps = {
   seoTitle?: string;
