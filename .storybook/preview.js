@@ -21,7 +21,7 @@ import quickPreviewContext from '@/modules/quickPreview/contexts/quickPreviewCon
 import userConsentContext from '@/modules/userConsent/contexts/userConsentContext';
 import { userSessionContext } from '@/modules/userSession/userSessionContext';
 import { getAmplitudeInstance } from '@/modules/amplitude/amplitude';
-import '../src/common/utils/ignoreNoisyWarningsHacks';
+import '@/common/utils/ignoreNoisyWarningsHacks';
 import { initCustomerTheme } from '@/modules/theming/theme';
 import i18nextLocize from '@/modules/i18n/i18nextLocize';
 import '@/modules/fontAwesome/fontAwesome';
