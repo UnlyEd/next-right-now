@@ -16,8 +16,8 @@ import {
 } from 'reactstrap';
 
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/common/components/demo/NativeFeaturesSidebar';
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
+import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';
@@ -34,7 +34,7 @@ import deserializeSafe from '@/modules/serializeSafe/deserializeSafe';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 import timeDifference from '@/modules/date/timeDifference';
 
-const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-revalidate';
+const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

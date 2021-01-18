@@ -8,19 +8,19 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import BuiltInFeaturesSection from '@/common/components/demo/BuiltInFeaturesSection';
-import BuiltInUtilitiesSection from '@/common/components/demo/BuiltInUtilitiesSection';
-import ExternalFeaturesSection from '@/common/components/demo/ExternalFeaturesSection';
-import IntroductionSection from '@/common/components/demo/IntroductionSection';
-import NativeFeaturesSection from '@/common/components/demo/NativeFeaturesSection';
+import BuiltInFeaturesSection from '@/modules/demo/components/BuiltInFeaturesSection';
+import BuiltInUtilitiesSection from '@/modules/demo/components/BuiltInUtilitiesSection';
+import ExternalFeaturesSection from '@/modules/demo/components/ExternalFeaturesSection';
+import IntroductionSection from '@/modules/demo/components/IntroductionSection';
+import NativeFeaturesSection from '@/modules/demo/components/NativeFeaturesSection';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 
-const fileLabel = 'pages/[locale]/examples/index';
+const fileLabel = 'pages/[locale]/demo/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

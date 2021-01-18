@@ -12,9 +12,9 @@ import {
 } from 'reactstrap';
 
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/common/components/demo/NativeFeaturesSidebar';
+import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
 
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
@@ -25,7 +25,7 @@ import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { SSRPageProps } from '@/modules/app/types/SSRPageProps';
 import { getExamplesCommonServerSideProps } from '@/modules/app/SSR';
 
-const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssr';
+const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

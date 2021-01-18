@@ -36,7 +36,7 @@ import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from './BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from './BuiltInUtilitiesSidebar';
 import { NATIVE_FEATURES_SIDEBAR_LINKS } from './NativeFeaturesSidebar';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import Tooltip from '../dataDisplay/Tooltip';
+import Tooltip from '@/components/dataDisplay/Tooltip';
 
 export type Props = {};
 

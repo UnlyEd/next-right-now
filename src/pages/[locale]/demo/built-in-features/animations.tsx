@@ -7,9 +7,9 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/demo/ExamplesPage';
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
+import BuiltInFeaturesSidebar from '@/modules/demo/components/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/modules/demo/components/ExamplesPage';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import AnimatedLoader from '@/common/components/animations/AnimatedLoader';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
@@ -18,7 +18,7 @@ import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
-const fileLabel = 'pages/[locale]/examples/built-in-features/animations';
+const fileLabel = 'pages/[locale]/demo/built-in-features/animations';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

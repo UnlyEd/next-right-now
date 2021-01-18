@@ -9,10 +9,10 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/demo/ExamplesPage';
+import BuiltInFeaturesSidebar from '@/modules/demo/components/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/modules/demo/components/ExamplesPage';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
@@ -21,7 +21,7 @@ import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
-const fileLabel = 'pages/[locale]/examples/built-in-features/cookies-consent';
+const fileLabel = 'pages/[locale]/demo/built-in-features/cookies-consent';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

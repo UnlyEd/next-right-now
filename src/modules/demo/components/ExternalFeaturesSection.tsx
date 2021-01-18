@@ -8,10 +8,10 @@ import {
   CardText,
   CardTitle,
 } from 'reactstrap';
-import Btn from '../dataDisplay/Btn';
+import Btn from '@/components/dataDisplay/Btn';
 
-import Cards from '../dataDisplay/Cards';
-import ExternalLink from '../dataDisplay/ExternalLink';
+import Cards from '@/components/dataDisplay/Cards';
+import ExternalLink from '@/components/dataDisplay/ExternalLink';
 import ExamplesSection from './ExamplesSection';
 
 type Props = {}

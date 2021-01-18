@@ -14,10 +14,9 @@ import {
 } from 'reactstrap';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
-
-import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/demo/ExamplesPage';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
+import BuiltInFeaturesSidebar from '@/modules/demo/components/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/modules/demo/components/ExamplesPage';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
@@ -27,7 +26,7 @@ import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServ
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import useUserSession, { UserSession } from '@/modules/userSession/useUserSession';
 
-const fileLabel = 'pages/[locale]/examples/built-in-features/analytics';
+const fileLabel = 'pages/[locale]/demo/built-in-features/analytics';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import ExamplesNav, { Props } from '@/components/demo/ExamplesNav';
+import ExamplesNav, { Props } from '@/modules/demo/components/ExamplesNav';
 
 export default {
   title: 'Next Right Now/Layout/Nav',

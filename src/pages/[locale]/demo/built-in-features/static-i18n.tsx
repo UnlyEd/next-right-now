@@ -17,9 +17,9 @@ import {
 } from 'reactstrap';
 import { v1 as uuid } from 'uuid';
 
-import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/demo/ExamplesPage';
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
+import BuiltInFeaturesSidebar from '@/modules/demo/components/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/modules/demo/components/ExamplesPage';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
@@ -30,7 +30,7 @@ import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { resolveCustomerVariationLang } from '@/modules/i18n/i18n';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
-const fileLabel = 'pages/[locale]/examples/built-in-features/static-i18n';
+const fileLabel = 'pages/[locale]/demo/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

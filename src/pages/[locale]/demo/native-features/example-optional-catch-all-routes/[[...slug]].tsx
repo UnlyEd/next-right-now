@@ -9,8 +9,8 @@ import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import ExamplesPage from '@/common/components/demo/ExamplesPage';
-import NativeFeaturesSidebar from '@/common/components/demo/NativeFeaturesSidebar';
+import ExamplesPage from '@/modules/demo/components/ExamplesPage';
+import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import { supportedLocales } from '@/modules/i18n/i18nConfig';
 import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
@@ -20,9 +20,9 @@ import { StaticPathsOutput } from '@/modules/bootstrapping/types/StaticPathsOutp
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getExamplesCommonStaticProps } from '@/modules/app/SSG';
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 
-const fileLabel = 'pages/[locale]/examples/native-features/example-optional-catch-all-routes/[[...slug]]';
+const fileLabel = 'pages/[locale]/demo/native-features/example-optional-catch-all-routes/[[...slug]]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

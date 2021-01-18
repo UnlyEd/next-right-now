@@ -7,7 +7,7 @@ import {
 
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import ExternalLink from '../dataDisplay/ExternalLink';
+import ExternalLink from '@/components/dataDisplay/ExternalLink';
 
 type Props = {
   // XXX Beware when passing down the "logEvent", because it'll use the props attached from the <Amplitude> tag it comes from

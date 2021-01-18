@@ -8,16 +8,16 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import BuiltInUtilitiesSidebar from '@/common/components/demo/BuiltInUtilitiesSidebar';
-import ExamplesPage from '@/common/components/demo/ExamplesPage';
-import DefaultLayout from '@/common/components/demo/ExamplesLayout';
+import BuiltInUtilitiesSidebar from '@/modules/demo/components/BuiltInUtilitiesSidebar';
+import ExamplesPage from '@/modules/demo/components/ExamplesPage';
+import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 
-const fileLabel = 'pages/[locale]/examples/built-in-utilities/api';
+const fileLabel = 'pages/[locale]/demo/built-in-utilities/api';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
