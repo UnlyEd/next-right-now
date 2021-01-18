@@ -10,10 +10,10 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/demo/ExamplesPage';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import Markdown from '@/common/components/dataDisplay/Markdown';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';

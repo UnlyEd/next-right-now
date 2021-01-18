@@ -14,10 +14,10 @@ import {
 } from 'reactstrap';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/demo/ExamplesPage';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';

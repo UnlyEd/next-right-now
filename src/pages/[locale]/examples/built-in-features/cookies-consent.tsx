@@ -9,10 +9,10 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/demo/ExamplesPage';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';

@@ -11,8 +11,8 @@ import {
   Button,
 } from 'reactstrap';
 
-import BuiltInUtilitiesSidebar from '@/common/components/nrnExamples/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import BuiltInUtilitiesSidebar from '@/common/components/demo/BuiltInUtilitiesSidebar';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';

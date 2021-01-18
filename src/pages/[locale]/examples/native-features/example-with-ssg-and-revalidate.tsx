@@ -16,8 +16,8 @@ import {
 } from 'reactstrap';
 
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/common/components/nrnExamples/NativeFeaturesSidebar';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import NativeFeaturesSidebar from '@/common/components/demo/NativeFeaturesSidebar';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';

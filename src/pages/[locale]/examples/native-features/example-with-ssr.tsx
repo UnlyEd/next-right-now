@@ -12,9 +12,9 @@ import {
 } from 'reactstrap';
 
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/common/components/nrnExamples/NativeFeaturesSidebar';
+import NativeFeaturesSidebar from '@/common/components/demo/NativeFeaturesSidebar';
 
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';

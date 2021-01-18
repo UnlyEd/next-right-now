@@ -7,9 +7,9 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/demo/ExamplesPage';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';

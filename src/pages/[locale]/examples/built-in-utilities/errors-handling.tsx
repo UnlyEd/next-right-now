@@ -8,10 +8,10 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInUtilitiesSidebar from '@/common/components/nrnExamples/BuiltInUtilitiesSidebar';
-import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import BuiltInUtilitiesSidebar from '@/common/components/demo/BuiltInUtilitiesSidebar';
+import ExamplesPage from '@/common/components/demo/ExamplesPage';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import Btn from '@/common/components/dataDisplay/Btn';
 import Code from '@/common/components/dataDisplay/Code';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';

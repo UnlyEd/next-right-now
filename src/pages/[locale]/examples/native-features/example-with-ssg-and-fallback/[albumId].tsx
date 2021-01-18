@@ -13,7 +13,7 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import NativeFeaturesSidebar from '@/common/components/nrnExamples/NativeFeaturesSidebar';
+import NativeFeaturesSidebar from '@/common/components/demo/NativeFeaturesSidebar';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from '@/common/components/dataDisplay/Btn';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
@@ -26,7 +26,7 @@ import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getRandomInt } from '@/modules/js/random';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 import waitFor from '@/common/utils/waitFor';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import songs from '@/modules/testing/mocks/songs';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-with-ssg-and-fallback/[albumId]';

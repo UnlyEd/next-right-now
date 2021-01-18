@@ -17,9 +17,9 @@ import {
 } from 'reactstrap';
 import { v1 as uuid } from 'uuid';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import BuiltInFeaturesSidebar from '@/common/components/demo/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/demo/ExamplesPage';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';

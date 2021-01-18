@@ -8,17 +8,17 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import BuiltInFeaturesSection from '@/common/components/nrnExamples/BuiltInFeaturesSection';
-import BuiltInUtilitiesSection from '@/common/components/nrnExamples/BuiltInUtilitiesSection';
-import ExternalFeaturesSection from '@/common/components/nrnExamples/ExternalFeaturesSection';
-import IntroductionSection from '@/common/components/nrnExamples/IntroductionSection';
-import NativeFeaturesSection from '@/common/components/nrnExamples/NativeFeaturesSection';
+import BuiltInFeaturesSection from '@/common/components/demo/BuiltInFeaturesSection';
+import BuiltInUtilitiesSection from '@/common/components/demo/BuiltInUtilitiesSection';
+import ExternalFeaturesSection from '@/common/components/demo/ExternalFeaturesSection';
+import IntroductionSection from '@/common/components/demo/IntroductionSection';
+import NativeFeaturesSection from '@/common/components/demo/NativeFeaturesSection';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
-import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import DefaultLayout from '@/common/components/demo/ExamplesLayout';
 
 const fileLabel = 'pages/[locale]/examples/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
