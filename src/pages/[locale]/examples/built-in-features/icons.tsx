@@ -9,9 +9,9 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
@@ -59,7 +59,7 @@ const ExampleIconsPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Icons examples, using Font-Awesome</h1>
 
         <Alert color={'warning'}>
@@ -121,7 +121,7 @@ const ExampleIconsPage: NextPage<Props> = (props): JSX.Element => {
           </code>, by telling you if the icon is valid.
         </Alert>
 
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

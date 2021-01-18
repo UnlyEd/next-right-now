@@ -13,24 +13,27 @@ import {
   NextRouter,
   useRouter,
 } from 'next/router';
-import React from 'react';
-
+import React, { useState } from 'react';
 import ErrorPage from '../../../pages/_error';
-import DefaultPageContainer from './DefaultPageContainer';
-import Footer from './Footer';
-import Head, { HeadProps } from './Head';
-import ExamplesNav from '../nrnExamples/ExamplesNav';
+import Footer from '../layouts/Footer';
+import Head, { HeadProps } from '../layouts/Head';
+import DefaultPageContainer from './ExamplesPageContainer';
+import ExamplesNav from './ExamplesNav';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
   label: fileLabel,
 });
 
+export type SidebarProps = {
+  className: string;
+}
+
 type Props = {
   children: React.ReactNode;
   headProps?: HeadProps;
   pageName: string;
-  PageContainer?: React.FunctionComponent;
+  Sidebar?: React.FunctionComponent<SidebarProps>;
 } & SoftPageProps;
 
 /**
@@ -38,20 +41,22 @@ type Props = {
  *
  * It does the following:
  *  - Adds a Nav/Footer component, and the dynamic Next.js "Page" component in between
+ *  - Optionally, it can also display a left sidebar (i.e: used within examples sections)
  *  - Automatically track page views (Amplitude)
  *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
  *
  * @param props
  */
-const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
+const ExamplesLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     error,
     isInIframe = false, // Won't be defined server-side
     headProps = {},
     pageName,
-    PageContainer = DefaultPageContainer,
+    Sidebar,
   } = props;
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // Todo make default value depend on viewport size
   const router: NextRouter = useRouter();
   const isIframeWithFullPagePreview = router?.query?.fullPagePreview === '1';
 
@@ -114,9 +119,13 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
               />
             </ErrorPage>
           ) : (
-            <PageContainer>
+            <DefaultPageContainer
+              isSidebarOpen={isSidebarOpen}
+              setIsSidebarOpen={setIsSidebarOpen}
+              Sidebar={Sidebar}
+            >
               {children}
-            </PageContainer>
+            </DefaultPageContainer>
           )
         }
       </div>
@@ -130,4 +139,4 @@ const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   );
 };
 
-export default DefaultLayout;
+export default ExamplesLayout;

@@ -14,10 +14,10 @@ import {
 } from 'reactstrap';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
@@ -76,7 +76,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
     >
       <Amplitude>
         {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
-          <DocPage>
+          <ExamplesPage>
             <h1 className={'pcolor'}>Analytics examples, using Amplitude vendor</h1>
 
             <Alert color={'danger'}>
@@ -317,7 +317,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
               />
             </div>
 
-          </DocPage>
+          </ExamplesPage>
         )}
       </Amplitude>
     </DefaultLayout>

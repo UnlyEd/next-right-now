@@ -7,9 +7,9 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
@@ -58,7 +58,7 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>API examples, using Airtable vendor</h1>
 
         <Alert color={'info'}>
@@ -318,7 +318,7 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
           The above code is part of what we actually use in <code>fetchCustomer</code>, to fetch data from all tables.
         </p>
 
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

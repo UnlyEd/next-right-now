@@ -14,9 +14,9 @@ import {
 } from 'reactstrap';
 
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/common/components/nrnDoc/NativeFeaturesSidebar';
+import NativeFeaturesSidebar from '@/common/components/nrnExamples/NativeFeaturesSidebar';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';

@@ -13,9 +13,9 @@ import EnglishUkFlag from '@/common/components/countryFlags/EnglishUkFlag';
 import FrenchFlag from '@/common/components/countryFlags/FrenchFlag';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
-import BuiltInUtilitiesSidebar from '@/common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
+import BuiltInUtilitiesSidebar from '@/common/components/nrnExamples/BuiltInUtilitiesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
 import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
@@ -62,7 +62,7 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>SVG to react component examples</h1>
         <p
           css={css`
@@ -99,7 +99,7 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
           Personally, we like to move them to <code>src/components/svg</code>, but feel free to do as you like.
         </Alert>
 
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

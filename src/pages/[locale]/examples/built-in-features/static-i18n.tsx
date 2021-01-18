@@ -17,9 +17,9 @@ import {
 } from 'reactstrap';
 import { v1 as uuid } from 'uuid';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
@@ -74,7 +74,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Static i18n examples, using i18next and Locize vendor</h1>
 
         <Alert color={'info'}>
@@ -298,7 +298,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
             </Alert>
           </div>
         </Container>
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

@@ -10,7 +10,7 @@ type Props = {
  *
  * @param props
  */
-const DocSection: React.FunctionComponent<Props> = (props): JSX.Element => {
+const ExamplesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { children } = props;
 
   return (
@@ -24,4 +24,4 @@ const DocSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   );
 };
 
-export default DocSection;
+export default ExamplesSection;

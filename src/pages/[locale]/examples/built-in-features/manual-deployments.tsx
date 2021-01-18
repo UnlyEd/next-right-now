@@ -8,9 +8,9 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
@@ -58,7 +58,7 @@ const ManualDeploymentsPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Manual-deployments examples, using the CLI</h1>
 
         <Alert color={'info'}>
@@ -104,7 +104,7 @@ const ManualDeploymentsPage: NextPage<Props> = (props): JSX.Element => {
           Changing the symbolic link, or "hardcoding" the file will change which customer gets deployed by default.<br />
           You can also change the way CI/CD works and deploy all your customers at once every time, but we preferred to deploy one customer in particular (our own internal demo) by default, as we judged it was less risky in case anything goes wrong.
         </Alert>
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

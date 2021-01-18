@@ -8,8 +8,8 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import BuiltInUtilitiesSidebar from '@/common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInUtilitiesSidebar from '@/common/components/nrnExamples/BuiltInUtilitiesSidebar';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';

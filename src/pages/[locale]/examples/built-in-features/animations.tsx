@@ -7,9 +7,9 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import AnimatedLoader from '@/common/components/animations/AnimatedLoader';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
@@ -59,7 +59,7 @@ const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>CSS animations examples, using Animate.css</h1>
 
         <p>
@@ -100,7 +100,7 @@ const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
           `}
         />
 
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

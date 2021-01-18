@@ -12,7 +12,7 @@ import Btn from '../dataDisplay/Btn';
 
 import Cards from '../dataDisplay/Cards';
 import ExternalLink from '../dataDisplay/ExternalLink';
-import DocSection from './DocSection';
+import ExamplesSection from './ExamplesSection';
 
 type Props = {}
 
@@ -23,7 +23,7 @@ type Props = {}
  */
 const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
-    <DocSection>
+    <ExamplesSection>
       <h2>External features</h2>
 
       <Alert color={'info'}>
@@ -79,7 +79,7 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
           </CardBody>
         </Card>
       </Cards>
-    </DocSection>
+    </ExamplesSection>
   );
 };
 

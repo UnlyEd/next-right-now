@@ -8,9 +8,9 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
@@ -58,7 +58,7 @@ const HostingPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Hosting, using Vercel vendor</h1>
 
         <Alert color={'info'}>
@@ -85,7 +85,7 @@ const HostingPage: NextPage<Props> = (props): JSX.Element => {
           if you're considering Vercel.
         </Alert>
 
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

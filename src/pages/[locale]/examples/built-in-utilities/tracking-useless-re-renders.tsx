@@ -11,10 +11,10 @@ import {
   Button,
 } from 'reactstrap';
 
-import BuiltInUtilitiesSidebar from '@/common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
+import BuiltInUtilitiesSidebar from '@/common/components/nrnExamples/BuiltInUtilitiesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
@@ -63,7 +63,7 @@ const TrackingUselessReRendersPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Tracking useless re-renders examples, using <code>why-did-you-render</code></h1>
 
         <Alert color={'info'}>
@@ -130,7 +130,7 @@ const TrackingUselessReRendersPage: NextPage<Props> = (props): JSX.Element => {
           Exactly, we actually made that exact mistake when writing NRN demo, and we thought that'd be a great example. (^_^)'
         </Alert>
 
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

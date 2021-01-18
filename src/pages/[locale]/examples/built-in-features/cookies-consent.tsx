@@ -9,10 +9,10 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
@@ -66,7 +66,7 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
     >
       <Amplitude>
         {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
-          <DocPage>
+          <ExamplesPage>
             <h1 className={'pcolor'}>Cookies consent examples, using <code>CookieConsent</code> OSS library</h1>
 
             <Alert color={'warning'}>
@@ -106,7 +106,7 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
               <br />
               Feel free to propose your help to improve it a bit, either by sending a PR to <code>CookieConsent</code> or NRN directly.
             </Alert>
-          </DocPage>
+          </ExamplesPage>
         )}
       </Amplitude>
     </DefaultLayout>

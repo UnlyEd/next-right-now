@@ -8,9 +8,9 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInUtilitiesSidebar from '@/common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInUtilitiesSidebar from '@/common/components/nrnExamples/BuiltInUtilitiesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
@@ -59,7 +59,7 @@ const PackagesUpgradePage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Packages upgrade examples</h1>
 
         <Alert color={'warning'}>
@@ -150,7 +150,7 @@ const PackagesUpgradePage: NextPage<Props> = (props): JSX.Element => {
           and it would have been very hard (not to say impossible) to figure out the root cause if we had upgraded everything at once.
         </Alert>
 
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

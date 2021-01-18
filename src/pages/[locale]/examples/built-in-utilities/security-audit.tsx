@@ -8,9 +8,9 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInUtilitiesSidebar from '@/common/components/nrnDoc/BuiltInUtilitiesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import BuiltInUtilitiesSidebar from '@/common/components/nrnExamples/BuiltInUtilitiesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
@@ -58,7 +58,7 @@ const SecurityAuditPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Security audit examples</h1>
 
         <p>
@@ -110,7 +110,7 @@ const SecurityAuditPage: NextPage<Props> = (props): JSX.Element => {
           If you know of a better way to manage security in your app, don't hesitate to open a Github issue/discussion about it!
         </Alert>
 
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

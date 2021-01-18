@@ -10,10 +10,10 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import BuiltInFeaturesSidebar from '@/common/components/nrnDoc/BuiltInFeaturesSidebar';
-import DocPage from '@/common/components/nrnDoc/DocPage';
+import BuiltInFeaturesSidebar from '@/common/components/nrnExamples/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import Markdown from '@/common/components/dataDisplay/Markdown';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
@@ -64,7 +64,7 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Markdown as JSX components examples, using <code>markdown-to-jsx</code> library</h1>
 
         <Alert color={'info'}>
@@ -244,7 +244,7 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
           You can use it to play around with HTML, Markdown and JSX components and see how it gets rendered.
 
         </Container>
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };

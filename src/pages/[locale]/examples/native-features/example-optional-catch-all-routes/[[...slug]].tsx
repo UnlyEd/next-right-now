@@ -9,8 +9,8 @@ import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import DocPage from '@/common/components/nrnDoc/DocPage';
-import NativeFeaturesSidebar from '@/common/components/nrnDoc/NativeFeaturesSidebar';
+import ExamplesPage from '@/common/components/nrnExamples/ExamplesPage';
+import NativeFeaturesSidebar from '@/common/components/nrnExamples/NativeFeaturesSidebar';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import { supportedLocales } from '@/modules/i18n/i18nConfig';
 import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
@@ -20,7 +20,7 @@ import { StaticPathsOutput } from '@/modules/bootstrapping/types/StaticPathsOutp
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getExamplesCommonStaticProps } from '@/modules/app/SSG';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import DefaultLayout from '@/common/components/nrnExamples/ExamplesLayout';
 
 const fileLabel = 'pages/[locale]/examples/native-features/example-optional-catch-all-routes/[[...slug]]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -84,7 +84,7 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={NativeFeaturesSidebar}
     >
-      <DocPage>
+      <ExamplesPage>
         <h1 className={'pcolor'}>Catch-all dynamic routes examples</h1>
 
         <Alert color={'info'}>
@@ -107,7 +107,7 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
           Make sure you use <code>fallback: true</code>
           <b>when using SSG</b>, otherwise it'll generate a 404 page, and won't be able to dynamically generate the page.<br />
         </Alert>
-      </DocPage>
+      </ExamplesPage>
     </DefaultLayout>
   );
 };
