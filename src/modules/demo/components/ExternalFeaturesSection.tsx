@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from 'reactstrap';
 import Btn from '@/components/dataDisplay/Btn';
-
 import Cards from '@/components/dataDisplay/Cards';
 import ExternalLink from '@/components/dataDisplay/ExternalLink';
 import ExamplesSection from './ExamplesSection';

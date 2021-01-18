@@ -3,7 +3,6 @@ import * as Sentry from '@sentry/node';
 import * as React from 'react';
 import { Button } from 'reactstrap';
 import { GenericObject } from '../data/types/GenericObject';
-
 import ErrorDebug from './ErrorDebug';
 
 export type Props = {

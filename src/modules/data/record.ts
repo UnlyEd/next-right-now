@@ -7,7 +7,6 @@ import isArray from 'lodash.isarray';
 import isEmpty from 'lodash.isempty';
 import remove from 'lodash.remove';
 import xOrBy from 'lodash.xorby';
-
 import { GenericObject } from './types/GenericObject';
 import { SerializedRecord } from './types/SerializedRecord';
 

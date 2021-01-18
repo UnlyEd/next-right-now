@@ -1,7 +1,6 @@
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
-
 import { userSessionContext } from '../../userSession/userSessionContext';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';

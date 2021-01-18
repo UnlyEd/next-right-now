@@ -10,10 +10,8 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
 import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
-
 import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';

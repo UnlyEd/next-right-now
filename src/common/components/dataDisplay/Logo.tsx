@@ -4,7 +4,6 @@ import deepmerge from 'deepmerge';
 import get from 'lodash.get';
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import React from 'react';
-
 import { CSSStyles } from '@/modules/css/types/CSSStyles';
 import { Asset } from '@/modules/data/types/Asset';
 import { Link } from '@/modules/data/types/Link';

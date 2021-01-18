@@ -8,7 +8,6 @@ import get from 'lodash.get';
 import map from 'lodash.map';
 import size from 'lodash.size';
 import { initReactI18next } from 'react-i18next';
-
 import {
   resolveCustomerVariationLang,
   resolveFallbackLanguage,

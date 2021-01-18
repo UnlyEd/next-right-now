@@ -1,5 +1,4 @@
 import map from 'lodash.map';
-
 import { Logo } from '@/modules/data/types/Logo';
 import { GenericObject } from '@/modules/data/types/GenericObject';
 

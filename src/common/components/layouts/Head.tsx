@@ -1,7 +1,6 @@
 import { isBrowser } from '@unly/utils';
 import NextHead from 'next/head';
 import React from 'react';
-
 import {
   NRN_DEFAULT_FONT,
   NRN_DEFAULT_SERVICE_LABEL,

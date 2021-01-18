@@ -7,7 +7,6 @@ import { GenericAirtableRecordsListApiResponse } from './types/GenericAirtableRe
 import { RawAirtableRecordsSet } from './types/RawAirtableRecordsSet';
 import { TableSchema } from './types/TableSchema';
 import fetchAirtableTable from './fetchAirtableTable';
-
 import hybridCache from '../vercelCache/hybridCache';
 
 /**

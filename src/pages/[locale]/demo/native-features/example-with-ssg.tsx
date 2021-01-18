@@ -12,7 +12,6 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
 import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
 import I18nLink from '@/modules/i18n/components/I18nLink';

@@ -1,7 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { NavLink } from 'reactstrap';
-
 import i18nContext from '../contexts/i18nContext';
 import I18nLink from './I18nLink';
 

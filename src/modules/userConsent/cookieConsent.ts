@@ -4,7 +4,6 @@ import { TFunction } from 'i18next';
 import BrowserCookies from 'js-cookie';
 import includes from 'lodash.includes';
 import size from 'lodash.size';
-
 import { CustomerTheme } from '../data/types/CustomerTheme';
 import { UserConsent } from './types/UserConsent';
 

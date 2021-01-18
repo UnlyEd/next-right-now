@@ -2,7 +2,6 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-
 import { mockRequest, mockResponse } from '@/modules/testing/mocks/tests-mocks';
 import status from './status';
 

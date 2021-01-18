@@ -4,7 +4,6 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-
 import { filterExternalAbsoluteUrl } from '@/modules/js/url';
 import Sentry, { configureReq } from '@/modules/sentry/sentry';
 

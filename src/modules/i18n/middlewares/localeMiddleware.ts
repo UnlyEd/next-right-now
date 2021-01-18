@@ -4,7 +4,6 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-
 import { supportedLocales } from '../i18nConfig';
 import redirect from '@/common/utils/redirect';
 import {

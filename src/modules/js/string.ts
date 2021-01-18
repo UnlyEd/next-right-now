@@ -1,7 +1,6 @@
 import isPlainObject from 'lodash.isplainobject';
 import map from 'lodash.map';
 import size from 'lodash.size';
-
 import { GenericObject } from '../data/types/GenericObject';
 
 /**

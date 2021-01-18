@@ -7,7 +7,6 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-
 import BuiltInFeaturesSection from '@/modules/demo/components/BuiltInFeaturesSection';
 import BuiltInUtilitiesSection from '@/modules/demo/components/BuiltInUtilitiesSection';
 import ExternalFeaturesSection from '@/modules/demo/components/ExternalFeaturesSection';

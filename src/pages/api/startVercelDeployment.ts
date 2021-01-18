@@ -6,7 +6,6 @@ import {
 } from 'next';
 import redirect from '@/common/utils/redirect';
 import dispatchWorkflowByPath from '@/modules/githubActions/dispatchWorkflowByPath';
-
 import Sentry, { ALERT_TYPES, configureReq } from '@/modules/sentry/sentry';
 
 const fileLabel = 'api/startVercelDeployment';

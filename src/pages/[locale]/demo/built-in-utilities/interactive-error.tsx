@@ -10,7 +10,6 @@ import {
   Alert,
   Button,
 } from 'reactstrap';
-
 import BuiltInUtilitiesSidebar from '@/modules/demo/components/BuiltInUtilitiesSidebar';
 import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';

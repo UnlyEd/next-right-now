@@ -2,7 +2,6 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-
 import localeMiddleware from '@/modules/i18n/middlewares/localeMiddleware';
 
 /**

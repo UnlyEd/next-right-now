@@ -6,7 +6,6 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-
 import BuiltInUtilitiesSidebar from '@/modules/demo/components/BuiltInUtilitiesSidebar';
 import ExamplesPage from '@/modules/demo/components/ExamplesPage';
 import DefaultLayout from '@/modules/demo/components/ExamplesLayout';

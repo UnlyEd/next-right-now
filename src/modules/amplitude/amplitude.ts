@@ -4,7 +4,6 @@ import {
   AmplitudeClient,
   Identify,
 } from 'amplitude-js';
-
 import { NextWebVitalsMetricsReport } from '../webVitals/types/NextWebVitalsMetricsReport';
 import { UserConsent } from '../userConsent/types/UserConsent';
 import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';

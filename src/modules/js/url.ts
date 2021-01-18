@@ -2,7 +2,6 @@ import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import StringifySafe from 'json-stringify-safe';
 import startsWith from 'lodash.startswith';
-
 import { GenericObject } from '../data/types/GenericObject';
 
 /**
