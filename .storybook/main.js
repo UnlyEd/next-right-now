@@ -245,7 +245,7 @@ module.exports = {
           "@/common": path.resolve(__dirname, "../src/common"),
           "@/components": path.resolve(__dirname, "../src/common/components"),
           "@/utils": path.resolve(__dirname, "../src/common/utils"),
-          "@/layouts": path.resolve(__dirname, "../src/common/layouts"),
+          "@/layouts": path.resolve(__dirname, "../src/layouts"),
           "@/modules": path.resolve(__dirname, "../src/modules"),
           "@/pages": path.resolve(__dirname, "../src/pages"),
         },
