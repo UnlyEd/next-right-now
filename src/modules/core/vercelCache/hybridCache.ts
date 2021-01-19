@@ -10,7 +10,7 @@ import {
   HybridStorageOptions,
 } from './types/hybridCacheStorage';
 
-const fileLabel = 'modules/vercelCache/hybridCache';
+const fileLabel = 'modules/core/vercelCache/hybridCache';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

@@ -4,7 +4,7 @@ import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 import Sentry from '../sentry/sentry';
 import dispatchWorkflow from './dispatchWorkflow';
 
-const fileLabel = 'modules/githubActions/dispatchWorkflowByPath';
+const fileLabel = 'modules/core/githubActions/dispatchWorkflowByPath';
 const logger = createLogger({
   label: fileLabel,
 });

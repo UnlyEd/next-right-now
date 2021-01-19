@@ -16,7 +16,7 @@ import I18nBtnChangeLocale from '@/modules/core/i18n/components/I18nBtnChangeLoc
 import Btn from '@/components/dataDisplay/Btn';
 import Tooltip from '@/components/dataDisplay/Tooltip';
 
-const fileLabel = 'modules/QuickPreview/components/QuickPreviewBanner';
+const fileLabel = 'modules/core/QuickPreview/components/QuickPreviewBanner';
 const logger = createLogger({
   label: fileLabel,
 });
