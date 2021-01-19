@@ -7,6 +7,10 @@ import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '@/layouts/demo/demoSSG';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Customer } from '@/modules/data/types/Customer';
@@ -31,7 +35,6 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

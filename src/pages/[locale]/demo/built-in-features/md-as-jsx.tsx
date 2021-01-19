@@ -6,6 +6,10 @@ import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '@/layouts/demo/demoSSG';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -19,7 +23,6 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/md-as-jsx';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

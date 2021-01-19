@@ -4,6 +4,10 @@ import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '@/layouts/demo/demoSSG';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -16,7 +20,6 @@ import {
   Alert,
   Button,
 } from 'reactstrap';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/interactive-error';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -7,6 +7,10 @@ import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExternalFeaturesSection from '@/layouts/demo/components/ExternalFeaturesSection';
 import IntroductionSection from '@/layouts/demo/components/IntroductionSection';
 import NativeFeaturesSection from '@/layouts/demo/components/NativeFeaturesSection';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '@/layouts/demo/demoSSG';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -17,7 +21,6 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

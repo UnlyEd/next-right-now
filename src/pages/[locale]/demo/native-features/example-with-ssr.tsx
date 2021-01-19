@@ -5,6 +5,7 @@ import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
+import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Customer } from '@/modules/data/types/Customer';
@@ -21,7 +22,6 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

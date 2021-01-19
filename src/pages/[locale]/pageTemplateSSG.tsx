@@ -5,6 +5,7 @@ import {
 } from '@/layouts/base/SSG';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -14,7 +15,6 @@ import {
   NextPage,
 } from 'next';
 import React from 'react';
-import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSG';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

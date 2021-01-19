@@ -1,7 +1,12 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import LegalContent from '@/common/components/dataDisplay/LegalContent';
+import {
+  getCommonStaticPaths,
+  getCommonStaticProps,
+} from '@/layouts/base/SSG';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
@@ -14,8 +19,6 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { getCommonStaticPaths, getCommonStaticProps } from '@/layouts/base/SSG';
-import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 
 const fileLabel = 'pages/[locale]/privacy';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

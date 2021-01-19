@@ -2,6 +2,7 @@ import ProductRow from '@/common/components/dataDisplay/ProductRow';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Customer } from '@/modules/data/types/Customer';
@@ -21,7 +22,6 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
-import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
 
 const fileLabel = 'pages/[locale]/quick-preview/preview-product';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
