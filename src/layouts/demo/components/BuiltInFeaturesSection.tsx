@@ -39,7 +39,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>Learn how to configure and use Vercel</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/hosting'}>
-                  <Btn mode={'primary-outline'}>Learn why we chose Vercel</Btn>
+                  <Btn mode={'primary-variant'}>Learn why we chose Vercel</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -52,15 +52,32 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardSubtitle>&ldquo;How to deal with secrets, using Vercel vendor&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
               <div className={'buttons'}>
-                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/env-and-stages.html'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/concepts/env-and-stages'}>
                   <Btn mode={'primary-outline'}>Learn more about the "env and stages" concept</Btn>
                 </ExternalLink>
                 <ExternalLink href={'https://vercel.com/docs/cli?#commands/secrets'}>
                   <Btn mode={'primary-outline'}>Learn how to configure Vercel secrets, using the CLI</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/stages-and-secrets'}>
-                  <Btn mode={'primary-outline'}>Learn more about their usage and differences</Btn>
+                  <Btn mode={'primary-variant'}>Learn more about their usage and differences</Btn>
                 </I18nLink>
+              </div>
+            </CardText>
+          </CardBody>
+        </Card>
+
+        <Card>
+          <CardBody>
+            <CardTitle><h3>Storybook</h3></CardTitle>
+            <CardSubtitle>&ldquo;Build your own Design System&rdquo;</CardSubtitle>
+            <CardText tag={'div'}>
+              <div className={'buttons'}>
+                <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/storybook'}>
+                  <Btn mode={'primary-outline'}>Learn more about Storybook</Btn>
+                </ExternalLink>
+                <ExternalLink href={'https://nrn-v2-mst-aptd-at-lcz-sty-storybook.vercel.app/'}>
+                  <Btn mode={'primary-variant'}>See the Storybook for this preset</Btn>
+                </ExternalLink>
               </div>
             </CardText>
           </CardBody>
@@ -96,7 +113,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>Learn how to setup CI/CD</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/manual-deployments'}>
-                  <Btn mode={'primary-outline'}>See how to bypass automated CI/CD and deploy manually</Btn>
+                  <Btn mode={'primary-variant'}>See how to bypass automated CI/CD and deploy manually</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -116,7 +133,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>Learn how to use the "Locize" vendor</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/static-i18n'}>
-                  <Btn mode={'primary-outline'}>See usage examples</Btn>
+                  <Btn mode={'primary-variant'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -136,7 +153,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>Learn how to use the "Sentry" vendor</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/monitoring'}>
-                  <Btn mode={'primary-outline'}>See usage examples</Btn>
+                  <Btn mode={'primary-variant'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -150,7 +167,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/demo/built-in-features/api'}>
-                  <Btn mode={'primary-outline'}>See usage examples</Btn>
+                  <Btn mode={'primary-variant'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -167,7 +184,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>Learn how to use the "Emotion" library</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/css-in-js'}>
-                  <Btn mode={'primary-outline'}>See usage examples</Btn>
+                  <Btn mode={'primary-variant'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -184,7 +201,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>Learn more about the "Cookie consent" library</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/cookies-consent'}>
-                  <Btn mode={'primary-outline'}>Learn more about user consent and its impact on analytics</Btn>
+                  <Btn mode={'primary-variant'}>Learn more about user consent and its impact on analytics</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -204,7 +221,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>Learn how to use the "Amplitude" vendor</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/analytics'}>
-                  <Btn mode={'primary-outline'}>See usage examples</Btn>
+                  <Btn mode={'primary-variant'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -238,7 +255,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>See all available FA icons</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/icons'}>
-                  <Btn mode={'primary-outline'}>See usage examples</Btn>
+                  <Btn mode={'primary-variant'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -255,7 +272,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>See all available animations</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/animations'}>
-                  <Btn mode={'primary-outline'}>See usage examples</Btn>
+                  <Btn mode={'primary-variant'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -272,7 +289,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>See all available Reactstrap components</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/ui-components'}>
-                  <Btn mode={'primary-outline'}>See components examples</Btn>
+                  <Btn mode={'primary-variant'}>See components examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -292,7 +309,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                   <Btn mode={'primary-outline'}>Learn more about "just-the-docs" built-in template</Btn>
                 </ExternalLink>
                 <I18nLink href={'/demo/built-in-features/docs-site'}>
-                  <Btn mode={'primary-outline'}>Learn how to use it</Btn>
+                  <Btn mode={'primary-variant'}>Learn how to use it</Btn>
                 </I18nLink>
               </div>
             </CardText>
@@ -306,7 +323,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
             <CardText tag={'div'}>
               <div className={'buttons'}>
                 <I18nLink href={'/demo/built-in-features/md-as-jsx'}>
-                  <Btn mode={'primary-outline'}>See usage examples</Btn>
+                  <Btn mode={'primary-variant'}>See usage examples</Btn>
                 </I18nLink>
               </div>
             </CardText>
