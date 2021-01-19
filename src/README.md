@@ -196,3 +196,7 @@ You may wish to delete it, or keep it around for documentation purpose.
 ### `stories` folder
 
 Contains [Storybook stories](https://storybook.js.org/docs/react/get-started/whats-a-story).
+
+---
+
+> The current folder structure is the result of a community discussion (RFC), [check it out](https://github.com/UnlyEd/next-right-now/discussions/183) to share your feedback!

@@ -50,7 +50,7 @@ export type GetCommonServerSidePropsResults = SSRPageProps & {
  *
  * Meant to avoid code duplication
  *
- * @param context
+ * XXX Demo component, not meant to be modified. It's a copy of the baseSSR implementation, so the demo keep working even if you change the base implementation.
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */

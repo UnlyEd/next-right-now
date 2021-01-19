@@ -39,7 +39,9 @@ import {
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * @return
+ * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
+ *
+ * @return Static paths that will be used by "getBaseStaticProps" to generate pages
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
@@ -68,8 +70,9 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  * Meant to avoid code duplication
  * Can be overridden for per-page customisation (e.g: deepmerge)
  *
- * @param props
- * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
+ * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
+
+ * @return Props (as "SSGPageProps") that will be passed to the Page component, as props (known as "pageProps" in _app).
  *
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
