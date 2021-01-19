@@ -3,8 +3,8 @@ import Code from '@/common/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -59,7 +59,7 @@ const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>Bundle analysis examples</h1>
 
         <p>
@@ -72,7 +72,7 @@ const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
           text={`yarn analyse:bundle`}
         />
 
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

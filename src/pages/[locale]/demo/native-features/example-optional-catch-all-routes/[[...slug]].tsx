@@ -3,8 +3,8 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import { getDemoStaticProps } from '@/layouts/demo/demoSSG';
 import I18nLink from '@/modules/i18n/components/I18nLink';
@@ -84,7 +84,7 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={NativeFeaturesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>Catch-all dynamic routes examples</h1>
 
         <Alert color={'info'}>
@@ -107,7 +107,7 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
           Make sure you use <code>fallback: true</code>
           <b>when using SSG</b>, otherwise it'll generate a 404 page, and won't be able to dynamically generate the page.<br />
         </Alert>
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

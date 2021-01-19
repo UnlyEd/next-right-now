@@ -7,8 +7,8 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -65,7 +65,7 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>SVG to react component examples</h1>
         <p
           css={css`
@@ -102,7 +102,7 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
           Personally, we like to move them to <code>src/components/svg</code>, but feel free to do as you like.
         </Alert>
 
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

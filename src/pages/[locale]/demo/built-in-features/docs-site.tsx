@@ -3,8 +3,8 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -60,7 +60,7 @@ const DocsSiteExamplePage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>Docs site, using GitHub Pages</h1>
 
         <Alert color={'info'}>
@@ -84,7 +84,7 @@ const DocsSiteExamplePage: NextPage<Props> = (props): JSX.Element => {
           You can follow <ExternalLink href={'https://unlyed.github.io/next-right-now/contributing#installing-jekyll-locally'}>NRN own docs installation guide</ExternalLink> to configure and run your own local install of Jekyll.
         </div>
 
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

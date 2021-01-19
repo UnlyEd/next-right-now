@@ -3,8 +3,8 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -68,7 +68,7 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
     >
       <Amplitude>
         {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
-          <ExamplesPage>
+          <DemoPage>
             <h1 className={'pcolor'}>Cookies consent examples, using <code>CookieConsent</code> OSS library</h1>
 
             <Alert color={'warning'}>
@@ -108,7 +108,7 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
               <br />
               Feel free to propose your help to improve it a bit, either by sending a PR to <code>CookieConsent</code> or NRN directly.
             </Alert>
-          </ExamplesPage>
+          </DemoPage>
         )}
       </Amplitude>
     </DefaultLayout>

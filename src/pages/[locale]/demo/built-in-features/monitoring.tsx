@@ -3,8 +3,8 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -60,7 +60,7 @@ const ExampleMonitoringPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>Monitoring examples, using Sentry</h1>
 
         <Alert color={'info'}>
@@ -103,7 +103,7 @@ const ExampleMonitoringPage: NextPage<Props> = (props): JSX.Element => {
             </code>
           </p>
         </div>
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

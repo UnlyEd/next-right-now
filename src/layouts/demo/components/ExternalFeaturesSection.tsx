@@ -11,7 +11,7 @@ import {
 import Btn from '@/components/dataDisplay/Btn';
 import Cards from '@/components/dataDisplay/Cards';
 import ExternalLink from '@/components/dataDisplay/ExternalLink';
-import ExamplesSection from './ExamplesSection';
+import DemoSection from './DemoSection';
 
 type Props = {}
 
@@ -22,7 +22,7 @@ type Props = {}
  */
 const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
-    <ExamplesSection>
+    <DemoSection>
       <h2>External features</h2>
 
       <Alert color={'info'}>
@@ -78,7 +78,7 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
           </CardBody>
         </Card>
       </Cards>
-    </ExamplesSection>
+    </DemoSection>
   );
 };
 

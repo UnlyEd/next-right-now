@@ -43,7 +43,7 @@ import { NATIVE_FEATURES_SIDEBAR_LINKS } from './NativeFeaturesSidebar';
 
 export type Props = {};
 
-const ExamplesNav: React.FunctionComponent<Props> = () => {
+const DemoNav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const theme = useTheme();
@@ -347,4 +347,4 @@ const ExamplesNav: React.FunctionComponent<Props> = () => {
   );
 };
 
-export default ExamplesNav;
+export default DemoNav;

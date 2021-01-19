@@ -4,8 +4,8 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -61,7 +61,7 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>API examples, using Airtable vendor</h1>
 
         <Alert color={'info'}>
@@ -321,7 +321,7 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
           The above code is part of what we actually use in <code>fetchCustomer</code>, to fetch data from all tables.
         </p>
 
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

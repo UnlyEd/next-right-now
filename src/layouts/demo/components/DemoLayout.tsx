@@ -17,8 +17,8 @@ import {
 import React, { useState } from 'react';
 import Footer from '../../default/components/Footer';
 import Head, { HeadProps } from '../../default/components/Head';
-import ExamplesNav from './ExamplesNav';
-import DefaultPageContainer from './ExamplesPageContainer';
+import DemoNav from './DemoNav';
+import DefaultPageContainer from './DemoPageContainer';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
@@ -47,7 +47,7 @@ type Props = {
  *
  * @param props
  */
-const ExamplesLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
+const DemoLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     error,
@@ -98,7 +98,7 @@ const ExamplesLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
 
       {
         (!isInIframe || isIframeWithFullPagePreview) && (
-          <ExamplesNav />
+          <DemoNav />
         )
       }
 
@@ -139,4 +139,4 @@ const ExamplesLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   );
 };
 
-export default ExamplesLayout;
+export default DemoLayout;

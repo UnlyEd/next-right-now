@@ -3,8 +3,8 @@ import Code from '@/common/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -60,7 +60,7 @@ const SecurityAuditPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>Security audit examples</h1>
 
         <p>
@@ -112,7 +112,7 @@ const SecurityAuditPage: NextPage<Props> = (props): JSX.Element => {
           If you know of a better way to manage security in your app, don't hesitate to open a Github issue/discussion about it!
         </Alert>
 
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

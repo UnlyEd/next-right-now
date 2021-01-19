@@ -3,8 +3,8 @@ import Code from '@/common/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -61,7 +61,7 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>HOCs examples</h1>
 
         <Alert color={'info'}>
@@ -105,7 +105,7 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
           We don't actually use the <code>useGetInitialProps</code> option anywhere in this demo, because we don't use <code>getInitialProps</code> anymore.
         </Alert>
 
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

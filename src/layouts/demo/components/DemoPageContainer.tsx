@@ -5,7 +5,7 @@ import {
 import classnames from 'classnames';
 import React from 'react';
 import { Container } from 'reactstrap';
-import { SidebarProps } from './ExamplesLayout';
+import { SidebarProps } from './DemoLayout';
 import SidebarToggle from './SidebarToggle';
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
  *
  * @param props
  */
-const ExamplesPageContainer: React.FunctionComponent<Props> = (props): JSX.Element => {
+const DemoPageContainer: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     isSidebarOpen,
@@ -153,4 +153,4 @@ const ExamplesPageContainer: React.FunctionComponent<Props> = (props): JSX.Eleme
   }
 };
 
-export default ExamplesPageContainer;
+export default DemoPageContainer;

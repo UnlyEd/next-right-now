@@ -12,7 +12,7 @@ import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from '@/components/dataDisplay/Btn';
 import Cards from '@/components/dataDisplay/Cards';
 import ExternalLink from '@/components/dataDisplay/ExternalLink';
-import ExamplesSection from './ExamplesSection';
+import DemoSection from './DemoSection';
 
 type Props = {}
 
@@ -23,7 +23,7 @@ type Props = {}
  */
 const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
-    <ExamplesSection>
+    <DemoSection>
       <h2>Next.js native features</h2>
 
       <Alert color={'info'}>
@@ -239,7 +239,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
           </CardBody>
         </Card>
       </Cards>
-    </ExamplesSection>
+    </DemoSection>
   );
 };
 

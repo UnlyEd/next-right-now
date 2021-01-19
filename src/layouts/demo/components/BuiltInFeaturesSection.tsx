@@ -11,7 +11,7 @@ import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from '@/components/dataDisplay/Btn';
 import Cards from '@/components/dataDisplay/Cards';
 import ExternalLink from '@/components/dataDisplay/ExternalLink';
-import ExamplesSection from './ExamplesSection';
+import DemoSection from './DemoSection';
 
 type Props = {}
 
@@ -22,7 +22,7 @@ type Props = {}
  */
 const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
-    <ExamplesSection>
+    <DemoSection>
       <h2>Built-in features</h2>
 
       <Cards>
@@ -313,7 +313,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
           </CardBody>
         </Card>
       </Cards>
-    </ExamplesSection>
+    </DemoSection>
   );
 };
 

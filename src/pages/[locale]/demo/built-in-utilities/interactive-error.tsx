@@ -3,7 +3,7 @@ import Code from '@/common/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,

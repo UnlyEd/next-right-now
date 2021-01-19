@@ -3,7 +3,7 @@ import AllProducts from '@/common/components/dataDisplay/AllProducts';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import {
   getDemoStaticPaths,

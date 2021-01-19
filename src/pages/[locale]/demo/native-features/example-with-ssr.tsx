@@ -3,7 +3,7 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
 import useCustomer from '@/modules/data/hooks/useCustomer';

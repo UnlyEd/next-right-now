@@ -4,8 +4,8 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -65,7 +65,7 @@ const TrackingUselessReRendersPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInUtilitiesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>Tracking useless re-renders examples, using <code>why-did-you-render</code></h1>
 
         <Alert color={'info'}>
@@ -132,7 +132,7 @@ const TrackingUselessReRendersPage: NextPage<Props> = (props): JSX.Element => {
           Exactly, we actually made that exact mistake when writing NRN demo, and we thought that'd be a great example. (^_^)'
         </Alert>
 
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };

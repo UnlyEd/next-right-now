@@ -5,8 +5,8 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -61,7 +61,7 @@ const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <ExamplesPage>
+      <DemoPage>
         <h1 className={'pcolor'}>CSS animations examples, using Animate.css</h1>
 
         <p>
@@ -102,7 +102,7 @@ const ExampleAnimationPage: NextPage<Props> = (props): JSX.Element => {
           `}
         />
 
-      </ExamplesPage>
+      </DemoPage>
     </DefaultLayout>
   );
 };
