@@ -5,7 +5,7 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import Layout from '@/layouts/default/components/DefaultLayout';
 import {
   getDefaultStaticPaths,
-  getDefaultStaticProps
+  getDefaultStaticProps,
 } from '@/layouts/default/defaultSSG';
 import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';
 import useCustomer from '@/modules/data/hooks/useCustomer';
