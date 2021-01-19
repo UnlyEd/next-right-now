@@ -1,8 +1,8 @@
-import { getCommonServerSideProps } from '@/layouts/base/SSR';
+import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
-import DefaultLayout from '@/layouts/default/components/DefaultLayout';
+import BaseLayout from '@/layouts/default/components/DefaultLayout';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -32,7 +32,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getCommonServerSideProps;
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDefaultServerSideProps;
 
 /**
  * SSR pages are first rendered by the server
@@ -48,7 +48,7 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
 
   return (
-    <DefaultLayout
+    <BaseLayout
       {...props}
       pageName={'products'}
     >
@@ -59,7 +59,7 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
       <p>
         Customer label: {customer.label}
       </p>
-    </DefaultLayout>
+    </BaseLayout>
   );
 };
 

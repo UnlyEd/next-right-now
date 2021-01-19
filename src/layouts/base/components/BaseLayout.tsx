@@ -14,49 +14,43 @@ import {
   NextRouter,
   useRouter,
 } from 'next/router';
-import React, { useState } from 'react';
-import DemoFooter from './DemoFooter';
-import DemoHead, { HeadProps } from './DemoHead';
-import DemoNav from './DemoNav';
-import DemoPageContainer from './DemoPageContainer';
+import React from 'react';
+import BaseFooter from './BaseFooter';
+import BaseHead, { HeadProps } from './BaseHead';
+import Nav from './BaseNav';
+import DefaultPageContainer from './BasePageContainer';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
   label: fileLabel,
 });
 
-export type SidebarProps = {
-  className: string;
-}
-
 type Props = {
   children: React.ReactNode;
   headProps?: HeadProps;
   pageName: string;
-  Sidebar?: React.FunctionComponent<SidebarProps>;
+  PageContainer?: React.FunctionComponent;
 } & SoftPageProps;
 
 /**
- * Handles the positioning of top-level elements within the page
+ * Handles the positioning of top-level elements within the page.
  *
  * It does the following:
- *  - Adds a Nav/Footer component, and the dynamic Next.js "Page" component in between
- *  - Optionally, it can also display a left sidebar (i.e: used within examples sections)
- *  - Automatically track page views (Amplitude)
- *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
+ *  - Adds a Nav/Footer component, and the dynamic Next.js "Page" component in between.
+ *  - Automatically track page views (Amplitude).
+ *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback).
  *
- * @param props
+ * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
  */
-const DemoLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
+const BaseLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     error,
     isInIframe = false, // Won't be defined server-side
     headProps = {},
     pageName,
-    Sidebar,
+    PageContainer = DefaultPageContainer,
   } = props;
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // Todo make default value depend on viewport size
   const router: NextRouter = useRouter();
   const isIframeWithFullPagePreview = router?.query?.fullPagePreview === '1';
 
@@ -80,7 +74,7 @@ const DemoLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
         },
       })}
     >
-      <DemoHead {...headProps} />
+      <BaseHead {...headProps} />
       <LogOnMount eventType="page-displayed" />
 
       {/* Loaded from components/Head - See https://github.com/mikemaccana/outdated-browser-rework */}
@@ -98,7 +92,7 @@ const DemoLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
 
       {
         (!isInIframe || isIframeWithFullPagePreview) && (
-          <DemoNav />
+          <Nav />
         )
       }
 
@@ -119,24 +113,20 @@ const DemoLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
               />
             </ErrorPage>
           ) : (
-            <DemoPageContainer
-              isSidebarOpen={isSidebarOpen}
-              setIsSidebarOpen={setIsSidebarOpen}
-              Sidebar={Sidebar}
-            >
+            <PageContainer>
               {children}
-            </DemoPageContainer>
+            </PageContainer>
           )
         }
       </div>
 
       {
         (!isInIframe || isIframeWithFullPagePreview) && (
-          <DemoFooter />
+          <BaseFooter />
         )
       }
     </Amplitude>
   );
 };
 
-export default DemoLayout;
+export default BaseLayout;

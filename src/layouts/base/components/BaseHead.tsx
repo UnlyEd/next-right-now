@@ -18,11 +18,18 @@ export type HeadProps = {
 }
 
 /**
- * Custom Head component
+ * Custom Next.js Head component.
+ *
+ * Configures SEO, load fonts.
+ *
+ * TODO Fonts should be loaded differently. Lee Robinson (Vercel) has given great talks recently, see https://leerob.io/blog/fonts
+ * TODO SEO should be done differently. See https://github.com/UnlyEd/next-right-now/issues/150
+ *
+ * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
  *
  * https://github.com/vercel/next.js#populating-head
  */
-const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
+const BaseHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultMetaURL = 'https://github.com/UnlyEd/next-right-now';
   const defaultMetaImage = '';
@@ -119,4 +126,4 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   );
 };
 
-export default Head;
+export default BaseHead;

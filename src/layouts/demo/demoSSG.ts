@@ -1,19 +1,12 @@
-import map from 'lodash.map';
-import {
-  GetStaticPaths,
-  GetStaticPathsContext,
-  GetStaticProps,
-  GetStaticPropsResult,
-} from 'next';
-import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
-import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
+import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
+import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
 import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';
 import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
 import {
@@ -28,16 +21,23 @@ import {
 import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
 import { PreviewData } from '@/modules/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/serializeSafe/serializeSafe';
+import map from 'lodash.map';
+import {
+  GetStaticPaths,
+  GetStaticPathsContext,
+  GetStaticProps,
+  GetStaticPropsResult,
+} from 'next';
 
 /**
  * Only executed on the server side at build time.
- * Computes all static paths that should be available for all SSG pages
- * Necessary when a page has dynamic routes and uses "getStaticProps", in order to build the HTML pages
+ * Computes all static paths that should be available for all SSG pages.
+ * Necessary when a page has dynamic routes and uses "getStaticProps", in order to build the HTML pages.
  *
- * You can use "fallback" option to avoid building all page variants and allow runtime fallback
+ * You can use "fallback" option to avoid building all page variants and allow runtime fallback.
  *
- * Meant to avoid code duplication
- * Can be overridden for per-page customisation (e.g: deepmerge)
+ * Meant to avoid code duplication.
+ * Can be overridden for per-page customisation (e.g: deepmerge).
  *
  * @return
  *

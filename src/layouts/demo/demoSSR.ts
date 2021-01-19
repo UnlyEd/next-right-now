@@ -1,20 +1,10 @@
-import * as Sentry from '@sentry/node';
-import universalLanguageDetect from '@unly/universal-language-detector';
-import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
-import { IncomingMessage } from 'http';
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-} from 'next';
-import NextCookies from 'next-cookies';
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { PublicHeaders } from '@/layouts/base/types/PublicHeaders';
+import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
 import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
 import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
-import { PublicHeaders } from '@/layouts/base/types/PublicHeaders';
-import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { Cookies } from '@/modules/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
 import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';
@@ -32,6 +22,16 @@ import {
 import { isQuickPreviewRequest } from '@/modules/quickPreview/quickPreview';
 import serializeSafe from '@/modules/serializeSafe/serializeSafe';
 import { UserSemiPersistentSession } from '@/modules/userSession/types/UserSemiPersistentSession';
+import * as Sentry from '@sentry/node';
+import universalLanguageDetect from '@unly/universal-language-detector';
+import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
+import { IncomingMessage } from 'http';
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+} from 'next';
+import NextCookies from 'next-cookies';
 
 /**
  * getDemoServerSideProps returns only part of the props expected in SSRPageProps

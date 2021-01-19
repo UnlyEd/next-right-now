@@ -20,7 +20,14 @@ export type Props = {
   style?: CSSStyles;
 };
 
-const Footer: React.FunctionComponent<Props> = (props) => {
+/**
+ * Page footer.
+ *
+ * Displays the customer logo, legal links, i18n btn and the Unly logo.
+ *
+ * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ */
+const BaseFooter: React.FunctionComponent<Props> = (props) => {
   const {
     style,
   } = props;
@@ -170,4 +177,4 @@ const Footer: React.FunctionComponent<Props> = (props) => {
   );
 };
 
-export default Footer;
+export default BaseFooter;

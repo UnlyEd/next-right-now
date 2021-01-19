@@ -3,16 +3,16 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Footer, { Props } from '@/layouts/default/components/Footer';
+import BaseFooter, { Props } from '@/layouts/base/components/BaseFooter';
 
 export default {
   title: 'Next Right Now/Layout/Footer',
-  component: Footer,
+  component: BaseFooter,
   argTypes: {},
 } as Meta;
 
 export const DefaultExample: Story<Props> = () => {
   return (
-    <Footer />
+    <BaseFooter />
   );
 };

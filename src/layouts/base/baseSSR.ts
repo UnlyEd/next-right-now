@@ -1,8 +1,8 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
 import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { Cookies } from '@/modules/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
 import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';
@@ -34,27 +34,27 @@ import { PublicHeaders } from './types/PublicHeaders';
 import { SSRPageProps } from './types/SSRPageProps';
 
 /**
- * getCommonServerSideProps returns only part of the props expected in SSRPageProps
- * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
+ * "getBaseServerSideProps" returns only part of the props expected in SSRPageProps.
+ * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetCommonServerSidePropsResults = SSRPageProps & {
+export type GetBaseServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
 /**
  * Only executed on the server side, for every request.
- * Computes some dynamic props that should be available for all SSR pages that use getServerSideProps
+ * Computes some dynamic props that should be available for all SSR pages that use getServerSideProps.
  *
- * Because the exact GQL query will depend on the consumer (AKA "caller"), this helper doesn't run any query by itself, but rather return all necessary props to allow the consumer to perform its own queries
- * This improves performances, by only running one GQL query instead of many (consumer's choice)
+ * Because the exact GQL query will depend on the consumer (AKA "caller"), this helper doesn't run any query by itself, but rather return all necessary props to allow the consumer to perform its own queries.
+ * This improves performances, by only running one GQL query instead of many (consumer's choice).
  *
- * Meant to avoid code duplication
+ * Meant to avoid code duplication.
  *
- * @param context
+ * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
+export const getBaseServerSideProps: GetServerSideProps<GetBaseServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetBaseServerSidePropsResults>> => {
   const {
     query,
     params,

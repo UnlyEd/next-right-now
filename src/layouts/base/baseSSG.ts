@@ -1,11 +1,11 @@
-import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
-import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
+import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
+import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
+import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
 import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';
 import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
 import {
@@ -39,11 +39,13 @@ import { SSGPageProps } from './types/SSGPageProps';
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * @return
+ * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ *
+ * @return Static paths that will be used by "getBaseStaticProps" to generate pages
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
+export const getBaseStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
     return {
       params: {
@@ -68,13 +70,14 @@ export const getCommonStaticPaths: GetStaticPaths<CommonServerSideParams> = asyn
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * @param props
- * @return Props (as "SSGPageProps") that will be passed to the Page component, as props
+ * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ *
+ * @return Props (as "SSGPageProps") that will be passed to the Page component, as props (known as "pageProps" in _app).
  *
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getCommonStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
+export const getBaseStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const preview: boolean = props?.preview || false;
   const previewData: PreviewData = props?.previewData || null;

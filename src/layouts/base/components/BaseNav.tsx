@@ -29,7 +29,14 @@ import {
 
 export type Props = {};
 
-const ExamplesNav: React.FunctionComponent<Props> = () => {
+/**
+ * Page navigation, horizontal nav bar.
+ *
+ * Contains links to homepage, demo examples, documentation, source code, etc.
+ *
+ * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ */
+const BaseNav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const theme = useTheme();
@@ -178,4 +185,4 @@ const ExamplesNav: React.FunctionComponent<Props> = () => {
   );
 };
 
-export default ExamplesNav;
+export default BaseNav;

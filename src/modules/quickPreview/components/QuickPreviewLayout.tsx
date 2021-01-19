@@ -10,7 +10,7 @@ import { GenericObject } from '@/modules/data/types/GenericObject';
 import { SoftPageProps } from '@/layouts/base/types/SoftPageProps';
 import Sentry from '@/modules/sentry/sentry';
 import QuickPreviewBanner from './QuickPreviewBanner';
-import Head, { HeadProps } from '@/layouts/default/components/Head';
+import BaseHead, { HeadProps } from '@/layouts/base/components/BaseHead';
 
 const fileLabel = 'components/pageLayouts/QuickPreviewLayout';
 const logger = createLogger({
@@ -67,7 +67,7 @@ const QuickPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element 
         },
       })}
     >
-      <Head {...headProps} />
+      <BaseHead {...headProps} />
       <LogOnMount eventType="page-displayed" />
 
       <div className={'quick-preview-layout'}>
