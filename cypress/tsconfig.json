@@ -7,6 +7,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/app/*": [
+        "../src/app/*"
+      ],
       "@/common/*": [
         "../src/common/*"
       ],
@@ -17,13 +20,13 @@
         "../src/common/utils/*"
       ],
       "@/layouts/*": [
-        "src/layouts/*"
+        "../src/layouts/*"
       ],
       "@/modules/*": [
         "../src/modules/*"
       ],
       "@/pages/*": [
-        "src/pages/*"
+        "../src/pages/*"
       ]
     },
     "types": [

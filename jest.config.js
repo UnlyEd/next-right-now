@@ -22,6 +22,7 @@ module.exports = {
    * @see https://github.com/ilearnio/module-alias/issues/46#issuecomment-546154015
    */
   moduleNameMapper: {
+    '^@/app/(.*)$': '<rootDir>/src/app/$1',
     '^@/common/(.*)$': '<rootDir>/src/common/$1',
     '^@/components/(.*)$': '<rootDir>/src/common/components/$1',
     '^@/utils/(.*)$': '<rootDir>/src/common/utils/$1',

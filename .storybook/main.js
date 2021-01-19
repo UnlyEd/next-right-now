@@ -241,6 +241,7 @@ module.exports = {
            * @see https://nextjs.org/docs/advanced-features/module-path-aliases
            * @see https://intellij-support.jetbrains.com/hc/en-us/community/posts/360003361399/comments/360002636080
            */
+          "@/app": path.resolve(__dirname, "../src/app"),
           "@/common": path.resolve(__dirname, "../src/common"),
           "@/components": path.resolve(__dirname, "../src/common/components"),
           "@/utils": path.resolve(__dirname, "../src/common/utils"),
