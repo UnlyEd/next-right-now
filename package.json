@@ -213,6 +213,7 @@
     "@types/lodash.xorby": "4.7.6",
     "@types/popper.js": "1.11.0",
     "@types/react": "17.0.0",
+    "@types/react-dom": "17.0.0",
     "@types/react-test-renderer": "17.0.0",
     "@types/reactstrap": "8.7.2",
     "@types/uuid": "8.3.0",
