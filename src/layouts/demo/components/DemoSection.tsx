@@ -8,7 +8,7 @@ type Props = {
 /**
  * Section of documentation, meant to be used within a page to visually separate documentation sections
  *
- * @param props
+ * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
  */
 const DemoSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { children } = props;

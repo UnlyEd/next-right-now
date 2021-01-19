@@ -43,6 +43,13 @@ import { NATIVE_FEATURES_SIDEBAR_LINKS } from './NativeFeaturesSidebar';
 
 export type Props = {};
 
+/**
+ * Page navigation, horizontal nav bar.
+ *
+ * Contains links to homepage, demo examples, documentation, source code, etc.
+ *
+ * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
+ */
 const DemoNav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();

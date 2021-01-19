@@ -16,14 +16,9 @@ type Props = {
 }
 
 /**
- * Handles the display of the Next.js Page component (as "children")
+ * Page wrapper handling the display of the Next.js Page component (as "children").
  *
- * It does the following:
- *  - Handles display of the optional Sidebar component
- *  - Handles visibility of the side bar based on its state (open/close)
- *  - handles top-level layout transformation related to the sidebar visibility
- *
- * @param props
+ * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
  */
 const DemoPageContainer: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {

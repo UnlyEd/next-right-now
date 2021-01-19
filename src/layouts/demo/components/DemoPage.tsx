@@ -10,7 +10,7 @@ type Props = {
  *
  * Basically wraps the children in a white container
  *
- * @param props
+ * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
  */
 const DemoPage: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { children } = props;

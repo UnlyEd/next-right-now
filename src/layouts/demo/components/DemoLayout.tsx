@@ -45,7 +45,7 @@ type Props = {
  *  - Automatically track page views (Amplitude)
  *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
  *
- * @param props
+ * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
  */
 const DemoLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {

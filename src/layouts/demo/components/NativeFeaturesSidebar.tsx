@@ -47,7 +47,7 @@ export const NATIVE_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
  *
  * Display all NATIVE_FEATURES_SIDEBAR_LINKS towards pages related to this section
  *
- * @param props
+ * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
  */
 const NativeFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { className } = props;
