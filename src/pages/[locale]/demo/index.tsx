@@ -1,6 +1,6 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import BuiltInFeaturesSection from '@/layouts/demo/components/BuiltInFeaturesSection';
 import BuiltInUtilitiesSection from '@/layouts/demo/components/BuiltInUtilitiesSection';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';

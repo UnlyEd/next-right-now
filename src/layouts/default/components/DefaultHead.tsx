@@ -1,3 +1,3 @@
-import BaseHead from '@/layouts/base/components/BaseHead';
+import Head from '@/layouts/core/components/Head';
 
-export default BaseHead;
+export default Head;

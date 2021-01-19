@@ -1,4 +1,4 @@
-import { MultiversalPageProps } from '@/layouts/base/types/MultiversalPageProps';
+import { MultiversalPageProps } from '@/layouts/core/types/MultiversalPageProps';
 import {
   NextComponentType,
   NextPageContext,

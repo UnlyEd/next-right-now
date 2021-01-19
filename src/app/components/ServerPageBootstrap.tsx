@@ -1,5 +1,5 @@
-import { MultiversalPageProps } from '@/layouts/base/types/MultiversalPageProps';
-import { OnlyServerPageProps } from '@/layouts/base/types/OnlyServerPageProps';
+import { MultiversalPageProps } from '@/layouts/core/types/MultiversalPageProps';
+import { OnlyServerPageProps } from '@/layouts/core/types/OnlyServerPageProps';
 import { configureSentryUser } from '@/modules/sentry/sentry';
 import { userSessionContext } from '@/modules/userSession/userSessionContext';
 import * as Sentry from '@sentry/node';

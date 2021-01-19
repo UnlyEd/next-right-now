@@ -1,8 +1,8 @@
 import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
-import BaseLayout from '@/layouts/default/components/DefaultLayout';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import Layout from '@/layouts/default/components/DefaultLayout';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -48,7 +48,7 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
 
   return (
-    <BaseLayout
+    <Layout
       {...props}
       pageName={'products'}
     >
@@ -59,7 +59,7 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
       <p>
         Customer label: {customer.label}
       </p>
-    </BaseLayout>
+    </Layout>
   );
 };
 

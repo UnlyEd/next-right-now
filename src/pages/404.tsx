@@ -1,9 +1,9 @@
 import Btn from '@/common/components/dataDisplay/Btn';
 import { getDefaultStaticProps } from '@/layouts/default/defaultSSG';
-import BaseLayout from '@/layouts/default/components/DefaultLayout';
+import Layout from '@/layouts/default/components/DefaultLayout';
 import { CommonServerSideParams } from '@/modules/../app/types/CommonServerSideParams';
-import { SoftPageProps } from '@/modules/../layouts/base/types/SoftPageProps';
-import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
+import { SoftPageProps } from '@/modules/../layouts/core/types/SoftPageProps';
+import { SSGPageProps } from '@/modules/../layouts/core/types/SSGPageProps';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import {
   DEFAULT_LOCALE,
@@ -107,7 +107,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
   // We can display a custom message based on the lang, but the other parts of the app won't be translated (nav, footer)
   // Also, it has to be hardcoded, it cannot be stored on Locize, because we don't have access to translations from other languages
   return (
-    <BaseLayout
+    <Layout
       {...props}
       pageName={'404'}
       headProps={{
@@ -131,7 +131,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
           </Btn>
         </I18nLink>
       </div>
-    </BaseLayout>
+    </Layout>
   );
 };
 

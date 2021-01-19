@@ -34,10 +34,10 @@ import { PublicHeaders } from './types/PublicHeaders';
 import { SSRPageProps } from './types/SSRPageProps';
 
 /**
- * "getBaseServerSideProps" returns only part of the props expected in SSRPageProps.
+ * "getCoreServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetBaseServerSidePropsResults = SSRPageProps & {
+export type GetCoreServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
@@ -50,11 +50,11 @@ export type GetBaseServerSidePropsResults = SSRPageProps & {
  *
  * Meant to avoid code duplication.
  *
- * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getBaseServerSideProps: GetServerSideProps<GetBaseServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetBaseServerSidePropsResults>> => {
+export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCoreServerSidePropsResults>> => {
   const {
     query,
     params,

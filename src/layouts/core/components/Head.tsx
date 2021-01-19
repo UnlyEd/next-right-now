@@ -25,11 +25,11 @@ export type HeadProps = {
  * TODO Fonts should be loaded differently. Lee Robinson (Vercel) has given great talks recently, see https://leerob.io/blog/fonts
  * TODO SEO should be done differently. See https://github.com/UnlyEd/next-right-now/issues/150
  *
- * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  *
  * https://github.com/vercel/next.js#populating-head
  */
-const BaseHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
+const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultMetaURL = 'https://github.com/UnlyEd/next-right-now';
   const defaultMetaImage = '';
@@ -126,4 +126,4 @@ const BaseHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   );
 };
 
-export default BaseHead;
+export default Head;

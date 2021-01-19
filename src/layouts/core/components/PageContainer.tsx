@@ -9,9 +9,9 @@ type Props = {
 /**
  * Page wrapper handling the display of the Next.js Page component (as "children").
  *
- * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  */
-const BasePageContainer: React.FunctionComponent<Props> = (props): JSX.Element => {
+const PageContainer: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
   } = props;
@@ -31,4 +31,4 @@ const BasePageContainer: React.FunctionComponent<Props> = (props): JSX.Element =
 
 };
 
-export default BasePageContainer;
+export default PageContainer;

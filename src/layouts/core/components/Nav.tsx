@@ -34,9 +34,9 @@ export type Props = {};
  *
  * Contains links to homepage, demo examples, documentation, source code, etc.
  *
- * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  */
-const BaseNav: React.FunctionComponent<Props> = () => {
+const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const theme = useTheme();
@@ -185,4 +185,4 @@ const BaseNav: React.FunctionComponent<Props> = () => {
   );
 };
 
-export default BaseNav;
+export default Nav;

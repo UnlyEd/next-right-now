@@ -5,8 +5,8 @@ import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import Btn from '@/common/components/dataDisplay/Btn';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import waitFor from '@/common/utils/waitFor';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import {

@@ -1,3 +1,3 @@
-import BaseLayout from '@/layouts/base/components/BaseLayout';
+import Layout from '@/layouts/core/components/Layout';
 
-export default BaseLayout;
+export default Layout;

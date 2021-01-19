@@ -1,4 +1,4 @@
 export {
-  getBaseServerSideProps as getDefaultServerSideProps,
-} from '@/layouts/base/baseSSR';
-export type { GetBaseServerSidePropsResults as GetDefaultServerSidePropsResults } from '@/layouts/base/baseSSR';
+  getCoreServerSideProps as getDefaultServerSideProps,
+} from '@/layouts/core/SSR';
+export type { GetCoreServerSidePropsResults as GetDefaultServerSidePropsResults } from '@/layouts/core/SSR';

@@ -7,10 +7,10 @@ import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
 import { Container } from 'reactstrap';
 import { GenericObject } from '@/modules/data/types/GenericObject';
-import { SoftPageProps } from '@/layouts/base/types/SoftPageProps';
+import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import Sentry from '@/modules/sentry/sentry';
 import QuickPreviewBanner from './QuickPreviewBanner';
-import BaseHead, { HeadProps } from '@/layouts/base/components/BaseHead';
+import Head, { HeadProps } from '@/layouts/core/components/Head';
 
 const fileLabel = 'components/pageLayouts/QuickPreviewLayout';
 const logger = createLogger({
@@ -67,7 +67,7 @@ const QuickPreviewLayout: React.FunctionComponent<Props> = (props): JSX.Element 
         },
       })}
     >
-      <BaseHead {...headProps} />
+      <Head {...headProps} />
       <LogOnMount eventType="page-displayed" />
 
       <div className={'quick-preview-layout'}>

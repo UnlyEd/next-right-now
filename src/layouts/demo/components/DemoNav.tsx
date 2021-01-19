@@ -48,7 +48,7 @@ export type Props = {};
  *
  * Contains links to homepage, demo examples, documentation, source code, etc.
  *
- * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
+ * XXX Demo component, not meant to be modified. It's a copy of the core implementation, so the demo keeps working even the core implementation changes.
  */
 const DemoNav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();

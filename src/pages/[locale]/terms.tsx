@@ -4,9 +4,9 @@ import {
   getDefaultStaticPaths,
   getDefaultStaticProps
 } from '@/layouts/default/defaultSSG';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import BaseLayout from '@/layouts/default/components/DefaultLayout';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import Layout from '@/layouts/default/components/DefaultLayout';
 import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
@@ -67,14 +67,14 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <BaseLayout
+    <Layout
       {...props}
       pageName={AMPLITUDE_PAGES.TERMS_PAGE}
     >
       <LegalContent
         content={terms}
       />
-    </BaseLayout>
+    </Layout>
   );
 };
 

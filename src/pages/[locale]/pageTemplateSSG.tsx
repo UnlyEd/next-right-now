@@ -3,9 +3,9 @@ import {
   getDefaultStaticPaths,
   getDefaultStaticProps
 } from '@/layouts/default/defaultSSG';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import BaseLayout from '@/layouts/default/components/DefaultLayout';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import Layout from '@/layouts/default/components/DefaultLayout';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -51,7 +51,7 @@ const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
 
   return (
-    <BaseLayout
+    <Layout
       {...props}
       pageName={'pageTemplateSSG'}
     >
@@ -62,7 +62,7 @@ const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
       <p>
         Customer label: {customer.label}
       </p>
-    </BaseLayout>
+    </Layout>
   );
 };
 

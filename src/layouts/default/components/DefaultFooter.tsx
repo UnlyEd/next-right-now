@@ -1,3 +1,3 @@
-import BaseFooter from '@/layouts/base/components/BaseFooter';
+import BaseFooter from '@/layouts/core/components/Footer';
 
 export default BaseFooter;

@@ -1,4 +1,4 @@
-import { SoftPageProps } from '@/layouts/base/types/SoftPageProps';
+import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { GenericObject } from '@/modules/data/types/GenericObject';
 import DefaultErrorLayout from '@/modules/errorHandling/DefaultErrorLayout';
 import PreviewModeBanner from '@/modules/previewMode/components/PreviewModeBanner';
@@ -45,7 +45,7 @@ type Props = {
  *  - Automatically track page views (Amplitude)
  *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
  *
- * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
+ * XXX Demo component, not meant to be modified. It's a copy of the core implementation, so the demo keeps working even the core implementation changes.
  */
 const DemoLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {

@@ -1,3 +1,3 @@
-import Nav from '@/layouts/base/components/BaseNav';
+import Nav from '@/layouts/core/components/Nav';
 
 export default Nav;

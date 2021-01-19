@@ -1,5 +1,5 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import {
   GetStaticPaths,
   GetStaticProps,

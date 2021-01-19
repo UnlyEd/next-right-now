@@ -1,3 +1,3 @@
-import BasePageContainer from '@/layouts/base/components/BasePageContainer';
+import PageContainer from '@/layouts/core/components/PageContainer';
 
-export default BasePageContainer;
+export default PageContainer;

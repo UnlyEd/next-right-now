@@ -1,4 +1,4 @@
 export {
-  getBaseStaticPaths as getDefaultStaticPaths,
-  getBaseStaticProps as getDefaultStaticProps,
-} from '@/layouts/base/baseSSG';
+  getCoreStaticPaths as getDefaultStaticPaths,
+  getCoreStaticProps as getDefaultStaticProps,
+} from '@/layouts/core/SSG';

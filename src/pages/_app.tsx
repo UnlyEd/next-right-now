@@ -2,8 +2,8 @@ import '@/common/utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings a
 import MultiversalAppBootstrap from '@/modules/../app/components/MultiversalAppBootstrap';
 import '@/modules/../app/components/MultiversalGlobalExternalStyles';
 import { MultiversalAppBootstrapProps } from '@/modules/../app/types/MultiversalAppBootstrapProps';
-import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
-import { SSRPageProps } from '@/modules/../layouts/base/types/SSRPageProps';
+import { SSGPageProps } from '@/modules/../layouts/core/types/SSGPageProps';
+import { SSRPageProps } from '@/modules/../layouts/core/types/SSRPageProps';
 import { sendWebVitals } from '@/modules/amplitude/amplitude';
 import '@/modules/fontAwesome/fontAwesome';
 import '@/modules/sentry/sentry';

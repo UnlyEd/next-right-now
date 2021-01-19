@@ -1,5 +1,5 @@
-import { MultiversalPageProps } from '@/layouts/base/types/MultiversalPageProps';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { MultiversalPageProps } from '@/layouts/core/types/MultiversalPageProps';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { getAmplitudeInstance } from '@/modules/amplitude/amplitude';
 import amplitudeContext from '@/modules/amplitude/context/amplitudeContext';
 import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';

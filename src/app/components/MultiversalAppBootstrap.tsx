@@ -1,6 +1,6 @@
 import Loader from '@/components/animations/Loader';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import customerContext from '@/modules/data/contexts/customerContext';
 import datasetContext from '@/modules/data/contexts/datasetContext';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';

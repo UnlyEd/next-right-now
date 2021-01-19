@@ -1,4 +1,4 @@
-import { SoftPageProps } from '@/layouts/base/types/SoftPageProps';
+import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { GenericObject } from '@/modules/data/types/GenericObject';
 import DefaultErrorLayout from '@/modules/errorHandling/DefaultErrorLayout';
 import PreviewModeBanner from '@/modules/previewMode/components/PreviewModeBanner';
@@ -15,10 +15,10 @@ import {
   useRouter,
 } from 'next/router';
 import React from 'react';
-import BaseFooter from './BaseFooter';
-import BaseHead, { HeadProps } from './BaseHead';
-import Nav from './BaseNav';
-import DefaultPageContainer from './BasePageContainer';
+import BaseFooter from './Footer';
+import Head, { HeadProps } from './Head';
+import Nav from './Nav';
+import DefaultPageContainer from './PageContainer';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
@@ -40,9 +40,9 @@ type Props = {
  *  - Automatically track page views (Amplitude).
  *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback).
  *
- * XXX Base component, meant to be used by other layouts, shouldn't be used by other components directly.
+ * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  */
-const BaseLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
+const Layout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     error,
@@ -74,7 +74,7 @@ const BaseLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
         },
       })}
     >
-      <BaseHead {...headProps} />
+      <Head {...headProps} />
       <LogOnMount eventType="page-displayed" />
 
       {/* Loaded from components/Head - See https://github.com/mikemaccana/outdated-browser-rework */}
@@ -129,4 +129,4 @@ const BaseLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   );
 };
 
-export default BaseLayout;
+export default Layout;

@@ -19,7 +19,7 @@ type Props = {}
 /**
  * Documentation section that showcases native Next.js features
  *
- * XXX Demo component, not meant to be modified. It's a copy of the base implementation, so the demo keep working even if you change the base implementation.
+ * XXX Demo component, not meant to be modified. It's a copy of the core implementation, so the demo keeps working even the core implementation changes.
  */
 const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (

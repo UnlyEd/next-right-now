@@ -1,6 +1,6 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { PublicHeaders } from '@/layouts/base/types/PublicHeaders';
-import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
+import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
