@@ -1,7 +1,7 @@
 import Btn from '@/common/components/dataDisplay/Btn';
+import { CommonServerSideParams } from '@/modules/../app/types/CommonServerSideParams';
 import { SoftPageProps } from '@/modules/../layouts/base/types/SoftPageProps';
 import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
-import { CommonServerSideParams } from '@/modules/../app/types/CommonServerSideParams';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import {
   DEFAULT_LOCALE,

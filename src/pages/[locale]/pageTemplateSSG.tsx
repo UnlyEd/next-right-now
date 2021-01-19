@@ -1,10 +1,10 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import {
   getCommonStaticPaths,
   getCommonStaticProps,
 } from '@/layouts/base/SSG';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';

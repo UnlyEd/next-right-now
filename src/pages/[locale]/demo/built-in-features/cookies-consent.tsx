@@ -1,3 +1,4 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
@@ -5,7 +6,6 @@ import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSid
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import { Amplitude } from '@amplitude/react-amplitude';

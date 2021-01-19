@@ -1,10 +1,10 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import Code from '@/common/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
 import {

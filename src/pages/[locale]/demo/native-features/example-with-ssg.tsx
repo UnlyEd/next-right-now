@@ -1,10 +1,10 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Customer } from '@/modules/data/types/Customer';

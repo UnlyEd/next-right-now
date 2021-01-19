@@ -1,19 +1,5 @@
-import {
-  getIframeReferrer,
-  isRunningInIframe,
-} from '@/utils/iframe';
 import { MultiversalPageProps } from '@/layouts/base/types/MultiversalPageProps';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import {
-  Amplitude,
-  AmplitudeProvider,
-} from '@amplitude/react-amplitude';
-import { useTheme } from '@emotion/react';
-import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
-import { AmplitudeClient } from 'amplitude-js';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { getAmplitudeInstance } from '@/modules/amplitude/amplitude';
 import amplitudeContext from '@/modules/amplitude/context/amplitudeContext';
 import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
@@ -32,6 +18,20 @@ import initCookieConsent, { getUserConsent } from '@/modules/userConsent/cookieC
 import { UserConsent } from '@/modules/userConsent/types/UserConsent';
 import { UserSemiPersistentSession } from '@/modules/userSession/types/UserSemiPersistentSession';
 import { userSessionContext } from '@/modules/userSession/userSessionContext';
+import {
+  getIframeReferrer,
+  isRunningInIframe,
+} from '@/utils/iframe';
+import {
+  Amplitude,
+  AmplitudeProvider,
+} from '@amplitude/react-amplitude';
+import { useTheme } from '@emotion/react';
+import * as Sentry from '@sentry/node';
+import { createLogger } from '@unly/utils-simple-logger';
+import { AmplitudeClient } from 'amplitude-js';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 

@@ -1,3 +1,4 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
@@ -7,7 +8,6 @@ import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSid
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import useUserSession, { UserSession } from '@/modules/userSession/useUserSession';
 import { Amplitude } from '@amplitude/react-amplitude';

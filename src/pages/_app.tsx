@@ -1,10 +1,10 @@
 import '@/common/utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
-import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
-import { SSRPageProps } from '@/modules/../layouts/base/types/SSRPageProps';
-import { sendWebVitals } from '@/modules/amplitude/amplitude';
 import MultiversalAppBootstrap from '@/modules/../app/components/MultiversalAppBootstrap';
 import '@/modules/../app/components/MultiversalGlobalExternalStyles';
 import { MultiversalAppBootstrapProps } from '@/modules/../app/types/MultiversalAppBootstrapProps';
+import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
+import { SSRPageProps } from '@/modules/../layouts/base/types/SSRPageProps';
+import { sendWebVitals } from '@/modules/amplitude/amplitude';
 import '@/modules/fontAwesome/fontAwesome';
 import '@/modules/sentry/sentry';
 import '@/modules/wdyr/wdyr';

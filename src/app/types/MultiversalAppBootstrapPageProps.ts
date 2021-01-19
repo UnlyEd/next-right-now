@@ -1,5 +1,5 @@
-import { i18n } from 'i18next';
 import { CustomerTheme } from '@/modules/data/types/CustomerTheme';
+import { i18n } from 'i18next';
 
 /**
  * Additional props that are injected by MultiversalAppBootstrap to all pages

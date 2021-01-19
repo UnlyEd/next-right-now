@@ -1,3 +1,4 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import AnimatedLoader from '@/common/components/animations/AnimatedLoader';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
@@ -6,7 +7,6 @@ import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,

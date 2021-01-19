@@ -1,3 +1,4 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
@@ -6,7 +7,6 @@ import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
 import { resolveCustomerVariationLang } from '@/modules/i18n/i18n';
 import { css } from '@emotion/react';

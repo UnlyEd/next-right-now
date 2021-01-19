@@ -1,3 +1,4 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import EnglishHybridFlag from '@/common/components/countryFlags/EnglishHybridFlag';
 import EnglishUkFlag from '@/common/components/countryFlags/EnglishUkFlag';
 import FrenchFlag from '@/common/components/countryFlags/FrenchFlag';
@@ -8,7 +9,6 @@ import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import {

@@ -1,8 +1,8 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import LegalContent from '@/common/components/dataDisplay/LegalContent';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
 import { replaceAllOccurrences } from '@/modules/js/string';

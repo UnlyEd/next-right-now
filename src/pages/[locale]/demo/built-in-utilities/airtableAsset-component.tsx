@@ -1,3 +1,4 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
@@ -6,7 +7,6 @@ import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesS
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
 import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Asset } from '@/modules/data/types/Asset';

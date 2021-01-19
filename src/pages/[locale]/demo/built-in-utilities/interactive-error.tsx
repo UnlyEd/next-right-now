@@ -1,9 +1,9 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import Code from '@/common/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,

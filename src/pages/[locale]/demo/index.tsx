@@ -1,3 +1,4 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSection from '@/layouts/demo/components/BuiltInFeaturesSection';
@@ -7,7 +8,6 @@ import ExternalFeaturesSection from '@/layouts/demo/components/ExternalFeaturesS
 import IntroductionSection from '@/layouts/demo/components/IntroductionSection';
 import NativeFeaturesSection from '@/layouts/demo/components/NativeFeaturesSection';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
