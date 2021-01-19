@@ -1,4 +1,4 @@
-import { RawAirtableAttachment } from '../../airtable/types/RawAirtableAttachment';
+import { RawAirtableAttachment } from '@/modules/airtable/types/RawAirtableAttachment';
 import { AirtableRecordBaseFields } from './AirtableRecordBaseFields';
 
 /**

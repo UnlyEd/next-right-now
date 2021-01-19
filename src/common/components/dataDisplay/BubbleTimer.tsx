@@ -1,9 +1,9 @@
+import { CSSStyles } from '@/modules/css/types/CSSStyles';
 import React, {
   Fragment,
   useEffect,
   useState,
 } from 'react';
-import { CSSStyles } from '@/modules/css/types/CSSStyles';
 import AnimatedTextBubble from '../animations/AnimatedTextBubble';
 
 export type Props = {

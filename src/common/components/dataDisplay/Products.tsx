@@ -1,9 +1,9 @@
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Product } from '@/modules/data/types/Product';
 import { css } from '@emotion/react';
 import map from 'lodash.map';
 import React from 'react';
 import { Container } from 'reactstrap';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Product } from '@/modules/data/types/Product';
 import ProductRow from './ProductRow';
 
 type Props = {

@@ -3,6 +3,7 @@ import { GenericObject } from '@/modules/data/types/GenericObject';
 import DefaultErrorLayout from '@/modules/errorHandling/DefaultErrorLayout';
 import PreviewModeBanner from '@/modules/previewMode/components/PreviewModeBanner';
 import Sentry from '@/modules/sentry/sentry';
+import ErrorPage from '@/pages/_error';
 import {
   Amplitude,
   LogOnMount,
@@ -14,11 +15,10 @@ import {
   useRouter,
 } from 'next/router';
 import React, { useState } from 'react';
-import ErrorPage from '@/pages/_error';
 import Footer from '../../default/components/Footer';
 import Head, { HeadProps } from '../../default/components/Head';
-import DefaultPageContainer from './ExamplesPageContainer';
 import ExamplesNav from './ExamplesNav';
+import DefaultPageContainer from './ExamplesPageContainer';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({

@@ -1,3 +1,12 @@
+import Code from '@/common/components/dataDisplay/Code';
+import Markdown from '@/common/components/dataDisplay/Markdown';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import I18nLink from '@/modules/i18n/components/I18nLink';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -10,16 +19,10 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
-import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import Code from '@/common/components/dataDisplay/Code';
-import Markdown from '@/common/components/dataDisplay/Markdown';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/md-as-jsx';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

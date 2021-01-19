@@ -2,13 +2,13 @@ import classnames from 'classnames';
 import deepmerge from 'deepmerge';
 import isEmpty from 'lodash.isempty';
 import React from 'react';
-import { CSSStyles } from '../../css/types/CSSStyles';
+import { CSSStyles } from '@/modules/css/types/CSSStyles';
 import {
   Asset,
   AssetTransformations,
 } from '@/modules/data/types/Asset';
 import { Link } from '@/modules/data/types/Link';
-import { cssToReactStyle } from '../../css/css';
+import { cssToReactStyle } from '@/modules/css/css';
 
 export type Props = {
   /**

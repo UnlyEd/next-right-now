@@ -1,5 +1,5 @@
-import { AirtableDBTable } from '../../airtable/types/AirtableDBTable';
-import { RawAirtableRecord } from '../../airtable/types/RawAirtableRecord';
+import { AirtableDBTable } from '@/modules/airtable/types/AirtableDBTable';
+import { RawAirtableRecord } from '@/modules/airtable/types/RawAirtableRecord';
 
 /**
  * Dataset containing all raw airtable records indexed by their airtable "id" field

@@ -1,9 +1,9 @@
+import Sentry, { configureReq } from '@/modules/sentry/sentry';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import Sentry, { configureReq } from '@/modules/sentry/sentry';
 
 const fileLabel = 'api/status';
 const logger = createLogger({

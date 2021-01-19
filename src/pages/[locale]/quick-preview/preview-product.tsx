@@ -1,3 +1,12 @@
+import ProductRow from '@/common/components/dataDisplay/ProductRow';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Customer } from '@/modules/data/types/Customer';
+import { Product } from '@/modules/data/types/Product';
+import QuickPreviewLayout from '@/modules/quickPreview/components/QuickPreviewLayout';
 import { createLogger } from '@unly/utils-simple-logger';
 import find from 'lodash.find';
 import {
@@ -12,15 +21,6 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
-import ProductRow from '@/common/components/dataDisplay/ProductRow';
-import QuickPreviewLayout from '@/modules/quickPreview/components/QuickPreviewLayout';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Customer } from '@/modules/data/types/Customer';
-import { Product } from '@/modules/data/types/Product';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
 import { getDemoServerSideProps } from '../../../layouts/demo/demoSSR';
 
 const fileLabel = 'pages/[locale]/quick-preview/preview-product';

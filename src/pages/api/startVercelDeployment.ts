@@ -1,12 +1,15 @@
+import redirect from '@/common/utils/redirect';
+import dispatchWorkflowByPath from '@/modules/githubActions/dispatchWorkflowByPath';
+import Sentry, {
+  ALERT_TYPES,
+  configureReq,
+} from '@/modules/sentry/sentry';
 import { createLogger } from '@unly/utils-simple-logger';
 import size from 'lodash.size';
 import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import redirect from '@/common/utils/redirect';
-import dispatchWorkflowByPath from '@/modules/githubActions/dispatchWorkflowByPath';
-import Sentry, { ALERT_TYPES, configureReq } from '@/modules/sentry/sentry';
 
 const fileLabel = 'api/startVercelDeployment';
 const logger = createLogger({

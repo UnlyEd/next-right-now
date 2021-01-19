@@ -1,4 +1,4 @@
-import { RawAirtableRecordBaseFields } from '../../airtable/types/RawAirtableRecordBaseFields';
+import { RawAirtableRecordBaseFields } from '@/modules/airtable/types/RawAirtableRecordBaseFields';
 import { Customer } from './Customer';
 
 /**

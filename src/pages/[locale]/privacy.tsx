@@ -1,3 +1,11 @@
+import LegalContent from '@/common/components/dataDisplay/LegalContent';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { Customer } from '@/modules/data/types/Customer';
+import { replaceAllOccurrences } from '@/modules/js/string';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -6,16 +14,11 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
+import {
+  getCommonStaticPaths,
+  getCommonStaticProps,
+} from '../../layouts/base/SSG';
 import DefaultLayout from '../../layouts/default/components/DefaultLayout';
-import LegalContent from '@/common/components/dataDisplay/LegalContent';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { Customer } from '@/modules/data/types/Customer';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';
-import { replaceAllOccurrences } from '@/modules/js/string';
-import { getCommonStaticPaths, getCommonStaticProps } from '../../layouts/base/SSG';
 
 const fileLabel = 'pages/[locale]/privacy';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

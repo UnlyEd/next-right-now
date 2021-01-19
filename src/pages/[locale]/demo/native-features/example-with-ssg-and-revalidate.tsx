@@ -1,3 +1,20 @@
+import AllProducts from '@/common/components/dataDisplay/AllProducts';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { StaticPropsInput } from '@/modules/app/types/StaticPropsInput';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Customer } from '@/modules/data/types/Customer';
+import { Product } from '@/modules/data/types/Product';
+import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
+import timeDifference from '@/modules/date/timeDifference';
+import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
+import deserializeSafe from '@/modules/serializeSafe/deserializeSafe';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import find from 'lodash.find';
@@ -14,24 +31,10 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
-import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Customer } from '@/modules/data/types/Customer';
-import { Product } from '@/modules/data/types/Product';
-import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { StaticPropsInput } from '@/modules/app/types/StaticPropsInput';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import deserializeSafe from '@/modules/serializeSafe/deserializeSafe';
-import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
-import timeDifference from '@/modules/date/timeDifference';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

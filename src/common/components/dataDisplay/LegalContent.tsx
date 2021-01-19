@@ -1,10 +1,10 @@
+import { Markdown as TextAsMarkdown } from '@/modules/data/types/Markdown';
 import {
   css,
   useTheme,
 } from '@emotion/react';
 import React from 'react';
 import { Container } from 'reactstrap';
-import { Markdown as TextAsMarkdown } from '@/modules/data/types/Markdown';
 import Markdown from './Markdown';
 
 export type Props = {

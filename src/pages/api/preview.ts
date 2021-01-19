@@ -1,11 +1,11 @@
+import { filterExternalAbsoluteUrl } from '@/modules/js/url';
+import Sentry, { configureReq } from '@/modules/sentry/sentry';
 import { createLogger } from '@unly/utils-simple-logger';
 import appendQueryParameter from 'append-query';
 import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { filterExternalAbsoluteUrl } from '@/modules/js/url';
-import Sentry, { configureReq } from '@/modules/sentry/sentry';
 
 const fileLabel = 'api/preview';
 const logger = createLogger({

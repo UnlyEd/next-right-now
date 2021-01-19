@@ -1,9 +1,9 @@
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import {
   GetStaticPaths,
   GetStaticProps,
 } from 'next';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import ExampleI18nLinkComponentPage, {
   getStaticPaths as getStaticPathsHomePage,
   getStaticProps as getStaticPropsHomePage,

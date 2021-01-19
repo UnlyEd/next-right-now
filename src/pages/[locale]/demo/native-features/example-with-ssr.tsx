@@ -1,3 +1,14 @@
+import AllProducts from '@/common/components/dataDisplay/AllProducts';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Customer } from '@/modules/data/types/Customer';
+import { Product } from '@/modules/data/types/Product';
 import { createLogger } from '@unly/utils-simple-logger';
 import size from 'lodash.size';
 import {
@@ -10,17 +21,6 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Customer } from '@/modules/data/types/Customer';
-import { Product } from '@/modules/data/types/Product';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
 import { getDemoServerSideProps } from '../../../../layouts/demo/demoSSR';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';

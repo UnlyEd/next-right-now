@@ -19,24 +19,24 @@ import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Customer } from '@/modules/data/types/Customer';
 import { CustomerTheme } from '@/modules/data/types/CustomerTheme';
 import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
-import DefaultErrorLayout from '../../errorHandling/DefaultErrorLayout';
-import i18nContext from '../../i18n/contexts/i18nContext';
-import i18nextLocize from '../../i18n/i18nextLocize';
+import DefaultErrorLayout from '@/modules/errorHandling/DefaultErrorLayout';
+import i18nContext from '@/modules/i18n/contexts/i18nContext';
+import i18nextLocize from '@/modules/i18n/i18nextLocize';
 import {
   i18nRedirect,
   stringifyQueryParameters,
-} from '../../i18n/i18nRouter';
-import { detectLightHouse } from '../../lightHouse/lighthouse';
-import previewModeContext from '../../previewMode/contexts/previewModeContext';
+} from '@/modules/i18n/i18nRouter';
+import { detectLightHouse } from '@/modules/lightHouse/lighthouse';
+import previewModeContext from '@/modules/previewMode/contexts/previewModeContext';
 import {
   startPreviewMode,
   stopPreviewMode,
-} from '../../previewMode/previewMode';
-import quickPreviewContext from '../../quickPreview/contexts/quickPreviewContext';
-import { configureSentryI18n } from '../../sentry/sentry';
-import deserializeSafe from '../../serializeSafe/deserializeSafe';
-import { detectCypress } from '../../testing/cypress';
-import { initCustomerTheme } from '../../theming/theme';
+} from '@/modules/previewMode/previewMode';
+import quickPreviewContext from '@/modules/quickPreview/contexts/quickPreviewContext';
+import { configureSentryI18n } from '@/modules/sentry/sentry';
+import deserializeSafe from '@/modules/serializeSafe/deserializeSafe';
+import { detectCypress } from '@/modules/testing/cypress';
+import { initCustomerTheme } from '@/modules/theming/theme';
 import getComponentName from '../getComponentName';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';

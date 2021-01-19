@@ -1,4 +1,4 @@
-import { RawAirtableRecord } from '../../airtable/types/RawAirtableRecord';
+import { RawAirtableRecord } from '@/modules/airtable/types/RawAirtableRecord';
 import { RawAirtableDataset } from '@/modules/data/types/RawAirtableDataset';
 import { RawCustomer } from '@/modules/data/types/RawCustomer';
 import { RawTheme } from '@/modules/data/types/RawTheme';

@@ -13,7 +13,7 @@ import {
   useTranslation,
 } from 'react-i18next';
 import usePreviewMode, { PreviewMode } from '../hooks/usePreviewMode';
-import { stringifyQueryParameters } from '../../i18n/i18nRouter';
+import { stringifyQueryParameters } from '@/modules/i18n/i18nRouter';
 import {
   startPreviewMode,
   stopPreviewMode,

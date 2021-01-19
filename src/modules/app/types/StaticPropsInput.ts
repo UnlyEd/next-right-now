@@ -1,5 +1,5 @@
 import { CommonServerSideParams } from './CommonServerSideParams';
-import { PreviewData } from '../../previewMode/types/PreviewData';
+import { PreviewData } from '@/modules/previewMode/types/PreviewData';
 
 /**
  * Static props given as inputs for getStaticProps

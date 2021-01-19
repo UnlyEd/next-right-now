@@ -1,10 +1,13 @@
+import { convertRequestBodyToJSObject } from '@/modules/api/convertRequestBodyToJSObject';
+import Sentry, {
+  ALERT_TYPES,
+  configureReq,
+} from '@/modules/sentry/sentry';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { convertRequestBodyToJSObject } from '@/modules/api/convertRequestBodyToJSObject';
-import Sentry, { ALERT_TYPES, configureReq } from '@/modules/sentry/sentry';
 
 const fileLabel = 'api/webhooks/deploymentCompleted';
 const logger = createLogger({

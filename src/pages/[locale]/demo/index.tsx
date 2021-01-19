@@ -1,3 +1,13 @@
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import BuiltInFeaturesSection from '@/layouts/demo/components/BuiltInFeaturesSection';
+import BuiltInUtilitiesSection from '@/layouts/demo/components/BuiltInUtilitiesSection';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import ExternalFeaturesSection from '@/layouts/demo/components/ExternalFeaturesSection';
+import IntroductionSection from '@/layouts/demo/components/IntroductionSection';
+import NativeFeaturesSection from '@/layouts/demo/components/NativeFeaturesSection';
+import { LogEvent } from '@/modules/amplitude/types/Amplitude';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -7,17 +17,10 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import BuiltInFeaturesSection from '@/layouts/demo/components/BuiltInFeaturesSection';
-import BuiltInUtilitiesSection from '@/layouts/demo/components/BuiltInUtilitiesSection';
-import ExternalFeaturesSection from '@/layouts/demo/components/ExternalFeaturesSection';
-import IntroductionSection from '@/layouts/demo/components/IntroductionSection';
-import NativeFeaturesSection from '@/layouts/demo/components/NativeFeaturesSection';
-import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { getDemoStaticPaths, getDemoStaticProps } from '../../../layouts/demo/demoSSG';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

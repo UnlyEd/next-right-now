@@ -1,10 +1,3 @@
-import map from 'lodash.map';
-import {
-  GetStaticPaths,
-  GetStaticPathsContext,
-  GetStaticProps,
-  GetStaticPropsResult,
-} from 'next';
 import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
@@ -27,6 +20,13 @@ import {
 import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
 import { PreviewData } from '@/modules/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/serializeSafe/serializeSafe';
+import map from 'lodash.map';
+import {
+  GetStaticPaths,
+  GetStaticPathsContext,
+  GetStaticProps,
+  GetStaticPropsResult,
+} from 'next';
 import { SSGPageProps } from './types/SSGPageProps';
 
 /**

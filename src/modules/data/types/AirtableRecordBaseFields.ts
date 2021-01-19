@@ -1,4 +1,4 @@
-import { AirtableDBTable } from '../../airtable/types/AirtableDBTable';
+import { AirtableDBTable } from '@/modules/airtable/types/AirtableDBTable';
 
 /**
  * Fields available on all consolidated airtable records.

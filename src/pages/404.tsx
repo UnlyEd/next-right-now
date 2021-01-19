@@ -1,3 +1,13 @@
+import Btn from '@/common/components/dataDisplay/Btn';
+import { SoftPageProps } from '@/modules/../layouts/base/types/SoftPageProps';
+import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import I18nLink from '@/modules/i18n/components/I18nLink';
+import {
+  DEFAULT_LOCALE,
+  LANG_EN,
+  LANG_FR,
+} from '@/modules/i18n/i18n';
 import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -12,12 +22,6 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import I18nLink from '@/modules/i18n/components/I18nLink';
-import Btn from '@/common/components/dataDisplay/Btn';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { SoftPageProps } from '@/modules/../layouts/base/types/SoftPageProps';
-import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
-import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '@/modules/i18n/i18n';
 import { getCommonStaticProps } from '../layouts/base/SSG';
 import DefaultLayout from '../layouts/default/components/DefaultLayout';
 

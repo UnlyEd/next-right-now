@@ -1,3 +1,7 @@
+import { CSSStyles } from '@/modules/css/types/CSSStyles';
+import { Markdown as MarkdownType } from '@/modules/data/types/Markdown';
+import I18nBtnChangeLocale from '@/modules/i18n/components/I18nBtnChangeLocale';
+import I18nLink from '@/modules/i18n/components/I18nLink';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
@@ -17,10 +21,6 @@ import {
   Row,
   UncontrolledDropdown as Dropdown,
 } from 'reactstrap';
-import { CSSStyles } from '@/modules/css/types/CSSStyles';
-import { Markdown as MarkdownType } from '@/modules/data/types/Markdown';
-import I18nBtnChangeLocale from '@/modules/i18n/components/I18nBtnChangeLocale';
-import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from './Btn';
 import Tooltip from './SimpleTooltip';
 

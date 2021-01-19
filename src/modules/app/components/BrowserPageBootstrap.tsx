@@ -14,24 +14,24 @@ import { createLogger } from '@unly/utils-simple-logger';
 import { AmplitudeClient } from 'amplitude-js';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { getAmplitudeInstance } from '../../amplitude/amplitude';
-import amplitudeContext from '../../amplitude/context/amplitudeContext';
-import UniversalCookiesManager from '../../cookiesManager/UniversalCookiesManager';
+import { getAmplitudeInstance } from '@/modules/amplitude/amplitude';
+import amplitudeContext from '@/modules/amplitude/context/amplitudeContext';
+import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import useDataset from '@/modules/data/hooks/useDataset';
 import { Customer } from '@/modules/data/types/Customer';
-import { detectLightHouse } from '../../lightHouse/lighthouse';
-import { configureSentryUser } from '../../sentry/sentry';
-import { cypressContext } from '../../testing/contexts/cypressContext';
+import { detectLightHouse } from '@/modules/lightHouse/lighthouse';
+import { configureSentryUser } from '@/modules/sentry/sentry';
+import { cypressContext } from '@/modules/testing/contexts/cypressContext';
 import {
   CYPRESS_WINDOW_NS,
   detectCypress,
-} from '../../testing/cypress';
-import userConsentContext from '../../userConsent/contexts/userConsentContext';
-import initCookieConsent, { getUserConsent } from '../../userConsent/cookieConsent';
-import { UserConsent } from '../../userConsent/types/UserConsent';
-import { UserSemiPersistentSession } from '../../userSession/types/UserSemiPersistentSession';
-import { userSessionContext } from '../../userSession/userSessionContext';
+} from '@/modules/testing/cypress';
+import userConsentContext from '@/modules/userConsent/contexts/userConsentContext';
+import initCookieConsent, { getUserConsent } from '@/modules/userConsent/cookieConsent';
+import { UserConsent } from '@/modules/userConsent/types/UserConsent';
+import { UserSemiPersistentSession } from '@/modules/userSession/types/UserSemiPersistentSession';
+import { userSessionContext } from '@/modules/userSession/userSessionContext';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 

@@ -1,3 +1,15 @@
+import Code from '@/common/components/dataDisplay/Code';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import { LogEvent } from '@/modules/amplitude/types/Amplitude';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
+import useUserSession, { UserSession } from '@/modules/userSession/useUserSession';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -12,19 +24,10 @@ import {
   Alert,
   Button,
 } from 'reactstrap';
-import Code from '@/common/components/dataDisplay/Code';
-import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
-import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
-import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
-import useUserSession, { UserSession } from '@/modules/userSession/useUserSession';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/analytics';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -1,3 +1,17 @@
+import Btn from '@/common/components/dataDisplay/Btn';
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import waitFor from '@/common/utils/waitFor';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { StaticPath } from '@/modules/app/types/StaticPath';
+import { StaticPathsOutput } from '@/modules/app/types/StaticPathsOutput';
+import { StaticPropsInput } from '@/modules/app/types/StaticPropsInput';
+import I18nLink from '@/modules/i18n/components/I18nLink';
+import { getRandomInt } from '@/modules/js/random';
+import songs from '@/modules/testing/mocks/songs';
 import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
@@ -12,21 +26,10 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import I18nLink from '@/modules/i18n/components/I18nLink';
-import Btn from '@/common/components/dataDisplay/Btn';
-import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { StaticPath } from '@/modules/app/types/StaticPath';
-import { StaticPathsOutput } from '@/modules/app/types/StaticPathsOutput';
-import { StaticPropsInput } from '@/modules/app/types/StaticPropsInput';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { getRandomInt } from '@/modules/js/random';
-import { getDemoStaticPaths, getDemoStaticProps } from '../../../../../layouts/demo/demoSSG';
-import waitFor from '@/common/utils/waitFor';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import songs from '@/modules/testing/mocks/songs';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '../../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-fallback/[albumId]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

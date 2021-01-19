@@ -1,3 +1,8 @@
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -7,12 +12,10 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/top-level-500-error';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

@@ -1,3 +1,15 @@
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
+import { getDemoStaticProps } from '@/layouts/demo/demoSSG';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { StaticPath } from '@/modules/app/types/StaticPath';
+import { StaticPathsOutput } from '@/modules/app/types/StaticPathsOutput';
+import I18nLink from '@/modules/i18n/components/I18nLink';
+import { supportedLocales } from '@/modules/i18n/i18nConfig';
+import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
 import { createLogger } from '@unly/utils-simple-logger';
 import map from 'lodash.map';
 import {
@@ -9,18 +21,6 @@ import { useRouter } from 'next/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
-import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import I18nLink from '@/modules/i18n/components/I18nLink';
-import { supportedLocales } from '@/modules/i18n/i18nConfig';
-import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { StaticPath } from '@/modules/app/types/StaticPath';
-import { StaticPathsOutput } from '@/modules/app/types/StaticPathsOutput';
-import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { getDemoStaticProps } from '@/layouts/demo/demoSSG';
-import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-optional-catch-all-routes/[[...slug]]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

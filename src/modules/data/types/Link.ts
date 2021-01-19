@@ -1,4 +1,4 @@
-import { CSSStyles } from '../../css/types/CSSStyles';
+import { CSSStyles } from '@/modules/css/types/CSSStyles';
 
 export type Link = {
   id?: string;

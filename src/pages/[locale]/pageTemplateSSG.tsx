@@ -1,3 +1,7 @@
+import {
+  getCommonStaticPaths,
+  getCommonStaticProps,
+} from '@/layouts/base/SSG';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
@@ -10,10 +14,6 @@ import {
   NextPage,
 } from 'next';
 import React from 'react';
-import {
-  getCommonStaticPaths,
-  getCommonStaticProps,
-} from '@/layouts/base/SSG';
 import DefaultLayout from '../../layouts/default/components/DefaultLayout';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSG';
