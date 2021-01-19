@@ -15,7 +15,7 @@ import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';

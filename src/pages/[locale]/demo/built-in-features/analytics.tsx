@@ -22,7 +22,7 @@ import { LogEvent } from '@/modules/amplitude/types/Amplitude';
 import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import useUserSession, { UserSession } from '@/modules/userSession/useUserSession';
 

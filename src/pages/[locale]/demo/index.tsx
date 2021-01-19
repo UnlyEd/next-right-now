@@ -13,7 +13,7 @@ import ExternalFeaturesSection from '@/layouts/demo/components/ExternalFeaturesS
 import IntroductionSection from '@/layouts/demo/components/IntroductionSection';
 import NativeFeaturesSection from '@/layouts/demo/components/NativeFeaturesSection';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { getDemoStaticPaths, getDemoStaticProps } from '../../../layouts/demo/demoSSG';

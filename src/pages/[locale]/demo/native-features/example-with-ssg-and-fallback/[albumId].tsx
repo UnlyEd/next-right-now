@@ -16,10 +16,10 @@ import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSideb
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from '@/common/components/dataDisplay/Btn';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
-import { StaticPath } from '@/modules/bootstrapping/types/StaticPath';
-import { StaticPathsOutput } from '@/modules/bootstrapping/types/StaticPathsOutput';
-import { StaticPropsInput } from '@/modules/bootstrapping/types/StaticPropsInput';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { StaticPath } from '@/modules/app/types/StaticPath';
+import { StaticPathsOutput } from '@/modules/app/types/StaticPathsOutput';
+import { StaticPropsInput } from '@/modules/app/types/StaticPropsInput';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { getRandomInt } from '@/modules/js/random';

@@ -14,7 +14,7 @@ import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitiz
 import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
 import { PublicHeaders } from '@/layouts/base/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { Cookies } from '@/modules/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
 import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';

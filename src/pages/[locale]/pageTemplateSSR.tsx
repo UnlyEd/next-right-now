@@ -1,8 +1,8 @@
-import DefaultLayout from '../../layouts/default/components/DefaultLayout';
-import { getCommonServerSideProps } from '../../layouts/base/SSR';
+import { getCommonServerSideProps } from '@/layouts/base/SSR';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';

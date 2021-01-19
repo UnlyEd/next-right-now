@@ -12,7 +12,7 @@ import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
 import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { Cookies } from '@/modules/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
 import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';

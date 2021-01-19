@@ -1,9 +1,9 @@
 import size from 'lodash.size';
 import React from 'react';
 import { v1 as uuid } from 'uuid'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
-import MultiversalAppBootstrap from '@/modules/bootstrapping/components/MultiversalAppBootstrap';
-import '@/modules/bootstrapping/components/MultiversalGlobalExternalStyles';
-import { MultiversalAppBootstrapProps } from '@/modules/bootstrapping/types/MultiversalAppBootstrapProps';
+import MultiversalAppBootstrap from '@/modules/app/components/MultiversalAppBootstrap';
+import '@/modules/app/components/MultiversalGlobalExternalStyles';
+import { MultiversalAppBootstrapProps } from '@/modules/app/types/MultiversalAppBootstrapProps';
 import { NextWebVitalsMetrics } from '@/modules/webVitals/types/NextWebVitalsMetrics';
 import { NextWebVitalsMetricsReport } from '@/modules/webVitals/types/NextWebVitalsMetricsReport';
 import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';

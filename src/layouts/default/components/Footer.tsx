@@ -4,7 +4,7 @@ import {
 } from '@emotion/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NRN_CO_BRANDING_LOGO_URL } from '@/modules/bootstrapping/constants';
+import { NRN_CO_BRANDING_LOGO_URL } from '@/modules/app/constants';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { CSSStyles } from '@/modules/css/types/CSSStyles';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';

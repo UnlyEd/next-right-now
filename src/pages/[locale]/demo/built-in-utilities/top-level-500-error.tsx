@@ -9,7 +9,7 @@ import {
 import React from 'react';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';

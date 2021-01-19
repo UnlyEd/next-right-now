@@ -19,7 +19,7 @@ import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
 import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/svg-to-react';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

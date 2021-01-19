@@ -11,7 +11,7 @@ import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesS
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';

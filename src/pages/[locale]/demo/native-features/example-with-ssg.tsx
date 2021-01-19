@@ -22,7 +22,7 @@ import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Customer } from '@/modules/data/types/Customer';
 import { Product } from '@/modules/data/types/Product';
 import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SUPPORTED_LOCALES } from '@/modules/i18n/i18n';

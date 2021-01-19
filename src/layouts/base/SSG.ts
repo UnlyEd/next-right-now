@@ -9,10 +9,10 @@ import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
 import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
-import { StaticPath } from '@/modules/bootstrapping/types/StaticPath';
-import { StaticPathsOutput } from '@/modules/bootstrapping/types/StaticPathsOutput';
-import { StaticPropsInput } from '@/modules/bootstrapping/types/StaticPropsInput';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { StaticPath } from '@/modules/app/types/StaticPath';
+import { StaticPathsOutput } from '@/modules/app/types/StaticPathsOutput';
+import { StaticPropsInput } from '@/modules/app/types/StaticPropsInput';
 import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';
 import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
 import {

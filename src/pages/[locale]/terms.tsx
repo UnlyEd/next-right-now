@@ -10,7 +10,7 @@ import DefaultLayout from '../../layouts/default/components/DefaultLayout';
 import LegalContent from '@/common/components/dataDisplay/LegalContent';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';

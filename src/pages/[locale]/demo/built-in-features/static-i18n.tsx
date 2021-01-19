@@ -23,7 +23,7 @@ import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrow
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { resolveCustomerVariationLang } from '@/modules/i18n/i18n';

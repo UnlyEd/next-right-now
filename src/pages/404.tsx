@@ -14,7 +14,7 @@ import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from '@/common/components/dataDisplay/Btn';
-import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
 import { SoftPageProps } from '@/modules/../layouts/base/types/SoftPageProps';
 import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '@/modules/i18n/i18n';
