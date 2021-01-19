@@ -7,10 +7,10 @@ import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
 import { Container } from 'reactstrap';
 import { GenericObject } from '@/modules/data/types/GenericObject';
-import { SoftPageProps } from '../../../layouts/base/types/SoftPageProps';
+import { SoftPageProps } from '@/layouts/base/types/SoftPageProps';
 import Sentry from '../../sentry/sentry';
 import QuickPreviewBanner from './QuickPreviewBanner';
-import Head, { HeadProps } from '../../../layouts/default/components/Head';
+import Head, { HeadProps } from '@/layouts/default/components/Head';
 
 const fileLabel = 'components/pageLayouts/QuickPreviewLayout';
 const logger = createLogger({
