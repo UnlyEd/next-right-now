@@ -26,6 +26,7 @@ module.exports = {
     '^@/components/(.*)$': '<rootDir>/src/common/components/$1',
     '^@/utils/(.*)$': '<rootDir>/src/common/utils/$1',
     '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
   },
   modulePathIgnorePatterns: [
     '.next/',

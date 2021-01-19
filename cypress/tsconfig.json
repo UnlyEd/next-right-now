@@ -18,6 +18,9 @@
       ],
       "@/modules/*": [
         "../src/modules/*"
+      ],
+      "@/pages/*": [
+        "src/pages/*"
       ]
     },
     "types": [
