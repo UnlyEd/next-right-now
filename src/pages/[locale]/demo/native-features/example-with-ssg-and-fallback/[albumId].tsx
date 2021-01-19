@@ -7,7 +7,7 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import waitFor from '@/common/utils/waitFor';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import {
   getDemoStaticPaths,
@@ -138,7 +138,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
   } = album;
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'example-with-ssg-and-fallback/[albumId]'}
       headProps={{
@@ -249,7 +249,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
         </Alert>
       </div>
 
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

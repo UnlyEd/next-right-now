@@ -3,7 +3,7 @@ import Code from '@/common/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
@@ -53,7 +53,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const HocsPage: NextPage<Props> = (props): JSX.Element => {
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'hocs'}
       headProps={{
@@ -106,7 +106,7 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
         </Alert>
 
       </DemoPage>
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

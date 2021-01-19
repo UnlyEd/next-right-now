@@ -4,7 +4,7 @@ import Markdown from '@/common/components/dataDisplay/Markdown';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
@@ -59,7 +59,7 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
   const markdownTooltipExample = '<Tooltip text="This is a tooltip text written as text and interpreted as JSX component at runtime"><Button>Some text with a tooltip on click/hover</Button></Tooltip>';
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'md-as-jsx'}
       headProps={{
@@ -248,7 +248,7 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
 
         </Container>
       </DemoPage>
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

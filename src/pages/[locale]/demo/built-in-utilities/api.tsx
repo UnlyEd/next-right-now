@@ -3,7 +3,7 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
@@ -52,7 +52,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ApiPage: NextPage<Props> = (props): JSX.Element => {
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'api'}
       headProps={{
@@ -85,7 +85,7 @@ const ApiPage: NextPage<Props> = (props): JSX.Element => {
           </ul>
         </div>
       </DemoPage>
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

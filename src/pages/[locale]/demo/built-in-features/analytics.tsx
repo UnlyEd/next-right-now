@@ -5,7 +5,7 @@ import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrow
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
@@ -68,7 +68,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
   const { deviceId }: UserSession = useUserSession();
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'analytics'}
       headProps={{
@@ -194,7 +194,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
 
             <h2>Events - Automated page views</h2>
             <p>
-              Below is how we automatically track all page views (through the <code>DefaultLayout</code> component):
+              Below is how we automatically track all page views (through the <code>DemoLayout</code> component):
             </p>
 
             <Code
@@ -322,7 +322,7 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
           </DemoPage>
         )}
       </Amplitude>
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

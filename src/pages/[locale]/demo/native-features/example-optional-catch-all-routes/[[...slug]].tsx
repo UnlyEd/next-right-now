@@ -3,7 +3,7 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import DemoPage from '@/layouts/demo/components/DemoPage';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import { getDemoStaticProps } from '@/layouts/demo/demoSSG';
@@ -76,7 +76,7 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
   const { slug } = query;
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'examples'}
       headProps={{
@@ -108,7 +108,7 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
           <b>when using SSG</b>, otherwise it'll generate a 404 page, and won't be able to dynamically generate the page.<br />
         </Alert>
       </DemoPage>
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

@@ -3,7 +3,7 @@ import Code from '@/common/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -56,7 +56,7 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
   const [isClicked, setIsClicked] = useState(false);
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'interactive-error'}
       headProps={{
@@ -106,7 +106,7 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
           </Button>
         `}
       />
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

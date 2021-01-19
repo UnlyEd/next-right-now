@@ -3,7 +3,7 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
 import useCustomer from '@/modules/data/hooks/useCustomer';
@@ -57,7 +57,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
   const products: AirtableRecord<Product>[] = customer?.products;
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'example-with-ssr'}
       headProps={{
@@ -88,7 +88,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 
         <AllProducts products={products} />
       </Container>
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

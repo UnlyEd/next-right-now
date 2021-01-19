@@ -5,7 +5,7 @@ import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrow
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
@@ -68,7 +68,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
   const { lang }: I18n = useI18n();
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'static-i18n'}
       headProps={{
@@ -301,7 +301,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
           </div>
         </Container>
       </DemoPage>
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

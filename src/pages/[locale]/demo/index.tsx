@@ -3,7 +3,7 @@ import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSection from '@/layouts/demo/components/BuiltInFeaturesSection';
 import BuiltInUtilitiesSection from '@/layouts/demo/components/BuiltInUtilitiesSection';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import ExternalFeaturesSection from '@/layouts/demo/components/ExternalFeaturesSection';
 import IntroductionSection from '@/layouts/demo/components/IntroductionSection';
 import NativeFeaturesSection from '@/layouts/demo/components/NativeFeaturesSection';
@@ -55,7 +55,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'index'}
       headProps={{
@@ -81,7 +81,7 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
         }
       </Amplitude>
 
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

@@ -2,7 +2,7 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
@@ -55,7 +55,7 @@ const TopLevel500ErrorPage: NextPage<Props> = (props): JSX.Element => {
   }
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'top-level-500-error'}
       headProps={{
@@ -64,7 +64,7 @@ const TopLevel500ErrorPage: NextPage<Props> = (props): JSX.Element => {
       Sidebar={BuiltInUtilitiesSidebar}
     >
       Top-level 500 error example
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

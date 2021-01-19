@@ -4,7 +4,7 @@ import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
-import DefaultLayout from '@/layouts/demo/components/DemoLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
@@ -63,7 +63,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
   const airtableProducts: AirtableRecord<Product>[] = customer?.products;
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'airtable-component'}
       headProps={{
@@ -364,7 +364,7 @@ const ExampleAirtableAssetComponentPage: NextPage<Props> = (props): JSX.Element 
         />
 
       </DemoPage>
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 
