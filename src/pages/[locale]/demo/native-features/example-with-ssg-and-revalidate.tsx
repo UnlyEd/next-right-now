@@ -5,8 +5,8 @@ import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { StaticPropsInput } from '@/modules/app/types/StaticPropsInput';
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Customer } from '@/modules/data/types/Customer';

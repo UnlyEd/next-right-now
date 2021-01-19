@@ -5,7 +5,7 @@ import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import { createLogger } from '@unly/utils-simple-logger';
 import {

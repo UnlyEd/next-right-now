@@ -1,4 +1,4 @@
-import { MultiversalAppBootstrapPageProps } from '@/modules/app/types/MultiversalAppBootstrapPageProps';
+import { MultiversalAppBootstrapPageProps } from '@/app/types/MultiversalAppBootstrapPageProps';
 import { MultiversalPageProps } from './MultiversalPageProps';
 import { OnlyServerPageProps } from './OnlyServerPageProps';
 

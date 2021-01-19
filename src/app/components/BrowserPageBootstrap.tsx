@@ -1,7 +1,7 @@
 import {
   getIframeReferrer,
   isRunningInIframe,
-} from '@/common/utils/iframe';
+} from '@/utils/iframe';
 import { MultiversalPageProps } from '@/layouts/base/types/MultiversalPageProps';
 import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
 import {

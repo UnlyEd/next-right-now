@@ -1,4 +1,4 @@
-import Loader from '@/common/components/animations/Loader';
+import Loader from '@/components/animations/Loader';
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
 import ErrorPage from '@/pages/_error';

@@ -5,10 +5,10 @@ import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
-import { StaticPath } from '@/modules/app/types/StaticPath';
-import { StaticPathsOutput } from '@/modules/app/types/StaticPathsOutput';
-import { StaticPropsInput } from '@/modules/app/types/StaticPropsInput';
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { StaticPath } from '@/app/types/StaticPath';
+import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
+import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import { getRandomInt } from '@/modules/js/random';
 import songs from '@/modules/testing/mocks/songs';

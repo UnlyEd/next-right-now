@@ -3,7 +3,7 @@ import {
   Global,
 } from '@emotion/react';
 import React from 'react';
-import { NRN_DEFAULT_FALLBACK_FONTS } from '@/modules/app/constants';
+import { NRN_DEFAULT_FALLBACK_FONTS } from '../constants';
 import { CustomerTheme } from '@/modules/data/types/CustomerTheme';
 
 type Props = {

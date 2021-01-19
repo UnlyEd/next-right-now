@@ -7,7 +7,7 @@ import ExternalFeaturesSection from '@/layouts/demo/components/ExternalFeaturesS
 import IntroductionSection from '@/layouts/demo/components/IntroductionSection';
 import NativeFeaturesSection from '@/layouts/demo/components/NativeFeaturesSection';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
 import {

@@ -5,7 +5,7 @@ import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSid
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
 import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
 import { Amplitude } from '@amplitude/react-amplitude';

@@ -6,7 +6,7 @@ import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesS
 import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
 import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
-import { CommonServerSideParams } from '@/modules/app/types/CommonServerSideParams';
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Asset } from '@/modules/data/types/Asset';
