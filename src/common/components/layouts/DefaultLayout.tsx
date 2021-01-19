@@ -14,7 +14,7 @@ import {
   useRouter,
 } from 'next/router';
 import React from 'react';
-import ErrorPage from '../../../pages/_error';
+import ErrorPage from '@/pages/_error';
 import DefaultPageContainer from './DefaultPageContainer';
 import Footer from './Footer';
 import Head, { HeadProps } from './Head';
