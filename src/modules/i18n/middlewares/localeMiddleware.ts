@@ -11,7 +11,7 @@ import {
   DEFAULT_LOCALE,
 } from '../i18n';
 
-const fileLabel = 'utils/localeMiddleware';
+const fileLabel = 'modules/i18n/localeMiddleware';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

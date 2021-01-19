@@ -24,7 +24,7 @@ import {
 import Btn from './Btn';
 import Tooltip from './SimpleTooltip';
 
-const fileLabel = 'components/utils/Markdown';
+const fileLabel = 'common/components/dataDisplay/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

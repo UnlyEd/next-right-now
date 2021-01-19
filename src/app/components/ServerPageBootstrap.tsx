@@ -8,7 +8,7 @@ import React from 'react';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 
-const fileLabel = 'components/appBootstrap/ServerPageBootstrap';
+const fileLabel = 'app/components/ServerPageBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });

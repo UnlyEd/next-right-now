@@ -2,7 +2,7 @@ import { createLogger } from '@unly/utils-simple-logger';
 import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 import Sentry, { ALERT_TYPES } from '../sentry/sentry';
 
-const fileLabel = 'utils/githubActions/dispatchWorkflow';
+const fileLabel = 'modules/githubActions/dispatchWorkflow';
 const logger = createLogger({
   label: fileLabel,
 });

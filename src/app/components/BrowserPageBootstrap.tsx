@@ -35,7 +35,7 @@ import { useTranslation } from 'react-i18next';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 
-const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
+const fileLabel = 'app/components/BrowserPageBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });

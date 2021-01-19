@@ -43,7 +43,7 @@ import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBo
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
 
-const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
+const fileLabel = 'app/components/MultiversalAppBootstrap';
 const logger = createLogger({
   label: fileLabel,
 });
