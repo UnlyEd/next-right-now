@@ -16,7 +16,7 @@ Overview of what each folder is about:
 - `app`: Contains code _(components, business logic, types)_ that is being used by the special `pages/_app.tsx` Next.js file.
 - `common`: Contains everything that cannot be categorized as a `module`. _See documentation below._
 - `layouts`: Contains the layouts used by pages. _See documentation below._
-  - `base`: Contains reusable/extendable code _(components, business logic, data fetching)_ used by other layouts.
+  - `core`: Contains reusable/extendable code _(components, business logic, data fetching)_ used by other layouts.
   - `default`: Default layout that comes built-in with the strict minimum components (Nav, Footer).
     _If you use NRN as a boilerplate, that's the layout you should get started with!_
   - `demo`: Layout used by the [Next Right Now demo](https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app) pages.
@@ -76,25 +76,25 @@ A layout is composed of elements (Components, utils, etc.) that are used in seve
 Layouts change the meta components that are used by several pages.
 
 For instance, Next Right Now comes built-in with the following layouts:
-- base
-- default
-- demo
+- `core`
+- `default`
+- `demo`
 
-#### `base` layout
+#### `core` layout
 
-The `base` is a bit particular. It's meant to contain code shared between several layouts.
+The `core` is a bit particular. It's meant to contain code shared between several layouts.
 
 For instance, you might have a `Nav` component that displays some links in the home page, and other links once connected.
 If the business logic behind the `Nav` component is very different, you might prefer to use 2 different components.
 
 But, if the business logic is similar and only the links themselves are different,
-you might prefer to avoid code duplication and have one `base/components/Nav` component that is being configured differently by the other layouts.
+you might prefer to avoid code duplication and have one `core/components/Nav` component that is being configured differently by the other layouts.
 
-That's the purpose of the `base` folder, to contain such components that are used by other layouts.
+That's the purpose of the `core` folder, to contain such components that are used by other layouts.
 
 > Although components are the most common way to share code between layouts, you might also need to share ways to fetch data or share page properties.
 >
-> Those are also good and valid use-cases for using the `base` folder.
+> Those are also good and valid use-cases for using the `core` folder.
 
 #### `default` layout
 
@@ -115,7 +115,7 @@ It'll be most useful at the beginning, when you learn how to build your own page
 
 It's also a good example on how to use layouts, and why they're interesting!
 
-For instance, the `demo` layout customises the `Nav`, but uses the same `Footer` as those in the `base` layout.
+For instance, the `demo` layout customises the `Nav`, but uses the same `Footer` as those in the `core` layout.
 
 #### Adding more layouts?
 
@@ -145,6 +145,13 @@ You should group code together into a module if:
 Modules are the natural evolution of "big" apps.
 Actually, your app doesn't need to be "big" (what's "big" anyway?).
 
+> Do you remember those days where we had our code splitted between `js` and `css` folders?
+>
+> When React/Angular/Vue came out, they changed the way we build UI by introducing the concept of "Components",
+where JS and CSS code lives together, as a unified Component with all related code within the component folder.
+>
+> Modules are very similar.
+
 Here is how we decide (at Unly) if we should use a module:
 - It should be composed of, at least, 2 different entities.
     - Entities are: Types, Components, Utilities, Hooks, Contexts, etc.
@@ -165,7 +172,7 @@ Therefore, it's beginner-friendly.
 But, **it doesn't scale**.
 
 When you reach a dozen different features, all that code is grouped together (e.g: "Components") even though it's not related to each other.
-On the other hand, when a developer wants to do something on the base code, it's often related to a "feature".
+On the other hand, when a developer wants to do something, it's often related to a "feature".
 But, the code related to the feature is splattered in many folders and sub-folders because of the MVC pattern.
 
 This makes it much harder to locate the code, and doesn't give an overview of all the related pieces.

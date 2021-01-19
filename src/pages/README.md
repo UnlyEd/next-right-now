@@ -14,10 +14,10 @@ But, it's also the case for top-level `import` that are only used within those f
 [https://next-code-elimination.now.sh/](https://next-code-elimination.now.sh/) will help you visualise the difference between the code you write and what's actually bundled into the client.
 
 Example with:
-- [https://next-code-elimination.now.sh/s/hc9SWg_fj]([locale]/demo/pageTemplateSSG)
-- [https://next-code-elimination.now.sh/s/M0oIDdQJ2]([locale]/demo/pageTemplateSSR)
-- [https://next-code-elimination.now.sh/s/nejeyE9MH]([locale]/demo/native-features/example-with-ssg-and-fallback/[albumId])
+- [`[locale]/pageTemplateSSG`](https://next-code-elimination.now.sh/s/hc9SWg_fj)
+- [`[locale]/pageTemplateSSR`](https://next-code-elimination.now.sh/s/M0oIDdQJ2)
+- [`[locale]/demo/native-features/example-with-ssg-and-fallback/[albumId]`](https://next-code-elimination.now.sh/s/nejeyE9MH)
 
-> You'll notice for both those files that server-side module imports such as `ApolloQueryResult` are completely stripped from the client-side build.
+> You'll notice for both those files that server-side module imports (such as `ApolloQueryResult`) are completely stripped from the client-side build.
 >
 > Also, for `[albumId]`, relative imports such as `songs` are also automatically stripped!
