@@ -8,8 +8,8 @@ import find from 'lodash.find';
 import React from 'react';
 import { withNextRouter } from 'storybook-addon-next-router';
 import { withPerformance } from 'storybook-addon-performance';
-import '@/modules/../src/app/components/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
-import MultiversalGlobalStyles from '@/modules/../src/app/components/MultiversalGlobalStyles';
+import '@/app/components/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
+import MultiversalGlobalStyles from '@/app/components/MultiversalGlobalStyles';
 import { defaultLocale, getLangFromLocale, supportedLocales } from '@/modules/i18n/i18nConfig';
 import amplitudeContext from '@/modules/amplitude/context/amplitudeContext';
 import customerContext from '@/modules/data/contexts/customerContext';
