@@ -1,9 +1,9 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import Btn from '@/common/components/dataDisplay/Btn';
-import { getDefaultStaticProps } from '@/layouts/default/defaultSSG';
+import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import Layout from '@/layouts/default/components/DefaultLayout';
-import { CommonServerSideParams } from '@/modules/../app/types/CommonServerSideParams';
-import { SoftPageProps } from '@/modules/../layouts/core/types/SoftPageProps';
-import { SSGPageProps } from '@/modules/../layouts/core/types/SSGPageProps';
+import { getDefaultStaticProps } from '@/layouts/default/defaultSSG';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import {
   DEFAULT_LOCALE,

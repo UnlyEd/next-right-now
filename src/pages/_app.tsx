@@ -1,9 +1,9 @@
+import MultiversalAppBootstrap from '@/app/components/MultiversalAppBootstrap';
+import '@/app/components/MultiversalGlobalExternalStyles';
+import { MultiversalAppBootstrapProps } from '@/app/types/MultiversalAppBootstrapProps';
 import '@/common/utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
-import MultiversalAppBootstrap from '@/modules/../app/components/MultiversalAppBootstrap';
-import '@/modules/../app/components/MultiversalGlobalExternalStyles';
-import { MultiversalAppBootstrapProps } from '@/modules/../app/types/MultiversalAppBootstrapProps';
-import { SSGPageProps } from '@/modules/../layouts/core/types/SSGPageProps';
-import { SSRPageProps } from '@/modules/../layouts/core/types/SSRPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { sendWebVitals } from '@/modules/amplitude/amplitude';
 import '@/modules/fontAwesome/fontAwesome';
 import '@/modules/sentry/sentry';
