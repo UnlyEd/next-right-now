@@ -11,7 +11,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { LogEvent } from '@/modules/amplitude/types/Amplitude';
+import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
 import {

@@ -2,24 +2,24 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
-import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
-import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
-import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';
-import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
+import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
+import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '@/modules/core/airtable/fetchAndSanitizeAirtableDatasets';
+import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
+import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
+import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
-} from '@/modules/i18n/i18n';
-import { supportedLocales } from '@/modules/i18n/i18nConfig';
+} from '@/modules/core/i18n/i18n';
+import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import {
   fetchTranslations,
   I18nextResources,
-} from '@/modules/i18n/i18nextLocize';
-import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
-import { PreviewData } from '@/modules/previewMode/types/PreviewData';
-import serializeSafe from '@/modules/serializeSafe/serializeSafe';
+} from '@/modules/core/i18n/i18nextLocize';
+import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
+import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import map from 'lodash.map';
 import {
   GetStaticPaths,

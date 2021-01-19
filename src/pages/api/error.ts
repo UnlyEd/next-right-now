@@ -1,4 +1,4 @@
-import Sentry, { configureReq } from '@/modules/sentry/sentry';
+import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   NextApiRequest,

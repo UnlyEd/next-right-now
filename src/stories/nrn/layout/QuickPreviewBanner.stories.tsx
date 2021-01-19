@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import QuickPreviewBanner, { Props } from '@/modules/quickPreview/components/QuickPreviewBanner';
+import QuickPreviewBanner, { Props } from '@/modules/core/quickPreview/components/QuickPreviewBanner';
 
 export default {
   title: 'Next Right Now/Layout/QuickPreviewBanner',

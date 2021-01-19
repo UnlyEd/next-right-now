@@ -4,8 +4,8 @@ import {
   Alert,
   Jumbotron,
 } from 'reactstrap';
-import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import I18nLink from '@/modules/i18n/components/I18nLink';
+import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import ExternalLink from '@/components/dataDisplay/ExternalLink';
 
 type Props = {

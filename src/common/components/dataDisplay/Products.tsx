@@ -1,5 +1,5 @@
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Product } from '@/modules/data/types/Product';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
+import { Product } from '@/modules/core/data/types/Product';
 import { css } from '@emotion/react';
 import map from 'lodash.map';
 import React from 'react';

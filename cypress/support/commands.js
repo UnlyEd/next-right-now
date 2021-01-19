@@ -8,7 +8,7 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
-import { CYPRESS_WINDOW_NS } from '@/modules/testing/cypress';
+import { CYPRESS_WINDOW_NS } from '@/modules/core/testing/cypress';
 
 /**
  * Prepare DOM aliases by fetching the customer data from the browser window and aliasing them for later use.

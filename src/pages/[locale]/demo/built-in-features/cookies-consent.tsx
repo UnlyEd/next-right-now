@@ -9,9 +9,9 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import I18nLink from '@/modules/i18n/components/I18nLink';
-import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
+import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
+import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
 import {

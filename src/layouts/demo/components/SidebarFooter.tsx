@@ -1,4 +1,4 @@
-import I18nLink from '@/modules/i18n/components/I18nLink';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';

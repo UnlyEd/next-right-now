@@ -1,5 +1,5 @@
-import { GenericObject } from '@/modules/data/types/GenericObject';
-import { Logo } from '@/modules/data/types/Logo';
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
+import { Logo } from '@/modules/core/data/types/Logo';
 import map from 'lodash.map';
 
 export const SIZE_XS = 'xs';

@@ -1,23 +1,23 @@
 import { MultiversalPageProps } from '@/layouts/core/types/MultiversalPageProps';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
-import { getAmplitudeInstance } from '@/modules/amplitude/amplitude';
-import amplitudeContext from '@/modules/amplitude/context/amplitudeContext';
-import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import useDataset from '@/modules/data/hooks/useDataset';
-import { Customer } from '@/modules/data/types/Customer';
-import { detectLightHouse } from '@/modules/lightHouse/lighthouse';
-import { configureSentryUser } from '@/modules/sentry/sentry';
-import { cypressContext } from '@/modules/testing/contexts/cypressContext';
+import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitude';
+import amplitudeContext from '@/modules/core/amplitude/context/amplitudeContext';
+import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import useDataset from '@/modules/core/data/hooks/useDataset';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
+import { configureSentryUser } from '@/modules/core/sentry/sentry';
+import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
 import {
   CYPRESS_WINDOW_NS,
   detectCypress,
-} from '@/modules/testing/cypress';
-import userConsentContext from '@/modules/userConsent/contexts/userConsentContext';
-import initCookieConsent, { getUserConsent } from '@/modules/userConsent/cookieConsent';
-import { UserConsent } from '@/modules/userConsent/types/UserConsent';
-import { UserSemiPersistentSession } from '@/modules/userSession/types/UserSemiPersistentSession';
-import { userSessionContext } from '@/modules/userSession/userSessionContext';
+} from '@/modules/core/testing/cypress';
+import userConsentContext from '@/modules/core/userConsent/contexts/userConsentContext';
+import initCookieConsent, { getUserConsent } from '@/modules/core/userConsent/cookieConsent';
+import { UserConsent } from '@/modules/core/userConsent/types/UserConsent';
+import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
+import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
 import {
   getIframeReferrer,
   isRunningInIframe,

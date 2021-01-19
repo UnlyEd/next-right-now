@@ -1,30 +1,30 @@
 import Loader from '@/components/animations/Loader';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
-import customerContext from '@/modules/data/contexts/customerContext';
-import datasetContext from '@/modules/data/contexts/datasetContext';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Customer } from '@/modules/data/types/Customer';
-import { CustomerTheme } from '@/modules/data/types/CustomerTheme';
-import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
-import DefaultErrorLayout from '@/modules/errorHandling/DefaultErrorLayout';
-import i18nContext from '@/modules/i18n/contexts/i18nContext';
-import i18nextLocize from '@/modules/i18n/i18nextLocize';
+import customerContext from '@/modules/core/data/contexts/customerContext';
+import datasetContext from '@/modules/core/data/contexts/datasetContext';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
+import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
+import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
+import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
+import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
 import {
   i18nRedirect,
   stringifyQueryParameters,
-} from '@/modules/i18n/i18nRouter';
-import { detectLightHouse } from '@/modules/lightHouse/lighthouse';
-import previewModeContext from '@/modules/previewMode/contexts/previewModeContext';
+} from '@/modules/core/i18n/i18nRouter';
+import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
+import previewModeContext from '@/modules/core/previewMode/contexts/previewModeContext';
 import {
   startPreviewMode,
   stopPreviewMode,
-} from '@/modules/previewMode/previewMode';
-import quickPreviewContext from '@/modules/quickPreview/contexts/quickPreviewContext';
-import { configureSentryI18n } from '@/modules/sentry/sentry';
-import deserializeSafe from '@/modules/serializeSafe/deserializeSafe';
-import { detectCypress } from '@/modules/testing/cypress';
-import { initCustomerTheme } from '@/modules/theming/theme';
+} from '@/modules/core/previewMode/previewMode';
+import quickPreviewContext from '@/modules/core/quickPreview/contexts/quickPreviewContext';
+import { configureSentryI18n } from '@/modules/core/sentry/sentry';
+import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
+import { detectCypress } from '@/modules/core/testing/cypress';
+import { initCustomerTheme } from '@/modules/core/theming/theme';
 import ErrorPage from '@/pages/_error';
 import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
 import { ThemeProvider } from '@emotion/react';

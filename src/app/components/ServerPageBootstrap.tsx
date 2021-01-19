@@ -1,7 +1,7 @@
 import { MultiversalPageProps } from '@/layouts/core/types/MultiversalPageProps';
 import { OnlyServerPageProps } from '@/layouts/core/types/OnlyServerPageProps';
-import { configureSentryUser } from '@/modules/sentry/sentry';
-import { userSessionContext } from '@/modules/userSession/userSessionContext';
+import { configureSentryUser } from '@/modules/core/sentry/sentry';
+import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';

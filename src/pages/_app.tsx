@@ -4,12 +4,12 @@ import { MultiversalAppBootstrapProps } from '@/app/types/MultiversalAppBootstra
 import '@/common/utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
-import { sendWebVitals } from '@/modules/amplitude/amplitude';
-import '@/modules/fontAwesome/fontAwesome';
-import '@/modules/sentry/sentry';
-import '@/modules/wdyr/wdyr';
-import { NextWebVitalsMetrics } from '@/modules/webVitals/types/NextWebVitalsMetrics';
-import { NextWebVitalsMetricsReport } from '@/modules/webVitals/types/NextWebVitalsMetricsReport';
+import { sendWebVitals } from '@/modules/core/amplitude/amplitude';
+import '@/modules/core/fontAwesome/fontAwesome';
+import '@/modules/core/sentry/sentry';
+import '@/modules/core/wdyr/wdyr';
+import { NextWebVitalsMetrics } from '@/modules/core/webVitals/types/NextWebVitalsMetrics';
+import { NextWebVitalsMetricsReport } from '@/modules/core/webVitals/types/NextWebVitalsMetricsReport';
 import size from 'lodash.size';
 import React from 'react';
 import { v1 as uuid } from 'uuid'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/

@@ -11,7 +11,7 @@ import {
   CardText,
   CardTitle,
 } from 'reactstrap';
-import I18nLink from '@/modules/i18n/components/I18nLink';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import Btn from '@/common/components/dataDisplay/Btn';
 import Cards, { Props } from '@/common/components/dataDisplay/Cards';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';

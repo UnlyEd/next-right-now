@@ -11,14 +11,14 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Customer } from '@/modules/data/types/Customer';
-import { Product } from '@/modules/data/types/Product';
-import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
-import timeDifference from '@/modules/date/timeDifference';
-import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
-import deserializeSafe from '@/modules/serializeSafe/deserializeSafe';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { Product } from '@/modules/core/data/types/Product';
+import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
+import timeDifference from '@/modules/core/date/timeDifference';
+import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
+import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import find from 'lodash.find';

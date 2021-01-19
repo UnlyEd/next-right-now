@@ -1,7 +1,7 @@
 const bundleAnalyzer = require('@next/bundle-analyzer');
 const nextSourceMaps = require('@zeit/next-source-maps');
 const packageJson = require('./package');
-const i18nConfig = require('./src/modules/i18n/i18nConfig');
+const i18nConfig = require('./src/modules/core/i18n/i18nConfig');
 
 const withSourceMaps = nextSourceMaps();
 const withBundleAnalyzer = bundleAnalyzer({ // Run with "yarn analyse:bundle" - See https://www.npmjs.com/package/@next/bundle-analyzer

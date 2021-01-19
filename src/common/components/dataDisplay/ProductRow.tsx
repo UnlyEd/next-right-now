@@ -1,6 +1,6 @@
-import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
-import { Asset } from '@/modules/data/types/Asset';
-import { Product } from '@/modules/data/types/Product';
+import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import { Asset } from '@/modules/core/data/types/Asset';
+import { Product } from '@/modules/core/data/types/Product';
 import { css } from '@emotion/react';
 import React from 'react';
 import {

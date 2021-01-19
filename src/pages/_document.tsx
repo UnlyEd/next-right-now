@@ -1,4 +1,4 @@
-import { DEFAULT_LOCALE } from '@/modules/i18n/i18n';
+import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';

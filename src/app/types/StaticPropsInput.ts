@@ -1,4 +1,4 @@
-import { PreviewData } from '@/modules/previewMode/types/PreviewData';
+import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import { CommonServerSideParams } from './CommonServerSideParams';
 
 /**

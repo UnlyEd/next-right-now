@@ -3,11 +3,11 @@ import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Customer } from '@/modules/data/types/Customer';
-import { Product } from '@/modules/data/types/Product';
-import QuickPreviewLayout from '@/modules/quickPreview/components/QuickPreviewLayout';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { Product } from '@/modules/core/data/types/Product';
+import QuickPreviewLayout from '@/modules/core/quickPreview/components/QuickPreviewLayout';
 import { createLogger } from '@unly/utils-simple-logger';
 import find from 'lodash.find';
 import {

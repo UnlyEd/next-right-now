@@ -1,8 +1,8 @@
-import { convertRequestBodyToJSObject } from '@/modules/api/convertRequestBodyToJSObject';
+import { convertRequestBodyToJSObject } from '@/modules/core/api/convertRequestBodyToJSObject';
 import Sentry, {
   ALERT_TYPES,
   configureReq,
-} from '@/modules/sentry/sentry';
+} from '@/modules/core/sentry/sentry';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   NextApiRequest,

@@ -1,4 +1,4 @@
-import localeMiddleware from '@/modules/i18n/middlewares/localeMiddleware';
+import localeMiddleware from '@/modules/core/i18n/middlewares/localeMiddleware';
 import {
   NextApiRequest,
   NextApiResponse,

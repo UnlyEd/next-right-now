@@ -1,4 +1,4 @@
-import { Markdown as TextAsMarkdown } from '@/modules/data/types/Markdown';
+import { Markdown as TextAsMarkdown } from '@/modules/core/data/types/Markdown';
 import {
   css,
   useTheme,

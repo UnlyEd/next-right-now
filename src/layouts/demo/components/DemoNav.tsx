@@ -1,15 +1,15 @@
 import Tooltip from '@/components/dataDisplay/Tooltip';
-import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
-import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import { AirtableAttachment } from '@/modules/data/types/AirtableAttachment';
-import { Asset } from '@/modules/data/types/Asset';
-import { SidebarLink } from '@/modules/data/types/SidebarLink';
-import I18nLink from '@/modules/i18n/components/I18nLink';
-import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
+import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
+import { AirtableAttachment } from '@/modules/core/data/types/AirtableAttachment';
+import { Asset } from '@/modules/core/data/types/Asset';
+import { SidebarLink } from '@/modules/core/data/types/SidebarLink';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
+import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
 import {
   isActive,
   resolveI18nHomePage,
-} from '@/modules/i18n/i18nRouter';
+} from '@/modules/core/i18n/i18nRouter';
 import { Amplitude } from '@amplitude/react-amplitude';
 import {
   css,

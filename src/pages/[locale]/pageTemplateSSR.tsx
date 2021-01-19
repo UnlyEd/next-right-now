@@ -3,8 +3,8 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import Layout from '@/layouts/default/components/DefaultLayout';
 import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { Customer } from '@/modules/data/types/Customer';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetServerSideProps,

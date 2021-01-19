@@ -10,12 +10,12 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Asset } from '@/modules/data/types/Asset';
-import { Customer } from '@/modules/data/types/Customer';
-import { Product } from '@/modules/data/types/Product';
+import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
+import { Asset } from '@/modules/core/data/types/Asset';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { Product } from '@/modules/core/data/types/Product';
 import { createLogger } from '@unly/utils-simple-logger';
 import map from 'lodash.map';
 import {

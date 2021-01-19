@@ -1,9 +1,9 @@
-import { ReactButtonProps } from '@/modules/react/types/ReactButtonProps';
+import { ReactButtonProps } from '@/modules/core/react/types/ReactButtonProps';
 import {
   ComponentThemeMode,
   resolveThemedComponentColors,
   ThemedComponentProps,
-} from '@/modules/theming/themedComponentColors';
+} from '@/modules/core/theming/themedComponentColors';
 import {
   css,
   useTheme,

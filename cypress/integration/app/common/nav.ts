@@ -1,4 +1,4 @@
-import { Customer } from '@/modules/data/types/Customer';
+import { Customer } from '@/modules/core/data/types/Customer';
 
 const baseUrl = Cypress.config().baseUrl;
 

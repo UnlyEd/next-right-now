@@ -10,21 +10,21 @@ import { withNextRouter } from 'storybook-addon-next-router';
 import { withPerformance } from 'storybook-addon-performance';
 import '@/app/components/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import MultiversalGlobalStyles from '@/app/components/MultiversalGlobalStyles';
-import { defaultLocale, getLangFromLocale, supportedLocales } from '@/modules/i18n/i18nConfig';
-import amplitudeContext from '@/modules/amplitude/context/amplitudeContext';
-import customerContext from '@/modules/data/contexts/customerContext';
-import { cypressContext } from '@/modules/testing/contexts/cypressContext';
-import datasetContext from '@/modules/data/contexts/datasetContext';
-import i18nContext from '@/modules/i18n/contexts/i18nContext';
-import previewModeContext from '@/modules/previewMode/contexts/previewModeContext';
-import quickPreviewContext from '@/modules/quickPreview/contexts/quickPreviewContext';
-import userConsentContext from '@/modules/userConsent/contexts/userConsentContext';
-import { userSessionContext } from '@/modules/userSession/userSessionContext';
-import { getAmplitudeInstance } from '@/modules/amplitude/amplitude';
+import { defaultLocale, getLangFromLocale, supportedLocales } from '@/modules/core/i18n/i18nConfig';
+import amplitudeContext from '@/modules/core/amplitude/context/amplitudeContext';
+import customerContext from '@/modules/core/data/contexts/customerContext';
+import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
+import datasetContext from '@/modules/core/data/contexts/datasetContext';
+import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
+import previewModeContext from '@/modules/core/previewMode/contexts/previewModeContext';
+import quickPreviewContext from '@/modules/core/quickPreview/contexts/quickPreviewContext';
+import userConsentContext from '@/modules/core/userConsent/contexts/userConsentContext';
+import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
+import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitude';
 import '@/common/utils/ignoreNoisyWarningsHacks';
-import { initCustomerTheme } from '@/modules/theming/theme';
-import i18nextLocize from '@/modules/i18n/i18nextLocize';
-import '@/modules/fontAwesome/fontAwesome';
+import { initCustomerTheme } from '@/modules/core/theming/theme';
+import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
+import '@/modules/core/fontAwesome/fontAwesome';
 import dataset from './mock/sb-dataset';
 
 // Loads translations from local file cache (Locize)

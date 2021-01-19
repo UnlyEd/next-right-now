@@ -9,7 +9,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import I18nLink from '@/modules/i18n/components/I18nLink';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,

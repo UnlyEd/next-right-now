@@ -1,7 +1,7 @@
-import { CSSStyles } from '@/modules/css/types/CSSStyles';
-import { Asset } from '@/modules/data/types/Asset';
-import { Link } from '@/modules/data/types/Link';
-import { Logo as LogoType } from '@/modules/data/types/Logo';
+import { CSSStyles } from '@/modules/core/css/types/CSSStyles';
+import { Asset } from '@/modules/core/data/types/Asset';
+import { Link } from '@/modules/core/data/types/Link';
+import { Logo as LogoType } from '@/modules/core/data/types/Logo';
 import {
   DEFAULT_SIZES_MULTIPLIERS,
   generateSizes,

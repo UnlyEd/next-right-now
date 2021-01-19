@@ -4,12 +4,12 @@ import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import Layout from '@/layouts/default/components/DefaultLayout';
 import { getDefaultStaticProps } from '@/layouts/default/defaultSSG';
-import I18nLink from '@/modules/i18n/components/I18nLink';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import {
   DEFAULT_LOCALE,
   LANG_EN,
   LANG_FR,
-} from '@/modules/i18n/i18n';
+} from '@/modules/core/i18n/i18n';
 import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';

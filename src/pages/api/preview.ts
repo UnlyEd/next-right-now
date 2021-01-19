@@ -1,5 +1,5 @@
-import { filterExternalAbsoluteUrl } from '@/modules/js/url';
-import Sentry, { configureReq } from '@/modules/sentry/sentry';
+import { filterExternalAbsoluteUrl } from '@/modules/core/js/url';
+import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
 import { createLogger } from '@unly/utils-simple-logger';
 import appendQueryParameter from 'append-query';
 import {

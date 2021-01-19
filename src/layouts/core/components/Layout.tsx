@@ -1,8 +1,8 @@
 import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
-import { GenericObject } from '@/modules/data/types/GenericObject';
-import DefaultErrorLayout from '@/modules/errorHandling/DefaultErrorLayout';
-import PreviewModeBanner from '@/modules/previewMode/components/PreviewModeBanner';
-import Sentry from '@/modules/sentry/sentry';
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
+import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
+import PreviewModeBanner from '@/modules/core/previewMode/components/PreviewModeBanner';
+import Sentry from '@/modules/core/sentry/sentry';
 import ErrorPage from '@/pages/_error';
 import {
   Amplitude,

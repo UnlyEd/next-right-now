@@ -1,9 +1,9 @@
-import { ReactDivProps } from '@/modules/react/types/ReactDivProps';
+import { ReactDivProps } from '@/modules/core/react/types/ReactDivProps';
 import {
   ComponentThemeMode,
   resolveThemedComponentColors,
   ThemedComponentProps,
-} from '@/modules/theming/themedComponentColors';
+} from '@/modules/core/theming/themedComponentColors';
 import {
   css,
   useTheme,

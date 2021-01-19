@@ -7,10 +7,10 @@ import {
   getDefaultStaticPaths,
   getDefaultStaticProps,
 } from '@/layouts/default/defaultSSG';
-import { AMPLITUDE_PAGES } from '@/modules/amplitude/amplitude';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { Customer } from '@/modules/data/types/Customer';
-import { replaceAllOccurrences } from '@/modules/js/string';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,

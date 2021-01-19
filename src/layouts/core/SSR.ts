@@ -1,25 +1,25 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
-import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
-import { Cookies } from '@/modules/cookiesManager/types/Cookies';
-import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
-import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';
-import { GenericObject } from '@/modules/data/types/GenericObject';
-import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
+import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
+import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '@/modules/core/airtable/fetchAndSanitizeAirtableDatasets';
+import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
+import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
+import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
+import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
+import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
   SUPPORTED_LANGUAGES,
-} from '@/modules/i18n/i18n';
+} from '@/modules/core/i18n/i18n';
 import {
   fetchTranslations,
   I18nextResources,
-} from '@/modules/i18n/i18nextLocize';
-import { isQuickPreviewRequest } from '@/modules/quickPreview/quickPreview';
-import serializeSafe from '@/modules/serializeSafe/serializeSafe';
-import { UserSemiPersistentSession } from '@/modules/userSession/types/UserSemiPersistentSession';
+} from '@/modules/core/i18n/i18nextLocize';
+import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
+import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
+import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
 import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';

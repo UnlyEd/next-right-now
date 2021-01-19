@@ -11,8 +11,8 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
-import { resolveCustomerVariationLang } from '@/modules/i18n/i18n';
+import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
+import { resolveCustomerVariationLang } from '@/modules/core/i18n/i18n';
 import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import {

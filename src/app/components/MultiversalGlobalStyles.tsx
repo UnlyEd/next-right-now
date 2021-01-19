@@ -1,4 +1,4 @@
-import { CustomerTheme } from '@/modules/data/types/CustomerTheme';
+import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
 import {
   css,
   Global,

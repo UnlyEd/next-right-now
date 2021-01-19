@@ -1,13 +1,13 @@
 import { NRN_CO_BRANDING_LOGO_URL } from '@/app/constants';
 import Logo from '@/components/dataDisplay/Logo';
-import AirtableAsset from '@/modules/airtable/components/AirtableAsset';
-import { CSSStyles } from '@/modules/css/types/CSSStyles';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
-import { Asset } from '@/modules/data/types/Asset';
-import { Customer } from '@/modules/data/types/Customer';
-import I18nBtnChangeLocale from '@/modules/i18n/components/I18nBtnChangeLocale';
-import I18nLink from '@/modules/i18n/components/I18nLink';
+import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import { CSSStyles } from '@/modules/core/css/types/CSSStyles';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
+import { Asset } from '@/modules/core/data/types/Asset';
+import { Customer } from '@/modules/core/data/types/Customer';
+import I18nBtnChangeLocale from '@/modules/core/i18n/components/I18nBtnChangeLocale';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { SIZE_XS } from '@/utils/logo';
 import {
   css,

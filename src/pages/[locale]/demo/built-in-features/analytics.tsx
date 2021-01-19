@@ -11,9 +11,9 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { LogEvent } from '@/modules/amplitude/types/Amplitude';
-import useUserConsent from '@/modules/userConsent/hooks/useUserConsent';
-import useUserSession, { UserSession } from '@/modules/userSession/useUserSession';
+import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
+import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
+import useUserSession, { UserSession } from '@/modules/core/userSession/useUserSession';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';

@@ -1,7 +1,7 @@
 import {
   mockRequest,
   mockResponse,
-} from '@/modules/testing/mocks/tests-mocks';
+} from '@/modules/core/testing/mocks/tests-mocks';
 import {
   NextApiRequest,
   NextApiResponse,

@@ -1,4 +1,4 @@
-import { CSSStyles } from '@/modules/css/types/CSSStyles';
+import { CSSStyles } from '@/modules/core/css/types/CSSStyles';
 import React from 'react';
 import {
   CodeBlock,

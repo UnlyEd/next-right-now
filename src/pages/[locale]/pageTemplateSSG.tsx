@@ -6,8 +6,8 @@ import {
   getDefaultStaticPaths,
   getDefaultStaticProps,
 } from '@/layouts/default/defaultSSG';
-import useCustomer from '@/modules/data/hooks/useCustomer';
-import { Customer } from '@/modules/data/types/Customer';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,

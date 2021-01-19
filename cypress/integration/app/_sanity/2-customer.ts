@@ -1,5 +1,5 @@
-import { Customer } from '@/modules/data/types/Customer';
-import { CYPRESS_WINDOW_NS } from '@/modules/testing/cypress';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { CYPRESS_WINDOW_NS } from '@/modules/core/testing/cypress';
 
 describe('Sanity checks > Browser data', () => {
   /**
