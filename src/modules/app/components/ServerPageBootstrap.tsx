@@ -1,12 +1,12 @@
+import { MultiversalPageProps } from '@/layouts/base/types/MultiversalPageProps';
+import { OnlyServerPageProps } from '@/layouts/base/types/OnlyServerPageProps';
 import * as Sentry from '@sentry/node';
 import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
+import { configureSentryUser } from '../../sentry/sentry';
 import { userSessionContext } from '../../userSession/userSessionContext';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
-import { MultiversalPageProps } from '../../../layouts/base/types/MultiversalPageProps';
-import { OnlyServerPageProps } from '../../../layouts/base/types/OnlyServerPageProps';
-import { configureSentryUser } from '../../sentry/sentry';
 
 const fileLabel = 'components/appBootstrap/ServerPageBootstrap';
 const logger = createLogger({

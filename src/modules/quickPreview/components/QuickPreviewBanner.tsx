@@ -10,8 +10,8 @@ import {
 } from 'next/router';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import useCustomer from '../../data/hooks/useCustomer';
-import { Customer } from '../../data/types/Customer';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import { Customer } from '@/modules/data/types/Customer';
 import I18nBtnChangeLocale from '../../i18n/components/I18nBtnChangeLocale';
 import Btn from '@/common/components/dataDisplay/Btn';
 import Tooltip from '@/common/components/dataDisplay/Tooltip';

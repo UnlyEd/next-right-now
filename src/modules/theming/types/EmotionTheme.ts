@@ -1,4 +1,4 @@
-import { CustomerTheme } from '../../data/types/CustomerTheme';
+import { CustomerTheme } from '@/modules/data/types/CustomerTheme';
 
 /**
  * Emotion theme used thorough the whole application.

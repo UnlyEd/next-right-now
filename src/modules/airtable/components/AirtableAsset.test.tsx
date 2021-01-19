@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { Asset } from '../../data/types/Asset';
+import { Asset } from '@/modules/data/types/Asset';
 import AirtableAsset from './AirtableAsset';
 
 const defaultLogoUrl = 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png';

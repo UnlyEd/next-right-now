@@ -6,8 +6,8 @@ import { CSSStyles } from '../../css/types/CSSStyles';
 import {
   Asset,
   AssetTransformations,
-} from '../../data/types/Asset';
-import { Link } from '../../data/types/Link';
+} from '@/modules/data/types/Asset';
+import { Link } from '@/modules/data/types/Link';
 import { cssToReactStyle } from '../../css/css';
 
 export type Props = {

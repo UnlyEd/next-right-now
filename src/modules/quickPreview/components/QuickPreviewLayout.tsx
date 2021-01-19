@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import React from 'react';
 import { Container } from 'reactstrap';
-import { GenericObject } from '../../data/types/GenericObject';
+import { GenericObject } from '@/modules/data/types/GenericObject';
 import { SoftPageProps } from '../../../layouts/base/types/SoftPageProps';
 import Sentry from '../../sentry/sentry';
 import QuickPreviewBanner from './QuickPreviewBanner';

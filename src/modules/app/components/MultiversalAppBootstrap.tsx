@@ -1,3 +1,8 @@
+import Loader from '@/common/components/animations/Loader';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import ErrorPage from '@/pages/_error';
+import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
 import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
@@ -8,40 +13,35 @@ import includes from 'lodash.includes';
 import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
 import React, { useState } from 'react';
-import ErrorPage from '@/pages/_error';
-import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
-import customerContext from '../../data/contexts/customerContext';
-import datasetContext from '../../data/contexts/datasetContext';
+import customerContext from '@/modules/data/contexts/customerContext';
+import datasetContext from '@/modules/data/contexts/datasetContext';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { Customer } from '@/modules/data/types/Customer';
+import { CustomerTheme } from '@/modules/data/types/CustomerTheme';
+import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
+import DefaultErrorLayout from '../../errorHandling/DefaultErrorLayout';
 import i18nContext from '../../i18n/contexts/i18nContext';
-import previewModeContext from '../../previewMode/contexts/previewModeContext';
-import quickPreviewContext from '../../quickPreview/contexts/quickPreviewContext';
-import { AirtableRecord } from '../../data/types/AirtableRecord';
-import { Customer } from '../../data/types/Customer';
-import { CustomerTheme } from '../../data/types/CustomerTheme';
-import { SanitizedAirtableDataset } from '../../data/types/SanitizedAirtableDataset';
-import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
-import { SSGPageProps } from '../../../layouts/base/types/SSGPageProps';
-import { SSRPageProps } from '../../../layouts/base/types/SSRPageProps';
-import deserializeSafe from '../../serializeSafe/deserializeSafe';
+import i18nextLocize from '../../i18n/i18nextLocize';
 import {
   i18nRedirect,
   stringifyQueryParameters,
 } from '../../i18n/i18nRouter';
-import { initCustomerTheme } from '../../theming/theme';
-import i18nextLocize from '../../i18n/i18nextLocize';
-import { configureSentryI18n } from '../../sentry/sentry';
-import getComponentName from '../getComponentName';
+import { detectLightHouse } from '../../lightHouse/lighthouse';
+import previewModeContext from '../../previewMode/contexts/previewModeContext';
 import {
   startPreviewMode,
   stopPreviewMode,
 } from '../../previewMode/previewMode';
-import { detectLightHouse } from '../../lightHouse/lighthouse';
+import quickPreviewContext from '../../quickPreview/contexts/quickPreviewContext';
+import { configureSentryI18n } from '../../sentry/sentry';
+import deserializeSafe from '../../serializeSafe/deserializeSafe';
 import { detectCypress } from '../../testing/cypress';
-import Loader from '@/common/components/animations/Loader';
+import { initCustomerTheme } from '../../theming/theme';
+import getComponentName from '../getComponentName';
+import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 import BrowserPageBootstrap, { BrowserPageBootstrapProps } from './BrowserPageBootstrap';
 import MultiversalGlobalStyles from './MultiversalGlobalStyles';
 import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBootstrap';
-import DefaultErrorLayout from '../../errorHandling/DefaultErrorLayout';
 
 const fileLabel = 'components/appBootstrap/MultiversalAppBootstrap';
 const logger = createLogger({

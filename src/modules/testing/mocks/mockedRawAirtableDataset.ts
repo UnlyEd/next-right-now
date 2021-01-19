@@ -1,7 +1,7 @@
 import { RawAirtableRecord } from '../../airtable/types/RawAirtableRecord';
-import { RawAirtableDataset } from '../../data/types/RawAirtableDataset';
-import { RawCustomer } from '../../data/types/RawCustomer';
-import { RawTheme } from '../../data/types/RawTheme';
+import { RawAirtableDataset } from '@/modules/data/types/RawAirtableDataset';
+import { RawCustomer } from '@/modules/data/types/RawCustomer';
+import { RawTheme } from '@/modules/data/types/RawTheme';
 
 export const CUSTOMER1: RawAirtableRecord<RawCustomer> = {
   id: 'reci9HYsoqd1xScsi',

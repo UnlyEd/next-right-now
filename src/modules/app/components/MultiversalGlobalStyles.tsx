@@ -4,7 +4,7 @@ import {
 } from '@emotion/react';
 import React from 'react';
 import { NRN_DEFAULT_FALLBACK_FONTS } from '@/modules/app/constants';
-import { CustomerTheme } from '../../data/types/CustomerTheme';
+import { CustomerTheme } from '@/modules/data/types/CustomerTheme';
 
 type Props = {
   customerTheme: CustomerTheme;

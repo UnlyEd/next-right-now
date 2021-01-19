@@ -1,10 +1,10 @@
-import { GenericRecord } from '../../data/record';
+import { GenericRecord } from '@/modules/data/record';
 import { AirtableDBTable } from './AirtableDBTable';
 import { RawAirtableAttachmentBaseFields } from './RawAirtableAttachmentBaseFields';
 import { RawAirtableRecord } from './RawAirtableRecord';
-import { AirtableRecord } from '../../data/types/AirtableRecord';
-import { RawAirtableDataset } from '../../data/types/RawAirtableDataset';
-import { SanitizedAirtableDataset } from '../../data/types/SanitizedAirtableDataset';
+import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
+import { RawAirtableDataset } from '@/modules/data/types/RawAirtableDataset';
+import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
 import { AirtableSchema } from './AirtableSchema';
 import { TableSchema } from './TableSchema';
 

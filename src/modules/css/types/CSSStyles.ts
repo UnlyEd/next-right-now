@@ -1,4 +1,4 @@
-import { GenericObject } from '../../data/types/GenericObject';
+import { GenericObject } from '@/modules/data/types/GenericObject';
 
 /**
  * Represents a CSS "styles" object.

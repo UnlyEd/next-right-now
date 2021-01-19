@@ -1,4 +1,10 @@
 import {
+  getIframeReferrer,
+  isRunningInIframe,
+} from '@/common/utils/iframe';
+import { MultiversalPageProps } from '@/layouts/base/types/MultiversalPageProps';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import {
   Amplitude,
   AmplitudeProvider,
 } from '@amplitude/react-amplitude';
@@ -8,29 +14,26 @@ import { createLogger } from '@unly/utils-simple-logger';
 import { AmplitudeClient } from 'amplitude-js';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import useCustomer from '../../data/hooks/useCustomer';
-import useDataset from '../../data/hooks/useDataset';
-import amplitudeContext from '../../amplitude/context/amplitudeContext';
-import userConsentContext from '../../userConsent/contexts/userConsentContext';
-import { userSessionContext } from '../../userSession/userSessionContext';
-import { Customer } from '../../data/types/Customer';
-import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
-import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
-import { MultiversalPageProps } from '../../../layouts/base/types/MultiversalPageProps';
-import { OnlyBrowserPageProps } from '../../../layouts/base/types/OnlyBrowserPageProps';
-import { UserConsent } from '../../userConsent/types/UserConsent';
-import { UserSemiPersistentSession } from '../../userSession/types/UserSemiPersistentSession';
 import { getAmplitudeInstance } from '../../amplitude/amplitude';
-import initCookieConsent, { getUserConsent } from '../../userConsent/cookieConsent';
+import amplitudeContext from '../../amplitude/context/amplitudeContext';
 import UniversalCookiesManager from '../../cookiesManager/UniversalCookiesManager';
-import { getIframeReferrer, isRunningInIframe } from '@/common/utils/iframe';
-import { configureSentryUser } from '../../sentry/sentry';
+import useCustomer from '@/modules/data/hooks/useCustomer';
+import useDataset from '@/modules/data/hooks/useDataset';
+import { Customer } from '@/modules/data/types/Customer';
 import { detectLightHouse } from '../../lightHouse/lighthouse';
+import { configureSentryUser } from '../../sentry/sentry';
+import { cypressContext } from '../../testing/contexts/cypressContext';
 import {
   CYPRESS_WINDOW_NS,
   detectCypress,
 } from '../../testing/cypress';
-import { cypressContext } from '../../testing/contexts/cypressContext';
+import userConsentContext from '../../userConsent/contexts/userConsentContext';
+import initCookieConsent, { getUserConsent } from '../../userConsent/cookieConsent';
+import { UserConsent } from '../../userConsent/types/UserConsent';
+import { UserSemiPersistentSession } from '../../userSession/types/UserSemiPersistentSession';
+import { userSessionContext } from '../../userSession/userSessionContext';
+import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
+import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 
 const fileLabel = 'components/appBootstrap/BrowserPageBootstrap';
 const logger = createLogger({
