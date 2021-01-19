@@ -20,8 +20,8 @@ import { Customer } from '../../data/types/Customer';
 import { CustomerTheme } from '../../data/types/CustomerTheme';
 import { SanitizedAirtableDataset } from '../../data/types/SanitizedAirtableDataset';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
-import { SSGPageProps } from '../../app/types/SSGPageProps';
-import { SSRPageProps } from '../../app/types/SSRPageProps';
+import { SSGPageProps } from '../../../layouts/base/types/SSGPageProps';
+import { SSRPageProps } from '../../../layouts/base/types/SSRPageProps';
 import deserializeSafe from '../../serializeSafe/deserializeSafe';
 import {
   i18nRedirect,

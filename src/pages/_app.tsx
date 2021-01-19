@@ -6,8 +6,8 @@ import '@/modules/bootstrapping/components/MultiversalGlobalExternalStyles';
 import { MultiversalAppBootstrapProps } from '@/modules/bootstrapping/types/MultiversalAppBootstrapProps';
 import { NextWebVitalsMetrics } from '@/modules/webVitals/types/NextWebVitalsMetrics';
 import { NextWebVitalsMetricsReport } from '@/modules/webVitals/types/NextWebVitalsMetricsReport';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
-import { SSRPageProps } from '@/modules/app/types/SSRPageProps';
+import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
+import { SSRPageProps } from '@/modules/../layouts/base/types/SSRPageProps';
 import { sendWebVitals } from '@/modules/amplitude/amplitude';
 import '@/common/utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
 import '@/modules/fontAwesome/fontAwesome';

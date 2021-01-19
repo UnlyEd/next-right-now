@@ -1,5 +1,5 @@
-import { MultiversalAppBootstrapPageProps } from '../../bootstrapping/types/MultiversalAppBootstrapPageProps';
-import { PreviewData } from '../../previewMode/types/PreviewData';
+import { MultiversalAppBootstrapPageProps } from '@/modules/bootstrapping/types/MultiversalAppBootstrapPageProps';
+import { PreviewData } from '@/modules/previewMode/types/PreviewData';
 import { MultiversalPageProps } from './MultiversalPageProps';
 
 /**

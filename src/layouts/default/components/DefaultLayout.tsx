@@ -1,4 +1,4 @@
-import { SoftPageProps } from '@/modules/app/types/SoftPageProps';
+import { SoftPageProps } from '@/layouts/base/types/SoftPageProps';
 import { GenericObject } from '@/modules/data/types/GenericObject';
 import DefaultErrorLayout from '@/modules/errorHandling/DefaultErrorLayout';
 import PreviewModeBanner from '@/modules/previewMode/components/PreviewModeBanner';
@@ -13,27 +13,23 @@ import {
   NextRouter,
   useRouter,
 } from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 import ErrorPage from '@/pages/_error';
-import Footer from '@/components/layouts/Footer';
-import Head, { HeadProps } from '@/components/layouts/Head';
-import DefaultPageContainer from './ExamplesPageContainer';
-import ExamplesNav from './ExamplesNav';
+import DefaultPageContainer from './DefaultPageContainer';
+import Footer from './Footer';
+import Head, { HeadProps } from './Head';
+import Nav from './Nav';
 
 const fileLabel = 'components/pageLayouts/DefaultLayout';
 const logger = createLogger({
   label: fileLabel,
 });
 
-export type SidebarProps = {
-  className: string;
-}
-
 type Props = {
   children: React.ReactNode;
   headProps?: HeadProps;
   pageName: string;
-  Sidebar?: React.FunctionComponent<SidebarProps>;
+  PageContainer?: React.FunctionComponent;
 } & SoftPageProps;
 
 /**
@@ -41,22 +37,20 @@ type Props = {
  *
  * It does the following:
  *  - Adds a Nav/Footer component, and the dynamic Next.js "Page" component in between
- *  - Optionally, it can also display a left sidebar (i.e: used within examples sections)
  *  - Automatically track page views (Amplitude)
  *  - Handles errors by displaying the Error page, with the ability to contact technical support (which will send a Sentry User Feedback)
  *
  * @param props
  */
-const ExamplesLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
+const DefaultLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
     error,
     isInIframe = false, // Won't be defined server-side
     headProps = {},
     pageName,
-    Sidebar,
+    PageContainer = DefaultPageContainer,
   } = props;
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // Todo make default value depend on viewport size
   const router: NextRouter = useRouter();
   const isIframeWithFullPagePreview = router?.query?.fullPagePreview === '1';
 
@@ -98,7 +92,7 @@ const ExamplesLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
 
       {
         (!isInIframe || isIframeWithFullPagePreview) && (
-          <ExamplesNav />
+          <Nav />
         )
       }
 
@@ -119,13 +113,9 @@ const ExamplesLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
               />
             </ErrorPage>
           ) : (
-            <DefaultPageContainer
-              isSidebarOpen={isSidebarOpen}
-              setIsSidebarOpen={setIsSidebarOpen}
-              Sidebar={Sidebar}
-            >
+            <PageContainer>
               {children}
-            </DefaultPageContainer>
+            </PageContainer>
           )
         }
       </div>
@@ -139,4 +129,4 @@ const ExamplesLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   );
 };
 
-export default ExamplesLayout;
+export default DefaultLayout;

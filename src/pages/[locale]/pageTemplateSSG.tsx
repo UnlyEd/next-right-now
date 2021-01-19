@@ -1,10 +1,10 @@
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import DefaultLayout from '../../layouts/default/components/DefaultLayout';
 import {
   getCommonStaticPaths,
   getCommonStaticProps,
-} from '@/modules/app/SSG';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+} from '../../layouts/base/SSG';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { Customer } from '@/modules/data/types/Customer';

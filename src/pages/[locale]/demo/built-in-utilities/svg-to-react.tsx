@@ -13,12 +13,12 @@ import EnglishUkFlag from '@/common/components/countryFlags/EnglishUkFlag';
 import FrenchFlag from '@/common/components/countryFlags/FrenchFlag';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
-import BuiltInUtilitiesSidebar from '@/modules/demo/components/BuiltInUtilitiesSidebar';
-import ExamplesPage from '@/modules/demo/components/ExamplesPage';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
+import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
+import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/svg-to-react';

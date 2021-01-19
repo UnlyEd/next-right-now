@@ -10,16 +10,16 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import BuiltInFeaturesSidebar from '@/modules/demo/components/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/modules/demo/components/ExamplesPage';
+import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import Markdown from '@/common/components/dataDisplay/Markdown';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/md-as-jsx';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

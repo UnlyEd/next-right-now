@@ -16,16 +16,14 @@ const DefaultPageContainer: React.FunctionComponent<Props> = (props): JSX.Elemen
     children,
   } = props;
 
-  const containerCss = css`
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
-  `;
-
   return (
     <Container
       className={'page-container'}
-      css={containerCss}
+      css={css`
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: none !important;
+      `}
     >
       {children}
     </Container>

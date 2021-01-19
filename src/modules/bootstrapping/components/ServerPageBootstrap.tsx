@@ -4,8 +4,8 @@ import React from 'react';
 import { userSessionContext } from '../../userSession/userSessionContext';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
-import { MultiversalPageProps } from '../../app/types/MultiversalPageProps';
-import { OnlyServerPageProps } from '../../app/types/OnlyServerPageProps';
+import { MultiversalPageProps } from '../../../layouts/base/types/MultiversalPageProps';
+import { OnlyServerPageProps } from '../../../layouts/base/types/OnlyServerPageProps';
 import { configureSentryUser } from '../../sentry/sentry';
 
 const fileLabel = 'components/appBootstrap/ServerPageBootstrap';

@@ -1,4 +1,4 @@
-import { I18nextResources } from '../../i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/i18n/i18nextLocize';
 
 /**
  * Page properties available on all pages, whether they're rendered statically, dynamically, from the server or the client

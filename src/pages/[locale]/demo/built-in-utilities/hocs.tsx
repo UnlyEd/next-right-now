@@ -8,14 +8,14 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import BuiltInUtilitiesSidebar from '@/modules/demo/components/BuiltInUtilitiesSidebar';
-import ExamplesPage from '@/modules/demo/components/ExamplesPage';
-import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
+import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
+import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import Code from '@/common/components/dataDisplay/Code';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/hocs';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

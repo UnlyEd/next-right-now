@@ -8,30 +8,30 @@ import {
   GetServerSidePropsResult,
 } from 'next';
 import NextCookies from 'next-cookies';
-import { getAirtableSchema } from '../airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '../airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '../airtable/fetchAndSanitizeAirtableDatasets';
-import { AirtableSchema } from '../airtable/types/AirtableSchema';
-import { PublicHeaders } from '../app/types/PublicHeaders';
-import { SSRPageProps } from '../app/types/SSRPageProps';
-import { CommonServerSideParams } from '../bootstrapping/types/CommonServerSideParams';
-import { Cookies } from '../cookiesManager/types/Cookies';
-import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
-import { AirtableDatasets } from '../data/types/AirtableDatasets';
-import { GenericObject } from '../data/types/GenericObject';
-import { SanitizedAirtableDataset } from '../data/types/SanitizedAirtableDataset';
+import { getAirtableSchema } from '@/modules/airtable/airtableSchema';
+import consolidateSanitizedAirtableDataset from '@/modules/airtable/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '@/modules/airtable/fetchAndSanitizeAirtableDatasets';
+import { AirtableSchema } from '@/modules/airtable/types/AirtableSchema';
+import { PublicHeaders } from '@/layouts/base/types/PublicHeaders';
+import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
+import { Cookies } from '@/modules/cookiesManager/types/Cookies';
+import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
+import { AirtableDatasets } from '@/modules/data/types/AirtableDatasets';
+import { GenericObject } from '@/modules/data/types/GenericObject';
+import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
   SUPPORTED_LANGUAGES,
-} from '../i18n/i18n';
+} from '@/modules/i18n/i18n';
 import {
   fetchTranslations,
   I18nextResources,
-} from '../i18n/i18nextLocize';
-import { isQuickPreviewRequest } from '../quickPreview/quickPreview';
-import serializeSafe from '../serializeSafe/serializeSafe';
-import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';
+} from '@/modules/i18n/i18nextLocize';
+import { isQuickPreviewRequest } from '@/modules/quickPreview/quickPreview';
+import serializeSafe from '@/modules/serializeSafe/serializeSafe';
+import { UserSemiPersistentSession } from '@/modules/userSession/types/UserSemiPersistentSession';
 
 /**
  * getDemoServerSideProps returns only part of the props expected in SSRPageProps

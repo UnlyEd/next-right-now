@@ -3,7 +3,7 @@ import {
   NextPageContext,
 } from 'next';
 import { Router } from 'next/router';
-import { MultiversalPageProps } from '../../app/types/MultiversalPageProps';
+import { MultiversalPageProps } from '../../../layouts/base/types/MultiversalPageProps';
 
 /**
  * Props that are provided to the render function of the application (in _app)

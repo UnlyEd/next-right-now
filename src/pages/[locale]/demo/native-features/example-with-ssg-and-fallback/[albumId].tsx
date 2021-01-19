@@ -12,7 +12,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 import { Alert } from 'reactstrap';
-import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
+import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from '@/common/components/dataDisplay/Btn';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
@@ -20,12 +20,12 @@ import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServ
 import { StaticPath } from '@/modules/bootstrapping/types/StaticPath';
 import { StaticPathsOutput } from '@/modules/bootstrapping/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/modules/bootstrapping/types/StaticPropsInput';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { getRandomInt } from '@/modules/js/random';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '../../../../../layouts/demo/demoSSG';
 import waitFor from '@/common/utils/waitFor';
-import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import songs from '@/modules/testing/mocks/songs';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-fallback/[albumId]';

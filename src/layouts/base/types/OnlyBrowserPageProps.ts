@@ -1,5 +1,5 @@
-import UniversalCookiesManager from '../../cookiesManager/UniversalCookiesManager';
-import { UserSemiPersistentSession } from '../../userSession/types/UserSemiPersistentSession';
+import UniversalCookiesManager from '@/modules/cookiesManager/UniversalCookiesManager';
+import { UserSemiPersistentSession } from '@/modules/userSession/types/UserSemiPersistentSession';
 
 /**
  * Props only available on the browser side, for all pages

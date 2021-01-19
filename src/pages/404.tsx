@@ -15,11 +15,11 @@ import { useTranslation } from 'react-i18next';
 import I18nLink from '@/modules/i18n/components/I18nLink';
 import Btn from '@/common/components/dataDisplay/Btn';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
-import { SoftPageProps } from '@/modules/app/types/SoftPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { SoftPageProps } from '@/modules/../layouts/base/types/SoftPageProps';
+import { SSGPageProps } from '@/modules/../layouts/base/types/SSGPageProps';
 import { DEFAULT_LOCALE, LANG_EN, LANG_FR } from '@/modules/i18n/i18n';
-import { getCommonStaticProps } from '@/modules/app/SSG';
-import DefaultLayout from '@/common/components/layouts/DefaultLayout';
+import { getCommonStaticProps } from '../layouts/base/SSG';
+import DefaultLayout from '../layouts/default/components/DefaultLayout';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

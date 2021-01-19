@@ -13,9 +13,9 @@ import {
   Container,
 } from 'reactstrap';
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
+import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import I18nLink from '@/modules/i18n/components/I18nLink';
-import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
@@ -23,10 +23,10 @@ import { Customer } from '@/modules/data/types/Customer';
 import { Product } from '@/modules/data/types/Product';
 import { I18nLocale } from '@/modules/i18n/types/I18nLocale';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { SUPPORTED_LOCALES } from '@/modules/i18n/i18n';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

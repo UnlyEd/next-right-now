@@ -16,6 +16,9 @@
       "@/utils/*": [
         "../src/common/utils/*"
       ],
+      "@/layouts/*": [
+        "src/layouts/*"
+      ],
       "@/modules/*": [
         "../src/modules/*"
       ],

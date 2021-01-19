@@ -15,8 +15,8 @@ import {
   Container,
 } from 'reactstrap';
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
-import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
+import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';
@@ -27,10 +27,10 @@ import { Product } from '@/modules/data/types/Product';
 import { SanitizedAirtableDataset } from '@/modules/data/types/SanitizedAirtableDataset';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
 import { StaticPropsInput } from '@/modules/bootstrapping/types/StaticPropsInput';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import deserializeSafe from '@/modules/serializeSafe/deserializeSafe';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
 import timeDifference from '@/modules/date/timeDifference';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';

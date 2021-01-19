@@ -25,6 +25,7 @@ module.exports = {
     '^@/common/(.*)$': '<rootDir>/src/common/$1',
     '^@/components/(.*)$': '<rootDir>/src/common/components/$1',
     '^@/utils/(.*)$': '<rootDir>/src/common/utils/$1',
+    '^@/layouts/(.*)$': '<rootDir>/src/layouts/$1',
     '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
     '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
   },

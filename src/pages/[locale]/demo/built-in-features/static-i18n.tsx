@@ -16,18 +16,18 @@ import {
   Container,
 } from 'reactstrap';
 import { v1 as uuid } from 'uuid';
-import BuiltInFeaturesSidebar from '@/modules/demo/components/BuiltInFeaturesSidebar';
-import ExamplesPage from '@/modules/demo/components/ExamplesPage';
-import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
+import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
+import ExamplesPage from '@/layouts/demo/components/ExamplesPage';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import DisplayOnBrowserMount from '@/common/components/rehydration/DisplayOnBrowserMount';
 import Code from '@/common/components/dataDisplay/Code';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useI18n, { I18n } from '@/modules/i18n/hooks/useI18n';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import { resolveCustomerVariationLang } from '@/modules/i18n/i18n';
-import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '../../../../layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

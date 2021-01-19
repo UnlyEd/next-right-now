@@ -3,7 +3,7 @@ import {
   GetStaticProps,
 } from 'next';
 import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServerSideParams';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
 import ExampleWithSSGPage, {
   getStaticPaths as getStaticPathsHomePage,
   getStaticProps as getStaticPropsHomePage,

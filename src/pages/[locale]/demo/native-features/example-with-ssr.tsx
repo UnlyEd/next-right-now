@@ -11,17 +11,17 @@ import {
   Container,
 } from 'reactstrap';
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
-import NativeFeaturesSidebar from '@/modules/demo/components/NativeFeaturesSidebar';
-import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
+import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
+import DefaultLayout from '@/layouts/demo/components/ExamplesLayout';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
 import useCustomer from '@/modules/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/data/types/AirtableRecord';
 import { Customer } from '@/modules/data/types/Customer';
 import { Product } from '@/modules/data/types/Product';
-import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
-import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
-import { SSRPageProps } from '@/modules/app/types/SSRPageProps';
-import { getDemoServerSideProps } from '@/modules/demo/demoSSR';
+import { OnlyBrowserPageProps } from '@/layouts/base/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/base/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/base/types/SSRPageProps';
+import { getDemoServerSideProps } from '../../../../layouts/demo/demoSSR';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
