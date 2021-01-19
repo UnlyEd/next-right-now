@@ -1,4 +1,4 @@
-import ProductRow from '@/common/components/dataDisplay/ProductRow';
+import ProductRow from '@/components/dataDisplay/ProductRow';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
@@ -23,7 +23,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
 
-const fileLabel = 'pages/[locale]/quick-preview/preview-product';
+const fileLabel = 'pages/[locale]/demo/quick-preview/preview-product';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
