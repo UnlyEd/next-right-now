@@ -131,7 +131,7 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
           <DisplayOnBrowserMount>
             The page was built at: {builtAt} ({timeDifference(new Date(), new Date(builtAt))})
             {' - '}
-            <a href={`/${locale}/examples/native-features/example-with-ssg-and-revalidate`}>Refresh</a>
+            <a href={`/${locale}/demo/native-features/example-with-ssg-and-revalidate`}>Refresh</a>
           </DisplayOnBrowserMount>
         </Alert>
 

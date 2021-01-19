@@ -198,7 +198,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
             {
               id > 0 && (
                 <I18nLink
-                  href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+                  href={'/demo/native-features/example-with-ssg-and-fallback/[albumId]'}
                   params={{
                     albumId: id - 1,
                   }}
@@ -216,7 +216,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
               {' | '}
             </Btn>
             <I18nLink
-              href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+              href={'/demo/native-features/example-with-ssg-and-fallback/[albumId]'}
               params={{
                 albumId: id + 1,
               }}
@@ -226,7 +226,7 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
 
           </div>
 
-          <ExternalLink href={`/examples/native-features/example-with-ssg-and-fallback/${id + 2}`}>
+          <ExternalLink href={`/demo/native-features/example-with-ssg-and-fallback/${id + 2}`}>
             <Btn mode={'primary-outline'}>Go to next+2 album (opens new tab)</Btn>
           </ExternalLink>
 

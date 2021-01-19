@@ -37,7 +37,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/online-deployment/'}>
                 <Btn mode={'primary-outline'}>Learn how to configure and use Vercel</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/hosting'}>
+              <I18nLink href={'/demo/built-in-features/hosting'}>
                 <Btn mode={'primary-outline'}>Learn why we chose Vercel</Btn>
               </I18nLink>
             </div>
@@ -57,7 +57,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://vercel.com/docs/cli?#commands/secrets'}>
                 <Btn mode={'primary-outline'}>Learn how to configure Vercel secrets, using the CLI</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/stages-and-secrets'}>
+              <I18nLink href={'/demo/built-in-features/stages-and-secrets'}>
                 <Btn mode={'primary-outline'}>Learn more about their usage and differences</Btn>
               </I18nLink>
             </div>
@@ -94,7 +94,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/ci-cd/setup-github-actions.html'}>
                 <Btn mode={'primary-outline'}>Learn how to setup CI/CD</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/manual-deployments'}>
+              <I18nLink href={'/demo/built-in-features/manual-deployments'}>
                 <Btn mode={'primary-outline'}>See how to bypass automated CI/CD and deploy manually</Btn>
               </I18nLink>
             </div>
@@ -114,7 +114,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/i18n/use-locize.html'}>
                 <Btn mode={'primary-outline'}>Learn how to use the "Locize" vendor</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/static-i18n'}>
+              <I18nLink href={'/demo/built-in-features/static-i18n'}>
                 <Btn mode={'primary-outline'}>See usage examples</Btn>
               </I18nLink>
             </div>
@@ -134,7 +134,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/monitoring/use-sentry.html'}>
                 <Btn mode={'primary-outline'}>Learn how to use the "Sentry" vendor</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/monitoring'}>
+              <I18nLink href={'/demo/built-in-features/monitoring'}>
                 <Btn mode={'primary-outline'}>See usage examples</Btn>
               </I18nLink>
             </div>
@@ -148,7 +148,7 @@ const Template: Story<Props> = (props) => {
           <CardSubtitle>&ldquo;API fetching using Amplitude vendor (REST))&rdquo;</CardSubtitle>
           <CardText tag={'div'}>
             <div className={'buttons'}>
-              <I18nLink href={'/examples/built-in-features/api'}>
+              <I18nLink href={'/demo/built-in-features/api'}>
                 <Btn mode={'primary-outline'}>See usage examples</Btn>
               </I18nLink>
             </div>
@@ -165,7 +165,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/css-in-js/use-emotion.html'}>
                 <Btn mode={'primary-outline'}>Learn how to use the "Emotion" library</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/css-in-js'}>
+              <I18nLink href={'/demo/built-in-features/css-in-js'}>
                 <Btn mode={'primary-outline'}>See usage examples</Btn>
               </I18nLink>
             </div>
@@ -182,7 +182,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://github.com/osano/cookieconsent'}>
                 <Btn mode={'primary-outline'}>Learn more about the "Cookie consent" library</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/cookies-consent'}>
+              <I18nLink href={'/demo/built-in-features/cookies-consent'}>
                 <Btn mode={'primary-outline'}>Learn more about user consent and its impact on analytics</Btn>
               </I18nLink>
             </div>
@@ -202,7 +202,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/analytics/use-amplitude.html'}>
                 <Btn mode={'primary-outline'}>Learn how to use the "Amplitude" vendor</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/analytics'}>
+              <I18nLink href={'/demo/built-in-features/analytics'}>
                 <Btn mode={'primary-outline'}>See usage examples</Btn>
               </I18nLink>
             </div>
@@ -236,7 +236,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://fontawesome.com/icons'}>
                 <Btn mode={'primary-outline'}>See all available FA icons</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/icons'}>
+              <I18nLink href={'/demo/built-in-features/icons'}>
                 <Btn mode={'primary-outline'}>See usage examples</Btn>
               </I18nLink>
             </div>
@@ -253,7 +253,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://animate.style/'}>
                 <Btn mode={'primary-outline'}>See all available animations</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/animations'}>
+              <I18nLink href={'/demo/built-in-features/animations'}>
                 <Btn mode={'primary-outline'}>See usage examples</Btn>
               </I18nLink>
             </div>
@@ -270,7 +270,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://reactstrap.github.io/components'}>
                 <Btn mode={'primary-outline'}>See all available Reactstrap components</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/ui-components'}>
+              <I18nLink href={'/demo/built-in-features/ui-components'}>
                 <Btn mode={'primary-outline'}>See components examples</Btn>
               </I18nLink>
             </div>
@@ -290,7 +290,7 @@ const Template: Story<Props> = (props) => {
               <ExternalLink href={'https://pmarsceill.github.io/just-the-docs/'}>
                 <Btn mode={'primary-outline'}>Learn more about "just-the-docs" built-in template</Btn>
               </ExternalLink>
-              <I18nLink href={'/examples/built-in-features/docs-site'}>
+              <I18nLink href={'/demo/built-in-features/docs-site'}>
                 <Btn mode={'primary-outline'}>Learn how to use it</Btn>
               </I18nLink>
             </div>
@@ -304,7 +304,7 @@ const Template: Story<Props> = (props) => {
           <CardSubtitle>&ldquo;Dynamically transform Markdown into JSX components at runtime&rdquo;</CardSubtitle>
           <CardText tag={'div'}>
             <div className={'buttons'}>
-              <I18nLink href={'/examples/built-in-features/md-as-jsx'}>
+              <I18nLink href={'/demo/built-in-features/md-as-jsx'}>
                 <Btn mode={'primary-outline'}>See usage examples</Btn>
               </I18nLink>
             </div>

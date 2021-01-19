@@ -84,7 +84,7 @@ const TrackingUselessReRendersPage: NextPage<Props> = (props): JSX.Element => {
         </p>
 
         <Button>
-          <I18nLink href={'/examples/built-in-utilities/tracking-useless-re-renders'}>Refresh the page (CSR)</I18nLink>
+          <I18nLink href={'/demo/built-in-utilities/tracking-useless-re-renders'}>Refresh the page (CSR)</I18nLink>
         </Button>
 
         <p>

@@ -18,26 +18,26 @@ type Props = SidebarProps;
 
 export const NATIVE_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
   {
-    href: '/examples/native-features/example-with-ssr',
+    href: '/demo/native-features/example-with-ssr',
     label: 'SSR (getServerSideProps)',
   },
   {
-    href: '/examples/native-features/example-with-ssg',
+    href: '/demo/native-features/example-with-ssg',
     label: 'SSG',
   },
   {
-    href: '/examples/native-features/example-with-ssg-and-fallback/[albumId]',
+    href: '/demo/native-features/example-with-ssg-and-fallback/[albumId]',
     label: 'SSG using fallback',
     params: {
       albumId: 1,
     },
   },
   {
-    href: '/examples/native-features/example-with-ssg-and-revalidate',
+    href: '/demo/native-features/example-with-ssg-and-revalidate',
     label: 'SSG using revalidate',
   },
   {
-    href: '/examples/native-features/example-optional-catch-all-routes',
+    href: '/demo/native-features/example-optional-catch-all-routes',
     label: 'Catch-all routes',
   },
 ];
@@ -82,7 +82,7 @@ const NativeFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Eleme
       <hr />
 
       <SidebarFooter
-        nextSectionHref={'/examples/built-in-features/hosting'}
+        nextSectionHref={'/demo/built-in-features/hosting'}
       />
     </div>
   );

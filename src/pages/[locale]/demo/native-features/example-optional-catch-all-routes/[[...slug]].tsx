@@ -93,7 +93,7 @@ const ExampleWithCatchAllRoutesPage: NextPage<Props> = (props): JSX.Element => {
         </Alert>
 
         <b>URL <code>slug</code> parameters:</b> <code>{(slug as string[])?.join('/')}</code><br />
-        <I18nLink href={'/examples/native-features/example-optional-catch-all-routes/you/can/go/to/any/depth/you/want'}>Go to some nested path</I18nLink>
+        <I18nLink href={'/demo/native-features/example-optional-catch-all-routes/you/can/go/to/any/depth/you/want'}>Go to some nested path</I18nLink>
 
         <hr />
 

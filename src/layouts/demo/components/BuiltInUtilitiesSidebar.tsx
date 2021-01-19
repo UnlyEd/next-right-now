@@ -18,43 +18,43 @@ type Props = SidebarProps;
 
 export const BUILT_IN_UTILITIES_SIDEBAR_LINKS: SidebarLink[] = [
   {
-    href: '/examples/built-in-utilities/i18nLink-component',
+    href: '/demo/built-in-utilities/i18nLink-component',
     label: 'I18nLink component',
   },
   {
-    href: '/examples/built-in-utilities/airtableAsset-component',
+    href: '/demo/built-in-utilities/airtableAsset-component',
     label: 'AirtableAsset component',
   },
   {
-    href: '/examples/built-in-utilities/hooks',
+    href: '/demo/built-in-utilities/hooks',
     label: 'Hooks',
   },
   {
-    href: '/examples/built-in-utilities/hocs',
+    href: '/demo/built-in-utilities/hocs',
     label: 'HOCs',
   },
   {
-    href: '/examples/built-in-utilities/api',
+    href: '/demo/built-in-utilities/api',
     label: 'API',
   },
   {
-    href: '/examples/built-in-utilities/errors-handling',
+    href: '/demo/built-in-utilities/errors-handling',
     label: 'Errors handling',
   },
   {
-    href: '/examples/built-in-utilities/bundle-analysis',
+    href: '/demo/built-in-utilities/bundle-analysis',
     label: 'Bundle analysis',
   },
   {
-    href: '/examples/built-in-utilities/svg-to-react',
+    href: '/demo/built-in-utilities/svg-to-react',
     label: 'SVG to React',
   },
   {
-    href: '/examples/built-in-utilities/security-audit',
+    href: '/demo/built-in-utilities/security-audit',
     label: 'Security audit',
   },
   {
-    href: '/examples/built-in-utilities/tracking-useless-re-renders',
+    href: '/demo/built-in-utilities/tracking-useless-re-renders',
     label: 'Tracking useless re-renders',
   },
 ];
@@ -99,7 +99,7 @@ const BuiltInUtilitiesSidebar: React.FunctionComponent<Props> = (props): JSX.Ele
       <hr />
 
       <SidebarFooter
-        previousSectionHref={'/examples/built-in-features'}
+        previousSectionHref={'/demo/built-in-features'}
       />
     </div>
   );

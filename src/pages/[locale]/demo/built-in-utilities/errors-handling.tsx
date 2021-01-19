@@ -152,10 +152,10 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
 
         <p>
           <Btn mode={'primary-outline'}>
-            <I18nLink href={'/examples/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink><br />
+            <I18nLink href={'/demo/built-in-utilities/top-level-500-error'}>This is a client-side navigation (CSR)</I18nLink><br />
           </Btn>
           <Btn mode={'primary-outline'}>
-            <a href={'/examples/built-in-utilities/top-level-500-error'}>This is a normal navigation</a>
+            <a href={'/demo/built-in-utilities/top-level-500-error'}>This is a normal navigation</a>
           </Btn>
         </p>
         <br />
@@ -165,7 +165,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
         <h2>Interactive error (simulating User interaction)</h2>
 
         <Btn mode={'primary-outline'}>
-          <I18nLink href={'/examples/built-in-utilities/interactive-error'}>Go to interactive error page</I18nLink><br />
+          <I18nLink href={'/demo/built-in-utilities/interactive-error'}>Go to interactive error page</I18nLink><br />
         </Btn>
 
         <br />

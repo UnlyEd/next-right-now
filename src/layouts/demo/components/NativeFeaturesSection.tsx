@@ -57,7 +57,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering'}>
                   <Btn mode={'primary-outline'}>Learn more about&nbsp;<code>getServerSideProps</code></Btn>
                 </ExternalLink>
-                <I18nLink href={'/examples/native-features/example-with-ssr'}>
+                <I18nLink href={'/demo/native-features/example-with-ssr'}>
                   <Btn mode={'primary-outline'}>Example with&nbsp;<code>getServerSideProps</code></Btn>
                 </I18nLink>
               </div>
@@ -93,7 +93,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 <ExternalLink href={'https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation'}>
                   <Btn mode={'primary-outline'}>Learn more about&nbsp;<code>getStaticProps</code></Btn>
                 </ExternalLink>
-                <I18nLink href={'/examples/native-features/example-with-ssg'}>
+                <I18nLink href={'/demo/native-features/example-with-ssg'}>
                   <Btn mode={'primary-outline'}>Example with&nbsp;<code>getStaticProps</code></Btn>
                 </I18nLink>
               </div>
@@ -125,7 +125,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                   <Btn mode={'primary-outline'}>Learn more about&nbsp;<code>getStaticProps</code> with <code>fallback</code> option</Btn>
                 </ExternalLink>
                 <I18nLink
-                  href={'/examples/native-features/example-with-ssg-and-fallback/[albumId]'}
+                  href={'/demo/native-features/example-with-ssg-and-fallback/[albumId]'}
                   params={{
                     albumId: 1,
                   }}
@@ -157,7 +157,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 <ExternalLink href={'https://nextjs.org/blog/next-9-4#incremental-static-regeneration-beta'}>
                   <Btn mode={'primary-outline'}>Learn more about&nbsp;<code>getStaticProps</code> with <code>revalidate</code> option</Btn>
                 </ExternalLink>
-                <I18nLink href={'/examples/native-features/example-with-ssg-and-revalidate'}>
+                <I18nLink href={'/demo/native-features/example-with-ssg-and-revalidate'}>
                   <Btn mode={'primary-outline'}>Example with&nbsp;<code>getStaticProps</code> and <code>revalidate</code></Btn>
                 </I18nLink>
               </div>
@@ -231,7 +231,7 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
                 <ExternalLink href={'https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes'}>
                   <Btn mode={'primary-outline'}>Learn more about "optional catch-all routes" native feature</Btn>
                 </ExternalLink>
-                <I18nLink href={'/examples/native-features/example-optional-catch-all-routes'}>
+                <I18nLink href={'/demo/native-features/example-optional-catch-all-routes'}>
                   <Btn mode={'primary-outline'}>See usage examples</Btn>
                 </I18nLink>
               </div>

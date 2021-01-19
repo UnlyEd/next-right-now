@@ -18,59 +18,59 @@ type Props = SidebarProps;
 
 export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
   {
-    href: '/examples/built-in-features/hosting',
+    href: '/demo/built-in-features/hosting',
     label: 'Hosting',
   },
   {
-    href: '/examples/built-in-features/stages-and-secrets',
+    href: '/demo/built-in-features/stages-and-secrets',
     label: 'Stages & secrets',
   },
   {
-    href: '/examples/built-in-features/manual-deployments',
+    href: '/demo/built-in-features/manual-deployments',
     label: 'CI/CD',
   },
   {
-    href: '/examples/built-in-features/static-i18n',
+    href: '/demo/built-in-features/static-i18n',
     label: 'Static i18n',
   },
   {
-    href: '/examples/built-in-features/monitoring',
+    href: '/demo/built-in-features/monitoring',
     label: 'Monitoring',
   },
   {
-    href: '/examples/built-in-features/api',
+    href: '/demo/built-in-features/api',
     label: 'API (Airtable)',
   },
   {
-    href: '/examples/built-in-features/css-in-js',
+    href: '/demo/built-in-features/css-in-js',
     label: 'CSS-in-JS',
   },
   {
-    href: '/examples/built-in-features/cookies-consent',
+    href: '/demo/built-in-features/cookies-consent',
     label: 'Cookies consent',
   },
   {
-    href: '/examples/built-in-features/analytics',
+    href: '/demo/built-in-features/analytics',
     label: 'Analytics',
   },
   {
-    href: '/examples/built-in-features/icons',
+    href: '/demo/built-in-features/icons',
     label: 'Icons',
   },
   {
-    href: '/examples/built-in-features/animations',
+    href: '/demo/built-in-features/animations',
     label: 'CSS Animations',
   },
   {
-    href: '/examples/built-in-features/ui-components',
+    href: '/demo/built-in-features/ui-components',
     label: 'UI components library',
   },
   {
-    href: '/examples/built-in-features/docs-site',
+    href: '/demo/built-in-features/docs-site',
     label: 'Docs site',
   },
   {
-    href: '/examples/built-in-features/md-as-jsx',
+    href: '/demo/built-in-features/md-as-jsx',
     label: 'Markdown as JSX',
   },
 ];
@@ -115,8 +115,8 @@ const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Elem
       <hr />
 
       <SidebarFooter
-        previousSectionHref={'/examples/native-features/example-with-ssr'}
-        nextSectionHref={'/examples/built-in-utilities/i18nLink-component'}
+        previousSectionHref={'/demo/native-features/example-with-ssr'}
+        nextSectionHref={'/demo/built-in-utilities/i18nLink-component'}
       />
     </div>
   );
