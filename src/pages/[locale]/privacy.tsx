@@ -14,11 +14,8 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import {
-  getCommonStaticPaths,
-  getCommonStaticProps,
-} from '../../layouts/base/SSG';
-import DefaultLayout from '../../layouts/default/components/DefaultLayout';
+import { getCommonStaticPaths, getCommonStaticProps } from '@/layouts/base/SSG';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 
 const fileLabel = 'pages/[locale]/privacy';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

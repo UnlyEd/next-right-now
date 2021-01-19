@@ -21,7 +21,7 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'reactstrap';
-import { getDemoServerSideProps } from '../../../layouts/demo/demoSSR';
+import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
 
 const fileLabel = 'pages/[locale]/quick-preview/preview-product';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

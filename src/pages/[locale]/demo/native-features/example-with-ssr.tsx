@@ -21,7 +21,7 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { getDemoServerSideProps } from '../../../../layouts/demo/demoSSR';
+import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

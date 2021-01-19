@@ -22,8 +22,8 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getCommonStaticProps } from '../layouts/base/SSG';
-import DefaultLayout from '../layouts/default/components/DefaultLayout';
+import { getCommonStaticProps } from '@/layouts/base/SSG';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

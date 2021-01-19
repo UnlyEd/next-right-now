@@ -27,10 +27,7 @@ import {
   Container,
 } from 'reactstrap';
 import { v1 as uuid } from 'uuid';
-import {
-  getDemoStaticPaths,
-  getDemoStaticProps,
-} from '../../../../layouts/demo/demoSSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '@/layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

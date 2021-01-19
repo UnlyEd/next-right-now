@@ -31,10 +31,7 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import {
-  getDemoStaticPaths,
-  getDemoStaticProps,
-} from '../../../../layouts/demo/demoSSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '@/layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

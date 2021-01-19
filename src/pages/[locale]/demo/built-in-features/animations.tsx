@@ -15,10 +15,7 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import {
-  getDemoStaticPaths,
-  getDemoStaticProps,
-} from '../../../../layouts/demo/demoSSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '@/layouts/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/animations';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

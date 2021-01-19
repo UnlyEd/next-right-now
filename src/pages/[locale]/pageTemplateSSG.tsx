@@ -14,7 +14,7 @@ import {
   NextPage,
 } from 'next';
 import React from 'react';
-import DefaultLayout from '../../layouts/default/components/DefaultLayout';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSG';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
