@@ -23,7 +23,7 @@ import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { SSRPageProps } from '@/modules/app/types/SSRPageProps';
 import { getDemoServerSideProps } from '@/modules/demo/demoSSR';
 
-const fileLabel = 'pages/[locale]/airtable-live-preview/preview-product';
+const fileLabel = 'pages/[locale]/quick-preview/preview-product';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });

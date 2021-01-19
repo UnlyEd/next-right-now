@@ -3,16 +3,16 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import ExamplesNav, { Props } from '@/modules/demo/components/ExamplesNav';
+import Nav, { Props } from '@/common/components/layouts/Nav';
 
 export default {
   title: 'Next Right Now/Layout/Nav',
-  component: ExamplesNav,
+  component: Nav,
   argTypes: {},
 } as Meta;
 
 export const DefaultExample: Story<Props> = () => {
   return (
-    <ExamplesNav />
+    <Nav />
   );
 };

@@ -6,28 +6,28 @@ import {
   GetStaticPropsResult,
 } from 'next';
 import { getAirtableSchema } from '../airtable/airtableSchema';
-import { supportedLocales } from '../i18n/i18nConfig';
+import consolidateSanitizedAirtableDataset from '../airtable/consolidateSanitizedAirtableDataset';
+import fetchAndSanitizeAirtableDatasets from '../airtable/fetchAndSanitizeAirtableDatasets';
 import { AirtableSchema } from '../airtable/types/AirtableSchema';
-import { AirtableDatasets } from '../data/types/AirtableDatasets';
-import { SanitizedAirtableDataset } from '../data/types/SanitizedAirtableDataset';
-import { I18nLocale } from '../i18n/types/I18nLocale';
 import { CommonServerSideParams } from '../bootstrapping/types/CommonServerSideParams';
-import { PreviewData } from '../previewMode/types/PreviewData';
 import { StaticPath } from '../bootstrapping/types/StaticPath';
 import { StaticPathsOutput } from '../bootstrapping/types/StaticPathsOutput';
 import { StaticPropsInput } from '../bootstrapping/types/StaticPropsInput';
-import { SSGPageProps } from './types/SSGPageProps';
-import consolidateSanitizedAirtableDataset from '../airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '../airtable/fetchAndSanitizeAirtableDatasets';
-import serializeSafe from '../serializeSafe/serializeSafe';
+import { AirtableDatasets } from '../data/types/AirtableDatasets';
+import { SanitizedAirtableDataset } from '../data/types/SanitizedAirtableDataset';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
 } from '../i18n/i18n';
+import { supportedLocales } from '../i18n/i18nConfig';
 import {
   fetchTranslations,
   I18nextResources,
 } from '../i18n/i18nextLocize';
+import { I18nLocale } from '../i18n/types/I18nLocale';
+import { PreviewData } from '../previewMode/types/PreviewData';
+import serializeSafe from '../serializeSafe/serializeSafe';
+import { SSGPageProps } from './types/SSGPageProps';
 
 /**
  * Only executed on the server side at build time.

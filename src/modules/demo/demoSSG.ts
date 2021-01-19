@@ -30,9 +30,6 @@ import { PreviewData } from '../previewMode/types/PreviewData';
 import serializeSafe from '../serializeSafe/serializeSafe';
 
 /**
- * XXX This method is meant for people creating their own project based on NRN.
- *  It's meant to be deleted eventually when you don't need to keep the examples around.
- *
  * Only executed on the server side at build time.
  * Computes all static paths that should be available for all SSG pages
  * Necessary when a page has dynamic routes and uses "getStaticProps", in order to build the HTML pages
@@ -62,9 +59,6 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
 };
 
 /**
- * XXX This method is meant for people creating their own project based on NRN.
- *  It's meant to be deleted eventually when you don't need to keep the examples around.
- *
  * Only executed on the server side at build time.
  * Computes all static props that should be available for all SSG pages
  *
