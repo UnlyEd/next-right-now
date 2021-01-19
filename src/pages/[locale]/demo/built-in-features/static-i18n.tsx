@@ -27,7 +27,7 @@ import { CommonServerSideParams } from '@/modules/bootstrapping/types/CommonServ
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { resolveCustomerVariationLang } from '@/modules/i18n/i18n';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -38,7 +38,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExamplesCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -48,7 +48,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getExamplesCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDemoStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)

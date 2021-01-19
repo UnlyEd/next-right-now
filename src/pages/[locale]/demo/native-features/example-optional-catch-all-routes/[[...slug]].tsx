@@ -19,7 +19,7 @@ import { StaticPath } from '@/modules/bootstrapping/types/StaticPath';
 import { StaticPathsOutput } from '@/modules/bootstrapping/types/StaticPathsOutput';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
-import { getExamplesCommonStaticProps } from '@/modules/app/SSG';
+import { getDemoStaticProps } from '@/modules/demo/demoSSG';
 import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-optional-catch-all-routes/[[...slug]]';
@@ -59,7 +59,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): 
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getExamplesCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDemoStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)

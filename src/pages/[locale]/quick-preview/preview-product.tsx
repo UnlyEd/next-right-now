@@ -21,7 +21,7 @@ import { Product } from '@/modules/data/types/Product';
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { SSRPageProps } from '@/modules/app/types/SSRPageProps';
-import { getExamplesCommonServerSideProps } from '@/modules/app/SSR';
+import { getDemoServerSideProps } from '@/modules/demo/demoSSR';
 
 const fileLabel = 'pages/[locale]/airtable-live-preview/preview-product';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -41,7 +41,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getExamplesCommonServerSideProps;
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDemoServerSideProps;
 
 /**
  * SSR pages are first rendered by the server

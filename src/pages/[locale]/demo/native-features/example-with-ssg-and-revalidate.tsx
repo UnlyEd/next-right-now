@@ -30,7 +30,7 @@ import { StaticPropsInput } from '@/modules/bootstrapping/types/StaticPropsInput
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import deserializeSafe from '@/modules/serializeSafe/deserializeSafe';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
 import timeDifference from '@/modules/date/timeDifference';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
@@ -44,7 +44,7 @@ const regenerationDelay = 30; // Seconds
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExamplesCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -55,7 +55,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getExamplesCommonStaticProps(props);
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoStaticProps(props);
 
   if ('props' in commonStaticProps) {
     const { serializedDataset } = commonStaticProps?.props || {};

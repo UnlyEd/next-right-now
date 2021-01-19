@@ -23,7 +23,7 @@ import { StaticPropsInput } from '@/modules/bootstrapping/types/StaticPropsInput
 import { OnlyBrowserPageProps } from '@/modules/app/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/modules/app/types/SSGPageProps';
 import { getRandomInt } from '@/modules/js/random';
-import { getExamplesCommonStaticPaths, getExamplesCommonStaticProps } from '@/modules/app/SSG';
+import { getDemoStaticPaths, getDemoStaticProps } from '@/modules/demo/demoSSG';
 import waitFor from '@/common/utils/waitFor';
 import DefaultLayout from '@/modules/demo/components/ExamplesLayout';
 import songs from '@/modules/testing/mocks/songs';
@@ -42,7 +42,7 @@ type PageAdditionalServerSideParams = {
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
 export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput<PageAdditionalServerSideParams>> => {
-  const commonStaticPaths: StaticPathsOutput<PageAdditionalServerSideParams> = await getExamplesCommonStaticPaths(context) as StaticPathsOutput<PageAdditionalServerSideParams>;
+  const commonStaticPaths: StaticPathsOutput<PageAdditionalServerSideParams> = await getDemoStaticPaths(context) as StaticPathsOutput<PageAdditionalServerSideParams>;
   const { paths } = commonStaticPaths;
   const albumIdsToPreBuild = ['1']; // Only '/album-1-with-ssg-and-fallback' is generated at build time, other will be generated on-demand
 
@@ -69,7 +69,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (con
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput<PageAdditionalServerSideParams>): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getExamplesCommonStaticProps(props);
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoStaticProps(props);
   const { params: { albumId } } = props;
 
   // Simulate API call by awaiting

@@ -9,19 +9,17 @@ import {
 } from 'next';
 import NextCookies from 'next-cookies';
 import { getAirtableSchema } from '../airtable/airtableSchema';
-import { AirtableSchema } from '../airtable/types/AirtableSchema';
-import { Cookies } from '../cookiesManager/types/Cookies';
-import { AirtableDatasets } from '../data/types/AirtableDatasets';
-import { SanitizedAirtableDataset } from '../data/types/SanitizedAirtableDataset';
-import { GenericObject } from '../data/types/GenericObject';
-import { CommonServerSideParams } from '../bootstrapping/types/CommonServerSideParams';
-import { PublicHeaders } from './types/PublicHeaders';
-import { SSRPageProps } from './types/SSRPageProps';
-import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';
 import consolidateSanitizedAirtableDataset from '../airtable/consolidateSanitizedAirtableDataset';
 import fetchAndSanitizeAirtableDatasets from '../airtable/fetchAndSanitizeAirtableDatasets';
-import serializeSafe from '../serializeSafe/serializeSafe';
+import { AirtableSchema } from '../airtable/types/AirtableSchema';
+import { PublicHeaders } from '../app/types/PublicHeaders';
+import { SSRPageProps } from '../app/types/SSRPageProps';
+import { CommonServerSideParams } from '../bootstrapping/types/CommonServerSideParams';
+import { Cookies } from '../cookiesManager/types/Cookies';
 import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
+import { AirtableDatasets } from '../data/types/AirtableDatasets';
+import { GenericObject } from '../data/types/GenericObject';
+import { SanitizedAirtableDataset } from '../data/types/SanitizedAirtableDataset';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -32,9 +30,11 @@ import {
   I18nextResources,
 } from '../i18n/i18nextLocize';
 import { isQuickPreviewRequest } from '../quickPreview/quickPreview';
+import serializeSafe from '../serializeSafe/serializeSafe';
+import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';
 
 /**
- * getCommonServerSideProps returns only part of the props expected in SSRPageProps
+ * getDemoServerSideProps returns only part of the props expected in SSRPageProps
  * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
 export type GetCommonServerSidePropsResults = SSRPageProps & {
@@ -54,7 +54,7 @@ export type GetCommonServerSidePropsResults = SSRPageProps & {
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCommonServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
+export const getDemoServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
   const {
     query,
     params,
