@@ -134,6 +134,10 @@ Use them as you see fit!
 
 Modules are and advanced way of organizing your code base.
 
+> Modules within `src/modules/core` are modules built-in with Next Right Now.
+>
+> You should create your own modules in `src/` or `src/modules`. Either is fine, it's a matter of taste/opinion.
+
 They don't change how code is compiled or anything like that,
 they're purely a way to organize your code, so it's easier to reason/maintain.
 
