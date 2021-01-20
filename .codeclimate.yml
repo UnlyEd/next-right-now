@@ -16,7 +16,7 @@ checks:
   method-complexity:
     enabled: true
     config:
-      threshold: 10
+      threshold: 25 # 10 by default
   method-count:
     enabled: true
     config:
@@ -24,7 +24,7 @@ checks:
   method-lines:
     enabled: true
     config:
-      threshold: 200 # 25 by default
+      threshold: 300 # 25 by default
   nested-control-flow:
     enabled: true
     config:

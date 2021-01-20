@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Nav, { Props } from '../../../components/pageLayouts/Nav';
+import Nav, { Props } from '@/layouts/core/components/Nav';
 
 export default {
   title: 'Next Right Now/Layout/Nav',

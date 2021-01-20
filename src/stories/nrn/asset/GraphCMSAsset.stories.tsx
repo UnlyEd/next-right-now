@@ -4,7 +4,7 @@ import {
 } from '@storybook/react/types-6-0';
 import React from 'react';
 import GraphCMSAsset, { Props } from '../../../components/assets/GraphCMSAsset';
-import { Asset } from '../../../types/data/Asset';
+import { Asset } from '@/modules/core/data/types/Asset';
 
 const defaultLogoUrl = 'https://media.graphcms.com/EKw3Em7aRkqaYmowHWAN';
 

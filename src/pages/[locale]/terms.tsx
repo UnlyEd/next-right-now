@@ -1,31 +1,24 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import LegalContent from '@/common/components/dataDisplay/LegalContent';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import Layout from '@/layouts/default/components/DefaultLayout';
+import {
+  getDefaultStaticPaths,
+  getDefaultStaticProps,
+} from '@/layouts/default/defaultSSG';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult } from 'apollo-client';
-import deepmerge from 'deepmerge';
 import {
   GetStaticPaths,
   GetStaticProps,
-  GetStaticPropsResult,
   NextPage,
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import LegalContent from '../../components/utils/LegalContent';
-import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
-import withApollo from '../../hocs/withApollo';
-import useCustomer from '../../hooks/useCustomer';
-import { Customer } from '../../types/data/Customer';
-import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { createApolloClient } from '../../utils/gql/graphql';
-import { AMPLITUDE_PAGES } from '../../utils/analytics/amplitude';
-import { replaceAllOccurrences } from '../../utils/js/string';
-import {
-  getCommonStaticPaths,
-  getCommonStaticProps,
-} from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -36,7 +29,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefaultStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -46,54 +39,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonS
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getCommonStaticProps(props);
-
-  if ('props' in commonStaticProps) {
-    const { customerRef, gcmsLocales } = commonStaticProps.props;
-    const apolloClient = createApolloClient();
-    const variables = {
-      customerRef,
-    };
-    const queryOptions = {
-      displayName: 'TERMS_PAGE_QUERY',
-      query: TERMS_PAGE_QUERY,
-      variables,
-      context: {
-        headers: {
-          'gcms-locales': gcmsLocales,
-        },
-      },
-    };
-
-    const {
-      data,
-      errors,
-      loading,
-      networkStatus,
-      stale,
-    }: ApolloQueryResult<{
-      customer: Customer;
-    }> = await apolloClient.query(queryOptions);
-
-    if (errors) {
-      console.error(errors);
-      throw new Error('Errors were detected in GraphQL query.');
-    }
-
-    const {
-      customer,
-    } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
-
-    return deepmerge(commonStaticProps, {
-      props: {
-        customer,
-      },
-    });
-  } else {
-    return commonStaticProps;
-  }
-};
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDefaultStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -115,24 +61,21 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const { termsDescription, serviceLabel } = customer || {};
 
   // Replace dynamic values (like "{customerLabel}") by their actual value
-  const terms = replaceAllOccurrences(termsDescription?.html, {
+  const terms = replaceAllOccurrences(termsDescription, {
     serviceLabel: `**${serviceLabel}**`,
     customerLabel: `**${customer?.label}**`,
   });
 
   return (
-    <DefaultLayout
+    <Layout
       {...props}
       pageName={AMPLITUDE_PAGES.TERMS_PAGE}
-      headProps={{
-        seoTitle: 'Terms - Next Right Now',
-      }}
     >
       <LegalContent
         content={terms}
       />
-    </DefaultLayout>
+    </Layout>
   );
 };
 
-export default withApollo()(TermsPage);
+export default (TermsPage);

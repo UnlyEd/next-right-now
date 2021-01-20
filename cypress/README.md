@@ -51,3 +51,19 @@ The files `cypress/config-*` are used for different purposes.
 _[Source](https://docs.cypress.io/faq/questions/using-cypress-faq.html#What-are-your-best-practices-for-organizing-tests)_
 
 [Cypress releases "Real World App" (RWA) - Blog post](https://www.cypress.io/blog/2020/06/11/introducing-the-cypress-real-world-app/)
+
+## Module path alias mapping
+
+We use module alias path mappings, to avoid using relative paths (e.g: `../../src/common`) but absolute paths (AKA "module paths") instead (e.g: `@/common`).
+
+Although it's simpler to use, it's harder to configure because it affects several configuration files:
+- The paths mapping in `tsconfig.json:compilerOptions.paths` must match those in `../tsconfig.json:compilerOptions.paths`
+- They must also match those in `jsconfig.json` file, which is necessary for WebStorm to understand them for .js files.
+
+If the module path mappings aren't properly set everywhere, it won't work.
+
+> You can still use relative paths.
+
+Reference:
+- See [Next.js "Module path aliases" documentation](https://nextjs.org/docs/advanced-features/module-path-aliases)
+- See [WebStorm issue](https://intellij-support.jetbrains.com/hc/en-us/community/posts/360003361399/comments/360002636080)
