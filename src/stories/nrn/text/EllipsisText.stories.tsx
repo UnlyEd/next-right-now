@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import EllipsisText, { Props } from '../../../components/utils/EllipsisText';
+import EllipsisText, { Props } from '@/common/components/dataDisplay/EllipsisText';
 import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {

@@ -1,12 +1,11 @@
 import {
+  mockRequest,
+  mockResponse,
+} from '@/modules/core/testing/mocks/tests-mocks';
+import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-
-import {
-  mockRequest,
-  mockResponse,
-} from '../../utils/testing/tests-mocks';
 import status from './status';
 
 /**

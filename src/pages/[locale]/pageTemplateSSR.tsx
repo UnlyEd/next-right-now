@@ -1,18 +1,16 @@
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import Layout from '@/layouts/default/components/DefaultLayout';
+import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetServerSideProps,
   NextPage,
 } from 'next';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import useCustomer from '../../hooks/useCustomer';
-import { Customer } from '../../types/data/Customer';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import { getCommonServerSideProps } from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -34,7 +32,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getCommonServerSideProps;
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDefaultServerSideProps;
 
 /**
  * SSR pages are first rendered by the server
@@ -50,7 +48,7 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
 
   return (
-    <DefaultLayout
+    <Layout
       {...props}
       pageName={'products'}
     >
@@ -61,7 +59,7 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
       <p>
         Customer label: {customer.label}
       </p>
-    </DefaultLayout>
+    </Layout>
   );
 };
 

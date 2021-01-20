@@ -1,9 +1,8 @@
+import localeMiddleware from '@/modules/core/i18n/middlewares/localeMiddleware';
 import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-
-import localeMiddleware from '../../middlewares/localeMiddleware';
 
 /**
  * I18n language/locale auto-detection.
