@@ -62,9 +62,9 @@ plugins:
 exclude_patterns:
   - "**/*.test.*"
   - "**/*.spec.*"
-  - "src/svg/"
+  - "svg-to-react/"
   - "cypress/"
-  - "src/mocks/"
+  - "src/modules/core/testing/mocks"
 
   # Default CC excluded paths:
   - "config/"
