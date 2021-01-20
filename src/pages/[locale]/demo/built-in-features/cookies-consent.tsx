@@ -10,6 +10,7 @@ import {
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
 import { Amplitude } from '@amplitude/react-amplitude';
@@ -55,7 +56,10 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
-  const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = useUserConsent();
+  const {
+    isUserOptedOutOfAnalytics,
+    hasUserGivenAnyCookieConsent,
+  } = useUserConsent();
 
   return (
     <DemoLayout
@@ -115,4 +119,4 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (ExampleCookiesConsentPage);
+export default withApollo()(ExampleCookiesConsentPage);

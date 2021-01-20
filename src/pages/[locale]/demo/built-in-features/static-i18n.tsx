@@ -11,6 +11,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
 import { resolveCustomerVariationLang } from '@/modules/core/i18n/i18n';
 import { css } from '@emotion/react';
@@ -305,4 +306,4 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (ExampleStaticI18nPage);
+export default withApollo()(ExampleStaticI18nPage);

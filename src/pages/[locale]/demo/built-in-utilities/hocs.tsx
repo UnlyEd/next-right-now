@@ -9,6 +9,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -92,7 +93,7 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
         <Code
           text={`
             // Example for a page using getStaticProps or getServerSideProps
-            export default (ExampleHomePage);
+            export default withApollo()(ExampleHomePage);
 
             // Example for a page using getInitialProps
             export default withApollo({ useGetInitialProps: true })(ExampleHomePage);
@@ -110,4 +111,4 @@ const HocsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (HocsPage);
+export default withApollo()(HocsPage);

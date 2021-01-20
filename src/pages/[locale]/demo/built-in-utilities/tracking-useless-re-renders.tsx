@@ -10,6 +10,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -137,4 +138,4 @@ const TrackingUselessReRendersPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (TrackingUselessReRendersPage);
+export default withApollo()(TrackingUselessReRendersPage);

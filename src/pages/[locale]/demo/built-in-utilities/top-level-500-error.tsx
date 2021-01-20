@@ -7,6 +7,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -68,4 +69,4 @@ const TopLevel500ErrorPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (TopLevel500ErrorPage);
+export default withApollo()(TopLevel500ErrorPage);

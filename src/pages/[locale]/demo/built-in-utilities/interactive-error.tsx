@@ -8,6 +8,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -110,4 +111,4 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (InteractiveErrorPage);
+export default withApollo()(InteractiveErrorPage);

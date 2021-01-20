@@ -12,6 +12,7 @@ import {
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -85,4 +86,4 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (ExampleHomePage);
+export default withApollo()(ExampleHomePage);

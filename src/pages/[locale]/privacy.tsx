@@ -10,6 +10,7 @@ import {
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -82,4 +83,4 @@ const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (PrivacyPage);
+export default withApollo()(PrivacyPage);
