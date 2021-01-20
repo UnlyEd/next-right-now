@@ -37,7 +37,7 @@ import NextCookies from 'next-cookies';
  * getDemoServerSideProps returns only part of the props expected in SSRPageProps
  * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
-export type GetCommonServerSidePropsResults = SSRPageProps & {
+export type GetDemoServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
@@ -54,7 +54,7 @@ export type GetCommonServerSidePropsResults = SSRPageProps & {
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getDemoServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
+export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetDemoServerSidePropsResults>> => {
   const {
     query,
     params,
