@@ -11,6 +11,25 @@ module.exports = {
       tsconfig: 'tsconfig.jest.json',
     },
   },
+
+  /**
+   * Map our module path aliases, so that Jest can understand modules loaded using "@/common" and load the proper file.
+   * Required, or Jest will fail to import dependencies from tests.
+   *
+   * XXX The below list must match `tsconfig.json:compilerOptions.paths`, so the Next.js app and Jest resolve all aliases the same way.
+   *
+   * @see https://nextjs.org/docs/advanced-features/module-path-aliases
+   * @see https://github.com/ilearnio/module-alias/issues/46#issuecomment-546154015
+   */
+  moduleNameMapper: {
+    '^@/app/(.*)$': '<rootDir>/src/app/$1',
+    '^@/common/(.*)$': '<rootDir>/src/common/$1',
+    '^@/components/(.*)$': '<rootDir>/src/common/components/$1',
+    '^@/utils/(.*)$': '<rootDir>/src/common/utils/$1',
+    '^@/layouts/(.*)$': '<rootDir>/src/layouts/$1',
+    '^@/modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
+  },
   modulePathIgnorePatterns: [
     '.next/',
     'cypress',

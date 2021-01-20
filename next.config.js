@@ -1,7 +1,7 @@
 const bundleAnalyzer = require('@next/bundle-analyzer');
 const nextSourceMaps = require('@zeit/next-source-maps');
 const packageJson = require('./package');
-const i18nConfig = require('./src/i18nConfig');
+const i18nConfig = require('./src/modules/core/i18n/i18nConfig');
 
 const withSourceMaps = nextSourceMaps();
 const withBundleAnalyzer = bundleAnalyzer({ // Run with "yarn analyse:bundle" - See https://www.npmjs.com/package/@next/bundle-analyzer
@@ -101,22 +101,6 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    */
   async headers() {
     const headers = [];
-
-    // XXX Forbid usage in iframes from external 3rd parties, for non-production site
-    //  This is meant to avoid customers using the preview in their production website, which would incur uncontrolled costs on our end
-    //  Also, our preview env cannot scale considering each request send many airtable API calls and those are rate limited and out of our control
-    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
-      headers.push({
-        source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
-        // source: '/:path*', // Match all paths, excluding "/"
-        headers: [
-          {
-            key: 'Content-Security-Policy',
-            value: 'frame-ancestors *.stacker.app',
-          },
-        ],
-      });
-    }
 
     console.info('Using headers:', JSON.stringify(headers, null, 2));
 

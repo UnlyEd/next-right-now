@@ -1,10 +1,10 @@
+import { Asset } from '@/modules/core/data/types/Asset';
+import GraphCMSAsset, { Props } from '@/modules/core/gql/components/GraphCMSAsset';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import GraphCMSAsset, { Props } from '../../../components/assets/GraphCMSAsset';
-import { Asset } from '../../../types/data/Asset';
 
 const defaultLogoUrl = 'https://media.graphcms.com/EKw3Em7aRkqaYmowHWAN';
 
@@ -14,14 +14,14 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const DynamicAirtableLogo: Story<Props> = (props) => {
+export const DynamicGraphCMSLogo: Story<Props> = (props) => {
   return (
     <GraphCMSAsset
       {...props}
     />
   );
 };
-DynamicAirtableLogo.args = {
+DynamicGraphCMSLogo.args = {
   id: 'default-logo',
   className: 'default-class',
   asset: {
@@ -37,6 +37,6 @@ DynamicAirtableLogo.args = {
   },
   onClick: () => console.log('click on asset'),
 };
-DynamicAirtableLogo.parameters = {
-  jest: ['AirtableAsset.test.tsx'],
+DynamicGraphCMSLogo.parameters = {
+  jest: ['GraphCMSAsset.test.tsx'],
 };

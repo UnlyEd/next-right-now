@@ -1,3 +1,14 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
+import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
+import { GetCommonServerSidePropsResults } from '@/layouts/demo/demoSSR';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
+import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import {
@@ -6,23 +17,8 @@ import {
   GetServerSidePropsResult,
   NextPage,
 } from 'next';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
 import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
-import withApollo from '../../hocs/withApollo';
-import useCustomer from '../../hooks/useCustomer';
-import { Customer } from '../../types/data/Customer';
-import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { SSRPageProps } from '../../types/pageProps/SSRPageProps';
-import serializeSafe from '../../utils/graphCMSDataset/serializeSafe';
-import {
-  getCommonServerSideProps,
-  GetCommonServerSidePropsResults,
-} from '../../utils/nextjs/SSR';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -47,7 +43,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
-  const commonServerSideProps: GetServerSidePropsResult<Omit<GetCommonServerSidePropsResults, 'serializedDataset'>> = await getCommonServerSideProps(context);
+  const commonServerSideProps: GetServerSidePropsResult<Omit<GetCommonServerSidePropsResults, 'serializedDataset'>> = await getDefaultServerSideProps(context);
 
   if ('props' in commonServerSideProps) {
     const {

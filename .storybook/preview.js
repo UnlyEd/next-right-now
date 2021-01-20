@@ -8,23 +8,23 @@ import find from 'lodash.find';
 import React from 'react';
 import { withNextRouter } from 'storybook-addon-next-router';
 import { withPerformance } from 'storybook-addon-performance';
-import '../src/components/appBootstrap/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
-import MultiversalGlobalStyles from '../src/components/appBootstrap/MultiversalGlobalStyles';
-import { defaultLocale, getLangFromLocale, supportedLocales } from '../src/i18nConfig';
-import amplitudeContext from '../src/stores/amplitudeContext';
-import customerContext from '../src/stores/customerContext';
-import { cypressContext } from '../src/stores/cypressContext';
-import datasetContext from '../src/stores/datasetContext';
-import i18nContext from '../src/stores/i18nContext';
-import previewModeContext from '../src/stores/previewModeContext';
-import quickPreviewContext from '../src/stores/quickPreviewContext';
-import userConsentContext from '../src/stores/userConsentContext';
-import { userSessionContext } from '../src/stores/userSessionContext';
-import { getAmplitudeInstance } from '../src/utils/analytics/amplitude';
-import '../src/utils/app/ignoreNoisyWarningsHacks';
-import { initCustomerTheme } from '../src/utils/data/theme';
-import i18nextLocize from '../src/utils/i18n/i18nextLocize';
-import '../src/utils/icons/font-awesome';
+import '@/app/components/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
+import MultiversalGlobalStyles from '@/app/components/MultiversalGlobalStyles';
+import { defaultLocale, getLangFromLocale, supportedLocales } from '@/modules/core/i18n/i18nConfig';
+import amplitudeContext from '@/modules/core/amplitude/context/amplitudeContext';
+import customerContext from '@/modules/core/data/contexts/customerContext';
+import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
+import datasetContext from '@/modules/core/data/contexts/datasetContext';
+import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
+import previewModeContext from '@/modules/core/previewMode/contexts/previewModeContext';
+import quickPreviewContext from '@/modules/core/quickPreview/contexts/quickPreviewContext';
+import userConsentContext from '@/modules/core/userConsent/contexts/userConsentContext';
+import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
+import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitude';
+import '@/common/utils/ignoreNoisyWarningsHacks';
+import { initCustomerTheme } from '@/modules/core/theming/theme';
+import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
+import '@/modules/core/fontAwesome/fontAwesome';
 import dataset from './mock/sb-dataset';
 
 // Loads translations from local file cache (Locize)

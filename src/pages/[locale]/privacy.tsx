@@ -1,3 +1,17 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import LegalContent from '@/common/components/dataDisplay/LegalContent';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
+import {
+  getDefaultStaticPaths,
+  getDefaultStaticProps,
+} from '@/layouts/default/defaultSSG';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
+import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -6,19 +20,6 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import LegalContent from '../../components/utils/LegalContent';
-import useCustomer from '../../hooks/useCustomer';
-import { Customer } from '../../types/data/Customer';
-import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { AMPLITUDE_PAGES } from '../../utils/analytics/amplitude';
-import { replaceAllOccurrences } from '../../utils/js/string';
-import {
-  getCommonStaticPaths,
-  getCommonStaticProps,
-} from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/privacy';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -29,7 +30,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefaultStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -39,7 +40,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonS
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDefaultStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -58,7 +59,10 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
-  const { privacyDescription, serviceLabel } = customer || {};
+  const {
+    privacyDescription,
+    serviceLabel,
+  } = customer || {};
 
   // Replace dynamic values (like "{customerLabel}") by their actual value
   const privacy = replaceAllOccurrences(privacyDescription?.html, {
@@ -71,7 +75,7 @@ const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={AMPLITUDE_PAGES.PRIVACY_PAGE}
     >
-      <h2>Field's value (fetched from Airtable API), as <code>Long text</code> (interpreted as Markdown):</h2>
+      <h2>Field's value (fetched from GraphCMS API), as <code>Long text</code> (interpreted as Markdown):</h2>
       <LegalContent
         content={privacy}
       />
@@ -79,4 +83,4 @@ const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (PrivacyPage);
+export default withApollo()(PrivacyPage);

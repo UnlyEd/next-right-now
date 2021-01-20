@@ -4,7 +4,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Btn, { Props } from '../../../components/utils/Btn';
+import Btn, { Props } from '@/common/components/dataDisplay/Btn';
 import withPropMock from '../../shared/hocs/withPropMock';
 
 type PropsWithChildrenMock = Props & {

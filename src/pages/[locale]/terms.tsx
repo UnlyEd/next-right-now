@@ -1,3 +1,19 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { StaticPropsInput } from '@/app/types/StaticPropsInput';
+import LegalContent from '@/common/components/dataDisplay/LegalContent';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
+import {
+  getDefaultStaticPaths,
+  getDefaultStaticProps,
+} from '@/layouts/default/defaultSSG';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
+import createApolloClient from '@/modules/core/gql/graphql';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
+import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
@@ -9,23 +25,7 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import LegalContent from '../../components/utils/LegalContent';
 import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
-import withApollo from '../../hocs/withApollo';
-import useCustomer from '../../hooks/useCustomer';
-import { Customer } from '../../types/data/Customer';
-import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-import { StaticPropsInput } from '../../types/nextjs/StaticPropsInput';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import { createApolloClient } from '../../utils/gql/graphql';
-import { AMPLITUDE_PAGES } from '../../utils/analytics/amplitude';
-import { replaceAllOccurrences } from '../../utils/js/string';
-import {
-  getCommonStaticPaths,
-  getCommonStaticProps,
-} from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -36,7 +36,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefaultStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -47,10 +47,13 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonS
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getCommonStaticProps(props);
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDefaultStaticProps(props);
 
   if ('props' in commonStaticProps) {
-    const { customerRef, gcmsLocales } = commonStaticProps.props;
+    const {
+      customerRef,
+      gcmsLocales,
+    } = commonStaticProps.props;
     const apolloClient = createApolloClient();
     const variables = {
       customerRef,
@@ -112,7 +115,10 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
-  const { termsDescription, serviceLabel } = customer || {};
+  const {
+    termsDescription,
+    serviceLabel,
+  } = customer || {};
 
   // Replace dynamic values (like "{customerLabel}") by their actual value
   const terms = replaceAllOccurrences(termsDescription?.html, {

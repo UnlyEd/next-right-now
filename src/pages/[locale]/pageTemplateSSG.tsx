@@ -1,23 +1,21 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
+import {
+  getDefaultStaticPaths,
+  getDefaultStaticProps,
+} from '@/layouts/default/defaultSSG';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
   GetStaticProps,
   NextPage,
 } from 'next';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-
-import DefaultLayout from '../../components/pageLayouts/DefaultLayout';
-import withApollo from '../../hocs/withApollo';
-import useCustomer from '../../hooks/useCustomer';
-import { Customer } from '../../types/data/Customer';
-import { CommonServerSideParams } from '../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../types/pageProps/SSGPageProps';
-import {
-  getCommonStaticPaths,
-  getCommonStaticProps,
-} from '../../utils/nextjs/SSG';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSG';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -28,7 +26,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefaultStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -38,7 +36,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getCommonS
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDefaultStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
