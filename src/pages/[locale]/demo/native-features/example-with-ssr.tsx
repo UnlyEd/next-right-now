@@ -34,7 +34,7 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { EXAMPLE_WITH_SSR_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssr';
+import { EXAMPLE_WITH_SSR_QUERY } from '../../../../gql/pages/demo/native-features/example-with-ssr';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

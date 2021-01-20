@@ -36,7 +36,7 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssg';
+import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/demo/native-features/example-with-ssg';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -159,7 +159,7 @@ const ExampleWithSSGPage: NextPage<Props> = (props): JSX.Element => {
             map(SUPPORTED_LOCALES, (locale: I18nLocale, i) => {
               return (
                 <span key={i}>
-                  <I18nLink href={'/examples/native-features/example-with-ssg'} locale={locale.name}>{locale.name}</I18nLink>
+                  <I18nLink href={'/demo/native-features/example-with-ssg'} locale={locale.name}>{locale.name}</I18nLink>
                   {
                     i + 1 !== size(SUPPORTED_LOCALES) && (
                       <> | </>
@@ -177,7 +177,7 @@ const ExampleWithSSGPage: NextPage<Props> = (props): JSX.Element => {
           <br />
           If you use <ExternalLink href={'https://nrn-admin.now.sh/'}>NRN Admin</ExternalLink> and update the products there,{' '}
           then the products below will <b>NOT</b> be updated, because each page refresh will still fetch the static content, which was generated at build time.<br />
-          Therefore, changes there won't be reflected here. (but they'll be reflected <I18nLink href={'/examples/native-features/example-with-ssr'}>on the SSR version though</I18nLink>)
+          Therefore, changes there won't be reflected here. (but they'll be reflected <I18nLink href={'/demo/native-features/example-with-ssr'}>on the SSR version though</I18nLink>)
           <br />
           <b>N.B</b>: During development, the static page is automatically rebuilt when refreshing, so the above behaviour is only valid in staging/production stages.
         </Alert>

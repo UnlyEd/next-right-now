@@ -35,7 +35,7 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssg';
+import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/demo/native-features/example-with-ssg';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -181,7 +181,7 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
           <DisplayOnBrowserMount>
             The page was built at: {builtAt} ({timeDifference(new Date(), new Date(builtAt))})
             {' - '}
-            <a href={`/${locale}/examples/native-features/example-with-ssg-and-revalidate`}>Refresh</a>
+            <a href={`/${locale}/demo/native-features/example-with-ssg-and-revalidate`}>Refresh</a>
           </DisplayOnBrowserMount>
         </Alert>
 

@@ -20,7 +20,7 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-const fileLabel = 'pages/[locale]/examples/built-in-features/graphql';
+const fileLabel = 'pages/[locale]/demo/built-in-features/graphql';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
 });
