@@ -1,4 +1,4 @@
-import { I18nRichText } from '../I18nRichText';
+import { I18nRichText } from './I18nRichText';
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 import { Product } from './Product';
 import { Theme } from './Theme';

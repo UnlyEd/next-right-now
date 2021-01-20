@@ -1,13 +1,12 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '@/modules/core/airtable/fetchAndSanitizeAirtableDatasets';
-import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
+import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
+import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
-import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
+import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
+import createApolloClient from '@/modules/core/gql/graphql';
+import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -18,11 +17,12 @@ import {
   I18nextResources,
 } from '@/modules/core/i18n/i18nextLocize';
 import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
-import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
 import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
+import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { ApolloClient } from 'apollo-client';
 import { IncomingMessage } from 'http';
 import {
   GetServerSideProps,
@@ -30,25 +30,26 @@ import {
   GetServerSidePropsResult,
 } from 'next';
 import NextCookies from 'next-cookies';
-import { PublicHeaders } from './types/PublicHeaders';
-import { SSRPageProps } from './types/SSRPageProps';
+import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 
 /**
- * "getCoreServerSideProps" returns only part of the props expected in SSRPageProps.
- * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
+ * getDemoServerSideProps returns only part of the props expected in SSRPageProps
+ * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
-export type GetCoreServerSidePropsResults = SSRPageProps & {
+export type GetCoreServerSidePropsResults = Omit<SSRPageProps, 'apolloState' | 'customer'> & {
+  apolloClient: ApolloClient<NormalizedCacheObject>;
+  layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
 }
 
 /**
  * Only executed on the server side, for every request.
- * Computes some dynamic props that should be available for all SSR pages that use getServerSideProps.
+ * Computes some dynamic props that should be available for all SSR pages that use getServerSideProps
  *
- * Because the exact GQL query will depend on the consumer (AKA "caller"), this helper doesn't run any query by itself, but rather return all necessary props to allow the consumer to perform its own queries.
- * This improves performances, by only running one GQL query instead of many (consumer's choice).
+ * Because the exact GQL query will depend on the consumer (AKA "caller"), this helper doesn't run any query by itself, but rather return all necessary props to allow the consumer to perform its own queries
+ * This improves performances, by only running one GQL query instead of many (consumer's choice)
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication
  *
  * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  *
@@ -92,25 +93,40 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
   });
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const airtableSchema: AirtableSchema = getAirtableSchema();
-  const datasets: AirtableDatasets = await fetchAndSanitizeAirtableDatasets(airtableSchema, bestCountryCodes);
-  const dataset: SanitizedAirtableDataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
+  const apolloClient = createApolloClient();
+  const variables = {
+    customerRef,
+  };
+  const layoutQueryOptions: ApolloQueryOptions = {
+    displayName: 'LAYOUT_QUERY',
+    query: LAYOUT_QUERY,
+    variables,
+    context: {
+      headers: {
+        'gcms-locales': gcmsLocales,
+      },
+    },
+  };
 
   // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
   return {
     props: {
+      apolloClient,
       bestCountryCodes,
-      serializedDataset: serializeSafe(dataset),
+      serializedDataset: null, // We don't send the dataset yet (we don't have any because we haven't fetched the database yet), but it must be done by SSR pages in"getServerSideProps"
       customerRef,
       i18nTranslations,
       headers: publicHeaders,
+      gcmsLocales,
       hasLocaleFromUrl,
       isReadyToRender: true,
       isServerRendering: true,
       lang,
       locale,
+      layoutQueryOptions,
       readonlyCookies,
       userSession,
       isQuickPreviewPage,

@@ -11,17 +11,17 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import useCustomer from '@/modules/core/data/hooks/useCustomer';
-import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
-import { Customer } from '@/modules/core/data/types/Customer';
 import { Product } from '@/modules/core/data/types/Product';
-import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import timeDifference from '@/modules/core/date/timeDifference';
+import createApolloClient from '@/modules/core/gql/graphql';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
-import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import { createLogger } from '@unly/utils-simple-logger';
+import {
+  ApolloQueryResult,
+  QueryOptions,
+} from 'apollo-client';
 import deepmerge from 'deepmerge';
-import find from 'lodash.find';
 import size from 'lodash.size';
 import {
   GetStaticPaths,
@@ -35,6 +35,7 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
+import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/examples/native-features/example-with-ssg';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -61,13 +62,60 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
   const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoStaticProps(props);
 
   if ('props' in commonStaticProps) {
-    const { serializedDataset } = commonStaticProps?.props || {};
-    const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
-    const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+    const {
+      customerRef,
+      gcmsLocales,
+    } = commonStaticProps.props;
+
+    const apolloClient = createApolloClient();
+    const variables = {
+      customerRef,
+    };
+    const queryOptions: QueryOptions = {
+      displayName: 'EXAMPLE_WITH_SSG_QUERY',
+      query: EXAMPLE_WITH_SSG_QUERY,
+      variables,
+      context: {
+        headers: {
+          'gcms-locales': gcmsLocales,
+        },
+      },
+
+      // XXX When you use the "documentInStages" special GraphCMS feature,
+      //  you must disable the ApolloClient cache for it to function properly,
+      //  otherwise ApolloClient internal caching messes up with the results returned by GraphCMS,
+      //  because it gets 2 different records that have the same "id",
+      //  and it doesn't understand those are 2 different records but treats them as one.
+      //  If you don't disable the cache, then "documentInStages" will only contain DRAFT records and not PUBLISHED records,
+      //  because ApolloClient will replace the PUBLISHED record by the draft record, by mistakenly thinking they're the same
+      //  This is because ApolloClient doesn't known about the concept of "stage".
+      //  I haven't reported this issue to the ApolloClient team,
+      //  you'll need to look into it yourself if you want to benefit from both content from multiple stages and client-side caching
+      fetchPolicy: 'no-cache',
+    } as QueryOptions;
+
+    const {
+      data,
+      errors,
+      loading,
+      networkStatus,
+      stale,
+    }: ApolloQueryResult<{
+      products: Product[];
+    }> = await apolloClient.query(queryOptions);
+
+    if (errors) {
+      console.error(errors);
+      throw new Error('Errors were detected in GraphQL query.');
+    }
+
+    const {
+      products,
+    } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
     return deepmerge(commonStaticProps, {
       props: {
-        products: customer?.products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
+        products, // XXX What's the best way to store page-specific variables coming from props? with "customer" it was different because it's injected in all pages
         builtAt: new Date().toISOString(),
       },
       revalidate: regenerationDelay,
@@ -86,13 +134,15 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
  * Beware props in OnlyBrowserPageProps are not available on the server
  */
 type Props = {
+  products: Product[];
   builtAt: string;
 } & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
-  const { builtAt } = props;
-  const customer: Customer = useCustomer();
-  const products: AirtableRecord<Product>[] = customer?.products;
+  const {
+    products,
+    builtAt,
+  } = props;
   const { locale }: I18n = useI18n();
 
   return (
@@ -120,7 +170,7 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
           By using incremental static regeneration, this page is kept up-to-date automatically, based on how often users open the page. <br />
           Of course, a few users will see outdated information, but it's not really an issue here.<br />
           <br />
-          If you use <ExternalLink href={''}>Stacker</ExternalLink> and update the products there,{' '}
+          If you use <ExternalLink href={'https://nrn-admin.now.sh/'}>NRN Admin</ExternalLink> and update the products there,{' '}
           then when you refresh the page (once the delay of {regenerationDelay} seconds has passed) then the whole page will be statically regenerated.<br />
           And then, you'll have to refresh once again to see the new static version.
         </Alert>
@@ -131,7 +181,7 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
           <DisplayOnBrowserMount>
             The page was built at: {builtAt} ({timeDifference(new Date(), new Date(builtAt))})
             {' - '}
-            <a href={`/${locale}/demo/native-features/example-with-ssg-and-revalidate`}>Refresh</a>
+            <a href={`/${locale}/examples/native-features/example-with-ssg-and-revalidate`}>Refresh</a>
           </DisplayOnBrowserMount>
         </Alert>
 
@@ -146,4 +196,4 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (ProductsWithSSGPage);
+export default withApollo()(ProductsWithSSGPage);

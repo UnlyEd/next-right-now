@@ -2,12 +2,9 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '@/modules/core/airtable/fetchAndSanitizeAirtableDatasets';
-import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
-import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
-import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
+import createApolloClient from '@/modules/core/gql/graphql';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -20,6 +17,7 @@ import {
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
+import { ApolloQueryResult } from 'apollo-client';
 import map from 'lodash.map';
 import {
   GetStaticPaths,
@@ -27,6 +25,7 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
+import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 import { SSGPageProps } from './types/SSGPageProps';
 
 /**
@@ -85,18 +84,54 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const airtableSchema: AirtableSchema = getAirtableSchema();
-  const datasets: AirtableDatasets = await fetchAndSanitizeAirtableDatasets(airtableSchema, bestCountryCodes);
-  const dataset: SanitizedAirtableDataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
+  const apolloClient = createApolloClient();
+  const variables = {
+    customerRef,
+  };
+  const queryOptions = {
+    displayName: 'LAYOUT_QUERY',
+    query: LAYOUT_QUERY,
+    variables,
+    context: {
+      headers: {
+        'gcms-locales': gcmsLocales,
+      },
+    },
+  };
+
+  const {
+    data,
+    errors,
+    loading,
+    networkStatus,
+    stale,
+  }: ApolloQueryResult<{
+    customer: Customer;
+  }> = await apolloClient.query(queryOptions);
+
+  if (errors) {
+    console.error(errors);
+    throw new Error('Errors were detected in GraphQL query.');
+  }
+
+  const {
+    customer,
+  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+  const dataset = {
+    customer,
+  };
 
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
+      apolloState: apolloClient.cache.extract(),
       bestCountryCodes,
       serializedDataset: serializeSafe(dataset),
       customerRef,
       i18nTranslations,
+      gcmsLocales,
       hasLocaleFromUrl,
       isReadyToRender: true,
       isStaticRendering: true,
@@ -105,6 +140,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
       preview,
       previewData,
     },
+    // revalidate: false,
   };
 };
 

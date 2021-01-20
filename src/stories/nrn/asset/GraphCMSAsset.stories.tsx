@@ -1,10 +1,10 @@
+import { Asset } from '@/modules/core/data/types/Asset';
+import GraphCMSAsset, { Props } from '@/modules/core/gql/components/GraphCMSAsset';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import GraphCMSAsset, { Props } from '../../../components/assets/GraphCMSAsset';
-import { Asset } from '@/modules/core/data/types/Asset';
 
 const defaultLogoUrl = 'https://media.graphcms.com/EKw3Em7aRkqaYmowHWAN';
 

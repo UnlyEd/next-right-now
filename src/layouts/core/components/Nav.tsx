@@ -1,7 +1,11 @@
-import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import Tooltip from '@/common/components/dataDisplay/Tooltip';
+import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '@/layouts/demo/components/BuiltInFeaturesSidebar';
+import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
+import { NATIVE_FEATURES_SIDEBAR_LINKS } from '@/layouts/demo/components/NativeFeaturesSidebar';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
-import { AirtableAttachment } from '@/modules/core/data/types/AirtableAttachment';
 import { Asset } from '@/modules/core/data/types/Asset';
+import { SidebarLink } from '@/modules/core/data/types/SidebarLink';
+import GraphCMSAsset from '@/modules/core/gql/components/GraphCMSAsset';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
 import {
@@ -14,6 +18,9 @@ import {
   useTheme,
 } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classnames from 'classnames';
+import kebabCase from 'lodash.kebabcase';
+import map from 'lodash.map';
 import {
   NextRouter,
   useRouter,
@@ -21,31 +28,29 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
   Nav as NavStrap,
   Navbar,
   NavItem,
   NavLink,
+  Row,
+  UncontrolledDropdown,
 } from 'reactstrap';
 
 export type Props = {};
 
-/**
- * Page navigation, horizontal nav bar.
- *
- * Contains links to homepage, demo examples, documentation, source code, etc.
- *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
- */
 const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const theme = useTheme();
+  const { locale }: I18n = useI18n();
   const {
     primaryColor,
-    logo: logoAirtable,
+    logo,
   } = theme;
-  const logo: AirtableAttachment = logoAirtable;
-  const { locale }: I18n = useI18n();
 
   return (
     <Amplitude>
@@ -145,7 +150,7 @@ const Nav: React.FunctionComponent<Props> = () => {
           `}
         >
           <div className={'brand-logo'}>
-            <AirtableAsset
+            <GraphCMSAsset
               id={'nav-logo-brand'}
               asset={logo as unknown as Asset}
               linkOverride={{
@@ -176,7 +181,168 @@ const Nav: React.FunctionComponent<Props> = () => {
             </NavItem>
 
             <NavItem>
+              <Tooltip
+                overlay={<span>
+                  Check out our examples! <br />
+                  They explain Next.js native features, alongside NRN built-in features/utilities.
+                </span>}
+              >
+                <UncontrolledDropdown>
+                  <DropdownToggle id={'nav-link-examples'} tag={'span'} className={classnames({ active: isActive(router, 'examples') })} caret>
+                    <FontAwesomeIcon icon={['fas', 'book-reader']} />
+                    {t('nav.examplesPage.link', 'Exemples')}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem header>Native features</DropdownItem>
+                    {
+                      map(NATIVE_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
+                        const {
+                          label,
+                          href,
+                          params = null,
+                        } = link;
 
+                        return (
+                          <DropdownItem tag={'span'} key={href}>
+                            <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
+                              <NavLink id={`nav-link-examples-${kebabCase(label)}`} active={router.pathname.replace('/[locale]', '') === href}>
+                                {label}
+                              </NavLink>
+                            </I18nLink>
+                          </DropdownItem>
+                        );
+                      })
+                    }
+                    <DropdownItem divider />
+
+                    <DropdownItem header>Built-in features</DropdownItem>
+                    {
+                      map(BUILT_IN_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
+                        const {
+                          label,
+                          href,
+                          params = null,
+                        } = link;
+
+                        return (
+                          <DropdownItem tag={'span'} key={href}>
+                            <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
+                              <NavLink id={`nav-link-examples-${kebabCase(label)}`} active={router.pathname.replace('/[locale]', '') === href}>
+                                {label}
+                              </NavLink>
+                            </I18nLink>
+                          </DropdownItem>
+                        );
+                      })
+                    }
+                    <DropdownItem divider />
+
+                    <DropdownItem header>Built-in utilities</DropdownItem>
+                    {
+                      map(BUILT_IN_UTILITIES_SIDEBAR_LINKS, (link: SidebarLink) => {
+                        const {
+                          label,
+                          href,
+                          params = null,
+                        } = link;
+
+                        return (
+                          <DropdownItem tag={'span'} key={href}>
+                            <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
+                              <NavLink id={`nav-link-examples-${kebabCase(label)}`} active={router.pathname.replace('/[locale]', '') === href}>
+                                {label}
+                              </NavLink>
+                            </I18nLink>
+                          </DropdownItem>
+                        );
+                      })
+                    }
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </Tooltip>
+            </NavItem>
+
+            <NavItem>
+              <Col className={'navItemsMenu'}>
+                <Row className={'justify-content-center'}>
+                  <Tooltip
+                    overlay={<span>
+                      Visit our general NRN documentation site, built with the Github Pages and Jekyll!<br />
+                      This docs website explains the NRN concepts, how to get started and much more!
+                    </span>}
+                  >
+                    <NavLink
+                      id={'nav-link-github-doc'}
+                      href={`https://unlyed.github.io/next-right-now/`}
+                      target={'_blank'}
+                      rel={'noopener'}
+                      onClick={(): void => {
+                        logEvent('open-github-doc');
+                      }}
+                    >
+                      <FontAwesomeIcon icon={['fas', 'book']} />
+                      {t('nav.githubDocPage.link', 'Documentation')}
+                    </NavLink>
+                  </Tooltip>
+                </Row>
+              </Col>
+            </NavItem>
+
+            <NavItem>
+              <Col className={'navItemsMenu'}>
+                <Row className={'justify-content-center'}>
+                  <Tooltip
+                    overlay={<span>Visit our Github branch for the current preset and navigate through the source code!</span>}
+                  >
+                    <NavLink
+                      id={'nav-link-github'}
+                      href={`https://github.com/UnlyEd/next-right-now/tree/${process.env.NEXT_PUBLIC_NRN_PRESET}`}
+                      target={'_blank'}
+                      rel={'noopener'}
+                      onClick={(): void => {
+                        logEvent('open-github');
+                      }}
+                      title={''}
+                    >
+                      <FontAwesomeIcon icon={['fab', 'github']} />
+                      {t('nav.githubPage.link', 'Github branch')}
+                    </NavLink>
+                  </Tooltip>
+                </Row>
+              </Col>
+            </NavItem>
+
+            <NavItem>
+              <Col className={'navItemsMenu'}>
+                <Row className={'justify-content-center'}>
+                  <Tooltip
+                    overlay={<span>
+                      Edit this demo using GraphCMS!<br />
+                      <br />
+                      <b>Email</b>: <code style={{ fontSize: 18 }}>unly-nrn+contributor@unly.org</code><br />
+                      <b>Password</b>: <code style={{ fontSize: 18 }}>bbU#Ec2m6FpqU7&</code><br />
+                      <br />
+                      You can edit anything and play with the various rendering modes (SSG, SSR, etc.), the GraphCMS API is configured to use <code>DRAFT</code> content in priority.<br />
+                      This mean that your changes on any published content will be reflected (because changing a published content creates a draft, and that draft is being used).<br />
+                      This has been done on purpose, to allow visitors to manipulate the content of the demo and see their changes being reflected immediately.<br />
+                      <b>N.B: Please do not change the <code>customer.ref</code> values, as it would break the associated demo, if the <code>ref</code> doesn't match.</b><br />
+                    </span>}
+                  >
+                    <NavLink
+                      id={'nav-link-admin-site'}
+                      href={`https://app.graphcms.com/b767f8ab435746e2909249461e2f1eb7/master`}
+                      target={'_blank'}
+                      rel={'noopener'}
+                      onClick={(): void => {
+                        logEvent('open-admin-site');
+                      }}
+                    >
+                      <FontAwesomeIcon icon={['fas', 'user-cog']} />
+                      {t('nav.adminSite.link', 'Go to CMS')}
+                    </NavLink>
+                  </Tooltip>
+                </Row>
+              </Col>
             </NavItem>
           </NavStrap>
         </Navbar>

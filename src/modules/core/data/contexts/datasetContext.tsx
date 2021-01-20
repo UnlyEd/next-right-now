@@ -1,5 +1,5 @@
+import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
 import React from 'react';
-import { GraphCMSDataset } from '../utils/graphCMSDataset/GraphCMSDataset';
 
 export type DatasetContext = GraphCMSDataset;
 

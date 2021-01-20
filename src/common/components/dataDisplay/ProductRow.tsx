@@ -1,6 +1,6 @@
-import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
 import { Asset } from '@/modules/core/data/types/Asset';
 import { Product } from '@/modules/core/data/types/Product';
+import GraphCMSAsset from '@/modules/core/gql/components/GraphCMSAsset';
 import { css } from '@emotion/react';
 import React from 'react';
 import {

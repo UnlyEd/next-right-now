@@ -1,18 +1,14 @@
+import { cssToReactStyle } from '@/modules/core/css/css';
+import { CSSStyles } from '@/modules/core/css/types/CSSStyles';
+import { Asset } from '@/modules/core/data/types/Asset';
+import { AssetTransformations } from '@/modules/core/data/types/AssetTransformations';
 import classnames from 'classnames';
 import deepmerge from 'deepmerge';
 import get from 'lodash.get';
 import isEmpty from 'lodash.isempty';
 import map from 'lodash.map';
-import PropTypes from 'prop-types';
 import React from 'react';
-import stylePropType from 'react-style-proptype';
-import GraphCMSAssetPropTypes from '../../propTypes/GraphCMSAssetPropTypes';
-import GraphCMSAssetTransformationsPropTypes from '../../propTypes/GraphCMSAssetTransformationsPropTypes';
-import { CSSStyles } from '../../types/CSSStyles';
-import { Asset } from '../../types/data/Asset';
-import { AssetTransformations } from '../../types/data/AssetTransformations';
-import { Link } from '../../types/data/Link';
-import { cssToReactStyle } from '../../utils/css';
+import { Link } from '../../data/types/Link';
 
 export type Props = {
   /**
@@ -222,25 +218,6 @@ const GraphCMSAsset = (props: Props): JSX.Element => {
       <Image />
     );
   }
-};
-
-GraphCMSAsset.propTypes = {
-  id: PropTypes.string.isRequired,
-  asset: PropTypes.shape(GraphCMSAssetPropTypes).isRequired,
-  transformationsOverride: PropTypes.shape(GraphCMSAssetTransformationsPropTypes),
-  defaults: PropTypes.shape(GraphCMSAssetPropTypes), // Merged with the asset, takes lowest priority
-  override: PropTypes.shape(GraphCMSAssetPropTypes), // Merged with the asset, takes highest priority
-  className: PropTypes.string,
-  style: stylePropType,
-  onClick: PropTypes.func, // Support for usage within <Link> component (from Next.js)
-  linkOverride: PropTypes.shape({ // Merged with the default link and the asset link attributes, takes highest priority
-    id: PropTypes.string.isRequired,
-    url: PropTypes.string,
-    target: PropTypes.string,
-    style: PropTypes.object,
-    classes: PropTypes.string,
-  }),
-  forceOutputPNG: PropTypes.bool,
 };
 
 export default GraphCMSAsset;

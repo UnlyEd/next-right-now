@@ -1,15 +1,12 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
-import fetchAndSanitizeAirtableDatasets from '@/modules/core/airtable/fetchAndSanitizeAirtableDatasets';
-import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
-import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
+import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
+import createApolloClient from '@/modules/core/gql/graphql';
+import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -20,7 +17,6 @@ import {
   I18nextResources,
 } from '@/modules/core/i18n/i18nextLocize';
 import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
-import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
 import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
@@ -34,6 +30,7 @@ import {
   GetServerSidePropsResult,
 } from 'next';
 import NextCookies from 'next-cookies';
+import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
 
 /**
  * getDemoServerSideProps returns only part of the props expected in SSRPageProps

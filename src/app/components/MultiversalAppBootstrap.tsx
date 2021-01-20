@@ -3,12 +3,12 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import customerContext from '@/modules/core/data/contexts/customerContext';
 import datasetContext from '@/modules/core/data/contexts/datasetContext';
-import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
-import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
+import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
+import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
 import {
   i18nRedirect,

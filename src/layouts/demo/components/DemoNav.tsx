@@ -1,9 +1,11 @@
-import Tooltip from '@/components/dataDisplay/Tooltip';
-import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import Tooltip from '@/common/components/dataDisplay/Tooltip';
+import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '@/layouts/demo/components/BuiltInFeaturesSidebar';
+import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
+import { NATIVE_FEATURES_SIDEBAR_LINKS } from '@/layouts/demo/components/NativeFeaturesSidebar';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
-import { AirtableAttachment } from '@/modules/core/data/types/AirtableAttachment';
 import { Asset } from '@/modules/core/data/types/Asset';
 import { SidebarLink } from '@/modules/core/data/types/SidebarLink';
+import GraphCMSAsset from '@/modules/core/gql/components/GraphCMSAsset';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
 import {
@@ -37,29 +39,18 @@ import {
   Row,
   UncontrolledDropdown,
 } from 'reactstrap';
-import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from './BuiltInFeaturesSidebar';
-import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from './BuiltInUtilitiesSidebar';
-import { NATIVE_FEATURES_SIDEBAR_LINKS } from './NativeFeaturesSidebar';
 
 export type Props = {};
 
-/**
- * Page navigation, horizontal nav bar.
- *
- * Contains links to homepage, demo examples, documentation, source code, etc.
- *
- * XXX Demo component, not meant to be modified. It's a copy of the core implementation, so the demo keeps working even the core implementation changes.
- */
 const DemoNav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();
   const router: NextRouter = useRouter();
   const theme = useTheme();
+  const { locale }: I18n = useI18n();
   const {
     primaryColor,
-    logo: logoAirtable,
+    logo,
   } = theme;
-  const logo: AirtableAttachment = logoAirtable;
-  const { locale }: I18n = useI18n();
 
   return (
     <Amplitude>
@@ -159,7 +150,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
           `}
         >
           <div className={'brand-logo'}>
-            <AirtableAsset
+            <GraphCMSAsset
               id={'nav-logo-brand'}
               asset={logo as unknown as Asset}
               linkOverride={{
@@ -210,6 +201,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                           href,
                           params = null,
                         } = link;
+
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
@@ -231,6 +223,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                           href,
                           params = null,
                         } = link;
+
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
@@ -252,6 +245,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                           href,
                           params = null,
                         } = link;
+
                         return (
                           <DropdownItem tag={'span'} key={href}>
                             <I18nLink href={href} params={params} wrapChildrenAsLink={false}>
@@ -323,17 +317,20 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                 <Row className={'justify-content-center'}>
                   <Tooltip
                     overlay={<span>
-                      Edit this demo using Stacker CMS!<br />
+                      Edit this demo using GraphCMS!<br />
                       <br />
-                      You can edit the <code>customer</code> theme, play with its primary color to see how the demo is affected depending on the various rendering modes (SSG, SSR, etc.)<br />
+                      <b>Email</b>: <code style={{ fontSize: 18 }}>unly-nrn+contributor@unly.org</code><br />
+                      <b>Password</b>: <code style={{ fontSize: 18 }}>bbU#Ec2m6FpqU7&</code><br />
                       <br />
-                      You can also edit the products, and play around, as if you were using the Stacker CMS from a customer/editor standpoint!
+                      You can edit anything and play with the various rendering modes (SSG, SSR, etc.), the GraphCMS API is configured to use <code>DRAFT</code> content in priority.<br />
+                      This mean that your changes on any published content will be reflected (because changing a published content creates a draft, and that draft is being used).<br />
+                      This has been done on purpose, to allow visitors to manipulate the content of the demo and see their changes being reflected immediately.<br />
+                      <b>N.B: Please do not change the <code>customer.ref</code> values, as it would break the associated demo, if the <code>ref</code> doesn't match.</b><br />
                     </span>}
                   >
                     <NavLink
                       id={'nav-link-admin-site'}
-                      // Token isn't sensitive because it's a demo, any visitor is meant to have access to Stacker back office and update content
-                      href={process.env.NEXT_PUBLIC_CUSTOMER_REF === 'customer1' ? 'https://nrn.my.stacker.app/login?api_token=be1050d1-de5e-4ae0-97c8-030a132f254b&ref=unly-nrn' : 'https://nrn.my.stacker.app/login?api_token=c3a703bc-c4cc-42ee-aeac-03643636dbb0&ref=unly-nrn'}
+                      href={`https://app.graphcms.com/b767f8ab435746e2909249461e2f1eb7/master`}
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {

@@ -1,3 +1,4 @@
+import createApolloClient from '@/modules/core/gql/graphql';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
@@ -6,7 +7,6 @@ import { WithApolloState } from 'next-with-apollo/lib/types';
 import App from 'next/app';
 import Head from 'next/head';
 import React, { ReactNode } from 'react';
-import createApolloClient from '../utils/gql/graphql';
 
 // XXX Inspired by https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apollo.js
 // On the client, we store the Apollo Client in the following variable.
@@ -106,7 +106,11 @@ const initApolloClient = (initialState, ctx: NextPageContext): ApolloClient<Norm
  * @returns {(PageComponent: ReactNode) => ReactNode}
  */
 export const withApollo = ({ useGetInitialProps = false }: withApolloOptions = {}) => (PageComponent) => {
-  const WithApollo = ({ apolloClient, apolloState, ...pageProps }: PageProps): ReactNode => {
+  const WithApollo = ({
+    apolloClient,
+    apolloState,
+    ...pageProps
+  }: PageProps): ReactNode => {
     let client: ApolloClient<NormalizedCacheObject>;
     if (apolloClient) {
       // Happens on: getDataFromTree & next.js ssr
@@ -167,9 +171,17 @@ export const withApollo = ({ useGetInitialProps = false }: withApolloOptions = {
             // we need to modify their props a little.
             let props;
             if (inAppContext) {
-              props = { ...pageProps, apolloClient };
+              props = {
+                ...pageProps,
+                apolloClient,
+              };
             } else {
-              props = { pageProps: { ...pageProps, apolloClient } };
+              props = {
+                pageProps: {
+                  ...pageProps,
+                  apolloClient,
+                },
+              };
             }
 
             // Take the Next.js AppTree, determine which queries are needed to render,

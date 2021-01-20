@@ -1,10 +1,10 @@
+import { Theme } from '@/modules/core/data/types/Theme';
 import * as Sentry from '@sentry/node';
 import { AmplitudeClient } from 'amplitude-js';
 import { TFunction } from 'i18next';
 import BrowserCookies from 'js-cookie';
 import includes from 'lodash.includes';
 import size from 'lodash.size';
-import { CustomerTheme } from '../data/types/CustomerTheme';
 import { UserConsent } from './types/UserConsent';
 
 export type InitOptions = {
@@ -92,8 +92,16 @@ const initCookieConsent = (options: InitOptions): void => {
     theme,
     userConsent,
   } = options;
-  const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
-  const { primaryColor, surfaceColor, onSurfaceColor, onPrimaryColor } = theme;
+  const {
+    isUserOptedOutOfAnalytics,
+    hasUserGivenAnyCookieConsent,
+  } = userConsent;
+  const {
+    primaryColor,
+    surfaceColor,
+    onSurfaceColor,
+    onPrimaryColor,
+  } = theme;
 
   if (!shouldDisplayConsentPopup(allowedPages)) {
     return;

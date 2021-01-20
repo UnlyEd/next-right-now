@@ -1,4 +1,3 @@
-import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Product } from '@/modules/core/data/types/Product';
 import filter from 'lodash.filter';
 import map from 'lodash.map';
@@ -15,7 +14,7 @@ const AllProducts: React.FunctionComponent<Props> = (props) => {
   map(products, (productInStage: { documentInStages: Product[] } & Product) => {
     const productsInStage: Product[] = productInStage?.documentInStages; // Contains an array of 1 element, when there is a PUBLISHED record (otherwise is empty)
     map(productsInStage, (product: Product) => {
-      if(product?.stage === 'PUBLISHED'){
+      if (product?.stage === 'PUBLISHED') {
         productsPublished.push(product);
       }
     });

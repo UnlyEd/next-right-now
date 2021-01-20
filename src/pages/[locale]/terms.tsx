@@ -1,8 +1,9 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import LegalContent from '@/common/components/dataDisplay/LegalContent';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import Layout from '@/layouts/default/components/DefaultLayout';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import {
   getDefaultStaticPaths,
   getDefaultStaticProps,
@@ -10,15 +11,21 @@ import {
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
+import createApolloClient from '@/modules/core/gql/graphql';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@unly/utils-simple-logger';
+import { ApolloQueryResult } from 'apollo-client';
+import deepmerge from 'deepmerge';
 import {
   GetStaticPaths,
   GetStaticProps,
+  GetStaticPropsResult,
   NextPage,
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
+import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
 
 const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -39,7 +46,57 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefault
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDefaultStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDefaultStaticProps(props);
+
+  if ('props' in commonStaticProps) {
+    const {
+      customerRef,
+      gcmsLocales,
+    } = commonStaticProps.props;
+    const apolloClient = createApolloClient();
+    const variables = {
+      customerRef,
+    };
+    const queryOptions = {
+      displayName: 'TERMS_PAGE_QUERY',
+      query: TERMS_PAGE_QUERY,
+      variables,
+      context: {
+        headers: {
+          'gcms-locales': gcmsLocales,
+        },
+      },
+    };
+
+    const {
+      data,
+      errors,
+      loading,
+      networkStatus,
+      stale,
+    }: ApolloQueryResult<{
+      customer: Customer;
+    }> = await apolloClient.query(queryOptions);
+
+    if (errors) {
+      console.error(errors);
+      throw new Error('Errors were detected in GraphQL query.');
+    }
+
+    const {
+      customer,
+    } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
+
+    return deepmerge(commonStaticProps, {
+      props: {
+        customer,
+      },
+    });
+  } else {
+    return commonStaticProps;
+  }
+};
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -58,24 +115,30 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
-  const { termsDescription, serviceLabel } = customer || {};
+  const {
+    termsDescription,
+    serviceLabel,
+  } = customer || {};
 
   // Replace dynamic values (like "{customerLabel}") by their actual value
-  const terms = replaceAllOccurrences(termsDescription, {
+  const terms = replaceAllOccurrences(termsDescription?.html, {
     serviceLabel: `**${serviceLabel}**`,
     customerLabel: `**${customer?.label}**`,
   });
 
   return (
-    <Layout
+    <DefaultLayout
       {...props}
       pageName={AMPLITUDE_PAGES.TERMS_PAGE}
+      headProps={{
+        seoTitle: 'Terms - Next Right Now',
+      }}
     >
       <LegalContent
         content={terms}
       />
-    </Layout>
+    </DefaultLayout>
   );
 };
 
-export default (TermsPage);
+export default withApollo()(TermsPage);

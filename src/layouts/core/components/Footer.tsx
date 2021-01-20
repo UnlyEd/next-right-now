@@ -1,11 +1,10 @@
 import { NRN_CO_BRANDING_LOGO_URL } from '@/app/constants';
 import Logo from '@/components/dataDisplay/Logo';
-import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
 import { CSSStyles } from '@/modules/core/css/types/CSSStyles';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
-import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Asset } from '@/modules/core/data/types/Asset';
 import { Customer } from '@/modules/core/data/types/Customer';
+import GraphCMSAsset from '@/modules/core/gql/components/GraphCMSAsset';
 import I18nBtnChangeLocale from '@/modules/core/i18n/components/I18nBtnChangeLocale';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { SIZE_XS } from '@/utils/logo';
@@ -20,13 +19,6 @@ export type Props = {
   style?: CSSStyles;
 };
 
-/**
- * Page footer.
- *
- * Displays the customer logo, legal links, i18n btn and the Unly logo.
- *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
- */
 const Footer: React.FunctionComponent<Props> = (props) => {
   const {
     style,
@@ -119,9 +111,9 @@ const Footer: React.FunctionComponent<Props> = (props) => {
       `}
     >
       <section className="credits-container">
-        <AirtableAsset
+        <GraphCMSAsset
           id={'footer-logo'}
-          asset={logo as AirtableRecord<Asset>}
+          asset={logo}
           linkOverride={{ id: 'link-footer-logo' }}
         />
         <div className={'credits'}>
@@ -178,3 +170,4 @@ const Footer: React.FunctionComponent<Props> = (props) => {
 };
 
 export default Footer;
+

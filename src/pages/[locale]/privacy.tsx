@@ -2,7 +2,7 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import LegalContent from '@/common/components/dataDisplay/LegalContent';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import Layout from '@/layouts/default/components/DefaultLayout';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import {
   getDefaultStaticPaths,
   getDefaultStaticProps,
@@ -70,7 +70,7 @@ const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <Layout
+    <DefaultLayout
       {...props}
       pageName={AMPLITUDE_PAGES.PRIVACY_PAGE}
     >
@@ -78,7 +78,7 @@ const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
       <LegalContent
         content={privacy}
       />
-    </Layout>
+    </DefaultLayout>
   );
 };
 

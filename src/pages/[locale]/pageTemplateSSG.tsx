@@ -1,13 +1,14 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import Layout from '@/layouts/default/components/DefaultLayout';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import {
   getDefaultStaticPaths,
   getDefaultStaticProps,
 } from '@/layouts/default/defaultSSG';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -51,7 +52,7 @@ const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
 
   return (
-    <Layout
+    <DefaultLayout
       {...props}
       pageName={'pageTemplateSSG'}
     >
@@ -62,7 +63,7 @@ const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
       <p>
         Customer label: {customer.label}
       </p>
-    </Layout>
+    </DefaultLayout>
   );
 };
 

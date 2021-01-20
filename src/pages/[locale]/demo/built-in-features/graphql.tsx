@@ -1,3 +1,15 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import Code from '@/components/dataDisplay/Code';
+import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
+import DemoPage from '@/layouts/demo/components/DemoPage';
+import {
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '@/layouts/demo/demoSSG';
+import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -8,19 +20,6 @@ import {
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-import BuiltInFeaturesSidebar from '../../../../components/doc/BuiltInFeaturesSidebar';
-import DocPage from '../../../../components/doc/DocPage';
-import DefaultLayout from '../../../../components/pageLayouts/DefaultLayout';
-import Code from '../../../../components/utils/Code';
-import withApollo from '../../../../hocs/withApollo';
-import { CommonServerSideParams } from '../../../../types/nextjs/CommonServerSideParams';
-import { OnlyBrowserPageProps } from '../../../../types/pageProps/OnlyBrowserPageProps';
-import { SSGPageProps } from '../../../../types/pageProps/SSGPageProps';
-import {
-  getExamplesCommonStaticPaths,
-  getExamplesCommonStaticProps,
-} from '../../../../utils/nextjs/SSG';
-
 const fileLabel = 'pages/[locale]/examples/built-in-features/graphql';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   label: fileLabel,
@@ -30,7 +29,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExamplesCommonStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -40,7 +39,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getExample
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getExamplesCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDemoStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -54,7 +53,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={'graphql'}
       headProps={{
@@ -62,7 +61,7 @@ const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
       }}
       Sidebar={BuiltInFeaturesSidebar}
     >
-      <DocPage>
+      <DemoPage>
         <h1 className={'pcolor'}>GraphQL examples, using GraphCMS vendor</h1>
 
         <Alert color={'warning'}>
@@ -148,8 +147,8 @@ const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
           All our pages fetch some data from GraphCMS, because we need those in shared components (i.e: Footer, Nav)
         </p>
 
-      </DocPage>
-    </DefaultLayout>
+      </DemoPage>
+    </DemoLayout>
   );
 };
 

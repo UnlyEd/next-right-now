@@ -1,5 +1,5 @@
-import { Customer } from '../../types/data/Customer';
-import { Product } from '../../types/data/Product';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { Product } from '@/modules/core/data/types/Product';
 
 /**
  * GraphCMS dataset
