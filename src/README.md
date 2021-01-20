@@ -19,7 +19,7 @@ Overview of what each folder is about:
   - `core`: Contains reusable/extendable code _(components, business logic, data fetching)_ used by other layouts.
   - `default`: Default layout that comes built-in with the strict minimum components (Nav, Footer).
     _If you use NRN as a boilerplate, that's the layout you should get started with!_
-  - `demo`: Layout used by the [Next Right Now demo](https://nrn-v2-mst-aptd-at-lcz-sty-c1.vercel.app) pages.
+  - `demo`: Layout used by the [Next Right Now demo](https://nrn-v2-mst-aptd-gcms-lcz-sty-c1.vercel.app) pages.
     All those pages under `/demo` use the `demo` layout, which contains a custom Nav showing links to each example, and a left menu for easier navigation through the demo.
 - `modules`: Contains related pieces of code (components, types, utils) grouped together. _See documentation below._
 - `pages`: Contains Next.js pages and `api` folder.

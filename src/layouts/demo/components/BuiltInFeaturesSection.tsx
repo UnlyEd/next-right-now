@@ -75,7 +75,7 @@ const BuiltInFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Elem
                 <ExternalLink href={'https://unlyed.github.io/next-right-now/guides/storybook'}>
                   <Btn mode={'primary-outline'}>Learn more about Storybook</Btn>
                 </ExternalLink>
-                <ExternalLink href={'https://nrn-v2-mst-aptd-at-lcz-sty-storybook.vercel.app/'}>
+                <ExternalLink href={'https://nrn-v2-mst-aptd-gcms-lcz-sty-storybook.vercel.app/'}>
                   <Btn mode={'primary-variant'}>See the Storybook for this preset</Btn>
                 </ExternalLink>
               </div>
