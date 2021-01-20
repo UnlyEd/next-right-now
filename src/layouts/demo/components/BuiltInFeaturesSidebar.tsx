@@ -65,10 +65,6 @@ export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
     href: '/demo/built-in-features/docs-site',
     label: 'Docs site',
   },
-  {
-    href: '/demo/built-in-features/md-as-jsx',
-    label: 'Markdown as JSX',
-  },
 ];
 
 /**
