@@ -14,14 +14,14 @@ export default {
   argTypes: {},
 } as Meta;
 
-export const DynamicAirtableLogo: Story<Props> = (props) => {
+export const DynamicGraphCMSLogo: Story<Props> = (props) => {
   return (
     <GraphCMSAsset
       {...props}
     />
   );
 };
-DynamicAirtableLogo.args = {
+DynamicGraphCMSLogo.args = {
   id: 'default-logo',
   className: 'default-class',
   asset: {
@@ -37,6 +37,6 @@ DynamicAirtableLogo.args = {
   },
   onClick: () => console.log('click on asset'),
 };
-DynamicAirtableLogo.parameters = {
-  jest: ['AirtableAsset.test.tsx'],
+DynamicGraphCMSLogo.parameters = {
+  jest: ['GraphCMSAsset.test.tsx'],
 };

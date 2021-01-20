@@ -22,10 +22,6 @@ export const BUILT_IN_UTILITIES_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'I18nLink component',
   },
   {
-    href: '/demo/built-in-utilities/airtableAsset-component',
-    label: 'AirtableAsset component',
-  },
-  {
     href: '/demo/built-in-utilities/hooks',
     label: 'Hooks',
   },

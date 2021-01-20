@@ -25,9 +25,9 @@ export const NRN_DEFAULT_FONT = 'neuzeit-grotesk';
  * Theme applied by default when no theme is defined.
  * Will be used on a variable-by-variable basis based on what's configured on the CMS for the customer.
  *
- * Applied through "src/utils/airtableSchema/airtableSchema.ts" default value transformations.
- *
+ * Applied through "src/modules/core/theming/theme.ts" default value transformations.
  * Strongly inspired from Material Design Color System.
+ *
  * @see The below documentation comes from https://material.io/design/color/the-color-system.html
  */
 export const NRN_DEFAULT_THEME: Omit<CustomerTheme, 'primaryColorVariant1' | 'secondaryColorVariant1'> & {
