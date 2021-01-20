@@ -87,7 +87,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
 
         <Alert color={'warning'}>
           This section only showcases i18n for <b>static content</b> (nav, footer, etc.). <br />
-          Dynamic content (DB records) is managed through <b>Airtable</b> and is completely unrelated.
+          Dynamic content (DB records) is managed through <b>GraphCMS</b> and is completely unrelated.
         </Alert>
 
         NRN provides built-in static i18n support, based on:<br />

@@ -75,7 +75,7 @@ const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
       {...props}
       pageName={AMPLITUDE_PAGES.PRIVACY_PAGE}
     >
-      <h2>Field's value (fetched from Airtable API), as <code>Long text</code> (interpreted as Markdown):</h2>
+      <h2>Field's value (fetched from GraphCMS API), as <code>Long text</code> (interpreted as Markdown):</h2>
       <LegalContent
         content={privacy}
       />

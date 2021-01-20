@@ -35,18 +35,6 @@ export const replaceAllOccurrences = (initialString: string, variables: GenericO
 };
 
 /**
- * Airtable encodes "<" into "&#x3C;" and we need to decode it to display proper HTML content
- *
- * @param {string} string
- * @return {string}
- */
-export const unescapeHtml = (string: string): string => {
-  return replaceAllOccurrences(string, {
-    '&#x3C;': '<',
-  }, '', '');
-};
-
-/**
  * Remove the trailing slash of a string
  *
  * Useful for urls, in particular
