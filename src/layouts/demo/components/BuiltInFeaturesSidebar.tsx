@@ -38,10 +38,6 @@ export const BUILT_IN_FEATURES_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'Monitoring',
   },
   {
-    href: '/demo/built-in-features/api',
-    label: 'API (Airtable)',
-  },
-  {
     href: '/demo/built-in-features/css-in-js',
     label: 'CSS-in-JS',
   },

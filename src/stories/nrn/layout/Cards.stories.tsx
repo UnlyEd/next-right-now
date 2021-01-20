@@ -144,20 +144,6 @@ const Template: Story<Props> = (props) => {
 
       <Card>
         <CardBody>
-          <CardTitle><h3>API</h3></CardTitle>
-          <CardSubtitle>&ldquo;API fetching using Amplitude vendor (REST))&rdquo;</CardSubtitle>
-          <CardText tag={'div'}>
-            <div className={'buttons'}>
-              <I18nLink href={'/demo/built-in-features/api'}>
-                <Btn mode={'primary-outline'}>See usage examples</Btn>
-              </I18nLink>
-            </div>
-          </CardText>
-        </CardBody>
-      </Card>
-
-      <Card>
-        <CardBody>
           <CardTitle><h3>CSS-in-JS</h3></CardTitle>
           <CardSubtitle>&ldquo;Styling components with Emotion&rdquo;</CardSubtitle>
           <CardText tag={'div'}>
