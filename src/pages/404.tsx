@@ -1,3 +1,15 @@
+import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import Btn from '@/common/components/dataDisplay/Btn';
+import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import Layout from '@/layouts/default/components/DefaultLayout';
+import { getDefaultStaticProps } from '@/layouts/default/defaultSSG';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
+import {
+  DEFAULT_LOCALE,
+  LANG_EN,
+  LANG_FR,
+} from '@/modules/core/i18n/i18n';
 import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -12,18 +24,6 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import I18nLink from '../components/i18n/I18nLink';
-import DefaultLayout from '../components/pageLayouts/DefaultLayout';
-import Btn from '../components/utils/Btn';
-import { CommonServerSideParams } from '../types/nextjs/CommonServerSideParams';
-import { SoftPageProps } from '../types/pageProps/SoftPageProps';
-import { SSGPageProps } from '../types/pageProps/SSGPageProps';
-import {
-  DEFAULT_LOCALE,
-  LANG_EN,
-  LANG_FR,
-} from '../utils/i18n/i18n';
-import { getCommonStaticProps } from '../utils/nextjs/SSG';
 
 const fileLabel = 'pages/404';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -38,7 +38,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getCommonStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDefaultStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -107,7 +107,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
   // We can display a custom message based on the lang, but the other parts of the app won't be translated (nav, footer)
   // Also, it has to be hardcoded, it cannot be stored on Locize, because we don't have access to translations from other languages
   return (
-    <DefaultLayout
+    <Layout
       {...props}
       pageName={'404'}
       headProps={{
@@ -131,7 +131,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
           </Btn>
         </I18nLink>
       </div>
-    </DefaultLayout>
+    </Layout>
   );
 };
 

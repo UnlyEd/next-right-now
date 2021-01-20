@@ -3,8 +3,8 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import { ExplanationTooltipOverlay } from '../../../components/pageLayouts/PreviewModeBanner';
-import QuickPreviewLayout, { Props } from '../../../components/pageLayouts/QuickPreviewLayout';
+import { ExplanationTooltipOverlay } from '@/modules/core/previewMode/components/PreviewModeBanner';
+import QuickPreviewLayout, { Props } from '@/modules/core/quickPreview/components/QuickPreviewLayout';
 
 export default {
   title: 'Next Right Now/Layout/QuickPreviewLayout',

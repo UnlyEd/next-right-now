@@ -3,8 +3,8 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import AirtableAsset, { Props } from '../../../components/assets/AirtableAsset';
-import { Asset } from '../../../types/data/Asset';
+import AirtableAsset, { Props } from '@/modules/core/airtable/components/AirtableAsset';
+import { Asset } from '@/modules/core/data/types/Asset';
 
 const defaultLogoUrl = 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png';
 

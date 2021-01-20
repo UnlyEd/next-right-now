@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import DisplayOnBrowserMount, { Props } from '../../../components/rehydration/DisplayOnBrowserMount';
+import DisplayOnBrowserMount, { Props } from '@/common/components/rehydration/DisplayOnBrowserMount';
 
 export default {
   title: 'Next Right Now/React rehydration/DisplayOnBrowserMount',

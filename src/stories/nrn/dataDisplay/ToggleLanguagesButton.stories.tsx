@@ -3,7 +3,7 @@ import {
   Story,
 } from '@storybook/react/types-6-0';
 import React, { useState } from 'react';
-import ToggleLanguagesButton, { Props } from '../../../components/utils/ToggleLanguagesButton';
+import ToggleLanguagesButton, { Props } from '@/modules/core/i18n/components/ToggleLanguagesButton';
 
 export default {
   title: 'Next Right Now/Data display/ToggleLanguagesButton',
