@@ -2,7 +2,7 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import LegalContent from '@/common/components/dataDisplay/LegalContent';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import Layout from '@/layouts/default/components/DefaultLayout';
+import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import {
   getDefaultStaticPaths,
   getDefaultStaticProps,
@@ -58,7 +58,10 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
-  const { termsDescription, serviceLabel } = customer || {};
+  const {
+    termsDescription,
+    serviceLabel,
+  } = customer || {};
 
   // Replace dynamic values (like "{customerLabel}") by their actual value
   const terms = replaceAllOccurrences(termsDescription, {
@@ -67,14 +70,14 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <Layout
+    <DefaultLayout
       {...props}
       pageName={AMPLITUDE_PAGES.TERMS_PAGE}
     >
       <LegalContent
         content={terms}
       />
-    </Layout>
+    </DefaultLayout>
   );
 };
 

@@ -289,7 +289,7 @@ const ExampleApiPage: NextPage<Props> = (props): JSX.Element => {
         <br />
 
         <p>
-          The above code is what we actually use in <code>getCommonStaticProps</code>, to fetch data that are shared by all SSG pages.
+          The above code is what we actually use in <code>getDefaultStaticProps</code>, to fetch data that are shared by all SSG pages using the <code>default</code> layout.
         </p>
 
         <hr />

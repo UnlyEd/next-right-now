@@ -84,8 +84,8 @@ const NativeFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Eleme
 
               <p>
                 We also strongly recommend using SSG, whenever possible.<br />
-                SSG can only be used using <code>getStaticProps</code>, NRN provides a <code>getCommonStaticProps</code> helper
-                to configure common stuff between all SSG-based pages and reduce code duplication.
+                SSG can only be used using <code>getStaticProps</code>, NRN provides a <code>getDefaultStaticProps</code> helper
+                to configure common stuff between all SSG-based pages using the <code>default</code> layout, and help reduce code duplication.
               </p>
 
               <div className={'buttons'}>

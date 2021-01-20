@@ -9,6 +9,7 @@ import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
+import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
 import {
   i18nRedirect,
@@ -212,6 +213,13 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
     const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
     const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+    let availableLanguages: string[] = customer?.availableLanguages;
+
+    if (isEmpty(availableLanguages)) {
+      // If no language have been set, apply default (fallback)
+      // XXX Applying proper default is critical to avoid an infinite loop
+      availableLanguages = [DEFAULT_LOCALE];
+    }
 
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser()) {
       // eslint-disable-next-line no-console
@@ -222,9 +230,11 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
     // If the locale used to display the page isn't available for this customer
     // TODO This should be replaced by something better, ideally the pages for non-available locales shouldn't be generated at all and then this wouldn't be needed
-    if (!includes(customer?.availableLanguages, locale) && isBrowser()) {
+    if (!includes(availableLanguages, locale) && isBrowser()) {
       // Then redirect to the same page using another locale (using the first available locale)
-      i18nRedirect(customer?.availableLanguages?.[0], router);
+      // XXX Be extra careful with this kind of redirects based on remote data!
+      //  It's easy to create an infinite redirect loop when the data aren't shaped as expected.
+      i18nRedirect(availableLanguages?.[0] || DEFAULT_LOCALE, router);
       return null;
     }
 
