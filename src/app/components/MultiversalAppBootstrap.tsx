@@ -211,7 +211,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     const dataset: GraphCMSDataset = deserializeSafe(serializedDataset);
-    const customer: Customer = find(dataset, { __typename: 'Customer' }) as Customer;
+    const customer: Customer = dataset?.customer;
     let availableLanguages: string[] = customer?.availableLanguages;
 
     if (isEmpty(availableLanguages)) {
