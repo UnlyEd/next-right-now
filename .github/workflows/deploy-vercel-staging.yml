@@ -149,7 +149,7 @@ jobs:
             VERCEL_DEPLOYMENT_ALIASES_COUNT=${#VERCEL_DEPLOYMENT_ALIASES[@]}
 
             # Check if there are no aliases configured
-            if [ "$VERCEL_DEPLOYMENT_ALIASES" > 0 ]
+            if [ "$VERCEL_DEPLOYMENT_ALIASES_COUNT" > 0 ]
             then
               echo "$VERCEL_DEPLOYMENT_ALIASES_COUNT alias(es) found. Aliasing them now..."
 
