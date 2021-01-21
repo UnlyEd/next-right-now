@@ -164,7 +164,7 @@ Modules are and advanced way of organizing your code base.
 > Modules within `src/modules/core` are modules built-in with Next Right Now.
 >
 > You should create your own modules in `src/` or `src/modules`.
-> Either is fine, it's a matter of taste/opinion. Some people might prefer to add them to `src/` directly and use module paths aliases.
+> Either is fine, it's a matter of taste/opinion. Some people might prefer to add them to `src/` directly and use [module paths aliases](./module-path-aliases).
 
 Modules don't change how code is compiled or anything like that, they're purely **a way to organize your code**, so it's easier to reason/maintain.
 
