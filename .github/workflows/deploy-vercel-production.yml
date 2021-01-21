@@ -91,7 +91,7 @@ jobs:
 
           # Deploy the customer on Vercel using the customer ref
           # Store the output in a variable so we can extract metadata from it
-          VERCEL_DEPLOYMENT_OUTPUT=`GIT_COMMIT_REF=${GIT_COMMIT_REF} GIT_COMMIT_SHA=${GIT_COMMIT_SHA} CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer:production:simple --token $VERCEL_TOKEN`
+          VERCEL_DEPLOYMENT_OUTPUT=`GIT_COMMIT_REF=${GIT_COMMIT_REF} GIT_COMMIT_SHA=${GIT_COMMIT_SHA} CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:ci:gha:production --token $VERCEL_TOKEN`
 
           # Extract the Vercel deployment url from the deployment output
           VERCEL_DEPLOYMENT_URL=`echo $VERCEL_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
