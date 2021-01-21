@@ -352,7 +352,7 @@ jobs:
           # XXX We don't enable comments, because there is no branch to write them into
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           emulatedFormFactor: all # Run LightHouse against "mobile", "desktop", or "all" devices
-          urls: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/en, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/fr, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/en-US, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/fr-FR
+          urls: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/en, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/fr, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/en
           locale: en
 
       # Upload HTML report created by lighthouse as an artifact.
