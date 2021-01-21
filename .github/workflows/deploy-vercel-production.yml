@@ -21,6 +21,7 @@
 # - See https://github.com/jwalton/gh-find-current-pr https://github.com/jwalton/gh-find-current-pr/tree/v1
 # - See https://github.com/peter-evans/create-or-update-comment https://github.com/peter-evans/create-or-update-comment/tree/v1
 # - See https://github.com/UnlyEd/github-action-await-vercel https://github.com/UnlyEd/github-action-await-vercel/tree/v1.1.1
+# - See https://github.com/UnlyEd/github-action-store-variable https://github.com/UnlyEd/github-action-store-variable/tree/v1.0.1
 # - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
 # - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
 
@@ -51,7 +52,6 @@ jobs:
   setup-environment:
     name: Setup deployment environment (Ubuntu 18.04 - Node 12.x)
     runs-on: ubuntu-18.04
-    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - name: Installing node.js
         uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
@@ -65,7 +65,7 @@ jobs:
     name: Starts Vercel deployment (production) (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: setup-environment
-    timeout-minutes: 20 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
+    timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Deploying on Vercel (production)
@@ -149,7 +149,7 @@ jobs:
     name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: start-production-deployment
-    timeout-minutes: 3 # Limit current job timeout (including action timeout setup down there) https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
+    timeout-minutes: 5 # Limit current job timeout (including action timeout setup down there) https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
@@ -179,7 +179,7 @@ jobs:
     name: Invoke webhook callback url defined by the customer (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
-    timeout-minutes: 2 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
+    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
@@ -292,7 +292,7 @@ jobs:
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
     container: cypress/included:3.8.3
     needs: await-for-vercel-deployment
-    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
+    timeout-minutes: 20 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
