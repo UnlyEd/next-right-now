@@ -90,9 +90,11 @@ jobs:
           # Deploy the customer on Vercel using the customer specified in vercel.json
           VERCEL_DEPLOYMENT_OUTPUT=`CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer:production:simple --token $VERCEL_TOKEN`
 
-          echo "============================================="
-          echo $VERCEL_DEPLOYMENT_OUTPUT
-          echo "============================================="
+          # Extract the Vercel deployment url from the deployment output
+          VERCEL_DEPLOYMENT_URL=`echo $VERCEL_DEPLOYMENT_OUTPUT | egrep -o 'https?://[^ ]+.vercel.app'`
+          echo "Deployment url: " $VERCEL_DEPLOYMENT_URL
+          echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
+          echo "VERCEL_DEPLOYMENT_DOMAIN=${VERCEL_DEPLOYMENT_URL#https://}" >> $GITHUB_ENV
 
           # Find all custom aliases configured in the customer deployment configuration file (vercel.json)
           VERCEL_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')
