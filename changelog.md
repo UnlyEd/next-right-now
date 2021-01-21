@@ -28,6 +28,9 @@ such as a preset release history, but it is not meant to warn about non-backward
 
 Here is a short list of the most valuable changes and new features.
 
+- 2021-01-20
+    - [(MAJOR) Massive folder structure refactoring (`v2-mst-aptd-at-lcz-sty`), using modular approach and module path aliases](https://github.com/UnlyEd/next-right-now/pull/264)
+    - [(MAJOR) Massive folder structure refactoring (`v2-mst-aptd-gcms-lcz-sty`), using modular approach and module path aliases](https://github.com/UnlyEd/next-right-now/pull/275)
 - 2021-01-17
     - [Add Storybook static site, hosted on Vercel](https://github.com/UnlyEd/next-right-now/pull/251)
 - 2021-01-13
