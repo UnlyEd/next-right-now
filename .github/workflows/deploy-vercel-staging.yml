@@ -52,6 +52,7 @@ jobs:
   setup-environment:
     name: Setup deployment environment (Ubuntu 18.04 - Node 12.x)
     runs-on: ubuntu-18.04
+    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - name: Installing node.js
         uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
@@ -65,6 +66,7 @@ jobs:
     name: Starts Vercel deployment (staging) (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: setup-environment
+    timeout-minutes: 20 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Deploying on Vercel (staging)
@@ -216,6 +218,7 @@ jobs:
     name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: start-staging-deployment
+    timeout-minutes: 3 # Limit current job timeout (including action timeout setup down there) https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
@@ -245,6 +248,7 @@ jobs:
     name: Invoke webhook callback url defined by the customer (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
+    timeout-minutes: 2 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
@@ -357,6 +361,7 @@ jobs:
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
     container: cypress/included:3.8.3
     needs: await-for-vercel-deployment
+    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
@@ -426,6 +431,7 @@ jobs:
     name: Run LightHouse checks (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
+    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
