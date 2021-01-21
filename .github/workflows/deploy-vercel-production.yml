@@ -88,6 +88,7 @@ jobs:
 
           CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
+          echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
 
           # Deploy the customer on Vercel using the customer ref
           # Store the output in a variable so we can extract metadata from it
