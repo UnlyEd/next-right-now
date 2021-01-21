@@ -36,6 +36,7 @@ on:
     branches:
       - 'master'
       - 'main'
+      - 'implement-store-variable-on-prod'
 
   # Allow manual trigger via a button in github or a HTTP call - See https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#manually-running-a-workflow
   # XXX See https://unlyed.github.io/next-right-now/guides/ci-cd/gha-deploy-vercel#triggering-the-action-remotely-using-workflow_dispatch
@@ -119,57 +120,30 @@ jobs:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
 
+      # At the end of the job, store all variables we will need in the following jobs
+      # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
+      - name: Store variables for next jobs
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        with:
+          variables: |
+            CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
+            VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
+            VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
+
   await-for-vercel-deployment:
     name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: start-production-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
-      - name: Resolving deployment url from Vercel
-        # Workflow overview:
-        #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
-        #   - Resolve $VERCEL_DEPLOYMENT_URL
-        #     - Fetch all deployments data (by using the scope in `vercel.json`)
-        #     - Resolve the last url (from `response.deployments[0].url`)
-        #     - Remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${$VERCEL_DEPLOYMENT}`
-        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
-        run: |
-          apt update -y >/dev/null && apt install -y jq >/dev/null
 
-          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
-          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
-          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
-
-          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer that was deployed: " $CUSTOMER_REF_TO_DEPLOY
-          echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
-
-          # Resolve Vercel team ID
-          VERCEL_TEAM_ID=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.scope'`
-          echo "Vercel team ID: " $VERCEL_TEAM_ID
-          echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
-
-          # Resolve Vercel project name
-          VERCEL_PROJECT_NAME=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.name'`
-          echo "Vercel project name: " $VERCEL_PROJECT_NAME
-          echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
-
-          # Build Vercel API endpoint used to fetch deployments
-          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
-          echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
-
-          # Fetch all Vercel deployment from this project
-          ALL_VERCEL_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
-          echo "Vercel deployments for current team: " $ALL_VERCEL_DEPLOYMENTS
-
-          # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
-          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
-          VERCEL_DEPLOYMENT=`echo $ALL_VERCEL_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
-          VERCEL_DEPLOYMENT_URL="https://$VERCEL_DEPLOYMENT"
-          echo "Url where to run E2E tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
-          echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
-          echo "VERCEL_DEPLOYMENT=$VERCEL_DEPLOYMENT" >> $GITHUB_ENV
+      # Restore variables stored by previous jobs
+      - name: Restore variables
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        id: restore-variable
+        with:
+          variables: |
+            VERCEL_DEPLOYMENT_DOMAIN
 
       # Wait for deployment to be ready, before running E2E (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
       - name: Awaiting Vercel deployment to be ready
@@ -178,7 +152,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
         with:
-          deployment-url: ${{ env.VERCEL_DEPLOYMENT }} # Must only contain the domain name (no http prefix, etc.)
+          deployment-url: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_DOMAIN }} # Must only contain the domain name (no http prefix, etc.)
           timeout: 90 # Wait for 90 seconds before failing
 
       - name: Display deployment status
@@ -193,16 +167,25 @@ jobs:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
         uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
+
+      # Restore variables stored by previous jobs
+      - name: Restore variables
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        id: restore-variable
+        with:
+          variables: |
+            MANUAL_TRIGGER_CUSTOMER
+            CUSTOMER_REF_TO_DEPLOY
+
       - name: Expose git environment variables and call webhook (if provided)
         # Workflow overview:
         #  - Resolves webhook url from customer config file
         #  - If a webhook url was defined in the customer config file, send an HTTP request, as POST request, with a JSON request body dynamically generated
         #  - Prints the headers of the POST HTTP request (curl)
+        # TODO Convert this into an external bash script if possible, to simplify this step as much as possible
         run: |
-          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
-          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-
           VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
+          echo "Vercel deployment webhook url: " $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
 
           # Checking if a webhook url is defined
           if [ -n "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
@@ -223,7 +206,7 @@ jobs:
             {
               "MANUAL_TRIGGER_CUSTOMER": "${MANUAL_TRIGGER_CUSTOMER}",
               "CUSTOMER_REF": "${CUSTOMER_REF_TO_DEPLOY}",
-              "STAGE": "production",
+              "STAGE": "staging",
               "GIT_COMMIT_SHA": "${GIT_COMMIT_SHA}",
               "GIT_COMMIT_REF": "${GIT_COMMIT_REF}",
               "GIT_COMMIT_TAGS": "${GIT_COMMIT_TAGS}",
@@ -268,6 +251,7 @@ jobs:
             echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.production.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
           fi
         env:
+          CUSTOMER_REF_TO_DEPLOY: ${{ fromJson(steps.restore-variable.outputs.variables).CUSTOMER_REF_TO_DEPLOY }}
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
           # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
@@ -293,42 +277,14 @@ jobs:
     needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
-      - name: Resolving deployment url from Vercel
-        run: |
-          apt update -y >/dev/null && apt install -y jq >/dev/null
 
-          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
-          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
-          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
-
-          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer that was deployed: " $CUSTOMER_REF_TO_DEPLOY
-          echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
-
-          # Resolve Vercel team ID
-          VERCEL_TEAM_ID=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.scope'`
-          echo "Vercel team ID: " $VERCEL_TEAM_ID
-          echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
-
-          # Resolve Vercel project name
-          VERCEL_PROJECT_NAME=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.name'`
-          echo "Vercel project name: " $VERCEL_PROJECT_NAME
-          echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
-
-          # Build Vercel API endpoint used to fetch deployments
-          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
-          echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
-
-          # Fetch all Vercel deployment from this project
-          ALL_VERCEL_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
-          echo "Vercel deployments for current team: " $ALL_VERCEL_DEPLOYMENTS
-
-          # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
-          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
-          VERCEL_DEPLOYMENT=`echo $ALL_VERCEL_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
-          VERCEL_DEPLOYMENT_URL="https://$VERCEL_DEPLOYMENT"
-          echo "Url where to run E2E tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
-          echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
+      # Restore variables stored by previous jobs
+      - name: Restore variables
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        id: restore-variable
+        with:
+          variables: |
+            VERCEL_DEPLOYMENT_URL
 
       # Runs the E2E tests against the new Vercel deployment
       - name: Run E2E tests (Cypress)
@@ -336,11 +292,11 @@ jobs:
         with:
           # XXX We disabled "wait-on" option, because it's useless. Cypress will fail anyway, because it gets redirected to some internal Vercel URL if the domain isn't yet available - See https://github.com/cypress-io/github-action/issues/270
           # wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
-          config-file: 'cypress/config-customer-ci-cd.json' # The config file itself doesn't matter because we will override most settings anyway. We just need `projectId` to run the tests.
-          config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
+          config-file: 'cypress/config-customer-ci-cd.json' # Use Cypress config file for CI/CD, and override it below
+          config: baseUrl=${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
           # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.
-          #          DEBUG: "cypress:*" # Enable all logs. See https://docs.cypress.io/guides/references/troubleshooting.html#Print-DEBUG-logs
+          # DEBUG: "cypress:*" # Enable all logs. See https://docs.cypress.io/guides/references/troubleshooting.html#Print-DEBUG-logs
           DEBUG: "cypress:server:util:process_profiler" # Enable logs for "memory and CPU usage". See https://docs.cypress.io/guides/references/troubleshooting.html#Log-memory-and-CPU-usage
 
       # On E2E failure, upload screenshots
@@ -366,55 +322,17 @@ jobs:
     needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
-      - name: Resolving deployment url from Vercel
-        # Workflow overview:
-        #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
-        #   - Resolve $VERCEL_DEPLOYMENT_URL
-        #     - Fetch all deployments data (by using the scope in `vercel.json`)
-        #     - Resolve the last url (from `response.deployments[0].url`)
-        #     - Remove the `"` character to pre-format url
-        # We need to set env the url for next step, formatted as `https://${$VERCEL_DEPLOYMENT}/en` using /en endpoint to improve perfs by avoiding the url redirect on /
-        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
-        run: |
-          apt update -y >/dev/null && apt install -y jq >/dev/null
 
-          MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
-          echo "MANUAL_TRIGGER_CUSTOMER: " $MANUAL_TRIGGER_CUSTOMER
-          echo "MANUAL_TRIGGER_CUSTOMER=$MANUAL_TRIGGER_CUSTOMER" >> $GITHUB_ENV
-
-          CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
-          echo "Customer that was deployed: " $CUSTOMER_REF_TO_DEPLOY
-          echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
-
-          # Resolve Vercel team ID
-          VERCEL_TEAM_ID=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.scope'`
-          echo "Vercel team ID: " $VERCEL_TEAM_ID
-          echo "VERCEL_TEAM_ID=$VERCEL_TEAM_ID" >> $GITHUB_ENV
-
-          # Resolve Vercel project name
-          VERCEL_PROJECT_NAME=`cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.name'`
-          echo "Vercel project name: " $VERCEL_PROJECT_NAME
-          echo "VERCEL_PROJECT_NAME=$VERCEL_PROJECT_NAME" >> $GITHUB_ENV
-
-          # Build Vercel API endpoint used to fetch deployments
-          VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT="https://api.zeit.co/v5/now/deployments?teamId=$VERCEL_TEAM_ID"
-          echo "Fetching Vercel deployments using API endpoint: " $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT
-
-          # Fetch all Vercel deployment from this project
-          ALL_VERCEL_DEPLOYMENTS=`curl -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}' $VERCEL_FETCH_DEPLOYMENTS_API_ENDPOINT`
-          echo "Vercel deployments for current team: " $ALL_VERCEL_DEPLOYMENTS
-
-          # Parse the deployments (as json) to find the latest deployment url, while stripping the double quotes
-          # TODO Do not use '.deployments [0].url' blindly, but filter the deployments array first to make sure to consider only the deployments where "name" is equal to $VERCEL_PROJECT_NAME
-          VERCEL_DEPLOYMENT=`echo $ALL_VERCEL_DEPLOYMENTS | jq '.deployments [0].url' | tr -d \"`
-          VERCEL_DEPLOYMENT_URL="https://$VERCEL_DEPLOYMENT"
-          echo "Url where to run LightHouse tests (VERCEL_DEPLOYMENT_URL): " $VERCEL_DEPLOYMENT_URL
-          echo "VERCEL_DEPLOYMENT_URL=$VERCEL_DEPLOYMENT_URL" >> $GITHUB_ENV
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
       # To store reports and then upload them, we must create the folder beforehand
       - name: Create temporary folder for artifacts storage
         run: mkdir /tmp/lighthouse-artifacts
+
+      # Restore variables stored by previous jobs
+      - name: Restore variables
+        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        id: restore-variable
+        with:
+          variables: VERCEL_DEPLOYMENT_URL
 
       # Runs LightHouse for a given url and create HTML reports in the specified directory (outputDirectory)
       # Action documentation: https://github.com/marketplace/actions/lighthouse-check#usage-standard-example
@@ -425,7 +343,7 @@ jobs:
           # XXX We don't enable comments, because there is no branch to write them into
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           emulatedFormFactor: all # Run LightHouse against "mobile", "desktop", or "all" devices
-          urls: ${{ env.VERCEL_DEPLOYMENT_URL }}, ${{ env.VERCEL_DEPLOYMENT_URL }}/en, ${{ env.VERCEL_DEPLOYMENT_URL }}/fr, ${{ env.VERCEL_DEPLOYMENT_URL }}/en-US, ${{ env.VERCEL_DEPLOYMENT_URL }}/fr-FR
+          urls: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/en, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/fr, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/en-US, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/fr-FR
           locale: en
 
       # Upload HTML report created by lighthouse as an artifact.
