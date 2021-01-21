@@ -104,7 +104,7 @@ jobs:
           echo "Custom aliases: " $VERCEL_DEPLOYMENT_ALIASES_JSON
 
           if [[ "$VERCEL_DEPLOYMENT_ALIASES_JSON" != "null" ]]; then
-          # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
+            # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
             readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.production.json)
 
             # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
@@ -142,6 +142,7 @@ jobs:
             VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
             VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
             MANUAL_TRIGGER_CUSTOMER=${{ env.MANUAL_TRIGGER_CUSTOMER }}
+            GITHUB_PULL_REQUEST_ID=${{ steps.pr_id_finder.outputs.number }}
 
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
   await-for-vercel-deployment:
