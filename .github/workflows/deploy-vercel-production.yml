@@ -141,6 +141,7 @@ jobs:
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
             VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
             VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
+            MANUAL_TRIGGER_CUSTOMER=${{ env.MANUAL_TRIGGER_CUSTOMER }}
 
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
   await-for-vercel-deployment:
