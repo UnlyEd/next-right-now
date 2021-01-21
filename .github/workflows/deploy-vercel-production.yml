@@ -36,7 +36,6 @@ on:
     branches:
       - 'master'
       - 'main'
-      - 'implement-store-variable-on-prod'
 
   # Allow manual trigger via a button in github or a HTTP call - See https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#manually-running-a-workflow
   # XXX See https://unlyed.github.io/next-right-now/guides/ci-cd/gha-deploy-vercel#triggering-the-action-remotely-using-workflow_dispatch
