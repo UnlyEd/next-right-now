@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-import { theme } from '../fragments/theme';
+import { theme } from './fragments/theme';
 
 /**
  * Used in all pages

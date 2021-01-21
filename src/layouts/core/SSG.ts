@@ -25,7 +25,7 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
-import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
+import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 import { SSGPageProps } from './types/SSGPageProps';
 
 /**

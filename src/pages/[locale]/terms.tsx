@@ -25,7 +25,7 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { TERMS_PAGE_QUERY } from '../../gql/pages/terms';
+import { TERMS_PAGE_QUERY } from '@/common/gql/pages/terms';
 
 const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

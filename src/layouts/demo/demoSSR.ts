@@ -30,7 +30,7 @@ import {
   GetServerSidePropsResult,
 } from 'next';
 import NextCookies from 'next-cookies';
-import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
+import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 
 /**
  * getDemoServerSideProps returns only part of the props expected in SSRPageProps

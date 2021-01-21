@@ -26,7 +26,7 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
-import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
+import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 
 /**
  * Only executed on the server side at build time.

@@ -35,7 +35,7 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { EXAMPLE_WITH_SSG_QUERY } from '../../../../gql/pages/demo/native-features/example-with-ssg';
+import { EXAMPLE_WITH_SSG_QUERY } from '@/common/gql/pages/demo/native-features/example-with-ssg';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

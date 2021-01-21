@@ -18,7 +18,7 @@ import {
   NextPage,
 } from 'next';
 import React from 'react';
-import { LAYOUT_QUERY } from '../../gql/common/layoutQuery';
+import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
