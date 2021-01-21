@@ -88,7 +88,11 @@ jobs:
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
 
           # Deploy the customer on Vercel using the customer specified in vercel.json
-          CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer:production:simple --token $VERCEL_TOKEN
+          VERCEL_DEPLOYMENT_OUTPUT=`CUSTOMER_REF=${CUSTOMER_REF_TO_DEPLOY} yarn deploy:customer:production:simple --token $VERCEL_TOKEN`
+
+          echo "============================================="
+          echo $VERCEL_DEPLOYMENT_OUTPUT
+          echo "============================================="
 
           # Find all custom aliases configured in the customer deployment configuration file (vercel.json)
           VERCEL_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')
