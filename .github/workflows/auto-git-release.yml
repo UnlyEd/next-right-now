@@ -18,6 +18,7 @@ on:
 jobs:
   tag-and-release:
     runs-on: ubuntu-18.04
+    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
         uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
