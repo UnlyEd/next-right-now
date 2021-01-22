@@ -65,6 +65,7 @@ jobs:
     name: Starts Vercel deployment (staging) (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: setup-environment
+    timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Deploying on Vercel (staging)
@@ -139,27 +140,30 @@ jobs:
           VERCEL_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.alias')
           echo "Custom aliases: " $VERCEL_DEPLOYMENT_ALIASES_JSON
 
-          # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
-          readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json)
+          if [[ "$VERCEL_DEPLOYMENT_ALIASES_JSON" != "null" ]]; then
+            # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
+            readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json)
 
-          # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
-          VERCEL_DEPLOYMENT_ALIASES_COUNT=${#VERCEL_DEPLOYMENT_ALIASES[@]}
+            # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
+            VERCEL_DEPLOYMENT_ALIASES_COUNT=${#VERCEL_DEPLOYMENT_ALIASES[@]}
 
-          # Check if there are no aliases configured
-          if [ "$VERCEL_DEPLOYMENT_ALIASES" > 0 ]
-          then
-            echo "$VERCEL_DEPLOYMENT_ALIASES_COUNT alias(es) found. Aliasing them now..."
+            # Check if there are no aliases configured
+            if [ "$VERCEL_DEPLOYMENT_ALIASES_COUNT" > 0 ]
+            then
+              echo "$VERCEL_DEPLOYMENT_ALIASES_COUNT alias(es) found. Aliasing them now..."
 
-            # For each alias configured, then assign it to the deployed domain
-            for DEPLOYMENT_ALIAS in "${VERCEL_DEPLOYMENT_ALIASES[@]}"; do
-              echo "npx vercel alias "$VERCEL_DEPLOYMENT_URL $DEPLOYMENT_ALIAS
-              npx vercel alias $VERCEL_DEPLOYMENT_URL $DEPLOYMENT_ALIAS --token $VERCEL_TOKEN || echo "Aliasing failed for '$DEPLOYMENT_ALIAS', but the build will continue regardless."
-            done
-          else
-            # $VERCEL_DEPLOYMENT_ALIASES is null, this happens when it was not defined in the vercel.json file
-            echo "There are no more aliases to configure. You can add more aliases from your vercel.json 'alias' property. See https://vercel.com/docs/configuration?query=alias%20domain#project/alias"
-            echo "$VERCEL_DEPLOYMENT_ALIASES"
+              # For each alias configured, then assign it to the deployed domain
+              for DEPLOYMENT_ALIAS in "${VERCEL_DEPLOYMENT_ALIASES[@]}"; do
+                echo "npx vercel alias "$VERCEL_DEPLOYMENT_URL $DEPLOYMENT_ALIAS
+                npx vercel alias $VERCEL_DEPLOYMENT_URL $DEPLOYMENT_ALIAS --token $VERCEL_TOKEN || echo "Aliasing failed for '$DEPLOYMENT_ALIAS', but the build will continue regardless."
+              done
+            else
+              # $VERCEL_DEPLOYMENT_ALIASES is null, this happens when it was not defined in the vercel.json file
+              echo "There are no more aliases to configure. You can add more aliases from your vercel.json 'alias' property. See https://vercel.com/docs/configuration?query=alias%20domain#project/alias"
+              echo "$VERCEL_DEPLOYMENT_ALIASES"
+            fi
           fi
+
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
@@ -206,6 +210,7 @@ jobs:
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
             VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
             VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
+            MANUAL_TRIGGER_CUSTOMER=${{ env.MANUAL_TRIGGER_CUSTOMER }}
             GITHUB_PULL_REQUEST_ID=${{ steps.pr_id_finder.outputs.number }}
 
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
@@ -213,6 +218,7 @@ jobs:
     name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: start-staging-deployment
+    timeout-minutes: 5 # Limit current job timeout (including action timeout setup down there) https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
@@ -242,6 +248,7 @@ jobs:
     name: Invoke webhook callback url defined by the customer (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
+    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
       - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
@@ -354,6 +361,7 @@ jobs:
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
     container: cypress/included:3.8.3
     needs: await-for-vercel-deployment
+    timeout-minutes: 20 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
@@ -423,6 +431,7 @@ jobs:
     name: Run LightHouse checks (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: await-for-vercel-deployment
+    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 

@@ -53,6 +53,7 @@ jobs:
   start-deployment:
     name: Starts Vercel deployment (Ubuntu 18.04)
     runs-on: ubuntu-18.04
+    timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     needs: setup-environment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
@@ -160,6 +161,7 @@ jobs:
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
   await-for-vercel-deployment:
     name: Await current deployment to be ready (Ubuntu 18.04)
+    timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     runs-on: ubuntu-18.04
     needs: start-deployment
     steps:
@@ -189,6 +191,7 @@ jobs:
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
     name: Run end to end (E2E) tests (Ubuntu 18.04)
+    timeout-minutes: 20 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     runs-on: ubuntu-18.04
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
