@@ -69,6 +69,16 @@ jobs:
     timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
+
+      # Create a GitHub deployment (within a GitHub environment), useful to keep a public track of all deployments directly in GitHub
+      - name: Start GitHub deployment
+        uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
+        id: start-github-deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: staging
+
       - name: Deploying on Vercel (staging)
         # Workflow overview:
         #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
@@ -169,6 +179,19 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
+
+
+      # Update the previously created GitHub deployment, and link it to our Vercel deployment
+      - name: Link GitHub deployment to Vercel
+        uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
+        id: link-github-deployment-to-vercel
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.start-github-deployment.outputs.deployment_id }}
+          desc: "Deployed **'${{ env.CUSTOMER_REF_TO_DEPLOY }}'** to [Vercel](${{ env.VERCEL_DEPLOYMENT_URL }})"
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
