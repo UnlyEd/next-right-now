@@ -1,4 +1,4 @@
-import { Theme } from '@/modules/core/data/types/Theme';
+import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
 import * as Sentry from '@sentry/node';
 import { AmplitudeClient } from 'amplitude-js';
 import { TFunction } from 'i18next';
@@ -12,7 +12,7 @@ export type InitOptions = {
   amplitudeInstance: AmplitudeClient;
   locale: string;
   t: TFunction;
-  theme: Theme;
+  theme: CustomerTheme;
   userConsent: UserConsent;
 };
 
