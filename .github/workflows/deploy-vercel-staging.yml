@@ -24,6 +24,7 @@
 # - See https://github.com/UnlyEd/github-action-store-variable https://github.com/UnlyEd/github-action-store-variable/tree/v1.0.1
 # - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
 # - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
+# - See https://github.com/bobheadxi/deployments https://github.com/bobheadxi/deployments/tree/v0.4.3
 
 name: Deploy to Vercel (staging)
 
@@ -70,7 +71,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
-      #  Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
+      #  Resolves customer to deploy from github event input (falls back to resolving it from vercel.json file)
       - name: Resolve customer to deploy
         run: |
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
@@ -94,10 +95,8 @@ jobs:
 
       - name: Deploying on Vercel (staging)
         # Workflow overview:
-        #   - Resolve $VERCEL_DEPLOYMENT_URL from Vercel deployment output
-        #   - Get stdout from deploy command (stderr prints build steps and stdout prints deployment url, which is what we are really looking for)
-        #   - Set the deployment url that will be included in the eventual PR comment
-        #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
+        #   - Deploys the customer and resolves the $VERCEL_DEPLOYMENT_URL from Vercel deployment output
+        #   - Creates a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
         #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
         # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
         run: |
