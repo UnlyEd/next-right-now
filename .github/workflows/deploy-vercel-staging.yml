@@ -70,29 +70,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
-      # Create a GitHub deployment (within a GitHub environment), useful to keep a public track of all deployments directly in GitHub
-      - name: Start GitHub deployment
-        uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
-        id: start-github-deployment
-        with:
-          step: start
-          token: ${{ secrets.GITHUB_TOKEN }}
-          env: staging
-
-      - name: Deploying on Vercel (staging)
-        # Workflow overview:
-        #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
-        #   - Resolve $VERCEL_DEPLOYMENT_URL
-        #   - Get stdout from deploy command (stderr prints build steps and stdout prints deployment url, which is what we are really looking for)
-        #   - Set the deployment url that will be included in the eventual PR comment
-        #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
-        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
-        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
+      #  Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
+      - name: Resolve customer to deploy
         run: |
-          # Print the version of the "vercel" CLI being used (helps debugging)
-          vercel --version
-          echo "Deploying using git commit SHA: $GIT_COMMIT_SHA and branch/tag: $GIT_COMMIT_REF"
-
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the vercel.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
@@ -102,6 +82,28 @@ jobs:
           CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
           echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
+
+      # Create a GitHub deployment (within a GitHub environment), useful to keep a public track of all deployments directly in GitHub
+      - name: Start GitHub deployment
+        uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
+        id: start-github-deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-staging
+
+      - name: Deploying on Vercel (staging)
+        # Workflow overview:
+        #   - Resolve $VERCEL_DEPLOYMENT_URL from Vercel deployment output
+        #   - Get stdout from deploy command (stderr prints build steps and stdout prints deployment url, which is what we are really looking for)
+        #   - Set the deployment url that will be included in the eventual PR comment
+        #   - Create a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
+        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
+        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
+        run: |
+          # Print the version of the "vercel" CLI being used (helps debugging)
+          vercel --version
+          echo "Deploying using git commit SHA: $GIT_COMMIT_SHA and branch/tag: $GIT_COMMIT_REF"
 
           # Deploy the customer on Vercel using the customer ref
           # Store the output in a variable so we can extract metadata from it
@@ -180,7 +182,6 @@ jobs:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
 
-
       # Update the previously created GitHub deployment, and link it to our Vercel deployment
       - name: Link GitHub deployment to Vercel
         uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
@@ -191,7 +192,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
           deployment_id: ${{ steps.start-github-deployment.outputs.deployment_id }}
-          desc: "Deployed **'${{ env.CUSTOMER_REF_TO_DEPLOY }}'** to [Vercel](${{ env.VERCEL_DEPLOYMENT_URL }})"
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
