@@ -192,6 +192,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
           deployment_id: ${{ steps.start-github-deployment.outputs.deployment_id }}
+          env_url: ${{ env.VERCEL_DEPLOYMENT_URL }} # Link the Vercel deployment url to the GitHub environment
 
       # We need to find the PR id. Will be used later to comment on that PR.
       - name: Finding Pull Request ID
