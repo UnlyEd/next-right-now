@@ -262,3 +262,15 @@ You can also customise the configuration of the `cookieconsent` library itself, 
 The default configuration of the `cookieconsent` library is meant to cover a basic use-case and will most likely not be what you need exactly.
 
 Our goal isn't to cover all use-cases, but simply to provide a good-enough base, which can be tailored to your needs as you see fit.
+
+## "Why did you render? (WDYR)" (React)
+
+Next Right Now includes the [`why-did-you-render`](https://github.com/welldone-software/why-did-you-render) utility.
+
+> why-did-you-render monkey patches React to notify you about avoidable re-renders.
+
+It's a very useful tool to optimize your components and understand what re-renders and why.
+
+Refer to their documentation to understand how it works.
+
+Please note it won't print logs when renders are expected, **only when they aren't necessary**.
