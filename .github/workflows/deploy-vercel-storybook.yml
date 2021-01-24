@@ -45,6 +45,7 @@ on:
       - '*.ts' # Includes all .ts at the root level
       - '.*ignore' # Includes .gitignore and .vercelignore
       - 'yarn.lock'
+      - '!**/*.md'
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
