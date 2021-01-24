@@ -2,7 +2,6 @@ import { ArgTypes } from '@storybook/addons/dist/types';
 
 /**
  * HOC options.
- *
  */
 type Options = {
   /**
