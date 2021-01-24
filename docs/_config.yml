@@ -5,7 +5,6 @@
 remote_theme: pmarsceill/just-the-docs@v0.3.0 # XXX Our Jekyll theme - See https://pmarsceill.github.io/just-the-docs/
 #ga_tracking:
 
-
 # XXX --------- Common to all configs (local + GHP) --------------
 
 # For technical reasons, this file is *NOT* reloaded automatically when you use
