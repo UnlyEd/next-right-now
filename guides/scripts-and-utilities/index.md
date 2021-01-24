@@ -274,3 +274,9 @@ It's a very useful tool to optimize your components and understand what re-rende
 Refer to their documentation to understand how it works.
 
 Please note it won't print logs when renders are expected, **only when they aren't necessary**.
+
+## Next.js page optimizations for client-side bundling
+
+If you ever wondered what kind of optimization does the Next.js framework perform behind the curtains **when it builds a page**, check out [this interactive demo](https://next-code-elimination.now.sh/).
+
+Please note the demo was created around Next.js 9.3 release (SSG support), but still quite useful to understand what code is and isn't used by the browser
