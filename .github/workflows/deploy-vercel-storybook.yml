@@ -69,7 +69,7 @@ jobs:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
           env: storybook # Uses "storybook" as GitHub environment name, because we don't need to manage multiple environments for storybook
-          no_override: false # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
+          # no_override: false # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly XXX See https://github.com/bobheadxi/deployments/issues/25
 
       - name: Deploying on Vercel
         # Workflow overview:
