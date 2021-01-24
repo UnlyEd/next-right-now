@@ -6,7 +6,6 @@
 
 ---
 
-
 ## `detect-outdated-browser`
 
 > Based on https://github.com/mikemaccana/outdated-browser-rework
