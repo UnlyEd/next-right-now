@@ -24,6 +24,7 @@
 # - See https://github.com/UnlyEd/github-action-store-variable https://github.com/UnlyEd/github-action-store-variable/tree/v1.0.1
 # - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
 # - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
+# - See https://github.com/bobheadxi/deployments https://github.com/bobheadxi/deployments/tree/v0.4.3
 
 name: Deploy to Vercel (production)
 
@@ -69,17 +70,10 @@ jobs:
     timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
-      - name: Deploying on Vercel (production)
-        # Workflow overview:
-        #   - Resolve customer to deploy from github event input (falls back to resolving it from vercel.json file)
-        #   - Deploy the customer in production
-        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
-        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
-        run: |
-          # Print the version of the "vercel" CLI being used (helps debugging)
-          vercel --version
-          echo "Deploying using git commit SHA: $GIT_COMMIT_SHA and branch/tag: $GIT_COMMIT_REF"
 
+      #  Resolves customer to deploy from github event input (falls back to resolving it from vercel.json file)
+      - name: Resolve customer to deploy
+        run: |
           # Resolving customer to deploy based on the github event input, when using manual deployment triggerer through "workflow_dispatch" event
           # Falls back to the customer specified in the vercel.json file, which is most useful when deployment is triggered through "push" event
           MANUAL_TRIGGER_CUSTOMER="${{ github.event.inputs.customer}}"
@@ -89,6 +83,25 @@ jobs:
           CUSTOMER_REF_TO_DEPLOY="${MANUAL_TRIGGER_CUSTOMER:-$(cat vercel.json | jq --raw-output '.build.env.NEXT_PUBLIC_CUSTOMER_REF')}"
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
           echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
+
+      # Create a GitHub deployment (within a GitHub environment), useful to keep a public track of all deployments directly in GitHub
+      - name: Start GitHub deployment
+        uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
+        id: start-github-deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-production
+
+      - name: Deploying on Vercel (production)
+        # Workflow overview:
+        #   - Deploys the customer and resolves the $VERCEL_DEPLOYMENT_URL from Vercel deployment output
+        #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
+        # XXX You can use https://jqplay.org/ if you want to play around with "jq" to manipulate JSON
+        run: |
+          # Print the version of the "vercel" CLI being used (helps debugging)
+          vercel --version
+          echo "Deploying using git commit SHA: $GIT_COMMIT_SHA and branch/tag: $GIT_COMMIT_REF"
 
           # Deploy the customer on Vercel using the customer ref
           # Store the output in a variable so we can extract metadata from it
@@ -132,6 +145,18 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
+
+      # Update the previously created GitHub deployment, and link it to our Vercel deployment
+      - name: Link GitHub deployment to Vercel
+        uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
+        id: link-github-deployment-to-vercel
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.start-github-deployment.outputs.deployment_id }}
+          env_url: ${{ env.VERCEL_DEPLOYMENT_URL }} # Link the Vercel deployment url to the GitHub environment
 
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
