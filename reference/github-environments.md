@@ -25,5 +25,5 @@ Next Right Now integrates GitHub Deployments since [v5.0.7 (January 2021)](https
 They are not meant to replace the Vercel dashboard, but to complementary.
 
 > At Unly, they're useful to our Customer Success and Support teams, so they can keep track of a customer's deployment history without developers' assistance.
->
+
 > For Next Right Now, they're useful to visitor looking for the deployment history of a demo customer, because they don't have access to the Vercel deployment history.
