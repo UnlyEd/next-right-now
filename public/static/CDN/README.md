@@ -4,6 +4,7 @@
 >
 > **It is not directly used by the project itself.**
 
+
 ---
 
 ## `detect-outdated-browser`
