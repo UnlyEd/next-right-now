@@ -40,6 +40,27 @@ on:
       - 'main'
       - 'v2-mst-aptd-at-lcz-sty' # XXX Name of the NRN preset branch, acting as a main branch (all commits pushed to the preset branch are deployed to production)
 
+    # Runs the deployment workflow only when there are changes made to specific files, in any of the below paths
+    # Optimizes our CI/CD by not deploying the Next.js site needlessly (faster deploy, lower cost)
+    # XXX Filter pattern cheat sheet https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+    paths:
+      - '.github/workflows/deploy-vercel-staging.yml'
+      - 'cypress/**'
+      - '!cypress/_examples/**'
+      - '!cypress/integration-storybook/**'
+      - '!cypress/config-*.json' # Exclude all config files
+      - 'cypress/config-customer-ci-cd.json' # Force include CI/CD config file
+      - 'public/**'
+      - 'scripts/populate-git-env.sh'
+      - 'src/**'
+      - '!src/stories/**'
+      - '.eslint*'
+      - '*.js*' # Includes all .js/.json at the root level
+      - '*.ts' # Includes all .ts at the root level
+      - '.*ignore' # Includes .gitignore and .vercelignore
+      - 'yarn.lock'
+      - '!**/*.md' # Exclude all markdown files
+
   # Allow manual trigger via a button in github or a HTTP call - See https://docs.github.com/en/actions/configuring-and-managing-workflows/configuring-a-workflow#manually-running-a-workflow
   # XXX See https://unlyed.github.io/next-right-now/guides/ci-cd/gha-deploy-vercel#triggering-the-action-remotely-using-workflow_dispatch
   workflow_dispatch:

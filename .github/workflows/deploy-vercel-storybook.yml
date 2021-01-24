@@ -25,16 +25,28 @@ on:
   push: # Triggers on each pushed commit
     branches:
       - '*'
-    # Only run the workflow when there are changes made to files, in any of the below paths
-    # Optimize our CI/CD by not running Storybook needlessly (faster deploy, lower cost)
+
+    # Runs the deployment workflow only when there are changes made to specific files, in any of the below paths
+    # Optimizes our CI/CD by not deploying the Storybook static site needlessly (faster deploy, lower cost)
+    # XXX Filter pattern cheat sheet https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
     paths:
       - '.github/workflows/deploy-vercel-storybook.yml'
       - '.storybook/**'
-      - 'cypress/integration-storybook/**'
+      - 'cypress/**'
+      - '!cypress/_examples/**'
+      - '!cypress/fixture/**'
+      - '!cypress/integration/**'
+      - '!cypress/config-*.json' # Exclude all config files
+      - 'cypress/config-storybook.json' # Force include storybook config file
       - 'src/stories/**'
-      - 'src/components/**'
-      #      - 'src/*/components/**' # For later?
-      - 'package.json'
+      - 'src/common/components/**'
+      - 'src/**/components/**' # Any component in any "components" folder under "src". (e.g: "src/auth/components/comp1", "src/modules/core/auth/components/comp1", etc.)
+      - '*.js*' # Includes all .js/.json at the root level
+      - '*.ts' # Includes all .ts at the root level
+      - '.*ignore' # Includes .gitignore and .vercelignore
+      - 'yarn.lock'
+      - '!**/*.md' # Exclude all markdown files
+      - 'stories/**/*.md' # Force include all markdown files within stories (because they're used for storybook)
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
