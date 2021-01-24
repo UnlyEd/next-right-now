@@ -3,7 +3,6 @@ import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
 import { RawAirtableRecord } from './types/RawAirtableRecord';
 
-
 /**
  * Resolve the best translation for a given field, based on the available data within its own record
  *
