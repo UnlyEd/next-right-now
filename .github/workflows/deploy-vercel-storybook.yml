@@ -31,9 +31,13 @@ on:
       - '.github/workflows/deploy-vercel-storybook.yml'
       - '.storybook/**'
       - 'cypress/integration-storybook/**'
+      - 'cypress/support/**'
+      - 'cypress/config-storybook.json'
+      - 'cypress/jsconfig.json'
+      - 'cypress/tsconfig.json'
       - 'src/stories/**'
-      - 'src/components/**'
-      #      - 'src/*/components/**' # For later?
+      - 'src/common/components/**'
+      - 'src/**/components/**' # Any component in any "components" folder under "src". (e.g: "src/auth/components/comp1", "src/modules/core/auth/components/comp1", etc.)
       - 'package.json'
 
 jobs:
