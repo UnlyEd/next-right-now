@@ -91,7 +91,8 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-production
+          env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-production # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
+          no_override: false # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
       - name: Deploying on Vercel (production)
         # Workflow overview:
