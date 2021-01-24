@@ -30,6 +30,7 @@ Here is a short list of the most valuable changes and new features.
 
 - 2021-01-24
     - [Feature - Automatically release Vercel deployments as GitHub deployments](https://github.com/UnlyEd/next-right-now/pull/280)
+    - [Optimize GitHub Actions triggers](https://github.com/UnlyEd/next-right-now/pull/282)
 - 2021-01-20
     - [(MAJOR) Massive folder structure refactoring (`v2-mst-aptd-at-lcz-sty`), using modular approach and module path aliases](https://github.com/UnlyEd/next-right-now/pull/264)
     - [(MAJOR) Massive folder structure refactoring (`v2-mst-aptd-gcms-lcz-sty`), using modular approach and module path aliases](https://github.com/UnlyEd/next-right-now/pull/275)
