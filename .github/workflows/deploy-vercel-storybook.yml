@@ -75,7 +75,7 @@ jobs:
 
       # Create a GitHub deployment (within a GitHub environment), useful to keep a public track of all deployments directly in GitHub
       - name: Start GitHub deployment
-        uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
+        uses: bobheadxi/deployments@master # See https://github.com/bobheadxi/deployments
         id: start-github-deployment
         with:
           step: start
@@ -140,7 +140,7 @@ jobs:
 
       # Update the previously created GitHub deployment, and link it to our Vercel deployment
       - name: Link GitHub deployment to Vercel
-        uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
+        uses: bobheadxi/deployments@master # See https://github.com/bobheadxi/deployments
         id: link-github-deployment-to-vercel
         if: always()
         with:
