@@ -9,14 +9,12 @@ nav_order: 80
 {: .no_toc }
 
 <div class="code-example" markdown="1">
-GitHub
+GitHub deployments help display a history of your deployments. They don't perform the actual deployments (Vercel does), but simply keep a trace of it.
 </div>
 
 ---
 
 ## Introduction to GitHub deployments
-
-> GitHub deployments help display a history of your deployments. They don't perform the actual deployments (Vercel does), but simply keep a trace of it.
 
 [Official documentation](https://docs.github.com/en/rest/reference/repos#deployments)
 
