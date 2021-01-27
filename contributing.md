@@ -75,7 +75,7 @@ If you mean to contribute on any preset by adding a new feature, or update exist
 Please open an issue first before contributing, so that we may discuss your contribution beforehand.
 This isn't necessary for small changes, but non-trivial changes should be agreed upon first.
 
-Also, if you provide a PR, please [configure CI on your GitHub repository](./guides/ci-cd/setup-github-actions.html) first, otherwise we'll need to "fork" (apply patch) your PR into NRN to test it first, and that takes extra time on us.
+Also, if you provide a PR, please [configure CI on your GitHub repository](./guides/ci-cd/gha-deploy-vercel) first, otherwise we'll need to "fork" your PR into NRN to test it first, and that takes time.
 
 Additionally, please allow us to update your PR's code for easier collaboration.
 
