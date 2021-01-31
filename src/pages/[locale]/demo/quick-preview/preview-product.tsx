@@ -3,6 +3,7 @@ import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -87,7 +88,7 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
   return (
     <QuickPreviewLayout
       {...props}
-      pageName={'preview-product'}
+      pageName={AMPLITUDE_PAGES.PREVIEW_PRODUCT_PAGE}
       headProps={{
         seoTitle: t('quickPreview.pageTitle', `Aperçu produit "{{ title }}" - Next Right Now`, { title: product?.title }),
       }}

@@ -11,6 +11,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
@@ -57,7 +58,7 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
   return (
     <DemoLayout
       {...props}
-      pageName={'index'}
+      pageName={AMPLITUDE_PAGES.DEMO_HOME_PAGE}
       headProps={{
         seoTitle: 'Homepage - Next Right Now',
       }}

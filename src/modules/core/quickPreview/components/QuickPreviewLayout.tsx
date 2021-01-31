@@ -12,7 +12,7 @@ import Sentry from '@/modules/core/sentry/sentry';
 import QuickPreviewBanner from './QuickPreviewBanner';
 import Head, { HeadProps } from '@/layouts/core/components/Head';
 
-const fileLabel = 'modules/core/QuickPreview/components/QuickPreviewLayout';
+const fileLabel = 'modules/core/quickPreview/components/QuickPreviewLayout';
 const logger = createLogger({
   label: fileLabel,
 });

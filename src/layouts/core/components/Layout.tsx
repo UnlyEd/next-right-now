@@ -20,15 +20,40 @@ import Head, { HeadProps } from './Head';
 import Nav from './Nav';
 import DefaultPageContainer from './PageContainer';
 
-const fileLabel = 'components/pageLayouts/DefaultLayout';
+const fileLabel = 'layouts/core/components/Layout';
 const logger = createLogger({
   label: fileLabel,
 });
 
 type Props = {
+  /**
+   * Content to display within the layout.
+   *
+   * Essentially, the page's content.
+   */
   children: React.ReactNode;
+
+  /**
+   * Props forwarded to the Head component.
+   *
+   * Essentially, SEO metadata, etc.
+   * Will use sane defaults if not specified.
+   */
   headProps?: HeadProps;
+
+  /**
+   * Internal name of the page.
+   *
+   * Used by Amplitude, for analytics.
+   * All events happening on the page will be linked to that page name.
+   */
   pageName: string;
+
+  /**
+   * Wrapper container for the page.
+   *
+   * By default, uses DefaultPageContainer component.
+   */
   PageContainer?: React.FunctionComponent;
 } & SoftPageProps;
 

@@ -20,7 +20,7 @@ import DemoHead, { HeadProps } from './DemoHead';
 import DemoNav from './DemoNav';
 import DemoPageContainer from './DemoPageContainer';
 
-const fileLabel = 'components/pageLayouts/DefaultLayout';
+const fileLabel = 'layouts/demo/components/DemoLayout';
 const logger = createLogger({
   label: fileLabel,
 });
