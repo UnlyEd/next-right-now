@@ -41,6 +41,7 @@ on:
       - 'src/stories/**'
       - 'src/common/components/**'
       - 'src/**/components/**' # Any component in any "components" folder under "src". (e.g: "src/auth/components/comp1", "src/modules/core/auth/components/comp1", etc.)
+      - '!src/app/components/*Bootstrap*' # Ignore bootstrap components, as they aren't used by Storybook
       - '*.js*' # Includes all .js/.json at the root level
       - '*.ts' # Includes all .ts at the root level
       - '.*ignore' # Includes .gitignore and .vercelignore
