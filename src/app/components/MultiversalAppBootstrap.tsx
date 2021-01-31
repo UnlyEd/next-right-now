@@ -227,13 +227,39 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       console.debug('dataset.customer', customer);
     }
 
-    // If the locale used to display the page isn't available for this customer
-    // TODO This should be replaced by something better, ideally the pages for non-available locales shouldn't be generated at all and then this wouldn't be needed
-    if (!includes(availableLanguages, locale) && isBrowser()) {
-      // Then redirect to the same page using another locale (using the first available locale)
-      // XXX Be extra careful with this kind of redirects based on remote data!
-      //  It's easy to create an infinite redirect loop when the data aren't shaped as expected.
-      i18nRedirect(availableLanguages?.[0] || DEFAULT_LOCALE, router);
+    // Force redirect to an allowed locale page, if the locale used to display the page isn't available for this customer
+    // TODO This should be replaced by something better, ideally the pages for non-available locales shouldn't be generated at all and then this wouldn't be needed.
+    //  Using redirects in the app bootstrap can easily lead to infinite redirects, if not handled carefully.
+    // XXX Be extra careful with this kind of redirects based on remote data!
+    //  It's easy to create an infinite redirect loop when the data aren't shaped as expected, edge cases (e.g "404"), etc.
+    if (!includes(availableLanguages, locale) && size(availableLanguages) > 0 && isBrowser()) {
+      Sentry.captureEvent({
+        message: `Unauthorized locale used "${locale}" (allowed: "${availableLanguages.join(', ')}") when loading page "${location.href}", user will be redirected.`,
+        level: Sentry.Severity.Warning,
+      });
+
+      // Edge case where the default locale isn't available for this customer, and the resolved user locale is wrong (e.g: 404 page where there is no locale detection)
+      // Redirect to the home page using the first allowed language (instead of redirecting to the same page, which would result in infinite loop for 404 pages, etc.)
+      if (locale === DEFAULT_LOCALE) {
+        const redirectTo = `/${availableLanguages?.[0] || ''}`;
+        location.href = redirectTo;
+
+        if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+          return (
+            <div>Locale not allowed. Redirecting to "{redirectTo}"...</div>
+          );
+        }
+      } else {
+        // Otherwise, redirect to the same page using another locale (using the first available locale)
+        i18nRedirect(availableLanguages?.[0] || DEFAULT_LOCALE, router);
+
+        if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+          return (
+            <div>Locale not allowed. Redirecting...</div>
+          );
+        }
+      }
+
       return null;
     }
 
