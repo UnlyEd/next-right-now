@@ -233,7 +233,9 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     //  Using redirects in the app bootstrap can easily lead to infinite redirects, if not handled carefully.
     // XXX Be extra careful with this kind of redirects based on remote data!
     //  It's easy to create an infinite redirect loop when the data aren't shaped as expected, edge cases (e.g "404"), etc.
-    if (!includes(availableLanguages, locale) && size(availableLanguages) > 0 && isBrowser()) {
+    // XXX Doing this isn't recommended and has been disabled because it breaks 404 pages by redirecting them to the homepage.
+    //  Feel free to enable it if you wish. It should be implemented differently (by not generating non-allowed i18n pages), but might help anyway.
+    /*if (!includes(availableLanguages, locale) && size(availableLanguages) > 0 && isBrowser()) {
       Sentry.captureEvent({
         message: `Unauthorized locale used "${locale}" (allowed: "${availableLanguages.join(', ')}") when loading page "${location.href}", user will be redirected.`,
         level: Sentry.Severity.Warning,
@@ -262,7 +264,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       }
 
       return null;
-    }
+    }*/
 
     let isPreviewModeEnabled;
     let previewData;
