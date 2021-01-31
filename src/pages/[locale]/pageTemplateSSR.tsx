@@ -5,6 +5,7 @@ import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
 import { GetCommonServerSidePropsResults } from '@/layouts/demo/demoSSR';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import withApollo from '@/modules/core/gql/hocs/withApollo';
@@ -108,7 +109,7 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
-      pageName={'pageTemplateSSR'}
+      pageName={AMPLITUDE_PAGES.TEMPLATE_SSR_PAGE}
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSR pages</b>.

@@ -6,6 +6,7 @@ import {
   getDefaultStaticPaths,
   getDefaultStaticProps,
 } from '@/layouts/default/defaultSSG';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import withApollo from '@/modules/core/gql/hocs/withApollo';
@@ -54,7 +55,7 @@ const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
   return (
     <DefaultLayout
       {...props}
-      pageName={'pageTemplateSSG'}
+      pageName={AMPLITUDE_PAGES.TEMPLATE_SSG_PAGE}
     >
       <p>
         This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSG pages</b>.<br />

@@ -33,10 +33,12 @@ export enum AMPLITUDE_ACTIONS {
  * This is used to track events happening within the pages, to know on which page they occurred.
  */
 export enum AMPLITUDE_PAGES {
-  HOME_PAGE = 'home',
-  PREVIEW_HOME_PAGE = 'preview-home',
+  DEMO_HOME_PAGE = 'demo-home',
+  PREVIEW_PRODUCT_PAGE = 'preview-product',
   TERMS_PAGE = 'terms',
   PRIVACY_PAGE = 'privacy',
+  TEMPLATE_SSG_PAGE = 'template-ssg',
+  TEMPLATE_SSR_PAGE = 'template-ssr',
 }
 
 type GetAmplitudeInstanceProps = {
