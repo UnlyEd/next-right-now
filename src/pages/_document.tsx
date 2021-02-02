@@ -69,7 +69,7 @@ class AppDocument extends Document<DocumentRenderProps> {
     const initialProps: DocumentInitialProps = await Document.getInitialProps(ctx);
     const { query } = ctx;
     const hasLocaleFromUrl = !!query?.locale;
-    const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
+    const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // Fallback to default locale if the locale isn't found (e.g: 404 page)
     const lang: string = locale.split('-')?.[0];
 
     return {
