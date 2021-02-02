@@ -1,12 +1,14 @@
-import { isBrowser } from '@unly/utils';
-import NextHead from 'next/head';
-import React from 'react';
 import {
   NRN_DEFAULT_FONT,
   NRN_DEFAULT_SERVICE_LABEL,
 } from '@/app/constants';
-import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
 import { SUPPORTED_LOCALES } from '@/modules/core/i18n/i18n';
+import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import { isBrowser } from '@unly/utils';
+import NextHead from 'next/head';
+import React from 'react';
 
 export type HeadProps = {
   /**
@@ -66,9 +68,11 @@ export type HeadProps = {
  * https://github.com/vercel/next.js#populating-head
  */
 const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
+  const customer: Customer = useCustomer();
+
   const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultMetaURL = 'https://github.com/UnlyEd/next-right-now';
-  const defaultMetaImage = '';
+  const defaultMetaImage = customer?.theme?.logo?.url;
   const defaultFavicon = '/favicon.ico';
 
   const {
