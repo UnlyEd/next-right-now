@@ -1,12 +1,14 @@
-import { isBrowser } from '@unly/utils';
-import NextHead from 'next/head';
-import React from 'react';
 import {
   NRN_DEFAULT_FONT,
   NRN_DEFAULT_SERVICE_LABEL,
 } from '@/app/constants';
-import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
 import { SUPPORTED_LOCALES } from '@/modules/core/i18n/i18n';
+import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import { isBrowser } from '@unly/utils';
+import NextHead from 'next/head';
+import React from 'react';
 
 export type HeadProps = {
   /**
@@ -66,10 +68,12 @@ export type HeadProps = {
  * https://github.com/vercel/next.js#populating-head
  */
 const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
+  const customer: Customer = useCustomer();
+
   const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultMetaURL = 'https://github.com/UnlyEd/next-right-now';
-  const defaultMetaImage = '';
-  const defaultFavicon = '';
+  const defaultMetaImage = customer?.theme?.logo?.url;
+  const defaultFavicon = '/favicon.ico';
 
   const {
     seoTitle = NRN_DEFAULT_SERVICE_LABEL,
@@ -144,13 +148,13 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <meta property="og:image:height" content="630" />
 
       {/* Detect outdated browser and display a popup about how to upgrade to a more recent browser/version */}
-      {/* XXX See public/static/CDN/README.md */}
+      {/* XXX See public/static/libs/detect-outdated-browser/README.md */}
       {/*
         XXX DISABLED because of https://github.com/mikemaccana/outdated-browser-rework/issues/57#issuecomment-620532590
-          TLDR; Display false-positive warnings on embedded browsers if they're too old and the user can't do anything about it (e.g: Facebook Chrome, Linkedin Chrome, etc.)
+          TLDR; Display false-positive warnings on embedded browsers (on mobile devices) if they're too old and the user can't do anything about it (e.g: Facebook Chrome, Linkedin Chrome, etc.)
       */}
-      {/*<script async={true} src="https://storage.googleapis.com/the-funding-place/assets/libs/outdated-browser-rework/outdated-browser-rework.min.js" />*/}
-      {/*<link rel="stylesheet" href="https://storage.googleapis.com/the-funding-place/assets/libs/outdated-browser-rework/outdated-browser-rework.css" />*/}
+      {/*<script async={true} src="/assets/libs/outdated-browser-rework/outdated-browser-rework.min.js" />*/}
+      {/*<link rel="stylesheet" href="/assets/libs/outdated-browser-rework/outdated-browser-rework.css" />*/}
 
       {
         additionalContent && (
