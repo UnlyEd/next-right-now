@@ -144,10 +144,10 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
       <meta property="og:image:height" content="630" />
 
       {/* Detect outdated browser and display a popup about how to upgrade to a more recent browser/version */}
-      {/* XXX See public/static/CDN/README.md */}
+      {/* XXX See public/static/libs/detect-outdated-browser/README.md */}
       {/*
         XXX DISABLED because of https://github.com/mikemaccana/outdated-browser-rework/issues/57#issuecomment-620532590
-          TLDR; Display false-positive warnings on embedded browsers if they're too old and the user can't do anything about it (e.g: Facebook Chrome, Linkedin Chrome, etc.)
+          TLDR; Display false-positive warnings on embedded browsers (on mobile devices) if they're too old and the user can't do anything about it (e.g: Facebook Chrome, Linkedin Chrome, etc.)
       */}
       {/*<script async={true} src="/assets/libs/outdated-browser-rework/outdated-browser-rework.min.js" />*/}
       {/*<link rel="stylesheet" href="/assets/libs/outdated-browser-rework/outdated-browser-rework.css" />*/}
