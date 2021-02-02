@@ -33,7 +33,7 @@ const DemoHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultMetaURL = 'https://github.com/UnlyEd/next-right-now';
   const defaultMetaImage = '';
-  const defaultFavicon = '';
+  const defaultFavicon = '/favicon.ico';
 
   const {
     seoTitle = NRN_DEFAULT_SERVICE_LABEL,
