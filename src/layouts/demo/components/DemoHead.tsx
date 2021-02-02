@@ -113,8 +113,8 @@ const DemoHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
         XXX DISABLED because of https://github.com/mikemaccana/outdated-browser-rework/issues/57#issuecomment-620532590
           TLDR; Display false-positive warnings on embedded browsers if they're too old and the user can't do anything about it (e.g: Facebook Chrome, Linkedin Chrome, etc.)
       */}
-      {/*<script async={true} src="https://storage.googleapis.com/the-funding-place/assets/libs/outdated-browser-rework/outdated-browser-rework.min.js" />*/}
-      {/*<link rel="stylesheet" href="https://storage.googleapis.com/the-funding-place/assets/libs/outdated-browser-rework/outdated-browser-rework.css" />*/}
+      {/*<script async={true} src="/assets/libs/outdated-browser-rework/outdated-browser-rework.min.js" />*/}
+      {/*<link rel="stylesheet" href="/assets/libs/outdated-browser-rework/outdated-browser-rework.css" />*/}
 
       {
         additionalContent && (
