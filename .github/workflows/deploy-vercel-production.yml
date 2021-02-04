@@ -39,6 +39,7 @@ on:
       - 'master'
       - 'main'
       - 'v2-mst-aptd-at-lcz-sty' # XXX Name of the NRN preset branch, acting as a main branch (all commits pushed to the preset branch are deployed to production)
+      - 'gha-update-store-variable' # Actual branch used to test
 
     # Runs the deployment workflow only when there are changes made to specific files, in any of the below paths
     # Optimizes our CI/CD by not deploying the Next.js site needlessly (faster deploy, lower cost)
@@ -183,7 +184,7 @@ jobs:
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
       - name: Store variables for next jobs
-        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         with:
           variables: |
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
@@ -203,7 +204,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           variables: |
@@ -216,11 +217,11 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
         with:
-          deployment-url: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_DOMAIN }} # Must only contain the domain name (no http prefix, etc.)
+          deployment-url: ${{ env.VERCEL_DEPLOYMENT_DOMAIN }} # Must only contain the domain name (no http prefix, etc.)
           timeout: 90 # Wait for 90 seconds before failing
 
       - name: Display deployment status
-        run: "echo The deployment is ${{ fromJson(steps.await-vercel.outputs.deploymentDetails).readyState }}"
+        run: "echo The deployment is ${{ env.readyState }}"
 
   # Send a HTTP call to the webhook url that's provided in the customer configuration file (vercel.*.json)
   send-webhook-callback-once-deployment-ready:
@@ -235,7 +236,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           variables: |
@@ -255,40 +256,8 @@ jobs:
           # Checking if a webhook url is defined
           if [ -n "$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK" ]; then
             # Run script that populates git-related variables as ENV variables
-            echo "Running script populate-git-env.sh"
-            . ./scripts/populate-git-env.sh
-
-            echo "Resolved git variables:"
-            echo "'GIT_COMMIT_SHA': $GIT_COMMIT_SHA"
-            echo "'GIT_COMMIT_REF': $GIT_COMMIT_REF"
-            echo "'GIT_COMMIT_TAGS': $GIT_COMMIT_TAGS"
-
-            # Generates JSON using a bash function - See https://stackoverflow.com/a/57369772/2391795
-            # "End Of File" must be at the beginning of the line with no space/tab before or after - See https://stackoverflow.com/a/12909284/2391795
-            # But, when executed by GitHub Action, it must be inside the "run" section instead
-            generate_post_data() {
-              cat <<EOF
-            {
-              "MANUAL_TRIGGER_CUSTOMER": "${MANUAL_TRIGGER_CUSTOMER}",
-              "CUSTOMER_REF": "${CUSTOMER_REF_TO_DEPLOY}",
-              "STAGE": "production",
-              "GIT_COMMIT_SHA": "${GIT_COMMIT_SHA}",
-              "GIT_COMMIT_REF": "${GIT_COMMIT_REF}",
-              "GIT_COMMIT_TAGS": "${GIT_COMMIT_TAGS}",
-              "GITHUB_REF_SLUG": "${GITHUB_REF_SLUG}",
-              "GITHUB_HEAD_REF_SLUG": "${GITHUB_HEAD_REF_SLUG}",
-              "GITHUB_BASE_REF_SLUG": "${GITHUB_BASE_REF_SLUG}",
-              "GITHUB_EVENT_REF_SLUG": "${GITHUB_EVENT_REF_SLUG}",
-              "GITHUB_REPOSITORY_SLUG": "${GITHUB_REPOSITORY_SLUG}",
-              "GITHUB_REF_SLUG_URL": "${GITHUB_REF_SLUG_URL}",
-              "GITHUB_HEAD_REF_SLUG_URL": "${GITHUB_HEAD_REF_SLUG_URL}",
-              "GITHUB_BASE_REF_SLUG_URL": "${GITHUB_BASE_REF_SLUG_URL}",
-              "GITHUB_EVENT_REF_SLUG_URL": "${GITHUB_EVENT_REF_SLUG_URL}",
-              "GITHUB_REPOSITORY_SLUG_URL": "${GITHUB_REPOSITORY_SLUG_URL}",
-              "GITHUB_SHA_SHORT": "${GITHUB_SHA_SHORT}"
-            }
-          EOF
-            }
+            echo "Running script generate-post-data"
+            . ./scripts/generate-post-data.sh
 
             echo "Print generate_post_data():"
             echo "$(generate_post_data)"
@@ -316,21 +285,8 @@ jobs:
             echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.production.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
           fi
         env:
-          CUSTOMER_REF_TO_DEPLOY: ${{ fromJson(steps.restore-variable.outputs.variables).CUSTOMER_REF_TO_DEPLOY }}
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
-          # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
-          GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
-          GITHUB_HEAD_REF_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG }}
-          GITHUB_BASE_REF_SLUG: ${{ env.GITHUB_BASE_REF_SLUG }}
-          GITHUB_EVENT_REF_SLUG: ${{ env.GITHUB_EVENT_REF_SLUG }}
-          GITHUB_REPOSITORY_SLUG: ${{ env.GITHUB_REPOSITORY_SLUG }}
-          GITHUB_REF_SLUG_URL: ${{ env.GITHUB_REF_SLUG_URL }}
-          GITHUB_HEAD_REF_SLUG_URL: ${{ env.GITHUB_HEAD_REF_SLUG_URL }}
-          GITHUB_BASE_REF_SLUG_URL: ${{ env.GITHUB_BASE_REF_SLUG_URL }}
-          GITHUB_EVENT_REF_SLUG_URL: ${{ env.GITHUB_EVENT_REF_SLUG_URL }}
-          GITHUB_REPOSITORY_SLUG_URL: ${{ env.GITHUB_REPOSITORY_SLUG_URL }}
-          GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
 
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
@@ -346,7 +302,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           variables: |
@@ -359,7 +315,7 @@ jobs:
           # XXX We disabled "wait-on" option, because it's useless. Cypress will fail anyway, because it gets redirected to some internal Vercel URL if the domain isn't yet available - See https://github.com/cypress-io/github-action/issues/270
           # wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
           config-file: 'cypress/config-customer-ci-cd.json' # Use Cypress config file for CI/CD, and override it below
-          config: baseUrl=${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
+          config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
           # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.
           # DEBUG: "cypress:*" # Enable all logs. See https://docs.cypress.io/guides/references/troubleshooting.html#Print-DEBUG-logs
@@ -396,7 +352,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           variables: VERCEL_DEPLOYMENT_URL
@@ -410,7 +366,7 @@ jobs:
           # XXX We don't enable comments, because there is no branch to write them into
           outputDirectory: /tmp/lighthouse-artifacts # Used to upload artifacts.
           emulatedFormFactor: all # Run LightHouse against "mobile", "desktop", or "all" devices
-          urls: ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/en, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/fr, ${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}/en
+          urls: ${{ env.VERCEL_DEPLOYMENT_URL }}, ${{ env.VERCEL_DEPLOYMENT_URL }}/en, ${{ env.VERCEL_DEPLOYMENT_URL }}/fr
           locale: en
 
       # Upload HTML report created by lighthouse as an artifact.
