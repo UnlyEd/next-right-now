@@ -39,7 +39,7 @@ on:
       - 'master'
       - 'main'
       - 'v2-mst-aptd-at-lcz-sty' # XXX Name of the NRN preset branch, acting as a main branch (all commits pushed to the preset branch are deployed to production)
-      - 'gha-update-store-variable' # Actual branch used to test
+      #- 'gha-update-store-variable' # Actual branch used to test
 
     # Runs the deployment workflow only when there are changes made to specific files, in any of the below paths
     # Optimizes our CI/CD by not deploying the Next.js site needlessly (faster deploy, lower cost)
@@ -69,6 +69,9 @@ on:
       customer:
         description: 'Customer to deploy'
         required: true
+
+env:
+  STAGE: production
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
@@ -289,6 +292,18 @@ jobs:
         env:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
+          DEPLOYMENT_STAGE: ${{ env.STAGE }}
+          GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
+          GITHUB_HEAD_REF_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG }}
+          GITHUB_BASE_REF_SLUG: ${{ env.GITHUB_BASE_REF_SLUG }}
+          GITHUB_EVENT_REF_SLUG: ${{ env.GITHUB_EVENT_REF_SLUG }}
+          GITHUB_REPOSITORY_SLUG: ${{ env.GITHUB_REPOSITORY_SLUG }}
+          GITHUB_REF_SLUG_URL: ${{ env.GITHUB_REF_SLUG_URL }}
+          GITHUB_HEAD_REF_SLUG_URL: ${{ env.GITHUB_HEAD_REF_SLUG_URL }}
+          GITHUB_BASE_REF_SLUG_URL: ${{ env.GITHUB_BASE_REF_SLUG_URL }}
+          GITHUB_EVENT_REF_SLUG_URL: ${{ env.GITHUB_EVENT_REF_SLUG_URL }}
+          GITHUB_REPOSITORY_SLUG_URL: ${{ env.GITHUB_REPOSITORY_SLUG_URL }}
+          GITHUB_SHA_SHORT: ${{ env.GITHUB_SHA_SHORT }}
 
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:

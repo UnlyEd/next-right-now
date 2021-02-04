@@ -9,7 +9,7 @@ generate_post_data() {
   {
     "MANUAL_TRIGGER_CUSTOMER": "${MANUAL_TRIGGER_CUSTOMER}",
     "CUSTOMER_REF": "${CUSTOMER_REF_TO_DEPLOY}",
-    "STAGE": "staging",
+    "STAGE": "${DEPLOYMENT_STAGE}",
     "GIT_COMMIT_SHA": "${GIT_COMMIT_SHA}",
     "GIT_COMMIT_REF": "${GIT_COMMIT_REF}",
     "GIT_COMMIT_TAGS": "${GIT_COMMIT_TAGS}",
