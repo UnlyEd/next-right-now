@@ -29,7 +29,7 @@
 env:
   STAGE: staging
 
-name: Deploy to Vercel (${{ env.STAGE }})
+name: Deploy to Vercel (staging)
 
 on:
   # There are several ways to trigger Github actions - See https://help.github.com/en/actions/reference/events-that-trigger-workflows#example-using-a-single-event for a comprehensive list:
@@ -88,7 +88,7 @@ jobs:
   # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
   # N.B: It's Vercel that will perform the actual deployment
   start-staging-deployment:
-    name: Starts Vercel deployment (${{ env.STAGE }}) (Ubuntu 18.04)
+    name: Starts Vercel deployment (staging) (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: setup-environment
     timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
