@@ -207,6 +207,7 @@ jobs:
         uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
+          failIfNotFound: true
           variables: |
             VERCEL_DEPLOYMENT_DOMAIN
 
@@ -240,6 +241,7 @@ jobs:
         uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
+          failIfNotFound: true
           variables: |
             VERCEL_DEPLOYMENT_URL
             GITHUB_PULL_REQUEST_ID

@@ -273,6 +273,7 @@ jobs:
         uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
+          failIfNotFound: true
           variables: |
             VERCEL_DEPLOYMENT_DOMAIN
 
@@ -305,6 +306,7 @@ jobs:
         uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
+          failIfNotFound: true
           variables: |
             MANUAL_TRIGGER_CUSTOMER
             CUSTOMER_REF_TO_DEPLOY
@@ -371,6 +373,7 @@ jobs:
         uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
+          failIfNotFound: true
           variables: |
             VERCEL_DEPLOYMENT_URL
             GITHUB_PULL_REQUEST_ID
@@ -445,6 +448,7 @@ jobs:
         uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
+          failIfNotFound: true
           variables: VERCEL_DEPLOYMENT_URL
 
       # Runs LightHouse for a given url and create HTML reports in the specified directory (outputDirectory)
