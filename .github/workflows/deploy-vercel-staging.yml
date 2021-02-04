@@ -26,9 +26,6 @@
 # - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
 # - See https://github.com/bobheadxi/deployments https://github.com/bobheadxi/deployments/tree/v0.4.3
 
-env:
-  STAGE: staging
-
 name: Deploy to Vercel (staging)
 
 on:
@@ -71,6 +68,9 @@ on:
       customer:
         description: 'Customer to deploy'
         required: true
+
+env:
+  STAGE: staging
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs

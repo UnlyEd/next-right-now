@@ -116,10 +116,10 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-production # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
+          env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-${{ env.STAGE }} # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
-      - name: Deploying on Vercel (production)
+      - name: Deploying on Vercel (${{ env.STAGE }})
         # Workflow overview:
         #   - Deploys the customer and resolves the $VERCEL_DEPLOYMENT_URL from Vercel deployment output
         #   - Creates multiple deployment aliases based on the "alias" property defined in the vercel.json file, and link them to the deployment
@@ -140,12 +140,12 @@ jobs:
           echo "VERCEL_DEPLOYMENT_DOMAIN=${VERCEL_DEPLOYMENT_URL#https://}" >> $GITHUB_ENV
 
           # Find all custom aliases configured in the customer deployment configuration file (vercel.json)
-          VERCEL_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.alias')
+          VERCEL_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json | jq --raw-output '.alias')
           echo "Custom aliases: " $VERCEL_DEPLOYMENT_ALIASES_JSON
 
           if [[ "$VERCEL_DEPLOYMENT_ALIASES_JSON" != "null" ]]; then
             # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
-            readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.production.json)
+            readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json)
 
             # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
             VERCEL_DEPLOYMENT_ALIASES_COUNT=${#VERCEL_DEPLOYMENT_ALIASES[@]}
@@ -255,7 +255,7 @@ jobs:
         #  - Prints the headers of the POST HTTP request (curl)
         # TODO Convert this into an external bash script if possible, to simplify this step as much as possible
         run: |
-          VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.production.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
+          VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
           echo "Vercel deployment webhook url: " $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
 
           # Checking if a webhook url is defined
@@ -287,11 +287,12 @@ jobs:
             #   s/< // - remove '< ' prefix
 
           else
-            echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.production.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
+            echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
           fi
         env:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
+          # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
           DEPLOYMENT_STAGE: ${{ env.STAGE }}
           GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
           GITHUB_HEAD_REF_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG }}
