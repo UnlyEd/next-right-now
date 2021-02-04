@@ -250,7 +250,7 @@ jobs:
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
       - name: Store variables for next jobs
-        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.0 # See https://github.com/UnlyEd/github-action-store-variable
         with:
           variables: |
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
@@ -270,7 +270,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.0 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           failIfNotFound: true
@@ -303,7 +303,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.0 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           failIfNotFound: true
@@ -370,7 +370,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.0 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           failIfNotFound: true
@@ -445,7 +445,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v2.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.0.0 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           failIfNotFound: true
