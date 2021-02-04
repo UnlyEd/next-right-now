@@ -26,7 +26,10 @@
 # - See https://github.com/foo-software/lighthouse-check-action https://github.com/foo-software/lighthouse-check-action/tree/v1.0.1
 # - See https://github.com/bobheadxi/deployments https://github.com/bobheadxi/deployments/tree/v0.4.3
 
-name: Deploy to Vercel (staging)
+env:
+  STAGE: staging
+
+name: Deploy to Vercel (${{ env.STAGE }})
 
 on:
   # There are several ways to trigger Github actions - See https://help.github.com/en/actions/reference/events-that-trigger-workflows#example-using-a-single-event for a comprehensive list:
@@ -69,9 +72,6 @@ on:
         description: 'Customer to deploy'
         required: true
 
-env:
-  STAGE: staging
-
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
@@ -88,7 +88,7 @@ jobs:
   # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
   # N.B: It's Vercel that will perform the actual deployment
   start-staging-deployment:
-    name: Starts Vercel deployment (staging) (Ubuntu 18.04)
+    name: Starts Vercel deployment (${{ env.STAGE }}) (Ubuntu 18.04)
     runs-on: ubuntu-18.04
     needs: setup-environment
     timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
@@ -115,10 +115,10 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-staging # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
+          env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-${{ env.STAGE }} # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
-      - name: Deploying on Vercel (staging)
+      - name: Deploying on Vercel (${{ env.STAGE }})
         # Workflow overview:
         #   - Deploys the customer and resolves the $VERCEL_DEPLOYMENT_URL from Vercel deployment output
         #   - Creates a deployment alias based on the branch name, and link it to the deployment (so that each branch has its own domain automatically aliased to the latest commit)
@@ -145,7 +145,7 @@ jobs:
           if [[ ${GIT_COMMIT_REF##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
             VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS=${GIT_COMMIT_REF##*/}
           else
-            VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name')-${GIT_COMMIT_REF##*/}
+            VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json | jq --raw-output '.name')-${GIT_COMMIT_REF##*/}
           fi
           echo "Resolved domain alias: " $VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS
 
@@ -174,12 +174,12 @@ jobs:
           # TODO Resolve whether the aliasing has worked and change the GitHub comment "Comment PR (Deployment success)"
 
           # Find all custom aliases configured in the customer deployment configuration file (vercel.json)
-          VERCEL_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.alias')
+          VERCEL_DEPLOYMENT_ALIASES_JSON=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json | jq --raw-output '.alias')
           echo "Custom aliases: " $VERCEL_DEPLOYMENT_ALIASES_JSON
 
           if [[ "$VERCEL_DEPLOYMENT_ALIASES_JSON" != "null" ]]; then
             # Convert the JSON array into a bash array - See https://unix.stackexchange.com/a/615717/60329
-            readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json)
+            readarray -t VERCEL_DEPLOYMENT_ALIASES < <(jq --raw-output '.alias[]' < vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json)
 
             # Count the number of element in the array, will be 0 if it's an empty array, or if the "alias" key wasn't defined
             VERCEL_DEPLOYMENT_ALIASES_COUNT=${#VERCEL_DEPLOYMENT_ALIASES[@]}
@@ -266,7 +266,7 @@ jobs:
   await-for-vercel-deployment:
     name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
-    needs: start-staging-deployment
+    needs: start-${{ env.STAGE }}-deployment
     timeout-minutes: 5 # Limit current job timeout (including action timeout setup down there) https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
@@ -321,7 +321,7 @@ jobs:
         #  - Prints the headers of the POST HTTP request (curl)
         # TODO Convert this into an external bash script if possible, to simplify this step as much as possible
         run: |
-          VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
+          VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json | jq --raw-output '.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')
           echo "Vercel deployment webhook url: " $VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK
 
           # Checking if a webhook url is defined
@@ -353,7 +353,7 @@ jobs:
             #   s/< // - remove '< ' prefix
 
           else
-            echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
+            echo "No webhook url defined in 'vercel.$CUSTOMER_REF_TO_DEPLOY.${{ env.STAGE }}.json:.build.env.VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK' (found '$VERCEL_DEPLOYMENT_COMPLETED_WEBHOOK')"
           fi
         env:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
