@@ -266,7 +266,7 @@ jobs:
   await-for-vercel-deployment:
     name: Await current deployment to be ready (Ubuntu 18.04)
     runs-on: ubuntu-18.04
-    needs: start-${{ env.STAGE }}-deployment
+    needs: start-staging-deployment
     timeout-minutes: 5 # Limit current job timeout (including action timeout setup down there) https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
