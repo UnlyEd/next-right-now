@@ -359,6 +359,7 @@ jobs:
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
           GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
           # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+          DEPLOYMENT_STAGE: ${{ env.STAGE }}
           GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
           GITHUB_HEAD_REF_SLUG: ${{ env.GITHUB_HEAD_REF_SLUG }}
           GITHUB_BASE_REF_SLUG: ${{ env.GITHUB_BASE_REF_SLUG }}
