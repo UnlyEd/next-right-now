@@ -55,20 +55,6 @@ const BuiltInUtilitiesSection: React.FunctionComponent<Props> = (props): JSX.Ele
 
         <Card>
           <CardBody>
-            <CardTitle><h3>HOCs</h3></CardTitle>
-            <CardSubtitle>&ldquo;Helpful high order components&rdquo;</CardSubtitle>
-            <CardText tag={'div'}>
-              <div className={'buttons'}>
-                <I18nLink href={'/demo/built-in-utilities/hocs'}>
-                  <Btn mode={'primary-variant'}>See usage examples</Btn>
-                </I18nLink>
-              </div>
-            </CardText>
-          </CardBody>
-        </Card>
-
-        <Card>
-          <CardBody>
             <CardTitle><h3>API</h3></CardTitle>
             <CardSubtitle>&ldquo;API endpoints&rdquo;</CardSubtitle>
             <CardText tag={'div'}>

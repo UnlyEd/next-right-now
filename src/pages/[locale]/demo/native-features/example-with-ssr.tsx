@@ -14,13 +14,12 @@ import useDataset from '@/modules/core/data/hooks/useDataset';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
 import { Product } from '@/modules/core/data/types/Product';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   ApolloQueryResult,
   QueryOptions,
-} from 'apollo-client';
+} from '@apollo/client';
 import size from 'lodash.size';
 import {
   GetServerSideProps,
@@ -90,7 +89,6 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       errors,
       loading,
       networkStatus,
-      stale,
     }: ApolloQueryResult<{
       customer: Customer;
       products: Product[];
@@ -257,4 +255,4 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 //   };
 // };
 
-export default withApollo()(ProductsWithSSRPage);
+export default ProductsWithSSRPage;

@@ -13,7 +13,6 @@ import {
 } from '@/layouts/demo/demoSSG';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -87,4 +86,4 @@ const ExampleHomePage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ExampleHomePage);
+export default ExampleHomePage;

@@ -11,11 +11,10 @@ import {
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
-import createApolloClient from '@/modules/core/gql/graphql';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
+import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloClient, ApolloQueryResult, NormalizedCacheObject } from '@apollo/client';
 import deepmerge from 'deepmerge';
 import {
   GetStaticPaths,
@@ -54,7 +53,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       customerRef,
       gcmsLocales,
     } = commonStaticProps.props;
-    const apolloClient = createApolloClient();
+    const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
     const variables = {
       customerRef,
     };
@@ -74,7 +73,6 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       errors,
       loading,
       networkStatus,
-      stale,
     }: ApolloQueryResult<{
       customer: Customer;
     }> = await apolloClient.query(queryOptions);
@@ -141,4 +139,4 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(TermsPage);
+export default TermsPage;

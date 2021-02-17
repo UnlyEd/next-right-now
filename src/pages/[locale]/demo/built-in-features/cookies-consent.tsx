@@ -10,7 +10,6 @@ import {
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
 import { Amplitude } from '@amplitude/react-amplitude';
@@ -119,4 +118,4 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ExampleCookiesConsentPage);
+export default ExampleCookiesConsentPage;

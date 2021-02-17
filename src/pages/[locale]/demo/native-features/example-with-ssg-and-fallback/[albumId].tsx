@@ -13,7 +13,6 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { getRandomInt } from '@/modules/core/js/random';
 import songs from '@/modules/core/testing/mocks/songs';
@@ -259,4 +258,4 @@ const ExampleWithSSGAndFallbackAlbumPage: NextPage<Props> = (props): JSX.Element
   );
 };
 
-export default withApollo()(ExampleWithSSGAndFallbackAlbumPage);
+export default ExampleWithSSGAndFallbackAlbumPage;

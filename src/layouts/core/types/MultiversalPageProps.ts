@@ -1,4 +1,4 @@
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { NormalizedCacheObject } from '@apollo/client';
 import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 
 /**

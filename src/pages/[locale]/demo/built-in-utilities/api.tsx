@@ -9,7 +9,6 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -90,4 +89,4 @@ const ApiPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ApiPage);
+export default ApiPage;

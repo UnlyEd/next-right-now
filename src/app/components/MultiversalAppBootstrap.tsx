@@ -1,3 +1,4 @@
+import { ApolloProvider } from '@apollo/client';
 import Loader from '@/components/animations/Loader';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
@@ -21,6 +22,7 @@ import {
   stopPreviewMode,
 } from '@/modules/core/previewMode/previewMode';
 import quickPreviewContext from '@/modules/core/quickPreview/contexts/quickPreviewContext';
+import { useApollo } from '@/modules/core/apollo/apolloClient';
 import { configureSentryI18n } from '@/modules/core/sentry/sentry';
 import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import { detectCypress } from '@/modules/core/testing/cypress';
@@ -66,6 +68,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   // When using SSG with "fallback: true" and the page hasn't been generated yet then isSSGFallbackInitialBuild is true
   const [isSSGFallbackInitialBuild] = useState<boolean>(isEmpty(pageProps) && router?.isFallback === true);
   const pageComponentName = getComponentName(props.Component);
+  const apolloClient = useApollo<SSGPageProps | SSRPageProps>(pageProps);
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -393,42 +396,44 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     return (
-      <datasetContext.Provider value={dataset}>
-        <quickPreviewContext.Provider value={{ isQuickPreviewPage }}>
-          <previewModeContext.Provider
-            value={{
-              isPreviewModeEnabled: isPreviewModeEnabled,
-              previewData,
-            }}
-          >
-            <i18nContext.Provider
+      <ApolloProvider client={apolloClient}>
+        <datasetContext.Provider value={dataset}>
+          <quickPreviewContext.Provider value={{ isQuickPreviewPage }}>
+            <previewModeContext.Provider
               value={{
-                lang,
-                locale,
+                isPreviewModeEnabled: isPreviewModeEnabled,
+                previewData,
               }}
             >
-              <customerContext.Provider value={customer}>
-                {/* XXX Global styles that applies to all pages go there */}
-                <MultiversalGlobalStyles customerTheme={customerTheme} />
+              <i18nContext.Provider
+                value={{
+                  lang,
+                  locale,
+                }}
+              >
+                <customerContext.Provider value={customer}>
+                  {/* XXX Global styles that applies to all pages go there */}
+                  <MultiversalGlobalStyles customerTheme={customerTheme} />
 
-                <ThemeProvider theme={customerTheme}>
-                  {
-                    isBrowser() ? (
-                      <BrowserPageBootstrap
-                        {...browserPageBootstrapProps}
-                      />
-                    ) : (
-                      <ServerPageBootstrap
-                        {...serverPageBootstrapProps}
-                      />
-                    )
-                  }
-                </ThemeProvider>
-              </customerContext.Provider>
-            </i18nContext.Provider>
-          </previewModeContext.Provider>
-        </quickPreviewContext.Provider>
-      </datasetContext.Provider>
+                  <ThemeProvider theme={customerTheme}>
+                    {
+                      isBrowser() ? (
+                        <BrowserPageBootstrap
+                          {...browserPageBootstrapProps}
+                        />
+                      ) : (
+                        <ServerPageBootstrap
+                          {...serverPageBootstrapProps}
+                        />
+                      )
+                    }
+                  </ThemeProvider>
+                </customerContext.Provider>
+              </i18nContext.Provider>
+            </previewModeContext.Provider>
+          </quickPreviewContext.Provider>
+        </datasetContext.Provider>
+      </ApolloProvider>
     );
 
   } else {

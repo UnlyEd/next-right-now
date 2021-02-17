@@ -13,14 +13,15 @@ import {
 } from '@/layouts/demo/demoSSG';
 import { Product } from '@/modules/core/data/types/Product';
 import timeDifference from '@/modules/core/date/timeDifference';
-import createApolloClient from '@/modules/core/gql/graphql';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
+import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   ApolloQueryResult,
+  NormalizedCacheObject,
   QueryOptions,
-} from 'apollo-client';
+  ApolloClient
+} from '@apollo/client';
 import deepmerge from 'deepmerge';
 import size from 'lodash.size';
 import {
@@ -67,7 +68,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       gcmsLocales,
     } = commonStaticProps.props;
 
-    const apolloClient = createApolloClient();
+    const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
     const variables = {
       customerRef,
     };
@@ -99,7 +100,6 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       errors,
       loading,
       networkStatus,
-      stale,
     }: ApolloQueryResult<{
       products: Product[];
     }> = await apolloClient.query(queryOptions);
@@ -196,4 +196,4 @@ const ProductsWithSSGPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ProductsWithSSGPage);
+export default ProductsWithSSGPage;

@@ -8,10 +8,9 @@ import { GetCommonServerSidePropsResults } from '@/layouts/demo/demoSSR';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult } from 'apollo-client';
+import { ApolloQueryResult } from '@apollo/client';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -124,4 +123,4 @@ const PageTemplateSSR: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(PageTemplateSSR);
+export default PageTemplateSSR;

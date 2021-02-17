@@ -26,10 +26,6 @@ export const BUILT_IN_UTILITIES_SIDEBAR_LINKS: SidebarLink[] = [
     label: 'Hooks',
   },
   {
-    href: '/demo/built-in-utilities/hocs',
-    label: 'HOCs',
-  },
-  {
     href: '/demo/built-in-utilities/api',
     label: 'API',
   },

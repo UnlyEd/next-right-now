@@ -9,7 +9,6 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -129,4 +128,4 @@ const ExampleIconsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ExampleIconsPage);
+export default ExampleIconsPage;
