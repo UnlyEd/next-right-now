@@ -11,7 +11,7 @@
 # - See https://github.com/jwalton/gh-find-current-pr https://github.com/jwalton/gh-find-current-pr/tree/v1
 # - See https://github.com/peter-evans/create-or-update-comment https://github.com/peter-evans/create-or-update-comment/tree/v1
 # - See https://github.com/UnlyEd/github-action-await-vercel https://github.com/UnlyEd/github-action-await-vercel/tree/v1.1.1
-# - See https://github.com/UnlyEd/github-action-store-variable https://github.com/UnlyEd/github-action-store-variable/tree/v1.0.1
+# - See https://github.com/UnlyEd/github-action-store-variable https://github.com/UnlyEd/github-action-store-variable/tree/v2.1.1
 # - See https://github.com/cypress-io/github-action https://github.com/cypress-io/github-action/tree/v2
 
 name: Deploy Storybook static site to Vercel
@@ -186,7 +186,7 @@ jobs:
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
       - name: Store variables for next jobs
-        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.1.1 # See https://github.com/UnlyEd/github-action-store-variable
         with:
           variables: |
             VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
@@ -204,7 +204,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.1.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           failIfNotFound: true
@@ -238,7 +238,7 @@ jobs:
 
       # Restore variables stored by previous jobs
       - name: Restore variables
-        uses: UnlyEd/github-action-store-variable@v1.0.1 # See https://github.com/UnlyEd/github-action-store-variable
+        uses: UnlyEd/github-action-store-variable@v2.1.1 # See https://github.com/UnlyEd/github-action-store-variable
         id: restore-variable
         with:
           failIfNotFound: true
@@ -253,7 +253,7 @@ jobs:
           # XXX We disabled "wait-on" option, because it's useless. Cypress will fail anyway, because it gets redirected to some internal Vercel URL if the domain isn't yet available - See https://github.com/cypress-io/github-action/issues/270
           # wait-on: '${{ env.VERCEL_DEPLOYMENT_URL }}' # Be sure that the endpoint is ready by pinging it before starting tests, using a default timeout of 60 seconds
           config-file: 'cypress/config-storybook.json' # Use Cypress config file for Storybook, and override it below
-          config: baseUrl=${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
+          config: baseUrl=${{ env.VERCEL_DEPLOYMENT_URL }} # Overriding baseUrl provided by config file to test the new deployment
         env:
           # Enables Cypress debugging logs, very useful if Cypress crashes, like out-of-memory issues.
           # DEBUG: "cypress:*" # Enable all logs. See https://docs.cypress.io/guides/references/troubleshooting.html#Print-DEBUG-logs
@@ -278,22 +278,22 @@ jobs:
       # On E2E failure, add a comment to the PR with additional information, if there is an open PR for the current branch
       - name: Comment PR (E2E failure)
         uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
-        if: fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID && failure()
+        if: env.GITHUB_PULL_REQUEST_ID && failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID }}
+          issue-number: ${{ env.GITHUB_PULL_REQUEST_ID }}
           body: |
-            :x:&nbsp; E2E tests **FAILED** for commit ${{ github.sha }} previously deployed **Storybook static site** at [${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}](${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }})
-            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID }}/checks) section
+            :x:&nbsp; E2E tests **FAILED** for commit ${{ github.sha }} previously deployed **Storybook static site** at [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
+            Download artifacts (screenshots + videos) from [`checks`](https://github.com/UnlyEd/next-right-now/pull/${{ env.GITHUB_PULL_REQUEST_ID }}/checks) section
 
       # On E2E success, add a comment to the PR, if there is an open PR for the current branch
       - name: Comment PR (E2E success)
         uses: peter-evans/create-or-update-comment@v1 # See https://github.com/peter-evans/create-or-update-comment
-        if: fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID && success()
+        if: env.GITHUB_PULL_REQUEST_ID && success()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ fromJson(steps.restore-variable.outputs.variables).GITHUB_PULL_REQUEST_ID }}
+          issue-number: ${{ env.GITHUB_PULL_REQUEST_ID }}
           body: |
-            :white_check_mark:&nbsp; E2E tests **SUCCESS** for commit ${{ github.sha }} previously deployed **Storybook static site** at [${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }}](${{ fromJson(steps.restore-variable.outputs.variables).VERCEL_DEPLOYMENT_URL }})
+            :white_check_mark:&nbsp; E2E tests **SUCCESS** for commit ${{ github.sha }} previously deployed **Storybook static site** at [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
