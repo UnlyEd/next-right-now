@@ -19,7 +19,7 @@ Advices and "must-know" things regarding Airtable usage.
 
 ## Overview
 
-[Getting started(https://support.airtable.com/hc/en-us/sections/360003922433)
+[Getting started](https://support.airtable.com/hc/en-us/sections/360003922433)
 
 Airtable is very similar to Excel and Google Sheets. It's more user-friendly than both, but not as powerful sometimes.
 
