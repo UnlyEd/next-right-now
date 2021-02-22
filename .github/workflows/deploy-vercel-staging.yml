@@ -83,13 +83,6 @@ jobs:
         uses: actions/setup-node@v2 # Used to install node environment - https://github.com/actions/setup-node
         with:
           node-version: '12' # Use the same node.js version as the one Vercel's uses (currently node12.x)
-      - name: Exporting npx path
-        run: echo "/usr/local/bin" >> $GITHUB_PATH
-      - name: Exporting node bins path
-        run: echo "$(yarn global bin)" >> $GITHUB_PATH
-      - name: Test npx
-        run: npx -v
-
 
       #  Resolves customer to deploy from github event input (falls back to resolving it from vercel.json file)
       - name: Resolve customer to deploy
@@ -114,6 +107,7 @@ jobs:
           env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-staging # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
+      - run: whoami
       - name: Deploying on Vercel (staging)
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
