@@ -1,6 +1,7 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import LegalContent from '@/common/components/dataDisplay/LegalContent';
+import { TERMS_PAGE_QUERY } from '@/common/gql/pages/terms';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import DefaultLayout from '@/layouts/default/components/DefaultLayout';
@@ -9,13 +10,16 @@ import {
   getDefaultStaticProps,
 } from '@/layouts/default/defaultSSG';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
-import createApolloClient from '@/modules/core/gql/graphql';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { replaceAllOccurrences } from '@/modules/core/js/string';
+import {
+  ApolloClient,
+  ApolloQueryResult,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import { createLogger } from '@unly/utils-simple-logger';
-import { ApolloQueryResult } from 'apollo-client';
 import deepmerge from 'deepmerge';
 import {
   GetStaticPaths,
@@ -25,7 +29,6 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { TERMS_PAGE_QUERY } from '@/common/gql/pages/terms';
 
 const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -54,7 +57,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       customerRef,
       gcmsLocales,
     } = commonStaticProps.props;
-    const apolloClient = createApolloClient();
+    const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
     const variables = {
       customerRef,
     };
@@ -74,7 +77,6 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       errors,
       loading,
       networkStatus,
-      stale,
     }: ApolloQueryResult<{
       customer: Customer;
     }> = await apolloClient.query(queryOptions);
@@ -141,4 +143,4 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(TermsPage);
+export default TermsPage;

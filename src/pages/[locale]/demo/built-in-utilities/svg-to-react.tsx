@@ -13,7 +13,6 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { css } from '@emotion/react';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -108,4 +107,4 @@ const SvgToReactPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(SvgToReactPage);
+export default SvgToReactPage;

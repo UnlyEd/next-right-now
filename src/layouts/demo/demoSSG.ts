@@ -2,10 +2,15 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
+import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import {
+  APOLLO_STATE_PROP_NAME,
+  getApolloState,
+  initializeApollo,
+} from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
-import createApolloClient from '@/modules/core/gql/graphql';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -18,7 +23,11 @@ import {
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
-import { ApolloQueryResult } from 'apollo-client';
+import {
+  ApolloClient,
+  ApolloQueryResult,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import map from 'lodash.map';
 import {
   GetStaticPaths,
@@ -26,7 +35,6 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
-import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 
 /**
  * Only executed on the server side at build time.
@@ -86,7 +94,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const apolloClient = createApolloClient();
+  const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
   const variables = {
     customerRef,
   };
@@ -106,7 +114,6 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     errors,
     loading,
     networkStatus,
-    stale,
   }: ApolloQueryResult<{
     customer: Customer;
   }> = await apolloClient.query(queryOptions);
@@ -126,7 +133,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
-      apolloState: apolloClient.cache.extract(),
+      [APOLLO_STATE_PROP_NAME]: getApolloState(apolloClient),
       bestCountryCodes,
       serializedDataset: serializeSafe(dataset),
       customerRef,

@@ -9,7 +9,6 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
@@ -78,4 +77,4 @@ const AnalyseBundlePage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(AnalyseBundlePage);
+export default AnalyseBundlePage;

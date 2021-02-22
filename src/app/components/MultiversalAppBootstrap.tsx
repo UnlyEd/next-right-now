@@ -1,6 +1,7 @@
 import Loader from '@/components/animations/Loader';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import { useApollo } from '@/modules/core/apollo/apolloClient';
 import customerContext from '@/modules/core/data/contexts/customerContext';
 import datasetContext from '@/modules/core/data/contexts/datasetContext';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -10,10 +11,7 @@ import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout'
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
 import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
-import {
-  i18nRedirect,
-  stringifyQueryParameters,
-} from '@/modules/core/i18n/i18nRouter';
+import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
 import previewModeContext from '@/modules/core/previewMode/contexts/previewModeContext';
 import {
@@ -27,13 +25,12 @@ import { detectCypress } from '@/modules/core/testing/cypress';
 import { initCustomerTheme } from '@/modules/core/theming/theme';
 import ErrorPage from '@/pages/_error';
 import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
+import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { i18n } from 'i18next';
-import find from 'lodash.find';
-import includes from 'lodash.includes';
 import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
 import React, { useState } from 'react';
@@ -66,6 +63,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   // When using SSG with "fallback: true" and the page hasn't been generated yet then isSSGFallbackInitialBuild is true
   const [isSSGFallbackInitialBuild] = useState<boolean>(isEmpty(pageProps) && router?.isFallback === true);
   const pageComponentName = getComponentName(props.Component);
+  const apolloClient = useApollo<SSGPageProps | SSRPageProps>(pageProps);
 
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
@@ -393,42 +391,44 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     return (
-      <datasetContext.Provider value={dataset}>
-        <quickPreviewContext.Provider value={{ isQuickPreviewPage }}>
-          <previewModeContext.Provider
-            value={{
-              isPreviewModeEnabled: isPreviewModeEnabled,
-              previewData,
-            }}
-          >
-            <i18nContext.Provider
+      <ApolloProvider client={apolloClient}>
+        <datasetContext.Provider value={dataset}>
+          <quickPreviewContext.Provider value={{ isQuickPreviewPage }}>
+            <previewModeContext.Provider
               value={{
-                lang,
-                locale,
+                isPreviewModeEnabled: isPreviewModeEnabled,
+                previewData,
               }}
             >
-              <customerContext.Provider value={customer}>
-                {/* XXX Global styles that applies to all pages go there */}
-                <MultiversalGlobalStyles customerTheme={customerTheme} />
+              <i18nContext.Provider
+                value={{
+                  lang,
+                  locale,
+                }}
+              >
+                <customerContext.Provider value={customer}>
+                  {/* XXX Global styles that applies to all pages go there */}
+                  <MultiversalGlobalStyles customerTheme={customerTheme} />
 
-                <ThemeProvider theme={customerTheme}>
-                  {
-                    isBrowser() ? (
-                      <BrowserPageBootstrap
-                        {...browserPageBootstrapProps}
-                      />
-                    ) : (
-                      <ServerPageBootstrap
-                        {...serverPageBootstrapProps}
-                      />
-                    )
-                  }
-                </ThemeProvider>
-              </customerContext.Provider>
-            </i18nContext.Provider>
-          </previewModeContext.Provider>
-        </quickPreviewContext.Provider>
-      </datasetContext.Provider>
+                  <ThemeProvider theme={customerTheme}>
+                    {
+                      isBrowser() ? (
+                        <BrowserPageBootstrap
+                          {...browserPageBootstrapProps}
+                        />
+                      ) : (
+                        <ServerPageBootstrap
+                          {...serverPageBootstrapProps}
+                        />
+                      )
+                    }
+                  </ThemeProvider>
+                </customerContext.Provider>
+              </i18nContext.Provider>
+            </previewModeContext.Provider>
+          </quickPreviewContext.Provider>
+        </datasetContext.Provider>
+      </ApolloProvider>
     );
 
   } else {

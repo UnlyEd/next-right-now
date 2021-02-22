@@ -1,4 +1,4 @@
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import { ApolloState } from '@/modules/core/apollo/apolloClient';
 import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 
 /**
@@ -9,7 +9,6 @@ import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
  * Client-side page props are listed in SSGPageProps
  */
 export type MultiversalPageProps<E extends {} = {}> = {
-  apolloState: NormalizedCacheObject;
   bestCountryCodes: string[];
   serializedDataset: string; // Transferred from server to browser as JSON (using Flatten.stringify), then parsed on the browser/server within the MultiversalAppBootstrap
   customerRef: string;
@@ -21,4 +20,4 @@ export type MultiversalPageProps<E extends {} = {}> = {
   lang: string;
   locale: string;
   statusCode?: number; // Provided by Next.js framework, sometimes
-} & E;
+} & ApolloState & E;
