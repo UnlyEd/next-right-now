@@ -83,8 +83,8 @@ jobs:
         uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
         with:
           node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
-      - name: Installing npx
-        run: "sudo npm i -g npx"
+      - name: Exporting npx path
+        run: echo "::add-path::/usr/local/bin"
 
       #  Resolves customer to deploy from github event input (falls back to resolving it from vercel.json file)
       - name: Resolve customer to deploy
