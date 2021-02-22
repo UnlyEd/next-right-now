@@ -112,7 +112,7 @@ jobs:
       - name: Deploying on Vercel (staging)
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
-          command: "yarn deploy:ci:gha --token $VERCEL_TOKEN"
+          command: "yarn deploy:ci:gha --token ${VERCEL_TOKEN}"
           deploy_alias: true
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
