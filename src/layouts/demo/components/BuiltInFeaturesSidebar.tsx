@@ -1,3 +1,5 @@
+import { SidebarLink } from '@/modules/core/data/types/SidebarLink';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import map from 'lodash.map';
 import {
   NextRouter,
@@ -9,8 +11,6 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import { SidebarLink } from '@/modules/core/data/types/SidebarLink';
-import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { SidebarProps } from './DemoLayout';
 import SidebarFooter from './SidebarFooter';
 

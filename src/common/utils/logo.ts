@@ -69,7 +69,17 @@ export const toPixels = (value: number | string): string => {
  * @param sizesMultipliers
  * @returns {object}
  */
-export const generateSizes = ({ baseWidth, baseHeight, sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS }: { baseWidth: number; baseHeight: number; sizesMultipliers?: SizeMultiplier[] }): GenericObject => {
+export const generateSizes = (
+  {
+    baseWidth,
+    baseHeight,
+    sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS,
+  }: {
+    baseWidth: number;
+    baseHeight: number;
+    sizesMultipliers?: SizeMultiplier[];
+  },
+): GenericObject => {
   const sizes = {};
 
   map(sizesMultipliers, (sizeMultiplier) => {

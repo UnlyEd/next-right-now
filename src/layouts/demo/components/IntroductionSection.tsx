@@ -1,12 +1,12 @@
+import ExternalLink from '@/components/dataDisplay/ExternalLink';
+import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { css } from '@emotion/react';
 import React from 'react';
 import {
   Alert,
   Jumbotron,
 } from 'reactstrap';
-import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
-import I18nLink from '@/modules/core/i18n/components/I18nLink';
-import ExternalLink from '@/components/dataDisplay/ExternalLink';
 
 type Props = {
   // XXX Beware when passing down the "logEvent", because it'll use the props attached from the <Amplitude> tag it comes from

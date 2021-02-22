@@ -2,10 +2,14 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
+import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import {
+  getApolloState,
+  initializeApollo,
+} from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
-import { getApolloState, initializeApollo } from '@/modules/core/apollo/apolloClient';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -18,7 +22,11 @@ import {
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
-import { ApolloClient, ApolloQueryResult, NormalizedCacheObject } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloQueryResult,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import map from 'lodash.map';
 import {
   GetStaticPaths,
@@ -26,7 +34,6 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
-import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 
 /**
  * Only executed on the server side at build time.
@@ -105,7 +112,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     data,
     errors,
     loading,
-    networkStatus
+    networkStatus,
   }: ApolloQueryResult<{
     customer: Customer;
   }> = await apolloClient.query(queryOptions);

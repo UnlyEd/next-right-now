@@ -32,15 +32,15 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
       <Cards maxCards={1}>
         <Card>
           <CardBody>
-            <CardTitle><h3 style={{textDecoration: 'strikethrough'}}>Backoffice/Admin site</h3></CardTitle>
+            <CardTitle><h3 style={{ textDecoration: 'strikethrough' }}>Backoffice/Admin site</h3></CardTitle>
             <CardSubtitle>&ldquo;Update NRN demo using GraphCMS&rdquo;</CardSubtitle>
             <CardText tag={'div'}>
 
               <Alert color={'info'}>
                 Edit this demo using GraphCMS!<br />
                 <br />
-                <b>Email</b>: <code style={{fontSize: 18}}>unly-nrn+contributor@unly.org</code><br />
-                <b>Password</b>: <code style={{fontSize: 18}}>bbU#Ec2m6FpqU7&</code><br />
+                <b>Email</b>: <code style={{ fontSize: 18 }}>unly-nrn+contributor@unly.org</code><br />
+                <b>Password</b>: <code style={{ fontSize: 18 }}>bbU#Ec2m6FpqU7&</code><br />
                 <br />
                 You can edit anything and play with the various rendering modes (SSG, SSR, etc.), the GraphCMS API is configured to use <code>DRAFT</code> content in priority.<br />
                 This mean that your changes on any published content will be reflected (because changing a published content creates a draft, and that draft is being used).<br />

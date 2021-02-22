@@ -1,3 +1,7 @@
+import Btn from '@/components/dataDisplay/Btn';
+import Cards from '@/components/dataDisplay/Cards';
+import ExternalLink from '@/components/dataDisplay/ExternalLink';
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import React from 'react';
 import {
   Alert,
@@ -7,10 +11,6 @@ import {
   CardText,
   CardTitle,
 } from 'reactstrap';
-import I18nLink from '@/modules/core/i18n/components/I18nLink';
-import Btn from '@/components/dataDisplay/Btn';
-import Cards from '@/components/dataDisplay/Cards';
-import ExternalLink from '@/components/dataDisplay/ExternalLink';
 import DemoSection from './DemoSection';
 
 type Props = {}
