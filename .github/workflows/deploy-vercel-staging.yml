@@ -84,7 +84,8 @@ jobs:
         with:
           node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
       - name: Exporting npx path
-        run: echo "::add-path::/usr/local/bin"
+        run: echo "/usr/local/bin" >> $GITHUB_PATH
+
 
       #  Resolves customer to deploy from github event input (falls back to resolving it from vercel.json file)
       - name: Resolve customer to deploy
