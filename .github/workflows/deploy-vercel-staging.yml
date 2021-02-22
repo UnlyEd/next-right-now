@@ -85,6 +85,8 @@ jobs:
           node-version: '12' # Use the same node.js version as the one Vercel's uses (currently node12.x)
       - name: Exporting npx path
         run: echo "/usr/local/bin" >> $GITHUB_PATH
+      - name: Exporting node bins path
+        run: echo "$(yarn global bin)" >> $GITHUB_PATH
       - name: Test npx
         run: npx -v
 
