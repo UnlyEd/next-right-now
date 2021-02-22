@@ -38,7 +38,7 @@ import NextCookies from 'next-cookies';
  * getDemoServerSideProps returns only part of the props expected in SSRPageProps
  * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
-export type GetCoreServerSidePropsResults = Omit<SSRPageProps, 'apolloState' | 'customer'> & {
+export type GetCoreServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
