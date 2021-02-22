@@ -1,11 +1,12 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
-import createApolloClient from '@/modules/core/gql/graphql';
 import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
 import {
   DEFAULT_LOCALE,
@@ -18,11 +19,13 @@ import {
 } from '@/modules/core/i18n/i18nextLocize';
 import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
+import {
+  ApolloClient,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
 import { IncomingMessage } from 'http';
 import {
   GetServerSideProps,
@@ -30,7 +33,6 @@ import {
   GetServerSidePropsResult,
 } from 'next';
 import NextCookies from 'next-cookies';
-import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 
 /**
  * getDemoServerSideProps returns only part of the props expected in SSRPageProps
@@ -95,7 +97,7 @@ export const getDemoServerSideProps: GetServerSideProps<GetCommonServerSideProps
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const apolloClient = createApolloClient();
+  const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
   const variables = {
     customerRef,
   };

@@ -22,7 +22,7 @@ const Products: React.FunctionComponent<Props> = (props) => {
           border-radius: 5px;
 
           .product-description {
-             font-style: italic;
+            font-style: italic;
           }
         }
       `}

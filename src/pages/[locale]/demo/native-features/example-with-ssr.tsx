@@ -1,6 +1,7 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import { EXAMPLE_WITH_SSR_QUERY } from '@/common/gql/pages/demo/native-features/example-with-ssr';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
@@ -14,13 +15,12 @@ import useDataset from '@/modules/core/data/hooks/useDataset';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
 import { Product } from '@/modules/core/data/types/Product';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
-import { createLogger } from '@unly/utils-simple-logger';
 import {
   ApolloQueryResult,
   QueryOptions,
-} from 'apollo-client';
+} from '@apollo/client';
+import { createLogger } from '@unly/utils-simple-logger';
 import size from 'lodash.size';
 import {
   GetServerSideProps,
@@ -34,7 +34,6 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { EXAMPLE_WITH_SSR_QUERY } from '@/common/gql/pages/demo/native-features/example-with-ssr';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -90,7 +89,6 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       errors,
       loading,
       networkStatus,
-      stale,
     }: ApolloQueryResult<{
       customer: Customer;
       products: Product[];
@@ -257,4 +255,4 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 //   };
 // };
 
-export default withApollo()(ProductsWithSSRPage);
+export default ProductsWithSSRPage;

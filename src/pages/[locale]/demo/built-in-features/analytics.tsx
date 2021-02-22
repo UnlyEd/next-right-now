@@ -12,7 +12,6 @@ import {
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
 import useUserSession, { UserSession } from '@/modules/core/userSession/useUserSession';
 import { Amplitude } from '@amplitude/react-amplitude';
@@ -327,4 +326,4 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ExampleAnalyticsPage);
+export default ExampleAnalyticsPage;

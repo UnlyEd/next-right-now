@@ -10,7 +10,6 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import withApollo from '@/modules/core/gql/hocs/withApollo';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { createLogger } from '@unly/utils-simple-logger';
 import {
@@ -176,4 +175,4 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default withApollo()(ErrorsHandlingPage);
+export default ErrorsHandlingPage;

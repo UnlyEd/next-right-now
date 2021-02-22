@@ -16,7 +16,7 @@ import { NextApiResponse } from 'next';
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections
  */
-const redirect = (res: NextApiResponse, location: string, statusCode : 200 | 300 | 301 | 302 | 303 | 304 | 307 | 308 = 302): void => {
+const redirect = (res: NextApiResponse, location: string, statusCode: 200 | 300 | 301 | 302 | 303 | 304 | 307 | 308 = 302): void => {
   if (!res) {
     throw new Error('Response object required');
   }
