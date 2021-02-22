@@ -1,4 +1,5 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
@@ -9,8 +10,8 @@ import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
-import { createLogger } from '@unly/utils-simple-logger';
 import { ApolloQueryResult } from '@apollo/client';
+import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -18,7 +19,6 @@ import {
   NextPage,
 } from 'next';
 import React from 'react';
-import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars

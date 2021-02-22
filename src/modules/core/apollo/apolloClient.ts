@@ -1,9 +1,13 @@
-import { useMemo } from 'react';
 import {
-  ApolloClient, HttpLink, InMemoryCache, ApolloLink, NormalizedCacheObject, FieldPolicy,
+  ApolloClient,
+  ApolloLink,
+  HttpLink,
+  InMemoryCache,
+  NormalizedCacheObject,
 } from '@apollo/client';
 import merge from 'deepmerge';
 import isEqual from 'lodash.isequal';
+import { useMemo } from 'react';
 
 // Should we use "__APOLLO_STATE__" instead of "apolloState"?
 // Is a better pattern? next.js with-apollo uses it.
@@ -16,18 +20,19 @@ export type ApolloState = {
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 /**
- * Create a new apollo client instance
+ * Create a new apollo client instance.
+ *
  * @returns {ApolloClient<NormalizedCacheObject>}
  */
 function createApolloClient(): ApolloClient<NormalizedCacheObject> {
   const httpLink: ApolloLink = new HttpLink({
-      uri: process.env.GRAPHQL_API_ENDPOINT, // Server URL (must be absolute)
-      // Headers applied here will be applied for all requests
-      // See the use of the "options" when running a graphQL query to specify options per-request at https://www.apollographql.com/docs/react/api/react-hooks/#options
-      headers: {
-        authorization: `Bearer ${process.env.GRAPHQL_API_KEY}`,
-      },
-      credentials: 'same-origin', // XXX See https://www.apollographql.com/docs/react/recipes/authentication#cookie
+    uri: process.env.GRAPHQL_API_ENDPOINT, // Server URL (must be absolute)
+    // Headers applied here will be applied for all requests
+    // See the use of the "options" when running a graphQL query to specify options per-request at https://www.apollographql.com/docs/react/api/react-hooks/#options
+    headers: {
+      authorization: `Bearer ${process.env.GRAPHQL_API_KEY}`,
+    },
+    credentials: 'same-origin', // XXX See https://www.apollographql.com/docs/react/recipes/authentication#cookie
   });
 
   return new ApolloClient({
@@ -38,7 +43,8 @@ function createApolloClient(): ApolloClient<NormalizedCacheObject> {
 }
 
 /**
- * Initiate apollo based on the environment (client or server)
+ * Initiate apollo based on the environment (client or server).
+ *
  * @param initialState
  * @returns {ApolloClient<NormalizedCacheObject>}
  */
@@ -57,7 +63,7 @@ export function initializeApollo(initialState = null): ApolloClient<NormalizedCa
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
         ...destinationArray.filter((d) =>
-          sourceArray.every((s) => !isEqual(d, s))
+          sourceArray.every((s) => !isEqual(d, s)),
         ),
       ],
     });
@@ -80,7 +86,8 @@ export function initializeApollo(initialState = null): ApolloClient<NormalizedCa
 }
 
 /**
- * Returns the apollo state
+ * Returns the apollo state.
+ *
  * @param {ApolloClient<NormalizedCacheObject>} client
  * @returns {NormalizedCacheObject}
  */
@@ -89,7 +96,8 @@ export function getApolloState(client: ApolloClient<NormalizedCacheObject>): Nor
 }
 
 /**
- * Returns an instance of apollo client
+ * Returns an instance of apollo client.
+ *
  * @param {PageProps} pageProps
  * @returns {ApolloClient<NormalizedCacheObject>}
  */

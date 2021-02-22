@@ -1,7 +1,7 @@
-import { ApolloProvider } from '@apollo/client';
 import Loader from '@/components/animations/Loader';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import { useApollo } from '@/modules/core/apollo/apolloClient';
 import customerContext from '@/modules/core/data/contexts/customerContext';
 import datasetContext from '@/modules/core/data/contexts/datasetContext';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -11,10 +11,7 @@ import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout'
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
 import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
-import {
-  i18nRedirect,
-  stringifyQueryParameters,
-} from '@/modules/core/i18n/i18nRouter';
+import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
 import previewModeContext from '@/modules/core/previewMode/contexts/previewModeContext';
 import {
@@ -22,20 +19,18 @@ import {
   stopPreviewMode,
 } from '@/modules/core/previewMode/previewMode';
 import quickPreviewContext from '@/modules/core/quickPreview/contexts/quickPreviewContext';
-import { useApollo } from '@/modules/core/apollo/apolloClient';
 import { configureSentryI18n } from '@/modules/core/sentry/sentry';
 import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import { detectCypress } from '@/modules/core/testing/cypress';
 import { initCustomerTheme } from '@/modules/core/theming/theme';
 import ErrorPage from '@/pages/_error';
 import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
+import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { i18n } from 'i18next';
-import find from 'lodash.find';
-import includes from 'lodash.includes';
 import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
 import React, { useState } from 'react';

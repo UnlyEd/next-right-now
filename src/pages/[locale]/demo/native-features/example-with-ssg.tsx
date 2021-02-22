@@ -2,6 +2,7 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import AllProducts from '@/common/components/dataDisplay/AllProducts';
 import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import { EXAMPLE_WITH_SSG_QUERY } from '@/common/gql/pages/demo/native-features/example-with-ssg';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
@@ -10,18 +11,18 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { Product } from '@/modules/core/data/types/Product';
 import { initializeApollo } from '@/modules/core/apollo/apolloClient';
+import { Product } from '@/modules/core/data/types/Product';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { SUPPORTED_LOCALES } from '@/modules/core/i18n/i18n';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
-import { createLogger } from '@unly/utils-simple-logger';
 import {
   ApolloClient,
   ApolloQueryResult,
   NormalizedCacheObject,
   QueryOptions,
 } from '@apollo/client';
+import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';
@@ -37,7 +38,6 @@ import {
   Alert,
   Container,
 } from 'reactstrap';
-import { EXAMPLE_WITH_SSG_QUERY } from '@/common/gql/pages/demo/native-features/example-with-ssg';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
