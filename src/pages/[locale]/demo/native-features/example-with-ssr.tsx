@@ -11,6 +11,7 @@ import {
   GetCommonServerSidePropsResults,
   getDemoServerSideProps,
 } from '@/layouts/demo/demoSSR';
+import { getApolloState } from '@/modules/core/apollo/apolloClient';
 import useDataset from '@/modules/core/data/hooks/useDataset';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
@@ -113,7 +114,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       // Props returned here will be available as page properties (pageProps)
       props: {
         ...pageData,
-        __APOLLO_STATE__: apolloClient.cache.extract(),
+        __APOLLO_STATE__: getApolloState(apolloClient),
         serializedDataset: serializeSafe(dataset),
       },
     };
@@ -237,7 +238,7 @@ const ProductsWithSSRPage: NextPage<Props> = (props): JSX.Element => {
 //   } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 //
 //   return {
-//     __APOLLO_STATE__: apolloClient.cache.extract(),
+//     __APOLLO_STATE__: getApolloState(apolloClient),
 //     bestCountryCodes,
 //     customer,
 //     customerRef,
