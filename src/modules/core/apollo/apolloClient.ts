@@ -3,7 +3,7 @@ import {
   ApolloClient, HttpLink, InMemoryCache, ApolloLink, NormalizedCacheObject, FieldPolicy,
 } from '@apollo/client';
 import merge from 'deepmerge';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash.isequal';
 
 // Should we use "__APOLLO_STATE__" instead of "apolloState"?
 // Is a better pattern? next.js with-apollo uses it.
@@ -38,8 +38,8 @@ function createApolloClient(): ApolloClient<NormalizedCacheObject> {
 }
 
 /**
- * Initiate apollo based on the environment (client or server) 
- * @param initialState 
+ * Initiate apollo based on the environment (client or server)
+ * @param initialState
  * @returns {ApolloClient<NormalizedCacheObject>}
  */
 export function initializeApollo(initialState = null): ApolloClient<NormalizedCacheObject> {
@@ -80,8 +80,8 @@ export function initializeApollo(initialState = null): ApolloClient<NormalizedCa
 }
 
 /**
- * Returns the apollo state 
- * @param {ApolloClient<NormalizedCacheObject>} client 
+ * Returns the apollo state
+ * @param {ApolloClient<NormalizedCacheObject>} client
  * @returns {NormalizedCacheObject}
  */
 export function getApolloState(client: ApolloClient<NormalizedCacheObject>): NormalizedCacheObject {
@@ -91,7 +91,7 @@ export function getApolloState(client: ApolloClient<NormalizedCacheObject>): Nor
 /**
  * Returns an instance of apollo client
  * @param {PageProps} pageProps
- * @returns {ApolloClient<NormalizedCacheObject>} 
+ * @returns {ApolloClient<NormalizedCacheObject>}
  */
 export function useApollo<T>(pageProps: T): ApolloClient<NormalizedCacheObject> {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
