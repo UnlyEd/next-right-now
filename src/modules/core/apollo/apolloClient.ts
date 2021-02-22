@@ -12,7 +12,7 @@ import { useMemo } from 'react';
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 export type ApolloState = {
-  __APOLLO_STATE__: NormalizedCacheObject;
+  [APOLLO_STATE_PROP_NAME]: NormalizedCacheObject;
 };
 
 let apolloClient: ApolloClient<NormalizedCacheObject>;
