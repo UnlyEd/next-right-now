@@ -132,7 +132,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
-      apolloState: getApolloState(apolloClient),
+      __APOLLO_STATE__: getApolloState(apolloClient),
       bestCountryCodes,
       serializedDataset: serializeSafe(dataset),
       customerRef,

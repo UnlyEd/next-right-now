@@ -83,7 +83,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       // Props returned here will be available as page properties (pageProps)
       props: {
         ...pageData,
-        apolloState: apolloClient.cache.extract(),
+        __APOLLO_STATE__: apolloClient.cache.extract(),
         serializedDataset: serializeSafe(dataset),
       },
     };
