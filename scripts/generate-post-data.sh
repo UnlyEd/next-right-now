@@ -1,7 +1,7 @@
 # Generates JSON using a bash function - See https://stackoverflow.com/a/57369772/2391795
 # "End Of File" must be at the beginning of the line with no space/tab before or after - See https://stackoverflow.com/a/12909284/2391795
 # But, when executed by GitHub Action, it must be inside the "run" section instead
-
+# You can find more details here: https://stackoverflow.com/questions/2500436/how-does-cat-eof-work-in-bash
 . ./scripts/populate-git-env.sh
 
 generate_post_data() {
