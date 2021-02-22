@@ -83,6 +83,7 @@ jobs:
         uses: actions/setup-node@v2 # Used to install node environment - https://github.com/actions/setup-node
         with:
           node-version: '12' # Use the same node.js version as the one Vercel's uses (currently node12.x)
+      - run: yarn
 
       #  Resolves customer to deploy from github event input (falls back to resolving it from vercel.json file)
       - name: Resolve customer to deploy
