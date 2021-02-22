@@ -115,6 +115,7 @@ jobs:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEl_TOKEN }}"
           deploy_alias: true
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
           GIT_COMMIT_REF: ${{ github.ref }}
           GIT_COMMIT_SHA: ${{ github.ref }}
           CUSTOMER_REF: ${{ env.CUSTOMER_REF_TO_DEPLOY }}
