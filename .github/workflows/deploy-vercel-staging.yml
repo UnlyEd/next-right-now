@@ -118,7 +118,7 @@ jobs:
       - name: Deploying on Vercel (staging)
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
-          command: "GIT_COMMIT_REF=${{ github.ref }} GIT_COMMIT_SHA=${{ github.ref }} CUSTOMER_REF=${{CUSTOMER_REF_TO_DEPLOY}} yarn deploy:ci:gha --token $VERCEL_TOKEN"
+          command: "GIT_COMMIT_REF=${{ github.ref }} GIT_COMMIT_SHA=${{ github.ref }} CUSTOMER_REF=${{ env.CUSTOMER_REF_TO_DEPLOY }} yarn deploy:ci:gha --token $VERCEL_TOKEN"
           deploy_alias: true
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
