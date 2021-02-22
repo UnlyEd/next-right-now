@@ -9,9 +9,7 @@ import merge from 'deepmerge';
 import isEqual from 'lodash.isequal';
 import { useMemo } from 'react';
 
-// Should we use "__APOLLO_STATE__" instead of "apolloState"?
-// Is a better pattern? next.js with-apollo uses it.
-export const APOLLO_STATE_PROP_NAME = 'apolloState';
+export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 export type ApolloState = {
   apolloState: NormalizedCacheObject;
