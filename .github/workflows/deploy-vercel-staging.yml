@@ -80,6 +80,8 @@ jobs:
         uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
         with:
           node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
+      - name: Installing npx
+        run: "npm i -g npx"
 
   # Starts a Vercel deployment, using the staging configuration file of the default institution
   # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
