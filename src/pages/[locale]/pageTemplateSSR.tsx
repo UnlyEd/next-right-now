@@ -7,6 +7,10 @@ import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
 import { GetCommonServerSidePropsResults } from '@/layouts/demo/demoSSR';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import {
+  APOLLO_STATE_PROP_NAME,
+  getApolloState,
+} from '@/modules/core/apollo/apolloClient';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
@@ -83,7 +87,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       // Props returned here will be available as page properties (pageProps)
       props: {
         ...pageData,
-        apolloState: apolloClient.cache.extract(),
+        [APOLLO_STATE_PROP_NAME]: getApolloState(apolloClient),
         serializedDataset: serializeSafe(dataset),
       },
     };

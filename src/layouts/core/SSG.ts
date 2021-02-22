@@ -4,6 +4,7 @@ import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
 import {
+  APOLLO_STATE_PROP_NAME,
   getApolloState,
   initializeApollo,
 } from '@/modules/core/apollo/apolloClient';
@@ -132,7 +133,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
-      apolloState: getApolloState(apolloClient),
+      [APOLLO_STATE_PROP_NAME]: getApolloState(apolloClient),
       bestCountryCodes,
       serializedDataset: serializeSafe(dataset),
       customerRef,
