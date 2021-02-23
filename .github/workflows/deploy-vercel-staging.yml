@@ -171,8 +171,8 @@ jobs:
         with:
           variables: |
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
-            VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
             VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
+            VERCEL_DEPLOYMENT_URL=${{ format('https://{0}', env.VERCEL_DEPLOYMENT_DOMAIN) }}
             MANUAL_TRIGGER_CUSTOMER=${{ env.MANUAL_TRIGGER_CUSTOMER }}
             GITHUB_PULL_REQUEST_ID=${{ steps.pr_id_finder.outputs.number }}
 
