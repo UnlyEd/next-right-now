@@ -17,7 +17,7 @@
     "deploy:all:production": "yarn deploy:customer1:production && yarn deploy:customer2:production",
     "deploy:all:production:simple": "yarn deploy:customer1:production:simple && yarn deploy:customer2:production:simple",
     "deploy:all:all": "yarn deploy:all && yarn deploy:all:production",
-    "deploy:ci:gha": "CUSTOMER_REF=${CUSTOMER_REF} yarn vercel:deploy --local-config=vercel.${CUSTOMER_REF}.staging.json",
+    "deploy:ci:gha": "yarn vercel:deploy --local-config=vercel.${CUSTOMER_REF}.staging.json",
     "deploy:ci:gha:production": "CUSTOMER_REF=${CUSTOMER_REF} yarn vercel:deploy --local-config=vercel.${CUSTOMER_REF}.production.json --prod",
     "deploy:sb:gha": "yarn vercel:cleanup && yarn storybook:export && vercel storybook-static --local-config=vercel.storybook.json --confirm --debug",
     "deploy:sb:gha:fast": "yarn vercel:cleanup && vercel storybook-static --local-config=vercel.storybook.json --confirm --debug",
