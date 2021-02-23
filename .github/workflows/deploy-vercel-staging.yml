@@ -70,20 +70,27 @@ on:
         required: true
 
 jobs:
+  # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
+  # Ex: Necessary to run `yarn deploy`
+  setup-environment:
+    name: Setup deployment environment (Ubuntu 18.04 - Node 12.x)
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Installing node.js
+        uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
+        with:
+          node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
+
   # Starts a Vercel deployment, using the staging configuration file of the default institution
   # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
   # N.B: It's Vercel that will perform the actual deployment
   start-staging-deployment:
     name: Starts Vercel deployment (staging) (Ubuntu 18.04)
     runs-on: ubuntu-18.04
+    needs: setup-environment
     timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
-      - name: Installing node.js
-        uses: actions/setup-node@v2 # Used to install node environment - https://github.com/actions/setup-node
-        with:
-          node-version: '12' # Use the same node.js version as the one Vercel's uses (currently node12.x)
-      - run: yarn
 
       #  Resolves customer to deploy from github event input (falls back to resolving it from vercel.json file)
       - name: Resolve customer to deploy
@@ -108,7 +115,6 @@ jobs:
           env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-staging # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
-      - run: whoami
       - name: Deploying on Vercel (staging)
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
