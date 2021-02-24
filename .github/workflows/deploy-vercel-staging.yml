@@ -118,16 +118,16 @@ jobs:
           env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-${{ env.STAGE }} # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
-      - name: Deploying on Vercel (staging)
+      - name: Deploying on Vercel (${{ env.STAGE }})
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEl_TOKEN }}"
           deploy_alias: true
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
-          GIT_COMMIT_REF: ${{ github.ref }}
-          GIT_COMMIT_SHA: ${{ github.ref }}
-          CUSTOMER_REF: ${{ env.CUSTOMER_REF_TO_DEPLOY }}
+          VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }} # Passing github's secret to the worker
+          GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
+          GIT_COMMIT_SHA: ${{ github.ref }} # Passing current commit SHA to the worker
+          CUSTOMER_REF: ${{ env.CUSTOMER_REF_TO_DEPLOY }} # Passing current customer to deploy
 
       # Update the previously created GitHub deployment, and link it to our Vercel deployment
       - name: Link GitHub deployment to Vercel
@@ -180,8 +180,8 @@ jobs:
         with:
           variables: |
             CUSTOMER_REF_TO_DEPLOY=${{ env.CUSTOMER_REF_TO_DEPLOY }}
-            VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
             VERCEL_DEPLOYMENT_URL=${{ env.VERCEL_DEPLOYMENT_URL }}
+            VERCEL_DEPLOYMENT_DOMAIN=${{ env.VERCEL_DEPLOYMENT_DOMAIN }}
             MANUAL_TRIGGER_CUSTOMER=${{ env.MANUAL_TRIGGER_CUSTOMER }}
             GITHUB_PULL_REQUEST_ID=${{ steps.pr_id_finder.outputs.number }}
 
