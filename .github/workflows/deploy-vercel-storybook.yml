@@ -88,7 +88,7 @@ jobs:
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
           command: "yarn deploy:sb:gha --token ${{ secrets.VERCEl_TOKEN }}"
-          deploy_alias: true
+          deploy_alias: true # Automatically create aliases from Vercel config file
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
