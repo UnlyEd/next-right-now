@@ -84,6 +84,9 @@ jobs:
           env: storybook # Uses "storybook" as GitHub environment name, because we don't need to manage multiple environments for storybook
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
+      - name: Install storybook dependencies
+        run: yarn install
+
       - name: Deploying on Vercel
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
