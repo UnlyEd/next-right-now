@@ -123,7 +123,7 @@ jobs:
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
           command: "yarn deploy:ci:gha:production --token ${{ secrets.VERCEl_TOKEN }}"
-          deploy_alias: true # Automatically create aliases from Vercel config file
+          apply_domain_aliases: true # Automatically create aliases from Vercel config file
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
