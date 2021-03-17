@@ -29,7 +29,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
   label: fileLabel,
 });
 
-export type Props = {
+type Props = {
   /**
    * Markdown as text.
    *

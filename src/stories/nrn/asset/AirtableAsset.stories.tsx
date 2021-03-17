@@ -1,10 +1,13 @@
+import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import { Asset } from '@/modules/core/data/types/Asset';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import AirtableAsset, { Props } from '@/modules/core/airtable/components/AirtableAsset';
-import { Asset } from '@/modules/core/data/types/Asset';
+
+type Props = GetFCProps<typeof AirtableAsset>;
 
 const defaultLogoUrl = 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png';
 

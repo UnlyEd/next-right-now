@@ -41,7 +41,7 @@ import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from './BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from './BuiltInUtilitiesSidebar';
 import { NATIVE_FEATURES_SIDEBAR_LINKS } from './NativeFeaturesSidebar';
 
-export type Props = {};
+type Props = {};
 
 /**
  * Page navigation, horizontal nav bar.

@@ -1,10 +1,13 @@
+import CircleBtn from '@/common/components/dataDisplay/CircleBtn';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import CircleBtn, { Props } from '@/common/components/dataDisplay/CircleBtn';
 import withPropMock from '../../shared/hocs/withPropMock';
+
+type Props = GetFCProps<typeof CircleBtn>;
 
 type PropsWithChildrenMock = Props & {
   text?: string;

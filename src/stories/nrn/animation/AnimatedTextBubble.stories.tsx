@@ -1,9 +1,12 @@
+import AnimatedTextBubble from '@/common/components/animations/AnimatedTextBubble';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import AnimatedTextBubble, { Props } from '@/common/components/animations/AnimatedTextBubble';
+
+type Props = GetFCProps<typeof AnimatedTextBubble>;
 
 export default {
   title: 'Next Right Now/Animation/AnimatedTextBubble',

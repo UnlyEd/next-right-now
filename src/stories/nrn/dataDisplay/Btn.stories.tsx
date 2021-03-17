@@ -1,12 +1,14 @@
+import Btn from '@/common/components/dataDisplay/Btn';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import { css } from '@emotion/react';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Btn, { Props } from '@/common/components/dataDisplay/Btn';
 import withPropMock from '../../shared/hocs/withPropMock';
 
+type Props = GetFCProps<typeof Btn>;
 type PropsWithChildrenMock = Props & {
   text?: string;
 };

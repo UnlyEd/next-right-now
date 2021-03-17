@@ -1,10 +1,13 @@
+import EllipsisText from '@/common/components/dataDisplay/EllipsisText';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import EllipsisText, { Props } from '@/common/components/dataDisplay/EllipsisText';
 import withPropMock from '../../shared/hocs/withPropMock';
+
+type Props = GetFCProps<typeof EllipsisText>;
 
 type PropsWithChildrenMock = Props & {
   text?: string;

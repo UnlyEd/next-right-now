@@ -4,7 +4,7 @@ import Btn from './Btn';
 import EllipsisText from './EllipsisText';
 import Tooltip from './Tooltip';
 
-export type Props = {
+type Props = {
   /**
    * React children, usually text.
    */

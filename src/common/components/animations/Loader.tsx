@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import React from 'react';
 import AnimatedLoader from './AnimatedLoader';
 
-export type Props = {}
+type Props = {}
 
 const Loader: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (

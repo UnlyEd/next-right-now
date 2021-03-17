@@ -1,7 +1,7 @@
 import React from 'react';
 import ToggleButton from '@/components/dataDisplay/ToggleButton';
 
-export type Props = {
+type Props = {
   /**
    * HTML id attribute. Must be unique.
    *

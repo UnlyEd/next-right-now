@@ -11,7 +11,7 @@ import {
 import classnames from 'classnames';
 import React, { ReactNode } from 'react';
 
-export type Props = {
+type Props = {
   /**
    * What's being displayed within the button.
    */

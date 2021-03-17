@@ -1,11 +1,14 @@
+import EllipsisText from '@/common/components/dataDisplay/EllipsisText';
+import Stamp from '@/common/components/dataDisplay/Stamp';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import EllipsisText from '@/common/components/dataDisplay/EllipsisText';
-import Stamp, { Props } from '@/common/components/dataDisplay/Stamp';
 import withPropMock from '../../shared/hocs/withPropMock';
+
+type Props = GetFCProps<typeof Stamp>;
 
 type PropsWithChildrenMock = Props & {
   text?: string | React.ReactElement;
@@ -18,7 +21,10 @@ export default {
 } as Meta;
 
 const Template: Story<PropsWithChildrenMock> = (props) => {
-  const { text, children } = props;
+  const {
+    text,
+    children,
+  } = props;
 
   return (
     <Stamp
@@ -33,7 +39,6 @@ export const DynamicExample: Story<PropsWithChildrenMock> = Template.bind({});
 DynamicExample.args = {
   text: 'Hello',
 };
-
 
 export const DynamicExampleWithEllipsis: Story<PropsWithChildrenMock> = Template.bind({});
 DynamicExampleWithEllipsis.args = {

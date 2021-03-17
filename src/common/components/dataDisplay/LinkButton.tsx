@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { ReactNode } from 'react';
 import Btn from './Btn';
 
-export type Props = {
+type Props = {
   /**
    * React children, usually text.
    */

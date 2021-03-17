@@ -1,10 +1,13 @@
+import Btn from '@/common/components/dataDisplay/Btn';
+import SpoilerLink from '@/common/components/dataDisplay/SpoilerLink';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Btn from '@/common/components/dataDisplay/Btn';
-import SpoilerLink, { Props } from '@/common/components/dataDisplay/SpoilerLink';
+
+type Props = GetFCProps<typeof SpoilerLink>;
 
 export default {
   title: 'Next Right Now/Data display/SpoilerLink',

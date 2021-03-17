@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React, { useState } from 'react';
 
-export type Props = {
+type Props = {
   /**
    * Element displayed within a `span`, until it is clicked.
    *

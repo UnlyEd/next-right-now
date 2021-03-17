@@ -16,7 +16,7 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-export type Props = {
+type Props = {
   style?: CSSStyles;
 };
 

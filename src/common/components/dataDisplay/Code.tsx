@@ -6,7 +6,7 @@ import {
 } from 'react-code-blocks';
 import { CodeBlockProps } from 'react-code-blocks/dist/components/CodeBlock';
 
-export type Props = {
+type Props = {
   /**
    * The style object to apply to the `CodeBlock` text directly i.e `fontSize` and such. [See `codeBlockStyle` type](https://github.com/rajinwonderland/react-code-blocks/blob/31e391b30a1f2835aaad4275f542329239761182/packages/react-code-blocks/src/components/CodeBlock.tsx#L19)
    */

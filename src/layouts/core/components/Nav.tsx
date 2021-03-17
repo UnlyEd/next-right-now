@@ -27,7 +27,7 @@ import {
   NavLink,
 } from 'reactstrap';
 
-export type Props = {};
+type Props = {};
 
 /**
  * Page navigation, horizontal nav bar.

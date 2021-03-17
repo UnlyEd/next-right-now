@@ -1,11 +1,14 @@
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import LinkButton from '@/common/components/dataDisplay/LinkButton';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
-import LinkButton, { Props } from '@/common/components/dataDisplay/LinkButton';
 import withPropMock from '../../shared/hocs/withPropMock';
+
+type Props = GetFCProps<typeof LinkButton>;
 
 type PropsWithChildrenMock = Props & {
   text?: string;

@@ -1,10 +1,13 @@
+import DocumentButton from '@/common/components/dataDisplay/DocumentButton';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import DocumentButton, { Props } from '@/common/components/dataDisplay/DocumentButton';
 import withPropMock from '../../shared/hocs/withPropMock';
+
+type Props = GetFCProps<typeof DocumentButton>;
 
 type PropsWithChildrenMock = Props & {
   text?: string;

@@ -5,7 +5,7 @@ import React from 'react';
 
 export type TooltipPlacement = 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
-export type Props = {
+type Props = {
   /**
    * React children, usually text.
    */

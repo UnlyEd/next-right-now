@@ -1,9 +1,12 @@
+import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import DefaultErrorLayout, { Props } from '@/modules/core/errorHandling/DefaultErrorLayout';
+
+type Props = GetFCProps<typeof DefaultErrorLayout>;
 
 export default {
   title: 'Next Right Now/Layout/DefaultErrorLayout',

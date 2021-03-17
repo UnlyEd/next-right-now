@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-export type Props = {
+type Props = {
   children: React.ReactNode;
   deps?: DependencyList;
 };
