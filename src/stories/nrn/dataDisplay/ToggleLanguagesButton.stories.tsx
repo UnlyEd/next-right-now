@@ -1,9 +1,12 @@
+import ToggleLanguagesButton from '@/modules/core/i18n/components/ToggleLanguagesButton';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React, { useState } from 'react';
-import ToggleLanguagesButton, { Props } from '@/modules/core/i18n/components/ToggleLanguagesButton';
+
+type Props = GetFCProps<typeof ToggleLanguagesButton>;
 
 export default {
   title: 'Next Right Now/Data display/ToggleLanguagesButton',

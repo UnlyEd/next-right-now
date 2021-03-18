@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import React, { ReactNode } from 'react';
 
-export type Props = {
+type Props = {
   /**
    * React children, usually text.
    */

@@ -4,7 +4,7 @@ import {
 } from '@emotion/react';
 import React from 'react';
 
-export type Props = {
+type Props = {
   /**
    * Color of the dots.
    *
@@ -13,7 +13,7 @@ export type Props = {
   fill?: string;
 };
 
-const AnimatedTextBubble = (props: Props) => {
+const AnimatedTextBubble: React.FunctionComponent<Props> = (props) => {
   const theme = useTheme();
   const { surfaceColor } = theme;
 

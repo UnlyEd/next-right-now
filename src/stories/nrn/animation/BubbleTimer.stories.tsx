@@ -1,9 +1,12 @@
+import BubbleTimer from '@/common/components/dataDisplay/BubbleTimer';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import BubbleTimer, { Props } from '@/common/components/dataDisplay/BubbleTimer';
+
+type Props = GetFCProps<typeof BubbleTimer>;
 
 export default {
   title: 'Next Right Now/Animation/BubbleTimer',

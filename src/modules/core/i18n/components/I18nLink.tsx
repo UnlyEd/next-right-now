@@ -11,7 +11,7 @@ import {
 
 type ParamValueToForward = string | number | Array<string | number>;
 
-export type Props = {
+type Props = {
   /**
    * Optional decorator for the path that will be shown in the browser URL bar.
    */

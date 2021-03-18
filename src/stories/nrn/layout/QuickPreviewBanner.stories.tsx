@@ -1,9 +1,12 @@
+import QuickPreviewBanner from '@/modules/core/quickPreview/components/QuickPreviewBanner';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import QuickPreviewBanner, { Props } from '@/modules/core/quickPreview/components/QuickPreviewBanner';
+
+type Props = GetFCProps<typeof QuickPreviewBanner>;
 
 export default {
   title: 'Next Right Now/Layout/QuickPreviewBanner',

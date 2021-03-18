@@ -1,11 +1,14 @@
+import I18nLink from '@/modules/core/i18n/components/I18nLink';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import I18nLink, { Props } from '@/modules/core/i18n/components/I18nLink';
 import withPropMock from '../../shared/hocs/withPropMock';
 import styles from './I18nLink.module.css';
+
+type Props = GetFCProps<typeof I18nLink>;
 
 type PropsWithChildrenMock = {
   text?: string;

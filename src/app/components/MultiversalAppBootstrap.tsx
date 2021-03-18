@@ -49,7 +49,7 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-export type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;
+type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;
 
 /**
  * Bootstraps a page and renders it

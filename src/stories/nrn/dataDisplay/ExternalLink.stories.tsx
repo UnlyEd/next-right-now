@@ -1,10 +1,13 @@
+import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import ExternalLink, { Props } from '@/common/components/dataDisplay/ExternalLink';
 import withPropMock from '../../shared/hocs/withPropMock';
+
+type Props = GetFCProps<typeof ExternalLink>;
 
 type PropsWithChildrenMock = Props & {
   text?: string;

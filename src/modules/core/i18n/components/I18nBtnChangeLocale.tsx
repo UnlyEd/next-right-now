@@ -9,7 +9,7 @@ import { i18nRedirect } from '../i18nRouter';
 import { LANG_FR } from '../i18n';
 import ToggleLanguagesButton from './ToggleLanguagesButton';
 
-export type Props = {
+type Props = {
   /**
    * HTML id attribute. Must be unique.
    */

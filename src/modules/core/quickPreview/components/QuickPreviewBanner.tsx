@@ -21,7 +21,7 @@ const logger = createLogger({
   label: fileLabel,
 });
 
-export type Props = {
+type Props = {
   ExplanationTooltipOverlay?: React.FunctionComponent;
   LeftActions?: React.FunctionComponent;
   quickPreviewTitle?: string;

@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import React, { ReactNode } from 'react';
 import { CardDeck } from 'reactstrap';
 
-export type Props = {
+type Props = {
   /**
    * Must be an array of `Card`.
    */

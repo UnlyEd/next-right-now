@@ -1,10 +1,13 @@
+import SimpleTooltip from '@/common/components/dataDisplay/SimpleTooltip';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import SimpleTooltip, { Props } from '@/common/components/dataDisplay/SimpleTooltip';
 import withPropMock from '../../shared/hocs/withPropMock';
+
+type Props = GetFCProps<typeof SimpleTooltip>;
 
 type PropsWithChildrenMock = Props & {
   text?: string;

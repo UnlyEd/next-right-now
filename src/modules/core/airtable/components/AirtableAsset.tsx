@@ -10,7 +10,7 @@ import {
 import { Link } from '@/modules/core/data/types/Link';
 import { cssToReactStyle } from '@/modules/core/css/css';
 
-export type Props = {
+type Props = {
   /**
    * Asset, extends Airtable attachment, e.g: image, document, etc.
    *
@@ -97,7 +97,7 @@ const _defaultLink: Link = {
  *
  * **Handles images only**, doesn't handle documents (PDF, etc.)
  */
-const AirtableAsset = (props: Props): JSX.Element => {
+const AirtableAsset: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
   const {
     asset,
     id,
