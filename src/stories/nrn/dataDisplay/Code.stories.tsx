@@ -1,9 +1,12 @@
+import Code from '@/common/components/dataDisplay/Code';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Code, { Props } from '@/common/components/dataDisplay/Code';
+
+type Props = GetFCProps<typeof Code>;
 
 export default {
   title: 'Next Right Now/Data display/Code',
@@ -16,7 +19,7 @@ const defaultText = `
   import React from 'react';
   import AnimatedLoader from '../svg/AnimatedLoader';
 
-  export type Props = {}
+  type Props = {}
 
   const Loader: React.FunctionComponent<Props> = (props): JSX.Element => {
     return (
@@ -31,7 +34,7 @@ const defaultText = `
         <AnimatedLoader />
       </div>
     );
-  };
+  }
 
   export default Loader;
 `;

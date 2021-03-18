@@ -22,7 +22,7 @@ import Btn from '@/components/dataDisplay/Btn';
 import ExternalLink from '@/components/dataDisplay/ExternalLink';
 import Tooltip from '@/components/dataDisplay/Tooltip';
 
-export type Props = {}
+type Props = {}
 
 export const ExplanationTooltipOverlay: React.FunctionComponent = (): JSX.Element => {
   return (

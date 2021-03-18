@@ -1,6 +1,6 @@
 import React, { DOMAttributes } from 'react';
 
-export type Props = {
+type Props = {
   /**
    * React children, usually text.
    */

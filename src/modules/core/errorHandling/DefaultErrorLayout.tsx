@@ -5,7 +5,7 @@ import { Button } from 'reactstrap';
 import { GenericObject } from '../data/types/GenericObject';
 import ErrorDebug from './ErrorDebug';
 
-export type Props = {
+type Props = {
   error: Error;
   context?: GenericObject;
 }
@@ -15,10 +15,8 @@ export type Props = {
  *
  * Displays a report dialog modal allowing end-users to provide a manual feedback about what happened.
  * You may want to customise this component to display different error messages to the end users, based on statusCode or other information.
- *
- * @param props
  */
-const DefaultErrorLayout = (props: Props): JSX.Element => {
+const DefaultErrorLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     error,
     context,

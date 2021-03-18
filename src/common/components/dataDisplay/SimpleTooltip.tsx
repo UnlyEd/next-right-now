@@ -2,7 +2,7 @@ import { TooltipProps } from 'rc-tooltip/lib/Tooltip';
 import React from 'react';
 import Tooltip, { TooltipPlacement } from './Tooltip';
 
-export type Props = {
+type Props = {
   /**
    * React children, usually text.
    */

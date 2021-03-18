@@ -40,7 +40,7 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 
-export type Props = {};
+type Props = {};
 
 const Nav: React.FunctionComponent<Props> = () => {
   const { t } = useTranslation();

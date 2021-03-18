@@ -1,7 +1,7 @@
 import { ReactLinkProps } from '@/modules/core/react/types/ReactLinkProps';
 import React, { Fragment } from 'react';
 
-export type Props = {
+type Props = {
   /**
    * React children, usually text.
    */

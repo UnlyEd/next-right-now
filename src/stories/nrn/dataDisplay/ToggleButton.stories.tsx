@@ -1,9 +1,12 @@
+import ToggleButton from '@/common/components/dataDisplay/ToggleButton';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React, { useState } from 'react';
-import ToggleButton, { Props } from '@/common/components/dataDisplay/ToggleButton';
+
+type Props = GetFCProps<typeof ToggleButton>;
 
 export default {
   title: 'Next Right Now/Data display/ToggleButton',

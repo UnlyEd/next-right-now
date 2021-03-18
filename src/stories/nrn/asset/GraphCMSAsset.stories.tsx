@@ -1,10 +1,13 @@
 import { Asset } from '@/modules/core/data/types/Asset';
-import GraphCMSAsset, { Props } from '@/modules/core/gql/components/GraphCMSAsset';
+import GraphCMSAsset from '@/modules/core/gql/components/GraphCMSAsset';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
+
+type Props = GetFCProps<typeof GraphCMSAsset>;
 
 const defaultLogoUrl = 'https://media.graphcms.com/EKw3Em7aRkqaYmowHWAN';
 

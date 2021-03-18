@@ -1,9 +1,12 @@
+import I18nBtnChangeLocale from '@/modules/core/i18n/components/I18nBtnChangeLocale';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import I18nBtnChangeLocale, { Props } from '@/modules/core/i18n/components/I18nBtnChangeLocale';
+
+type Props = GetFCProps<typeof I18nBtnChangeLocale>;
 
 export default {
   title: 'Next Right Now/I18n/I18nBtnChangeLocale',

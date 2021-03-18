@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import AnimatedTextBubble from '../animations/AnimatedTextBubble';
 
-export type Props = {
+type Props = {
   children: React.ReactElement;
   /**
    * @default 200

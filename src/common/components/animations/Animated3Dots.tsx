@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type Props = {
+type Props = {
   /**
    * Color of the dots.
    *

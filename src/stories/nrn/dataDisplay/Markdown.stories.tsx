@@ -1,9 +1,12 @@
+import Markdown from '@/common/components/dataDisplay/Markdown';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
-import Markdown, { Props } from '@/common/components/dataDisplay/Markdown';
+
+type Props = GetFCProps<typeof Markdown>;
 
 export default {
   title: 'Next Right Now/Data display/Markdown',
