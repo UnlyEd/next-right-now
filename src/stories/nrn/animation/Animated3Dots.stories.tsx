@@ -1,11 +1,12 @@
 import Animated3Dots from '@/common/components/animations/Animated3Dots';
+import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,
   Story,
 } from '@storybook/react/types-6-0';
 import React from 'react';
 
-type Props = typeof Animated3Dots;
+type Props = GetFCProps<typeof Animated3Dots>;
 
 export default {
   title: 'Next Right Now/Animation/Animated3Dots',
