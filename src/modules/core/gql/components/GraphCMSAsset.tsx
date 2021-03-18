@@ -10,7 +10,7 @@ import map from 'lodash.map';
 import React from 'react';
 import { Link } from '../../data/types/Link';
 
-export type Props = {
+type Props = {
   /**
    * Asset, extends GraphCMS asset, e.g: image, document, etc.
    *
@@ -111,7 +111,7 @@ const _defaultLink: Link = {
  *
  * @see Transformations https://docs.graphcms.com/developers/assets/transformations/transforming-url-structure
  */
-const GraphCMSAsset = (props: Props): JSX.Element => {
+const GraphCMSAsset: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     id,
     asset,
