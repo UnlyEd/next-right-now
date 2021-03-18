@@ -17,7 +17,7 @@ type Props = {
  *
  * @see https://animate.style
  */
-const Animated3Dots = (props: Props): JSX.Element => {
+const Animated3Dots: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
     <svg
       id="AnimatedBubble_svg__Calque_1"
