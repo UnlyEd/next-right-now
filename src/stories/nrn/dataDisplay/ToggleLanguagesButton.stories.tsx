@@ -22,7 +22,6 @@ const Template: Story<Props> = (props) => {
   console.log('isChecked', isChecked);
 
   return (
-    // @ts-ignore
     <ToggleLanguagesButton
       isChecked
       onClick={(): void => setIsChecked(!isChecked)}

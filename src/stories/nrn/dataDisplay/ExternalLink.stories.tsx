@@ -23,7 +23,6 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
   const { text } = props;
 
   return (
-    // @ts-ignore
     <ExternalLink
       {...props}
       onClick={(): void => console.info('Click')}

@@ -4,7 +4,6 @@ type Props = {} & React.SVGProps<SVGSVGElement>;
 
 const SvgEnglishHybridFlag = (props: Props): JSX.Element => {
   return (
-    // @ts-ignore
     <svg
       id="EnglishHybridFlag_svg__Calque_1"
       data-name="Calque 1"

@@ -14,7 +14,6 @@ type PropsWithChildrenMock = {
   text?: string;
 } & Props;
 
-// @ts-ignore
 export default {
   title: 'Next Right Now/I18n/I18nLink',
   component: I18nLink,
