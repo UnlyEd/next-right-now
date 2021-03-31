@@ -48,6 +48,7 @@ const CircleBtn: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <div
+      // @ts-ignore
       css={css`
         width: 100%;
         min-width: 10px;

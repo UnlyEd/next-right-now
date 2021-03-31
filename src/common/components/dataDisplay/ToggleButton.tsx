@@ -65,6 +65,7 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <span
+      // @ts-ignore
       css={css`
         .tgl {
           display: none;

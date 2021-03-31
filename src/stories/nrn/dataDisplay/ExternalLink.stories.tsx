@@ -23,6 +23,7 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
   const { text } = props;
 
   return (
+    // @ts-ignore
     <ExternalLink
       {...props}
       // eslint-disable-next-line no-console

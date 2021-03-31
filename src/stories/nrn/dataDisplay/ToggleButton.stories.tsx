@@ -27,6 +27,7 @@ const Template: Story<Props> = (props) => {
   console.log('isChecked', isChecked);
 
   return (
+    // @ts-ignore
     <ToggleButton
       contentOn={contentOn || 'On'}
       contentOff={contentOff || 'Off'}

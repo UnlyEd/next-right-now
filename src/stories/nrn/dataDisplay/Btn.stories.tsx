@@ -23,6 +23,7 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
   const { text } = props;
 
   return (
+    // @ts-ignore
     <Btn
       {...props}
       onClick={(): void => console.info('Click')}
