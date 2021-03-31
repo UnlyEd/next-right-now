@@ -14,7 +14,7 @@
 # LEARN MORE AT https://unlyed.github.io/next-right-now/guides/ci-cd/
 #
 # Dependencies overview:
-# - See https://github.com/actions/setup-node https://github.com/actions/setup-node/tree/v1
+# - See https://github.com/actions/setup-node https://github.com/actions/setup-node/tree/v2
 # - See https://github.com/actions/checkout https://github.com/actions/checkout/tree/v1
 # - See https://github.com/actions/upload-artifact https://github.com/actions/upload-artifact/tree/v1
 # - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
@@ -76,13 +76,13 @@ jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
   setup-environment:
-    name: Setup deployment environment (Ubuntu 18.04 - Node 12.x)
+    name: Setup deployment environment (Ubuntu 18.04 - Node 14.x)
     runs-on: ubuntu-18.04
     steps:
       - name: Installing node.js
-        uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
+        uses: actions/setup-node@v2 # Used to install node environment - https://github.com/actions/setup-node
         with:
-          node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
+          node-version: '14.x' # Use the same node.js version as the one Vercel's uses (currently node14.x)
 
   # Starts a Vercel deployment, using the staging configuration file of the default institution
   # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
@@ -247,7 +247,7 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
-            Commit ${{ github.sha }} successfully deployed to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
+            Commit ${{ github.sha }} successfully deployed **Next.js app** :rocket: to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
             Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
 
       # At the end of the job, store all variables we will need in the following jobs
@@ -378,7 +378,7 @@ jobs:
     runs-on: ubuntu-18.04
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
-    container: cypress/included:3.8.3
+    container: cypress/included:6.8.0
     needs: await-for-vercel-deployment
     timeout-minutes: 20 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:

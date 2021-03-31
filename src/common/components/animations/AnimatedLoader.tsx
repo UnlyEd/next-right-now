@@ -1,6 +1,8 @@
 import React from 'react';
 
-const AnimatedLoader = props => {
+type Props = {};
+
+const AnimatedLoader: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
     <svg
       viewBox="0 0 200 200"

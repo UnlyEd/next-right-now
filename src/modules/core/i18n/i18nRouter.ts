@@ -1,3 +1,4 @@
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import isEmpty from 'lodash.isempty';
 import { NextRouter } from 'next/router';
 import { removeTrailingSlash } from '../js/string';
@@ -76,7 +77,7 @@ export const isActive = (router: NextRouter, path: string): boolean => {
 };
 
 export const stringifyQueryParameters = (router: NextRouter): string => {
-  const query: any = router.query || {};
+  const query: GenericObject<string> = (router.query as GenericObject<string>) || {};
   delete query.locale; // Remove locale which is always included but doesn't interest us
 
   if (!isEmpty(query)) {
@@ -93,7 +94,7 @@ export const stringifyQueryParameters = (router: NextRouter): string => {
  * @param locale
  * @param router
  */
-export const getSamePageI18nUrl = (locale, router: NextRouter): string => {
+export const getSamePageI18nUrl = (locale: string, router: NextRouter): string => {
   return `${router.pathname.replace('[locale]', locale)}${stringifyQueryParameters(router)}`;
 };
 
@@ -107,7 +108,7 @@ export const getSamePageI18nUrl = (locale, router: NextRouter): string => {
  * @see https://nextjs.org/docs/routing/imperatively Programmatic usage of Next Router
  * @see https://nextjs.org/docs/api-reference/next/router#router-api Router API
  */
-export const i18nRedirect = (locale, router: NextRouter, forcePageReload = false): void => {
+export const i18nRedirect = (locale: string, router: NextRouter, forcePageReload = false): void => {
   const newUrl = getSamePageI18nUrl(locale, router);
   const queryParameters: string = stringifyQueryParameters(router);
 

@@ -89,6 +89,7 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
   const { res, err, asPath } = props;
   const errorInitialProps: ErrorProps = await NextError.getInitialProps({ res, err } as NextPageContext) as ErrorProps;
   if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+    // eslint-disable-next-line no-console
     console.debug('ErrorPage.getInitialProps - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);
   }
 

@@ -93,6 +93,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       errors,
       loading,
       networkStatus,
+      ...rest
     }: ApolloQueryResult<{
       customer: Customer;
       products: Product[];

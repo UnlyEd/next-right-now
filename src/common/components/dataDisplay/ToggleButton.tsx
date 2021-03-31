@@ -28,12 +28,12 @@ type Props = {
   /**
    * Content to display when the toggle is "on" (`checked = true`).
    */
-  contentOn: any;
+  contentOn: string;
 
   /**
    * Content to display when the toggle is "off" (`checked = false`).
    */
-  contentOff: any;
+  contentOff: string;
 
   /**
    * Whether the toggle is checked.
@@ -65,7 +65,6 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   return (
     <span
-      // @ts-ignore
       css={css`
         .tgl {
           display: none;

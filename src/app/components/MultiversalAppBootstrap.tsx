@@ -91,6 +91,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       locales,
       pathname,
       query,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ...restRouter // Other router props aren't interesting to track and are being ignored
     } = router;
     const {

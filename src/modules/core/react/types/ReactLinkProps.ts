@@ -11,4 +11,4 @@ import {
  *   href?: string;
  * } & ReactLinkProps;
  */
-export type ReactLinkProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>;
+export type ReactLinkProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
