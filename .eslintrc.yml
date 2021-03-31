@@ -97,6 +97,7 @@ rules: # See https://eslint.org/docs/rules
       extendDefaults: true
       types:
         '{}': false # Allow writing `type Props = {}` - See https://github.com/typescript-eslint/typescript-eslint/issues/2063#issuecomment-632833366
+  '@typescript-eslint/no-explicit-any': off
 
   # Emotion rules - See https://github.com/emotion-js/emotion/tree/master/packages/eslint-plugin
   # Emotion 11 - See https://emotion.sh/docs/emotion-11
