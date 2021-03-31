@@ -132,7 +132,7 @@
     "deepmerge": "4.2.2",
     "graphql": "15.5.0",
     "graphql-tag": "2.11.0",
-    "i18next": "19.8.4",
+    "i18next": "20.1.0",
     "i18next-locize-backend": "4.2.0",
     "js-cookie": "2.2.1",
     "json-stringify-safe": "5.0.1",

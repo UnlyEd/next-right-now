@@ -1555,7 +1555,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.13.10":
+"@babel/runtime@^7.13.10", "@babel/runtime@^7.13.6":
   version "7.13.10"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.10.tgz#47d42a57b6095f4468da440388fdbad8bebf0d7d"
   integrity sha512-4QPkjJq6Ns3V/RgpEahRk+AGfL0eO6RHHtTWoNNr5mO49G6B5+X6d6THgWEAvTrznU5xYpbAlVKRYcsCgh/Akw==
@@ -9904,9 +9904,9 @@ html-minifier-terser@^5.0.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
-html-parse-stringify2@2.0.1:
+html-parse-stringify2@^2.0.1:
   version "2.0.1"
-  resolved "https://registry.npmjs.org/html-parse-stringify2/-/html-parse-stringify2-2.0.1.tgz#dc5670b7292ca158b7bc916c9a6735ac8872834a"
+  resolved "https://registry.yarnpkg.com/html-parse-stringify2/-/html-parse-stringify2-2.0.1.tgz#dc5670b7292ca158b7bc916c9a6735ac8872834a"
   integrity sha1-3FZwtyksoVi3vJFsmmc1rIhyg0o=
   dependencies:
     void-elements "^2.0.1"
@@ -10014,10 +10014,10 @@ i18next-browser-languagedetector@4.0.1:
   dependencies:
     "@babel/runtime" "^7.5.5"
 
-i18next-locize-backend@4.1.8:
-  version "4.1.8"
-  resolved "https://registry.npmjs.org/i18next-locize-backend/-/i18next-locize-backend-4.1.8.tgz#ae7585d0c868c245765ddd909c72f5c1200d0717"
-  integrity sha512-Yn2gU/6MUCz69uZmwTyLb4di9Hw2klqPvpVsx9VoFH1ZEy7UggnUdWWjgK3FfIbstL8gL+mTjZH1xdKBoVemkw==
+i18next-locize-backend@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/i18next-locize-backend/-/i18next-locize-backend-4.2.0.tgz#fa71a010459079be69922678604a6a952d4162d1"
+  integrity sha512-piEGKY4e79S+zcxbEy7VwN66RZZKRx3qLzLJZNhHN251IxF1HkvhNiz+kNSla7Y/k25T1F2WOU6L9OlSjEwvtw==
   dependencies:
     node-fetch "2.6.1"
 
@@ -10028,10 +10028,10 @@ i18next@19.0.2:
   dependencies:
     "@babel/runtime" "^7.3.1"
 
-i18next@19.8.4:
-  version "19.8.4"
-  resolved "https://registry.npmjs.org/i18next/-/i18next-19.8.4.tgz#447718f2a26319b8debdbcc6fbc1a9761be7316b"
-  integrity sha512-FfVPNWv+felJObeZ6DSXZkj9QM1Ivvh7NcFCgA8XPtJWHz0iXVa9BUy+QY8EPrCLE+vWgDfV/sc96BgXVo6HAA==
+i18next@20.1.0:
+  version "20.1.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-20.1.0.tgz#397dce9ad230ea822f487dc62d6128df5b678456"
+  integrity sha512-sV+ZwTM4Ik4d6wKdwNS/ocKmvXi6DFA/YHMgdQX3i4L5993jnbo1/j1pK/c4+zBOjexer4dt+c5JHsFj4CUoXQ==
   dependencies:
     "@babel/runtime" "^7.12.0"
 
@@ -11748,10 +11748,10 @@ locize-editor@3.1.1:
   dependencies:
     "@babel/runtime" "^7.12.1"
 
-locize-lastused@3.0.10:
-  version "3.0.10"
-  resolved "https://registry.npmjs.org/locize-lastused/-/locize-lastused-3.0.10.tgz#fa2d3d92481731e907a0e03c47338c50c2d87065"
-  integrity sha512-cYJirMD7+seTVdIvQLaaJc1t3Jwa53bXEqHFDMed0U13COsCsbNY5kMdoyCH1854sCCgRCMRT4bJuoIn9Lw/Ng==
+locize-lastused@3.0.11:
+  version "3.0.11"
+  resolved "https://registry.yarnpkg.com/locize-lastused/-/locize-lastused-3.0.11.tgz#8d12d314e9da3bb1125f1f7e32bf68dabe5ec23f"
+  integrity sha512-H455jHXNqpx4Qj8/OJ5JKpH+4XY8NbXIN+d3/7l2DVtFvAOfy9jckNAlD7uGCP6HwRVpLW2+GV/KZDNLKTpVsA==
   dependencies:
     node-fetch "2.6.1"
 
@@ -14438,13 +14438,13 @@ react-helmet-async@^1.0.7:
     react-fast-compare "^3.2.0"
     shallowequal "^1.1.0"
 
-react-i18next@11.8.5:
-  version "11.8.5"
-  resolved "https://registry.npmjs.org/react-i18next/-/react-i18next-11.8.5.tgz#a093335822e36252cda6efc0f55facef6253643f"
-  integrity sha512-2jY/8NkhNv2KWBnZuhHxTn13aMxAbvhiDUNskm+1xVVnrPId78l8fA7fCyVeO3XU1kptM0t4MtvxV1Nu08cjLw==
+react-i18next@11.8.12:
+  version "11.8.12"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.8.12.tgz#6a9f57277062fb6a6129cad4db5e6198d5c60b58"
+  integrity sha512-M2PSVP9MzT/7yofXfCOF5gAVotinrM4BXWiguk8uFSznJsfFzTjrp3K9CBWcXitpoCBVZGZJ2AnbaWGSNkJqfw==
   dependencies:
-    "@babel/runtime" "^7.3.1"
-    html-parse-stringify2 "2.0.1"
+    "@babel/runtime" "^7.13.6"
+    html-parse-stringify2 "^2.0.1"
 
 react-inspector@^5.1.0:
   version "5.1.0"
