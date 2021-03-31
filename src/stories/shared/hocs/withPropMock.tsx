@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/addons/dist/types';
+import { ArgTypes } from '@storybook/addons';
 
 /**
  * HOC options.
