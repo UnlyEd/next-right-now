@@ -107,8 +107,8 @@
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
     "@apollo/client": "3.3.13",
-    "@emotion/react": "11.1.4",
-    "@emotion/styled": "11.0.0",
+    "@emotion/react": "11.1.5",
+    "@emotion/styled": "11.1.5",
     "@fortawesome/fontawesome-svg-core": "1.2.34",
     "@fortawesome/free-brands-svg-icons": "5.15.2",
     "@fortawesome/free-regular-svg-icons": "5.15.2",
@@ -177,8 +177,8 @@
   },
   "devDependencies": {
     "@cypress/react": "4.16.3",
-    "@emotion/babel-preset-css-prop": "11.0.0",
-    "@emotion/eslint-plugin": "11.0.0",
+    "@emotion/babel-preset-css-prop": "11.2.0",
+    "@emotion/eslint-plugin": "11.2.0",
     "@next/bundle-analyzer": "10.0.5",
     "@storybook/addon-a11y": "6.1.14",
     "@storybook/addon-actions": "6.1.14",
