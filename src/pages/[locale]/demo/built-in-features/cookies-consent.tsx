@@ -55,7 +55,11 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
-  const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = useUserConsent();
+  const {
+    isUserOptedOutOfAnalytics,
+    hasUserGivenAnyCookieConsent,
+    ...rest
+  } = useUserConsent();
 
   return (
     <DemoLayout
@@ -115,4 +119,4 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
-export default (ExampleCookiesConsentPage);
+export default ExampleCookiesConsentPage;

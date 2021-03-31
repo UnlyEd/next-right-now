@@ -60,6 +60,7 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
     params,
     req,
     res,
+    ...rest
   } = context;
   const isQuickPreviewPage: boolean = isQuickPreviewRequest(req);
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;

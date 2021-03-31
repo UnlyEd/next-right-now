@@ -50,7 +50,7 @@ export const isDateDayBefore = (dateDay: DateDay, dateDay2: DateDay): boolean =>
  * @param langOrLocale
  * @param options
  */
-export const toI18nString = (dateDay: DateDay, langOrLocale: string, options = { year: 'numeric', month: 'long', day: 'numeric' }): string => {
+export const toI18nString = (dateDay: DateDay, langOrLocale: string, options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }): string => {
   const date = new Date(dateDay);
 
   return date.toLocaleDateString(langOrLocale, options);

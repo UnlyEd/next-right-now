@@ -32,6 +32,7 @@ const withHOCTemplate = ({}: Options = defaultOptions as Options) => <OriginalPr
 ): React.ComponentClass<OriginalProps> => {
   class WithHOCTemplate extends React.Component<OriginalProps & ExternalProps> {
     render(): JSX.Element {
+      // eslint-disable-next-line no-console
       console.log('WithHOCTemplate props', this.props);
 
       return (
@@ -42,7 +43,7 @@ const withHOCTemplate = ({}: Options = defaultOptions as Options) => <OriginalPr
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    (WithHOCTemplate as any).displayName = wrapDisplayName(WrappedComponent, 'withoutNoisySSG');
+    (WithHOCTemplate as React.ComponentClass).displayName = wrapDisplayName(WrappedComponent, 'withoutNoisySSG');
   }
 
   return WithHOCTemplate;
