@@ -4,6 +4,10 @@
  *
  * It will only log unnecessary re-renders, not expected re-renders.
  *
+ * XXX Does not work since we upgraded Emotion to v11, because it clashes with the Babel "automatic" runtime.
+ *  See https://github.com/welldone-software/why-did-you-render/issues/178
+ *  Disabled for now (should be imported from _app.tsx)
+ *
  * @see https://github.com/welldone-software/why-did-you-render
  * @see https://github.com/vercel/next.js/tree/canary/examples/with-why-did-you-render
  */

@@ -7,7 +7,6 @@ import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { sendWebVitals } from '@/modules/core/amplitude/amplitude';
 import '@/modules/core/fontAwesome/fontAwesome';
 import '@/modules/core/sentry/sentry';
-import '@/modules/core/wdyr/wdyr';
 import { NextWebVitalsMetrics } from '@/modules/core/webVitals/types/NextWebVitalsMetrics';
 import { NextWebVitalsMetricsReport } from '@/modules/core/webVitals/types/NextWebVitalsMetricsReport';
 import size from 'lodash.size';
