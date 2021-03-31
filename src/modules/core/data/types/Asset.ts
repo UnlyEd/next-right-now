@@ -1,3 +1,4 @@
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 
 export type Asset = {
@@ -13,12 +14,12 @@ export type Asset = {
   // XXX Additional fields that do not exist on the native GraphCMS Asset model, but you can add them and they'll be handled when using GraphCMSAsset, for instance
   alt?: string;
   classes?: string;
-  defaultTransformations?: object;
+  defaultTransformations?: GenericObject;
   importUrl?: string;
   key?: string;
   linkTarget?: string;
   linkUrl?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  style?: string | object | any;
+  style?: string | GenericObject | any;
   title?: string;
 } & GraphCMSSystemFields;
