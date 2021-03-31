@@ -1,19 +1,19 @@
 /**
- * A react-select group
+ * A react-select group.
  *
  * @see https://react-select.com/advanced#replacing-builtins
  * @see https://stackoverflow.com/a/52503863/2391795
  */
-export type ReactSelectGroup = {
+export type ReactSelectGroup<Option = ReactSelectDefaultOption> = {
   label: string;
   labelShort?: string;
-  options: Array<any>;
+  options: Option[];
 }
 
 /**
- * A react-select option must have a label and a value field
+ * A react-select option must have a label and a value field.
  *
- * But those two keys can be changed from within the component using getOptionLabel and getOptionValue
+ * But those two keys can be changed from within the component using getOptionLabel and getOptionValue.
  */
 export type ReactSelectDefaultOption = {
   label: string;
