@@ -12134,10 +12134,10 @@ markdown-escapes@^1.0.0:
   resolved "https://registry.npmjs.org/markdown-escapes/-/markdown-escapes-1.0.4.tgz#c95415ef451499d7602b91095f3c8e8975f78535"
   integrity sha512-8z4efJYk43E0upd0NbVXwgSTQs6cT3T06etieCMEg7dRbzCbxUCK/GHlX8mhHRDcp+OLlHkPKsvqQTCvsRl2cg==
 
-markdown-to-jsx@7.1.1:
-  version "7.1.1"
-  resolved "https://registry.npmjs.org/markdown-to-jsx/-/markdown-to-jsx-7.1.1.tgz#269145a585650258691a9a1ec9fb4b273ed2d32a"
-  integrity sha512-PJgNmvdKM7f7dFDgr4N2ZQv5OuJ2dwwBZvKel61BO7JLh2QQLDs880uQO+OjsEKNmhCZ0ZOIKkCXFEuY9G0yEA==
+markdown-to-jsx@7.1.2, markdown-to-jsx@^7.1.0:
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.1.2.tgz#19d3da4cd8864045cdd13a0d179147fbd6a088d4"
+  integrity sha512-O8DMCl32V34RrD+ZHxcAPc2+kYytuDIoQYjY36RVdsLK7uHjgNVvFec4yv0X6LgB4YEZgSvK5QtFi5YVqEpoMA==
 
 markdown-to-jsx@^6.11.4:
   version "6.11.4"
@@ -12146,11 +12146,6 @@ markdown-to-jsx@^6.11.4:
   dependencies:
     prop-types "^15.6.2"
     unquote "^1.1.0"
-
-markdown-to-jsx@^7.1.0:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.1.2.tgz#19d3da4cd8864045cdd13a0d179147fbd6a088d4"
-  integrity sha512-O8DMCl32V34RrD+ZHxcAPc2+kYytuDIoQYjY36RVdsLK7uHjgNVvFec4yv0X6LgB4YEZgSvK5QtFi5YVqEpoMA==
 
 material-colors@^1.2.1:
   version "1.2.6"
@@ -14228,10 +14223,10 @@ rc-motion@^2.0.0:
     classnames "^2.2.1"
     rc-util "^5.2.1"
 
-rc-tooltip@5.0.2:
-  version "5.0.2"
-  resolved "https://registry.npmjs.org/rc-tooltip/-/rc-tooltip-5.0.2.tgz#e48258fc9931bd9281102b2d9eacc5b986cf3258"
-  integrity sha512-A4FejSG56PzYtSNUU4H1pVzfhtkV/+qMT2clK0CsSj+9mbc4USEtpWeX6A/jjVL+goBOMKj8qlH7BCZmZWh/Nw==
+rc-tooltip@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/rc-tooltip/-/rc-tooltip-5.1.0.tgz#abb453c463c31a705aa01d268279f4ae6ae3b15f"
+  integrity sha512-pFqD1JZwNIpbdcefB7k5xREoHAWM/k3yQwYF0iminbmDXERgq4rvBfUwIvlCqqZSM7HDr9hYeYr6ZsVNaKtvCQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     rc-trigger "^5.0.0"
