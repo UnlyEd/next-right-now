@@ -58,6 +58,7 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
   const {
     isUserOptedOutOfAnalytics,
     hasUserGivenAnyCookieConsent,
+    ...rest
   } = useUserConsent();
 
   return (
