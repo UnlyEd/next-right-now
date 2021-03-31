@@ -47,7 +47,6 @@ const QuickPreviewBanner: React.FunctionComponent<Props> = (props): JSX.Element 
   const {
     secondaryColor,
     secondaryColorVariant1,
-    onSecondaryColor,
   } = useTheme();
   const { t } = useTranslation();
   const router: NextRouter = useRouter();

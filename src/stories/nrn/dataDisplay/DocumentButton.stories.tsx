@@ -23,7 +23,6 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
   const { text } = props;
 
   return (
-    // @ts-ignore
     <DocumentButton
       {...props}
     >

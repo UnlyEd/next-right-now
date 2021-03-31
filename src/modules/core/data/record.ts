@@ -20,10 +20,7 @@ const logger = createLogger({
  * Base type, meant to be extended to create specialized types.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type GenericRecord<E extends { [key: string]: any } = { [key: string]: any }> = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any; // Allow any key - See https://stackoverflow.com/a/47572701/2391795
-};
+export type GenericRecord<E extends { [key: string]: any } = { [key: string]: any }> = E;
 
 /**
  * When some queries rely on required variables, but no value is available, you can use this fake value to perform the query so it doesn't fail, but won't find any record

@@ -33,6 +33,7 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
     errorColor,
     onErrorColor,
     fonts,
+    ...rest
   } = customerTheme;
 
   return (

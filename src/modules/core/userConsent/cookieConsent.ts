@@ -180,6 +180,7 @@ const initCookieConsent = (options: InitOptions): void => {
      * Will provide the value contained in CONSENT_COOKIE_NAME cookie
      */
     onInitialise: function (status) {
+      // eslint-disable-next-line no-console
       console.info('onInitialise', `User consent from "${CONSENT_COOKIE_NAME}" cookie:`, status);
     },
 
@@ -193,6 +194,7 @@ const initCookieConsent = (options: InitOptions): void => {
      * @param previousChoice
      */
     onStatusChange: function (status, previousChoice) {
+      // eslint-disable-next-line no-console
       console.info('onStatusChange', status, previousChoice);
       if (status === 'deny') {
         // Store user choice, then disable analytics tracking
@@ -225,7 +227,9 @@ const initCookieConsent = (options: InitOptions): void => {
      * This should be fixed in the CC OSS lib.
      */
     onRevokeChoice: function () {
+      // eslint-disable-next-line no-console
       console.info('onRevokeChoice');
+      // eslint-disable-next-line no-console
       console.info(`Previous choice has been revoked, "${CONSENT_COOKIE_NAME}" cookie has been deleted.`);
     },
 
@@ -233,6 +237,7 @@ const initCookieConsent = (options: InitOptions): void => {
      * Triggers when the popup opens
      */
     onPopupOpen: function () {
+      // eslint-disable-next-line no-console
       console.info('onPopupOpen');
     },
 
@@ -240,6 +245,7 @@ const initCookieConsent = (options: InitOptions): void => {
      * Triggers when the popup closes
      */
     onPopupClose: function () {
+      // eslint-disable-next-line no-console
       console.info('onPopupClose');
     },
   };

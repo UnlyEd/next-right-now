@@ -197,6 +197,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
       },
       report,
     });
+    // eslint-disable-next-line no-console
     console.debug('report-web-vitals report sent to Amplitude');
   } catch (e) {
     Sentry.captureException(e);

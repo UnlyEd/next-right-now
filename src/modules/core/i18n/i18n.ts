@@ -1,4 +1,5 @@
 import size from 'lodash.size';
+import { NextApiRequest } from 'next';
 import {
   defaultLocale,
   supportedLanguages,
@@ -59,7 +60,7 @@ export const resolveCustomerVariationLang = (lang: string): string => {
  * @param req
  * @see https://codesandbox.io/s/nextjs-i18n-staticprops-new-pbwjj?file=/src/static-translations/apiUtils/headerLanguage.js
  */
-export const acceptLanguageHeaderLookup = (req): string[] | undefined => {
+export const acceptLanguageHeaderLookup = (req: NextApiRequest): string[] | undefined => {
   let found: string[];
 
   if (typeof req !== 'undefined') {

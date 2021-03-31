@@ -90,6 +90,7 @@ rules: # See https://eslint.org/docs/rules
       vars: 'all' # We don't want unused variables (noise) - XXX Note that this will be a duplicate of "no-unused-vars" rule
       args: 'none' # Sometimes it's useful to have unused arguments for later use, such as describing what args are available (DX)
       ignoreRestSiblings: true # Sometimes it's useful to have unused props for later use, such as describing what props are available (DX)
+      varsIgnorePattern: 'logger|rest'
   '@typescript-eslint/ban-types':
     - error
     -

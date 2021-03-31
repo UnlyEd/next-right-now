@@ -23,9 +23,9 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
   const { text } = props;
 
   return (
-    // @ts-ignore
     <CircleBtn
       {...props}
+      // eslint-disable-next-line no-console
       onClick={(): void => console.info('Click')}
     >
       {text || 'Default text'}
