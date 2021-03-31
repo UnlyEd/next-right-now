@@ -25,6 +25,7 @@ const Template: Story<PropsWithChildrenMock> = (props) => {
   return (
     <ExternalLink
       {...props}
+      // eslint-disable-next-line no-console
       onClick={(): void => console.info('Click')}
     >
       {text || 'Default text'}

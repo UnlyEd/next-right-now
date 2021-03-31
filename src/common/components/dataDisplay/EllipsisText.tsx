@@ -64,8 +64,6 @@ const EllipsisText: React.FunctionComponent<Props> = (props): JSX.Element => {
     children,
   } = props;
 
-  const dynamicProps = {};
-
   return (
     <div
       title={title}

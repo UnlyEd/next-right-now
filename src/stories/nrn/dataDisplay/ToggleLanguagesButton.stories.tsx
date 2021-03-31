@@ -19,6 +19,7 @@ const Template: Story<Props> = (props) => {
     isChecked,
     setIsChecked,
   ] = useState<boolean>(false);
+  // eslint-disable-next-line no-console
   console.log('isChecked', isChecked);
 
   return (

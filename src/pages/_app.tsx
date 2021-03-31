@@ -88,6 +88,7 @@ const globalWebVitalsMetric: NextWebVitalsMetricsReport = {
  */
 export function reportWebVitals(metrics: NextWebVitalsMetrics): void {
   if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+    // eslint-disable-next-line no-console
     console.debug(metrics);
   }
 
