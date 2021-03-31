@@ -119,6 +119,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   }> = await apolloClient.query(queryOptions);
 
   if (errors) {
+    // eslint-disable-next-line no-console
     console.error(errors);
     throw new Error('Errors were detected in GraphQL query.');
   }

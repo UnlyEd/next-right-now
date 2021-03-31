@@ -60,7 +60,7 @@ const DisplayOnBrowserMount: React.FunctionComponent<Props> = (props) => {
   // If any dep isn't defined, then it will render "null" first, and then trigger a re-render
   const isAnyDepsNullish = size(deps) ?
     // If any deps was provided, check if any is null-ish
-    some(deps, (dependency: any): boolean => {
+    some(deps, (dependency: never): boolean => {
       return dependency === null || typeof dependency === 'undefined';
     })
     // If no dep is provided, then it should render "null" first anyway, and then trigger a re-render
