@@ -4,6 +4,7 @@
 # LEARN MORE AT https://unlyed.github.io/next-right-now/guides/ci-cd/
 #
 # Dependencies overview:
+# - See https://github.com/actions/setup-node https://github.com/actions/setup-node/tree/v2
 # - https://github.com/paambaati/codeclimate-action https://github.com/paambaati/codeclimate-action/tree/v2.6.0
 
 name: Update Code Climate test coverage
@@ -21,7 +22,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Installing node.js
-        uses: actions/setup-node@v1 # Used to install node environment - XXX https://github.com/actions/setup-node
+        uses: actions/setup-node@v2 # Used to install node environment - XXX https://github.com/actions/setup-node
         with:
           node-version: '14.x' # Use the same node.js version as the one Vercel's uses (currently node14.x)
 

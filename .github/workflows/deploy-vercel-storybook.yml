@@ -4,7 +4,7 @@
 # LEARN MORE AT https://unlyed.github.io/next-right-now/guides/ci-cd/
 #
 # Dependencies overview:
-# - See https://github.com/actions/setup-node https://github.com/actions/setup-node/tree/v1
+# - See https://github.com/actions/setup-node https://github.com/actions/setup-node/tree/v2
 # - See https://github.com/actions/checkout https://github.com/actions/checkout/tree/v1
 # - See https://github.com/actions/upload-artifact https://github.com/actions/upload-artifact/tree/v1
 # - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - name: Installing node.js
-        uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
+        uses: actions/setup-node@v2 # Used to install node environment - https://github.com/actions/setup-node
         with:
           node-version: '14.x' # Use the same node.js version as the one Vercel's uses (currently node14.x)
 
