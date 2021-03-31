@@ -73,7 +73,6 @@ const ExternalLink: React.FunctionComponent<Props> = (props): JSX.Element => {
   return (
     <Fragment>
       {prefix}
-      {/*// @ts-ignore*/}
       <a
         href={href}
         target={'_blank'} // eslint-disable-line react/jsx-no-target-blank
