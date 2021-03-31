@@ -1,3 +1,6 @@
+- On Windows OS, the `yarn start:windows` command should be used instead of `yarn start`
+    - That's because the `yarn start` command uses some bash script which aren't compatible with Windows (unless you're using WSL)
+    - You might want to install [WSL on Windows 10](https://www.thewindowsclub.com/how-to-run-sh-or-shell-script-file-in-windows-10) to enable basic bash support
 - NRN v2 has been tested on Windows (on June 1st, 2020) and works correctly
     - **Tip**: We recommend [`nvm-windows`](https://github.com/coreybutler/nvm-windows/releases) as replacement for `nvm` (download the `nvm-setup.zip`)
 - When manually deploying (i.e: `yarn deploy`), the symbolic link for `vercel.json` (which points to another `vercel.*.json` file, depending on the preset) **will not work on Windows**, and you'll have to create a `vercel.json` yourself (just copy the content of any `vercel.*.json` file)

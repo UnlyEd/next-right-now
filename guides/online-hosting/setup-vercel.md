@@ -35,6 +35,7 @@ Step-by-step guide about how to create and properly configure your Vercel accoun
 ### Deploying on Vercel (manually)
 
 1. `yarn start` - Will start the project locally, and create the `.vercel` folder.
+   - Alternatively, on Windows, you need to run `yarn start:windows`
 1. `yarn deploy` - Will deploy the project online, and automatically create the Vercel project first, if it doesn't exist already.
     This command will fail if any secret is missing.
 1. Add a `scope` line in all `vercel.*.json` files using the `orgId` in `.vercel/project.json` (this folder is created when running `npx vercel`, which was called when you run the above `yarn start`)

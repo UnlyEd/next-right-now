@@ -10,6 +10,7 @@ This local installation guide is meant to guide you through the installation pro
 
 1. `yarn` - Installs all deps from `package.json`
 1. `yarn start` - Starts the app on [http://localhost:8888/](http://localhost:8888/)
+    - Alternatively, on Windows, you need to run `yarn start:windows`
 
 Awesome, the demo should be working on your computer now!
 
