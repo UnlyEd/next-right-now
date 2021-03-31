@@ -11,10 +11,7 @@ import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout'
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
 import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
-import {
-  i18nRedirect,
-  stringifyQueryParameters,
-} from '@/modules/core/i18n/i18nRouter';
+import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
 import previewModeContext from '@/modules/core/previewMode/contexts/previewModeContext';
 import {
@@ -34,7 +31,6 @@ import { isBrowser } from '@unly/utils';
 import { createLogger } from '@unly/utils-simple-logger';
 import { i18n } from 'i18next';
 import find from 'lodash.find';
-import includes from 'lodash.includes';
 import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
 import React, { useState } from 'react';
