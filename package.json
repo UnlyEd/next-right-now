@@ -106,7 +106,7 @@
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
-    "@apollo/client": "3.3.11",
+    "@apollo/client": "3.3.13",
     "@emotion/react": "11.1.4",
     "@emotion/styled": "11.0.0",
     "@fortawesome/fontawesome-svg-core": "1.2.34",
