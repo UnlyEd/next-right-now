@@ -1,4 +1,4 @@
-import { GHAWorkflow } from "./GHAWorkflow";
+import { GHAWorkflow } from './GHAWorkflow';
 
 /**
  * GitHub Actions Workflows API response.
