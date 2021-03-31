@@ -10,9 +10,9 @@ export default {
   },
 } as Meta;
 
-export const accessible = () => <button>Accessible button</button>;
+export const accessible = (): JSX.Element => <button>Accessible button</button>;
 
-export const inaccessible = () => (
+export const inaccessible = (): JSX.Element => (
   <button
     style={{
       backgroundColor: 'red',
