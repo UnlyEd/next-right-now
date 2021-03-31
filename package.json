@@ -89,6 +89,9 @@
     "security:audit": "yarn audit",
     "packages:upgrade": "yarn upgrade-interactive --latest"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "next-unused": {
     "alias": {},
     "debug": true,
