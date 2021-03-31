@@ -114,11 +114,13 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     errors,
     loading,
     networkStatus,
+    ...rest
   }: ApolloQueryResult<{
     customer: Customer;
   }> = await apolloClient.query(queryOptions);
 
   if (errors) {
+    // eslint-disable-next-line no-console
     console.error(errors);
     throw new Error('Errors were detected in GraphQL query.');
   }

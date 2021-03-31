@@ -62,7 +62,6 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
   const {
     secondaryColor,
     secondaryColorVariant1,
-    onSecondaryColor,
   } = useTheme();
 
   if (process.env.NEXT_PUBLIC_APP_STAGE === 'production') {

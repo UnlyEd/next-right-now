@@ -114,6 +114,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     errors,
     loading,
     networkStatus,
+    ...rest
   }: ApolloQueryResult<{
     customer: Customer;
   }> = await apolloClient.query(queryOptions);
