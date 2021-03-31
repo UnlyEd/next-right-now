@@ -247,7 +247,7 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
-            Commit ${{ github.sha }} successfully deployed to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
+            Commit ${{ github.sha }} successfully deployed **Next.js app** :rocket: to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
             Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
 
       # At the end of the job, store all variables we will need in the following jobs

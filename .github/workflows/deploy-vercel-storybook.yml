@@ -180,7 +180,7 @@ jobs:
           issue-number: ${{ steps.pr_id_finder.outputs.number }}
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
-            Commit ${{ github.sha }} successfully deployed **Storybook static site** to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
+            Commit ${{ github.sha }} successfully deployed **Storybook static site** :open_book: to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
             Deployment aliased as [nrn-v2-mst-aptd-gcms-lcz-sty-storybook](https://nrn-v2-mst-aptd-gcms-lcz-sty-storybook.vercel.app)
 
       # At the end of the job, store all variables we will need in the following jobs
