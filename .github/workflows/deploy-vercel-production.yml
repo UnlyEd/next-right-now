@@ -76,13 +76,13 @@ jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
   setup-environment:
-    name: Setup deployment environment (Ubuntu 18.04 - Node 12.x)
+    name: Setup deployment environment (Ubuntu 18.04 - Node 14.x)
     runs-on: ubuntu-18.04
     steps:
       - name: Installing node.js
         uses: actions/setup-node@v1 # Used to install node environment - https://github.com/actions/setup-node
         with:
-          node-version: '12.x' # Use the same node.js version as the one Vercel's uses (currently node12.x)
+          node-version: '14.x' # Use the same node.js version as the one Vercel's uses (currently node14.x)
 
   # Starts a Vercel deployment, using the production configuration file of the default institution
   # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
