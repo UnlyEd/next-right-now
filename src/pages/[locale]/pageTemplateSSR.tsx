@@ -5,7 +5,7 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import DefaultLayout from '@/layouts/default/components/DefaultLayout';
 import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
-import { GetCommonServerSidePropsResults } from '@/layouts/demo/demoSSR';
+import { GetDefaultServerSidePropsResults } from '@/layouts/default/defaultSSR';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import {
   APOLLO_STATE_PROP_NAME,
@@ -47,7 +47,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
-  const commonServerSideProps: GetServerSidePropsResult<Omit<GetCommonServerSidePropsResults, 'serializedDataset'>> = await getDefaultServerSideProps(context);
+  const commonServerSideProps: GetServerSidePropsResult<Omit<GetDefaultServerSidePropsResults, 'serializedDataset'>> = await getDefaultServerSideProps(context);
 
   if ('props' in commonServerSideProps) {
     const {
