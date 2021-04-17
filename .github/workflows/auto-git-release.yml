@@ -6,7 +6,7 @@
 #
 # Dependencies overview:
 # - See https://github.com/PaulHatch/semantic-version https://github.com/PaulHatch/semantic-version/tree/v3.2
-# - See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0
+# - See https://github.com/marvinpinto/action-automatic-releases https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.1
 # - See https://github.com/rlespinasse/github-slug-action https://github.com/rlespinasse/github-slug-action/tree/3.x
 
 name: 'Auto release'
@@ -42,9 +42,9 @@ jobs:
           echo "Next version tag: ${{ steps.next_semantic_version.outputs.version_tag }}"
 
       # Auto-release when a commit hit "master"
-      - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
+      - uses: marvinpinto/action-automatic-releases@2aa16da5b7423a298a2d56cf5d9c2dafcef5f542 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/2aa16da5b7423a298a2d56cf5d9c2dafcef5f542 necessary to avoid "The `set-env` command is disabled."
         if: startsWith(env.GITHUB_REF_SLUG, 'v2-') || env.GITHUB_REF_SLUG == 'master' || env.GITHUB_REF_SLUG == 'main' # If master, mark release as official release
-        with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
+        with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.1#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "v${{ steps.next_semantic_version.outputs.version }}"
           prerelease: false
@@ -55,10 +55,10 @@ jobs:
             LICENSE
 
       # Auto-release (as pre-release) in a shared tag (using the branch's name) when a commit hits another branch
-      - uses: marvinpinto/action-automatic-releases@10bdce64abdb4558a2ee6983192242be40d631d8 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/10bdce64abdb4558a2ee6983192242be40d631d8 necessary to avoid "The `set-env` command is disabled."
+      - uses: marvinpinto/action-automatic-releases@2aa16da5b7423a298a2d56cf5d9c2dafcef5f542 # Pin "latest" https://github.com/marvinpinto/action-automatic-releases/commit/2aa16da5b7423a298a2d56cf5d9c2dafcef5f542 necessary to avoid "The `set-env` command is disabled."
         # When using "!", must use expression syntax - See https://github.community/t/if-not-startswith-mutually-exclusive-steps/141841/2?u=vadorequest
         if: ${{ !startsWith(env.GITHUB_REF_SLUG, 'v2-') && env.GITHUB_REF_SLUG != 'master' && env.GITHUB_REF_SLUG != 'main' }} # If not master, mark release as pre-release and include branch name to avoid tagging conflicts
-        with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.0#supported-parameters
+        with: # See https://github.com/marvinpinto/action-automatic-releases/tree/v1.1.1#supported-parameters
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "v${{ steps.next_semantic_version.outputs.major }}.${{ steps.next_semantic_version.outputs.minor }}.x-rc-${{ env.GITHUB_REF_SLUG }}"
           prerelease: true
