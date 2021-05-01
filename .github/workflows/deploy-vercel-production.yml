@@ -39,7 +39,6 @@ on:
       - 'master'
       - 'main'
       - 'v2-mst-aptd-at-lcz-sty' # XXX Name of the NRN preset branch, acting as a main branch (all commits pushed to the preset branch are deployed to production)
-      - 'implement-own-vercel-deploy-action'
 
     # Runs the deployment workflow only when there are changes made to specific files, in any of the below paths
     # Optimizes our CI/CD by not deploying the Next.js site needlessly (faster deploy, lower cost)
@@ -123,7 +122,8 @@ jobs:
         uses: UnlyEd/github-action-deploy-on-vercel@latest
         with:
           command: "yarn deploy:ci:gha:production --token ${{ secrets.VERCEl_TOKEN }}"
-          apply_domain_aliases: true # Automatically create aliases from Vercel config file
+          applyDomainAliases: true # Automatically create aliases from Vercel config file
+
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
