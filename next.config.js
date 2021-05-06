@@ -180,6 +180,12 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     return redirects;
   },
 
+  future: {
+    // See https://nextjs.org/docs/messages/webpack5
+    // Necessary to manually specify to use webpack 5, because we use a custom "webpack" config (see below)
+    webpack5: true,
+  },
+
   /**
    *
    * The webpack function is executed twice, once for the server and once for the client.
