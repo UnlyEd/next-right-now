@@ -186,6 +186,13 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     webpack5: true,
   },
 
+  resolve: {
+    fallback: {
+      // Fixes npm packages that depend on `fs` module
+      fs: false,
+    },
+  },
+
   /**
    * The webpack function is executed twice, once for the server and once for the client.
    * This allows you to distinguish between client and server configuration using the isServer property.
@@ -217,11 +224,6 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     if (isServer) { // Trick to only log once
       console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}" ${process.env.IS_SERVER_INITIAL_BUILD ? 'with IS_SERVER_INITIAL_BUILD="1"' : ''}`);
     }
-
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty',
-    };
 
     // XXX See https://github.com/vercel/next.js/blob/canary/examples/with-sentry-simple/next.config.js
     // In `pages/_app.js`, Sentry is imported from @sentry/node. While
