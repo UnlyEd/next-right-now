@@ -187,7 +187,6 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   },
 
   /**
-   *
    * The webpack function is executed twice, once for the server and once for the client.
    * This allows you to distinguish between client and server configuration using the isServer property.
    *
