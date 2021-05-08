@@ -5150,12 +5150,11 @@
   resolved "https://registry.yarnpkg.com/@unly/iso3166-1/-/iso3166-1-1.0.2.tgz#ef1504b4aa6e618b800c14a77261a6c5e9449fa0"
   integrity sha512-aL/7cmcfjpwOaKFr9XHcWP/Z7lQjKLm5NMcjncT96aeSJxfblmPLnH/8lnX0GrWWFA2/CseCxnA73u5eiZcClA==
 
-"@unly/simple-logger@1.0.0-beta4":
-  version "1.0.0-beta4"
-  resolved "https://registry.yarnpkg.com/@unly/simple-logger/-/simple-logger-1.0.0-beta4.tgz#57f8632c1d3d35053544fc0327871c7b07efbd10"
-  integrity sha512-kmg0JNiSxkeGMkDQMXYgTXGQ6WExdkt+4dxLS1AYkdteC8HKZ11dOsKfqF2Dd8+kNLYes8t1GNHoI1cBhQc7JA==
+"@unly/simple-logger@1.0.0-beta6":
+  version "1.0.0-beta6"
+  resolved "https://registry.yarnpkg.com/@unly/simple-logger/-/simple-logger-1.0.0-beta6.tgz#f336a1593aab56194bffb1c27119876223e84ce1"
+  integrity sha512-bsktt3x/Sr0Kp5sz8ZjR8V8Jnyw3GwtFMmp0cik5IXaiSd7all9CurLagQIj1ZqqnZkrdcazseWYkYgz2Yw37Q==
   dependencies:
-    chalk "4.1.1"
     lodash.noop "3.0.1"
 
 "@unly/universal-language-detector@2.0.3":

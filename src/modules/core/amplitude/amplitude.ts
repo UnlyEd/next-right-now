@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/node';
+import createLogger from '@unly/simple-logger';
 import { isBrowser } from '@unly/utils';
 import {
   AmplitudeClient,
@@ -8,6 +9,11 @@ import { NextWebVitalsMetricsReport } from '../webVitals/types/NextWebVitalsMetr
 import { UserConsent } from '../userConsent/types/UserConsent';
 import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';
 import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
+
+const fileLabel = 'module/core/amplitude/amplitude';
+const logger = createLogger({
+  prefix: fileLabel,
+});
 
 /**
  * Event actions.
@@ -100,14 +106,14 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       amplitudeInstance.setOptOut(true); // If true, then no events will be logged or sent.
 
       if (process.env.STORYBOOK !== 'true') {
-        console.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
+        logger.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
       }
     } else {
       // Re-enable tracking (necessary if it was previously disabled!)
       amplitudeInstance.setOptOut(false);
 
       if (process.env.STORYBOOK !== 'true') {
-        console.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
+        logger.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
       }
     }
 

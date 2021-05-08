@@ -204,8 +204,8 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       //  The "customer" was forwarded as a JSON-ish string (using Flatten) in order to avoid circular dependencies issues (SSG/SSR)
       //  It now being converted back into an object to be actually usable on all pages
       // eslint-disable-next-line no-console
-      console.debug('pageProps.serializedDataset length (bytes)', (serializedDataset as unknown as string)?.length);
-      // console.debug('serializedDataset', serializedDataset);
+      logger.debug('pageProps.serializedDataset length (bytes)', (serializedDataset as unknown as string)?.length);
+      // logger.debug('serializedDataset', serializedDataset);
     }
 
     const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);

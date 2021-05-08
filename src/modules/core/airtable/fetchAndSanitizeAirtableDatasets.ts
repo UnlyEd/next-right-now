@@ -1,3 +1,4 @@
+import createLogger from '@unly/simple-logger';
 import groupBy from 'lodash.groupby';
 import map from 'lodash.map';
 import size from 'lodash.size';
@@ -10,10 +11,15 @@ import fetchAirtableDS from './fetchAirtableDS';
 import prepareAirtableDS from './prepareAirtableDS';
 import sanitizeRawAirtableDS from './sanitizeRawAirtableDS';
 
+const fileLabel = 'modules/core/airtable/fetchAndSanitizeAirtableDatasets';
+const logger = createLogger({
+  prefix: fileLabel,
+});
+
 const printAirtableDatasetStatistics = (airtableDataset: RawAirtableDataset, label: string): void => {
   const rawDatasetGroupedByTable = groupBy(airtableDataset, '__typename');
 
-  console.log(label, // eslint-disable-line no-console
+  logger.log(label, // eslint-disable-line no-console
     `size: ${size(airtableDataset)}`,
     map(rawDatasetGroupedByTable, (tableSchemas: TableSchema[], tableName) => `${tableName}: ${size(tableSchemas)}`),
   );

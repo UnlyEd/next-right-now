@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/node';
+import createLogger from '@unly/simple-logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';
@@ -16,6 +17,11 @@ export type ApiOptions = {
   fields?: string[];
   filterByFormula?: string;
 }
+
+const fileLabel = 'modules/core/airtable/fetchAirtableTable';
+const logger = createLogger({
+  prefix: fileLabel,
+});
 
 const defaultApiOptions: ApiOptions = {
   additionalHeaders: {
@@ -75,29 +81,29 @@ const fetchAirtableTable: <ListApiResponse extends GenericAirtableRecordsListApi
 
   if (!baseId) {
     // eslint-disable-next-line no-console
-    console.error(`process.env.AIRTABLE_BASE_ID is not defined. Fetching airtable API will fail. Check your ".env.local" if working locally, or "vercel.**.json" file if this error happens on Vercel.`);
+    logger.error(`process.env.AIRTABLE_BASE_ID is not defined. Fetching airtable API will fail. Check your ".env.local" if working locally, or "vercel.**.json" file if this error happens on Vercel.`);
   }
 
   if (!process.env.AIRTABLE_API_KEY) {
     // eslint-disable-next-line no-console
-    console.error(`process.env.AIRTABLE_API_KEY is not defined. Fetching airtable API will fail. Check your ".env.local" if working locally, or "vercel.**.json" file if this error happens on Vercel.`);
+    logger.error(`process.env.AIRTABLE_API_KEY is not defined. Fetching airtable API will fail. Check your ".env.local" if working locally, or "vercel.**.json" file if this error happens on Vercel.`);
   }
 
   try {
-    // console.debug(`Fetching airtable API at "${url}" with headers`, additionalHeaders);
+    // logger.debug(`Fetching airtable API at "${url}" with headers`, additionalHeaders);
     // eslint-disable-next-line no-console
-    console.debug(`Fetching airtable API at "${url}"`);
+    logger.debug(`Fetching airtable API at "${url}"`);
     const results = await fetchJSON(url, {
       headers: additionalHeaders,
     });
 
     // eslint-disable-next-line no-console
-    console.debug(`[${table}] ${size(results?.records)} airtable API records fetched`);
+    logger.debug(`[${table}] ${size(results?.records)} airtable API records fetched`);
 
     return results;
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(e);
+    logger.error(e);
     Sentry.captureException(e);
   }
 
