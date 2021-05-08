@@ -16,6 +16,7 @@ This changelog is meant to provide a good overview of the biggest changes in the
 such as a preset release history, but it is not meant to warn about non-backward compatible changes within presets.
 
 ---
+
 ## Want to subscribe?
 
 [Subscribe to the discussion](https://github.com/UnlyEd/next-right-now/discussions/166) to be notified when new releases are made, and participate in the discussion about what has changed!
