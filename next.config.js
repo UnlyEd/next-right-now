@@ -213,7 +213,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
 
     const APP_VERSION_RELEASE = APP_RELEASE_TAG || buildId;
     config.plugins.map((plugin, i) => {
-      if (plugin.definitions) { // If it has a "definitions" key, then we consider it's the DefinePlugin where ENV vars are stored
+      // Inject custom environment variables in "DefinePlugin" - See https://webpack.js.org/plugins/define-plugin/
+      if (plugin.__proto__.constructor.name === 'DefinePlugin') {
         // Dynamically add some "public env" variables that will be replaced during the build through "DefinePlugin"
         // Those variables are considered public because they are available at build time and at run time (they'll be replaced during initial build, by their value)
         plugin.definitions['process.env.NEXT_PUBLIC_APP_BUILD_ID'] = JSON.stringify(buildId);
