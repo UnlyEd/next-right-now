@@ -1,8 +1,8 @@
+import waitFor from '@/utils/waitFor';
+import { CUSTOMER2 } from '../testing/mocks/mockedRawAirtableDataset';
 import hybridCache from '../vercelCache/hybridCache';
 import { reset as cacheReset } from '../vercelCache/memoryCacheStorage';
-import waitFor from '@/utils/waitFor';
-import fetchAirtableTable  from './fetchAirtableTable';
-import { CUSTOMER2 } from '../testing/mocks/mockedRawAirtableDataset';
+import fetchAirtableTable from './fetchAirtableTable';
 
 /**
  * @group integration

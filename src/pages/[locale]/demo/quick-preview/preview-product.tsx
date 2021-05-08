@@ -8,8 +8,8 @@ import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { Product } from '@/modules/core/data/types/Product';
+import { createLogger } from '@/modules/core/logging/logger';
 import QuickPreviewLayout from '@/modules/core/quickPreview/components/QuickPreviewLayout';
-import { createLogger } from '@unly/utils-simple-logger';
 import find from 'lodash.find';
 import {
   GetServerSideProps,
@@ -26,7 +26,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/quick-preview/preview-product';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

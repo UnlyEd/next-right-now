@@ -6,18 +6,18 @@ import get from 'lodash.get';
 import isArray from 'lodash.isarray';
 import map from 'lodash.map';
 import size from 'lodash.size';
-import { AirtableDBTable } from './types/AirtableDBTable';
-import { RawAirtableAttachmentBaseFields } from './types/RawAirtableAttachmentBaseFields';
-import { RawAirtableRecord } from './types/RawAirtableRecord';
-import { AirtableSchema } from './types/AirtableSchema';
-import { FieldSchema } from './types/FieldSchema';
-import { TableSchema } from './types/TableSchema';
 import { AirtableAttachment } from '../data/types/AirtableAttachment';
 import { AirtableDatasets } from '../data/types/AirtableDatasets';
 import { AirtableRecord } from '../data/types/AirtableRecord';
 import { RawAirtableDataset } from '../data/types/RawAirtableDataset';
 import { SanitizedAirtableDataset } from '../data/types/SanitizedAirtableDataset';
 import { getFieldBestAvailableTranslation } from './airtableField';
+import { AirtableDBTable } from './types/AirtableDBTable';
+import { AirtableSchema } from './types/AirtableSchema';
+import { FieldSchema } from './types/FieldSchema';
+import { RawAirtableAttachmentBaseFields } from './types/RawAirtableAttachmentBaseFields';
+import { RawAirtableRecord } from './types/RawAirtableRecord';
+import { TableSchema } from './types/TableSchema';
 
 const warnWhenMissingTypename = (rawRecord: RawAirtableRecord) => {
   if (!rawRecord?.__typename) {
@@ -221,7 +221,7 @@ export const sanitizeRawAirtableDS = (airtableSchema: AirtableSchema, airtableDa
       }
 
       // [Step B-8] Convert text fields that contains exactly "\n" to null, to avoid believing they're not empty when they are
-      if(typeof sanitizedFieldValue === 'string' && sanitizedFieldValue === '\n'){
+      if (typeof sanitizedFieldValue === 'string' && sanitizedFieldValue === '\n') {
         sanitizedFieldValue = null;
       }
 

@@ -1,9 +1,10 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { createLogger } from '@unly/utils-simple-logger';
 
+const fileLabel = 'common/utils/mobile';
 const logger = createLogger({
-  label: 'utils/mobile',
+  fileLabel,
 });
 
 /**

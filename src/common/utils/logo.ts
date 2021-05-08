@@ -69,7 +69,11 @@ export const toPixels = (value: number | string): string => {
  * @param sizesMultipliers
  * @returns {object}
  */
-export const generateSizes = ({ baseWidth, baseHeight, sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS }: { baseWidth: number; baseHeight: number; sizesMultipliers?: SizeMultiplier[] }): GenericObject => {
+export const generateSizes = ({
+  baseWidth,
+  baseHeight,
+  sizesMultipliers = DEFAULT_SIZES_MULTIPLIERS,
+}: { baseWidth: number; baseHeight: number; sizesMultipliers?: SizeMultiplier[] }): GenericObject => {
   const sizes = {};
 
   map(sizesMultipliers, (sizeMultiplier) => {
@@ -91,7 +95,12 @@ export const generateSizes = ({ baseWidth, baseHeight, sizesMultipliers = DEFAUL
  * @param height
  * @returns {{width:}}
  */
-export const resolveRatio = ({ baseWidth, baseHeight, width, height }): Size => {
+export const resolveRatio = ({
+  baseWidth,
+  baseHeight,
+  width,
+  height,
+}): Size => {
   if (width) {
     // Need to resolve the height
     return {
@@ -118,7 +127,11 @@ export const resolveRatio = ({ baseWidth, baseHeight, width, height }): Size => 
  * @param logo
  * @returns {{width: *, height: *}}
  */
-export const resolveSize = ({ width, height, logo }: Size & { logo: Logo }): Size => {
+export const resolveSize = ({
+  width,
+  height,
+  logo,
+}: Size & { logo: Logo }): Size => {
   if (width && height) {
     // Both width and height provided, which means we force the logo's size
     return {
@@ -129,12 +142,22 @@ export const resolveSize = ({ width, height, logo }: Size & { logo: Logo }): Siz
     // Only the width is provided, therefore only the width should be set
     return {
       width: width,
-      height: resolveRatio({ baseHeight: logo?.thumbnails?.small?.height, baseWidth: logo?.thumbnails?.small?.width, width, height }).height,
+      height: resolveRatio({
+        baseHeight: logo?.thumbnails?.small?.height,
+        baseWidth: logo?.thumbnails?.small?.width,
+        width,
+        height,
+      }).height,
     };
   } else if (height) {
     // Only the height is provided, therefore only the height should be set
     return {
-      width: resolveRatio({ baseHeight: logo?.thumbnails?.small?.height, baseWidth: logo?.thumbnails?.small?.width, width, height }).width,
+      width: resolveRatio({
+        baseHeight: logo?.thumbnails?.small?.height,
+        baseWidth: logo?.thumbnails?.small?.width,
+        width,
+        height,
+      }).width,
       height: height,
     };
   } else {

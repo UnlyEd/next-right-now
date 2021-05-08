@@ -18,8 +18,8 @@ import { Product } from '@/modules/core/data/types/Product';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import timeDifference from '@/modules/core/date/timeDifference';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
+import { createLogger } from '@/modules/core/logging/logger';
 import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
-import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import find from 'lodash.find';
 import size from 'lodash.size';
@@ -38,7 +38,7 @@ import {
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 const regenerationDelay = 30; // Seconds

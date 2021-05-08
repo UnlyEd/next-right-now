@@ -10,7 +10,7 @@ import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { Product } from '@/modules/core/data/types/Product';
-import { createLogger } from '@unly/utils-simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import size from 'lodash.size';
 import {
   GetServerSideProps,
@@ -25,7 +25,7 @@ import {
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

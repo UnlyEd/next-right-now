@@ -5,8 +5,8 @@ import {
 } from 'next/router';
 import React from 'react';
 import useI18n, { I18n } from '../hooks/useI18n';
-import { i18nRedirect } from '../i18nRouter';
 import { LANG_FR } from '../i18n';
+import { i18nRedirect } from '../i18nRouter';
 import ToggleLanguagesButton from './ToggleLanguagesButton';
 
 type Props = {
@@ -50,7 +50,10 @@ const I18nBtnChangeLocale: React.FunctionComponent<Props> = (props): JSX.Element
   let {
     onClick,
   } = props;
-  const { lang, locale }: I18n = useI18n();
+  const {
+    lang,
+    locale,
+  }: I18n = useI18n();
   const router: NextRouter = useRouter();
 
   if (!onClick) {

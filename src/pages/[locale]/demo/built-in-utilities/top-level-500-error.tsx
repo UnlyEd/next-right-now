@@ -7,8 +7,8 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
+import { createLogger } from '@/modules/core/logging/logger';
 import { isBrowser } from '@unly/utils';
-import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -19,7 +19,7 @@ import React from 'react';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/top-level-500-error';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

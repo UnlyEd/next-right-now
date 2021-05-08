@@ -1,5 +1,5 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
 import cloneDeep from 'lodash.clonedeep';
 import find from 'lodash.find';
 import get from 'lodash.get';
@@ -10,8 +10,9 @@ import xOrBy from 'lodash.xorby';
 import { GenericObject } from './types/GenericObject';
 import { SerializedRecord } from './types/SerializedRecord';
 
+const fileLabel = 'modules/core/data/record';
 const logger = createLogger({
-  label: 'utils/data/record',
+  fileLabel,
 });
 
 /**
@@ -123,7 +124,12 @@ export const getValueFallback = (fallbacks: Array<FallbackConfig>, defaultValue:
       if (record !== null && record !== undefined && key !== null && key !== undefined) {
         if (hasValue(record, key)) {
           if (transform) {
-            value = transform(get(record, key, defaultValue), { fallbacks, record, key, defaultValue });
+            value = transform(get(record, key, defaultValue), {
+              fallbacks,
+              record,
+              key,
+              defaultValue,
+            });
           } else {
             value = get(record, key, defaultValue);
           }

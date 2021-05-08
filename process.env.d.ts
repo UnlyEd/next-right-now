@@ -29,7 +29,6 @@ declare global {
       NEXT_PUBLIC_LOCIZE_PROJECT_ID: string;
       NEXT_PUBLIC_NRN_PRESET: string;
       SENTRY_DSN: string;
-      UNLY_SIMPLE_LOGGER_ENV: NEXT_PUBLIC_APP_STAGE;
 
       // Git env variables
       GIT_COMMIT_SHA_SHORT: string;

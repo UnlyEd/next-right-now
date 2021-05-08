@@ -169,7 +169,11 @@ const I18nLink: React.FunctionComponent<Props> = (props): JSX.Element => {
   let {
     i18nHref, // eslint-disable-line prefer-const
     i18nAs,
-  }: I18nRoute = resolveI18nRoute({ as, href, locale });
+  }: I18nRoute = resolveI18nRoute({
+    as,
+    href,
+    locale,
+  });
 
   if (!isEmpty(params)) {
     // If any params are provided, replace their name by the provided value

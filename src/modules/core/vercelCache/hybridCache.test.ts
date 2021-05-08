@@ -1,8 +1,8 @@
 import waitFor from '@/utils/waitFor';
 import { reset as inDiskCacheReset } from './diskCacheStorage';
 import cache from './hybridCache';
-import { HybridStorageOptions } from './types/hybridCacheStorage';
 import { reset as inMemoryCacheReset } from './memoryCacheStorage';
+import { HybridStorageOptions } from './types/hybridCacheStorage';
 
 /**
  * @group unit
@@ -111,7 +111,12 @@ describe(`utils/memoization/cache.ts`, () => {
       });
 
       describe(`when using file storage (on disk)`, () => {
-        const storageOptions: HybridStorageOptions = { storage: { type: 'disk', options: { filename: 'test-cache1' } } };
+        const storageOptions: HybridStorageOptions = {
+          storage: {
+            type: 'disk',
+            options: { filename: 'test-cache1' },
+          },
+        };
         const key = 'key';
 
         test(`when using the default TTL`, async () => {

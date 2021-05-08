@@ -12,11 +12,11 @@ import {
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
+import { createLogger } from '@/modules/core/logging/logger';
 import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
 import useUserSession, { UserSession } from '@/modules/core/userSession/useUserSession';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { css } from '@emotion/react';
-import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -31,7 +31,7 @@ import {
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/analytics';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

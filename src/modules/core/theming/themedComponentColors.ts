@@ -63,8 +63,12 @@ export type ThemedComponentProps = {
  */
 export const resolveThemedComponentColors = (customerTheme: CustomerTheme, mode: ComponentThemeMode, transparent: boolean): ThemedComponentColors => {
   const {
-    primaryColor, primaryColorVariant1, onPrimaryColor,
-    secondaryColor, secondaryColorVariant1, onSecondaryColor,
+    primaryColor,
+    primaryColorVariant1,
+    onPrimaryColor,
+    secondaryColor,
+    secondaryColorVariant1,
+    onSecondaryColor,
   } = customerTheme;
   let color;
   let backgroundColor;

@@ -47,7 +47,12 @@ export type ErrorProps = {
  * @see https://github.com/vercel/next.js/discussions/12913 Discussion about hybrid SSG/SSR apps considerations
  */
 const ErrorPage = (props: ErrorPageProps): JSX.Element => {
-  const { statusCode, isReadyToRender, err, children = null } = props;
+  const {
+    statusCode,
+    isReadyToRender,
+    err,
+    children = null,
+  } = props;
   if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
     console.debug('ErrorPage - Unexpected error caught, it was captured and sent to Sentry. Error details:'); // eslint-disable-line no-console
     console.error(err); // eslint-disable-line no-console
@@ -86,8 +91,15 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
  * @param props
  */
 ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> => {
-  const { res, err, asPath } = props;
-  const errorInitialProps: ErrorProps = await NextError.getInitialProps({ res, err } as NextPageContext) as ErrorProps;
+  const {
+    res,
+    err,
+    asPath,
+  } = props;
+  const errorInitialProps: ErrorProps = await NextError.getInitialProps({
+    res,
+    err,
+  } as NextPageContext) as ErrorProps;
   if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
     // eslint-disable-next-line no-console
     console.debug('ErrorPage.getInitialProps - Unexpected error caught, it was captured and sent to Sentry. Error details:', err);

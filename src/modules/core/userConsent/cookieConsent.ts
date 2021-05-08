@@ -92,8 +92,16 @@ const initCookieConsent = (options: InitOptions): void => {
     theme,
     userConsent,
   } = options;
-  const { isUserOptedOutOfAnalytics, hasUserGivenAnyCookieConsent } = userConsent;
-  const { primaryColor, surfaceColor, onSurfaceColor, onPrimaryColor } = theme;
+  const {
+    isUserOptedOutOfAnalytics,
+    hasUserGivenAnyCookieConsent,
+  } = userConsent;
+  const {
+    primaryColor,
+    surfaceColor,
+    onSurfaceColor,
+    onPrimaryColor,
+  } = theme;
 
   if (!shouldDisplayConsentPopup(allowedPages)) {
     return;

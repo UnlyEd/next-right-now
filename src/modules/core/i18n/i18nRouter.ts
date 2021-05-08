@@ -24,7 +24,11 @@ export type I18nRoute = {
  * @param route
  */
 export const resolveI18nRoute = (route: Route): I18nRoute => {
-  const { locale, href, as } = route;
+  const {
+    locale,
+    href,
+    as,
+  } = route;
   let i18nHref = href;
   let i18nAs = as;
 

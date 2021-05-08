@@ -6,7 +6,7 @@ import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
-import { createLogger } from '@unly/utils-simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetServerSideProps,
   NextPage,
@@ -15,7 +15,7 @@ import React from 'react';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

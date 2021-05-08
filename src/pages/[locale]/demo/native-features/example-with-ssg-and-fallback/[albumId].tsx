@@ -15,9 +15,9 @@ import {
 } from '@/layouts/demo/demoSSG';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { getRandomInt } from '@/modules/core/js/random';
+import { createLogger } from '@/modules/core/logging/logger';
 import songs from '@/modules/core/testing/mocks/songs';
 import { css } from '@emotion/react';
-import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import {
@@ -33,7 +33,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-fallback/[albumId]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 type PageAdditionalServerSideParams = {
@@ -50,7 +50,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (con
   const albumIdsToPreBuild = ['1', '2']; // Only '/album-1-with-ssg-and-fallback' and '/album-2-with-ssg-and-fallback' are generated at build time, other will be generated on-demand
   const preBuiltPaths: StaticPathsOutput<PageAdditionalServerSideParams> = {
     paths: [],
-    fallback: true
+    fallback: true,
   };
 
   // Generate pre-built paths based on the ids to pre-build
@@ -59,8 +59,8 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (con
       preBuiltPaths.paths.push({
         params: {
           ...path.params,
-          albumId: albumId
-        }
+          albumId: albumId,
+        },
       });
     });
   });

@@ -1,19 +1,25 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import groupBy from 'lodash.groupby';
 import map from 'lodash.map';
 import size from 'lodash.size';
-import { AirtableSchema } from './types/AirtableSchema';
-import { TableSchema } from './types/TableSchema';
-import { RawAirtableRecordsSet } from './types/RawAirtableRecordsSet';
 import { AirtableDatasets } from '../data/types/AirtableDatasets';
 import { RawAirtableDataset } from '../data/types/RawAirtableDataset';
 import fetchAirtableDS from './fetchAirtableDS';
 import prepareAirtableDS from './prepareAirtableDS';
 import sanitizeRawAirtableDS from './sanitizeRawAirtableDS';
+import { AirtableSchema } from './types/AirtableSchema';
+import { RawAirtableRecordsSet } from './types/RawAirtableRecordsSet';
+import { TableSchema } from './types/TableSchema';
+
+const fileLabel = 'modules/core/airtable/fetchAndSanitizeAirtableDatasets';
+const logger = createLogger({
+  fileLabel,
+});
 
 const printAirtableDatasetStatistics = (airtableDataset: RawAirtableDataset, label: string): void => {
   const rawDatasetGroupedByTable = groupBy(airtableDataset, '__typename');
 
-  console.log(label, // eslint-disable-line no-console
+  logger.log(label, // eslint-disable-line no-console
     `size: ${size(airtableDataset)}`,
     map(rawDatasetGroupedByTable, (tableSchemas: TableSchema[], tableName) => `${tableName}: ${size(tableSchemas)}`),
   );

@@ -1,6 +1,6 @@
+import { Asset } from '@/modules/core/data/types/Asset';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { Asset } from '@/modules/core/data/types/Asset';
 import AirtableAsset from './AirtableAsset';
 
 const defaultLogoUrl = 'https://dl.airtable.com/lA5gmGBQheUvmuX616wU_monochromelogo.png';
@@ -161,7 +161,11 @@ describe('components/assets/AirtableAsset', () => {
         const id = 'test';
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
-        const style = { paddingTop: 5, width: 500, height: 300 };
+        const style = {
+          paddingTop: 5,
+          width: 500,
+          height: 300,
+        };
         const renderer = TestRenderer
           .create(<AirtableAsset
             id={id}
@@ -192,7 +196,10 @@ describe('components/assets/AirtableAsset', () => {
         const id = 'test';
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
-        const style = { paddingTop: 5, width: 500 };
+        const style = {
+          paddingTop: 5,
+          width: 500,
+        };
         const renderer = TestRenderer
           .create(<AirtableAsset
             id={id}
@@ -222,7 +229,10 @@ describe('components/assets/AirtableAsset', () => {
         const id = 'test';
         const title = 'Test asset';
         const classes = 'test-class1 test-class2';
-        const style = { paddingTop: 5, height: 300 };
+        const style = {
+          paddingTop: 5,
+          height: 300,
+        };
         const renderer = TestRenderer
           .create(<AirtableAsset
             id={id}
