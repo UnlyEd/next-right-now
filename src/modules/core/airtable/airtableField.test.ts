@@ -30,7 +30,8 @@ describe(`utils/data/airtableField.ts`, () => {
 
       test(`when the record is already localised, it should ignore the existing localisation`, async () => {
         const record = {
-          ...CUSTOMER2, fields:
+          ...CUSTOMER2,
+          fields:
             {
               label: 'Any',
               labelEN: CUSTOMER2.fields.labelEN,

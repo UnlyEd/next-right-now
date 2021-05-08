@@ -52,10 +52,22 @@ export const THEME2: RawAirtableRecord<RawTheme> = {
 };
 
 const mockedRawAirtableDataset: RawAirtableDataset = {
-  [CUSTOMER1.id]: { ...CUSTOMER1, __typename: 'Customer' },
-  [CUSTOMER2.id]: { ...CUSTOMER2, __typename: 'Customer' },
-  [THEME1.id]: { ...THEME1, __typename: 'Theme' },
-  [THEME2.id]: { ...THEME2, __typename: 'Theme' },
+  [CUSTOMER1.id]: {
+    ...CUSTOMER1,
+    __typename: 'Customer',
+  },
+  [CUSTOMER2.id]: {
+    ...CUSTOMER2,
+    __typename: 'Customer',
+  },
+  [THEME1.id]: {
+    ...THEME1,
+    __typename: 'Theme',
+  },
+  [THEME2.id]: {
+    ...THEME2,
+    __typename: 'Theme',
+  },
 };
 
 export default mockedRawAirtableDataset;

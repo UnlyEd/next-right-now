@@ -1,6 +1,6 @@
 import { filterExternalAbsoluteUrl } from '@/modules/core/js/url';
-import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
 import { createLogger } from '@/modules/core/logging/logger';
+import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
 import appendQueryParameter from 'append-query';
 import {
   NextApiRequest,

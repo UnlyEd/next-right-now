@@ -7,8 +7,8 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { isBrowser } from '@unly/utils';
 import { createLogger } from '@/modules/core/logging/logger';
+import { isBrowser } from '@unly/utils';
 import {
   GetStaticPaths,
   GetStaticProps,

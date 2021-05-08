@@ -7,6 +7,7 @@ import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import useDataset from '@/modules/core/data/hooks/useDataset';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
+import { createLogger } from '@/modules/core/logging/logger';
 import { configureSentryUser } from '@/modules/core/sentry/sentry';
 import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
 import {
@@ -28,7 +29,6 @@ import {
 } from '@amplitude/react-amplitude';
 import { useTheme } from '@emotion/react';
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@/modules/core/logging/logger';
 import { AmplitudeClient } from 'amplitude-js';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

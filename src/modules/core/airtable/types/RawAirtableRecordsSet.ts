@@ -1,5 +1,5 @@
-import { RawAirtableRecord } from './RawAirtableRecord';
 import { AirtableDBTable } from './AirtableDBTable';
+import { RawAirtableRecord } from './RawAirtableRecord';
 
 export type RawAirtableRecordsSet = {
   records: RawAirtableRecord[];

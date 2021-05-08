@@ -1,6 +1,6 @@
 import { createLogger } from '@/modules/core/logging/logger';
-import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 import Sentry, { ALERT_TYPES } from '../sentry/sentry';
+import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 
 const fileLabel = 'modules/core/githubActions/dispatchWorkflow';
 const logger = createLogger({

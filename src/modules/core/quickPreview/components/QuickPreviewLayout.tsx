@@ -1,16 +1,16 @@
+import Head, { HeadProps } from '@/layouts/core/components/Head';
+import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
+import { createLogger } from '@/modules/core/logging/logger';
+import Sentry from '@/modules/core/sentry/sentry';
 import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
 import { css } from '@emotion/react';
-import { createLogger } from '@/modules/core/logging/logger';
 import React from 'react';
 import { Container } from 'reactstrap';
-import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
-import Sentry from '@/modules/core/sentry/sentry';
 import QuickPreviewBanner from './QuickPreviewBanner';
-import Head, { HeadProps } from '@/layouts/core/components/Head';
 
 const fileLabel = 'modules/core/quickPreview/components/QuickPreviewLayout';
 const logger = createLogger({

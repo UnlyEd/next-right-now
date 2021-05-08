@@ -11,9 +11,9 @@ import {
 } from '@/layouts/demo/demoSSG';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
+import { createLogger } from '@/modules/core/logging/logger';
 import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
 import { Amplitude } from '@amplitude/react-amplitude';
-import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
   GetStaticProps,

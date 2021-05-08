@@ -1,6 +1,6 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { createLogger } from '@/modules/core/logging/logger';
 
 const fileLabel = 'common/utils/mobile';
 const logger = createLogger({

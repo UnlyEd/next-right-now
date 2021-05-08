@@ -13,6 +13,7 @@ import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
 import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
+import { createLogger } from '@/modules/core/logging/logger';
 import previewModeContext from '@/modules/core/previewMode/contexts/previewModeContext';
 import {
   startPreviewMode,
@@ -28,7 +29,6 @@ import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
 import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { createLogger } from '@/modules/core/logging/logger';
 import { i18n } from 'i18next';
 import find from 'lodash.find';
 import isEmpty from 'lodash.isempty';

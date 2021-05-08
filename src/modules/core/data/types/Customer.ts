@@ -1,7 +1,7 @@
+import { AirtableRecord } from './AirtableRecord';
 import { I18nMarkdown } from './I18nMarkdown';
 import { I18nString } from './I18nString';
 import { Markdown } from './Markdown';
-import { AirtableRecord } from './AirtableRecord';
 import { Product } from './Product';
 import { Theme } from './Theme';
 

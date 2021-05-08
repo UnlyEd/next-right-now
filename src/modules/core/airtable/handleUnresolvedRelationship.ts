@@ -1,11 +1,11 @@
 import { isBrowser } from '@unly/utils';
+import { AirtableRecord } from '../data/types/AirtableRecord';
 import { AirtableDBTable } from './types/AirtableDBTable';
 import {
   DEFAULT_UNRESOLVED_RELATIONSHIP_REFERENCE_STRATEGY,
   FieldSchema,
   UnresolvedRelationshipReferenceStrategy,
 } from './types/FieldSchema';
-import { AirtableRecord } from '../data/types/AirtableRecord';
 
 const unresolvedRelationshipWarnings = [];
 

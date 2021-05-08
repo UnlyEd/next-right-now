@@ -1,5 +1,5 @@
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@/modules/core/logging/logger';
+import * as Sentry from '@sentry/node';
 import { getPropertyName } from 'css-to-react-native';
 import isPlainObject from 'lodash.isplainobject';
 import map from 'lodash.map';

@@ -10,9 +10,9 @@ import {
   LANG_EN,
   LANG_FR,
 } from '@/modules/core/i18n/i18n';
+import { createLogger } from '@/modules/core/logging/logger';
 import { css } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticProps,
   NextPage,

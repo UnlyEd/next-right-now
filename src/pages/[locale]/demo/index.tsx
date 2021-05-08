@@ -13,8 +13,8 @@ import {
 } from '@/layouts/demo/demoSSG';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
-import { Amplitude } from '@amplitude/react-amplitude';
 import { createLogger } from '@/modules/core/logging/logger';
+import { Amplitude } from '@amplitude/react-amplitude';
 import {
   GetStaticPaths,
   GetStaticProps,

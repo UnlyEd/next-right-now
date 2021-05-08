@@ -1,6 +1,6 @@
 import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@/modules/core/logging/logger';
+import * as Sentry from '@sentry/node';
 import classnames from 'classnames';
 import { DocumentInitialProps } from 'next/dist/next-server/lib/utils';
 import Document, {

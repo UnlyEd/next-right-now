@@ -9,8 +9,8 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { css } from '@emotion/react';
 import { createLogger } from '@/modules/core/logging/logger';
+import { css } from '@emotion/react';
 import {
   GetStaticPaths,
   GetStaticProps,

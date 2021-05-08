@@ -9,8 +9,8 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createLogger } from '@/modules/core/logging/logger';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   GetStaticPaths,
   GetStaticProps,

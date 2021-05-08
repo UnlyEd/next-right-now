@@ -1,6 +1,6 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { createLogger } from '@/modules/core/logging/logger';
 import deepmerge from 'deepmerge';
 import i18next, { i18n } from 'i18next';
 import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github.com/locize/i18next-locize-backend/issues/323#issuecomment-619625571

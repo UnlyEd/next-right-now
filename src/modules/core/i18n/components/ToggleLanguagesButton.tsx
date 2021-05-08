@@ -1,5 +1,5 @@
-import React from 'react';
 import ToggleButton from '@/components/dataDisplay/ToggleButton';
+import React from 'react';
 
 type Props = {
   /**

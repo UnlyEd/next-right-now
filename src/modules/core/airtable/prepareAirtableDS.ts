@@ -1,7 +1,7 @@
 import map from 'lodash.map';
+import { AirtableDatasets } from '../data/types/AirtableDatasets';
 import { RawAirtableRecord } from './types/RawAirtableRecord';
 import { RawAirtableRecordsSet } from './types/RawAirtableRecordsSet';
-import { AirtableDatasets } from '../data/types/AirtableDatasets';
 
 /**
  * Prepare the raw and sanitized airtable datasets.

@@ -1,13 +1,13 @@
 import map from 'lodash.map';
 import size from 'lodash.size';
+import hybridCache from '../vercelCache/hybridCache';
+import fetchAirtableTable from './fetchAirtableTable';
 import { AirtableDBTable } from './types/AirtableDBTable';
 import { AirtableSchema } from './types/AirtableSchema';
 import { FieldSchema } from './types/FieldSchema';
 import { GenericAirtableRecordsListApiResponse } from './types/GenericAirtableRecordsListApiResponse';
 import { RawAirtableRecordsSet } from './types/RawAirtableRecordsSet';
 import { TableSchema } from './types/TableSchema';
-import fetchAirtableTable from './fetchAirtableTable';
-import hybridCache from '../vercelCache/hybridCache';
 
 /**
  * When running on Vercel, wait some time after each API request to avoid running the next API request too fast
@@ -86,7 +86,10 @@ export const fetchAirtableDS = async (airtableSchema: AirtableSchema, localesOfL
     promises.push(
       hybridCache(
         tableCacheKey,
-        async () => await fetchAirtableTable(tableName, { fields: allowedFields, filterByFormula }) as GenericAirtableRecordsListApiResponse,
+        async () => await fetchAirtableTable(tableName, {
+          fields: allowedFields,
+          filterByFormula,
+        }) as GenericAirtableRecordsListApiResponse,
         {
           enabled: !!process.env.IS_SERVER_INITIAL_BUILD && process.env.NODE_ENV !== 'development',
           storage: {

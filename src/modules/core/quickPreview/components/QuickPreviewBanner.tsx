@@ -1,20 +1,20 @@
+import Btn from '@/components/dataDisplay/Btn';
+import Tooltip from '@/components/dataDisplay/Tooltip';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
+import I18nBtnChangeLocale from '@/modules/core/i18n/components/I18nBtnChangeLocale';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   css,
   useTheme,
 } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { createLogger } from '@/modules/core/logging/logger';
 import {
   NextRouter,
   useRouter,
 } from 'next/router';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import useCustomer from '@/modules/core/data/hooks/useCustomer';
-import { Customer } from '@/modules/core/data/types/Customer';
-import I18nBtnChangeLocale from '@/modules/core/i18n/components/I18nBtnChangeLocale';
-import Btn from '@/components/dataDisplay/Btn';
-import Tooltip from '@/components/dataDisplay/Tooltip';
 
 const fileLabel = 'modules/core/quickPreview/components/QuickPreviewBanner';
 const logger = createLogger({

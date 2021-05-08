@@ -1,14 +1,14 @@
-import classnames from 'classnames';
-import deepmerge from 'deepmerge';
-import isEmpty from 'lodash.isempty';
-import React from 'react';
+import { cssToReactStyle } from '@/modules/core/css/css';
 import { CSSStyles } from '@/modules/core/css/types/CSSStyles';
 import {
   Asset,
   AssetTransformations,
 } from '@/modules/core/data/types/Asset';
 import { Link } from '@/modules/core/data/types/Link';
-import { cssToReactStyle } from '@/modules/core/css/css';
+import classnames from 'classnames';
+import deepmerge from 'deepmerge';
+import isEmpty from 'lodash.isempty';
+import React from 'react';
 
 type Props = {
   /**
@@ -123,7 +123,10 @@ const AirtableAsset: React.FunctionComponent<Props> = (props: Props): JSX.Elemen
     },
     linkOverride,
   ]);
-  const transformations: AssetTransformations = transformationsOverride || { width: asset.width, height: asset.height };
+  const transformations: AssetTransformations = transformationsOverride || {
+    width: asset.width,
+    height: asset.height,
+  };
 
   // Convert "style" if it is a string, to a react style object (won't modify if already an object)
   resolvedAssetProps.style = cssToReactStyle(resolvedAssetProps.style);

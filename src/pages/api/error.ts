@@ -1,5 +1,5 @@
-import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
 import { createLogger } from '@/modules/core/logging/logger';
+import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
 import {
   NextApiRequest,
   NextApiResponse,

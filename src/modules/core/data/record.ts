@@ -1,3 +1,4 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
 import cloneDeep from 'lodash.clonedeep';
 import find from 'lodash.find';
@@ -6,7 +7,6 @@ import isArray from 'lodash.isarray';
 import isEmpty from 'lodash.isempty';
 import remove from 'lodash.remove';
 import xOrBy from 'lodash.xorby';
-import { createLogger } from '@/modules/core/logging/logger';
 import { GenericObject } from './types/GenericObject';
 import { SerializedRecord } from './types/SerializedRecord';
 

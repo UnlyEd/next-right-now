@@ -1,11 +1,11 @@
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@/modules/core/logging/logger';
+import * as Sentry from '@sentry/node';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';
+import fetchJSON from '../api/fetchJSON';
 import { AirtableDBTable } from './types/AirtableDBTable';
 import { GenericAirtableRecordsListApiResponse } from './types/GenericAirtableRecordsListApiResponse';
-import fetchJSON from '../api/fetchJSON';
 
 const AT_API_BASE_PATH = 'https://api.airtable.com';
 const AT_API_VERSION = 'v0';
@@ -62,7 +62,12 @@ const fetchAirtableTable: <ListApiResponse extends GenericAirtableRecordsListApi
   options?: ApiOptions,
 ) => Promise<ListApiResponse> = async (table: AirtableDBTable, options?: ApiOptions) => {
   options = deepmerge(defaultApiOptions, options || {});
-  const { additionalHeaders, baseId, fields, filterByFormula } = options;
+  const {
+    additionalHeaders,
+    baseId,
+    fields,
+    filterByFormula,
+  } = options;
   // TODO Current implementation doesn't handle recursive calls when there are more than 100 items returned at once - See https://community.airtable.com/t/receive-more-than-100-records/12847/11?u=tfp
   let url = `${AT_API_BASE_PATH}/${AT_API_VERSION}/${baseId}/${table}`;
   const queryParameters: string[] = [];

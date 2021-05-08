@@ -1,10 +1,10 @@
 import redirect from '@/common/utils/redirect';
 import dispatchWorkflowByPath from '@/modules/core/githubActions/dispatchWorkflowByPath';
+import { createLogger } from '@/modules/core/logging/logger';
 import Sentry, {
   ALERT_TYPES,
   configureReq,
 } from '@/modules/core/sentry/sentry';
-import { createLogger } from '@/modules/core/logging/logger';
 import size from 'lodash.size';
 import {
   NextApiRequest,

@@ -83,7 +83,10 @@ export const acceptLanguageHeaderLookup = (req: NextApiRequest): string[] | unde
           const weight = m[5] || '1';
           const q = Number(weight);
           if (lng && !isNaN(q)) {
-            lngs.push({ lng, q });
+            lngs.push({
+              lng,
+              q,
+            });
           }
         }
       } while (m);

@@ -1,14 +1,14 @@
-import * as Sentry from '@sentry/node';
 import { createLogger } from '@/modules/core/logging/logger';
+import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import {
   AmplitudeClient,
   Identify,
 } from 'amplitude-js';
-import { NextWebVitalsMetricsReport } from '../webVitals/types/NextWebVitalsMetricsReport';
+import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
 import { UserConsent } from '../userConsent/types/UserConsent';
 import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';
-import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
+import { NextWebVitalsMetricsReport } from '../webVitals/types/NextWebVitalsMetricsReport';
 
 const fileLabel = 'module/core/amplitude/amplitude';
 const logger = createLogger({
