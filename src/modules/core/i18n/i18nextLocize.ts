@@ -1,6 +1,6 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import i18next, { i18n } from 'i18next';
 import i18nextLocizeBackend from 'i18next-locize-backend/cjs'; // https://github.com/locize/i18next-locize-backend/issues/323#issuecomment-619625571
@@ -13,8 +13,9 @@ import {
   resolveFallbackLanguage,
 } from './i18n';
 
+const fileLabel = 'modules/core/i18n/i18nextLocize';
 const logger = createLogger({
-  label: 'utils/i18n/i18nextLocize',
+  fileLabel,
 });
 
 // On the client, we store the i18nextLocize instance in the following variable.

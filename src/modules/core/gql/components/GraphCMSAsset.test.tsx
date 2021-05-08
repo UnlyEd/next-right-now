@@ -1,3 +1,4 @@
+import { Asset } from '@/modules/core/data/types/Asset';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 

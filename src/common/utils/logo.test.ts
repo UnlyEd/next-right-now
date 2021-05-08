@@ -30,7 +30,10 @@ describe('utils/assets/logo.ts', () => {
       const baseWidth = 120;
       const baseHeight = 60;
 
-      expect(generateSizes({ baseWidth, baseHeight })).toEqual(
+      expect(generateSizes({
+        baseWidth,
+        baseHeight,
+      })).toEqual(
         {
           'xs': {
             'height': '30px',

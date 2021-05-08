@@ -1,6 +1,7 @@
 import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
+import { createLogger } from '@/modules/core/logging/logger';
 import PreviewModeBanner from '@/modules/core/previewMode/components/PreviewModeBanner';
 import Sentry from '@/modules/core/sentry/sentry';
 import ErrorPage from '@/pages/_error';
@@ -8,7 +9,6 @@ import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
-import { createLogger } from '@unly/utils-simple-logger';
 import classnames from 'classnames';
 import {
   NextRouter,
@@ -22,7 +22,7 @@ import DefaultPageContainer from './PageContainer';
 
 const fileLabel = 'layouts/core/components/Layout';
 const logger = createLogger({
-  label: fileLabel,
+  fileLabel,
 });
 
 type Props = {

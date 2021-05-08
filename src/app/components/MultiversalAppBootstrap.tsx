@@ -13,6 +13,7 @@ import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
 import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
+import { createLogger } from '@/modules/core/logging/logger';
 import previewModeContext from '@/modules/core/previewMode/contexts/previewModeContext';
 import {
   startPreviewMode,
@@ -29,7 +30,6 @@ import { ApolloProvider } from '@apollo/client';
 import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { createLogger } from '@unly/utils-simple-logger';
 import { i18n } from 'i18next';
 import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
@@ -42,7 +42,7 @@ import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBoots
 
 const fileLabel = 'app/components/MultiversalAppBootstrap';
 const logger = createLogger({
-  label: fileLabel,
+  fileLabel,
 });
 
 type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;
@@ -205,8 +205,8 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       //  The "customer" was forwarded as a JSON-ish string (using Flatten) in order to avoid circular dependencies issues (SSG/SSR)
       //  It now being converted back into an object to be actually usable on all pages
       // eslint-disable-next-line no-console
-      console.debug('pageProps.serializedDataset length (bytes)', (serializedDataset as unknown as string)?.length);
-      // console.debug('serializedDataset', serializedDataset);
+      logger.debug('pageProps.serializedDataset length (bytes)', (serializedDataset as unknown as string)?.length);
+      // logger.debug('serializedDataset', serializedDataset);
     }
 
     const dataset: GraphCMSDataset = deserializeSafe(serializedDataset);

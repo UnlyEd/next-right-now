@@ -19,7 +19,7 @@ import {
   ApolloQueryResult,
   NormalizedCacheObject,
 } from '@apollo/client';
-import { createLogger } from '@unly/utils-simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import deepmerge from 'deepmerge';
 import {
   GetStaticPaths,
@@ -32,7 +32,7 @@ import React from 'react';
 
 const fileLabel = 'pages/[locale]/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

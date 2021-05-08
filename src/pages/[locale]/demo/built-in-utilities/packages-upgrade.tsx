@@ -10,7 +10,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { createLogger } from '@unly/utils-simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -22,7 +22,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/packages-upgrade';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

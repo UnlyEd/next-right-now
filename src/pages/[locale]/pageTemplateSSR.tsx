@@ -15,7 +15,7 @@ import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import { ApolloQueryResult } from '@apollo/client';
-import { createLogger } from '@unly/utils-simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -26,7 +26,7 @@ import React from 'react';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSR';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

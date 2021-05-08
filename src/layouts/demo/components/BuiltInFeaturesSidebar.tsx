@@ -89,7 +89,11 @@ const BuiltInFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Elem
       >
         {
           map(BUILT_IN_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
-            const { label, href, params = null } = link;
+            const {
+              label,
+              href,
+              params = null,
+            } = link;
 
             return (
               <NavItem key={href}>
