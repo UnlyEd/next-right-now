@@ -195,8 +195,20 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     return redirects;
   },
 
+  future: {
+    // See https://nextjs.org/docs/messages/webpack5
+    // Necessary to manually specify to use webpack 5, because we use a custom "webpack" config (see below)
+    webpack5: true,
+  },
+
+  resolve: {
+    fallback: {
+      // Fixes npm packages that depend on `fs` module
+      fs: false,
+    },
+  },
+
   /**
-   *
    * The webpack function is executed twice, once for the server and once for the client.
    * This allows you to distinguish between client and server configuration using the isServer property.
    *
@@ -216,7 +228,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
 
     const APP_VERSION_RELEASE = APP_RELEASE_TAG || buildId;
     config.plugins.map((plugin, i) => {
-      if (plugin.definitions) { // If it has a "definitions" key, then we consider it's the DefinePlugin where ENV vars are stored
+      // Inject custom environment variables in "DefinePlugin" - See https://webpack.js.org/plugins/define-plugin/
+      if (plugin.__proto__.constructor.name === 'DefinePlugin') {
         // Dynamically add some "public env" variables that will be replaced during the build through "DefinePlugin"
         // Those variables are considered public because they are available at build time and at run time (they'll be replaced during initial build, by their value)
         plugin.definitions['process.env.NEXT_PUBLIC_APP_BUILD_ID'] = JSON.stringify(buildId);
@@ -227,11 +240,6 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     if (isServer) { // Trick to only log once
       console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}" ${process.env.IS_SERVER_INITIAL_BUILD ? 'with IS_SERVER_INITIAL_BUILD="1"' : ''}`);
     }
-
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty',
-    };
 
     // XXX See https://github.com/vercel/next.js/blob/canary/examples/with-sentry-simple/next.config.js
     // In `pages/_app.js`, Sentry is imported from @sentry/node. While
