@@ -1,5 +1,5 @@
 import createSimpleLogger from '@unly/simple-logger';
-import { SimpleLogger } from '@unly/simple-logger/dist/simpleLogger';
+import { SimpleLogger } from '@unly/simple-logger';
 
 /**
  * Custom logger proxy.
@@ -9,6 +9,11 @@ import { SimpleLogger } from '@unly/simple-logger/dist/simpleLogger';
  * @param fileLabel
  */
 export const createLogger = ({ fileLabel }: { fileLabel: string }): SimpleLogger => {
+  // Mute logger during tests, to avoid cluttering the console (similar to what we did to "console" through jest)
+  if (process.env.NODE_ENV === 'test') {
+    return global.muteConsole();
+  }
+
   return createSimpleLogger({
     prefix: fileLabel,
     shouldPrint: (mode) => {
