@@ -5150,10 +5150,10 @@
   resolved "https://registry.yarnpkg.com/@unly/iso3166-1/-/iso3166-1-1.0.2.tgz#ef1504b4aa6e618b800c14a77261a6c5e9449fa0"
   integrity sha512-aL/7cmcfjpwOaKFr9XHcWP/Z7lQjKLm5NMcjncT96aeSJxfblmPLnH/8lnX0GrWWFA2/CseCxnA73u5eiZcClA==
 
-"@unly/simple-logger@1.0.0-beta7":
-  version "1.0.0-beta7"
-  resolved "https://registry.yarnpkg.com/@unly/simple-logger/-/simple-logger-1.0.0-beta7.tgz#ce77f6698b6d14c97b09afc283ad051dbde61dbc"
-  integrity sha512-4TSZolWpwFTcxU7fkTh9PA0ioBevQBH4L/M90wqjOZmySzPBw1wED/W5KqBc/VkPn9VUBPMvm4oRfF/7DO8d5w==
+"@unly/simple-logger@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@unly/simple-logger/-/simple-logger-1.0.0.tgz#c95116846f87cccb8de347b43284e34ff351c0e1"
+  integrity sha512-043Vab8DgdFTbG1hjDXIv41dBt1iPkr4kUpnw26tYhk18zkZX4L2oBJgEVbGngg7relWHfVDghDJSdr1TJFYog==
   dependencies:
     lodash.noop "3.0.1"
 
