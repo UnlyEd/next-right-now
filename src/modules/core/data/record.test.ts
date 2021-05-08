@@ -13,10 +13,6 @@ import {
  * @group utils
  */
 describe('utils/data/record.ts', () => {
-  beforeEach(() => {
-    global.console = global.muteConsole();
-  });
-
   describe('hasValue', () => {
     test('should return false when the given value is not defined', async () => {
       const item: GenericRecord = {
@@ -82,7 +78,6 @@ describe('utils/data/record.ts', () => {
       ];
 
       expect(getValueFallback(fallbacks)).toEqual(1);
-      expect(console.log).not.toBeCalled();
     });
 
     test('should return the expected value when given a proper "fallbacks" to fallback from (2 fallbacks)', async () => {
@@ -102,7 +97,6 @@ describe('utils/data/record.ts', () => {
       ];
 
       expect(getValueFallback(fallbacks)).toEqual(1);
-      expect(console.log).not.toBeCalled();
     });
 
     test('should return the expected value when given a proper "fallbacks" to fallback from (3 fallbacks)', async () => {
@@ -128,7 +122,6 @@ describe('utils/data/record.ts', () => {
       ];
 
       expect(getValueFallback(fallbacks)).toEqual(1);
-      expect(console.log).not.toBeCalled();
     });
 
     test('should return the expected value when given a proper "fallbacks" to fallback from (4 fallbacks)', async () => {
@@ -160,7 +153,6 @@ describe('utils/data/record.ts', () => {
       ];
 
       expect(getValueFallback(fallbacks)).toEqual(1);
-      expect(console.log).not.toBeCalled();
     });
 
     test('should return the expected value when given a proper "fallbacks" to fallback from (4 fallbacks bis)', async () => {
@@ -192,59 +184,42 @@ describe('utils/data/record.ts', () => {
       ];
 
       expect(getValueFallback(fallbacks)).toEqual(1);
-      expect(console.log).not.toBeCalled();
     });
 
     test('should return the default value when given an improper "fallbacks" to fallback from', async () => {
       expect(getValueFallback(null)).toEqual(null);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback(1)).toEqual(null);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback(0)).toEqual(null);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback('')).toEqual(null);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback({})).toEqual(null);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback({ a: 5 })).toEqual(null);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback(-42.00)).toEqual(null);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback(NaN)).toEqual(null);
-      expect(console.log).toBeCalled();
     });
 
     test('should return the expected value when given an improper "fallbacks" to fallback from', async () => {
       expect(getValueFallback(null, 55)).toEqual(55);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback(1, 'fallbackValue')).toEqual('fallbackValue');
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback(0, true)).toEqual(true);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback('', false)).toEqual(false);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback({}, {})).toMatchObject({});
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback({ a: 5 }, { a: 5 })).toMatchObject({ a: 5 });
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback(-42.00, [6])).toEqual([6]);
-      expect(console.log).toBeCalled();
       // @ts-ignore-error
       expect(getValueFallback(NaN, NaN)).toEqual(NaN);
-      expect(console.log).toBeCalled();
     });
 
     test('should log a warning when proper "fallbacks" to fallback from are provided but none matches', async () => {
@@ -264,7 +239,6 @@ describe('utils/data/record.ts', () => {
       ];
 
       expect(getValueFallback(fallbacks, 55, 'LOG_ERROR')).toEqual(55);
-      expect(console.log).toBeCalled();
     });
 
     test('should apply "transform" to the matching record and have expected props', async () => {
@@ -288,7 +262,6 @@ describe('utils/data/record.ts', () => {
       expect(getValueFallback(fallbacks, 55).fallbacks).toMatchObject(fallbacks);
       expect(getValueFallback(fallbacks, 55).defaultValue).toEqual(55);
       expect(getValueFallback(fallbacks, 55).key).toEqual('a');
-      expect(console.log).not.toBeCalled();
     });
   });
 
