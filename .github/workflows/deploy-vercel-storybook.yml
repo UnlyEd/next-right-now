@@ -90,8 +90,8 @@ jobs:
       - name: Deploying on Vercel
         uses: UnlyEd/github-action-deploy-on-vercel@3e71d3e26fd56941fc24a6429fdd257598df2017 # Pin "v1.0.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/3e71d3e26fd56941fc24a6429fdd257598df2017
         with:
-          command: "yarn deploy:sb:gha --token ${{ secrets.VERCEl_TOKEN }}"
-          apply_domain_aliases: true # Automatically create aliases from Vercel config file
+          command: "yarn deploy:sb:gha --token ${{ secrets.VERCEL_TOKEN }}"
+          applyDomainAliases: true # Automatically create aliases from Vercel config file
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           # Passing exposed GitHub environment variables - See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
@@ -174,7 +174,7 @@ jobs:
         uses: UnlyEd/github-action-await-vercel@v1.1.1 # See https://github.com/UnlyEd/github-action-await-vercel
         id: await-vercel
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         with:
           deployment-url: ${{ env.VERCEL_DEPLOYMENT_DOMAIN }} # Must only contain the domain name (no http prefix, etc.)
           timeout: 90 # Wait for 90 seconds before failing
