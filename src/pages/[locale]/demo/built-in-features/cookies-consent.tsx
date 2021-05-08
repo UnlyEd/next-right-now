@@ -13,7 +13,7 @@ import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
 import { Amplitude } from '@amplitude/react-amplitude';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -25,7 +25,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/cookies-consent';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

@@ -10,7 +10,7 @@ import {
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -22,7 +22,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/icons';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

@@ -3,14 +3,14 @@ import { OnlyServerPageProps } from '@/layouts/core/types/OnlyServerPageProps';
 import { configureSentryUser } from '@/modules/core/sentry/sentry';
 import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
 import * as Sentry from '@sentry/node';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import React from 'react';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 
 const fileLabel = 'app/components/ServerPageBootstrap';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 export type ServerPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalPageProps & MultiversalAppBootstrapPageProps>;

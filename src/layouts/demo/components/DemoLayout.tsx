@@ -8,7 +8,7 @@ import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import classnames from 'classnames';
 import {
   NextRouter,
@@ -22,7 +22,7 @@ import DemoPageContainer from './DemoPageContainer';
 
 const fileLabel = 'layouts/demo/components/DemoLayout';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 export type SidebarProps = {

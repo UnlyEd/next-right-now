@@ -1,10 +1,10 @@
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 import Sentry, { ALERT_TYPES } from '../sentry/sentry';
 
 const fileLabel = 'modules/core/githubActions/dispatchWorkflow';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

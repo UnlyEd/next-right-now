@@ -3,7 +3,7 @@ import { Markdown as MarkdownType } from '@/modules/core/data/types/Markdown';
 import I18nBtnChangeLocale from '@/modules/core/i18n/components/I18nBtnChangeLocale';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import * as Sentry from '@sentry/node';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import classnames from 'classnames';
 import deepmerge from 'deepmerge';
 import MarkdownToJSXLib, { MarkdownToJSX } from 'markdown-to-jsx';
@@ -26,7 +26,7 @@ import Tooltip from './SimpleTooltip';
 
 const fileLabel = 'common/components/dataDisplay/Markdown';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 type Props = {

@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import { getPropertyName } from 'css-to-react-native';
 import isPlainObject from 'lodash.isplainobject';
 import map from 'lodash.map';
@@ -7,7 +7,7 @@ import { CSSStyles } from './types/CSSStyles';
 
 const fileLabel = 'modules/core/css/css';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

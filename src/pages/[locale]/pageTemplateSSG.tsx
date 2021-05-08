@@ -9,7 +9,7 @@ import {
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -19,7 +19,7 @@ import React from 'react';
 
 const fileLabel = 'pages/[locale]/pageTemplateSSG';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

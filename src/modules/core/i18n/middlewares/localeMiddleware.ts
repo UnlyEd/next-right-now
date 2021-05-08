@@ -1,4 +1,4 @@
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import size from 'lodash.size';
 import {
   NextApiRequest,
@@ -13,7 +13,7 @@ import {
 
 const fileLabel = 'modules/core/i18n/localeMiddleware';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

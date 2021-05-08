@@ -28,7 +28,7 @@ import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
 import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import { i18n } from 'i18next';
 import find from 'lodash.find';
 import isEmpty from 'lodash.isempty';
@@ -42,7 +42,7 @@ import ServerPageBootstrap, { ServerPageBootstrapProps } from './ServerPageBoots
 
 const fileLabel = 'app/components/MultiversalAppBootstrap';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 type Props = MultiversalAppBootstrapProps<SSGPageProps> | MultiversalAppBootstrapProps<SSRPageProps>;

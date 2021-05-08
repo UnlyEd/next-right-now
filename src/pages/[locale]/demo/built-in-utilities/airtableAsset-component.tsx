@@ -16,7 +16,7 @@ import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Asset } from '@/modules/core/data/types/Asset';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { Product } from '@/modules/core/data/types/Product';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import map from 'lodash.map';
 import {
   GetStaticPaths,
@@ -29,7 +29,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/airtable-component';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

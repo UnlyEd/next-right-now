@@ -1,10 +1,10 @@
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 
 const fileLabel = 'common/utils/mobile';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

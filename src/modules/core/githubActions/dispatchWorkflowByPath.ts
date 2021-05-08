@@ -1,4 +1,4 @@
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import { GITHUB_API_BASE_URL, GITHUB_OWNER_NAME, GITHUB_REPO_NAME } from '@/app/constants';
 import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 import Sentry from '../sentry/sentry';
@@ -6,7 +6,7 @@ import dispatchWorkflow from './dispatchWorkflow';
 
 const fileLabel = 'modules/core/githubActions/dispatchWorkflowByPath';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

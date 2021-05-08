@@ -10,7 +10,7 @@ import { getDemoStaticProps } from '@/layouts/demo/demoSSG';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import map from 'lodash.map';
 import {
   GetStaticPaths,
@@ -24,7 +24,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-optional-catch-all-routes/[[...slug]]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 type PageAdditionalServerSideParams = {

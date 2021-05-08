@@ -1,4 +1,4 @@
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import groupBy from 'lodash.groupby';
 import map from 'lodash.map';
 import size from 'lodash.size';
@@ -13,7 +13,7 @@ import sanitizeRawAirtableDS from './sanitizeRawAirtableDS';
 
 const fileLabel = 'modules/core/airtable/fetchAndSanitizeAirtableDatasets';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 const printAirtableDatasetStatistics = (airtableDataset: RawAirtableDataset, label: string): void => {

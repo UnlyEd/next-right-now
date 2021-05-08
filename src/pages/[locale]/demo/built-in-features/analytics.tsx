@@ -16,7 +16,7 @@ import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
 import useUserSession, { UserSession } from '@/modules/core/userSession/useUserSession';
 import { Amplitude } from '@amplitude/react-amplitude';
 import { css } from '@emotion/react';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -31,7 +31,7 @@ import {
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/analytics';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';
@@ -20,7 +20,7 @@ export type ApiOptions = {
 
 const fileLabel = 'modules/core/airtable/fetchAirtableTable';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 const defaultApiOptions: ApiOptions = {

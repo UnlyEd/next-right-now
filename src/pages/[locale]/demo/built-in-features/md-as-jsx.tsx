@@ -11,7 +11,7 @@ import {
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -26,7 +26,7 @@ import {
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/md-as-jsx';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**
@@ -117,7 +117,7 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
             <Code
               text={`
                 import * as Sentry from '@sentry/node';
-                import createLogger from '@unly/simple-logger';
+                import { createLogger } from '@/modules/core/logging/logger';
                 import deepmerge from 'deepmerge';
                 import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';
                 import React from 'react';
@@ -129,7 +129,7 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
 
                 const fileLabel = 'components/utils/Markdown';
                 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-                  prefix: fileLabel,
+                  fileLabel,
                 });
 
                 type Props = {

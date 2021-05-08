@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import { isBrowser } from '@unly/utils';
 import {
   AmplitudeClient,
@@ -12,7 +12,7 @@ import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
 
 const fileLabel = 'module/core/amplitude/amplitude';
 const logger = createLogger({
-  prefix: fileLabel,
+  fileLabel,
 });
 
 /**

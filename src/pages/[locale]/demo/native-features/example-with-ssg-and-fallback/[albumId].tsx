@@ -17,7 +17,7 @@ import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { getRandomInt } from '@/modules/core/js/random';
 import songs from '@/modules/core/testing/mocks/songs';
 import { css } from '@emotion/react';
-import createLogger from '@unly/simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import {
@@ -33,7 +33,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-fallback/[albumId]';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  prefix: fileLabel,
+  fileLabel,
 });
 
 type PageAdditionalServerSideParams = {
