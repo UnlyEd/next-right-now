@@ -24,7 +24,7 @@ import {
   ApolloQueryResult,
   QueryOptions,
 } from '@apollo/client';
-import { createLogger } from '@unly/utils-simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import size from 'lodash.size';
 import {
   GetServerSideProps,
@@ -41,7 +41,7 @@ import {
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssr';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

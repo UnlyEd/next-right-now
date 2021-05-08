@@ -1,19 +1,19 @@
-import { createLogger } from '@unly/utils-simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
+import redirect from '@/utils/redirect';
 import size from 'lodash.size';
 import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { supportedLocales } from '../i18nConfig';
-import redirect from '@/utils/redirect';
 import {
   acceptLanguageHeaderLookup,
   DEFAULT_LOCALE,
 } from '../i18n';
+import { supportedLocales } from '../i18nConfig';
 
 const fileLabel = 'modules/core/i18n/localeMiddleware';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

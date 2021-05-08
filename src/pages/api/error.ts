@@ -1,5 +1,5 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
-import { createLogger } from '@unly/utils-simple-logger';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -7,7 +7,7 @@ import {
 
 const fileLabel = 'api/error';
 const logger = createLogger({
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

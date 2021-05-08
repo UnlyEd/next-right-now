@@ -22,7 +22,7 @@ import {
   NormalizedCacheObject,
   QueryOptions,
 } from '@apollo/client';
-import { createLogger } from '@unly/utils-simple-logger';
+import { createLogger } from '@/modules/core/logging/logger';
 import deepmerge from 'deepmerge';
 import size from 'lodash.size';
 import {
@@ -40,7 +40,7 @@ import {
 
 const fileLabel = 'pages/[locale]/demo/native-features/example-with-ssg-and-revalidate';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 const regenerationDelay = 30; // Seconds

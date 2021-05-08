@@ -1,8 +1,8 @@
+import { createLogger } from '@/modules/core/logging/logger';
+import waitFor from '@/utils/waitFor';
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
 import deepmerge from 'deepmerge';
 import getTimestampsElapsedTime from '../date/getTimestampsElapsedTime';
-import waitFor from '@/utils/waitFor';
 import { DiskStorageOptions } from './diskCacheStorage';
 import {
   CachedItem,
@@ -12,7 +12,7 @@ import {
 
 const fileLabel = 'modules/core/vercelCache/hybridCache';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 type HybridCacheOptions = {
@@ -66,7 +66,12 @@ const defaultHybridCacheOptions: Required<HybridCacheOptions> = {
  * @param options HybridCacheOptions
  */
 const hybridCache = async <T>(keyResolver: string | (() => string), dataResolver: () => T, options: Partial<HybridCacheOptions> = defaultHybridCacheOptions): Promise<T> => {
-  const { ttl, enabled, storage, preDelay } = deepmerge(defaultHybridCacheOptions, options);
+  const {
+    ttl,
+    enabled,
+    storage,
+    preDelay,
+  } = deepmerge(defaultHybridCacheOptions, options);
 
   if (!enabled) { // Bypasses cache completely
     logger.debug(`Cache is disabled, bypassing`);
@@ -94,7 +99,10 @@ const hybridCache = async <T>(keyResolver: string | (() => string), dataResolver
   const cachedItem: CachedItem = await cacheStorage.get(key, storageOptions);
 
   if (typeof cachedItem !== 'undefined') {
-    const { value, timestamp } = cachedItem;
+    const {
+      value,
+      timestamp,
+    } = cachedItem;
     const elapsedSeconds: number = getTimestampsElapsedTime(timestamp, +new Date());
 
     // If TTL is disabled or if the cached value has not expired, then use the cache

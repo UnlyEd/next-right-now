@@ -6,14 +6,16 @@
 
 Next.js automatically optimise the page client build based on whether they implement `getStaticProps` (SSG) or `getServerSideProps` (SSR).
 
-For instance, all code within `getStaticProps` and `getServerSideProps` is automatically stripped from the browser bundle.
-But, it's also the case for top-level `import` that are only used within those functions.
+For instance, all code within `getStaticProps` and `getServerSideProps` is automatically stripped from the browser bundle. But, it's also the case for
+top-level `import` that are only used within those functions.
 
 ### Visualise bundle optimisation
 
-[https://next-code-elimination.now.sh/](https://next-code-elimination.now.sh/) will help you visualise the difference between the code you write and what's actually bundled into the client.
+[https://next-code-elimination.now.sh/](https://next-code-elimination.now.sh/) will help you visualise the difference between the code you write and what's
+actually bundled into the client.
 
 Example with:
+
 - [`[locale]/pageTemplateSSG`](https://next-code-elimination.now.sh/s/hc9SWg_fj)
 - [`[locale]/pageTemplateSSR`](https://next-code-elimination.now.sh/s/M0oIDdQJ2)
 - [`[locale]/demo/native-features/example-with-ssg-and-fallback/[albumId]`](https://next-code-elimination.now.sh/s/nejeyE9MH)

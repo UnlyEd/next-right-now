@@ -13,8 +13,8 @@ import {
 } from '@/layouts/demo/demoSSG';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
 import { resolveCustomerVariationLang } from '@/modules/core/i18n/i18n';
+import { createLogger } from '@/modules/core/logging/logger';
 import { css } from '@emotion/react';
-import { createLogger } from '@unly/utils-simple-logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -34,7 +34,7 @@ import { v1 as uuid } from 'uuid';
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/static-i18n';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  fileLabel,
 });
 
 /**

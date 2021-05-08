@@ -1,13 +1,17 @@
+import {
+  deleteFile,
+  readFile,
+  writeFile,
+} from '@/utils/fs-utils';
 import * as Sentry from '@sentry/node';
 import path from 'path';
-import { deleteFile, readFile, writeFile } from '@/utils/fs-utils';
 import {
   CachedItem,
   Get,
   HybridCacheStorage as GenericCacheStorage,
+  HybridStorageOptions as GenericStorageOptions,
   Reset,
   Set,
-  HybridStorageOptions as GenericStorageOptions,
 } from './types/hybridCacheStorage';
 
 export type DiskStorageOptions = GenericStorageOptions<{
@@ -25,7 +29,11 @@ export const resolveCacheFile = (prefix: string, suffix: string, key: string, fi
 };
 
 export const get: Get = async <T>(key: string, options: DiskStorageOptions): Promise<CachedItem<T>> => {
-  const { filename, prefix, suffix } = options;
+  const {
+    filename,
+    prefix,
+    suffix,
+  } = options;
   let content;
 
   try {
@@ -50,7 +58,11 @@ export const get: Get = async <T>(key: string, options: DiskStorageOptions): Pro
 };
 
 export const set: Set = async <T>(key: string, item: T, options: DiskStorageOptions): Promise<T> => {
-  const { filename, prefix, suffix } = options;
+  const {
+    filename,
+    prefix,
+    suffix,
+  } = options;
   const cachedItem: CachedItem = {
     timestamp: +new Date(),
     value: item,
@@ -62,7 +74,11 @@ export const set: Set = async <T>(key: string, item: T, options: DiskStorageOpti
 };
 
 export const reset: Reset = async (key, options: DiskStorageOptions): Promise<void> => {
-  const { filename, prefix, suffix } = options;
+  const {
+    filename,
+    prefix,
+    suffix,
+  } = options;
 
   try {
     await deleteFile(resolveCacheFile(prefix, suffix, key, filename));

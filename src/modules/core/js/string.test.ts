@@ -12,7 +12,10 @@ describe(`utils/js/string.ts`, () => {
       });
 
       test(`when replacing many variables`, async () => {
-        expect(replaceAllOccurrences('Hello {name}, {intro}', { name: 'Unly', intro: 'How are you?' })).toBe('Hello Unly, How are you?');
+        expect(replaceAllOccurrences('Hello {name}, {intro}', {
+          name: 'Unly',
+          intro: 'How are you?',
+        })).toBe('Hello Unly, How are you?');
       });
     });
 

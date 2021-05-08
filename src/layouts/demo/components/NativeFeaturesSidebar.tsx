@@ -64,7 +64,11 @@ const NativeFeaturesSidebar: React.FunctionComponent<Props> = (props): JSX.Eleme
       >
         {
           map(NATIVE_FEATURES_SIDEBAR_LINKS, (link: SidebarLink) => {
-            const { label, href, params = null } = link;
+            const {
+              label,
+              href,
+              params = null,
+            } = link;
             const isActive = router.pathname.replace('/[locale]', '').replace('/[[...slug]]', '') === href;
 
             return (
