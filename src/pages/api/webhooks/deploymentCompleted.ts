@@ -3,7 +3,7 @@ import Sentry, {
   ALERT_TYPES,
   configureReq,
 } from '@/modules/core/sentry/sentry';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -11,7 +11,7 @@ import {
 
 const fileLabel = 'api/webhooks/deploymentCompleted';
 const logger = createLogger({
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 type EndpointRequestBody = {

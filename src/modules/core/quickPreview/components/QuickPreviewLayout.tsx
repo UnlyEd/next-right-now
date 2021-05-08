@@ -3,7 +3,7 @@ import {
   LogOnMount,
 } from '@amplitude/react-amplitude';
 import { css } from '@emotion/react';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import React from 'react';
 import { Container } from 'reactstrap';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
@@ -14,7 +14,7 @@ import Head, { HeadProps } from '@/layouts/core/components/Head';
 
 const fileLabel = 'modules/core/quickPreview/components/QuickPreviewLayout';
 const logger = createLogger({
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 type Props = {

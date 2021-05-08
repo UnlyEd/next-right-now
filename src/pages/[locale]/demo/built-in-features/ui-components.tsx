@@ -11,7 +11,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -26,7 +26,7 @@ import {
 
 const fileLabel = 'pages/[locale]/demo/built-in-features/ui-components';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 /**

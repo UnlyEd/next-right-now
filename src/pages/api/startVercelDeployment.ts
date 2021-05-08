@@ -4,7 +4,7 @@ import Sentry, {
   ALERT_TYPES,
   configureReq,
 } from '@/modules/core/sentry/sentry';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import size from 'lodash.size';
 import {
   NextApiRequest,
@@ -13,7 +13,7 @@ import {
 
 const fileLabel = 'api/startVercelDeployment';
 const logger = createLogger({
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 type EndpointRequestQuery = {

@@ -1,6 +1,6 @@
 import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import classnames from 'classnames';
 import { DocumentInitialProps } from 'next/dist/next-server/lib/utils';
 import Document, {
@@ -15,7 +15,7 @@ import React from 'react';
 
 const fileLabel = 'pages/_document';
 const logger = createLogger({
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 /**

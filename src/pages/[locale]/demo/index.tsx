@@ -14,7 +14,7 @@ import {
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { Amplitude } from '@amplitude/react-amplitude';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -25,7 +25,7 @@ import React from 'react';
 
 const fileLabel = 'pages/[locale]/demo/index';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 /**

@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import deepmerge from 'deepmerge';
 import getTimestampsElapsedTime from '../date/getTimestampsElapsedTime';
 import waitFor from '@/utils/waitFor';
@@ -12,7 +12,7 @@ import {
 
 const fileLabel = 'modules/core/vercelCache/hybridCache';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 type HybridCacheOptions = {

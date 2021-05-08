@@ -11,7 +11,7 @@ import {
   getDemoStaticProps,
 } from '@/layouts/demo/demoSSG';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -23,7 +23,7 @@ import { Alert } from 'reactstrap';
 
 const fileLabel = 'pages/[locale]/demo/built-in-utilities/errors-handling';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 /**

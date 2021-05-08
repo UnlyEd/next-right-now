@@ -3,7 +3,7 @@ import {
   useTheme,
 } from '@emotion/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import {
   NextRouter,
   useRouter,
@@ -18,7 +18,7 @@ import Tooltip from '@/components/dataDisplay/Tooltip';
 
 const fileLabel = 'modules/core/quickPreview/components/QuickPreviewBanner';
 const logger = createLogger({
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 type Props = {

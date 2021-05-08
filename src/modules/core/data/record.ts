@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import cloneDeep from 'lodash.clonedeep';
 import find from 'lodash.find';
 import get from 'lodash.get';
@@ -10,8 +10,9 @@ import xOrBy from 'lodash.xorby';
 import { GenericObject } from './types/GenericObject';
 import { SerializedRecord } from './types/SerializedRecord';
 
+const fileLabel = 'modules/core/data/record';
 const logger = createLogger({
-  label: 'utils/data/record',
+  prefix: fileLabel,
 });
 
 /**

@@ -117,9 +117,9 @@
     "@sentry/browser": "6.2.4",
     "@sentry/node": "6.2.4",
     "@types/lodash.isequal": "4.5.5",
+    "@unly/simple-logger": "1.0.0-beta4",
     "@unly/universal-language-detector": "2.0.3",
     "@unly/utils": "1.0.3",
-    "@unly/utils-simple-logger": "1.4.0",
     "amplitude-js": "8.1.0",
     "animate.css": "4.1.1",
     "append-query": "2.1.0",
@@ -171,8 +171,7 @@
     "tinycolor2": "1.4.2",
     "type-fest": "1.0.1",
     "uuid": "8.3.2",
-    "webfontloader": "1.6.28",
-    "winston": "3.3.3"
+    "webfontloader": "1.6.28"
   },
   "devDependencies": {
     "@cypress/react": "4.16.4",

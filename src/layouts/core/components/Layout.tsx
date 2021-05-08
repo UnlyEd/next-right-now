@@ -8,7 +8,7 @@ import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import classnames from 'classnames';
 import {
   NextRouter,
@@ -22,7 +22,7 @@ import DefaultPageContainer from './PageContainer';
 
 const fileLabel = 'layouts/core/components/Layout';
 const logger = createLogger({
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 type Props = {

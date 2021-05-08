@@ -28,7 +28,7 @@ import {
 } from '@amplitude/react-amplitude';
 import { useTheme } from '@emotion/react';
 import * as Sentry from '@sentry/node';
-import { createLogger } from '@unly/utils-simple-logger';
+import createLogger from '@unly/simple-logger';
 import { AmplitudeClient } from 'amplitude-js';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -37,7 +37,7 @@ import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapPr
 
 const fileLabel = 'app/components/BrowserPageBootstrap';
 const logger = createLogger({
-  label: fileLabel,
+  prefix: fileLabel,
 });
 
 export type BrowserPageBootstrapProps = MultiversalAppBootstrapProps<MultiversalPageProps & MultiversalAppBootstrapPageProps>;
