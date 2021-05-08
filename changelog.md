@@ -28,6 +28,10 @@ such as a preset release history, but it is not meant to warn about non-backward
 
 Here is a short list of the most valuable changes and new features.
 
+- 2021-05-09
+    - [GHA - Replace Vercel bash deploy script by "deploy-on-vercel" github action](https://github.com/UnlyEd/next-right-now/pull/296)
+    - [Replace @unly/utils-simple-logger and winston by @unly/simple-logger and chalk (reduces bundle size by 40Kb)](https://github.com/UnlyEd/next-right-now/pull/314)
+    - [Upgrade to Next.js v10.2](https://github.com/UnlyEd/next-right-now/pull/313)
 - 2021-01-24
     - [Feature - Automatically release Vercel deployments as GitHub deployments](https://github.com/UnlyEd/next-right-now/pull/280)
     - [Optimize GitHub Actions triggers](https://github.com/UnlyEd/next-right-now/pull/282)
