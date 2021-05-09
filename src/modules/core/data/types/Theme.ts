@@ -1,3 +1,4 @@
+import { AllowedVariableFont } from '@/modules/core/fonts/fonts';
 import { AirtableAttachment } from './AirtableAttachment';
 import { AirtableRecordBaseFields } from './AirtableRecordBaseFields';
 
@@ -24,5 +25,5 @@ export type Theme = {
   errorColor?: string;
   onErrorColor?: string;
   logo?: AirtableAttachment;
-  fonts?: string;
+  fonts?: AllowedVariableFont;
 } & AirtableRecordBaseFields;

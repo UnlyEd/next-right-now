@@ -1,6 +1,15 @@
-import { NRN_DEFAULT_SERVICE_LABEL } from '@/app/constants';
+import {
+  NRN_DEFAULT_FONT,
+  NRN_DEFAULT_SERVICE_LABEL,
+} from '@/app/constants';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
+import {
+  AllowedVariableFont,
+  fontsBasePath,
+  VariableFontConfig,
+  variableFontsConfig,
+} from '@/modules/core/fonts/fonts';
 import { SUPPORTED_LOCALES } from '@/modules/core/i18n/i18n';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import NextHead from 'next/head';
@@ -79,6 +88,10 @@ const DemoHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
     favicon = defaultFavicon,
     additionalContent = null,
   } = props;
+  const fontName: AllowedVariableFont = customer?.theme?.fonts || NRN_DEFAULT_FONT;
+  const config: VariableFontConfig = variableFontsConfig.find((config) => config?.fontName === fontName);
+  const format = config?.format || 'woff2';
+  const fontFile = config?.fontFile || `${fontName}-variable-latin.${format}`;
 
   return (
     <NextHead>
@@ -97,23 +110,14 @@ const DemoHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
         href={favicon}
       />
 
-      {/* Perf optimisation (preload normal and bold fonts because they're the most used) - See https://web.dev/uses-rel-preload*/}
+      {/* Preload the font */}
       <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
+        rel="preload"
+        href={`${fontsBasePath}/${fontName}/${fontFile}`}
+        as="font"
+        type={`font/${format}`}
+        crossOrigin="anonymous"
       />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=optional"
-        rel="stylesheet"
-      />
-
-      {/*<link*/}
-      {/*  rel="preload"*/}
-      {/*  href={'/static/fonts/Manrope-variable-latin.woff'}*/}
-      {/*  as="font"*/}
-      {/*  type="font/woff"*/}
-      {/*  crossOrigin="anonymous"*/}
-      {/*/>*/}
 
       {
         SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {

@@ -1,10 +1,17 @@
 import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
 import {
+  AllowedVariableFont,
+  injectFontFamily,
+} from '@/modules/core/fonts/fonts';
+import {
   css,
   Global,
 } from '@emotion/react';
 import React from 'react';
-import { NRN_DEFAULT_FALLBACK_FONTS } from '../constants';
+import {
+  NRN_DEFAULT_FALLBACK_FONTS,
+  NRN_DEFAULT_FONT,
+} from '../constants';
 
 type Props = {
   customerTheme: CustomerTheme;
@@ -35,10 +42,15 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
     fonts,
     ...rest
   } = customerTheme;
+  const fontName: AllowedVariableFont = fonts || NRN_DEFAULT_FONT;
+  const fontFamily = injectFontFamily(fontName);
 
   return (
     <Global
       styles={css`
+        // Inject font-faces for the font to use
+        ${fontFamily}
+
         html {
           body.nrn {
             * {

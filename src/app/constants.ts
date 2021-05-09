@@ -1,4 +1,5 @@
 import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
+import { AllowedVariableFont } from '@/modules/core/fonts/fonts';
 import { resolveVariantColor } from '@/modules/core/theming/colors';
 
 export const NRN_DEFAULT_SERVICE_LABEL = process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'Next Right Now' : `[${process.env.NEXT_PUBLIC_APP_STAGE === 'staging' ? 'Preview' : 'Dev'}] Next Right Now`;
@@ -22,7 +23,7 @@ export const NRN_DEFAULT_FALLBACK_FONTS = `-apple-system, BlinkMacSystemFont, sa
 /**
  * Font used once our font have been loaded by the browser.
  */
-export const NRN_DEFAULT_FONT = `Manrope`;
+export const NRN_DEFAULT_FONT: AllowedVariableFont = `Manrope`;
 
 /**
  * Theme applied by default when no theme is defined.
