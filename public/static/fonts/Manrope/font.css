@@ -1,0 +1,30 @@
+/**
+ XXX WIP not used
+ This font uses recommended best-practices from Lee Robinson (Vercel).
+
+ TL;DR:
+ - Only use WOFF/WOFF2 format, never use TTF or OTF
+ - Only use "font-display: optional" (using "block" (or none) will FOIT, using "swap" will FOUT/FOFT)
+ - If you want to use "font-display: swap", check out "Font Metrics Override" (experimental) https://leerob.io/blog/fonts#future
+
+ @see https://css-tricks.com/fout-foit-foft/ Acronyms explanations
+ @see https://leerob.io/blog/fonts
+ @see https://www.youtube.com/watch?v=G0cOQ79WKZE Comprehensive video about how to properly configure Fonts in 2021
+ @see https://csswizardry.com/2020/05/the-fastest-google-fonts/ In-depth understanding of the different configurations and how they affect perfs
+ @see https://stackoverflow.com/questions/11002820/why-should-we-include-ttf-eot-woff-svg-in-a-font-face
+ @see https://stackoverflow.com/questions/36105194/are-eot-ttf-and-svg-still-necessary-in-the-font-face-declaration/36110385#36110385
+ **/
+
+/**
+Subpart of the font available at https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=optional
+ */
+
+/* latin */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: optional;
+  src: url(Manrope-variable-latin.woff) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

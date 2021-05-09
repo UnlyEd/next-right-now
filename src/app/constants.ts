@@ -12,14 +12,17 @@ export const NRN_CO_BRANDING_LOGO_URL = '/static/images/LOGO_Powered_by_UNLY_BLA
  * Fallback fonts used until our own fonts have been loaded by the browser.
  * Should only use native fonts that are installed on all devices by default.
  *
+ * @see https://leerob.io/blog/fonts#system-fonts Inspired by
+ * @see https://systemfontstack.com/ Basic system font stacks
  * @see https://www.w3schools.com/cssref/css_websafe_fonts.asp
+ * @see https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#web_safe_fonts
  */
-export const NRN_DEFAULT_FALLBACK_FONTS = 'sans-serif';
+export const NRN_DEFAULT_FALLBACK_FONTS = `-apple-system, BlinkMacSystemFont, sans-serif`;
 
 /**
  * Font used once our font have been loaded by the browser.
  */
-export const NRN_DEFAULT_FONT = 'neuzeit-grotesk';
+export const NRN_DEFAULT_FONT = `Manrope`;
 
 /**
  * Theme applied by default when no theme is defined.
@@ -36,7 +39,6 @@ export const NRN_DEFAULT_THEME: Omit<CustomerTheme, 'primaryColorVariant1' | 'se
 } = {
   /**
    * A primary color is the color displayed most frequently across your app's screens and components.
-   *
    */
   primaryColor: '#0028FF',
 

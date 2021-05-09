@@ -1,12 +1,8 @@
-import {
-  NRN_DEFAULT_FONT,
-  NRN_DEFAULT_SERVICE_LABEL,
-} from '@/app/constants';
+import { NRN_DEFAULT_SERVICE_LABEL } from '@/app/constants';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SUPPORTED_LOCALES } from '@/modules/core/i18n/i18n';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
-import { isBrowser } from '@unly/utils';
 import NextHead from 'next/head';
 import React from 'react';
 
@@ -84,22 +80,6 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
     additionalContent = null,
   } = props;
 
-  if (isBrowser()) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const WebFontLoader = require('webfontloader');
-
-    // Load our fonts. Until they're loaded, fallback fonts will be used (configured in MultiversalGlobalStyles)
-    // This fixed an issue when loading fonts from external sources that don't show the text until the font is loaded
-    // With this, instead of not showing any text, it'll show the text using its fallback font, and then show the font once loaded
-    // XXX See https://github.com/typekit/webfontloader#custom
-    WebFontLoader.load({
-      custom: {
-        families: [NRN_DEFAULT_FONT],
-        urls: ['/static/fonts/NeuzeitGrotesk/font.css'],
-      },
-    });
-  }
-
   return (
     <NextHead>
       <meta charSet="UTF-8" />
@@ -108,19 +88,32 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
         name="description"
         content={seoDescription}
       />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      {/*<link rel="icon" sizes="192x192" href="/touch-icon.png" />*/}
-      {/*<link rel="apple-touch-icon" href="/touch-icon.png" />*/}
-      {/*<link rel="mask-icon" href="/favicon-mask.svg" color="#49B882" />*/}
-      <link rel="icon" href={favicon} />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+      />
+      <link
+        rel="icon"
+        href={favicon}
+      />
 
       {/* Perf optimisation (preload normal and bold fonts because they're the most used) - See https://web.dev/uses-rel-preload*/}
-      {/* TODO See if it's actually a good thing, seems to conflict with WebFontLoader - See https://github.com/GoogleChrome/lighthouse/issues/10892 */}
-      <link rel="preload" as="style" href={'/static/fonts/NeuzeitGrotesk/font.css'} />
-      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-bold.woff'} type="font/woff" crossOrigin="anonymous" />
-      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-bold.woff2'} type="font/woff2" crossOrigin="anonymous" />
-      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-black.woff'} type="font/woff" crossOrigin="anonymous" />
-      <link rel="preload" as="font" href={'/static/fonts/NeuzeitGrotesk/NeuzeitGrotesk-black.woff2'} type="font/woff2" crossOrigin="anonymous" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=optional"
+        rel="stylesheet"
+      />
+
+      {/*<link*/}
+      {/*  rel="preload"*/}
+      {/*  href={'/static/fonts/Manrope-variable-latin.woff'}*/}
+      {/*  as="font"*/}
+      {/*  type="font/woff"*/}
+      {/*  crossOrigin="anonymous"*/}
+      {/*/>*/}
 
       {
         SUPPORTED_LOCALES.map((supportedLocale: I18nLocale) => {
