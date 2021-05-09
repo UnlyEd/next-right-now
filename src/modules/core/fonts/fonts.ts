@@ -54,6 +54,8 @@ export const fontsBasePath = '/static/fonts';
  *    - This is a caveat, and if you don't like it you can use "font-display: swap" instead, but then your users will suffer from FOUT effect the first time they load the site.
  *    - Also, FOUT might (very likely) negatively affect Google Cumulative Layout Shift (CLS) performance score, see https://web.dev/cls/
  *    - Alternatively, you can use "font-display: swap" AND select a fallback font that looks very similar to your font using https://meowni.ca/font-style-matcher/
+ * - Browser caching.
+ *    - All fonts are automatically cached by the browser for 1 year. See next.config.js:headers.
  *
  * Considerations for the future:
  * - Check out "Font Metrics Override" (experimental) https://leerob.io/blog/fonts#future
