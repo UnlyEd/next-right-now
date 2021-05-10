@@ -30,7 +30,7 @@ import {
 import { useTheme } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { AmplitudeClient } from 'amplitude-js';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
@@ -105,25 +105,19 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     userConsent,
   });
 
-  /**
-   * Inits the Cookie Consent popup, which will open on the browser.
-   *
-   * Refreshes the consent only when the locale changes, because the allowedPages need to be updated in such case.
-   */
-  useEffect(() => {
-    initCookieConsent({
-      allowedPages: [ // We only allow it on those pages to avoid display that boring popup on every page
-        `${window.location.origin}/${locale}/terms`,
-        `${window.location.origin}/${locale}/privacy`,
-        `${window.location.origin}/${locale}/demo/built-in-features/cookies-consent`,
-      ],
-      amplitudeInstance,
-      locale,
-      t,
-      theme,
-      userConsent,
-    });
-  }, [locale]);
+  // Inits the Cookie Consent popup, which will open on the browser.
+  initCookieConsent({
+    allowedPages: [ // We only allow it on those pages to avoid display that boring popup on every page
+      `${window.location.origin}/${locale}/terms`,
+      `${window.location.origin}/${locale}/privacy`,
+      `${window.location.origin}/${locale}/demo/built-in-features/cookies-consent`,
+    ],
+    amplitudeInstance,
+    locale,
+    t,
+    theme,
+    userConsent,
+  });
 
   // XXX Inject data so that Cypress can use them to run dynamic tests.
   //  Those data mustn't be sensitive. They'll be available in the DOM, no matter the stage of the app.
