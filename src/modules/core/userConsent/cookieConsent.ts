@@ -1,4 +1,5 @@
 import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
+import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
 import { AmplitudeClient } from 'amplitude-js';
 import { TFunction } from 'i18next';
@@ -6,6 +7,11 @@ import BrowserCookies from 'js-cookie';
 import includes from 'lodash.includes';
 import size from 'lodash.size';
 import { UserConsent } from './types/UserConsent';
+
+const fileLabel = 'modules/core/userConsent/cookieConsent';
+const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
+  fileLabel,
+});
 
 export type InitOptions = {
   allowedPages?: string[]; // On which pages should the cookie consent be enabled, if it's not an empty array then it's enabled everywhere
@@ -107,6 +113,14 @@ const initCookieConsent = (options: InitOptions): void => {
     return;
   }
 
+  // Don't init this module if it's been loaded already (avoids loading it multiple times when navigating on different pages)
+  if (typeof window?.['cookieconsent'] !== 'undefined') {
+    logger.debug('"cookieconsent" already loaded');
+    return;
+  } else {
+    logger.debug('"cookieconsent" loading');
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   require('cookieconsent'); // XXX Requiring it will make it available in the browser (cannot be used properly as a module)
 
@@ -189,7 +203,7 @@ const initCookieConsent = (options: InitOptions): void => {
      */
     onInitialise: function (status) {
       // eslint-disable-next-line no-console
-      console.info('onInitialise', `User consent from "${CONSENT_COOKIE_NAME}" cookie:`, status);
+      logger.info('onInitialise', `User consent from "${CONSENT_COOKIE_NAME}" cookie:`, status);
     },
 
     /**
@@ -203,7 +217,7 @@ const initCookieConsent = (options: InitOptions): void => {
      */
     onStatusChange: function (status, previousChoice) {
       // eslint-disable-next-line no-console
-      console.info('onStatusChange', status, previousChoice);
+      logger.info('onStatusChange', status, previousChoice);
       if (status === 'deny') {
         // Store user choice, then disable analytics tracking
         amplitudeInstance.logEvent('user-consent-manually-given', {
@@ -236,9 +250,9 @@ const initCookieConsent = (options: InitOptions): void => {
      */
     onRevokeChoice: function () {
       // eslint-disable-next-line no-console
-      console.info('onRevokeChoice');
+      logger.info('onRevokeChoice');
       // eslint-disable-next-line no-console
-      console.info(`Previous choice has been revoked, "${CONSENT_COOKIE_NAME}" cookie has been deleted.`);
+      logger.info(`Previous choice has been revoked, "${CONSENT_COOKIE_NAME}" cookie has been deleted.`);
     },
 
     /**
@@ -246,7 +260,7 @@ const initCookieConsent = (options: InitOptions): void => {
      */
     onPopupOpen: function () {
       // eslint-disable-next-line no-console
-      console.info('onPopupOpen');
+      logger.info('onPopupOpen');
     },
 
     /**
@@ -254,7 +268,7 @@ const initCookieConsent = (options: InitOptions): void => {
      */
     onPopupClose: function () {
       // eslint-disable-next-line no-console
-      console.info('onPopupClose');
+      logger.info('onPopupClose');
     },
   };
 
@@ -262,7 +276,7 @@ const initCookieConsent = (options: InitOptions): void => {
     cc.initialise(cookieConsentSettings);
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(e);
+    logger.error(e);
     Sentry.captureException(e);
   }
 };
