@@ -4,6 +4,8 @@
  * By default, NRN comes with "Manrope" and "Inter" custom fonts built-in.
  * Both are open-source.
  *
+ * The "active font" can be defined by each customer independently, as long as they are configured as "allowed fonts" below.
+ *
  * @see https://fonts.google.com/specimen/Manrope
  * @see https://fonts.google.com/specimen/Inter
  */

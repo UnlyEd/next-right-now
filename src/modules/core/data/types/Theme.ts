@@ -25,5 +25,5 @@ export type Theme = {
   errorColor?: string;
   onErrorColor?: string;
   logo?: AirtableAttachment;
-  fonts?: AllowedVariableFont;
+  fonts?: AllowedVariableFont; // XXX Should be renamed to "font", as it contains one font only
 } & AirtableRecordBaseFields;

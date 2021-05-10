@@ -39,23 +39,22 @@ const MultiversalGlobalStyles: React.FunctionComponent<Props> = (props): JSX.Ele
     onSurfaceColor,
     errorColor,
     onErrorColor,
-    fonts,
+    fonts: activeFont,
     ...rest
   } = customerTheme;
-  const fontName: AllowedVariableFont = fonts || NRN_DEFAULT_FONT;
+  const fontName: AllowedVariableFont = activeFont || NRN_DEFAULT_FONT;
   const fontFamily = injectFontFamily(fontName);
 
   return (
     <Global
       styles={css`
-        // Inject font-faces for the font to use
+        // Inject font-faces for the active font
         ${fontFamily}
 
-        html {
-          body.nrn {
-            * {
-              font-family: "${fonts}", "${NRN_DEFAULT_FALLBACK_FONTS}" !important;
-            }
+        // Apply active font to all elements
+        body.nrn {
+          * {
+            font-family: "${fontName}", "${NRN_DEFAULT_FALLBACK_FONTS}" !important;
           }
         }
 
