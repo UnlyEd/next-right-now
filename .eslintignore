@@ -2,6 +2,11 @@ build/
 node_modules
 .next
 cypress
+public
+svg-to-react
+*.d.ts
+*.config.js
+jest.*
 src/**/*.test*
 src/gql/**
 src/propTypes/**
