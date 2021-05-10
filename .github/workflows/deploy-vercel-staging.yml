@@ -119,6 +119,7 @@ jobs:
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
       - name: Deploying on Vercel (${{ env.STAGE }})
+        id: deployment
         uses: UnlyEd/github-action-deploy-on-vercel@3e71d3e26fd56941fc24a6429fdd257598df2017 # Pin "v1.0.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/3e71d3e26fd56941fc24a6429fdd257598df2017
         with:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEL_TOKEN }}"
@@ -170,7 +171,7 @@ jobs:
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed **Next.js app** :rocket: to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
-            Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
+            Deployment aliased as ${{ env.VERCEL_ALIASES_CREATED_URLS_MD }}
 
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
