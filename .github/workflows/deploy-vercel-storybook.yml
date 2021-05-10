@@ -88,7 +88,7 @@ jobs:
         run: yarn install
 
       - name: Deploying on Vercel
-        uses: UnlyEd/github-action-deploy-on-vercel@3e71d3e26fd56941fc24a6429fdd257598df2017 # Pin "v1.0.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/3e71d3e26fd56941fc24a6429fdd257598df2017
+        uses: UnlyEd/github-action-deploy-on-vercel@cef8c076d75529f1092d0ca403a04cdb97c1bee5 # Pin "v1.1.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/cef8c076d75529f1092d0ca403a04cdb97c1bee5
         with:
           command: "yarn deploy:sb:gha --token ${{ secrets.VERCEL_TOKEN }}"
         env:
@@ -138,7 +138,7 @@ jobs:
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed **Storybook static site** :open_book: to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
-            Deployment aliased as [nrn-v2-mst-aptd-at-lcz-sty-storybook](https://nrn-v2-mst-aptd-at-lcz-sty-storybook.vercel.app)
+            Deployment aliased as ${{ env.VERCEL_ALIASES_CREATED_URLS_MD }}
 
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
