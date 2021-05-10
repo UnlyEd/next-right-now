@@ -27,3 +27,5 @@ console.warn = (...args): void => {
   }
   originalError.call(console, ...args);
 };
+
+export {};

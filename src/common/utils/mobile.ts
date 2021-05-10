@@ -19,6 +19,7 @@ export const isMobileDevice = (): boolean => {
     } catch (e) {
       logger.error(e.message);
       Sentry.captureException(e);
+      return false;
     }
   } else {
     return false;
