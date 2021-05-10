@@ -66,7 +66,7 @@
     "lint:fix:preview": "eslint src/ --ext .ts --ext .tsx --fix-dry-run",
     "clean": "gts clean",
     "compile": "tsc",
-    "fix": "gts fix src/common/components/utils",
+    "fix": "gts fix src/common/utils/*.ts",
     "prepare": "yarn run compile",
     "pretest": "yarn run compile",
     "posttest": "yarn run lint",
@@ -241,6 +241,7 @@
     "eslint-plugin-react": "7.23.1",
     "eslint-plugin-react-hooks": "4.2.0",
     "eslint-watch": "7.0.0",
+    "gts": "3.1.0",
     "jest": "26.6.3",
     "jest-expect-message": "1.0.2",
     "jest-extended": "0.11.5",
@@ -260,8 +261,6 @@
     "storybook-mobile": "0.1.30",
     "ts-jest": "26.5.4",
     "typescript": "4.2.3",
-    "vercel": "21.3.3",
-    "gts": "^3.1.0",
-    "@types/node": "^14.11.2"
+    "vercel": "21.3.3"
   }
 }
