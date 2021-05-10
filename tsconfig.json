@@ -1,6 +1,9 @@
 {
+  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "rootDir": ".",
+    "outDir": "build",
     "paths": {
       "@/app/*": [
         "src/app/*"
@@ -60,7 +63,7 @@
   ],
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ]
 }

@@ -60,10 +60,16 @@
     "doc:online:scripts": "open-cli https://unlyed.github.io/next-right-now/guides/scripts-and-utilities",
     "bump:major": "git commit --allow-empty -m \"(MAJOR) Empty commit, bumps MAJOR version\"",
     "bump:minor": "git commit --allow-empty -m \"(MINOR) Empty commit, bumps MINOR version\"",
-    "lint": "esw src/ -w --ext .ts --ext .tsx",
+    "lint": "gts lint",
     "lint:once": "eslint src/ --ext .ts --ext .tsx",
     "lint:fix": "eslint src/ --ext .ts --ext .tsx --fix",
     "lint:fix:preview": "eslint src/ --ext .ts --ext .tsx --fix-dry-run",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix src/common/components/utils",
+    "prepare": "yarn run compile",
+    "pretest": "yarn run compile",
+    "posttest": "yarn run lint",
     "test": "NODE_ENV=test jest --watch",
     "test:generate-output": "jest --json --outputFile=.jest-test-results.json || true",
     "test:group:api": "NODE_ENV=test jest --group=api --watchAll",
@@ -254,6 +260,8 @@
     "storybook-mobile": "0.1.30",
     "ts-jest": "26.5.4",
     "typescript": "4.2.3",
-    "vercel": "21.3.3"
+    "vercel": "21.3.3",
+    "gts": "^3.1.0",
+    "@types/node": "^14.11.2"
   }
 }
