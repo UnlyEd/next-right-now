@@ -106,7 +106,6 @@ const PackagesUpgradePage: NextPage<Props> = (props): JSX.Element => {
                name                              range   from       to      url
             ❯◯ @next/bundle-analyzer             latest  9.4.1   ❯  9.4.2   https://github.com/vercel/next.js#readme
              ◯ @types/jest                       latest  25.2.2  ❯  25.2.3  https://github.com/DefinitelyTyped/DefinitelyTyped.git
-             ◯ @types/webfontloader              latest  1.6.30  ❯  1.6.31  https://github.com/DefinitelyTyped/DefinitelyTyped.git
              ◯ @typescript-eslint/eslint-plugin  latest  2.33.0  ❯  3.0.0   https://github.com/typescript-eslint/typescript-eslint#readme
              ◯ @typescript-eslint/parser         latest  2.33.0  ❯  3.0.0   https://github.com/typescript-eslint/typescript-eslint#readme
              ◯ cypress                           latest  4.5.0   ❯  4.6.0   https://github.com/cypress-io/cypress
