@@ -99,7 +99,20 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    * @since 9.5 - See https://nextjs.org/blog/next-9-5#headers
    */
   async headers() {
-    const headers = [];
+    const headers = [
+      {
+        // Make all fonts immutable and cached for one year
+        'source': '/static/fonts/(.*?)',
+        'headers': [
+          {
+            'key': 'Cache-Control',
+            // See https://www.keycdn.com/blog/cache-control-immutable#what-is-cache-control-immutable
+            // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#browser_compatibility
+            'value': 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
 
     console.info('Using headers:', JSON.stringify(headers, null, 2));
 
@@ -204,7 +217,12 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    *  - babel Default babel-loader configuration
    * @see https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
    */
-  webpack: (config, { buildId, dev, isServer, defaultLoaders }) => {
+  webpack: (config, {
+    buildId,
+    dev,
+    isServer,
+    defaultLoaders,
+  }) => {
     if (isServer) {
       // IS_SERVER_INITIAL_BUILD is meant to be defined only at build time and not at run time, and therefore must not be "made public"
       process.env.IS_SERVER_INITIAL_BUILD = '1';

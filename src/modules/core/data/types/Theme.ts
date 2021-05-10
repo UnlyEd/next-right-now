@@ -1,3 +1,4 @@
+import { AllowedVariableFont } from '@/modules/core/fonts/fonts';
 import { Asset } from './Asset';
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
 
@@ -15,5 +16,5 @@ export type Theme = {
   errorColor?: string;
   onErrorColor?: string;
   logo?: Asset;
-  fonts?: string;
+  fonts?: AllowedVariableFont; // XXX Should be renamed to "font", as it contains one font only
 } & GraphCMSSystemFields;

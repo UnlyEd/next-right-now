@@ -173,8 +173,7 @@
     "recompose": "0.30.0",
     "tinycolor2": "1.4.2",
     "type-fest": "1.0.1",
-    "uuid": "8.3.2",
-    "webfontloader": "1.6.28"
+    "uuid": "8.3.2"
   },
   "devDependencies": {
     "@cypress/react": "4.16.4",
@@ -221,7 +220,6 @@
     "@types/react-test-renderer": "17.0.1",
     "@types/reactstrap": "8.7.2",
     "@types/uuid": "8.3.0",
-    "@types/webfontloader": "1.6.32",
     "@types/webpack-env": "1.16.0",
     "@typescript-eslint/eslint-plugin": "4.20.0",
     "@typescript-eslint/parser": "4.20.0",

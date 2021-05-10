@@ -183,7 +183,6 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
             transform: skew(-10deg);
             backface-visibility: hidden;
             transition: all .2s ease;
-            font-family: sans-serif;
             background: #888;
 
             &:after,
@@ -266,7 +265,6 @@ const ToggleButton: React.FunctionComponent<Props> = (props): JSX.Element => {
           + .tgl-btn {
             padding: 2px;
             transition: all .2s ease;
-            font-family: sans-serif;
             perspective: 100px;
 
             &:after,
