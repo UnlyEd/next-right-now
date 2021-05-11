@@ -1,20 +1,24 @@
 ---
+root: true
 env:
   browser: true
   commonjs: true
   es6: true
   node: true
 extends:
-  - plugin:@typescript-eslint/recommended
-  - plugin:react/recommended
-  - plugin:jsx-a11y/recommended
+  - '@quitsmx'
+  - '@quitsmx/eslint-config/ts-runtime'
+  - '@quitsmx/eslint-config/react'
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:react/recommended'
+  - 'plugin:jsx-a11y/recommended'
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
 plugins:
-  - jest
-  - react
-  - react-hooks
+  - 'jest'
+  - 'react'
+  - 'react-hooks'
   - '@emotion'
 parser: '@typescript-eslint/parser'
 parserOptions:
@@ -103,7 +107,33 @@ rules: # See https://eslint.org/docs/rules
   # Emotion 11 - See https://emotion.sh/docs/emotion-11
   '@emotion/pkg-renaming': error
 
+ignorePatterns:
+  - '/dist'
+  - '/patches'
 overrides:
   - files: ['**/*.tsx']
     rules:
       'react/prop-types': 'off'
+  - files:
+      - bin/**/*
+    parserOptions:
+      sourceType: script
+    extends:
+      - '@quitsmx/eslint-config/node'
+    rules:
+      node/no-unpublished-require: error
+  - files:
+      - ./*.js
+      - scripts/**/*
+    parserOptions:
+      sourceType: script
+    extends:
+      - '@quitsmx/eslint-config/node'
+  - files:
+      - rollup.config.js
+      - scripts/**/*.ts
+    rules:
+      node/no-unsupported-features/es-syntax:
+        - error
+        - ignores:
+            - modules

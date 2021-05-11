@@ -1,0 +1,16 @@
+# Inherits rules from .editorconfig - See https: //blog.theodo.com/2019/08/empower-your-dev-environment-with-eslint-prettier-and-editorconfig-with-no-conflicts/
+
+# All prettierx options: https://github.com/brodybits/prettierx#additional-prettierx-options
+trailingComma: 'all'
+arrowParens: avoid
+endOfLine: lf
+generatorStarSpacing: true
+offsetTernaryExpressions: true
+printWidth: 92
+quoteProps: consistent
+semi: true
+singleQuote: true
+spaceBeforeFunctionParen: true
+tabWidth: 2
+useTabs: false
+yieldStarSpacing: true
