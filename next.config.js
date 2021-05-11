@@ -71,8 +71,6 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    * @see https://nextjs.org/docs/api-reference/next.config.js/environment-variables
    */
   env: {
-    VERCEL_URL: process.env.VERCEL_URL,
-    NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
     GITHUB_DISPATCH_TOKEN: process.env.GITHUB_DISPATCH_TOKEN,
     GRAPHQL_API_ENDPOINT: process.env.GRAPHQL_API_ENDPOINT,
     GRAPHQL_API_KEY: process.env.GRAPHQL_API_KEY,
@@ -80,6 +78,8 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     SENTRY_DSN: process.env.SENTRY_DSN,
 
     // Dynamic env variables
+    VERCEL_DOMAIN: process.env.VERCEL_URL, // Injected by Vercel, see https://vercel.com/docs/environment-variables#system-environment-variables
+    NEXT_PUBLIC_APP_BASE_URL: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:8888',
     NEXT_PUBLIC_APP_BUILD_TIME: date.toString(),
     NEXT_PUBLIC_APP_BUILD_TIMESTAMP: +date,
     NEXT_PUBLIC_APP_NAME: packageJson.name,

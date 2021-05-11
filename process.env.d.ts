@@ -18,6 +18,7 @@ declare global {
       LOCIZE_API_KEY: string;
       NODE_ENV: 'development' | 'production';
       NEXT_PUBLIC_AMPLITUDE_API_KEY: string;
+      NEXT_PUBLIC_APP_BASE_URL: string;
       NEXT_PUBLIC_APP_BUILD_ID: string;
       NEXT_PUBLIC_APP_NAME: string;
       NEXT_PUBLIC_APP_NAME_VERSION: string;
@@ -29,6 +30,7 @@ declare global {
       NEXT_PUBLIC_LOCIZE_PROJECT_ID: string;
       NEXT_PUBLIC_NRN_PRESET: string;
       SENTRY_DSN: string;
+      VERCEL_DOMAIN: string;
 
       // Git env variables
       GIT_COMMIT_SHA_SHORT: string;
@@ -36,7 +38,7 @@ declare global {
       GIT_COMMIT_REF: string;
       GIT_COMMIT_TAGS: string;
 
-      // Vendor env variables
+      // Vercel (+ AWS) env variables - See https://vercel.com/docs/environment-variables#system-environment-variables
       AWS_EXECUTION_ENV: string;
       AWS_LAMBDA_FUNCTION_MEMORY_SIZE: string;
       AWS_REGION: string;
