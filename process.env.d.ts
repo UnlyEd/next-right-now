@@ -18,7 +18,9 @@ declare global {
       LOCIZE_API_KEY: string;
       NODE_ENV: 'development' | 'production';
       NEXT_PUBLIC_AMPLITUDE_API_KEY: string;
+      NEXT_PUBLIC_APP_BASE_URL: string;
       NEXT_PUBLIC_APP_BUILD_ID: string;
+      NEXT_PUBLIC_APP_DOMAIN: string;
       NEXT_PUBLIC_APP_NAME: string;
       NEXT_PUBLIC_APP_NAME_VERSION: string;
       NEXT_PUBLIC_APP_VERSION_RELEASE: string;
@@ -36,11 +38,15 @@ declare global {
       GIT_COMMIT_REF: string;
       GIT_COMMIT_TAGS: string;
 
-      // Vendor env variables
+      // Vercel (+ AWS) env variables - See https://vercel.com/docs/environment-variables#system-environment-variables
       AWS_EXECUTION_ENV: string;
       AWS_LAMBDA_FUNCTION_MEMORY_SIZE: string;
       AWS_REGION: string;
-      VERCEL_REGION: string;
+      VERCEL: string; // An indicator that the app is deployed and running on Vercel. Example: '1'.
+      VERCEL_ENV: string; // The Environment that the app is deployed an running on. The value can be either 'production', 'preview', or 'development'.
+      VERCEL_REGION: string; // The ID of the Region where the app is running. Example: 'cdg1'. XXX: This Variable is only exposed during Runtime for Serverless Functions.
+      VERCEL_URL: string; // The URL of the deployment. Example: 'my-site-7q03y4pi5.vercel.app'. XXX Do not use. Using NEXT_PUBLIC_APP_DOMAIN is preferred (alias)
+      CI: string; // An indicator that the code is running in a Continuous Integration environment. Example: '1'. XXX: This Variable is only exposed during Build Step.
 
       // Other
       TZ: string; // TimeZone (":UTC")
