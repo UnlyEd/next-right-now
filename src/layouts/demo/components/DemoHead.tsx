@@ -126,7 +126,12 @@ const DemoHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
           // See https://stackoverflow.com/questions/28291574/are-relative-links-valid-in-link-rel-alternate-hreflang-tags
           // See https://webmasters.googleblog.com/2013/04/5-common-mistakes-with-relcanonical.html
           return (
-            <link key={supportedLocale?.name} rel="alternate" hrefLang={supportedLocale?.name || 'en'} href={`/${supportedLocale?.name || 'en'}`} />
+            <link
+              key={supportedLocale?.name}
+              rel="alternate"
+              hrefLang={supportedLocale?.name || 'en'}
+              href={`${process.env.NEXT_PUBLIC_APP_BASE_URL}/${supportedLocale?.name || 'en'}`}
+            />
           );
         })
       }

@@ -2,9 +2,11 @@
  * This test is meant to detect quickly when required ENV variables are missing.
  * We encourage you to list all your env variables to make sure you detect misconfiguration early.
  *
- * It was added after encountering this particular issue https://github.com/vercel/next.js/issues/13780
- * Where a missing env var would crash the "next build" locally, because of the particular behaviour of the "fetch" package
- * It can be hard to track down such misconfiguration, and it's a good practice to detect those as early as possible (and avoid deploying a misconfigured release)
+ * It was added after encountering this particular issue https://github.com/vercel/next.js/issues/13780.
+ * Where a missing env var would crash the "next build" locally, because of the particular behaviour of the "fetch" package.
+ * It can be hard to track down such misconfiguration, and it's a good practice to detect those as early as possible (and avoid deploying a misconfigured release).
+ *
+ * XXX This test file is not executed on Vercel, only locally. ("integration" tests aren't executed on Vercel)
  *
  * @group integration
  * @group utils
@@ -29,6 +31,15 @@ describe(`utils/env/env.ts`, () => {
         expect(process.env.NEXT_PUBLIC_APP_BUILD_ID, 'NEXT_PUBLIC_APP_BUILD_ID must be defined but is not').toBeDefined();
       } else {
         expect(process.env.NEXT_PUBLIC_APP_BUILD_ID, 'NEXT_PUBLIC_APP_BUILD_ID should not be defined when building a non-production release').not.toBeDefined();
+      }
+    });
+
+    test(`NEXT_PUBLIC_APP_BASE_URL`, async () => {
+      // This ENV var is injected by Webpack and not available when running the tests suite when building a local build (because webpack hasn't been executed yet)
+      if (process.env.NODE_ENV === 'production') {
+        expect(process.env.NEXT_PUBLIC_APP_BASE_URL, 'NEXT_PUBLIC_APP_BASE_URL must be defined but is not').toBeDefined();
+      } else {
+        expect(process.env.NEXT_PUBLIC_APP_BASE_URL, 'NEXT_PUBLIC_APP_BASE_URL should not be defined when building a non-production release').not.toBeDefined();
       }
     });
 
