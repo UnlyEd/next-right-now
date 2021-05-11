@@ -77,8 +77,14 @@ module.exports = withBundleAnalyzer(withSourceMaps({
     LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,
     SENTRY_DSN: process.env.SENTRY_DSN,
 
+    // Vercel env variables - See https://vercel.com/docs/environment-variables#system-environment-variables
+    VERCEL: process.env.VERCEL,
+    VERCEL_ENV: process.env.VERCEL_ENV,
+    VERCEL_URL: process.env.VERCEL_URL,
+    CI: process.env.CI,
+
     // Dynamic env variables
-    VERCEL_DOMAIN: process.env.VERCEL_URL, // Injected by Vercel, see https://vercel.com/docs/environment-variables#system-environment-variables
+    NEXT_PUBLIC_APP_DOMAIN: process.env.VERCEL_URL, // Alias
     NEXT_PUBLIC_APP_BASE_URL: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:8888',
     NEXT_PUBLIC_APP_BUILD_TIME: date.toString(),
     NEXT_PUBLIC_APP_BUILD_TIMESTAMP: +date,

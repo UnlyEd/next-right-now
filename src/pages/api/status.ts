@@ -45,7 +45,6 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       GIT_COMMIT_SHA: process.env.GIT_COMMIT_SHA,
       GIT_COMMIT_REF: process.env.GIT_COMMIT_REF,
       GIT_COMMIT_TAGS: process.env.GIT_COMMIT_TAGS,
-      VERCEL_DOMAIN: process.env.VERCEL_DOMAIN,
       NEXT_PUBLIC_APP_BASE_URL: process.env.NEXT_PUBLIC_APP_BASE_URL,
     });
   } catch (e) {

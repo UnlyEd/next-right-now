@@ -93,9 +93,6 @@ const DemoHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const format = config?.format || 'woff2';
   const fontFile = config?.fontFile || `${fontName}-variable-latin.${format}`;
 
-  console.log('VERCEL_DOMAIN', process.env.VERCEL_DOMAIN);
-  console.log('NEXT_PUBLIC_APP_BASE_URL', process.env.NEXT_PUBLIC_APP_BASE_URL);
-
   return (
     <NextHead>
       <meta charSet="UTF-8" />
@@ -133,7 +130,7 @@ const DemoHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
               key={supportedLocale?.name}
               rel="alternate"
               hrefLang={supportedLocale?.name || 'en'}
-              href={`/${supportedLocale?.name || 'en'}`} // TODO must use absolute url
+              href={`${process.env.NEXT_PUBLIC_APP_BASE_URL}/${supportedLocale?.name || 'en'}`}
             />
           );
         })
