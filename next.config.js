@@ -71,6 +71,7 @@ module.exports = withBundleAnalyzer(withSourceMaps({
    * @see https://nextjs.org/docs/api-reference/next.config.js/environment-variables
    */
   env: {
+    NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
     GITHUB_DISPATCH_TOKEN: process.env.GITHUB_DISPATCH_TOKEN,
     GRAPHQL_API_ENDPOINT: process.env.GRAPHQL_API_ENDPOINT,
     GRAPHQL_API_KEY: process.env.GRAPHQL_API_KEY,

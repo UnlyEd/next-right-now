@@ -94,6 +94,7 @@ const DemoHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const fontFile = config?.fontFile || `${fontName}-variable-latin.${format}`;
 
   console.log('VERCEL_URL', process.env.VERCEL_URL);
+  console.log('NEXT_PUBLIC_VERCEL_URL', process.env.NEXT_PUBLIC_VERCEL_URL);
 
   return (
     <NextHead>
