@@ -1,0 +1,14 @@
+{
+  "arrowParens": "avoid",
+  "endOfLine": "lf",
+  "generatorStarSpacing": true,
+  "offsetTernaryExpressions": true,
+  "printWidth": 92,
+  "quoteProps": "consistent",
+  "semi": false,
+  "singleQuote": true,
+  "spaceBeforeFunctionParen": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "yieldStarSpacing": true
+}
