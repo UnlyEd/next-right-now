@@ -72,7 +72,7 @@ export type HeadProps = {
  *
  * https://github.com/vercel/next.js#populating-head
  */
-const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
+const CoreHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
 
   const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
@@ -163,4 +163,4 @@ const Head: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   );
 };
 
-export default Head;
+export default CoreHead;

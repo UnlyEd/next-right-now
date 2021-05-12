@@ -5,7 +5,7 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import { getDemoServerSideProps } from '@/layouts/demo/demoSSR';
+import { getDemoServerSideProps } from '@/layouts/demo/demoLayoutSSR';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';

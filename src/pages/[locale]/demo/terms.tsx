@@ -2,11 +2,11 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import LegalContent from '@/common/components/dataDisplay/LegalContent';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import DefaultLayout from '@/layouts/default/components/DefaultLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import {
-  getDefaultStaticPaths,
-  getDefaultStaticProps,
-} from '@/layouts/default/defaultSSG';
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '@/layouts/demo/demoLayoutSSG';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -20,7 +20,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-const fileLabel = 'pages/[locale]/terms';
+const fileLabel = 'pages/[locale]/demo/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   fileLabel,
 });
@@ -29,7 +29,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefaultStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -58,6 +58,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
+  console.log('customer', customer);
   const {
     termsDescription,
     serviceLabel,
@@ -70,14 +71,14 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={AMPLITUDE_PAGES.TERMS_PAGE}
     >
       <LegalContent
         content={terms}
       />
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

@@ -8,7 +8,7 @@ import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+} from '@/layouts/demo/demoLayoutSSG';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { createLogger } from '@/modules/core/logging/logger';
@@ -76,7 +76,7 @@ const ExampleCookiesConsentPage: NextPage<Props> = (props): JSX.Element => {
             <h1 className={'pcolor'}>Cookies consent examples, using <code>CookieConsent</code> OSS library</h1>
 
             <Alert color={'warning'}>
-              The consent popup has been enabled only on this page and the <I18nLink href={'/terms'}>terms</I18nLink> page to avoid undesired popups popping everywhere.<br />
+              The consent popup has been enabled only on this page and the <I18nLink href={'/demo/terms'}>terms</I18nLink> page to avoid undesired popups popping everywhere.<br />
               Note that the consent implementation makes you opt-in to analytics tracking by default unless you manually refuse it.
             </Alert>
 
