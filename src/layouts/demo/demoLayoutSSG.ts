@@ -95,7 +95,6 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     props: {
       bestCountryCodes,
       serializedDataset: serializeSafe(dataset),
-      customer,
       customerRef,
       i18nTranslations,
       hasLocaleFromUrl,

@@ -3,7 +3,6 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import { APOLLO_STATE_PROP_NAME } from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
@@ -86,15 +85,12 @@ export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServ
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
-      [APOLLO_STATE_PROP_NAME]: {}, // Empty Apollo cache
       bestCountryCodes: [], // We don't need any because we're not calling a GraphQL endpoint using this layout
       serializedDataset: serializeSafe({
         customer,
       }),
-      customer,
       customerRef,
       i18nTranslations,
-      gcmsLocales: null,
       hasLocaleFromUrl,
       isReadyToRender: true,
       isStaticRendering: true,

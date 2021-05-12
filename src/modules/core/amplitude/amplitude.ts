@@ -40,6 +40,7 @@ export enum AMPLITUDE_ACTIONS {
  */
 export enum AMPLITUDE_PAGES {
   DEMO_HOME_PAGE = 'demo',
+  PREVIEW_PRODUCT_PAGE = 'demo/preview-product',
   TERMS_PAGE = 'demo/terms',
   PRIVACY_PAGE = 'demo/privacy',
   TEMPLATE_SSG_PAGE = 'template-ssg',
