@@ -5,5 +5,5 @@
   "videosFolder": "cypress/videos/development",
   "env": {},
   "ignoreTestFiles": "*.md",
-  "experimentalComponentTesting": true
+  "experimentalInteractiveRunEvents": true
 }

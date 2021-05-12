@@ -7,5 +7,5 @@
   "integrationFolder": "cypress/integration-storybook",
   "env": {},
   "ignoreTestFiles": "*.md",
-  "experimentalComponentTesting": true
+  "experimentalInteractiveRunEvents": true
 }

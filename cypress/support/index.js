@@ -14,7 +14,7 @@
 // ***********************************************************
 
 // See https://dev.to/cuichenli/how-do-i-setup-my-nextjs-development-environment-2kao
-import '@cypress/react/support';
+import '@cypress/react';
 import './commands';
 
 // See https://docs.cypress.io/api/events/catalog-of-events.html#Uncaught-Exceptions
