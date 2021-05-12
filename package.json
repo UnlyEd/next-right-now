@@ -120,7 +120,7 @@
     "@unly/simple-logger": "1.0.0",
     "@unly/universal-language-detector": "2.0.3",
     "@unly/utils": "1.0.3",
-    "amplitude-js": "8.1.0",
+    "amplitude-js": "8.2.1",
     "animate.css": "4.1.1",
     "append-query": "2.1.0",
     "bootstrap": "4.6.0",
