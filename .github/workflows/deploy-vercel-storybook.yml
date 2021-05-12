@@ -45,6 +45,7 @@ on:
       - '*.js*' # Includes all .js/.json at the root level
       - '*.ts' # Includes all .ts at the root level
       - '.*ignore' # Includes .gitignore and .vercelignore
+      - 'package.json'
       - 'yarn.lock'
       - '!**/*.md' # Exclude all markdown files
       - 'stories/**/*.md' # Force include all markdown files within stories (because they're used for storybook)
