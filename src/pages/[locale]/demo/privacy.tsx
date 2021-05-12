@@ -1,23 +1,26 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import LegalContent from '@/components/dataDisplay/LegalContent';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import DefaultLayout from '@/layouts/default/components/DefaultLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import {
-  getDefaultStaticPaths,
-  getDefaultStaticProps,
-} from '@/layouts/default/defaultSSG';
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '@/layouts/demo/demoLayoutSSG';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
+import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
   GetStaticProps,
   NextPage,
 } from 'next';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-const fileLabel = 'pages/[locale]/pageTemplateSSG';
+const fileLabel = 'pages/[locale]/demo/privacy';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   fileLabel,
 });
@@ -26,7 +29,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefaultStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -36,7 +39,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefault
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDefaultStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDemoStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -48,23 +51,37 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const PageTemplateSSG: NextPage<Props> = (props): JSX.Element => {
+/**
+ * Privacy page, that displays all legal-related information.
+ *
+ * Basically displays a bunch of markdown that's coming from the CMS.
+ */
+const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
+  const {
+    privacyDescription,
+    serviceLabel,
+  } = customer || {};
+
+  console.log('customer', customer)
+
+  // Replace dynamic values (like "{customerLabel}") by their actual value
+  const privacy = replaceAllOccurrences(privacyDescription, {
+    serviceLabel: `**${serviceLabel}**`,
+    customerLabel: `**${customer?.label}**`,
+  });
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
-      pageName={AMPLITUDE_PAGES.TEMPLATE_SSG_PAGE}
+      pageName={AMPLITUDE_PAGES.PRIVACY_PAGE}
     >
-      <p>
-        This page is a template meant to be duplicated to quickly get started with new Next.js <b>SSG pages</b>.<br />
-        It gets common page properties from a default SSG build. Dynamic data (from Airtable) are accessible through <code>props.customer</code>.
-      </p>
-      <p>
-        Customer label: {customer.label}
-      </p>
-    </DefaultLayout>
+      <h2>Field's value (fetched from Airtable API), as <code>Long text</code> (interpreted as Markdown):</h2>
+      <LegalContent
+        content={privacy}
+      />
+    </DemoLayout>
   );
 };
 
-export default (PageTemplateSSG);
+export default (PrivacyPage);

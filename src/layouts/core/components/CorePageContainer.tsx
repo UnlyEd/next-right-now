@@ -11,7 +11,7 @@ type Props = {
  *
  * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  */
-const PageContainer: React.FunctionComponent<Props> = (props): JSX.Element => {
+const CorePageContainer: React.FunctionComponent<Props> = (props): JSX.Element => {
   const {
     children,
   } = props;
@@ -31,4 +31,4 @@ const PageContainer: React.FunctionComponent<Props> = (props): JSX.Element => {
 
 };
 
-export default PageContainer;
+export default CorePageContainer;

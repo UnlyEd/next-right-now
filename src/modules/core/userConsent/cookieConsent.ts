@@ -189,7 +189,7 @@ const initCookieConsent = (options: InitOptions): void => {
       allow: t('cookieConsent.content.allow', `Accepter`),
       deny: t('cookieConsent.content.deny', `Refuser`),
       link: t('cookieConsent.content.link', `En savoir plus`),
-      href: `/${locale}/terms`,
+      href: `/${locale}/demo/terms`,
       target: ``, // Use "_blank" if you use an external "href" value
       close: `&#x274c;`,
       policy: t('cookieConsent.content.policy', `Politique de confidentialité`),

@@ -39,10 +39,10 @@ export enum AMPLITUDE_ACTIONS {
  * This is used to track events happening within the pages, to know on which page they occurred.
  */
 export enum AMPLITUDE_PAGES {
-  DEMO_HOME_PAGE = 'demo-home',
-  PREVIEW_PRODUCT_PAGE = 'preview-product',
-  TERMS_PAGE = 'terms',
-  PRIVACY_PAGE = 'privacy',
+  DEMO_HOME_PAGE = 'demo',
+  PREVIEW_PRODUCT_PAGE = 'demo/preview-product',
+  TERMS_PAGE = 'demo/terms',
+  PRIVACY_PAGE = 'demo/privacy',
   TEMPLATE_SSG_PAGE = 'template-ssg',
   TEMPLATE_SSR_PAGE = 'template-ssr',
 }

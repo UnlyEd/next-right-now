@@ -86,6 +86,7 @@ type EndpointRequest = NextApiRequest & {
  *
  * @param req
  * @param res
+ *
  * @method POST
  */
 export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
@@ -97,7 +98,7 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
     // eslint-disable-next-line no-console
     console.log(req?.body);
 
-    const parsedBody = convertRequestBodyToJSObject(req) as EndpointRequestBody;
+    const parsedBody = convertRequestBodyToJSObject<EndpointRequestBody>(req);
 
     // eslint-disable-next-line no-console
     console.debug('body (parsed)', parsedBody);

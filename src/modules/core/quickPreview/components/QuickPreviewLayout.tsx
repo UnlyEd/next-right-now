@@ -1,4 +1,4 @@
-import Head, { HeadProps } from '@/layouts/core/components/Head';
+import Head, { HeadProps } from '@/layouts/demo/components/DemoHead';
 import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { createLogger } from '@/modules/core/logging/logger';
