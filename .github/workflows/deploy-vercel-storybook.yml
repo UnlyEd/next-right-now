@@ -49,6 +49,10 @@ on:
       - '!**/*.md' # Exclude all markdown files
       - 'stories/**/*.md' # Force include all markdown files within stories (because they're used for storybook)
 
+env:
+  STAGE: staging
+  CYPRESS_DOCKER_VERSION: '6.8.0' # Should match the version installed in package.json
+
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
@@ -188,7 +192,7 @@ jobs:
     runs-on: ubuntu-18.04
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
-    container: cypress/included:6.8.0
+    container: cypress/included:${{ env.CYPRESS_DOCKER_VERSION }}
     needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
