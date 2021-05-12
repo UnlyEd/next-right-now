@@ -1,5 +1,4 @@
-import createSimpleLogger from '@unly/simple-logger';
-import { SimpleLogger } from '@unly/simple-logger';
+import createSimpleLogger, { SimpleLogger } from '@unly/simple-logger';
 
 /**
  * Custom logger proxy.
