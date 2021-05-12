@@ -1,5 +1,5 @@
-import { I18nRichText } from './I18nRichText';
 import { GraphCMSSystemFields } from './GraphCMSSystemFields';
+import { I18nRichText } from './I18nRichText';
 import { Product } from './Product';
 import { Theme } from './Theme';
 

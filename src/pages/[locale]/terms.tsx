@@ -14,12 +14,12 @@ import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { replaceAllOccurrences } from '@/modules/core/js/string';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   ApolloClient,
   ApolloQueryResult,
   NormalizedCacheObject,
 } from '@apollo/client';
-import { createLogger } from '@/modules/core/logging/logger';
 import deepmerge from 'deepmerge';
 import {
   GetStaticPaths,

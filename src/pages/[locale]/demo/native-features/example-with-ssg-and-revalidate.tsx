@@ -16,13 +16,13 @@ import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import { Product } from '@/modules/core/data/types/Product';
 import timeDifference from '@/modules/core/date/timeDifference';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   ApolloClient,
   ApolloQueryResult,
   NormalizedCacheObject,
   QueryOptions,
 } from '@apollo/client';
-import { createLogger } from '@/modules/core/logging/logger';
 import deepmerge from 'deepmerge';
 import size from 'lodash.size';
 import {

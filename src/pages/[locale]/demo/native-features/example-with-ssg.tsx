@@ -16,13 +16,13 @@ import { Product } from '@/modules/core/data/types/Product';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { SUPPORTED_LOCALES } from '@/modules/core/i18n/i18n';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import { createLogger } from '@/modules/core/logging/logger';
 import {
   ApolloClient,
   ApolloQueryResult,
   NormalizedCacheObject,
   QueryOptions,
 } from '@apollo/client';
-import { createLogger } from '@/modules/core/logging/logger';
 import deepmerge from 'deepmerge';
 import map from 'lodash.map';
 import size from 'lodash.size';

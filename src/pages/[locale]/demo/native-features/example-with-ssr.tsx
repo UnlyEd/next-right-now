@@ -19,12 +19,12 @@ import useDataset from '@/modules/core/data/hooks/useDataset';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
 import { Product } from '@/modules/core/data/types/Product';
+import { createLogger } from '@/modules/core/logging/logger';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import {
   ApolloQueryResult,
   QueryOptions,
 } from '@apollo/client';
-import { createLogger } from '@/modules/core/logging/logger';
 import size from 'lodash.size';
 import {
   GetServerSideProps,

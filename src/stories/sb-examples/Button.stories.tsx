@@ -1,8 +1,14 @@
-import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
+import {
+  Meta,
+  Story,
+} from '@storybook/react/types-6-0';
+import React from 'react';
 
-import { Button, ButtonProps } from './Button';
+import {
+  Button,
+  ButtonProps,
+} from './Button';
 
 export default {
   title: 'Storybook/Default examples/Button',

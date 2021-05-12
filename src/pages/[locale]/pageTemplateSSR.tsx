@@ -4,8 +4,10 @@ import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import DefaultLayout from '@/layouts/default/components/DefaultLayout';
-import { getDefaultServerSideProps } from '@/layouts/default/defaultSSR';
-import { GetDefaultServerSidePropsResults } from '@/layouts/default/defaultSSR';
+import {
+  getDefaultServerSideProps,
+  GetDefaultServerSidePropsResults,
+} from '@/layouts/default/defaultSSR';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import {
   APOLLO_STATE_PROP_NAME,
@@ -13,9 +15,9 @@ import {
 } from '@/modules/core/apollo/apolloClient';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
+import { createLogger } from '@/modules/core/logging/logger';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import { ApolloQueryResult } from '@apollo/client';
-import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
