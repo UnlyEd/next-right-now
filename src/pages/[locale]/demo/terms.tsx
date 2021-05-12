@@ -1,20 +1,21 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
-import LegalContent from '@/common/components/dataDisplay/LegalContent';
 import { TERMS_PAGE_QUERY } from '@/common/gql/pages/terms';
+import LegalContent from '@/components/dataDisplay/LegalContent';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import DefaultLayout from '@/layouts/default/components/DefaultLayout';
+import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import {
-  getDefaultStaticPaths,
-  getDefaultStaticProps,
-} from '@/layouts/default/defaultSSG';
+  getDemoStaticPaths,
+  getDemoStaticProps,
+} from '@/layouts/demo/demoSSG';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@/modules/core/logging/logger';
+import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import {
   ApolloClient,
   ApolloQueryResult,
@@ -30,7 +31,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
 
-const fileLabel = 'pages/[locale]/terms';
+const fileLabel = 'pages/[locale]/demo/terms';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   fileLabel,
 });
@@ -39,7 +40,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefaultStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
 
 /**
  * Only executed on the server side at build time.
@@ -50,13 +51,13 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDefault
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDefaultStaticProps(props);
+  const demoStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoStaticProps(props);
 
-  if ('props' in commonStaticProps) {
+  if ('props' in demoStaticProps) {
     const {
       customerRef,
       gcmsLocales,
-    } = commonStaticProps.props;
+    } = demoStaticProps.props;
     const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
     const variables = {
       customerRef,
@@ -92,13 +93,19 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
       customer,
     } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
-    return deepmerge(commonStaticProps, {
+    const result = deepmerge(demoStaticProps, {
       props: {
         customer,
       },
     });
+
+    result.props.serializedDataset = serializeSafe({
+      customer: result.props.customer
+    });
+
+    return result;
   } else {
-    return commonStaticProps;
+    return demoStaticProps;
   }
 };
 
@@ -119,6 +126,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
+  console.log('customer', customer);
   const {
     termsDescription,
     serviceLabel,
@@ -131,7 +139,7 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
   });
 
   return (
-    <DefaultLayout
+    <DemoLayout
       {...props}
       pageName={AMPLITUDE_PAGES.TERMS_PAGE}
       headProps={{
@@ -141,7 +149,7 @@ const TermsPage: NextPage<Props> = (props): JSX.Element => {
       <LegalContent
         content={terms}
       />
-    </DefaultLayout>
+    </DemoLayout>
   );
 };
 

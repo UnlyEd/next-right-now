@@ -127,7 +127,7 @@ const Footer: React.FunctionComponent<Props> = (props) => {
 
       <section className={'links'}>
         <I18nLink
-          href={`/terms`}
+          href={`/demo/terms`}
         >
           <div>
             {t('footer.terms.link', 'Conditions générales d\'utilisation')}

@@ -2,18 +2,10 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
-import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
-import {
-  APOLLO_STATE_PROP_NAME,
-  getApolloState,
-  initializeApollo,
-} from '@/modules/core/apollo/apolloClient';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { APOLLO_STATE_PROP_NAME } from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
-import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
-import {
-  DEFAULT_LOCALE,
-  resolveFallbackLanguage,
-} from '@/modules/core/i18n/i18n';
+import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import {
   fetchTranslations,
@@ -22,11 +14,6 @@ import {
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
-import {
-  ApolloClient,
-  ApolloQueryResult,
-  NormalizedCacheObject,
-} from '@apollo/client';
 import map from 'lodash.map';
 import {
   GetStaticPaths,
@@ -34,7 +21,6 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
-import { SSGPageProps } from './types/SSGPageProps';
 
 /**
  * Only executed on the server side at build time.
@@ -46,13 +32,11 @@ import { SSGPageProps } from './types/SSGPageProps';
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
- *
  * @return Static paths that will be used by "getCoreStaticProps" to generate pages
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
+export const getPublicLayoutStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
     return {
       params: {
@@ -68,6 +52,9 @@ export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
 };
 
 /**
+ * XXX This layout comes "naked" with the strictest minimal stuff to build new pages.
+ *  It doesn't run GraphQL queries, and provides the minimal amount of required data for the page to work.
+ *
  * Only executed on the server side at build time.
  * Computes all static props that should be available for all SSG pages.
  *
@@ -77,70 +64,37 @@ export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
- *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props (known as "pageProps" in _app).
  *
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
+export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const preview: boolean = props?.preview || false;
   const previewData: PreviewData = props?.previewData || null;
   const hasLocaleFromUrl = !!props?.params?.locale;
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
-  const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
-    displayName: 'LAYOUT_QUERY',
-    query: LAYOUT_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locales': gcmsLocales,
-      },
-    },
-  };
-
-  const {
-    data,
-    errors,
-    loading,
-    networkStatus,
-    ...rest
-  }: ApolloQueryResult<{
-    customer: Customer;
-  }> = await apolloClient.query(queryOptions);
-
-  if (errors) {
-    // eslint-disable-next-line no-console
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
-  }
-
-  const {
-    customer,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
-  const dataset = {
-    customer,
-  };
+  const customer: Customer = {
+    ref: customerRef,
+    label: `${customerRef} (mocked)`,
+    serviceLabel: 'Those mocked data are defined in the publicLayoutSSG. The page is from "pages/public". This layout is meant for all "public" pages, you probably want to start there!',
+  } as Customer;
 
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
-      [APOLLO_STATE_PROP_NAME]: getApolloState(apolloClient),
-      bestCountryCodes,
-      serializedDataset: serializeSafe(dataset),
+      [APOLLO_STATE_PROP_NAME]: {}, // Empty Apollo cache
+      bestCountryCodes: [], // We don't need any because we're not calling a GraphQL endpoint using this layout
+      serializedDataset: serializeSafe({
+        customer,
+      }),
+      customer,
       customerRef,
       i18nTranslations,
-      gcmsLocales,
+      gcmsLocales: null,
       hasLocaleFromUrl,
       isReadyToRender: true,
       isStaticRendering: true,
@@ -149,7 +103,6 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
       preview,
       previewData,
     },
-    // revalidate: false,
   };
 };
 

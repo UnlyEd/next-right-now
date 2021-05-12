@@ -119,6 +119,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       props: {
         ...pageData,
         [APOLLO_STATE_PROP_NAME]: getApolloState(apolloClient),
+        customer,
         serializedDataset: serializeSafe(dataset),
       },
     };

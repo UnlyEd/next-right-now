@@ -80,7 +80,7 @@ const ApiPage: NextPage<Props> = (props): JSX.Element => {
             <li>
               <ExternalLink href={'/api/autoRedirectToLocalisedPage'}><code>/api/autoRedirectToLocalisedPage</code></ExternalLink>: Meant to detect the browser preferred locale (based on HTTP headers) and redirect to the localised version of the page.<br />
               It is used in Next.js experimental rewrites in <code>next.config.js</code> to automatically redirect to this endpoint all requests that don't have a locale defined in the url.<br />
-              For instance, going to <ExternalLink href={'/terms'}>/terms</ExternalLink> should redirect to the <code>fr</code> or <code>en</code> page, depending on your browser language preferences.
+              For instance, going to <ExternalLink href={'/demo/terms'}>/terms</ExternalLink> should redirect to the <code>fr</code> or <code>en</code> page, depending on your browser language preferences.
             </li>
           </ul>
         </div>

@@ -1,5 +1,5 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
+import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { initializeApollo } from '@/modules/core/apollo/apolloClient';
@@ -104,7 +104,7 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
   };
   const layoutQueryOptions: ApolloQueryOptions = {
     displayName: 'LAYOUT_QUERY',
-    query: LAYOUT_QUERY,
+    query: DEMO_LAYOUT_QUERY,
     variables,
     context: {
       headers: {

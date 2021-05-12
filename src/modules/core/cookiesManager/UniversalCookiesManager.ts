@@ -18,7 +18,7 @@ import {
 } from '../userSession/types/UserSemiPersistentSession';
 import { Cookies } from './types/Cookies';
 
-const USER_LS_KEY = 'user';
+export const USER_LS_KEY = 'user';
 
 /**
  * Helper to manage cookies universally whether being on the server or browser

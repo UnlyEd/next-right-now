@@ -3,7 +3,6 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
-import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import {
   APOLLO_STATE_PROP_NAME,
   getApolloState,
@@ -35,6 +34,7 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
+import { SSGPageProps } from './types/SSGPageProps';
 
 /**
  * Only executed on the server side at build time.
@@ -52,7 +52,7 @@ import {
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
+export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
     return {
       params: {
@@ -77,14 +77,14 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
+ * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  *
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props (known as "pageProps" in _app).
  *
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
+export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const preview: boolean = props?.preview || false;
   const previewData: PreviewData = props?.previewData || null;
