@@ -119,21 +119,21 @@ jobs:
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
       # extract branch name on branch push
-      # Limit the branch name length to keep a readable URL
+      # According to RFC 1035, each DNS label has a limit of 63 (63-4= 59) characters
       - name: Extract branch name (in case of push on branch)
         if: github.event_name != 'pull_request'
         shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | cut -c1-15)" >> $GITHUB_ENV
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | cut -c1-59)" >> $GITHUB_ENV
         id: extract_branch
 
       # extract branch name on pull request changes
       # Limit the branch name length to keep a readable URL
       - name: Extract branch name (in case of changes on pull request)
         if: github.event_name == 'pull_request'
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | cut -c1-15)" >> $GITHUB_ENV
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | cut -c1-59)" >> $GITHUB_ENV
 
       - name: Deploying on Vercel (${{ env.STAGE }})
-        uses: UnlyEd/github-action-deploy-on-vercel@7e223711d3b681cf05a419fbf3586b44a4f41902 # Pin "v1.1.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/fc3aa0581f0fef5795ff16e93a48eeff99d42c1e
+        uses: UnlyEd/github-action-deploy-on-vercel@602a99503fd7e440fbe960d491eb11aa80c97d96 # Pin "v1.1.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/fc3aa0581f0fef5795ff16e93a48eeff99d42c1e
         with:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEL_TOKEN }}"
           extraAliases: nrn-${{ env.BRANCH_NAME }}.vercel.app
