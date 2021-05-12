@@ -1,5 +1,5 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
+import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { initializeApollo } from '@/modules/core/apollo/apolloClient';
@@ -38,7 +38,7 @@ import NextCookies from 'next-cookies';
  * getDemoServerSideProps returns only part of the props expected in SSRPageProps
  * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
  */
-export type GetCommonServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
+export type GetCoreServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
@@ -53,11 +53,11 @@ export type GetCommonServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE
  *
  * Meant to avoid code duplication
  *
- * XXX Demo component, not meant to be modified. It's a copy of the baseSSR implementation, so the demo keep working even if you change the base implementation.
+ * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getDemoServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
+export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCoreServerSidePropsResults>> => {
   const {
     query,
     params,
@@ -104,7 +104,7 @@ export const getDemoServerSideProps: GetServerSideProps<GetCommonServerSideProps
   };
   const layoutQueryOptions: ApolloQueryOptions = {
     displayName: 'LAYOUT_QUERY',
-    query: LAYOUT_QUERY,
+    query: DEMO_LAYOUT_QUERY,
     variables,
     context: {
       headers: {

@@ -2,8 +2,8 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import Btn from '@/common/components/dataDisplay/Btn';
 import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import Layout from '@/layouts/default/components/DefaultLayout';
-import { getDefaultStaticProps } from '@/layouts/default/defaultSSG';
+import PublicLayout from '@/layouts/public/components/PublicLayout';
+import { getPublicLayoutStaticProps } from '@/layouts/public/publicLayoutSSG';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import {
   DEFAULT_LOCALE,
@@ -38,7 +38,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDefaultStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getPublicLayoutStaticProps;
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
@@ -107,7 +107,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
   // We can display a custom message based on the lang, but the other parts of the app won't be translated (nav, footer)
   // Also, it has to be hardcoded, it cannot be stored on Locize, because we don't have access to translations from other languages
   return (
-    <Layout
+    <PublicLayout
       {...props}
       pageName={'404'}
       headProps={{
@@ -131,7 +131,7 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
           </Btn>
         </I18nLink>
       </div>
-    </Layout>
+    </PublicLayout>
   );
 };
 

@@ -12,7 +12,7 @@ import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSideb
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+} from '@/layouts/demo/demoLayoutSSG';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { getRandomInt } from '@/modules/core/js/random';
 import { createLogger } from '@/modules/core/logging/logger';

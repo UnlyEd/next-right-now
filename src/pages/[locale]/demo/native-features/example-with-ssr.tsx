@@ -10,7 +10,7 @@ import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSideb
 import {
   GetCommonServerSidePropsResults,
   getDemoServerSideProps,
-} from '@/layouts/demo/demoSSR';
+} from '@/layouts/demo/demoLayoutSSR';
 import {
   APOLLO_STATE_PROP_NAME,
   getApolloState,
@@ -119,6 +119,7 @@ export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = as
       props: {
         ...pageData,
         [APOLLO_STATE_PROP_NAME]: getApolloState(apolloClient),
+        customer,
         serializedDataset: serializeSafe(dataset),
       },
     };

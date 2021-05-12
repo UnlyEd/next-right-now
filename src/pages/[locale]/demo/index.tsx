@@ -10,7 +10,7 @@ import NativeFeaturesSection from '@/layouts/demo/components/NativeFeaturesSecti
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+} from '@/layouts/demo/demoLayoutSSG';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { createLogger } from '@/modules/core/logging/logger';

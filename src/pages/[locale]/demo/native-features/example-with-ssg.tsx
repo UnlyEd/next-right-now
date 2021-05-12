@@ -10,7 +10,7 @@ import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSideb
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+} from '@/layouts/demo/demoLayoutSSG';
 import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import { Product } from '@/modules/core/data/types/Product';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';

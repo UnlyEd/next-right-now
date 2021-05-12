@@ -7,7 +7,7 @@ import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+} from '@/layouts/demo/demoLayoutSSG';
 import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,

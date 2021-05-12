@@ -2,7 +2,7 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
-import { LAYOUT_QUERY } from '@/common/gql/layoutQuery';
+import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import {
   APOLLO_STATE_PROP_NAME,
@@ -100,7 +100,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   };
   const queryOptions = {
     displayName: 'LAYOUT_QUERY',
-    query: LAYOUT_QUERY,
+    query: DEMO_LAYOUT_QUERY,
     variables,
     context: {
       headers: {
@@ -138,6 +138,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
       [APOLLO_STATE_PROP_NAME]: getApolloState(apolloClient),
       bestCountryCodes,
       serializedDataset: serializeSafe(dataset),
+      customer,
       customerRef,
       i18nTranslations,
       gcmsLocales,

@@ -9,7 +9,7 @@ import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+} from '@/layouts/demo/demoLayoutSSG';
 import { createLogger } from '@/modules/core/logging/logger';
 import { css } from '@emotion/react';
 import {

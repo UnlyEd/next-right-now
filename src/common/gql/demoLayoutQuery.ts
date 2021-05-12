@@ -5,7 +5,7 @@ import { theme } from './fragments/theme';
 /**
  * Used in all pages
  */
-export const LAYOUT_QUERY = gql`
+export const DEMO_LAYOUT_QUERY = gql`
   query LAYOUT_QUERY($customerRef: String!){
     customer(where: {
       ref: $customerRef,
@@ -15,6 +15,9 @@ export const LAYOUT_QUERY = gql`
       label
       theme {
         ...themeFields
+      }
+      privacyDescription {
+        html
       }
     }
   }

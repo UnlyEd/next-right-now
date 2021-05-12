@@ -6,7 +6,7 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import DemoPage from '@/layouts/demo/components/DemoPage';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import { getDemoStaticProps } from '@/layouts/demo/demoSSG';
+import { getDemoStaticProps } from '@/layouts/demo/demoLayoutSSG';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';

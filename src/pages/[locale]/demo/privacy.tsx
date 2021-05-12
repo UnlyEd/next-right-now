@@ -1,14 +1,16 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import ExternalLink from '@/common/components/dataDisplay/ExternalLink';
+import LegalContent from '@/components/dataDisplay/LegalContent';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import BuiltInFeaturesSidebar from '@/layouts/demo/components/BuiltInFeaturesSidebar';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
-import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import useCustomer from '@/modules/core/data/hooks/useCustomer';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { replaceAllOccurrences } from '@/modules/core/js/string';
 import { createLogger } from '@/modules/core/logging/logger';
 import {
   GetStaticPaths,
@@ -17,9 +19,8 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import { Alert } from 'reactstrap';
 
-const fileLabel = 'pages/[locale]/demo/built-in-features/monitoring';
+const fileLabel = 'pages/[locale]/demo/privacy';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
   fileLabel,
 });
@@ -50,62 +51,37 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
  */
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
-const ExampleMonitoringPage: NextPage<Props> = (props): JSX.Element => {
+/**
+ * Privacy page, that displays all legal-related information.
+ *
+ * Basically displays a bunch of markdown that's coming from the CMS.
+ */
+const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
+  const customer: Customer = useCustomer();
+  const {
+    privacyDescription,
+    serviceLabel,
+  } = customer || {};
+
+  console.log('customer', customer)
+
+  // Replace dynamic values (like "{customerLabel}") by their actual value
+  const privacy = replaceAllOccurrences(privacyDescription?.html, {
+    serviceLabel: `**${serviceLabel}**`,
+    customerLabel: `**${customer?.label}**`,
+  });
+
   return (
     <DemoLayout
       {...props}
-      pageName={'monitoring'}
-      headProps={{
-        seoTitle: 'Monitoring examples - Next Right Now',
-      }}
-      Sidebar={BuiltInFeaturesSidebar}
+      pageName={AMPLITUDE_PAGES.PRIVACY_PAGE}
     >
-      <DemoPage>
-        <h1 className={'pcolor'}>Monitoring examples, using Sentry</h1>
-
-        <Alert color={'info'}>
-          Monitoring works universally, both on the browser and the server.<br />
-          The errors and stacktrace will be slightly different.<br />
-          Also, source maps support is built-in. Beware that it <b>doesn't work during development</b>.
-        </Alert>
-
-        <div>
-          <p>
-            Log runtime exception<br />
-            <code>
-              {`
-            try {
-              throw new Error('test');
-            } catch(e) {
-              Sentry.captureException(e);
-            }
-            `}
-            </code>
-          </p>
-
-          <p>
-            Log message<br />
-            <code>
-              {`
-              Sentry.captureMessage(warning, Sentry.Severity.Warning);
-            `}
-            </code>
-          </p>
-
-          <p>
-            <ExternalLink href={'https://docs.sentry.io/enriching-error-data/breadcrumbs'}>
-              Breadcrumbs
-            </ExternalLink>
-            (tracing that is only used in case an error happens)
-            <br />
-            <code>
-              {`Sentry.addBreadcrumb({category: fileLabel, message: 'Rendering'})`}
-            </code>
-          </p>
-        </div>
-      </DemoPage>
+      <h2>Field's value (fetched from GraphCMS API), as <code>Long text</code> (interpreted as Markdown):</h2>
+      <LegalContent
+        content={privacy}
+      />
     </DemoLayout>
   );
 };
 
-export default ExampleMonitoringPage;
+export default PrivacyPage;

@@ -10,7 +10,7 @@ import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+} from '@/layouts/demo/demoLayoutSSG';
 import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
 import { resolveCustomerVariationLang } from '@/modules/core/i18n/i18n';
 import { createLogger } from '@/modules/core/logging/logger';
