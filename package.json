@@ -251,9 +251,9 @@
     "storybook-addon-performance": "0.15.2",
     "storybook-css-modules-preset": "1.1.1",
     "storybook-mobile": "0.1.31",
-    "ts-jest": "26.5.4",
+    "ts-jest": "26.5.6",
     "type-fest": "1.1.1",
-    "typescript": "4.2.3",
+    "typescript": "4.2.4",
     "vercel": "22.0.1"
   }
 }
