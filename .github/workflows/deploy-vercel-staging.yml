@@ -133,7 +133,7 @@ jobs:
         run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | cut -c1-59)" >> $GITHUB_ENV
 
       - name: Deploying on Vercel (${{ env.STAGE }})
-        uses: UnlyEd/github-action-deploy-on-vercel@d3806f93972f5d8cc8d7eec37df8d1037fd08c8a # Pin "v1.1.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/fc3aa0581f0fef5795ff16e93a48eeff99d42c1e
+        uses: UnlyEd/github-action-deploy-on-vercel@5bbfd1da026476edc5a2dcdd8762036e419cea1b # Pin "v1.1.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/fc3aa0581f0fef5795ff16e93a48eeff99d42c1e
         with:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEL_TOKEN }}"
           extraAliases: nrn-${{ env.BRANCH_NAME }}.vercel.app
