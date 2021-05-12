@@ -49,6 +49,9 @@ on:
       - '!**/*.md' # Exclude all markdown files
       - 'stories/**/*.md' # Force include all markdown files within stories (because they're used for storybook)
 
+env:
+  STAGE: staging
+
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
