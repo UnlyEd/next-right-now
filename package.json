@@ -107,7 +107,7 @@
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
-    "@apollo/client": "3.3.13",
+    "@apollo/client": "3.3.17",
     "@emotion/react": "11.4.0",
     "@emotion/styled": "11.3.0",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
@@ -132,7 +132,7 @@
     "css-to-react-native": "3.0.0",
     "deepmerge": "4.2.2",
     "graphql": "15.5.0",
-    "graphql-tag": "2.11.0",
+    "graphql-tag": "2.12.4",
     "i18next": "20.2.2",
     "i18next-locize-backend": "4.2.0",
     "js-cookie": "2.2.1",
