@@ -8,7 +8,7 @@ import DemoPage from '@/layouts/demo/components/DemoPage';
 import {
   getDemoStaticPaths,
   getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+} from '@/layouts/demo/demoLayoutSSG';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { createLogger } from '@/modules/core/logging/logger';

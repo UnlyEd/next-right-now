@@ -10,7 +10,7 @@ import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSideb
 import {
   GetCommonServerSidePropsResults,
   getDemoServerSideProps,
-} from '@/layouts/demo/demoSSR';
+} from '@/layouts/demo/demoLayoutSSR';
 import {
   APOLLO_STATE_PROP_NAME,
   getApolloState,
