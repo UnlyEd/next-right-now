@@ -107,8 +107,8 @@
   },
   "dependencies": {
     "@amplitude/react-amplitude": "1.0.0",
-    "@emotion/react": "11.1.5",
-    "@emotion/styled": "11.1.5",
+    "@emotion/react": "11.4.0",
+    "@emotion/styled": "11.3.0",
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-brands-svg-icons": "5.15.3",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
