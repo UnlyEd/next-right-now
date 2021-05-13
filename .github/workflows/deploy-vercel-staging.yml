@@ -123,7 +123,7 @@ jobs:
         with:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEL_TOKEN }}"
           extraAliases: >-
-            nrn-${{ env.GITHUB_REF_SLUG }}.vercel.app
+            nrn-${{ env.GITHUB_HEAD_REF_SLUG }}.vercel.app
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
