@@ -186,7 +186,7 @@ jobs:
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed **Next.js app** :rocket: to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
-            Deployment aliases: ${{ env.VERCEL_ALIASES_CREATED_URLS_MD }}
+            Deployment aliases (${{ env.VERCEL_ALIASES_CREATED_COUNT }}): ${{ env.VERCEL_ALIASES_CREATED_URLS_MD }}
 
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
