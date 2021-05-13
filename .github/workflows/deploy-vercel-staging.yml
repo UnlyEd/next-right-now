@@ -119,8 +119,8 @@ jobs:
           else
             BRANCH_ALIAS_DOMAIN=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name')-${GIT_COMMIT_REF##*/}
           fi
-          echo "Resolved branch domain alias: " $VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS
-          echo "BRANCH_ALIAS_DOMAIN=$VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS" >> $GITHUB_ENV
+          echo "Resolved branch domain alias: " $BRANCH_ALIAS_DOMAIN
+          echo "BRANCH_ALIAS_DOMAIN=$BRANCH_ALIAS_DOMAIN" >> $GITHUB_ENV
 
       # Create a GitHub deployment (within a GitHub environment), useful to keep a public track of all deployments directly in GitHub
       - name: Start GitHub deployment
