@@ -115,9 +115,9 @@ jobs:
           # Basically, if a branch starts with "v[0-9]" then we consider it to be a "preset branch" and we use the branch name as alias (e.g: "v2-mst-xxx")
           # Otherwise, we use the deployment name and suffix it using the branch name (e.g: "v2-mst-xxx-branch-name")
           if [[ ${GIT_COMMIT_REF##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
-            BRANCH_ALIAS_DOMAIN=${CUSTOMER_REF_TO_DEPLOY}-${GIT_COMMIT_REF##*/}
+            BRANCH_ALIAS_DOMAIN=${CUSTOMER_REF_TO_DEPLOY}-${{ env.GITHUB_REF_SLUG }}
           else
-            BRANCH_ALIAS_DOMAIN=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name')-${GIT_COMMIT_REF##*/}
+            BRANCH_ALIAS_DOMAIN=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name')-${{ env.GITHUB_REF_SLUG }}
           fi
           echo "Resolved branch domain alias: " $BRANCH_ALIAS_DOMAIN
           echo "BRANCH_ALIAS_DOMAIN=$BRANCH_ALIAS_DOMAIN" >> $GITHUB_ENV
