@@ -111,6 +111,17 @@ jobs:
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
           echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
 
+          # Build the alias domain based on our own rules (NRN own rules)
+          # Basically, if a branch starts with "v[0-9]" then we consider it to be a "preset branch" and we use the branch name as alias (e.g: "v2-mst-xxx")
+          # Otherwise, we use the deployment name and suffix it using the branch name (e.g: "v2-mst-xxx-branch-name")
+          if [[ ${GIT_COMMIT_REF##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
+            BRANCH_ALIAS_DOMAIN=${CUSTOMER_REF_TO_DEPLOY}-${GIT_COMMIT_REF##*/}
+          else
+            BRANCH_ALIAS_DOMAIN=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name')-${GIT_COMMIT_REF##*/}
+          fi
+          echo "Resolved branch domain alias: " $VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS
+          echo "BRANCH_ALIAS_DOMAIN=$VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS" >> $GITHUB_ENV
+
       # Create a GitHub deployment (within a GitHub environment), useful to keep a public track of all deployments directly in GitHub
       - name: Start GitHub deployment
         uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
@@ -126,7 +137,7 @@ jobs:
         with:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEL_TOKEN }}"
           extraAliases: >-
-            nrn-${{ env.GITHUB_REF_SLUG }}.vercel.app
+            ${{ env.BRANCH_ALIAS_DOMAIN }}.vercel.app
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
