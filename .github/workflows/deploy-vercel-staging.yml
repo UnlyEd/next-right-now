@@ -118,25 +118,12 @@ jobs:
           env: ${{ env.CUSTOMER_REF_TO_DEPLOY }}-${{ env.STAGE }} # Uses "$customer-$env" as GitHub environment name, because it's easier this way to see what has changed per customer, per stage
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
-      # extract branch name on branch push
-      # According to RFC 1035, each DNS label has a limit of 63 (63-4= 59) characters
-      - name: Extract branch name (in case of push on branch)
-        if: github.event_name != 'pull_request'
-        shell: bash
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | cut -c1-59)" >> $GITHUB_ENV
-        id: extract_branch
-
-      # extract branch name on pull request changes
-      # Limit the branch name length to keep a readable URL
-      - name: Extract branch name (in case of changes on pull request)
-        if: github.event_name == 'pull_request'
-        run: echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | cut -c1-59)" >> $GITHUB_ENV
-
       - name: Deploying on Vercel (${{ env.STAGE }})
-        uses: UnlyEd/github-action-deploy-on-vercel@5bbfd1da026476edc5a2dcdd8762036e419cea1b # Pin "v1.1.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/fc3aa0581f0fef5795ff16e93a48eeff99d42c1e
+        uses: UnlyEd/github-action-deploy-on-vercel@94d41ec1ff9b5b1de5256312e385632b6fcd8fa4 # Pin "v1.2.1" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/94d41ec1ff9b5b1de5256312e385632b6fcd8fa4
         with:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEL_TOKEN }}"
-          extraAliases: nrn-${{ env.BRANCH_NAME }}.vercel.app
+          extraAliases: >-
+            nrn-${{ env.GITHUB_REF_SLUG }}.vercel.app
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
@@ -185,7 +172,7 @@ jobs:
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed **Next.js app** :rocket: to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
-            Deployment aliased as ${{ env.VERCEL_ALIASES_CREATED_URLS_MD }}
+            Deployment aliases: ${{ env.VERCEL_ALIASES_CREATED_URLS_MD }}
 
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)
