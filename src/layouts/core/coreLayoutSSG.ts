@@ -64,11 +64,11 @@ const logger = createLogger({
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
-  const sharedDataset: StaticDataset = await getStaticGraphcmsDataset();
-  const sharedCustomer: StaticCustomer = sharedDataset?.customer;
+  const staticDataset: StaticDataset = await getStaticGraphcmsDataset();
+  const staticCustomer: StaticCustomer = staticDataset?.customer;
 
   // Generate only pages for languages that have been allowed by the customer
-  const paths: StaticPath[] = map(sharedCustomer?.availableLanguages, (availableLanguage: string): StaticPath => {
+  const paths: StaticPath[] = map(staticCustomer?.availableLanguages, (availableLanguage: string): StaticPath => {
     return {
       params: {
         locale: availableLanguage,

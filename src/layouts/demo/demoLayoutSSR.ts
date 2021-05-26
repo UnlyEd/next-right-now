@@ -125,12 +125,12 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
     },
   };
 
-  const sharedDataset: StaticDataset = await getStaticGraphcmsDataset();
-  const sharedCustomer: StaticCustomer = sharedDataset?.customer;
+  const staticDataset: StaticDataset = await getStaticGraphcmsDataset();
+  const staticCustomer: StaticCustomer = staticDataset?.customer;
 
   // Do not serve pages using locales the customer doesn't have enabled
-  if (!includes(sharedCustomer?.availableLanguages, locale)) {
-    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${sharedCustomer?.availableLanguages}"), returning 404 page.`);
+  if (!includes(staticCustomer?.availableLanguages, locale)) {
+    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${staticCustomer?.availableLanguages}"), returning 404 page.`);
 
     return {
       notFound: true,
