@@ -181,8 +181,6 @@ export const decorators = [
 
     const customer = getCustomer(dataset);
     const customerTheme = initCustomerTheme(customer);
-    // console.log('customer', customer)
-    // console.log('customerTheme', customerTheme)
     const customerRef = 'storybook'; // Fake customer ref
     const amplitudeApiKey = ''; // Use invalid amplitude tracking key to force disable all amplitude analytics
     const userConsent = {
