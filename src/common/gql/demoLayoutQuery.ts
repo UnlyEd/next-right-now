@@ -13,6 +13,7 @@ export const DEMO_LAYOUT_QUERY = gql`
       stage
       id
       label
+      availableLanguages
       theme {
         ...themeFields
       }

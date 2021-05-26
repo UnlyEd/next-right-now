@@ -1,16 +1,12 @@
 import {
-  getCustomer,
-  getSharedAirtableDataset,
-} from '@/modules/core/airtable/getAirtableDataset';
-import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
-import { Customer } from '@/modules/core/data/types/Customer';
-import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
-import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+  SharedCustomer,
+  SharedDataset,
+} from '@/modules/core/gql/fetchGraphcmsDataset';
+import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { createLogger } from '@/modules/core/logging/logger';
 import redirect from '@/utils/redirect';
 import includes from 'lodash.includes';
 import size from 'lodash.size';
-import uniq from 'lodash.uniq';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -19,7 +15,6 @@ import {
   acceptLanguageHeaderLookup,
   DEFAULT_LOCALE,
 } from '../i18n';
-import { supportedLocales } from '../i18nConfig';
 
 const fileLabel = 'modules/core/i18n/localeMiddleware';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -40,15 +35,14 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
-  const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(preferredLocalesOrLanguages);
-  const customer: AirtableRecord<Customer> = getCustomer(dataset);
+  const sharedDataset: SharedDataset = await getSharedGraphcmsDataset();
+  const sharedCustomer: SharedCustomer = sharedDataset?.customer;
 
   if (detections && !!size(detections)) {
     detections.forEach((language) => {
       if (localeFound || typeof language !== 'string') return;
 
-      if (includes(customer?.availableLanguages, language)) {
+      if (includes(sharedCustomer?.availableLanguages, language)) {
         localeFound = language;
       }
     });
@@ -59,7 +53,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   }
 
   if (!localeFound) {
-    localeFound = customer?.availableLanguages?.[0] || DEFAULT_LOCALE;
+    localeFound = sharedCustomer?.availableLanguages?.[0] || DEFAULT_LOCALE;
   }
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);
