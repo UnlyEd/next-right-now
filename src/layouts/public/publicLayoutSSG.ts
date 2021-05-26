@@ -80,7 +80,8 @@ export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServ
     ref: customerRef,
     label: `${customerRef} (mocked)`,
     serviceLabel: 'Those mocked data are defined in the publicLayoutSSG. The page is from "pages/public". This layout is meant for all "public" pages, you probably want to start there!',
-  } as Customer;
+    __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
+  } as unknown as Customer;
 
   return {
     // Props returned here will be available as page properties (pageProps)
