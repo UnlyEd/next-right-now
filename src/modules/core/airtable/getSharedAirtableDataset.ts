@@ -28,9 +28,12 @@ export const getCustomer = (dataset: SanitizedAirtableDataset): AirtableRecord<C
 };
 
 /**
- * Returns the whole dataset (sanitized).
+ * Returns the whole dataset (sanitized), based on the app-wide static/shared/stale data fetched at build time.
  *
- * Uses the
+ * This dataset is STALE. It will not update, ever.
+ * The dataset is created at build time, using the "next-plugin-preval" webpack plugin.
+ *
+ * @example const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(bestCountryCodes);
  *
  * @param preferredLocalesOrLanguages
  * @param props
