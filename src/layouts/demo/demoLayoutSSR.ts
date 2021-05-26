@@ -3,7 +3,7 @@ import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import {
   getCustomer,
-  getSharedAirtableDataset,
+  getStaticAirtableDataset,
 } from '@/modules/core/airtable/getAirtableDataset';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
@@ -102,7 +102,7 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(bestCountryCodes);
+  const dataset: SanitizedAirtableDataset = await getStaticAirtableDataset(bestCountryCodes);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Do not serve pages using locales the customer doesn't have enabled

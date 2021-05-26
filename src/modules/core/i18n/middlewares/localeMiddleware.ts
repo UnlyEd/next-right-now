@@ -1,6 +1,6 @@
 import {
   getCustomer,
-  getSharedAirtableDataset,
+  getStaticAirtableDataset,
 } from '@/modules/core/airtable/getAirtableDataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -41,7 +41,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
   const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(preferredLocalesOrLanguages);
+  const dataset: SanitizedAirtableDataset = await getStaticAirtableDataset(preferredLocalesOrLanguages);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   if (detections && !!size(detections)) {

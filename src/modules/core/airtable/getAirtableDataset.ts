@@ -30,9 +30,9 @@ export const getCustomer = (dataset: SanitizedAirtableDataset): AirtableRecord<C
 /**
  * Returns the whole dataset (raw), based on the app-wide static/shared/stale data fetched at build time.
  *
- * @example const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await getSharedRawAirtableDataset();
+ * @example const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await getStaticRawAirtableDataset();
  */
-export const getSharedRawAirtableDataset = async (): Promise<RawAirtableRecordsSet[]> => {
+export const getStaticRawAirtableDataset = async (): Promise<RawAirtableRecordsSet[]> => {
   return (await import('@/modules/core/airtable/fetchRawAirtableDataset.preval')) as unknown as RawAirtableRecordsSet[];
 };
 
@@ -42,13 +42,13 @@ export const getSharedRawAirtableDataset = async (): Promise<RawAirtableRecordsS
  * This dataset is STALE. It will not update, ever.
  * The dataset is created at build time, using the "next-plugin-preval" webpack plugin.
  *
- * @example const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(bestCountryCodes);
+ * @example const dataset: SanitizedAirtableDataset = await getStaticAirtableDataset(bestCountryCodes);
  *
  * @param preferredLocalesOrLanguages
  * @param airtableSchemaProps
  */
-export const getSharedAirtableDataset = async (preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
-  const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await getSharedRawAirtableDataset();
+export const getStaticAirtableDataset = async (preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
+  const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await getStaticRawAirtableDataset();
   const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
   const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
 
@@ -87,6 +87,6 @@ export const getAirtableDataset = async (isPreviewMode: boolean, preferredLocale
     return await getLiveAirtableDataset(preferredLocalesOrLanguages, airtableSchemaProps);
   } else {
     // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
-    return await getSharedAirtableDataset(preferredLocalesOrLanguages);
+    return await getStaticAirtableDataset(preferredLocalesOrLanguages);
   }
 };
