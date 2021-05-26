@@ -82,13 +82,13 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
 
 /**
  * Only executed on the server side at build time.
- * Computes all static props that should be available for all SSG pages
+ * Computes all static props that should be available for all SSG pages.
  *
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
  * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
  *
- * Meant to avoid code duplication
- * Can be overridden for per-page customisation (e.g: deepmerge)
+ * Meant to avoid code duplication.
+ * Can be overridden for per-page customisation (e.g: deepmerge).
  *
  * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSG implementation, so the demo keep working even if you change the base implementation.
 

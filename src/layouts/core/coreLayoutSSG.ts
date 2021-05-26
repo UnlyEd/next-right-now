@@ -7,7 +7,6 @@ import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
 import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
 import {
-  getAirtableDataset,
   getCustomer,
   getSharedAirtableDataset,
 } from '@/modules/core/airtable/getAirtableDataset';
