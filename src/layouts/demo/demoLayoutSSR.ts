@@ -109,7 +109,7 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
     customerRef,
   };
   const layoutQueryOptions: ApolloQueryOptions = {
-    displayName: 'LAYOUT_QUERY',
+    displayName: 'DEMO_LAYOUT_QUERY',
     query: DEMO_LAYOUT_QUERY,
     variables,
     context: {

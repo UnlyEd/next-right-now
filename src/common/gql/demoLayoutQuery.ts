@@ -3,10 +3,10 @@ import gql from 'graphql-tag';
 import { theme } from './fragments/theme';
 
 /**
- * Used in all pages
+ * Used in all pages of the "demo" layout.
  */
 export const DEMO_LAYOUT_QUERY = gql`
-  query LAYOUT_QUERY($customerRef: String!){
+  query DEMO_LAYOUT_QUERY($customerRef: String!){
     customer(where: {
       ref: $customerRef,
     }){

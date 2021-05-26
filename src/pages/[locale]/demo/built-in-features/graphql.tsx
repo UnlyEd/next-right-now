@@ -82,7 +82,7 @@ const ExampleGraphQLPage: NextPage<Props> = (props): JSX.Element => {
               customerRef, // We provide the current customer ref to make sure we only fetch related product for this customer
             };
             const queryOptions = {
-              displayName: 'LAYOUT_QUERY', // Naming queries makes debugging easier
+              displayName: 'DEMO_LAYOUT_QUERY', // Naming queries makes debugging easier
               query: LAYOUT_QUERY, // This is our actual GQL query (see /gql folder)
               variables,
               context: { // Per-request context override/overload

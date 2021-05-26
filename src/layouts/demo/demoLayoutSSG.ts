@@ -109,7 +109,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     customerRef,
   };
   const queryOptions = {
-    displayName: 'LAYOUT_QUERY',
+    displayName: 'DEMO_LAYOUT_QUERY',
     query: DEMO_LAYOUT_QUERY,
     variables,
     context: {
