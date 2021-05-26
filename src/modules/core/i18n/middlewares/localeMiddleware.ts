@@ -1,6 +1,16 @@
+import {
+  getCustomer,
+  getSharedAirtableDataset,
+} from '@/modules/core/airtable/getAirtableDataset';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
+import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import redirect from '@/utils/redirect';
+import includes from 'lodash.includes';
 import size from 'lodash.size';
+import uniq from 'lodash.uniq';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -30,21 +40,16 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
+  const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
+  const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(preferredLocalesOrLanguages);
+  const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   if (detections && !!size(detections)) {
     detections.forEach((language) => {
       if (localeFound || typeof language !== 'string') return;
 
-      // TODO We shouldn't use "supportedLocales" but "customer?.availableLanguages" instead,
-      //  to only redirect the pages for the locales the customer has explicitly enabled
-      //  I haven't found a nice way to do that yet, because if we're fetching Airtable here too, it will increase our API rate consumption
-      //  It'd be better to fetch the Airtable data ahead (at webpack level) so they're available when building pages, it'd make the build faster and lower the API usage too
-      const lookedUpLocale = supportedLocales.find(
-        (allowedLocale) => allowedLocale.name === language,
-      );
-
-      if (lookedUpLocale) {
-        localeFound = lookedUpLocale.lang;
+      if (includes(customer?.availableLanguages, language)) {
+        localeFound = language;
       }
     });
 
@@ -54,7 +59,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   }
 
   if (!localeFound) {
-    localeFound = DEFAULT_LOCALE;
+    localeFound = customer?.availableLanguages?.[0] || DEFAULT_LOCALE;
   }
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);

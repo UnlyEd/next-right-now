@@ -71,7 +71,7 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
         Nav/Footer component are localised, as well as dynamic content and i18n examples.<br />
         <br />
         You can switch locale from the footer or by clicking on{' '}
-        <I18nLink href={`/`} locale={'fr-FR'}>fr-FR</I18nLink> or <I18nLink href={`/`} locale={'en-US'}>en-US</I18nLink>.
+        <I18nLink href={`/`} locale={'fr'}>fr</I18nLink> or <I18nLink href={`/`} locale={'en'}>en</I18nLink> or <I18nLink href={`/`} locale={'en-US'}>en-US</I18nLink>.
       </Alert>
 
     </Jumbotron>

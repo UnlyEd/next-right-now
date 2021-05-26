@@ -52,7 +52,7 @@ const logger = createLogger({
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
+ * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
  *
  * @return Static paths that will be used by "getCoreStaticProps" to generate pages
  *
@@ -160,7 +160,6 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
       preview,
       previewData,
     },
-    // revalidate: false,
   };
 };
 

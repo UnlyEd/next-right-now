@@ -1,8 +1,10 @@
 const bundleAnalyzer = require('@next/bundle-analyzer');
 const nextSourceMaps = require('@zeit/next-source-maps');
+const createNextPluginPreval = require('next-plugin-preval/config');
 const packageJson = require('./package');
 const i18nConfig = require('./src/modules/core/i18n/i18nConfig');
 
+const withNextPluginPreval = createNextPluginPreval();
 const withSourceMaps = nextSourceMaps();
 const withBundleAnalyzer = bundleAnalyzer({ // Run with "yarn analyse:bundle" - See https://www.npmjs.com/package/@next/bundle-analyzer
   enabled: process.env.ANALYZE_BUNDLE === 'true',
@@ -40,7 +42,7 @@ console.debug(`Release version resolved from tags: "${APP_RELEASE_TAG}" (matchin
  *
  * @see https://nextjs.org/docs/api-reference/next.config.js/introduction
  */
-module.exports = withBundleAnalyzer(withSourceMaps({
+module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
   // basepath: '', // If you want Next.js to cover only a subsection of the domain. See https://nextjs.org/docs/api-reference/next.config.js/basepath
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel. See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
   // trailingSlash: false, // By default Next.js will redirect urls with trailing slashes to their counterpart without a trailing slash. See https://nextjs.org/docs/api-reference/next.config.js/trailing-slash
@@ -303,4 +305,4 @@ module.exports = withBundleAnalyzer(withSourceMaps({
   // },
 
   poweredByHeader: false, // See https://nextjs.org/docs/api-reference/next.config.js/disabling-x-powered-by
-}));
+})));
