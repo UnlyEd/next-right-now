@@ -16,9 +16,10 @@ const logger = createLogger({
 });
 
 /**
- * XXX used by preval
- * XXX Must be a single export file otherwise it can cause issues
- * XXX Must not be called by other scripts
+ * Fetches the airtable dataset.
+ * Invoked by fetchRawAirtableDataset.preval.ts file at build time (during Webpack bundling).
+ *
+ * XXX Must be a single export file otherwise it can cause issues - See https://github.com/ricokahler/next-plugin-preval/issues/19#issuecomment-848799473
  */
 export const fetchRawAirtableDataset = async (airtableSchemaProps?: GetAirtableSchemaProps): Promise<RawAirtableRecordsSet[]> => {
   const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
