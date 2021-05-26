@@ -3,10 +3,18 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
+import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
+import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
 import {
+  getAirtableDataset,
   getCustomer,
   getSharedAirtableDataset,
 } from '@/modules/core/airtable/getAirtableDataset';
+import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
+import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
+import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';
+import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
@@ -99,7 +107,19 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(bestCountryCodes);
+  let dataset: SanitizedAirtableDataset;
+
+  if (preview) {
+    // When preview mode is enabled, we want to make real-time API requests to get up-to-date data
+    const airtableSchema: AirtableSchema = getAirtableSchema();
+    const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, bestCountryCodes);
+    const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
+
+    dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
+  } else {
+    // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
+    dataset = await getAirtableDataset(preview, bestCountryCodes);
+  }
 
   return {
     // Props returned here will be available as page properties (pageProps)

@@ -100,7 +100,7 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  */
 export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
-  const preview: boolean = props?.preview || false; // TODO do something different if preview mode enabled
+  const preview: boolean = props?.preview || false;
   const previewData: PreviewData = props?.previewData || null;
   const hasLocaleFromUrl = !!props?.params?.locale;
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
