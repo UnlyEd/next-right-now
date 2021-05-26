@@ -1,10 +1,13 @@
+import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
+import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import groupBy from 'lodash.groupby';
 import map from 'lodash.map';
 import size from 'lodash.size';
+import uniq from 'lodash.uniq';
 import { AirtableDatasets } from '../data/types/AirtableDatasets';
 import { RawAirtableDataset } from '../data/types/RawAirtableDataset';
-import fetchAirtableDS from './fetchAirtableDS';
+import fetchAirtableDataset from './fetchAirtableDataset';
 import prepareAirtableDS from './prepareAirtableDS';
 import sanitizeRawAirtableDS from './sanitizeRawAirtableDS';
 import { AirtableSchema } from './types/AirtableSchema';
@@ -41,10 +44,16 @@ const printAirtableDatasetStatistics = (airtableDataset: RawAirtableDataset, lab
  *  See https://lodash.com/docs/4.17.15#filter
  */
 export const fetchAndSanitizeAirtableDatasets = async (airtableSchema: AirtableSchema, preferredLocalesOrLanguages: string[], filterByPredicate?: any): Promise<AirtableDatasets> => {
-  const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDS(airtableSchema, preferredLocalesOrLanguages);
+  // Resolves the languages we want to fetch the fields for (all supported languages configured in the app)
+  // We want to fetch all fields (for all language variations) during the initial dataset fetch
+  const localesOfLanguagesToFetch = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
+  const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, localesOfLanguagesToFetch);
+
   const airtableDatasets: AirtableDatasets = prepareAirtableDS(rawAirtableRecordsSets);
   printAirtableDatasetStatistics(airtableDatasets.raw, 'Raw dataset metadata:');
 
+  // Sanitizes the dataset, during sanitization we will fallback (when a record isn't translated)
+  // using lang/locale depending on the order defined in preferredLocalesOrLanguages
   airtableDatasets.sanitized = sanitizeRawAirtableDS(airtableSchema, airtableDatasets, preferredLocalesOrLanguages, filterByPredicate);
 
   return airtableDatasets;

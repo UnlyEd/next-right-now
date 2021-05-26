@@ -95,7 +95,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const dataset: SanitizedAirtableDataset = await (await import('@/modules/core/preval/fetchAirtableDataset')).default;
+  const dataset: SanitizedAirtableDataset = (await import('@/modules/core/airtable/fetchAirtableDataset.preval')) as unknown as SanitizedAirtableDataset;
   const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
 
   console.log('dataset', dataset);
