@@ -58,7 +58,6 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const TermsPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
-  console.log('customer', customer);
   const {
     termsDescription,
     serviceLabel,

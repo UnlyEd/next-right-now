@@ -63,8 +63,6 @@ const PrivacyPage: NextPage<Props> = (props): JSX.Element => {
     serviceLabel,
   } = customer || {};
 
-  console.log('customer', customer)
-
   // Replace dynamic values (like "{customerLabel}") by their actual value
   const privacy = replaceAllOccurrences(privacyDescription, {
     serviceLabel: `**${serviceLabel}**`,

@@ -46,7 +46,7 @@ const VERCEL_DISK_CACHE_TTL = 180; // In seconds
  *  Whether you use locales or languages is up to you, as it depends how you name your Airtable fields.
  *  Tip: "Underscore" is recommended if using localized locales. (i.e: 'en_gb', not 'en-gb')
  */
-export const fetchAirtableDS = async (airtableSchema: AirtableSchema, localesOfLanguagesToFetch: string[]): Promise<RawAirtableRecordsSet[]> => {
+export const fetchAirtableDataset = async (airtableSchema: AirtableSchema, localesOfLanguagesToFetch: string[]): Promise<RawAirtableRecordsSet[]> => {
   const promises: Promise<any>[] = [];
   const rawAirtableRecordsSets: RawAirtableRecordsSet[] = [];
   const tableSchemaKeys: AirtableDBTable[] = Object.keys(airtableSchema) as AirtableDBTable[];
@@ -122,4 +122,4 @@ export const fetchAirtableDS = async (airtableSchema: AirtableSchema, localesOfL
   return rawAirtableRecordsSets;
 };
 
-export default fetchAirtableDS;
+export default fetchAirtableDataset;
