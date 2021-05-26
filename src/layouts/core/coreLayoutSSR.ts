@@ -10,7 +10,7 @@ import {
   StaticCustomer,
   StaticDataset,
 } from '@/modules/core/gql/fetchGraphcmsDataset';
-import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
+import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
 import {
@@ -125,7 +125,7 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
     },
   };
 
-  const sharedDataset: StaticDataset = await getSharedGraphcmsDataset();
+  const sharedDataset: StaticDataset = await getStaticGraphcmsDataset();
   const sharedCustomer: StaticCustomer = sharedDataset?.customer;
 
   // Do not serve pages using locales the customer doesn't have enabled

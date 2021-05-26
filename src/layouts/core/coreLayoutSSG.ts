@@ -14,7 +14,7 @@ import {
   StaticCustomer,
   StaticDataset,
 } from '@/modules/core/gql/fetchGraphcmsDataset';
-import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
+import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import {
   DEFAULT_LOCALE,
@@ -64,7 +64,7 @@ const logger = createLogger({
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
-  const sharedDataset: StaticDataset = await getSharedGraphcmsDataset();
+  const sharedDataset: StaticDataset = await getStaticGraphcmsDataset();
   const sharedCustomer: StaticCustomer = sharedDataset?.customer;
 
   // Generate only pages for languages that have been allowed by the customer

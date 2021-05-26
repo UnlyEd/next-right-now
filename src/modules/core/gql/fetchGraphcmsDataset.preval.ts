@@ -25,8 +25,7 @@ import preval from 'next-plugin-preval';
  * XXX The data are therefore STALE, they're not fetched in real-time.
  *  They won't update (the app won't display up-to-date data until the next deployment, for static pages).
  *
- * @example await import('@/modules/core/airtable/fetchRawAirtableDataset.preval')
- * @example const rawAirtableRecordsSets: RawAirtableRecordsSet[] = (await import('@/modules/core/airtable/fetchRawAirtableDataset.preval')) as unknown as RawAirtableRecordsSet[];
+ * @example const dataset: StaticDataset = await getStaticGraphcmsDataset();
  *
  * @see https://github.com/ricokahler/next-plugin-preval
  */

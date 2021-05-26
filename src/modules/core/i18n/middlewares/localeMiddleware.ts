@@ -2,7 +2,7 @@ import {
   StaticCustomer,
   StaticDataset,
 } from '@/modules/core/gql/fetchGraphcmsDataset';
-import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
+import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { createLogger } from '@/modules/core/logging/logger';
 import redirect from '@/utils/redirect';
 import includes from 'lodash.includes';
@@ -35,7 +35,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
-  const sharedDataset: StaticDataset = await getSharedGraphcmsDataset();
+  const sharedDataset: StaticDataset = await getStaticGraphcmsDataset();
   const sharedCustomer: StaticCustomer = sharedDataset?.customer;
 
   if (detections && !!size(detections)) {
