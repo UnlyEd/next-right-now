@@ -3,16 +3,10 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
 import {
   getCustomer,
   getSharedAirtableDataset,
 } from '@/modules/core/airtable/getSharedAirtableDataset';
-import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
-import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
-import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';
-import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
@@ -29,7 +23,6 @@ import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
-import find from 'lodash.find';
 import includes from 'lodash.includes';
 import map from 'lodash.map';
 import {
