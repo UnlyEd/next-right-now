@@ -1,5 +1,11 @@
+import {
+  StaticCustomer,
+  StaticDataset,
+} from '@/modules/core/gql/fetchGraphcmsDataset';
+import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { createLogger } from '@/modules/core/logging/logger';
 import redirect from '@/utils/redirect';
+import includes from 'lodash.includes';
 import size from 'lodash.size';
 import {
   NextApiRequest,
@@ -9,7 +15,6 @@ import {
   acceptLanguageHeaderLookup,
   DEFAULT_LOCALE,
 } from '../i18n';
-import { supportedLocales } from '../i18nConfig';
 
 const fileLabel = 'modules/core/i18n/localeMiddleware';
 const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-eslint/no-unused-vars
@@ -30,21 +35,15 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
+  const sharedDataset: StaticDataset = await getSharedGraphcmsDataset();
+  const sharedCustomer: StaticCustomer = sharedDataset?.customer;
 
   if (detections && !!size(detections)) {
     detections.forEach((language) => {
       if (localeFound || typeof language !== 'string') return;
 
-      // TODO We shouldn't use "supportedLocales" but "customer?.availableLanguages" instead,
-      //  to only redirect the pages for the locales the customer has explicitly enabled
-      //  I haven't found a nice way to do that yet, because if we're fetching Airtable here too, it will increase our API rate consumption
-      //  It'd be better to fetch the Airtable data ahead (at webpack level) so they're available when building pages, it'd make the build faster and lower the API usage too
-      const lookedUpLocale = supportedLocales.find(
-        (allowedLocale) => allowedLocale.name === language,
-      );
-
-      if (lookedUpLocale) {
-        localeFound = lookedUpLocale.lang;
+      if (includes(sharedCustomer?.availableLanguages, language)) {
+        localeFound = language;
       }
     });
 
@@ -54,7 +53,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   }
 
   if (!localeFound) {
-    localeFound = DEFAULT_LOCALE;
+    localeFound = sharedCustomer?.availableLanguages?.[0] || DEFAULT_LOCALE;
   }
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);

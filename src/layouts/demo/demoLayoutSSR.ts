@@ -6,6 +6,11 @@ import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
+import {
+  StaticCustomer,
+  StaticDataset,
+} from '@/modules/core/gql/fetchGraphcmsDataset';
+import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
 import {
@@ -28,6 +33,7 @@ import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
 import { IncomingMessage } from 'http';
+import includes from 'lodash.includes';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -44,7 +50,7 @@ const logger = createLogger({
  * "getDemoServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetCommonServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
+export type GetDemoServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
@@ -63,7 +69,7 @@ export type GetCommonServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getDemoServerSideProps: GetServerSideProps<GetCommonServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCommonServerSidePropsResults>> => {
+export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetDemoServerSidePropsResults>> => {
   const {
     query,
     params,
@@ -109,7 +115,7 @@ export const getDemoServerSideProps: GetServerSideProps<GetCommonServerSideProps
     customerRef,
   };
   const layoutQueryOptions: ApolloQueryOptions = {
-    displayName: 'LAYOUT_QUERY',
+    displayName: 'DEMO_LAYOUT_QUERY',
     query: DEMO_LAYOUT_QUERY,
     variables,
     context: {
@@ -118,6 +124,18 @@ export const getDemoServerSideProps: GetServerSideProps<GetCommonServerSideProps
       },
     },
   };
+
+  const sharedDataset: StaticDataset = await getSharedGraphcmsDataset();
+  const sharedCustomer: StaticCustomer = sharedDataset?.customer;
+
+  // Do not serve pages using locales the customer doesn't have enabled
+  if (!includes(sharedCustomer?.availableLanguages, locale)) {
+    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${sharedCustomer?.availableLanguages}"), returning 404 page.`);
+
+    return {
+      notFound: true,
+    };
+  }
 
   // Most props returned here will be necessary for the app to work properly (see "SSRPageProps")
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)

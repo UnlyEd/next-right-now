@@ -10,6 +10,11 @@ import {
   initializeApollo,
 } from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
+import {
+  StaticCustomer,
+  StaticDataset,
+} from '@/modules/core/gql/fetchGraphcmsDataset';
+import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import {
   DEFAULT_LOCALE,
@@ -52,21 +57,21 @@ const logger = createLogger({
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
+ * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
  *
  * @return Static paths that will be used by "getCoreStaticProps" to generate pages
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
-  // TODO We shouldn't use "supportedLocales" but "customer?.availableLanguages" instead,
-  //  to only generate the pages for the locales the customer has explicitly enabled
-  //  I haven't found a nice way to do that yet, because if we're fetching Airtable here too, it will increase our API rate consumption
-  //  It'd be better to fetch the Airtable data ahead (at webpack level) so they're available when building pages, it'd make the build faster and lower the API usage too
-  const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
+  const sharedDataset: StaticDataset = await getSharedGraphcmsDataset();
+  const sharedCustomer: StaticCustomer = sharedDataset?.customer;
+
+  // Generate only pages for languages that have been allowed by the customer
+  const paths: StaticPath[] = map(sharedCustomer?.availableLanguages, (availableLanguage: string): StaticPath => {
     return {
       params: {
-        locale: supportedLocale.name,
+        locale: availableLanguage,
       },
     };
   });
@@ -109,7 +114,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     customerRef,
   };
   const queryOptions = {
-    displayName: 'LAYOUT_QUERY',
+    displayName: 'DEMO_LAYOUT_QUERY',
     query: DEMO_LAYOUT_QUERY,
     variables,
     context: {
@@ -160,7 +165,6 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
       preview,
       previewData,
     },
-    // revalidate: false,
   };
 };
 

@@ -201,7 +201,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       }
     }
 
-    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && !process.env.IS_SERVER_INITIAL_BUILD) {
       // XXX It's too cumbersome to do proper typings when type changes
       //  The "customer" was forwarded as a JSON-ish string (using Flatten) in order to avoid circular dependencies issues (SSG/SSR)
       //  It now being converted back into an object to be actually usable on all pages
@@ -276,12 +276,12 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
           if (process.env.NEXT_PUBLIC_CUSTOMER_REF !== customer?.ref) {
             error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
               `Fatal error - An error happened, the page cannot be displayed. (customer doesn't match)` :
-              `Fatal error when bootstrapping the app. The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}".`,
+              `Fatal error when bootstrapping the app ("${props?.Component?.name}"). The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}").`,
             );
           } else {
             error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
               `Fatal error - An error happened, the page cannot be displayed.` :
-              `Fatal error when bootstrapping the app. It might happen when lang/locale/translations couldn't be resolved.`,
+              `Fatal error when bootstrapping the app ("${props?.Component?.name}"). It might happen when lang/locale/translations couldn't be resolved.`,
             );
           }
         } else {
