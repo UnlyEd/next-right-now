@@ -11,6 +11,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
+import { getCustomer } from '@/modules/core/airtable/getSharedAirtableDataset';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -63,7 +64,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
   if ('props' in commonStaticProps) {
     const { serializedDataset } = commonStaticProps?.props || {};
     const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
-    const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+    const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
     return deepmerge(commonStaticProps, {
       props: {

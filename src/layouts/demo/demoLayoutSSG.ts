@@ -3,6 +3,16 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
+import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
+import {
+  getCustomer,
+  getSharedAirtableDataset,
+} from '@/modules/core/airtable/getSharedAirtableDataset';
+import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
+import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
+import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';
+import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
@@ -95,8 +105,8 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const dataset: SanitizedAirtableDataset = (await import('@/modules/core/airtable/fetchAirtableDataset.preval')) as unknown as SanitizedAirtableDataset;
-  const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+  const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(bestCountryCodes);
+  const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   console.log('dataset', dataset);
   console.log('customer', customer);

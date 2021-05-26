@@ -1,6 +1,7 @@
 import Loader from '@/components/animations/Loader';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import { getCustomer } from '@/modules/core/airtable/getSharedAirtableDataset';
 import customerContext from '@/modules/core/data/contexts/customerContext';
 import datasetContext from '@/modules/core/data/contexts/datasetContext';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
@@ -31,7 +32,6 @@ import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { i18n } from 'i18next';
-import find from 'lodash.find';
 import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
 import React, { useState } from 'react';
@@ -210,7 +210,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
-    const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+    const customer: AirtableRecord<Customer> = getCustomer(dataset);
     let availableLanguages: string[] = customer?.availableLanguages;
 
     if (isEmpty(availableLanguages)) {

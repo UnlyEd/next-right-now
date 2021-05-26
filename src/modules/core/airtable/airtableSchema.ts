@@ -1,7 +1,7 @@
 import { AirtableSchema } from './types/AirtableSchema';
 import { GenericPostConsolidationTransformationValueInputProps } from './types/FieldSchema';
 
-type Props = {}
+export type GetAirtableSchemaProps = {}
 
 /**
  * Airtable database schema used thorough the whole app.
@@ -23,7 +23,7 @@ type Props = {}
  *    - e.g: fields based on a computed property "isExpired" will be correct when fetched, but will become stale afterwards, and aren't reliable.
  *  This is a concern for the production environment only, as staging/development use real-time API requests and thus use up-to-date content.
  */
-export const getAirtableSchema = (props?: Props): AirtableSchema => {
+export const getAirtableSchema = (props?: GetAirtableSchemaProps): AirtableSchema => {
 
   return {
     Customer: {
