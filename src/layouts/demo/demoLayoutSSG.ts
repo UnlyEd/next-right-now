@@ -84,7 +84,7 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  * Meant to avoid code duplication
  * Can be overridden for per-page customisation (e.g: deepmerge)
  *
- * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
+ * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSG implementation, so the demo keep working even if you change the base implementation.
 
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props (known as "pageProps" in _app).
  *
