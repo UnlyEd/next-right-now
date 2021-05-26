@@ -12,8 +12,8 @@ const logger = createLogger({
  * This dataset is STALE. It will not update, ever.
  * The dataset is created at build time, using the "next-plugin-preval" webpack plugin.
  *
- * @example const dataset: StaticDataset = await getSharedGraphcmsDataset();
+ * @example const dataset: StaticDataset = await getStaticGraphcmsDataset();
  */
-export const getSharedGraphcmsDataset = async (): Promise<StaticDataset> => {
+export const getStaticGraphcmsDataset = async (): Promise<StaticDataset> => {
   return (await import('@/modules/core/gql/fetchGraphcmsDataset.preval')) as unknown as StaticDataset;
 };

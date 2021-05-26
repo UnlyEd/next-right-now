@@ -10,7 +10,7 @@ import {
   StaticCustomer,
   StaticDataset,
 } from '@/modules/core/gql/fetchGraphcmsDataset';
-import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
+import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
 import {
@@ -125,12 +125,12 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
     },
   };
 
-  const sharedDataset: StaticDataset = await getSharedGraphcmsDataset();
-  const sharedCustomer: StaticCustomer = sharedDataset?.customer;
+  const staticDataset: StaticDataset = await getStaticGraphcmsDataset();
+  const staticCustomer: StaticCustomer = staticDataset?.customer;
 
   // Do not serve pages using locales the customer doesn't have enabled
-  if (!includes(sharedCustomer?.availableLanguages, locale)) {
-    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${sharedCustomer?.availableLanguages}"), returning 404 page.`);
+  if (!includes(staticCustomer?.availableLanguages, locale)) {
+    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${staticCustomer?.availableLanguages}"), returning 404 page.`);
 
     return {
       notFound: true,
