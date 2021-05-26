@@ -16,16 +16,15 @@ import {
 } from '@/modules/core/gql/fetchGraphcmsDataset';
 import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
+import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
 } from '@/modules/core/i18n/i18n';
-import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import {
   fetchTranslations,
   I18nextResources,
 } from '@/modules/core/i18n/i18nextLocize';
-import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
@@ -108,7 +107,6 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
-  const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
   const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
   const variables = {
     customerRef,
@@ -146,6 +144,16 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const dataset = {
     customer,
   };
+
+  let i18nTranslations: I18nextResources;
+
+  if (preview) {
+    // When preview mode is enabled, we want to make real-time API requests to get up-to-date data
+    i18nTranslations = await fetchTranslations(lang);
+  } else {
+    // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
+    i18nTranslations = await getStaticLocizeTranslations(lang);
+  }
 
   return {
     // Props returned here will be available as page properties (pageProps)
