@@ -28,6 +28,15 @@ export const getCustomer = (dataset: SanitizedAirtableDataset): AirtableRecord<C
 };
 
 /**
+ * Returns the whole dataset (raw), based on the app-wide static/shared/stale data fetched at build time.
+ *
+ * @example const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await getSharedRawAirtableDataset();
+ */
+export const getSharedRawAirtableDataset = async (): Promise<RawAirtableRecordsSet[]> => {
+  return (await import('@/modules/core/airtable/fetchRawAirtableDataset.preval')) as unknown as RawAirtableRecordsSet[];
+};
+
+/**
  * Returns the whole dataset (sanitized), based on the app-wide static/shared/stale data fetched at build time.
  *
  * This dataset is STALE. It will not update, ever.
@@ -39,7 +48,7 @@ export const getCustomer = (dataset: SanitizedAirtableDataset): AirtableRecord<C
  * @param props
  */
 export const getSharedAirtableDataset = async (preferredLocalesOrLanguages: string[], props?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
-  const rawAirtableRecordsSets: RawAirtableRecordsSet[] = (await import('@/modules/core/airtable/fetchRawAirtableDataset.preval')) as unknown as RawAirtableRecordsSet[];
+  const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await getSharedRawAirtableDataset();
   const airtableSchema: AirtableSchema = getAirtableSchema(props);
   const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
 

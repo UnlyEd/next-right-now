@@ -15,6 +15,8 @@ import preval from 'next-plugin-preval';
  *    - lots of static pages (40+ demo pages)
  * - Our in-memory cache was helping but wouldn't completely conceal the over-fetching caused by Next.js
  * - Airtable API requires 1 API request per table (we fetch 9 tables for the demo)
+ * - We were generating pages for all supportedLocales, even if the customer hadn't enabled some languages (longer build + undesired pages leading to bad UX)
+ * - We weren't able to auto-redirect only to one of the enabled customer locales, not without fetching Airtable (which is slow and has strong rate limits)
  *
  * The shared/static dataset is accessible to:
  * - All components
