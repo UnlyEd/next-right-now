@@ -17,6 +17,7 @@ import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
+import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -105,7 +106,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+  let i18nTranslations: I18nextResources;
   let dataset: SanitizedAirtableDataset;
 
   if (preview) {
@@ -115,9 +116,11 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
 
     dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
+    i18nTranslations = await fetchTranslations(lang);
   } else {
     // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
     dataset = await getStaticAirtableDataset(bestCountryCodes);
+    i18nTranslations = await getStaticLocizeTranslations(lang);
   }
 
   return {

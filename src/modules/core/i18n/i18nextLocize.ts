@@ -253,7 +253,7 @@ export const fetchBaseTranslations = async (lang: string): Promise<I18nextResour
 };
 
 /**
- * Fetches the translations that are specific to the customer (its own translations variation)
+ * Fetches the translations that are specific to the customer (their own translations variation)
  *
  * @param lang
  */
