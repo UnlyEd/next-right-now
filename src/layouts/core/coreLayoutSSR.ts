@@ -17,6 +17,7 @@ import {
   fetchTranslations,
   I18nextResources,
 } from '@/modules/core/i18n/i18nextLocize';
+import { createLogger } from '@/modules/core/logging/logger';
 import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
 import {
@@ -34,9 +35,14 @@ import {
 } from 'next';
 import NextCookies from 'next-cookies';
 
+const fileLabel = 'layouts/demo/demoLayoutSSR';
+const logger = createLogger({
+  fileLabel,
+});
+
 /**
- * getDemoServerSideProps returns only part of the props expected in SSRPageProps
- * To avoid TS issue, we omit those that we don't return, and add those necessary to the getServerSideProps function
+ * "getDemoServerSideProps" returns only part of the props expected in SSRPageProps.
+ * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
 export type GetCoreServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
@@ -46,12 +52,12 @@ export type GetCoreServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__
 
 /**
  * Only executed on the server side, for every request.
- * Computes some dynamic props that should be available for all SSR pages that use getServerSideProps
+ * Computes some dynamic props that should be available for all SSR pages that use getServerSideProps.
  *
- * Because the exact GQL query will depend on the consumer (AKA "caller"), this helper doesn't run any query by itself, but rather return all necessary props to allow the consumer to perform its own queries
- * This improves performances, by only running one GQL query instead of many (consumer's choice)
+ * Because the exact GQL query will depend on the consumer (AKA "caller"), this helper doesn't run any query by itself, but rather return all necessary props to allow the consumer to perform its own queries.
+ * This improves performances, by only running one GQL query instead of many (consumer's choice).
  *
- * Meant to avoid code duplication
+ * Meant to avoid code duplication.
  *
  * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  *

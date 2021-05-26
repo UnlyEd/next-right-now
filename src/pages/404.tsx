@@ -135,4 +135,6 @@ const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
   );
 };
 
+export const NotFound404PageName = NotFound404Page.name;
+
 export default NotFound404Page;

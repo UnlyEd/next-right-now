@@ -3,6 +3,7 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
+import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import {
   APOLLO_STATE_PROP_NAME,
   getApolloState,
@@ -20,6 +21,7 @@ import {
   I18nextResources,
 } from '@/modules/core/i18n/i18nextLocize';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import {
@@ -34,7 +36,11 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
-import { SSGPageProps } from './types/SSGPageProps';
+
+const fileLabel = 'layouts/demo/demoLayoutSSG';
+const logger = createLogger({
+  fileLabel,
+});
 
 /**
  * Only executed on the server side at build time.
@@ -53,6 +59,10 @@ import { SSGPageProps } from './types/SSGPageProps';
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
+  // TODO We shouldn't use "supportedLocales" but "customer?.availableLanguages" instead,
+  //  to only generate the pages for the locales the customer has explicitly enabled
+  //  I haven't found a nice way to do that yet, because if we're fetching Airtable here too, it will increase our API rate consumption
+  //  It'd be better to fetch the Airtable data ahead (at webpack level) so they're available when building pages, it'd make the build faster and lower the API usage too
   const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
     return {
       params: {

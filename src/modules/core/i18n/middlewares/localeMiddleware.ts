@@ -35,6 +35,10 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
     detections.forEach((language) => {
       if (localeFound || typeof language !== 'string') return;
 
+      // TODO We shouldn't use "supportedLocales" but "customer?.availableLanguages" instead,
+      //  to only redirect the pages for the locales the customer has explicitly enabled
+      //  I haven't found a nice way to do that yet, because if we're fetching Airtable here too, it will increase our API rate consumption
+      //  It'd be better to fetch the Airtable data ahead (at webpack level) so they're available when building pages, it'd make the build faster and lower the API usage too
       const lookedUpLocale = supportedLocales.find(
         (allowedLocale) => allowedLocale.name === language,
       );

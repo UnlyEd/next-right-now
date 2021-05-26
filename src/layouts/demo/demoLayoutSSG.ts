@@ -21,6 +21,7 @@ import {
   I18nextResources,
 } from '@/modules/core/i18n/i18nextLocize';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import {
@@ -35,6 +36,11 @@ import {
   GetStaticProps,
   GetStaticPropsResult,
 } from 'next';
+
+const fileLabel = 'layouts/demo/demoLayoutSSG';
+const logger = createLogger({
+  fileLabel,
+});
 
 /**
  * Only executed on the server side at build time.
@@ -53,6 +59,10 @@ import {
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
+  // TODO We shouldn't use "supportedLocales" but "customer?.availableLanguages" instead,
+  //  to only generate the pages for the locales the customer has explicitly enabled
+  //  I haven't found a nice way to do that yet, because if we're fetching Airtable here too, it will increase our API rate consumption
+  //  It'd be better to fetch the Airtable data ahead (at webpack level) so they're available when building pages, it'd make the build faster and lower the API usage too
   const paths: StaticPath[] = map(supportedLocales, (supportedLocale: I18nLocale): StaticPath => {
     return {
       params: {
@@ -77,8 +87,8 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  * Meant to avoid code duplication.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
- *
+ * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSG implementation, so the demo keep working even if you change the base implementation.
+
  * @return Props (as "SSGPageProps") that will be passed to the Page component, as props (known as "pageProps" in _app).
  *
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
