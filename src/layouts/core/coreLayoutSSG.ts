@@ -160,7 +160,6 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
       preview,
       previewData,
     },
-    // revalidate: false,
   };
 };
 
