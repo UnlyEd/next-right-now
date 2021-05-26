@@ -13,7 +13,7 @@ import find from 'lodash.find';
 import { AirtableSchema } from './types/AirtableSchema';
 import { RawAirtableRecordsSet } from './types/RawAirtableRecordsSet';
 
-const fileLabel = 'modules/core/airtable/getSharedAirtableDataset';
+const fileLabel = 'modules/core/airtable/getAirtableDataset';
 const logger = createLogger({
   fileLabel,
 });
@@ -45,14 +45,32 @@ export const getSharedRawAirtableDataset = async (): Promise<RawAirtableRecordsS
  * @example const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(bestCountryCodes);
  *
  * @param preferredLocalesOrLanguages
- * @param props
+ * @param airtableSchemaProps
  */
-export const getSharedAirtableDataset = async (preferredLocalesOrLanguages: string[], props?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
+export const getSharedAirtableDataset = async (preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
   const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await getSharedRawAirtableDataset();
-  const airtableSchema: AirtableSchema = getAirtableSchema(props);
+  const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
   const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
 
   return consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
 };
 
-export default getSharedAirtableDataset;
+export const getLiveAirtableDataset = async (preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
+  const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
+  // XXX importing fetchAirtableDataset crashes the app
+  // const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, preferredLocalesOrLanguages);
+  // const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
+
+  // return consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
+  return {};
+};
+
+export const getAirtableDataset = async (isPreviewMode: boolean, preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
+  if (isPreviewMode) {
+    // When preview mode is enabled, we want to make real-time API requests to get up-to-date data
+    return await getLiveAirtableDataset(preferredLocalesOrLanguages, airtableSchemaProps);
+  } else {
+    // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
+    return await getSharedAirtableDataset(preferredLocalesOrLanguages);
+  }
+};

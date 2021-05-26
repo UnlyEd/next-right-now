@@ -6,7 +6,7 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import {
   getCustomer,
   getSharedAirtableDataset,
-} from '@/modules/core/airtable/getSharedAirtableDataset';
+} from '@/modules/core/airtable/getAirtableDataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';

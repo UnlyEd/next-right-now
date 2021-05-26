@@ -4,7 +4,7 @@ import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import {
   getCustomer,
   getSharedAirtableDataset,
-} from '@/modules/core/airtable/getSharedAirtableDataset';
+} from '@/modules/core/airtable/getAirtableDataset';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';

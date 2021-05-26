@@ -4,9 +4,10 @@ import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import {
+  getAirtableDataset,
   getCustomer,
   getSharedAirtableDataset,
-} from '@/modules/core/airtable/getSharedAirtableDataset';
+} from '@/modules/core/airtable/getAirtableDataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
@@ -99,7 +100,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(bestCountryCodes);
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(preview, bestCountryCodes);
 
   return {
     // Props returned here will be available as page properties (pageProps)

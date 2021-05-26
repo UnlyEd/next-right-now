@@ -1,4 +1,7 @@
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
+import {
+  getAirtableSchema,
+  GetAirtableSchemaProps,
+} from '@/modules/core/airtable/airtableSchema';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
@@ -15,9 +18,10 @@ const logger = createLogger({
 /**
  * XXX used by preval
  * XXX Must be a single export file otherwise it can cause issues
+ * XXX Must not be called by other scripts
  */
-export const fetchRawAirtableDataset = async (): Promise<RawAirtableRecordsSet[]> => {
-  const airtableSchema: AirtableSchema = getAirtableSchema();
+export const fetchRawAirtableDataset = async (airtableSchemaProps?: GetAirtableSchemaProps): Promise<RawAirtableRecordsSet[]> => {
+  const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
 
   // Resolves the languages we want to fetch the fields for (all supported languages configured in the app)
   // We want to fetch all fields (for all language variations) during the initial dataset fetch
