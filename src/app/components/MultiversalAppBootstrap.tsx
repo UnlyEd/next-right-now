@@ -200,7 +200,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       }
     }
 
-    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && !process.env.IS_SERVER_INITIAL_BUILD) {
       // XXX It's too cumbersome to do proper typings when type changes
       //  The "customer" was forwarded as a JSON-ish string (using Flatten) in order to avoid circular dependencies issues (SSG/SSR)
       //  It now being converted back into an object to be actually usable on all pages
