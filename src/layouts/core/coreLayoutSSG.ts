@@ -118,7 +118,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
   } else {
     // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
-    dataset = await getAirtableDataset(preview, bestCountryCodes);
+    dataset = await getSharedAirtableDataset(bestCountryCodes);
   }
 
   return {

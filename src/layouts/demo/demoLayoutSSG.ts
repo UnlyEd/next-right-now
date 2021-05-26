@@ -7,7 +7,6 @@ import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
 import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
 import {
-  getAirtableDataset,
   getCustomer,
   getSharedAirtableDataset,
 } from '@/modules/core/airtable/getAirtableDataset';
@@ -118,7 +117,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
   } else {
     // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
-    dataset = await getAirtableDataset(preview, bestCountryCodes);
+    dataset = await getSharedAirtableDataset(bestCountryCodes);
   }
 
   return {

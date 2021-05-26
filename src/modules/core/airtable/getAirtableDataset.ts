@@ -55,6 +55,12 @@ export const getSharedAirtableDataset = async (preferredLocalesOrLanguages: stri
   return consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
 };
 
+/**
+ * WIP Not working
+ *
+ * @param preferredLocalesOrLanguages
+ * @param airtableSchemaProps
+ */
 export const getLiveAirtableDataset = async (preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
   // const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
   // XXX Importing fetchAirtableDataset in the file causes a crash, while doing exactly the same from the Next.js page works fine (claiming "fs" module cannot be found)
@@ -66,6 +72,15 @@ export const getLiveAirtableDataset = async (preferredLocalesOrLanguages: string
   return {};
 };
 
+/**
+ * WIP not used because getLiveAirtableDataset isn't working
+ *
+ * Meant to make code more reusable and avoid bloating pages with too much logic
+ *
+ * @param isPreviewMode
+ * @param preferredLocalesOrLanguages
+ * @param airtableSchemaProps
+ */
 export const getAirtableDataset = async (isPreviewMode: boolean, preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
   if (isPreviewMode) {
     // When preview mode is enabled, we want to make real-time API requests to get up-to-date data
