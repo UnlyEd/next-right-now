@@ -56,11 +56,12 @@ export const getSharedAirtableDataset = async (preferredLocalesOrLanguages: stri
 };
 
 export const getLiveAirtableDataset = async (preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
-  const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
-  // XXX importing fetchAirtableDataset crashes the app
+  // const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
+  // XXX Importing fetchAirtableDataset in the file causes a crash, while doing exactly the same from the Next.js page works fine (claiming "fs" module cannot be found)
+  //  This is most likely related to the "next-plugin-preval" package, which messes up with the Webpack configuration
   // const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, preferredLocalesOrLanguages);
   // const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
-
+  //
   // return consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
   return {};
 };
