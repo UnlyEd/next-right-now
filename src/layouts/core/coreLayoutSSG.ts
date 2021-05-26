@@ -8,7 +8,7 @@ import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consoli
 import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
 import {
   getCustomer,
-  getSharedAirtableDataset,
+  getStaticAirtableDataset,
 } from '@/modules/core/airtable/getAirtableDataset';
 import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
 import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
@@ -62,7 +62,7 @@ const logger = createLogger({
  */
 export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  const dataset: SanitizedAirtableDataset = await getSharedAirtableDataset(preferredLocalesOrLanguages);
+  const dataset: SanitizedAirtableDataset = await getStaticAirtableDataset(preferredLocalesOrLanguages);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Generate only pages for languages that have been allowed by the customer
@@ -117,7 +117,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
   } else {
     // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
-    dataset = await getSharedAirtableDataset(bestCountryCodes);
+    dataset = await getStaticAirtableDataset(bestCountryCodes);
   }
 
   return {
