@@ -24,6 +24,7 @@ import { configureSentryI18n } from '@/modules/core/sentry/sentry';
 import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import { detectCypress } from '@/modules/core/testing/cypress';
 import { initCustomerTheme } from '@/modules/core/theming/theme';
+import { NotFound404PageName } from '@/pages/404';
 import ErrorPage from '@/pages/_error';
 import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
 import { ThemeProvider } from '@emotion/react';
@@ -225,44 +226,6 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       console.debug('dataset.customer', customer);
     }
 
-    // Force redirect to an allowed locale page, if the locale used to display the page isn't available for this customer
-    // TODO This should be replaced by something better, ideally the pages for non-available locales shouldn't be generated at all and then this wouldn't be needed.
-    //  Using redirects in the app bootstrap can easily lead to infinite redirects, if not handled carefully.
-    // XXX Be extra careful with this kind of redirects based on remote data!
-    //  It's easy to create an infinite redirect loop when the data aren't shaped as expected, edge cases (e.g "404"), etc.
-    // XXX Doing this isn't recommended and has been disabled because it breaks 404 pages by redirecting them to the homepage.
-    //  Feel free to enable it if you wish. It should be implemented differently (by not generating non-allowed i18n pages), but might help anyway.
-    /*if (!includes(availableLanguages, locale) && size(availableLanguages) > 0 && isBrowser()) {
-      Sentry.captureEvent({
-        message: `Unauthorized locale used "${locale}" (allowed: "${availableLanguages.join(', ')}") when loading page "${location.href}", user will be redirected.`,
-        level: Sentry.Severity.Warning,
-      });
-
-      // Edge case where the default locale isn't available for this customer, and the resolved user locale is wrong (e.g: 404 page where there is no locale detection)
-      // Redirect to the home page using the first allowed language (instead of redirecting to the same page, which would result in infinite loop for 404 pages, etc.)
-      if (locale === DEFAULT_LOCALE) {
-        const redirectTo = `/${availableLanguages?.[0] || ''}`;
-        location.href = redirectTo;
-
-        if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
-          return (
-            <div>Locale not allowed. Redirecting to "{redirectTo}"...</div>
-          );
-        }
-      } else {
-        // Otherwise, redirect to the same page using another locale (using the first available locale)
-        i18nRedirect(availableLanguages?.[0] || DEFAULT_LOCALE, router);
-
-        if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
-          return (
-            <div>Locale not allowed. Redirecting...</div>
-          );
-        }
-      }
-
-      return null;
-    }*/
-
     let isPreviewModeEnabled;
     let previewData;
     let isQuickPreviewPage;
@@ -299,7 +262,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     // Don't treat 404 pages like errors, it's expected in 404 pages not to have all the props the app needs
-    if (router?.route !== '/404') {
+    if (props?.Component?.name !== NotFound404PageName) {
       // If the app is misconfigured, simulate a native Next.js error to catch the misconfiguration early
       if (!customer || !i18nTranslations || !lang || !locale) {
         let error = props.err || null;
