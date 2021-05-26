@@ -5,8 +5,8 @@ import gql from 'graphql-tag';
  *
  * Used by src/modules/core/gql/fetchGraphcmsDataset.preval.ts
  */
-export const SHARED_DEMO_DATA_QUERY = gql`
-  query SHARED_DEMO_DATA_QUERY($customerRef: String!){
+export const DEMO_STATIC_DATA_QUERY = gql`
+  query DEMO_STATIC_DATA_QUERY($customerRef: String!){
     customer(where: {
       ref: $customerRef,
     }){

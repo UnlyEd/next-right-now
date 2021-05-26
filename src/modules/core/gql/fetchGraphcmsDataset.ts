@@ -1,4 +1,4 @@
-import { SHARED_DEMO_DATA_QUERY } from '@/common/gql/sharedDemoDataQuery';
+import { DEMO_STATIC_DATA_QUERY } from '@/common/gql/demoStaticDataQuery';
 import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { createLogger } from '@/modules/core/logging/logger';
@@ -13,9 +13,9 @@ const logger = createLogger({
   fileLabel,
 });
 
-export type SharedCustomer = Pick<Customer, 'availableLanguages'>;
-export type SharedDataset = {
-  customer: SharedCustomer;
+export type StaticCustomer = Pick<Customer, 'availableLanguages'>;
+export type StaticDataset = {
+  customer: StaticCustomer;
 };
 
 /**
@@ -27,7 +27,7 @@ export type SharedDataset = {
  *
  * XXX Must be a single export file otherwise it can cause issues - See https://github.com/ricokahler/next-plugin-preval/issues/19#issuecomment-848799473
  */
-export const fetchGraphcmsDataset = async (): Promise<SharedDataset> => {
+export const fetchGraphcmsDataset = async (): Promise<StaticDataset> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
   const variables = {
@@ -35,7 +35,7 @@ export const fetchGraphcmsDataset = async (): Promise<SharedDataset> => {
   };
   const queryOptions = {
     displayName: 'APP_WIDE_QUERY',
-    query: SHARED_DEMO_DATA_QUERY,
+    query: DEMO_STATIC_DATA_QUERY,
     variables,
   };
 

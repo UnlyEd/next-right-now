@@ -11,8 +11,8 @@ import {
 } from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
 import {
-  SharedCustomer,
-  SharedDataset,
+  StaticCustomer,
+  StaticDataset,
 } from '@/modules/core/gql/fetchGraphcmsDataset';
 import { getSharedGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
@@ -64,8 +64,8 @@ const logger = createLogger({
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
-  const sharedDataset: SharedDataset = await getSharedGraphcmsDataset();
-  const sharedCustomer: SharedCustomer = sharedDataset?.customer;
+  const sharedDataset: StaticDataset = await getSharedGraphcmsDataset();
+  const sharedCustomer: StaticCustomer = sharedDataset?.customer;
 
   // Generate only pages for languages that have been allowed by the customer
   const paths: StaticPath[] = map(sharedCustomer?.availableLanguages, (availableLanguage: string): StaticPath => {
