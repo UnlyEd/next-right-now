@@ -298,49 +298,53 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       isQuickPreviewPage = pageProps?.isQuickPreviewPage;
     }
 
-    if (!customer || !i18nTranslations || !lang || !locale) {
-      let error = props.err || null;
+    // Don't treat 404 pages like errors, it's expected in 404 pages not to have all the props the app needs
+    if (router?.route !== '/404') {
+      // If the app is misconfigured, simulate a native Next.js error to catch the misconfiguration early
+      if (!customer || !i18nTranslations || !lang || !locale) {
+        let error = props.err || null;
 
-      // Unrecoverable error, we can't even display the layout because we don't have the minimal required information to properly do so
-      // This most likely means something went wrong, and we must display the error page in such case
-      if (!error) {
-        // The most-likely issue could be that we failed to fetch the customer related to "process.env.NEXT_PUBLIC_CUSTOMER_REF"
-        // E.g: This will happens when an instance was deployed for a customer, but the customer.ref was changed since then.
-        if (process.env.NEXT_PUBLIC_CUSTOMER_REF !== customer?.ref) {
-          error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
-            `Fatal error - An error happened, the page cannot be displayed. (customer doesn't match)` :
-            `Fatal error when bootstrapping the app. The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}".`,
-          );
+        // Unrecoverable error, we can't even display the layout because we don't have the minimal required information to properly do so
+        // This most likely means something went wrong, and we must display the error page in such case
+        if (!error) {
+          // The most-likely issue could be that we failed to fetch the customer related to "process.env.NEXT_PUBLIC_CUSTOMER_REF"
+          // E.g: This will happens when an instance was deployed for a customer, but the customer.ref was changed since then.
+          if (process.env.NEXT_PUBLIC_CUSTOMER_REF !== customer?.ref) {
+            error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
+              `Fatal error - An error happened, the page cannot be displayed. (customer doesn't match)` :
+              `Fatal error when bootstrapping the app. The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}".`,
+            );
+          } else {
+            error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
+              `Fatal error - An error happened, the page cannot be displayed.` :
+              `Fatal error when bootstrapping the app. It might happen when lang/locale/translations couldn't be resolved.`,
+            );
+          }
         } else {
-          error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
-            `Fatal error - An error happened, the page cannot be displayed.` :
-            `Fatal error when bootstrapping the app. It might happen when lang/locale/translations couldn't be resolved.`,
-          );
+          // If an error was detected by Next, then it means the current state is due to a top-level that was caught before
+          // We don't have anything to do, as it's automatically logged into Sentry
+          const error = new Error(`Fatal error - Misconfiguration detected, the page cannot be displayed.`);
+          logger.error(error);
         }
-      } else {
-        // If an error was detected by Next, then it means the current state is due to a top-level that was caught before
-        // We don't have anything to do, as it's automatically logged into Sentry
-        const error = new Error(`Fatal error - Misconfiguration detected, the page cannot be displayed.`);
-        logger.error(error);
-      }
 
-      return (
-        <ErrorPage
-          err={error}
-          statusCode={500}
-          isReadyToRender={true}
-        >
-          <DefaultErrorLayout
-            error={error}
-            context={pageProps}
-          />
-        </ErrorPage>
-      );
-    } else if (props?.err) {
-      // If an error was caught by Next.js (but wasn't fatal since we reached this point), we log it to Sentry to make sure we'll be notified
-      Sentry.withScope((scope): void => {
-        Sentry.captureException(props.err);
-      });
+        return (
+          <ErrorPage
+            err={error}
+            statusCode={500}
+            isReadyToRender={true}
+          >
+            <DefaultErrorLayout
+              error={error}
+              context={pageProps}
+            />
+          </ErrorPage>
+        );
+      } else if (props?.err) {
+        // If an error was caught by Next.js (but wasn't fatal since we reached this point), we log it to Sentry to make sure we'll be notified
+        Sentry.withScope((scope): void => {
+          Sentry.captureException(props.err);
+        });
+      }
     }
 
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
