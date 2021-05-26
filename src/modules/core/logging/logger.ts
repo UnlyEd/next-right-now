@@ -20,7 +20,8 @@ export const createLogger = ({ fileLabel }: { fileLabel: string }): SimpleLogger
     prefix: fileLabel,
     shouldPrint: (mode) => {
       // When bundling with Webpack, only print errors/warnings to avoid printing too much noise on Vercel
-      if (process.env.IS_SERVER_INITIAL_BUILD === '1') {
+      // IS_SERVER_INITIAL_BUILD is always "1" during development, and is being ignored
+      if (process.env.NEXT_PUBLIC_APP_STAGE !== 'development' && process.env.IS_SERVER_INITIAL_BUILD === '1') {
         return mode === 'error' || mode === 'warn' || mode === 'debug';
       }
 
