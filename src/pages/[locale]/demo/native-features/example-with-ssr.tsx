@@ -8,7 +8,7 @@ import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import {
-  GetCommonServerSidePropsResults,
+  GetDemoServerSidePropsResults,
   getDemoServerSideProps,
 } from '@/layouts/demo/demoLayoutSSR';
 import {
@@ -59,7 +59,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
-  const commonServerSideProps: GetServerSidePropsResult<Omit<GetCommonServerSidePropsResults, 'serializedDataset'>> = await getDemoServerSideProps(context);
+  const commonServerSideProps: GetServerSidePropsResult<Omit<GetDemoServerSidePropsResults, 'serializedDataset'>> = await getDemoServerSideProps(context);
 
   if ('props' in commonServerSideProps) {
 

@@ -1,7 +1,6 @@
 import '@/app/components/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import MultiversalGlobalStyles from '@/app/components/MultiversalGlobalStyles';
 import '@/common/utils/ignoreNoisyWarningsHacks';
-import { getCustomer } from '@/modules/core/airtable/getAirtableDataset';
 import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitude';
 import amplitudeContext from '@/modules/core/amplitude/context/amplitudeContext';
 import customerContext from '@/modules/core/data/contexts/customerContext';
@@ -22,6 +21,7 @@ import '@storybook/addon-console'; // Automatically forwards all logs in the "Ac
 import { withTests } from '@storybook/addon-jest';
 import { addDecorator } from '@storybook/react';
 import { themes } from '@storybook/theming';
+import find from 'lodash.find';
 import React from 'react';
 import { withNextRouter } from 'storybook-addon-next-router';
 import { withPerformance } from 'storybook-addon-performance';
@@ -179,7 +179,7 @@ export const decorators = [
     // Although, they are configured in the same way as the Next.js app during development mode
     i18nextLocize(lang, i18nTranslations);
 
-    const customer = getCustomer(dataset);
+    const customer = find(dataset, { __typename: 'Customer' });
     const customerTheme = initCustomerTheme(customer);
     const customerRef = 'storybook'; // Fake customer ref
     const amplitudeApiKey = ''; // Use invalid amplitude tracking key to force disable all amplitude analytics
