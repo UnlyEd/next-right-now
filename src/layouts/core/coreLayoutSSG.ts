@@ -140,4 +140,3 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     },
   };
 };
-
