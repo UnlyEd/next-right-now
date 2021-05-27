@@ -1,8 +1,8 @@
-import { LocizeTranslationByLang } from '@/modules/core/i18n/fetchLocizeTranslations';
 import {
   fetchTranslations,
   I18nextResources,
 } from '@/modules/core/i18n/i18nextLocize';
+import { LocizeTranslationByLang } from '@/modules/core/i18n/types/LocizeTranslationByLang';
 import { createLogger } from '@/modules/core/logging/logger';
 
 const fileLabel = 'modules/core/i18n/getLocizeTranslations';
@@ -16,7 +16,7 @@ const logger = createLogger({
  * @example const allStaticLocizeTranslations = await getAllStaticLocizeTranslations();
  */
 export const getAllStaticLocizeTranslations = async (): Promise<LocizeTranslationByLang> => {
-  return (await import('@/modules/core/i18n/fetchLocizeTranslations.preval')) as unknown as LocizeTranslationByLang;
+  return (await import('@/modules/core/i18n/fetchStaticLocizeTranslations.preval')) as unknown as LocizeTranslationByLang;
 };
 
 /**

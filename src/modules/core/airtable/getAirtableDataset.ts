@@ -33,7 +33,7 @@ export const getCustomer = <T = AirtableRecord<Customer>>(dataset: SanitizedAirt
  * @example const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await getStaticRawAirtableDataset();
  */
 export const getStaticRawAirtableDataset = async (): Promise<RawAirtableRecordsSet[]> => {
-  return (await import('@/modules/core/airtable/fetchRawAirtableDataset.preval')) as unknown as RawAirtableRecordsSet[];
+  return (await import('@/modules/core/airtable/fetchStaticRawAirtableDataset.preval')) as unknown as RawAirtableRecordsSet[];
 };
 
 /**
