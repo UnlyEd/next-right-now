@@ -23,8 +23,8 @@ const logger = createLogger({
  *
  * @param dataset
  */
-export const getCustomer = (dataset: SanitizedAirtableDataset): AirtableRecord<Customer> => {
-  return find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+export const getCustomer = <T = AirtableRecord<Customer>>(dataset: SanitizedAirtableDataset): T => {
+  return find(dataset, { __typename: 'Customer' }) as unknown as T;
 };
 
 /**

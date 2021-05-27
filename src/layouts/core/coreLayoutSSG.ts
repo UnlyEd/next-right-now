@@ -63,7 +63,20 @@ const logger = createLogger({
  */
 export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  const dataset: SanitizedAirtableDataset = await getStaticAirtableDataset(preferredLocalesOrLanguages);
+  let dataset: SanitizedAirtableDataset;
+
+  if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
+    // When working locally, we want to make real-time API requests to get up-to-date data
+    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
+    const airtableSchema: AirtableSchema = getAirtableSchema();
+    const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, preferredLocalesOrLanguages);
+    const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
+
+    dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
+  } else {
+    // Otherwise, we fallback to the app-wide shared/static data (stale)
+    dataset = await getStaticAirtableDataset(preferredLocalesOrLanguages);
+  }
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Generate only pages for languages that have been allowed by the customer
@@ -109,8 +122,9 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   let i18nTranslations: I18nextResources;
   let dataset: SanitizedAirtableDataset;
 
-  if (preview) {
-    // When preview mode is enabled, we want to make real-time API requests to get up-to-date data
+  if (preview || process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
+    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
+    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
     const airtableSchema: AirtableSchema = getAirtableSchema();
     const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, bestCountryCodes);
     const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
@@ -118,7 +132,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
     i18nTranslations = await fetchTranslations(lang);
   } else {
-    // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
+    // Otherwise, we fallback to the app-wide shared/static data (stale)
     dataset = await getStaticAirtableDataset(bestCountryCodes);
     i18nTranslations = await getStaticLocizeTranslations(lang);
   }
