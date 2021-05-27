@@ -1,5 +1,46 @@
-import fetchRawAirtableDataset from '@/modules/core/airtable/fetchRawAirtableDataset';
+import {
+  getAirtableSchema,
+  GetAirtableSchemaProps,
+} from '@/modules/core/airtable/airtableSchema';
+import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
+import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
+import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';
+import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
+import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
+import { createLogger } from '@/modules/core/logging/logger';
+import uniq from 'lodash.uniq';
 import preval from 'next-plugin-preval';
+
+const fileLabel = 'modules/core/airtable/fetchStaticRawAirtableDataset';
+const logger = createLogger({
+  fileLabel,
+});
+
+/**
+ * Fetches the airtable dataset.
+ *
+ * Disabled during development, because it invokes too many API calls, the SSG pages are configured to fetch real-time data during development.
+ * If enabled during development, it worsen the developer experience, because Next.js isn't optimized for "next-plugin-preval" and re-fetches multiple times (~11 times).
+ * This causes the Airtable API to block our requests and we get only partial data.
+ * See https://github.com/ricokahler/next-plugin-preval/issues/27
+ *
+ * XXX Must use default exports, otherwise it can cause issues - See https://github.com/ricokahler/next-plugin-preval/issues/19#issuecomment-848799473
+ */
+export const fetchStaticRawAirtableDataset = async (airtableSchemaProps?: GetAirtableSchemaProps): Promise<RawAirtableRecordsSet[]> => {
+  if (process.env.NODE_ENV !== 'development') {
+    logger.debug(`Pre-evaluation (prefetching of the static dataset at build time) is starting.`);
+    const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
+
+    // Resolves the languages we want to fetch the fields for (all supported languages configured in the app)
+    // We want to fetch all fields (for all language variations) during the initial dataset fetch
+    const localesOfLanguagesToFetch = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
+
+    return await fetchAirtableDataset(airtableSchema, localesOfLanguagesToFetch);
+  } else {
+    logger.debug(`Pre-evaluation (prefetching of the static dataset at build time) is disabled in development mode for a better developer experience.`);
+    return [];
+  }
+};
 
 /**
  * Pre-fetches the Airtable dataset and stores the result in an cached internal JSON file.
@@ -30,6 +71,4 @@ import preval from 'next-plugin-preval';
  *
  * @see https://github.com/ricokahler/next-plugin-preval
  */
-export const dataset = preval(fetchRawAirtableDataset());
-
-export default dataset;
+export default preval(fetchStaticRawAirtableDataset());
