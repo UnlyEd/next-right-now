@@ -1,5 +1,15 @@
-import { StaticDataset } from '@/modules/core/gql/fetchGraphcmsDataset';
+import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
+import { initializeApollo } from '@/modules/core/apollo/apolloClient';
+import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
+import { StaticDataset } from '@/modules/core/gql/types/StaticDataset';
 import { createLogger } from '@/modules/core/logging/logger';
+import {
+  ApolloClient,
+  ApolloQueryResult,
+  DocumentNode,
+  NormalizedCacheObject,
+} from '@apollo/client';
+import { QueryOptions } from '@apollo/client/core/watchQueryOptions';
 
 const fileLabel = 'modules/core/airtable/getGraphcmsDataset';
 const logger = createLogger({
@@ -15,5 +25,51 @@ const logger = createLogger({
  * @example const dataset: StaticDataset = await getStaticGraphcmsDataset();
  */
 export const getStaticGraphcmsDataset = async (): Promise<StaticDataset> => {
-  return (await import('@/modules/core/gql/fetchGraphcmsDataset.preval')) as unknown as StaticDataset;
+  return (await import('@/modules/core/gql/fetchStaticGraphcmsDataset.preval')) as unknown as StaticDataset;
 };
+
+export const getLiveGraphcmsDataset = async <T>(gcmsLocales: string, query?: DocumentNode): Promise<T> => {
+  const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
+  const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
+  const variables = {
+    customerRef,
+  };
+  const queryOptions: QueryOptions & { displayName: string } = {
+    displayName: 'DEMO_LAYOUT_QUERY',
+    query: query || DEMO_LAYOUT_QUERY,
+    variables,
+    context: {
+      headers: {
+        'gcms-locales': gcmsLocales,
+      },
+    },
+  };
+
+  const {
+    data,
+    errors,
+    loading,
+    networkStatus,
+    ...rest
+  }: ApolloQueryResult<T> = await apolloClient.query(queryOptions);
+
+  if (errors) {
+    // eslint-disable-next-line no-console
+    console.error(errors);
+    throw new Error('Errors were detected in GraphQL query.');
+  }
+
+  return data;
+};
+
+export const getGraphcmsDataset = async (gcmsLocales: string, query?: DocumentNode, isPreviewMode = false): Promise<GraphCMSDataset | StaticDataset> => {
+  if (isPreviewMode || process.env.NODE_ENV === 'development') {
+    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
+    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
+    return await getLiveGraphcmsDataset(gcmsLocales, query);
+  } else {
+    // Otherwise, we fallback to the app-wide shared/static data (stale)
+    return await getStaticGraphcmsDataset();
+  }
+};
+

@@ -5,24 +5,23 @@ import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
+import { Customer } from '@/modules/core/data/types/Customer';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
+import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
+import { getGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
+import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
+import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
 import {
   StaticCustomer,
   StaticDataset,
-} from '@/modules/core/gql/fetchStaticGraphcmsDataset';
-import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
-import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
-import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
+} from '@/modules/core/gql/types/StaticDataset';
 import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
   SUPPORTED_LANGUAGES,
 } from '@/modules/core/i18n/i18n';
-import {
-  fetchTranslations,
-  I18nextResources,
-} from '@/modules/core/i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { createLogger } from '@/modules/core/logging/logger';
 import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
@@ -111,6 +110,8 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
+  // XXX This part is not using "getGraphcmsDataset" because I'm not sure how to return the "apolloClient" instance when doing so, as it'll be wrapped and isn't returned
+  //  So, code is duplicated, but that works fine
   const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
   const variables = {
     customerRef,
@@ -126,12 +127,12 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
     },
   };
 
-  const staticDataset: StaticDataset = await getStaticGraphcmsDataset();
-  const staticCustomer: StaticCustomer = staticDataset?.customer;
+  const dataset: StaticDataset | GraphCMSDataset = await getGraphcmsDataset(gcmsLocales);
+  const customer: StaticCustomer | Customer = dataset?.customer;
 
   // Do not serve pages using locales the customer doesn't have enabled
-  if (!includes(staticCustomer?.availableLanguages, locale)) {
-    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${staticCustomer?.availableLanguages}"), returning 404 page.`);
+  if (!includes(customer?.availableLanguages, locale)) {
+    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${customer?.availableLanguages}"), returning 404 page.`);
 
     return {
       notFound: true,
