@@ -1,8 +1,8 @@
-import { LocizeTranslationByLang } from '@/modules/core/i18n/fetchLocizeTranslations';
 import {
   fetchTranslations,
   I18nextResources,
 } from '@/modules/core/i18n/i18nextLocize';
+import { LocizeTranslationByLang } from '@/modules/core/i18n/types/LocizeTranslationByLang';
 import { createLogger } from '@/modules/core/logging/logger';
 
 const fileLabel = 'modules/core/i18n/getLocizeTranslations';
