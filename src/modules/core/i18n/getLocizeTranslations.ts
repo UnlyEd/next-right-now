@@ -16,7 +16,7 @@ const logger = createLogger({
  * @example const allStaticLocizeTranslations = await getAllStaticLocizeTranslations();
  */
 export const getAllStaticLocizeTranslations = async (): Promise<LocizeTranslationByLang> => {
-  return (await import('@/modules/core/i18n/fetchLocizeTranslations.preval')) as unknown as LocizeTranslationByLang;
+  return (await import('@/modules/core/i18n/fetchStaticLocizeTranslations.preval')) as unknown as LocizeTranslationByLang;
 };
 
 /**
