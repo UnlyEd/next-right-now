@@ -58,7 +58,7 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
    *
    * @see https://nextjs.org/docs/api-reference/next.config.js/react-strict-mode
    */
-  // reactStrictMode: true, // XXX Disabled for now, but we should enable it
+  reactStrictMode: true,
 
   /**
    * Environment variables added to JS bundle
