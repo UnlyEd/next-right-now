@@ -23,7 +23,10 @@ import {
   resolveFallbackLanguage,
 } from '@/modules/core/i18n/i18n';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
-import { fetchTranslations, I18nextResources } from '@/modules/core/i18n/i18nextLocize';
+import {
+  fetchTranslations,
+  I18nextResources,
+} from '@/modules/core/i18n/i18nextLocize';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
@@ -151,4 +154,3 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     },
   };
 };
-

@@ -3,6 +3,7 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
@@ -76,12 +77,12 @@ export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServ
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const customer: Customer = {
+  const customer: AirtableRecord<Customer> = {
     ref: customerRef,
     label: `${customerRef} (mocked)`,
     serviceLabel: 'Those mocked data are defined in the publicLayoutSSG. The page is from "pages/public". This layout is meant for all "public" pages, you probably want to start there!',
     __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
-  } as unknown as Customer;
+  } as AirtableRecord<Customer>;
 
   return {
     // Props returned here will be available as page properties (pageProps)
