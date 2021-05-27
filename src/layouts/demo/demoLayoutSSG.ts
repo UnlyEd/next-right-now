@@ -13,7 +13,7 @@ import { Customer } from '@/modules/core/data/types/Customer';
 import {
   StaticCustomer,
   StaticDataset,
-} from '@/modules/core/gql/fetchGraphcmsDataset';
+} from '@/modules/core/gql/fetchStaticGraphcmsDataset';
 import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';

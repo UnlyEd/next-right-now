@@ -8,7 +8,7 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client';
 
-const fileLabel = 'modules/core/airtable/fetchGraphcmsDataset';
+const fileLabel = 'modules/core/airtable/fetchStaticGraphcmsDataset';
 const logger = createLogger({
   fileLabel,
 });
@@ -20,14 +20,14 @@ export type StaticDataset = {
 
 /**
  * Fetches the GraphCMS dataset.
- * Invoked by fetchGraphcmsDataset.preval.ts file at build time (during Webpack bundling).
+ * Invoked by fetchStaticGraphcmsDataset.preval.ts file at build time (during Webpack bundling).
  *
  * Only fetches non-i18n data, because i18n data should use the built-in "i18n resolver" using "gcms-locales" header.
  * We only fetch the "availableLanguages" of the customer, because that's what we really need app-wide, in order to generate only needed pages, etc.
  *
  * XXX Must be a single export file otherwise it can cause issues - See https://github.com/ricokahler/next-plugin-preval/issues/19#issuecomment-848799473
  */
-export const fetchGraphcmsDataset = async (): Promise<StaticDataset> => {
+export const fetchStaticGraphcmsDataset = async (): Promise<StaticDataset> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
   const variables = {
@@ -65,4 +65,4 @@ export const fetchGraphcmsDataset = async (): Promise<StaticDataset> => {
   return dataset;
 };
 
-export default fetchGraphcmsDataset;
+export default fetchStaticGraphcmsDataset;

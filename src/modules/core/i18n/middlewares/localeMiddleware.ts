@@ -1,7 +1,7 @@
 import {
   StaticCustomer,
   StaticDataset,
-} from '@/modules/core/gql/fetchGraphcmsDataset';
+} from '@/modules/core/gql/fetchStaticGraphcmsDataset';
 import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { createLogger } from '@/modules/core/logging/logger';
 import redirect from '@/utils/redirect';

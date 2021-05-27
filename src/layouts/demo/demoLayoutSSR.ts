@@ -9,7 +9,7 @@ import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import {
   StaticCustomer,
   StaticDataset,
-} from '@/modules/core/gql/fetchGraphcmsDataset';
+} from '@/modules/core/gql/fetchStaticGraphcmsDataset';
 import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';

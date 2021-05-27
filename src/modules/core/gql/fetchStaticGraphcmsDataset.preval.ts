@@ -1,4 +1,4 @@
-import fetchGraphcmsDataset from '@/modules/core/gql/fetchGraphcmsDataset';
+import fetchStaticGraphcmsDataset from '@/modules/core/gql/fetchStaticGraphcmsDataset';
 import preval from 'next-plugin-preval';
 
 /**
@@ -29,6 +29,4 @@ import preval from 'next-plugin-preval';
  *
  * @see https://github.com/ricokahler/next-plugin-preval
  */
-export const dataset = preval(fetchGraphcmsDataset());
-
-export default dataset;
+export default preval(fetchStaticGraphcmsDataset());
