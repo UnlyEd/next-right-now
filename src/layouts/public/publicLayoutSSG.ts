@@ -52,7 +52,7 @@ export const getPublicLayoutStaticPaths: GetStaticPaths<CommonServerSideParams> 
 
 /**
  * XXX This layout comes "naked" with the strictest minimal stuff to build new pages.
- *  It doesn't run GraphQL queries, and provides the minimal amount of required data for the page to work.
+ *  It doesn't run Airtable API requests, and provides the minimal amount of required data for the page to work.
  *
  * Only executed on the server side at build time.
  * Computes all static props that should be available for all SSG pages.
