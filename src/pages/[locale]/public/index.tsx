@@ -54,6 +54,7 @@ type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
  */
 const ExamplePublicPage: NextPage<Props> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
+  logger.info('customer', customer);
 
   return (
     <PublicLayout
@@ -76,7 +77,7 @@ const ExamplePublicPage: NextPage<Props> = (props): JSX.Element => {
       <p>
         <b>Customer data</b>:<br />
         <Code
-          text={JSON.stringify(customer, null, 2)}
+          text={`See browser console logs "customer" (can't print in case there were circular references).`}
         />
       </p>
     </PublicLayout>
