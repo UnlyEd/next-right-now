@@ -1,4 +1,4 @@
-import QuickPreviewBanner from '@/modules/core/quickPreview/components/QuickPreviewBanner';
+import QuickPreviewBanner from '@/layouts/quickPreview/components/QuickPreviewBanner';
 import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,

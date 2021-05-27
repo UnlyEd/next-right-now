@@ -1,5 +1,5 @@
 import { ExplanationTooltipOverlay } from '@/modules/core/previewMode/components/PreviewModeBanner';
-import QuickPreviewLayout from '@/modules/core/quickPreview/components/QuickPreviewLayout';
+import QuickPreviewLayout from '@/layouts/quickPreview/components/QuickPreviewLayout';
 import { GetFCProps } from '@/modules/core/ts/types/GetFCProps';
 import {
   Meta,

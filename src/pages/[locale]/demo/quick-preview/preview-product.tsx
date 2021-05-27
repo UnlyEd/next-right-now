@@ -9,7 +9,7 @@ import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { Product } from '@/modules/core/data/types/Product';
 import { createLogger } from '@/modules/core/logging/logger';
-import QuickPreviewLayout from '@/modules/core/quickPreview/components/QuickPreviewLayout';
+import QuickPreviewLayout from '@/layouts/quickPreview/components/QuickPreviewLayout';
 import find from 'lodash.find';
 import {
   GetServerSideProps,
