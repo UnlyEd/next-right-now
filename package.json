@@ -6,6 +6,7 @@
     "start:windows": "next dev --port 8888",
     "start:tunnel": "ngrok http 8888",
     "build": "yarn test:once:group:no-integration && next build",
+    "build:fast": "next build",
     "build:local": ". ./scripts/populate-git-env.sh && next build",
     "build:profiler": ". ./scripts/populate-git-env.sh && next build --profile --debug",
     "analyse:bundle": "yarn analyse:bundle:production",
