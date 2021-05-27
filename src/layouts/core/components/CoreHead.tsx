@@ -65,7 +65,6 @@ export type HeadProps = {
  *
  * Configures SEO, load fonts.
  *
- * TODO Fonts should be loaded differently. Lee Robinson (Vercel) has given great talks recently, see https://leerob.io/blog/fonts
  * TODO SEO should be done differently. See https://github.com/UnlyEd/next-right-now/issues/150
  *
  * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
