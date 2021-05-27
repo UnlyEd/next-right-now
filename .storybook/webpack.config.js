@@ -3,6 +3,8 @@
  *
  * Nevertheless, configuring the webpack.config.js seems to work fine.
  *
+ * XXX Storybook uses Webpack 4, while our Next.js app uses Webpack 5.
+ *
  * @param config
  * @param mode
  * @return {Promise<*>}
