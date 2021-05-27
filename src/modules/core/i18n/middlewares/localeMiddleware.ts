@@ -1,8 +1,11 @@
+import { Customer } from '@/modules/core/data/types/Customer';
+import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
+import { getGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
+import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import {
   StaticCustomer,
   StaticDataset,
-} from '@/modules/core/gql/fetchGraphcmsDataset';
-import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
+} from '@/modules/core/gql/types/StaticDataset';
 import { createLogger } from '@/modules/core/logging/logger';
 import redirect from '@/utils/redirect';
 import includes from 'lodash.includes';
@@ -14,6 +17,7 @@ import {
 import {
   acceptLanguageHeaderLookup,
   DEFAULT_LOCALE,
+  resolveFallbackLanguage,
 } from '../i18n';
 
 const fileLabel = 'modules/core/i18n/localeMiddleware';
@@ -34,15 +38,18 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
+  const lang = DEFAULT_LOCALE;
+  const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
+  const dataset: StaticDataset | GraphCMSDataset = await getGraphcmsDataset(gcmsLocales);
+  const customer: StaticCustomer | Customer = dataset?.customer;
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
-  const staticDataset: StaticDataset = await getStaticGraphcmsDataset();
-  const staticCustomer: StaticCustomer = staticDataset?.customer;
 
   if (detections && !!size(detections)) {
     detections.forEach((language) => {
       if (localeFound || typeof language !== 'string') return;
 
-      if (includes(staticCustomer?.availableLanguages, language)) {
+      if (includes(customer?.availableLanguages, language)) {
         localeFound = language;
       }
     });
@@ -53,7 +60,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   }
 
   if (!localeFound) {
-    localeFound = staticCustomer?.availableLanguages?.[0] || DEFAULT_LOCALE;
+    localeFound = customer?.availableLanguages?.[0] || DEFAULT_LOCALE;
   }
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);

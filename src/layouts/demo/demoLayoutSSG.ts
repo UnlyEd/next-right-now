@@ -10,21 +10,19 @@ import {
   initializeApollo,
 } from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
+import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
+import { getGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
+import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import {
   StaticCustomer,
   StaticDataset,
-} from '@/modules/core/gql/fetchGraphcmsDataset';
-import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
-import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
-import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
+} from '@/modules/core/gql/types/StaticDataset';
+import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
 } from '@/modules/core/i18n/i18n';
-import {
-  fetchTranslations,
-  I18nextResources,
-} from '@/modules/core/i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
@@ -53,7 +51,7 @@ const logger = createLogger({
  *
  * You can use "fallback" option to avoid building all page variants and allow runtime fallback.
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication between pages sharing the same layout.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
  * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
@@ -63,11 +61,14 @@ const logger = createLogger({
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
 export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
-  const staticDataset: StaticDataset = await getStaticGraphcmsDataset();
-  const staticCustomer: StaticCustomer = staticDataset?.customer;
+  const lang = DEFAULT_LOCALE;
+  const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+  const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
+  const dataset: StaticDataset | GraphCMSDataset = await getGraphcmsDataset(gcmsLocales);
+  const customer: StaticCustomer | Customer = dataset?.customer;
 
   // Generate only pages for languages that have been allowed by the customer
-  const paths: StaticPath[] = map(staticCustomer?.availableLanguages, (availableLanguage: string): StaticPath => {
+  const paths: StaticPath[] = map(customer?.availableLanguages, (availableLanguage: string): StaticPath => {
     return {
       params: {
         locale: availableLanguage,
@@ -88,7 +89,7 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
  * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication between pages sharing the same layout.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
  * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSG implementation, so the demo keep working even if you change the base implementation.
@@ -107,6 +108,9 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
+  const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
+  // XXX This part is not using "getGraphcmsDataset" because I'm not sure how to return the "apolloClient" instance when doing so, as it'll be wrapped and isn't returned
+  //  So, code is duplicated, but that works fine
   const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
   const variables = {
     customerRef,
@@ -144,16 +148,6 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const dataset = {
     customer,
   };
-
-  let i18nTranslations: I18nextResources;
-
-  if (preview) {
-    // When preview mode is enabled, we want to make real-time API requests to get up-to-date data
-    i18nTranslations = await fetchTranslations(lang);
-  } else {
-    // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
-    i18nTranslations = await getStaticLocizeTranslations(lang);
-  }
 
   return {
     // Props returned here will be available as page properties (pageProps)
