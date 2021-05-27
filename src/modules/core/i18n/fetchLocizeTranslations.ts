@@ -28,7 +28,7 @@ export type LocizeTranslationByLang = {
  *  (lang is simpler)
  */
 export const fetchLocizeTranslations = async (): Promise<LocizeTranslationByLang> => {
-  if (process.env.NEXT_PUBLIC_APP_STAGE !== 'development') {
+  if (process.env.NODE_ENV !== 'development') {
     logger.debug(`Pre-evaluation (prefetching of the static translations at build time) is starting.`);
     const translationsByLocale: LocizeTranslationByLang = {};
     const promises: Promise<any>[] = [];

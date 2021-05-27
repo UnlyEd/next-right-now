@@ -17,16 +17,13 @@ import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
-import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
+import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
 } from '@/modules/core/i18n/i18n';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
-import {
-  fetchTranslations,
-  I18nextResources,
-} from '@/modules/core/i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
@@ -119,7 +116,7 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  let i18nTranslations: I18nextResources;
+  const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
   let dataset: SanitizedAirtableDataset;
 
   if (preview || process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
@@ -130,11 +127,9 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
 
     dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
-    i18nTranslations = await fetchTranslations(lang);
   } else {
     // Otherwise, we fallback to the app-wide shared/static data (stale)
     dataset = await getStaticAirtableDataset(bestCountryCodes);
-    i18nTranslations = await getStaticLocizeTranslations(lang);
   }
 
   return {

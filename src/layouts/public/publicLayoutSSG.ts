@@ -5,13 +5,10 @@ import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
-import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
+import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
-import {
-  fetchTranslations,
-  I18nextResources,
-} from '@/modules/core/i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
@@ -84,16 +81,7 @@ export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServ
     availableLanguages: ['en'],
     __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
   } as AirtableRecord<Customer>;
-  let i18nTranslations: I18nextResources;
-
-  if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
-    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
-    i18nTranslations = await fetchTranslations(lang);
-  } else {
-    // Otherwise, we fallback to the app-wide shared/static data (stale)
-    i18nTranslations = await getStaticLocizeTranslations(lang);
-  }
+  const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
 
   return {
     // Props returned here will be available as page properties (pageProps)

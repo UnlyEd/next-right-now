@@ -27,7 +27,7 @@ const logger = createLogger({
  * XXX Must be a single export file otherwise it can cause issues - See https://github.com/ricokahler/next-plugin-preval/issues/19#issuecomment-848799473
  */
 export const fetchRawAirtableDataset = async (airtableSchemaProps?: GetAirtableSchemaProps): Promise<RawAirtableRecordsSet[]> => {
-  if (process.env.NEXT_PUBLIC_APP_STAGE !== 'development') {
+  if (process.env.NODE_ENV !== 'development') {
     logger.debug(`Pre-evaluation (prefetching of the static dataset at build time) is starting.`);
     const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
 

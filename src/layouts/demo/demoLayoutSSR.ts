@@ -18,16 +18,13 @@ import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
-import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
+import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
   SUPPORTED_LANGUAGES,
 } from '@/modules/core/i18n/i18n';
-import {
-  fetchTranslations,
-  I18nextResources,
-} from '@/modules/core/i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { createLogger } from '@/modules/core/logging/logger';
 import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
@@ -109,7 +106,7 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
   });
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  let i18nTranslations: I18nextResources;
+  const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
   let dataset: SanitizedAirtableDataset;
 
   if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
@@ -120,11 +117,9 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
     const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
 
     dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
-    i18nTranslations = await fetchTranslations(lang);
   } else {
     // Otherwise, we fallback to the app-wide shared/static data (stale)
     dataset = await getStaticAirtableDataset(bestCountryCodes);
-    i18nTranslations = await getStaticLocizeTranslations(lang);
   }
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 

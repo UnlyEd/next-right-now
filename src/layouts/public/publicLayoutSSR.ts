@@ -6,16 +6,13 @@ import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCook
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
+import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
   SUPPORTED_LANGUAGES,
 } from '@/modules/core/i18n/i18n';
-import {
-  fetchTranslations,
-  I18nextResources,
-} from '@/modules/core/i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { createLogger } from '@/modules/core/logging/logger';
 import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
@@ -107,16 +104,7 @@ export const getPublicLayoutServerSideProps: GetServerSideProps<GetPublicLayoutS
     availableLanguages: ['en'],
     __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
   } as AirtableRecord<Customer>;
-  let i18nTranslations: I18nextResources;
-
-  if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
-    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
-    i18nTranslations = await fetchTranslations(lang);
-  } else {
-    // Otherwise, we fallback to the app-wide shared/static data (stale)
-    i18nTranslations = await getStaticLocizeTranslations(lang);
-  }
+  const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
 
   // Do not serve pages using locales the customer doesn't have enabled
   if (!includes(customer?.availableLanguages, locale)) {
