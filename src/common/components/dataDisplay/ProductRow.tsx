@@ -30,6 +30,9 @@ const ProductRow: React.FunctionComponent<Props> = (props) => {
       `}
     >
       <Col>
+        <code>{product?.ref}</code>
+      </Col>
+      <Col>
         <AirtableAsset
           key={image?.id}
           id={image?.id}
