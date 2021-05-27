@@ -30,6 +30,9 @@ const ProductRow: React.FunctionComponent<Props> = (props) => {
       `}
     >
       <Col>
+        <code>{product?.id}</code>
+      </Col>
+      <Col>
         <GraphCMSAsset
           key={image?.id}
           id={image?.id}

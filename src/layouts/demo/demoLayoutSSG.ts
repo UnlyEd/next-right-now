@@ -53,7 +53,7 @@ const logger = createLogger({
  *
  * You can use "fallback" option to avoid building all page variants and allow runtime fallback.
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication between pages sharing the same layout.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
  * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
@@ -88,7 +88,7 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
  * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication between pages sharing the same layout.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
  * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSG implementation, so the demo keep working even if you change the base implementation.

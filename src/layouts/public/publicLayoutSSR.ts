@@ -1,35 +1,23 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
-import { initializeApollo } from '@/modules/core/apollo/apolloClient';
+import { APOLLO_STATE_PROP_NAME } from '@/modules/core/apollo/apolloClient';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
+import { Customer } from '@/modules/core/data/types/Customer';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import {
-  StaticCustomer,
-  StaticDataset,
-} from '@/modules/core/gql/fetchGraphcmsDataset';
-import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
-import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
 import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
   SUPPORTED_LANGUAGES,
 } from '@/modules/core/i18n/i18n';
-import {
-  fetchTranslations,
-  I18nextResources,
-} from '@/modules/core/i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { createLogger } from '@/modules/core/logging/logger';
 import { isQuickPreviewRequest } from '@/modules/core/quickPreview/quickPreview';
+import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
-import {
-  ApolloClient,
-  NormalizedCacheObject,
-} from '@apollo/client';
 import * as Sentry from '@sentry/node';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
@@ -42,22 +30,23 @@ import {
 } from 'next';
 import NextCookies from 'next-cookies';
 
-const fileLabel = 'layouts/demo/demoLayoutSSR';
+const fileLabel = 'layouts/public/publicLayoutSSR';
 const logger = createLogger({
   fileLabel,
 });
 
 /**
- * "getCoreServerSideProps" returns only part of the props expected in SSRPageProps.
+ * "getDemoServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetCoreServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
-  apolloClient: ApolloClient<NormalizedCacheObject>;
-  layoutQueryOptions: ApolloQueryOptions;
+export type GetPublicLayoutServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
 /**
+ * XXX This layout comes "naked" (mocked data) with the strictest minimal stuff to build new pages.
+ *  It doesn't run Airtable API requests, and provides the minimal amount of required data for the page to work.
+ *
  * Only executed on the server side, for every request.
  * Computes some dynamic props that should be available for all SSR pages that use getServerSideProps.
  *
@@ -66,11 +55,11 @@ export type GetCoreServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__
  *
  * Meant to avoid code duplication between pages sharing the same layout.
  *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
+ * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSR implementation, so the demo keep working even if you change the base implementation.
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCoreServerSidePropsResults>> => {
+export const getPublicLayoutServerSideProps: GetServerSideProps<GetPublicLayoutServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetPublicLayoutServerSidePropsResults>> => {
   const {
     query,
     params,
@@ -110,28 +99,18 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
+  const customer: Customer = {
+    ref: customerRef,
+    label: `${customerRef} (mocked)`,
+    serviceLabel: 'Those mocked data are defined in the publicLayoutSSG. The page is from "pages/public". This layout is meant for all "public" pages, you probably want to start there!',
+    availableLanguages: ['en'],
+    __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
+  } as unknown as Customer;
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
-  const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
-  const variables = {
-    customerRef,
-  };
-  const layoutQueryOptions: ApolloQueryOptions = {
-    displayName: 'DEMO_LAYOUT_QUERY',
-    query: DEMO_LAYOUT_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locales': gcmsLocales,
-      },
-    },
-  };
-
-  const staticDataset: StaticDataset = await getStaticGraphcmsDataset();
-  const staticCustomer: StaticCustomer = staticDataset?.customer;
 
   // Do not serve pages using locales the customer doesn't have enabled
-  if (!includes(staticCustomer?.availableLanguages, locale)) {
-    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${staticCustomer?.availableLanguages}"), returning 404 page.`);
+  if (!includes(customer?.availableLanguages, locale)) {
+    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${customer?.availableLanguages}"), returning 404 page.`);
 
     return {
       notFound: true,
@@ -142,19 +121,21 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
   // Some props are meant to be helpful to the consumer and won't be passed down to the _app.render (e.g: apolloClient, layoutQueryOptions)
   return {
     props: {
-      apolloClient,
+      [APOLLO_STATE_PROP_NAME]: {}, // Empty Apollo cache
       bestCountryCodes,
-      serializedDataset: null, // We don't send the dataset yet (we don't have any because we haven't fetched the database yet), but it must be done by SSR pages in"getServerSideProps"
+      serializedDataset: serializeSafe({
+        customer,
+      }),
+      customer,
       customerRef,
       i18nTranslations,
-      headers: publicHeaders,
       gcmsLocales,
+      headers: publicHeaders,
       hasLocaleFromUrl,
       isReadyToRender: true,
       isServerRendering: true,
       lang,
       locale,
-      layoutQueryOptions,
       readonlyCookies,
       userSession,
       isQuickPreviewPage,

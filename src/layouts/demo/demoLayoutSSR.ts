@@ -13,6 +13,7 @@ import {
 import { getStaticGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
 import { ApolloQueryOptions } from '@/modules/core/gql/types/ApolloQueryOptions';
+import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
@@ -63,7 +64,7 @@ export type GetDemoServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__
  * Because the exact GQL query will depend on the consumer (AKA "caller"), this helper doesn't run any query by itself, but rather return all necessary props to allow the consumer to perform its own queries.
  * This improves performances, by only running one GQL query instead of many (consumer's choice).
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication between pages sharing the same layout.
  *
  * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSR implementation, so the demo keep working even if you change the base implementation.
  *
@@ -109,7 +110,7 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
-  const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
+  const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
   const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
   const variables = {
     customerRef,
