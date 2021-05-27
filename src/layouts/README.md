@@ -12,4 +12,4 @@ Summary:
 - You can add custom layouts and use them in your pages right away.
 - Layouts are flexible, we used the `DemoLayout` in all pages under `pages/[locale]/demo` but **you don't have to**, it was a choice.
 - Layouts are usually useful when you want to have a similar UI shared by several pages.
-- Layouts are meant to avoid code duplication and increase code maintainability.
+- Layouts are meant to avoid code duplication between pages sharing the same layout and increase code maintainability.

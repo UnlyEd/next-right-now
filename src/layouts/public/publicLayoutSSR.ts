@@ -1,23 +1,11 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
-import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
-import {
-  getCustomer,
-  getStaticAirtableDataset,
-} from '@/modules/core/airtable/getAirtableDataset';
-import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
-import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
-import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
-import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
@@ -44,7 +32,7 @@ import {
 } from 'next';
 import NextCookies from 'next-cookies';
 
-const fileLabel = 'layouts/demo/demoLayoutSSR';
+const fileLabel = 'layouts/public/publicLayoutSSR';
 const logger = createLogger({
   fileLabel,
 });
@@ -53,11 +41,14 @@ const logger = createLogger({
  * "getDemoServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetDemoServerSidePropsResults = SSRPageProps & {
+export type GetPublicLayoutServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
 /**
+ * XXX This layout comes "naked" (mocked data) with the strictest minimal stuff to build new pages.
+ *  It doesn't run Airtable API requests, and provides the minimal amount of required data for the page to work.
+ *
  * Only executed on the server side, for every request.
  * Computes some dynamic props that should be available for all SSR pages that use getServerSideProps.
  *
@@ -70,7 +61,7 @@ export type GetDemoServerSidePropsResults = SSRPageProps & {
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetDemoServerSidePropsResults>> => {
+export const getPublicLayoutServerSideProps: GetServerSideProps<GetPublicLayoutServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetPublicLayoutServerSidePropsResults>> => {
   const {
     query,
     params,
@@ -109,24 +100,23 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
   });
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+  const customer: AirtableRecord<Customer> = {
+    ref: customerRef,
+    label: `${customerRef} (mocked)`,
+    serviceLabel: 'Those mocked data are defined in the publicLayoutSSG. The page is from "pages/public". This layout is meant for all "public" pages, you probably want to start there!',
+    availableLanguages: ['en'],
+    __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
+  } as AirtableRecord<Customer>;
   let i18nTranslations: I18nextResources;
-  let dataset: SanitizedAirtableDataset;
 
   if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
     // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
     // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
-    const airtableSchema: AirtableSchema = getAirtableSchema();
-    const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, bestCountryCodes);
-    const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
-
-    dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
     i18nTranslations = await fetchTranslations(lang);
   } else {
     // Otherwise, we fallback to the app-wide shared/static data (stale)
-    dataset = await getStaticAirtableDataset(bestCountryCodes);
     i18nTranslations = await getStaticLocizeTranslations(lang);
   }
-  const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Do not serve pages using locales the customer doesn't have enabled
   if (!includes(customer?.availableLanguages, locale)) {
@@ -142,7 +132,9 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
   return {
     props: {
       bestCountryCodes,
-      serializedDataset: serializeSafe(dataset),
+      serializedDataset: serializeSafe({
+        customer,
+      }),
       customerRef,
       i18nTranslations,
       headers: publicHeaders,
