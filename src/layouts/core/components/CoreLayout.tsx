@@ -9,14 +9,14 @@ import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
-import { css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 import classnames from 'classnames';
 import {
   NextRouter,
   useRouter,
 } from 'next/router';
 import React from 'react';
-import BaseHead, { HeadProps } from './CoreHead';
+import CoreHead, { HeadProps } from './CoreHead';
 import CorePageContainer from './CorePageContainer';
 
 const fileLabel = 'layouts/core/components/CoreLayout';
@@ -31,6 +31,22 @@ export type Props = {
    * Essentially, the page's content.
    */
   children: React.ReactNode;
+
+  /**
+   * Name of the layout.
+   *
+   * Will be used as CSS class for the main wrapper element.
+   */
+  layoutName: 'public-layout' | 'demo-layout';
+
+  /**
+   * CSS applied to the main wrapper element.
+   *
+   * @example layoutBaseCSS={css`
+   *   margin: 20px;
+   * `}
+   */
+  layoutBaseCSS?: SerializedStyles;
 
   /**
    * Props forwarded to the Head component.
@@ -107,13 +123,15 @@ const CoreLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
     children,
     error,
     isInIframe = false, // Won't be defined server-side
+    layoutName,
+    layoutBaseCSS,
     headProps = {},
     pageName,
     PageContainer = CorePageContainer,
     hideNav,
     hideFooter = true,
     hidePreviewBanner = true,
-    Head = BaseHead,
+    Head = CoreHead,
     Footer = null,
     Nav = null,
   } = props;
@@ -144,12 +162,9 @@ const CoreLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
       })}
     >
       <div
+        className={layoutName}
         css={css`
-          display: block;
-          width: 100vw;
-          height: 100vh;
-          background-color: white;
-          margin: 20px;
+          ${layoutBaseCSS || ''}
         `}
       >
         <Head {...headProps} />

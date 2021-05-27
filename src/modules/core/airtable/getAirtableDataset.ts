@@ -23,8 +23,8 @@ const logger = createLogger({
  *
  * @param dataset
  */
-export const getCustomer = (dataset: SanitizedAirtableDataset): AirtableRecord<Customer> => {
-  return find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+export const getCustomer = <T = AirtableRecord<Customer>>(dataset: SanitizedAirtableDataset): T => {
+  return find(dataset, { __typename: 'Customer' }) as unknown as T;
 };
 
 /**
@@ -56,10 +56,12 @@ export const getStaticAirtableDataset = async (preferredLocalesOrLanguages: stri
 };
 
 /**
- * WIP Not working
+ * FIXME Not working
  *
  * @param preferredLocalesOrLanguages
  * @param airtableSchemaProps
+ *
+ * @deprecated Awaiting fix
  */
 export const getLiveAirtableDataset = async (preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
   // const airtableSchema: AirtableSchema = getAirtableSchema(airtableSchemaProps);
@@ -73,20 +75,23 @@ export const getLiveAirtableDataset = async (preferredLocalesOrLanguages: string
 };
 
 /**
- * WIP not used because getLiveAirtableDataset isn't working
+ * FIXME Not used because getLiveAirtableDataset isn't working
  *
  * Meant to make code more reusable and avoid bloating pages with too much logic
  *
  * @param isPreviewMode
  * @param preferredLocalesOrLanguages
  * @param airtableSchemaProps
+ *
+ * @deprecated Awaiting fix
  */
 export const getAirtableDataset = async (isPreviewMode: boolean, preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
-  if (isPreviewMode) {
-    // When preview mode is enabled, we want to make real-time API requests to get up-to-date data
+  if (isPreviewMode || process.env.NODE_ENV === 'development') {
+    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
+    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
     return await getLiveAirtableDataset(preferredLocalesOrLanguages, airtableSchemaProps);
   } else {
-    // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
+    // Otherwise, we fallback to the app-wide shared/static data (stale)
     return await getStaticAirtableDataset(preferredLocalesOrLanguages);
   }
 };

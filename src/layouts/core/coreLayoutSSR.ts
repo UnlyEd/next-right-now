@@ -56,7 +56,7 @@ export type GetCoreServerSidePropsResults = SSRPageProps & {
  * Because the exact GQL query will depend on the consumer (AKA "caller"), this helper doesn't run any query by itself, but rather return all necessary props to allow the consumer to perform its own queries.
  * This improves performances, by only running one GQL query instead of many (consumer's choice).
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication between pages sharing the same layout.
  *
  * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
  *

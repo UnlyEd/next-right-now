@@ -17,13 +17,13 @@ import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
-import { getStaticLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
+import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
 } from '@/modules/core/i18n/i18n';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
-import { fetchTranslations, I18nextResources } from '@/modules/core/i18n/i18nextLocize';
+import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
@@ -49,7 +49,7 @@ const logger = createLogger({
  *
  * You can use "fallback" option to avoid building all page variants and allow runtime fallback.
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication between pages sharing the same layout.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
  * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
@@ -60,7 +60,20 @@ const logger = createLogger({
  */
 export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  const dataset: SanitizedAirtableDataset = await getStaticAirtableDataset(preferredLocalesOrLanguages);
+  let dataset: SanitizedAirtableDataset;
+
+  if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
+    // When working locally, we want to make real-time API requests to get up-to-date data
+    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
+    const airtableSchema: AirtableSchema = getAirtableSchema();
+    const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, preferredLocalesOrLanguages);
+    const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
+
+    dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
+  } else {
+    // Otherwise, we fallback to the app-wide shared/static data (stale)
+    dataset = await getStaticAirtableDataset(preferredLocalesOrLanguages);
+  }
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Generate only pages for languages that have been allowed by the customer
@@ -85,7 +98,7 @@ export const getDemoStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
  * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
  * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
  *
- * Meant to avoid code duplication.
+ * Meant to avoid code duplication between pages sharing the same layout.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
  * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSG implementation, so the demo keep working even if you change the base implementation.
@@ -103,21 +116,20 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  let i18nTranslations: I18nextResources;
+  const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
   let dataset: SanitizedAirtableDataset;
 
-  if (preview) {
-    // When preview mode is enabled, we want to make real-time API requests to get up-to-date data
+  if (preview || process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
+    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
+    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
     const airtableSchema: AirtableSchema = getAirtableSchema();
     const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, bestCountryCodes);
     const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
 
     dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
-    i18nTranslations = await fetchTranslations(lang);
   } else {
-    // When preview mode is not enabled, we fallback to the app-wide shared/static data (stale)
+    // Otherwise, we fallback to the app-wide shared/static data (stale)
     dataset = await getStaticAirtableDataset(bestCountryCodes);
-    i18nTranslations = await getStaticLocizeTranslations(lang);
   }
 
   return {
@@ -137,4 +149,3 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
     },
   };
 };
-
