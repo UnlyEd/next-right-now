@@ -1,5 +1,4 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import Code from '@/components/dataDisplay/Code';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import PublicLayout from '@/layouts/public/components/PublicLayout';
@@ -62,23 +61,20 @@ const ExamplePublicPage: NextPage<Props> = (props): JSX.Element => {
       pageName={AMPLITUDE_PAGES.TEMPLATE_SSG_PAGE}
     >
       <p>
-        This page was created using from "/layouts/public/pagePublicTemplateSSG.tsx".<br />
-        it is located at "/pages/[locale]/public/index.tsx", but you most likely want to move it to "/pages/[locale]/index.tsx".<br />
+        This page was created using from <code>"/layouts/public/pagePublicTemplateSSG.tsx"</code>, which uses a completely different <b><code>layout</code></b>.<br />
         <br />
-        This page uses the "public" layout, which comes "naked" (no nav/footer) and doesn't fetch any data. (data are mocked, and minimalist)
+        This page uses the <code>"public"</code> <b>layout</b>, which comes "naked" (no nav/footer) and doesn't fetch any data. (data are mocked, and minimalist)
         <br />
-        You can start customizing NRN here. Other pages use the "demo" layout, which comes with its own data fetching, components, and inherent complexity.<br />
+        Other pages use the <code>"demo"</code> layout, which comes with its own data fetching, components, and inherent complexity.<br />
         <br />
         <br />
-        Usually, when I create a new project from NRN, I wipe the whole "/layouts/demo" folder, unless I want to keep it around for its documentation/examples.
+        If you want to use NRN as a <b>boilerplate</b> for your own project, <b>we recommend using the <code>public</code> layout</b>, because it's much simpler and doesn't rely on any particular data.<br />
+        Usually, when I create a new project from NRN, I wipe the whole <code>"/layouts/demo"</code> folder, unless I want to keep it around for its documentation/examples.
         <br />
         <br />
       </p>
       <p>
-        <b>Customer data</b>:<br />
-        <Code
-          text={`See browser console logs "customer" (can't print in case there were circular references).`}
-        />
+        <span style={{ fontSize: 22 }}>The <code>customer</code> data are visible in the <b>browser logs</b>.</span>
       </p>
     </PublicLayout>
   );

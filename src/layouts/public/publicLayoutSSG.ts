@@ -3,6 +3,8 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { mockedStaticDataset } from '@/layouts/public/mockedStaticDataset';
+import { getCustomer } from '@/modules/core/airtable/getAirtableDataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
@@ -78,13 +80,7 @@ export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServ
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  const customer: AirtableRecord<Customer> = {
-    ref: customerRef,
-    label: `${customerRef} (mocked)`,
-    serviceLabel: 'Those mocked data are defined in the publicLayoutSSG. The page is from "pages/public". This layout is meant for all "public" pages, you probably want to start there!',
-    availableLanguages: ['en'],
-    __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
-  } as AirtableRecord<Customer>;
+  const customer: AirtableRecord<Customer> = getCustomer(mockedStaticDataset);
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
 
   return {
