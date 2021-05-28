@@ -8,25 +8,13 @@ import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtable
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
-import { readFile } from '@/utils/fs-utils';
 import uniq from 'lodash.uniq';
 import preval from 'next-plugin-preval';
-import path from 'path';
 
 const fileLabel = 'modules/core/airtable/fetchStaticRawAirtableDataset';
 const logger = createLogger({
   fileLabel,
 });
-
-try {
-  const filepath = path.resolve(`vercel.json`); // Reads from root project folder
-  console.log('filepath', filepath);
-  readFile(filepath).then((buffer) => {
-    console.log('Test using fs in .preval file: ', buffer);
-  });
-} catch (e) {
-  logger.error(e);
-}
 
 /**
  * Fetches the airtable dataset.
