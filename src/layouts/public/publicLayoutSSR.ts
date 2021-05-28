@@ -67,8 +67,6 @@ export const getPublicLayoutServerSideProps: GetPublicLayoutServerSideProps = (o
    *
    * Meant to avoid code duplication between pages sharing the same layout.
    *
-   * XXX Demo component, not meant to be modified. It's a copy of the coreLayoutSSR implementation, so the demo keep working even if you change the base implementation.
-   *
    * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
    */
   const getServerSideProps: GetServerSideProps<GetPublicLayoutServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetPublicLayoutServerSidePropsResults>> => {
@@ -135,4 +133,3 @@ export const getPublicLayoutServerSideProps: GetPublicLayoutServerSideProps = (o
 
   return getServerSideProps;
 };
-

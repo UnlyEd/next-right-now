@@ -160,4 +160,3 @@ export const getCoreLayoutServerSideProps: GetCoreLayoutServerSideProps = (optio
 
   return getServerSideProps;
 };
-

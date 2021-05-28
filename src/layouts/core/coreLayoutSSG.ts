@@ -215,5 +215,3 @@ export const getCoreLayoutStaticProps: GetCoreLayoutStaticProps = (options?: Get
 
   return getStaticProps;
 };
-
-
