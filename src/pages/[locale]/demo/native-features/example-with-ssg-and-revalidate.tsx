@@ -8,9 +8,10 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import {
-  getDemoStaticPaths,
-  getDemoStaticProps,
-} from '@/layouts/demo/demoSSG';
+  getDemoLayoutStaticPaths,
+  getDemoLayoutStaticProps,
+} from '@/layouts/demo/demoLayoutSSG';
+import { getCustomer } from '@/modules/core/airtable/dataset';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -47,7 +48,7 @@ const regenerationDelay = 30; // Seconds
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoLayoutStaticPaths();
 
 /**
  * Only executed on the server side at build time.
@@ -58,12 +59,12 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoSta
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoStaticProps(props);
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoLayoutStaticProps()(props);
 
   if ('props' in commonStaticProps) {
     const { serializedDataset } = commonStaticProps?.props || {};
     const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
-    const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+    const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
     return deepmerge(commonStaticProps, {
       props: {

@@ -97,6 +97,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
 
+      - name: Expose GitHub slug/short variables # See https://github.com/rlespinasse/github-slug-action#exposed-github-environment-variables
+        uses: rlespinasse/github-slug-action@v3.x # See https://github.com/rlespinasse/github-slug-action
+
       #  Resolves customer to deploy from github event input (falls back to resolving it from vercel.json file)
       - name: Resolve customer to deploy
         run: |
@@ -110,6 +113,17 @@ jobs:
           echo "Customer to deploy: " $CUSTOMER_REF_TO_DEPLOY
           echo "CUSTOMER_REF_TO_DEPLOY=$CUSTOMER_REF_TO_DEPLOY" >> $GITHUB_ENV
 
+          # Build the alias domain based on our own rules (NRN own rules)
+          # Basically, if a branch starts with "v[0-9]" then we consider it to be a "preset branch" and we use the branch name as alias (e.g: "v2-mst-xxx")
+          # Otherwise, we use the deployment name and suffix it using the branch name (e.g: "v2-mst-xxx-branch-name")
+          if [[ ${GIT_COMMIT_REF##*/} =~ ^v[0-9]{1,}- ]]; then # Checking if pattern matches with "vX-" where X is a number
+            BRANCH_ALIAS_DOMAIN=${CUSTOMER_REF_TO_DEPLOY}-${{ env.GITHUB_REF_SLUG }}
+          else
+            BRANCH_ALIAS_DOMAIN=$(cat vercel.$CUSTOMER_REF_TO_DEPLOY.staging.json | jq --raw-output '.name')-${{ env.GITHUB_REF_SLUG }}
+          fi
+          echo "Resolved branch domain alias: " $BRANCH_ALIAS_DOMAIN
+          echo "BRANCH_ALIAS_DOMAIN=$BRANCH_ALIAS_DOMAIN" >> $GITHUB_ENV
+
       # Create a GitHub deployment (within a GitHub environment), useful to keep a public track of all deployments directly in GitHub
       - name: Start GitHub deployment
         uses: bobheadxi/deployments@v0.4.3 # See https://github.com/bobheadxi/deployments
@@ -121,9 +135,11 @@ jobs:
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
       - name: Deploying on Vercel (${{ env.STAGE }})
-        uses: UnlyEd/github-action-deploy-on-vercel@3e71d3e26fd56941fc24a6429fdd257598df2017 # Pin "v1.0.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/3e71d3e26fd56941fc24a6429fdd257598df2017
+        uses: UnlyEd/github-action-deploy-on-vercel@94d41ec1ff9b5b1de5256312e385632b6fcd8fa4 # Pin "v1.2.1" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/94d41ec1ff9b5b1de5256312e385632b6fcd8fa4
         with:
           command: "yarn deploy:ci:gha --token ${{ secrets.VERCEL_TOKEN }}"
+          extraAliases: >-
+            ${{ env.BRANCH_ALIAS_DOMAIN }}.vercel.app
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
@@ -172,7 +188,7 @@ jobs:
           body: |
             :white_check_mark:&nbsp; Deployment **SUCCESS**
             Commit ${{ github.sha }} successfully deployed **Next.js app** :rocket: to [${{ env.VERCEL_DEPLOYMENT_URL }}](${{ env.VERCEL_DEPLOYMENT_URL }})
-            Deployment aliased as [${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }}](https://${{ env.VERCEL_DEPLOYMENT_AUTO_BRANCH_ALIAS }})
+            Deployment aliases (${{ env.VERCEL_ALIASES_CREATED_COUNT }}): ${{ env.VERCEL_ALIASES_CREATED_URLS_MD }}
 
       # At the end of the job, store all variables we will need in the following jobs
       # The variables will be stored in and retrieved from a GitHub Artifact (each variable is stored in a different file)

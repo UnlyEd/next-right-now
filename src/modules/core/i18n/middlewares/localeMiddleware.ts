@@ -1,6 +1,14 @@
+import { getCustomer } from '@/modules/core/airtable/dataset';
+import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
+import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
+import { Customer } from '@/modules/core/data/types/Customer';
+import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
+import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import redirect from '@/utils/redirect';
+import includes from 'lodash.includes';
 import size from 'lodash.size';
+import uniq from 'lodash.uniq';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -29,18 +37,17 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
 export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
+  const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(preferredLocalesOrLanguages);
+  const customer: AirtableRecord<Customer> = getCustomer(dataset);
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
 
   if (detections && !!size(detections)) {
     detections.forEach((language) => {
       if (localeFound || typeof language !== 'string') return;
 
-      const lookedUpLocale = supportedLocales.find(
-        (allowedLocale) => allowedLocale.name === language,
-      );
-
-      if (lookedUpLocale) {
-        localeFound = lookedUpLocale.lang;
+      if (includes(customer?.availableLanguages, language)) {
+        localeFound = language;
       }
     });
 
@@ -50,7 +57,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   }
 
   if (!localeFound) {
-    localeFound = DEFAULT_LOCALE;
+    localeFound = customer?.availableLanguages?.[0] || DEFAULT_LOCALE;
   }
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);

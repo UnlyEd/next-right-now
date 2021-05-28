@@ -108,8 +108,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   // Init the Cookie Consent popup, which will open on the browser
   initCookieConsent({
     allowedPages: [ // We only allow it on those pages to avoid display that boring popup on every page
-      `${window.location.origin}/${locale}/terms`,
-      `${window.location.origin}/${locale}/privacy`,
+      `${window.location.origin}/${locale}/demo/terms`,
+      `${window.location.origin}/${locale}/demo/privacy`,
       `${window.location.origin}/${locale}/demo/built-in-features/cookies-consent`,
     ],
     amplitudeInstance,

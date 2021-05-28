@@ -1,6 +1,7 @@
 import Loader from '@/components/animations/Loader';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import { getCustomer } from '@/modules/core/airtable/dataset';
 import customerContext from '@/modules/core/data/contexts/customerContext';
 import datasetContext from '@/modules/core/data/contexts/datasetContext';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
@@ -24,13 +25,13 @@ import { configureSentryI18n } from '@/modules/core/sentry/sentry';
 import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import { detectCypress } from '@/modules/core/testing/cypress';
 import { initCustomerTheme } from '@/modules/core/theming/theme';
+import { NotFound404PageName } from '@/pages/404';
 import ErrorPage from '@/pages/_error';
 import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
 import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import { i18n } from 'i18next';
-import find from 'lodash.find';
 import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
 import React, { useState } from 'react';
@@ -199,7 +200,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       }
     }
 
-    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+    if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && !process.env.IS_SERVER_INITIAL_BUILD) {
       // XXX It's too cumbersome to do proper typings when type changes
       //  The "customer" was forwarded as a JSON-ish string (using Flatten) in order to avoid circular dependencies issues (SSG/SSR)
       //  It now being converted back into an object to be actually usable on all pages
@@ -209,7 +210,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
     }
 
     const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
-    const customer: AirtableRecord<Customer> = find(dataset, { __typename: 'Customer' }) as AirtableRecord<Customer>;
+    const customer: AirtableRecord<Customer> = getCustomer(dataset);
     let availableLanguages: string[] = customer?.availableLanguages;
 
     if (isEmpty(availableLanguages)) {
@@ -224,44 +225,6 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       // eslint-disable-next-line no-console
       console.debug('dataset.customer', customer);
     }
-
-    // Force redirect to an allowed locale page, if the locale used to display the page isn't available for this customer
-    // TODO This should be replaced by something better, ideally the pages for non-available locales shouldn't be generated at all and then this wouldn't be needed.
-    //  Using redirects in the app bootstrap can easily lead to infinite redirects, if not handled carefully.
-    // XXX Be extra careful with this kind of redirects based on remote data!
-    //  It's easy to create an infinite redirect loop when the data aren't shaped as expected, edge cases (e.g "404"), etc.
-    // XXX Doing this isn't recommended and has been disabled because it breaks 404 pages by redirecting them to the homepage.
-    //  Feel free to enable it if you wish. It should be implemented differently (by not generating non-allowed i18n pages), but might help anyway.
-    /*if (!includes(availableLanguages, locale) && size(availableLanguages) > 0 && isBrowser()) {
-      Sentry.captureEvent({
-        message: `Unauthorized locale used "${locale}" (allowed: "${availableLanguages.join(', ')}") when loading page "${location.href}", user will be redirected.`,
-        level: Sentry.Severity.Warning,
-      });
-
-      // Edge case where the default locale isn't available for this customer, and the resolved user locale is wrong (e.g: 404 page where there is no locale detection)
-      // Redirect to the home page using the first allowed language (instead of redirecting to the same page, which would result in infinite loop for 404 pages, etc.)
-      if (locale === DEFAULT_LOCALE) {
-        const redirectTo = `/${availableLanguages?.[0] || ''}`;
-        location.href = redirectTo;
-
-        if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
-          return (
-            <div>Locale not allowed. Redirecting to "{redirectTo}"...</div>
-          );
-        }
-      } else {
-        // Otherwise, redirect to the same page using another locale (using the first available locale)
-        i18nRedirect(availableLanguages?.[0] || DEFAULT_LOCALE, router);
-
-        if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
-          return (
-            <div>Locale not allowed. Redirecting...</div>
-          );
-        }
-      }
-
-      return null;
-    }*/
 
     let isPreviewModeEnabled;
     let previewData;
@@ -298,49 +261,53 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       isQuickPreviewPage = pageProps?.isQuickPreviewPage;
     }
 
-    if (!customer || !i18nTranslations || !lang || !locale) {
-      let error = props.err || null;
+    // Don't treat 404 pages like errors, it's expected in 404 pages not to have all the props the app needs
+    if (props?.Component?.name !== NotFound404PageName) {
+      // If the app is misconfigured, simulate a native Next.js error to catch the misconfiguration early
+      if (!customer || !i18nTranslations || !lang || !locale) {
+        let error = props.err || null;
 
-      // Unrecoverable error, we can't even display the layout because we don't have the minimal required information to properly do so
-      // This most likely means something went wrong, and we must display the error page in such case
-      if (!error) {
-        // The most-likely issue could be that we failed to fetch the customer related to "process.env.NEXT_PUBLIC_CUSTOMER_REF"
-        // E.g: This will happens when an instance was deployed for a customer, but the customer.ref was changed since then.
-        if (process.env.NEXT_PUBLIC_CUSTOMER_REF !== customer?.ref) {
-          error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
-            `Fatal error - An error happened, the page cannot be displayed. (customer doesn't match)` :
-            `Fatal error when bootstrapping the app. The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}".`,
-          );
+        // Unrecoverable error, we can't even display the layout because we don't have the minimal required information to properly do so
+        // This most likely means something went wrong, and we must display the error page in such case
+        if (!error) {
+          // The most-likely issue could be that we failed to fetch the customer related to "process.env.NEXT_PUBLIC_CUSTOMER_REF"
+          // E.g: This will happens when an instance was deployed for a customer, but the customer.ref was changed since then.
+          if (process.env.NEXT_PUBLIC_CUSTOMER_REF !== customer?.ref) {
+            error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
+              `Fatal error - An error happened, the page cannot be displayed. (customer doesn't match)` :
+              `Fatal error when bootstrapping the app ("${props?.Component?.name}"). The "customer.ref" doesn't match (expected: "${process.env.NEXT_PUBLIC_CUSTOMER_REF}", received: "${customer?.ref}").`,
+            );
+          } else {
+            error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
+              `Fatal error - An error happened, the page cannot be displayed.` :
+              `Fatal error when bootstrapping the app ("${props?.Component?.name}"). It might happen when lang/locale/translations couldn't be resolved.`,
+            );
+          }
         } else {
-          error = new Error(process.env.NEXT_PUBLIC_APP_STAGE === 'production' ?
-            `Fatal error - An error happened, the page cannot be displayed.` :
-            `Fatal error when bootstrapping the app. It might happen when lang/locale/translations couldn't be resolved.`,
-          );
+          // If an error was detected by Next, then it means the current state is due to a top-level that was caught before
+          // We don't have anything to do, as it's automatically logged into Sentry
+          const error = new Error(`Fatal error - Misconfiguration detected, the page cannot be displayed.`);
+          logger.error(error);
         }
-      } else {
-        // If an error was detected by Next, then it means the current state is due to a top-level that was caught before
-        // We don't have anything to do, as it's automatically logged into Sentry
-        const error = new Error(`Fatal error - Misconfiguration detected, the page cannot be displayed.`);
-        logger.error(error);
-      }
 
-      return (
-        <ErrorPage
-          err={error}
-          statusCode={500}
-          isReadyToRender={true}
-        >
-          <DefaultErrorLayout
-            error={error}
-            context={pageProps}
-          />
-        </ErrorPage>
-      );
-    } else if (props?.err) {
-      // If an error was caught by Next.js (but wasn't fatal since we reached this point), we log it to Sentry to make sure we'll be notified
-      Sentry.withScope((scope): void => {
-        Sentry.captureException(props.err);
-      });
+        return (
+          <ErrorPage
+            err={error}
+            statusCode={500}
+            isReadyToRender={true}
+          >
+            <DefaultErrorLayout
+              error={error}
+              context={pageProps}
+            />
+          </ErrorPage>
+        );
+      } else if (props?.err) {
+        // If an error was caught by Next.js (but wasn't fatal since we reached this point), we log it to Sentry to make sure we'll be notified
+        Sentry.withScope((scope): void => {
+          Sentry.captureException(props.err);
+        });
+      }
     }
 
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
