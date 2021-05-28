@@ -59,7 +59,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
-  const commonServerSideProps: GetServerSidePropsResult<Omit<GetDemoLayoutServerSidePropsResults, 'serializedDataset'>> = await getDemoLayoutServerSideProps(context);
+  const commonServerSideProps: GetServerSidePropsResult<Omit<GetDemoLayoutServerSidePropsResults, 'serializedDataset'>> = await getDemoLayoutServerSideProps()(context);
 
   if ('props' in commonServerSideProps) {
 

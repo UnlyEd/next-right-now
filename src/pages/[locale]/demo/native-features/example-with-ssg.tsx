@@ -59,7 +59,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoLay
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoLayoutStaticProps(props);
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoLayoutStaticProps()(props);
 
   if ('props' in commonStaticProps) {
     const {
