@@ -2,6 +2,10 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
+import {
+  GetCoreStaticPaths,
+  GetCoreStaticPathsOptions,
+} from '@/layouts/core/types/GetCoreStaticPaths';
 import { GetCoreStaticProps } from '@/layouts/core/types/GetCoreStaticProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
@@ -51,24 +55,32 @@ const logger = createLogger({
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */
-export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
-  const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  const dataset: SanitizedAirtableDataset = await getAirtableDataset(preferredLocalesOrLanguages);
-  const customer: AirtableRecord<Customer> = getCustomer(dataset);
+export const getCoreStaticPaths: GetCoreStaticPaths = (options?: GetCoreStaticPathsOptions) => {
+  const {
+    fallback = false,
+  } = options || {};
 
-  // Generate only pages for languages that have been allowed by the customer
-  const paths: StaticPath[] = map(customer?.availableLanguages, (availableLanguage: string): StaticPath => {
+  const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
+    const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
+    const dataset: SanitizedAirtableDataset = await getAirtableDataset(preferredLocalesOrLanguages);
+    const customer: AirtableRecord<Customer> = getCustomer(dataset);
+
+    // Generate only pages for languages that have been allowed by the customer
+    const paths: StaticPath[] = map(customer?.availableLanguages, (availableLanguage: string): StaticPath => {
+      return {
+        params: {
+          locale: availableLanguage,
+        },
+      };
+    });
+
     return {
-      params: {
-        locale: availableLanguage,
-      },
+      fallback,
+      paths,
     };
-  });
-
-  return {
-    fallback: false,
-    paths,
   };
+
+  return getStaticPaths;
 };
 
 /**
