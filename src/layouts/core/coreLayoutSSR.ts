@@ -1,8 +1,8 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import {
-  GetCoreServerSideProps,
+  GetCoreLayoutServerSideProps,
   GetCoreServerSidePropsOptions,
-} from '@/layouts/core/types/GetCoreServerSideProps';
+} from '@/layouts/core/types/GetCoreLayoutServerSideProps';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
@@ -37,10 +37,10 @@ const logger = createLogger({
 });
 
 /**
- * "getCoreServerSideProps" returns only part of the props expected in SSRPageProps.
+ * "getCoreLayoutServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetCoreServerSidePropsResults = SSRPageProps & {
+export type GetCoreLayoutServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
@@ -51,7 +51,7 @@ export type GetCoreServerSidePropsResults = SSRPageProps & {
  *
  * @param options
  */
-export const getCoreServerSideProps: GetCoreServerSideProps = (options?: GetCoreServerSidePropsOptions) => {
+export const getCoreLayoutServerSideProps: GetCoreLayoutServerSideProps = (options?: GetCoreServerSidePropsOptions) => {
   const {
     enable404Redirect = true,
   } = options || {};
@@ -69,7 +69,7 @@ export const getCoreServerSideProps: GetCoreServerSideProps = (options?: GetCore
    *
    * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
    */
-  const getServerSideProps: GetServerSideProps<GetCoreServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCoreServerSidePropsResults>> => {
+  const getServerSideProps: GetServerSideProps<GetCoreLayoutServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCoreLayoutServerSidePropsResults>> => {
     const {
       query,
       params,

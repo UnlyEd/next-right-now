@@ -1,5 +1,5 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
-import { GetCoreServerSidePropsOptions } from '@/layouts/core/types/GetCoreServerSideProps';
+import { GetCoreServerSidePropsOptions } from '@/layouts/core/types/GetCoreLayoutServerSideProps';
 import { GetDemoLayoutServerSidePropsResults } from '@/layouts/demo/demoLayoutSSR';
 import { GetServerSideProps } from 'next';
 
