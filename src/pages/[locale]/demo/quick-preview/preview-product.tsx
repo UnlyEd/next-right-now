@@ -42,7 +42,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDemoServerSideProps;
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDemoServerSideProps();
 
 /**
  * SSR pages are first rendered by the server
