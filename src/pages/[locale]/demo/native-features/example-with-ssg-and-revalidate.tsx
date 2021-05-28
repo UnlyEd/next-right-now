@@ -11,7 +11,7 @@ import {
   getDemoStaticPaths,
   getDemoStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
-import { getCustomer } from '@/modules/core/airtable/getAirtableDataset';
+import { getCustomer } from '@/modules/core/airtable/dataset';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';

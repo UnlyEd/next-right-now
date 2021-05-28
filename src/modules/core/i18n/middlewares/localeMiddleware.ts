@@ -1,14 +1,5 @@
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
-import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
-import {
-  getCustomer,
-  getStaticAirtableDataset,
-} from '@/modules/core/airtable/getAirtableDataset';
-import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
-import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
-import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';
-import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
+import { getCustomer } from '@/modules/core/airtable/dataset';
+import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
@@ -47,20 +38,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  let dataset: SanitizedAirtableDataset;
-
-  if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-    // When working locally, we want to make real-time API requests to get up-to-date data
-    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
-    const airtableSchema: AirtableSchema = getAirtableSchema();
-    const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, preferredLocalesOrLanguages);
-    const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
-
-    dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
-  } else {
-    // Otherwise, we fallback to the app-wide shared/static data (stale)
-    dataset = await getStaticAirtableDataset(preferredLocalesOrLanguages);
-  }
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(preferredLocalesOrLanguages);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
 

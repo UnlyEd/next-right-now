@@ -3,17 +3,8 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
-import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
-import {
-  getCustomer,
-  getStaticAirtableDataset,
-} from '@/modules/core/airtable/getAirtableDataset';
-import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
-import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
-import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';
-import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
+import { getCustomer } from '@/modules/core/airtable/dataset';
+import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
@@ -28,6 +19,7 @@ import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
+import includes from 'lodash.includes';
 import map from 'lodash.map';
 import uniq from 'lodash.uniq';
 import {
@@ -60,20 +52,7 @@ const logger = createLogger({
  */
 export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  let dataset: SanitizedAirtableDataset;
-
-  if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-    // When working locally, we want to make real-time API requests to get up-to-date data
-    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
-    const airtableSchema: AirtableSchema = getAirtableSchema();
-    const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, preferredLocalesOrLanguages);
-    const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, preferredLocalesOrLanguages);
-
-    dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
-  } else {
-    // Otherwise, we fallback to the app-wide shared/static data (stale)
-    dataset = await getStaticAirtableDataset(preferredLocalesOrLanguages);
-  }
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(preferredLocalesOrLanguages);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Generate only pages for languages that have been allowed by the customer
@@ -117,19 +96,16 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
-  let dataset: SanitizedAirtableDataset;
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(bestCountryCodes, preview);
+  const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
-  if (preview || process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
-    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
-    const airtableSchema: AirtableSchema = getAirtableSchema();
-    const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, bestCountryCodes);
-    const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
+  // Do not serve pages using locales the customer doesn't have enabled (useful during preview mode and in development env)
+  if (!includes(customer?.availableLanguages, locale)) {
+    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${customer?.availableLanguages}"), returning 404 page.`);
 
-    dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
-  } else {
-    // Otherwise, we fallback to the app-wide shared/static data (stale)
-    dataset = await getStaticAirtableDataset(bestCountryCodes);
+    return {
+      notFound: true,
+    };
   }
 
   return {
