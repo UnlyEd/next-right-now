@@ -6,7 +6,10 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
-import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
+import {
+  DEFAULT_LOCALE,
+  resolveFallbackLanguage,
+} from '@/modules/core/i18n/i18n';
 import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
@@ -74,6 +77,7 @@ export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServ
   const hasLocaleFromUrl = !!props?.params?.locale;
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
+  const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const customer: AirtableRecord<Customer> = {
     ref: customerRef,
     label: `${customerRef} (mocked)`,
@@ -86,7 +90,7 @@ export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServ
   return {
     // Props returned here will be available as page properties (pageProps)
     props: {
-      bestCountryCodes: [], // We don't need any because we're not calling a GraphQL endpoint using this layout
+      bestCountryCodes,
       serializedDataset: serializeSafe({
         customer,
       }),
