@@ -2,6 +2,7 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
+import { GetCoreStaticProps } from '@/layouts/core/types/GetCoreStaticProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
 import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
@@ -71,57 +72,70 @@ export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async 
 };
 
 /**
- * Only executed on the server side at build time.
- * Computes all static props that should be available for all SSG pages.
+ * Returns a "getStaticProps" function.
  *
- * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
- * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
+ * Disables redirecting to the 404 page when building the 404 page.
  *
- * Meant to avoid code duplication between pages sharing the same layout.
- * Can be overridden for per-page customisation (e.g: deepmerge).
- *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
- *
- * @return Props (as "SSGPageProps") that will be passed to the Page component, as props (known as "pageProps" in _app).
- *
- * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
- * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
+ * @param options
  */
-export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
-  const preview: boolean = props?.preview || false;
-  const previewData: PreviewData = props?.previewData || null;
-  const hasLocaleFromUrl = !!props?.params?.locale;
-  const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
-  const lang: string = locale.split('-')?.[0];
-  const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
-  const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
-  const dataset: SanitizedAirtableDataset = await getAirtableDataset(bestCountryCodes, preview);
-  const customer: AirtableRecord<Customer> = getCustomer(dataset);
+export const getCoreStaticProps: GetCoreStaticProps = (options?) => {
+  const { is404 } = options || {};
 
-  // Do not serve pages using locales the customer doesn't have enabled (useful during preview mode and in development env)
-  if (!includes(customer?.availableLanguages, locale)) {
-    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${customer?.availableLanguages}"), returning 404 page.`);
+  /**
+   * Only executed on the server side at build time.
+   * Computes all static props that should be available for all SSG pages.
+   *
+   * Note that when a page uses "getStaticProps", then "_app:getInitialProps" is executed (if defined) but not actually used by the page,
+   * only the results from getStaticProps are actually injected into the page (as "SSGPageProps").
+   *
+   * Meant to avoid code duplication between pages sharing the same layout.
+   * Can be overridden for per-page customisation (e.g: deepmerge).
+   *
+   * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
+   *
+   * @return Props (as "SSGPageProps") that will be passed to the Page component, as props (known as "pageProps" in _app).
+   *
+   * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
+   * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
+   */
+  const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
+    const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
+    const preview: boolean = props?.preview || false;
+    const previewData: PreviewData = props?.previewData || null;
+    const hasLocaleFromUrl = !!props?.params?.locale;
+    const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
+    const lang: string = locale.split('-')?.[0];
+    const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
+    const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
+    const dataset: SanitizedAirtableDataset = await getAirtableDataset(bestCountryCodes, preview);
+    const customer: AirtableRecord<Customer> = getCustomer(dataset);
+
+    // Do not serve pages using locales the customer doesn't have enabled (useful during preview mode and in development env)
+    if (!is404 && !includes(customer?.availableLanguages, locale)) {
+      logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${customer?.availableLanguages}"), returning 404 page.`);
+
+      return {
+        notFound: true,
+      };
+    }
 
     return {
-      notFound: true,
+      // Props returned here will be available as page properties (pageProps)
+      props: {
+        bestCountryCodes,
+        serializedDataset: serializeSafe(dataset),
+        customerRef,
+        i18nTranslations,
+        hasLocaleFromUrl,
+        isReadyToRender: true,
+        isStaticRendering: true,
+        lang,
+        locale,
+        preview,
+        previewData,
+      },
     };
-  }
-
-  return {
-    // Props returned here will be available as page properties (pageProps)
-    props: {
-      bestCountryCodes,
-      serializedDataset: serializeSafe(dataset),
-      customerRef,
-      i18nTranslations,
-      hasLocaleFromUrl,
-      isReadyToRender: true,
-      isStaticRendering: true,
-      lang,
-      locale,
-      preview,
-      previewData,
-    },
   };
+
+  return getStaticProps;
 };
