@@ -31,6 +31,7 @@ import {
   ApolloQueryResult,
   NormalizedCacheObject,
 } from '@apollo/client';
+import includes from 'lodash.includes';
 import map from 'lodash.map';
 import {
   GetStaticPaths,
@@ -148,6 +149,15 @@ export const getDemoStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const dataset = {
     customer,
   };
+
+  // Do not serve pages using locales the customer doesn't have enabled (useful during preview mode and in development env)
+  if (!includes(customer?.availableLanguages, locale)) {
+    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${customer?.availableLanguages}"), returning 404 page.`);
+
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     // Props returned here will be available as page properties (pageProps)
