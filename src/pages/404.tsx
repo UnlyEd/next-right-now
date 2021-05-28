@@ -1,9 +1,9 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import Btn from '@/common/components/dataDisplay/Btn';
-import { getCoreLayoutStaticProps } from '@/layouts/core/coreLayoutSSG';
 import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import PublicLayout from '@/layouts/public/components/PublicLayout';
+import { getPublicLayoutStaticProps } from '@/layouts/public/publicLayoutSSG';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import {
   DEFAULT_LOCALE,
@@ -38,7 +38,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getCoreLayoutStaticProps({ enable404Redirect: false });
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getPublicLayoutStaticProps({ enable404Redirect: false });
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
