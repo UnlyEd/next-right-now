@@ -8,8 +8,8 @@ import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import {
-  GetDemoServerSidePropsResults,
-  getDemoServerSideProps,
+  GetDemoLayoutServerSidePropsResults,
+  getDemoLayoutServerSideProps,
 } from '@/layouts/demo/demoLayoutSSR';
 import {
   APOLLO_STATE_PROP_NAME,
@@ -59,7 +59,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  * @param context
  */
 export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetServerSidePageProps>> => {
-  const commonServerSideProps: GetServerSidePropsResult<Omit<GetDemoServerSidePropsResults, 'serializedDataset'>> = await getDemoServerSideProps(context);
+  const commonServerSideProps: GetServerSidePropsResult<Omit<GetDemoLayoutServerSidePropsResults, 'serializedDataset'>> = await getDemoLayoutServerSideProps(context);
 
   if ('props' in commonServerSideProps) {
 

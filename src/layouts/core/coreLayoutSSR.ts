@@ -36,16 +36,16 @@ import {
 } from 'next';
 import NextCookies from 'next-cookies';
 
-const fileLabel = 'layouts/demo/demoLayoutSSR';
+const fileLabel = 'layouts/core/coreLayoutSSR';
 const logger = createLogger({
   fileLabel,
 });
 
 /**
- * "getCoreServerSideProps" returns only part of the props expected in SSRPageProps.
+ * "getCoreLayoutServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetCoreServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
+export type GetCoreLayoutServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
@@ -64,7 +64,7 @@ export type GetCoreServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCoreServerSidePropsResults>> => {
+export const getCoreLayoutServerSideProps: GetServerSideProps<GetCoreLayoutServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetCoreLayoutServerSidePropsResults>> => {
   const {
     query,
     params,

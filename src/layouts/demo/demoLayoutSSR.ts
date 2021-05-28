@@ -42,10 +42,10 @@ const logger = createLogger({
 });
 
 /**
- * "getDemoServerSideProps" returns only part of the props expected in SSRPageProps.
+ * "getDemoLayoutServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetDemoServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
+export type GetDemoLayoutServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__' | 'customer'> & {
   apolloClient: ApolloClient<NormalizedCacheObject>;
   layoutQueryOptions: ApolloQueryOptions;
   headers: PublicHeaders;
@@ -64,7 +64,7 @@ export type GetDemoServerSidePropsResults = Omit<SSRPageProps, '__APOLLO_STATE__
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
  */
-export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetDemoServerSidePropsResults>> => {
+export const getDemoLayoutServerSideProps: GetServerSideProps<GetDemoLayoutServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetDemoLayoutServerSidePropsResults>> => {
   const {
     query,
     params,

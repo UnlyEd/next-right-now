@@ -31,7 +31,7 @@ import {
  * Meant to avoid code duplication between pages sharing the same layout.
  * Can be overridden for per-page customisation (e.g: deepmerge).
  *
- * @return Static paths that will be used by "getCoreStaticProps" to generate pages
+ * @return Static paths that will be used by "getCoreLayoutStaticProps" to generate pages
  *
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
  */

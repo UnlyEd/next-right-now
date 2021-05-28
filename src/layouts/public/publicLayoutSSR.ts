@@ -32,7 +32,7 @@ const logger = createLogger({
 });
 
 /**
- * "getDemoServerSideProps" returns only part of the props expected in SSRPageProps.
+ * "getDemoLayoutServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
 export type GetPublicLayoutServerSidePropsResults = SSRPageProps & {
