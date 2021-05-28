@@ -17,5 +17,10 @@ export type GetCoreStaticProps = (options?: GetCoreStaticPropsOptions) => GetSta
  * Options allowed in GetCoreStaticProps function.
  */
 export type GetCoreStaticPropsOptions = {
-  is404: boolean;
+  /**
+   * Whether allowing any redirection to a 404 page.
+   *
+   * @default true
+   */
+  enable404Redirect: boolean;
 };

@@ -100,7 +100,7 @@ export const getCoreStaticPaths: GetCoreStaticPaths = (options?: GetCoreStaticPa
  */
 export const getCoreStaticProps: GetCoreStaticProps = (options?: GetCoreStaticPropsOptions): GetStaticProps<SSGPageProps, CommonServerSideParams> => {
   const {
-    is404,
+    enable404Redirect = true,
   } = options || {};
 
   /**
@@ -133,7 +133,7 @@ export const getCoreStaticProps: GetCoreStaticProps = (options?: GetCoreStaticPr
     const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
     // Do not serve pages using locales the customer doesn't have enabled (useful during preview mode and in development env)
-    if (!is404 && !includes(customer?.availableLanguages, locale)) {
+    if (enable404Redirect && !includes(customer?.availableLanguages, locale)) {
       logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${customer?.availableLanguages}"), returning 404 page.`);
 
       return {
