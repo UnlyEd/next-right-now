@@ -1,19 +1,10 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
-import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
-import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
-import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
-import {
-  getStaticAirtableDataset,
-} from '@/modules/core/airtable/getAirtableDataset';
 import { getCustomer } from '@/modules/core/airtable/dataset';
-import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
-import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
-import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';
+import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
-import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
@@ -100,27 +91,13 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
         scope.setContext('context', context);
         Sentry.captureException(error);
       });
-      // eslint-disable-next-line no-console
-      console.error(error.message);
+      logger.error(error.message);
     },
   });
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
-  let dataset: SanitizedAirtableDataset;
-
-  if (process.env.NEXT_PUBLIC_APP_STAGE === 'development') {
-    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
-    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
-    const airtableSchema: AirtableSchema = getAirtableSchema();
-    const rawAirtableRecordsSets: RawAirtableRecordsSet[] = await fetchAirtableDataset(airtableSchema, bestCountryCodes);
-    const datasets: AirtableDatasets = prepareAndSanitizeAirtableDataset(rawAirtableRecordsSets, airtableSchema, bestCountryCodes);
-
-    dataset = consolidateSanitizedAirtableDataset(airtableSchema, datasets.sanitized);
-  } else {
-    // Otherwise, we fallback to the app-wide shared/static data (stale)
-    dataset = await getStaticAirtableDataset(bestCountryCodes);
-  }
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(true, bestCountryCodes);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Do not serve pages using locales the customer doesn't have enabled
