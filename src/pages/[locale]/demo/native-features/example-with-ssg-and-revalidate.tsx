@@ -48,7 +48,7 @@ const regenerationDelay = 30; // Seconds
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths();
 
 /**
  * Only executed on the server side at build time.
@@ -59,7 +59,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoSta
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
 export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = async (props: StaticPropsInput): Promise<GetStaticPropsResult<SSGPageProps>> => {
-  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoStaticProps(props);
+  const commonStaticProps: GetStaticPropsResult<SSGPageProps> = await getDemoStaticProps()(props);
 
   if ('props' in commonStaticProps) {
     const { serializedDataset } = commonStaticProps?.props || {};

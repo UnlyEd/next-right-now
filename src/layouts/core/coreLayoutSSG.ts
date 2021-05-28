@@ -6,7 +6,10 @@ import {
   GetCoreStaticPaths,
   GetCoreStaticPathsOptions,
 } from '@/layouts/core/types/GetCoreStaticPaths';
-import { GetCoreStaticProps } from '@/layouts/core/types/GetCoreStaticProps';
+import {
+  GetCoreStaticProps,
+  GetCoreStaticPropsOptions,
+} from '@/layouts/core/types/GetCoreStaticProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
 import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
@@ -40,26 +43,31 @@ const logger = createLogger({
 });
 
 /**
- * Only executed on the server side at build time.
- * Computes all static paths that should be available for all SSG pages.
- * Necessary when a page has dynamic routes and uses "getStaticProps", in order to build the HTML pages.
+ * Returns a "getStaticPaths" function.
  *
- * You can use "fallback" option to avoid building all page variants and allow runtime fallback.
- *
- * Meant to avoid code duplication between pages sharing the same layout.
- * Can be overridden for per-page customisation (e.g: deepmerge).
- *
- * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
- *
- * @return Static paths that will be used by "getCoreStaticProps" to generate pages
- *
- * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
+ * @param options
  */
 export const getCoreStaticPaths: GetCoreStaticPaths = (options?: GetCoreStaticPathsOptions) => {
   const {
     fallback = false,
   } = options || {};
 
+  /**
+   * Only executed on the server side at build time.
+   * Computes all static paths that should be available for all SSG pages.
+   * Necessary when a page has dynamic routes and uses "getStaticProps", in order to build the HTML pages.
+   *
+   * You can use "fallback" option to avoid building all page variants and allow runtime fallback.
+   *
+   * Meant to avoid code duplication between pages sharing the same layout.
+   * Can be overridden for per-page customisation (e.g: deepmerge).
+   *
+   * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
+   *
+   * @return Static paths that will be used by "getCoreStaticProps" to generate pages
+   *
+   * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
+   */
   const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
     const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
     const dataset: SanitizedAirtableDataset = await getAirtableDataset(preferredLocalesOrLanguages);
@@ -90,8 +98,10 @@ export const getCoreStaticPaths: GetCoreStaticPaths = (options?: GetCoreStaticPa
  *
  * @param options
  */
-export const getCoreStaticProps: GetCoreStaticProps = (options?) => {
-  const { is404 } = options || {};
+export const getCoreStaticProps: GetCoreStaticProps = (options?: GetCoreStaticPropsOptions): GetStaticProps<SSGPageProps, CommonServerSideParams> => {
+  const {
+    is404,
+  } = options || {};
 
   /**
    * Only executed on the server side at build time.
