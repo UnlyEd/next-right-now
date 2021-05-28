@@ -28,6 +28,16 @@ export const getStaticGraphcmsDataset = async (): Promise<StaticDataset> => {
   return (await import('@/modules/core/gql/fetchStaticGraphcmsDataset.preval')) as unknown as StaticDataset;
 };
 
+/**
+ * Returns the GraphCMS dataset by fetching it in real-time.
+ * It runs the DEMO_LAYOUT_QUERY query by default.
+ *
+ * This operation is expensive and might take a lot of time (several seconds).
+ * Unless absolutely necessary, using the static dataset is usually preferred.
+ *
+ * @param gcmsLocales
+ * @param query
+ */
 export const getLiveGraphcmsDataset = async <T>(gcmsLocales: string, query?: DocumentNode): Promise<T> => {
   const customerRef: string = process.env.NEXT_PUBLIC_CUSTOMER_REF;
   const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
@@ -62,8 +72,15 @@ export const getLiveGraphcmsDataset = async <T>(gcmsLocales: string, query?: Doc
   return data;
 };
 
-export const getGraphcmsDataset = async (gcmsLocales: string, query?: DocumentNode, isPreviewMode = false): Promise<GraphCMSDataset | StaticDataset> => {
-  if (isPreviewMode || process.env.NODE_ENV === 'development') {
+/**
+ * Returns the Airtable dataset by either returning the static dataset (stale data) or performing a live query (real-time).
+ *
+ * @param gcmsLocales
+ * @param query
+ * @param forceRealTimeFetch
+ */
+export const getGraphcmsDataset = async (gcmsLocales: string, query?: DocumentNode, forceRealTimeFetch = false): Promise<GraphCMSDataset | StaticDataset> => {
+  if (forceRealTimeFetch || process.env.NODE_ENV === 'development') {
     // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
     // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
     return await getLiveGraphcmsDataset(gcmsLocales, query);
