@@ -40,7 +40,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoLayoutStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoLayoutStaticPaths();
 
 /**
  * Only executed on the server side at build time.

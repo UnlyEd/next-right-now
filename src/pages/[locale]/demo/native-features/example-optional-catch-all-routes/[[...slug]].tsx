@@ -59,7 +59,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = async (): 
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDemoLayoutStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDemoLayoutStaticProps();
 
 /**
  * SSG pages are first rendered by the server (during static bundling)
