@@ -1,11 +1,24 @@
+import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
+import { createLogger } from '@/modules/core/logging/logger';
+import * as Sentry from '@sentry/node';
+import universalLanguageDetect from '@unly/universal-language-detector';
+import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
+import { IncomingMessage } from 'http';
 import size from 'lodash.size';
 import { NextApiRequest } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import {
   defaultLocale,
   supportedLanguages,
   supportedLocales,
 } from './i18nConfig';
 import { I18nLocale } from './types/I18nLocale';
+
+const fileLabel = 'modules/core/i18n/i18n';
+const logger = createLogger({
+  fileLabel,
+});
 
 export const LANG_EN = 'en';
 export const LANG_FR = 'fr';
@@ -48,6 +61,36 @@ export const resolveFallbackLanguage = (primaryLanguage: string): string => {
  */
 export const resolveCustomerVariationLang = (lang: string): string => {
   return `${lang}-x-${process.env.NEXT_PUBLIC_CUSTOMER_REF}`;
+};
+
+/**
+ * Resolves locale from query.
+ * Fallback to browser headers.
+ *
+ * Must only be used from "getServerSideProps".
+ *
+ * @param query
+ * @param req
+ * @param readonlyCookies
+ */
+export const resolveSSRLocale = (query: ParsedUrlQuery, req: IncomingMessage, readonlyCookies: Cookies): string => {
+  const hasLocaleFromUrl = !!query?.locale;
+
+  return hasLocaleFromUrl ? query?.locale as string : universalLanguageDetect({
+    supportedLanguages: SUPPORTED_LANGUAGES, // Whitelist of supported languages, will be used to filter out languages that aren't supported
+    fallbackLanguage: DEFAULT_LOCALE, // Fallback language in case the user's language cannot be resolved
+    acceptLanguageHeader: req?.headers?.['accept-language'], // Optional - Accept-language header will be used when resolving the language on the server side
+    serverCookies: readonlyCookies, // Optional - Cookie "i18next" takes precedence over navigator configuration (ex: "i18next: fr"), will only be used on the server side
+    errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: GenericObject): void => {
+      Sentry.withScope((scope): void => {
+        scope.setExtra('level', level);
+        scope.setExtra('origin', origin);
+        scope.setContext('context', context);
+        Sentry.captureException(error);
+      });
+      logger.error(error.message);
+    },
+  });
 };
 
 /**

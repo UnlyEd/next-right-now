@@ -6,7 +6,6 @@ import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
 import { Customer } from '@/modules/core/data/types/Customer';
-import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
 import { getGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
 import { prepareGraphCMSLocaleHeader } from '@/modules/core/gql/graphcms';
@@ -17,9 +16,8 @@ import {
 } from '@/modules/core/gql/types/StaticDataset';
 import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
 import {
-  DEFAULT_LOCALE,
   resolveFallbackLanguage,
-  SUPPORTED_LANGUAGES,
+  resolveSSRLocale,
 } from '@/modules/core/i18n/i18n';
 import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
 import { createLogger } from '@/modules/core/logging/logger';
@@ -29,9 +27,6 @@ import {
   ApolloClient,
   NormalizedCacheObject,
 } from '@apollo/client';
-import * as Sentry from '@sentry/node';
-import universalLanguageDetect from '@unly/universal-language-detector';
-import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
 import { IncomingMessage } from 'http';
 import includes from 'lodash.includes';
 import {
@@ -89,23 +84,7 @@ export const getDemoServerSideProps: GetServerSideProps<GetDemoServerSidePropsRe
     'host': headers?.host,
   };
   const hasLocaleFromUrl = !!query?.locale;
-  // Resolve locale from query, fallback to browser headers
-  const locale: string = hasLocaleFromUrl ? query?.locale as string : universalLanguageDetect({
-    supportedLanguages: SUPPORTED_LANGUAGES, // Whitelist of supported languages, will be used to filter out languages that aren't supported
-    fallbackLanguage: DEFAULT_LOCALE, // Fallback language in case the user's language cannot be resolved
-    acceptLanguageHeader: req?.headers?.['accept-language'], // Optional - Accept-language header will be used when resolving the language on the server side
-    serverCookies: readonlyCookies, // Optional - Cookie "i18next" takes precedence over navigator configuration (ex: "i18next: fr"), will only be used on the server side
-    errorHandler: (error: Error, level: ERROR_LEVELS, origin: string, context: GenericObject): void => {
-      Sentry.withScope((scope): void => {
-        scope.setExtra('level', level);
-        scope.setExtra('origin', origin);
-        scope.setContext('context', context);
-        Sentry.captureException(error);
-      });
-      // eslint-disable-next-line no-console
-      console.error(error.message);
-    },
-  });
+  const locale: string = resolveSSRLocale(query, req, readonlyCookies);
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);

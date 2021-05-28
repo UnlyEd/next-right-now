@@ -1,7 +1,9 @@
-import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
+import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
+import { resolveSSRLocale } from '@/modules/core/i18n/i18n';
 import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
 import classnames from 'classnames';
+import NextCookies from 'next-cookies';
 import { DocumentInitialProps } from 'next/dist/next-server/lib/utils';
 import Document, {
   DocumentContext,
@@ -59,17 +61,20 @@ process.on('uncaughtException', (e: Error): void => {
  * See https://github.com/vercel/next.js/#custom-document
  */
 class AppDocument extends Document<DocumentRenderProps> {
-  static async getInitialProps(ctx: DocumentContext): Promise<DocumentGetInitialPropsOutput> {
+  static async getInitialProps(context: DocumentContext): Promise<DocumentGetInitialPropsOutput> {
     Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
       category: fileLabel,
       message: `Rendering _document`,
       level: Sentry.Severity.Debug,
     });
 
-    const initialProps: DocumentInitialProps = await Document.getInitialProps(ctx);
-    const { query } = ctx;
-    const hasLocaleFromUrl = !!query?.locale;
-    const locale: string = hasLocaleFromUrl ? query?.locale as string : DEFAULT_LOCALE; // Fallback to default locale if the locale isn't found (e.g: 404 page)
+    const {
+      query,
+      req,
+    } = context;
+    const initialProps: DocumentInitialProps = await Document.getInitialProps(context);
+    const readonlyCookies: Cookies = NextCookies(context); // Parses Next.js cookies in a universal way (server + client)
+    const locale: string = resolveSSRLocale(query, req, readonlyCookies);
     const lang: string = locale.split('-')?.[0];
 
     return {
