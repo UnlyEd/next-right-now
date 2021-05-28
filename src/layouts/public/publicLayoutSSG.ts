@@ -2,20 +2,16 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
-import {
-  GetCoreStaticProps,
-  GetCoreStaticPropsOptions,
-} from '@/layouts/core/types/GetCoreStaticProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { mockedStaticDataset } from '@/layouts/public/mockedStaticDataset';
 import {
-  GetPublicStaticPaths,
-  GetPublicStaticPathsOptions,
-} from '@/layouts/public/types/GetCoreStaticPaths';
+  GetPublicLayoutStaticPaths,
+  GetPublicLayoutStaticPathsOptions,
+} from '@/layouts/public/types/GetPublicLayoutStaticPaths';
 import {
-  GetPublicStaticProps,
-  GetPublicStaticPropsOptions,
-} from '@/layouts/public/types/GetCoreStaticProps';
+  GetPublicLayoutStaticProps,
+  GetPublicLayoutStaticPropsOptions,
+} from '@/layouts/public/types/GetPublicLayoutStaticProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -24,15 +20,12 @@ import {
   DEFAULT_LOCALE,
   resolveFallbackLanguage,
 } from '@/modules/core/i18n/i18n';
-import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
 import { I18nextResources } from '@/modules/core/i18n/i18nextLocize';
-import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
 import includes from 'lodash.includes';
 import map from 'lodash.map';
-import uniq from 'lodash.uniq';
 import {
   GetStaticPaths,
   GetStaticPathsContext,
@@ -50,7 +43,7 @@ const logger = createLogger({
  *
  * @param options
  */
-export const getPublicStaticPaths: GetPublicStaticPaths = (options?: GetPublicStaticPathsOptions) => {
+export const getPublicLayoutStaticPaths: GetPublicLayoutStaticPaths = (options?: GetPublicLayoutStaticPathsOptions) => {
   const {
     fallback = false,
   } = options || {};
@@ -65,7 +58,7 @@ export const getPublicStaticPaths: GetPublicStaticPaths = (options?: GetPublicSt
    * Meant to avoid code duplication between pages sharing the same layout.
    * Can be overridden for per-page customisation (e.g: deepmerge).
    *
-   * @return Static paths that will be used by "getCoreStaticProps" to generate pages
+   * @return Static paths that will be used by "getCoreLayoutStaticProps" to generate pages
    *
    * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
    */
@@ -97,7 +90,7 @@ export const getPublicStaticPaths: GetPublicStaticPaths = (options?: GetPublicSt
  *
  * @param options
  */
-export const getPublicStaticProps: GetPublicStaticProps = (options?: GetPublicStaticPropsOptions): GetStaticProps<SSGPageProps, CommonServerSideParams> => {
+export const getPublicLayoutStaticProps: GetPublicLayoutStaticProps = (options?: GetPublicLayoutStaticPropsOptions): GetStaticProps<SSGPageProps, CommonServerSideParams> => {
   const {
     enable404Redirect = true,
   } = options || {};

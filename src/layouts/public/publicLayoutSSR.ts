@@ -3,9 +3,9 @@ import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { mockedStaticDataset } from '@/layouts/public/mockedStaticDataset';
 import {
-  GetPublicServerSideProps,
-  GetPublicServerSidePropsOptions,
-} from '@/layouts/public/types/GetCoreServerSideProps';
+  GetPublicLayoutServerSideProps,
+  GetPublicLayoutServerSidePropsOptions,
+} from '@/layouts/public/types/GetPublicLayoutServerSideProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
@@ -36,10 +36,10 @@ const logger = createLogger({
 });
 
 /**
- * "getDemoServerSideProps" returns only part of the props expected in SSRPageProps.
+ * "getDemoLayoutServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetPublicServerSidePropsResults = SSRPageProps & {
+export type GetPublicLayoutServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
@@ -50,7 +50,7 @@ export type GetPublicServerSidePropsResults = SSRPageProps & {
  *
  * @param options
  */
-export const getPublicServerSideProps: GetPublicServerSideProps = (options?: GetPublicServerSidePropsOptions) => {
+export const getPublicLayoutServerSideProps: GetPublicLayoutServerSideProps = (options?: GetPublicLayoutServerSidePropsOptions) => {
   const {
     enable404Redirect = true,
   } = options || {};
@@ -71,7 +71,7 @@ export const getPublicServerSideProps: GetPublicServerSideProps = (options?: Get
    *
    * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
    */
-  const getServerSideProps: GetServerSideProps<GetPublicServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetPublicServerSidePropsResults>> => {
+  const getServerSideProps: GetServerSideProps<GetPublicLayoutServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetPublicLayoutServerSidePropsResults>> => {
     const {
       query,
       params,

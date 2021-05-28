@@ -4,8 +4,8 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import PublicLayout from '@/layouts/public/components/PublicLayout';
 import {
-  getPublicServerSideProps,
-  GetPublicServerSidePropsResults,
+  getPublicLayoutServerSideProps,
+  GetPublicLayoutServerSidePropsResults,
 } from '@/layouts/public/publicLayoutSSR';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
@@ -28,7 +28,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time.
  * Necessary when a page has dynamic routes and uses "getStaticProps".
  */
-export const getServerSideProps: GetServerSideProps<GetPublicServerSidePropsResults, CommonServerSideParams> = getPublicServerSideProps();
+export const getServerSideProps: GetServerSideProps<GetPublicLayoutServerSidePropsResults, CommonServerSideParams> = getPublicLayoutServerSideProps();
 
 /**
  * SSR pages are first rendered by the server

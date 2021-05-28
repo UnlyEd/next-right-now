@@ -4,13 +4,13 @@ import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import {
-  GetDemoStaticPaths,
-  GetDemoStaticPathsOptions,
-} from '@/layouts/demo/types/GetDemoStaticPaths';
+  GetDemoLayoutStaticPaths,
+  GetDemoLayoutStaticPathsOptions,
+} from '@/layouts/demo/types/GetDemoLayoutStaticPaths';
 import {
-  GetDemoStaticProps,
-  GetDemoStaticPropsOptions,
-} from '@/layouts/demo/types/GetDemoStaticProps';
+  GetDemoLayoutStaticProps,
+  GetDemoLayoutStaticPropsOptions,
+} from '@/layouts/demo/types/GetDemoLayoutStaticProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
 import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
@@ -47,7 +47,7 @@ const logger = createLogger({
  *
  * @param options
  */
-export const getDemoStaticPaths: GetDemoStaticPaths = (options?: GetDemoStaticPathsOptions) => {
+export const getDemoLayoutStaticPaths: GetDemoLayoutStaticPaths = (options?: GetDemoLayoutStaticPathsOptions) => {
   const {
     fallback = false,
   } = options || {};
@@ -64,7 +64,7 @@ export const getDemoStaticPaths: GetDemoStaticPaths = (options?: GetDemoStaticPa
    *
    * XXX Demo component, not meant to be modified. It's a copy of the baseSSG implementation, so the demo keep working even if you change the base implementation.
    *
-   * @return Static paths that will be used by "getCoreStaticProps" to generate pages
+   * @return Static paths that will be used by "getCoreLayoutStaticProps" to generate pages
    *
    * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
    */
@@ -98,7 +98,7 @@ export const getDemoStaticPaths: GetDemoStaticPaths = (options?: GetDemoStaticPa
  *
  * @param options
  */
-export const getDemoStaticProps: GetDemoStaticProps = (options?: GetDemoStaticPropsOptions) => {
+export const getDemoLayoutStaticProps: GetDemoLayoutStaticProps = (options?: GetDemoLayoutStaticPropsOptions) => {
   const {
     enable404Redirect = true,
   } = options || {};

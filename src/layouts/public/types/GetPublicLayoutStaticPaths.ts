@@ -2,17 +2,17 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { GetStaticPaths } from 'next';
 
 /**
- * The getCoreStaticPaths is a function returning a getStaticPaths function.
+ * The getPublicLayoutStaticPaths is a function returning a getStaticPaths function.
  *
  * The reason behind this choice are flexibility and code re-usability.
  * It makes it possible to customize the behavior of the core "getStaticProps" function by providing options.
  */
-export type GetCoreStaticPaths = (options?: GetCoreStaticPathsOptions) => GetStaticPaths<CommonServerSideParams>;
+export type GetPublicLayoutStaticPaths = (options?: GetPublicLayoutStaticPathsOptions) => GetStaticPaths<CommonServerSideParams>;
 
 /**
- * Options allowed in GetCoreStaticPaths function.
+ * Options allowed in GetPublicLayoutStaticPaths function.
  */
-export type GetCoreStaticPathsOptions = {
+export type GetPublicLayoutStaticPathsOptions = {
   /**
    * Enables fallback mode.
    *

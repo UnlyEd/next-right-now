@@ -1,9 +1,10 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
+import { GetCoreLayoutStaticPropsOptions } from '@/layouts/core/types/GetCoreLayoutStaticProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { GetStaticProps } from 'next';
 
 /**
- * The getPublicStaticProps is a function returning a getStaticProps function.
+ * The getDemoLayoutStaticProps is a function returning a getStaticProps function.
  *
  * The reason behind this choice are flexibility and code re-usability.
  * It makes it possible to customize the behavior of the core "getStaticProps" function by providing options.
@@ -11,16 +12,9 @@ import { GetStaticProps } from 'next';
  * This is necessary for the 404 page, which must never return a { notFound: true } object.
  * It allows to conditionally return { notFound: true }, and avoid doing so for that particular page.
  */
-export type GetPublicStaticProps = (options?: GetPublicStaticPropsOptions) => GetStaticProps<SSGPageProps, CommonServerSideParams>;
+export type GetDemoLayoutStaticProps = (options?: GetDemoLayoutStaticPropsOptions) => GetStaticProps<SSGPageProps, CommonServerSideParams>;
 
 /**
- * Options allowed in GetPublicStaticProps function.
+ * Options allowed in GetDemoLayoutStaticProps function.
  */
-export type GetPublicStaticPropsOptions = {
-  /**
-   * Whether allowing any redirection to a 404 page.
-   *
-   * @default true
-   */
-  enable404Redirect: boolean;
-};
+export type GetDemoLayoutStaticPropsOptions = GetCoreLayoutStaticPropsOptions;

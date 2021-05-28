@@ -2,9 +2,9 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import {
-  GetDemoServerSideProps,
-  GetDemoServerSidePropsOptions,
-} from '@/layouts/demo/types/GetDemoServerSideProps';
+  GetDemoLayoutServerSideProps,
+  GetDemoLayoutServerSidePropsOptions,
+} from '@/layouts/demo/types/GetDemoLayoutServerSideProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
 import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
@@ -37,10 +37,10 @@ const logger = createLogger({
 });
 
 /**
- * "getDemoServerSideProps" returns only part of the props expected in SSRPageProps.
+ * "getDemoLayoutServerSideProps" returns only part of the props expected in SSRPageProps.
  * To avoid TS errors, we omit those that we don't return, and add those necessary to the "getServerSideProps" function.
  */
-export type GetDemoServerSidePropsResults = SSRPageProps & {
+export type GetDemoLayoutServerSidePropsResults = SSRPageProps & {
   headers: PublicHeaders;
 }
 
@@ -51,7 +51,7 @@ export type GetDemoServerSidePropsResults = SSRPageProps & {
  *
  * @param options
  */
-export const getDemoServerSideProps: GetDemoServerSideProps = (options?: GetDemoServerSidePropsOptions) => {
+export const getDemoLayoutServerSideProps: GetDemoLayoutServerSideProps = (options?: GetDemoLayoutServerSidePropsOptions) => {
   const {
     enable404Redirect = true,
   } = options || {};
@@ -69,7 +69,7 @@ export const getDemoServerSideProps: GetDemoServerSideProps = (options?: GetDemo
    *
    * @see https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
    */
-  const getServerSideProps: GetServerSideProps<GetDemoServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetDemoServerSidePropsResults>> => {
+  const getServerSideProps: GetServerSideProps<GetDemoLayoutServerSidePropsResults, CommonServerSideParams> = async (context: GetServerSidePropsContext<CommonServerSideParams>): Promise<GetServerSidePropsResult<GetDemoLayoutServerSidePropsResults>> => {
     const {
       query,
       params,

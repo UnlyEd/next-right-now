@@ -3,13 +3,13 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import {
-  GetCoreStaticPaths,
-  GetCoreStaticPathsOptions,
-} from '@/layouts/core/types/GetCoreStaticPaths';
+  GetCoreLayoutStaticPaths,
+  GetCoreLayoutStaticPathsOptions,
+} from '@/layouts/core/types/GetCoreLayoutStaticPaths';
 import {
-  GetCoreStaticProps,
-  GetCoreStaticPropsOptions,
-} from '@/layouts/core/types/GetCoreStaticProps';
+  GetCoreLayoutStaticProps,
+  GetCoreLayoutStaticPropsOptions,
+} from '@/layouts/core/types/GetCoreLayoutStaticProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { getCustomer } from '@/modules/core/airtable/dataset';
 import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
@@ -37,7 +37,7 @@ import {
   GetStaticPropsResult,
 } from 'next';
 
-const fileLabel = 'layouts/demo/demoLayoutSSG';
+const fileLabel = 'layouts/core/coreLayoutSSG';
 const logger = createLogger({
   fileLabel,
 });
@@ -47,7 +47,7 @@ const logger = createLogger({
  *
  * @param options
  */
-export const getCoreStaticPaths: GetCoreStaticPaths = (options?: GetCoreStaticPathsOptions) => {
+export const getCoreLayoutStaticPaths: GetCoreLayoutStaticPaths = (options?: GetCoreLayoutStaticPathsOptions) => {
   const {
     fallback = false,
   } = options || {};
@@ -64,7 +64,7 @@ export const getCoreStaticPaths: GetCoreStaticPaths = (options?: GetCoreStaticPa
    *
    * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
    *
-   * @return Static paths that will be used by "getCoreStaticProps" to generate pages
+   * @return Static paths that will be used by "getCoreLayoutStaticProps" to generate pages
    *
    * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticpaths-static-generation
    */
@@ -98,7 +98,7 @@ export const getCoreStaticPaths: GetCoreStaticPaths = (options?: GetCoreStaticPa
  *
  * @param options
  */
-export const getCoreStaticProps: GetCoreStaticProps = (options?: GetCoreStaticPropsOptions): GetStaticProps<SSGPageProps, CommonServerSideParams> => {
+export const getCoreLayoutStaticProps: GetCoreLayoutStaticProps = (options?: GetCoreLayoutStaticPropsOptions): GetStaticProps<SSGPageProps, CommonServerSideParams> => {
   const {
     enable404Redirect = true,
   } = options || {};

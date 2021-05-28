@@ -31,7 +31,7 @@ import {
 } from 'next';
 import NextCookies from 'next-cookies';
 
-const fileLabel = 'layouts/demo/demoLayoutSSR';
+const fileLabel = 'layouts/core/coreLayoutSSR';
 const logger = createLogger({
   fileLabel,
 });
