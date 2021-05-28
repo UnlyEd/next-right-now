@@ -2,7 +2,7 @@ import ProductRow from '@/components/dataDisplay/ProductRow';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
-import { getDemoServerSideProps } from '@/layouts/demo/demoLayoutSSR';
+import { getDemoLayoutServerSideProps } from '@/layouts/demo/demoLayoutSSR';
 import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
@@ -42,7 +42,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDemoServerSideProps;
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDemoLayoutServerSideProps();
 
 /**
  * SSR pages are first rendered by the server

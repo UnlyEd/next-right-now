@@ -5,7 +5,7 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
-import { getDemoServerSideProps } from '@/layouts/demo/demoLayoutSSR';
+import { getDemoLayoutServerSideProps } from '@/layouts/demo/demoLayoutSSR';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -40,7 +40,7 @@ type GetServerSidePageProps = CustomPageProps & SSRPageProps
  *
  * @param context
  */
-export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDemoServerSideProps;
+export const getServerSideProps: GetServerSideProps<GetServerSidePageProps> = getDemoLayoutServerSideProps();
 
 /**
  * SSR pages are first rendered by the server

@@ -26,7 +26,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time.
  * Necessary when a page has dynamic routes and uses "getStaticProps".
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getPublicLayoutStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getPublicLayoutStaticPaths();
 
 /**
  * Only executed on the server side at build time.
@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getPublicL
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getPublicLayoutStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getPublicLayoutStaticProps();
 
 /**
  * SSG pages are first rendered by the server (during static bundling).
