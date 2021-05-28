@@ -19,6 +19,7 @@ import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { createLogger } from '@/modules/core/logging/logger';
 import { PreviewData } from '@/modules/core/previewMode/types/PreviewData';
 import serializeSafe from '@/modules/core/serializeSafe/serializeSafe';
+import includes from 'lodash.includes';
 import map from 'lodash.map';
 import uniq from 'lodash.uniq';
 import {
@@ -96,6 +97,16 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
   const dataset: SanitizedAirtableDataset = await getAirtableDataset(bestCountryCodes, preview);
+  const customer: AirtableRecord<Customer> = getCustomer(dataset);
+
+  // Do not serve pages using locales the customer doesn't have enabled (useful during preview mode and in development env)
+  if (!includes(customer?.availableLanguages, locale)) {
+    logger.warn(`Locale "${locale}" not enabled for this customer (allowed: "${customer?.availableLanguages}"), returning 404 page.`);
+
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     // Props returned here will be available as page properties (pageProps)
