@@ -3,6 +3,7 @@ import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
+import { mockedStaticDataset } from '@/layouts/public/mockedStaticDataset';
 import { APOLLO_STATE_PROP_NAME } from '@/modules/core/apollo/apolloClient';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';
@@ -75,13 +76,7 @@ export const getPublicLayoutStaticProps: GetStaticProps<SSGPageProps, CommonServ
   const locale: string = hasLocaleFromUrl ? props?.params?.locale : DEFAULT_LOCALE; // If the locale isn't found (e.g: 404 page)
   const lang: string = locale.split('-')?.[0];
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
-  const customer: Customer = {
-    ref: customerRef,
-    label: `${customerRef} (mocked)`,
-    serviceLabel: 'Those mocked data are defined in the publicLayoutSSG. The page is from "pages/public". This layout is meant for all "public" pages, you probably want to start there!',
-    availableLanguages: ['en'],
-    __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
-  } as unknown as Customer;
+  const customer: Customer = mockedStaticDataset?.customer;
 
   return {
     // Props returned here will be available as page properties (pageProps)

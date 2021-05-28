@@ -1,6 +1,7 @@
 import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
+import { mockedStaticDataset } from '@/layouts/public/mockedStaticDataset';
 import { APOLLO_STATE_PROP_NAME } from '@/modules/core/apollo/apolloClient';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
@@ -99,13 +100,7 @@ export const getPublicLayoutServerSideProps: GetServerSideProps<GetPublicLayoutS
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
-  const customer: Customer = {
-    ref: customerRef,
-    label: `${customerRef} (mocked)`,
-    serviceLabel: 'Those mocked data are defined in the publicLayoutSSG. The page is from "pages/public". This layout is meant for all "public" pages, you probably want to start there!',
-    availableLanguages: ['en'],
-    __typename: 'Customer', // Necessary to find the customer object within the mocked dataset
-  } as unknown as Customer;
+  const customer: Customer = mockedStaticDataset?.customer;
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
 
   // Do not serve pages using locales the customer doesn't have enabled
