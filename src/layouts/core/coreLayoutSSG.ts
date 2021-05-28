@@ -51,7 +51,7 @@ const logger = createLogger({
  */
 export const getCoreStaticPaths: GetStaticPaths<CommonServerSideParams> = async (context: GetStaticPathsContext): Promise<StaticPathsOutput> => {
   const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  const dataset: SanitizedAirtableDataset = await getAirtableDataset(false, preferredLocalesOrLanguages);
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(preferredLocalesOrLanguages);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Generate only pages for languages that have been allowed by the customer
@@ -95,7 +95,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
-  const dataset: SanitizedAirtableDataset = await getAirtableDataset(preview, bestCountryCodes);
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(bestCountryCodes, preview);
 
   return {
     // Props returned here will be available as page properties (pageProps)

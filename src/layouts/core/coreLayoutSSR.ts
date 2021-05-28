@@ -99,7 +99,7 @@ export const getCoreServerSideProps: GetServerSideProps<GetCoreServerSidePropsRe
   const lang: string = locale.split('-')?.[0];
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const i18nTranslations: I18nextResources = await fetchTranslations(lang); // Pre-fetches translations from Locize API
-  const dataset: SanitizedAirtableDataset = await getAirtableDataset(true, bestCountryCodes);
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(bestCountryCodes, true);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
 
   // Do not serve pages using locales the customer doesn't have enabled

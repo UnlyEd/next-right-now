@@ -64,11 +64,11 @@ export const getLiveAirtableDataset = async (preferredLocalesOrLanguages: string
 /**
  * Returns the Airtable dataset by either returning the static dataset (stale data) or performing a live query (real-time).
  *
- * @param forceRealTimeFetch
  * @param preferredLocalesOrLanguages
+ * @param forceRealTimeFetch
  * @param airtableSchemaProps
  */
-export const getAirtableDataset = async (forceRealTimeFetch: boolean, preferredLocalesOrLanguages: string[], airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
+export const getAirtableDataset = async (preferredLocalesOrLanguages: string[], forceRealTimeFetch = false, airtableSchemaProps?: GetAirtableSchemaProps): Promise<SanitizedAirtableDataset> => {
   if (forceRealTimeFetch || process.env.NODE_ENV === 'development') {
     // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
     // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821

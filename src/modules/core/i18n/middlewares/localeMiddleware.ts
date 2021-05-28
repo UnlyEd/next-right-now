@@ -38,7 +38,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   logger.debug('Detecting browser locale...');
   const detections: string[] = acceptLanguageHeaderLookup(req) || [];
   const preferredLocalesOrLanguages = uniq<string>(supportedLocales.map((supportedLocale: I18nLocale) => supportedLocale.lang));
-  const dataset: SanitizedAirtableDataset = await getAirtableDataset(false, preferredLocalesOrLanguages);
+  const dataset: SanitizedAirtableDataset = await getAirtableDataset(preferredLocalesOrLanguages);
   const customer: AirtableRecord<Customer> = getCustomer(dataset);
   let localeFound; // Will contain the most preferred browser locale (e.g: fr-FR, fr, en-US, en, etc.)
 
