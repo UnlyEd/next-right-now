@@ -161,4 +161,3 @@ export const getDemoLayoutStaticProps: GetDemoLayoutStaticProps = (options?: Get
 
   return getStaticProps;
 };
-

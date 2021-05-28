@@ -155,4 +155,3 @@ export const getPublicLayoutStaticProps: GetPublicLayoutStaticProps = (options?:
 
   return getStaticProps;
 };
-
