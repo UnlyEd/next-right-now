@@ -4,7 +4,7 @@ import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { mockedStaticDataset } from '@/layouts/public/mockedStaticDataset';
-import { getCustomer } from '@/modules/core/airtable/getAirtableDataset';
+import { getCustomer } from '@/modules/core/airtable/dataset';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { getLocizeTranslations } from '@/modules/core/i18n/getLocizeTranslations';

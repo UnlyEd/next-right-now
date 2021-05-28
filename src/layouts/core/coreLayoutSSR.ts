@@ -2,9 +2,9 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { PublicHeaders } from '@/layouts/core/types/PublicHeaders';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import {
-  getCustomer,
   getStaticAirtableDataset,
 } from '@/modules/core/airtable/getAirtableDataset';
+import { getCustomer } from '@/modules/core/airtable/dataset';
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';

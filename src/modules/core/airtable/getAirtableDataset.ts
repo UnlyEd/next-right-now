@@ -5,11 +5,8 @@ import {
 import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
 import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
 import { AirtableDatasets } from '@/modules/core/data/types/AirtableDatasets';
-import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
-import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import { createLogger } from '@/modules/core/logging/logger';
-import find from 'lodash.find';
 import { AirtableSchema } from './types/AirtableSchema';
 import { RawAirtableRecordsSet } from './types/RawAirtableRecordsSet';
 
@@ -17,15 +14,6 @@ const fileLabel = 'modules/core/airtable/getAirtableDataset';
 const logger = createLogger({
   fileLabel,
 });
-
-/**
- * Finds the customer within the dataset.
- *
- * @param dataset
- */
-export const getCustomer = <T = AirtableRecord<Customer>>(dataset: SanitizedAirtableDataset): T => {
-  return find(dataset, { __typename: 'Customer' }) as unknown as T;
-};
 
 /**
  * Returns the whole dataset (raw), based on the app-wide static/shared/stale data fetched at build time.

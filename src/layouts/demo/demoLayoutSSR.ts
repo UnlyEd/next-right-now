@@ -5,9 +5,9 @@ import { getAirtableSchema } from '@/modules/core/airtable/airtableSchema';
 import consolidateSanitizedAirtableDataset from '@/modules/core/airtable/consolidateSanitizedAirtableDataset';
 import fetchAirtableDataset from '@/modules/core/airtable/fetchAirtableDataset';
 import {
-  getCustomer,
   getStaticAirtableDataset,
 } from '@/modules/core/airtable/getAirtableDataset';
+import { getCustomer } from '@/modules/core/airtable/dataset';
 import prepareAndSanitizeAirtableDataset from '@/modules/core/airtable/prepareAndSanitizeAirtableDataset';
 import { AirtableSchema } from '@/modules/core/airtable/types/AirtableSchema';
 import { RawAirtableRecordsSet } from '@/modules/core/airtable/types/RawAirtableRecordsSet';

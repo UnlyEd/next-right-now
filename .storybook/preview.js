@@ -1,7 +1,7 @@
 import '@/app/components/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import MultiversalGlobalStyles from '@/app/components/MultiversalGlobalStyles';
 import '@/common/utils/ignoreNoisyWarningsHacks';
-import { getCustomer } from '@/modules/core/airtable/getAirtableDataset';
+import { getCustomer } from '@/modules/core/airtable/dataset';
 import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitude';
 import amplitudeContext from '@/modules/core/amplitude/context/amplitudeContext';
 import customerContext from '@/modules/core/data/contexts/customerContext';
