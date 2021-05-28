@@ -109,45 +109,8 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
   const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
   const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
   const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
-  // XXX This part is not using "getGraphcmsDataset" because I'm not sure how to return the "apolloClient" instance when doing so, as it'll be wrapped and isn't returned
-  //  So, code is duplicated, but that works fine
+  const dataset: StaticDataset | GraphCMSDataset = await getGraphcmsDataset(gcmsLocales);
   const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
-  const variables = {
-    customerRef,
-  };
-  const queryOptions = {
-    displayName: 'DEMO_LAYOUT_QUERY',
-    query: DEMO_LAYOUT_QUERY,
-    variables,
-    context: {
-      headers: {
-        'gcms-locales': gcmsLocales,
-      },
-    },
-  };
-
-  const {
-    data,
-    errors,
-    loading,
-    networkStatus,
-    ...rest
-  }: ApolloQueryResult<{
-    customer: Customer;
-  }> = await apolloClient.query(queryOptions);
-
-  if (errors) {
-    // eslint-disable-next-line no-console
-    console.error(errors);
-    throw new Error('Errors were detected in GraphQL query.');
-  }
-
-  const {
-    customer,
-  } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
-  const dataset = {
-    customer,
-  };
 
   return {
     // Props returned here will be available as page properties (pageProps)
@@ -155,7 +118,7 @@ export const getCoreStaticProps: GetStaticProps<SSGPageProps, CommonServerSidePa
       [APOLLO_STATE_PROP_NAME]: getApolloState(apolloClient),
       bestCountryCodes,
       serializedDataset: serializeSafe(dataset),
-      customer,
+      customer: dataset.customer,
       customerRef,
       i18nTranslations,
       gcmsLocales,
