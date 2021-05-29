@@ -72,7 +72,6 @@ on:
 
 env:
   STAGE: production
-  CYPRESS_DOCKER_VERSION: '7.4.0' # Should match the version installed in package.json
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
@@ -270,7 +269,7 @@ jobs:
     runs-on: ubuntu-18.04
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
-    container: "cypress/included:${{ env.CYPRESS_DOCKER_VERSION }}"
+    container: cypress/included:7.4.0
     needs: await-for-vercel-deployment
     timeout-minutes: 20 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
