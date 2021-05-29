@@ -193,7 +193,7 @@ jobs:
     runs-on: ubuntu-18.04
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
-    container: cypress/included:${{ env.CYPRESS_DOCKER_VERSION }}
+    container: "cypress/included:${{ env.CYPRESS_DOCKER_VERSION }}"
     needs: await-for-vercel-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
