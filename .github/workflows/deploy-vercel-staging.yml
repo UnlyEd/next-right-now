@@ -72,7 +72,7 @@ on:
 
 env:
   STAGE: staging
-  CYPRESS_DOCKER_VERSION: '7.3.0' # Should match the version installed in package.json
+  CYPRESS_DOCKER_VERSION: '7.4.0' # Should match the version installed in package.json
 
 jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
