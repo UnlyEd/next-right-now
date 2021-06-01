@@ -144,8 +144,6 @@ export const getCoreLayoutStaticProps: GetCoreLayoutStaticProps = (options?: Get
     const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
     const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
     const dataset: StaticDataset | GraphCMSDataset = await getGraphcmsDataset(gcmsLocales);
-    // XXX This part is not using "getGraphcmsDataset" because I'm not sure how to return the "apolloClient" instance when doing so, as it'll be wrapped and isn't returned
-    //  So, code is duplicated, but that works fine
     const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
     const variables = {
       customerRef,
