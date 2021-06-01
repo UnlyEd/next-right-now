@@ -5,8 +5,8 @@ import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import BuiltInUtilitiesSidebar from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import {
-  getDemoStaticPaths,
-  getDemoStaticProps,
+  getDemoLayoutStaticPaths,
+  getDemoLayoutStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
 import { createLogger } from '@/modules/core/logging/logger';
 import {
@@ -30,7 +30,7 @@ const logger = createLogger({ // eslint-disable-line no-unused-vars,@typescript-
  * Only executed on the server side at build time
  * Necessary when a page has dynamic routes and uses "getStaticProps"
  */
-export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoStaticPaths;
+export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoLayoutStaticPaths();
 
 /**
  * Only executed on the server side at build time.
@@ -40,7 +40,7 @@ export const getStaticPaths: GetStaticPaths<CommonServerSideParams> = getDemoSta
  * @see https://github.com/vercel/next.js/discussions/10949#discussioncomment-6884
  * @see https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation
  */
-export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDemoStaticProps;
+export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams> = getDemoLayoutStaticProps();
 
 /**
  * SSG pages are first rendered by the server (during static bundling)

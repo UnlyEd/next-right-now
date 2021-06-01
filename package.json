@@ -177,7 +177,7 @@
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@cypress/react": "4.16.4",
+    "@cypress/react": "5.8.1",
     "@emotion/babel-preset-css-prop": "11.2.0",
     "@emotion/eslint-plugin": "11.2.0",
     "@next/bundle-analyzer": "10.2.0",
@@ -229,7 +229,7 @@
     "concurrently": "6.1.0",
     "cross-env": "7.0.3",
     "current-git-branch": "1.1.0",
-    "cypress": "6.8.0",
+    "cypress": "7.4.0",
     "del-cli": "3.0.1",
     "dotenv": "9.0.2",
     "eslint": "7.26.0",
