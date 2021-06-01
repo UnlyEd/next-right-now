@@ -2,7 +2,7 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
-import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
+import { DEMO_STATIC_DATA_QUERY } from '@/common/gql/demoStaticDataQuery';
 import {
   GetCoreLayoutStaticPaths,
   GetCoreLayoutStaticPathsOptions,
@@ -143,45 +143,22 @@ export const getCoreLayoutStaticProps: GetCoreLayoutStaticProps = (options?: Get
     const bestCountryCodes: string[] = [lang, resolveFallbackLanguage(lang)];
     const gcmsLocales: string = prepareGraphCMSLocaleHeader(bestCountryCodes);
     const i18nTranslations: I18nextResources = await getLocizeTranslations(lang);
-    // XXX This part is not using "getGraphcmsDataset" because I'm not sure how to return the "apolloClient" instance when doing so, as it'll be wrapped and isn't returned
-    //  So, code is duplicated, but that works fine
+    const dataset: StaticDataset | GraphCMSDataset = await getGraphcmsDataset(gcmsLocales);
     const apolloClient: ApolloClient<NormalizedCacheObject> = initializeApollo();
     const variables = {
       customerRef,
     };
-    const queryOptions = {
-      displayName: 'DEMO_LAYOUT_QUERY',
-      query: DEMO_LAYOUT_QUERY,
-      variables,
-      context: {
-        headers: {
-          'gcms-locales': gcmsLocales,
-        },
-      },
-    };
 
-    const {
-      data,
-      errors,
-      loading,
-      networkStatus,
-      ...rest
-    }: ApolloQueryResult<{
-      customer: Customer;
-    }> = await apolloClient.query(queryOptions);
-
-    if (errors) {
-      // eslint-disable-next-line no-console
-      console.error(errors);
-      throw new Error('Errors were detected in GraphQL query.');
-    }
+    // XXX Updating apollo client cache with static data
+    apolloClient.writeQuery({
+      query: DEMO_STATIC_DATA_QUERY,
+      data: dataset,
+      variables
+    });
 
     const {
       customer,
-    } = data || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
-    const dataset = {
-      customer,
-    };
+    } = dataset || {}; // XXX Use empty object as fallback, to avoid app crash when destructuring, if no data is returned
 
     // Do not serve pages using locales the customer doesn't have enabled (useful during preview mode and in development env)
     if (enable404Redirect && !includes(customer?.availableLanguages, locale)) {
