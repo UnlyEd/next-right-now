@@ -2,7 +2,7 @@ import { CommonServerSideParams } from '@/app/types/CommonServerSideParams';
 import { StaticPath } from '@/app/types/StaticPath';
 import { StaticPathsOutput } from '@/app/types/StaticPathsOutput';
 import { StaticPropsInput } from '@/app/types/StaticPropsInput';
-import { DEMO_LAYOUT_QUERY } from '@/common/gql/demoLayoutQuery';
+import { DEMO_STATIC_DATA_QUERY } from '@/common/gql/demoStaticDataQuery';
 import {
   GetCoreLayoutStaticPaths,
   GetCoreLayoutStaticPathsOptions,
@@ -151,7 +151,7 @@ export const getCoreLayoutStaticProps: GetCoreLayoutStaticProps = (options?: Get
 
     // XXX Updating apollo client cache with static data
     apolloClient.writeQuery({
-      query: DEMO_LAYOUT_QUERY,
+      query: DEMO_STATIC_DATA_QUERY,
       data: dataset,
       variables
     });
