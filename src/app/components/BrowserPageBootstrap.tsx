@@ -19,6 +19,7 @@ import initCookieConsent, { getUserConsent } from '@/modules/core/userConsent/co
 import { UserConsent } from '@/modules/core/userConsent/types/UserConsent';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
 import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
+import { NetworkInformationSpeed } from '@/modules/core/networkInformation/networkInformation';
 import {
   getIframeReferrer,
   isRunningInIframe,
@@ -32,6 +33,8 @@ import * as Sentry from '@sentry/node';
 import { AmplitudeClient } from 'amplitude-js';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNetworkInformation } from 'web-api-hooks';
+import { NetworkInformation } from 'web-api-hooks/dist-types/experimental-types/NetworkInformation.bundled';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 
@@ -81,6 +84,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const theme = useTheme();
   const isCypressRunning = detectCypress();
   const isLightHouseRunning = detectLightHouse();
+  const networkInformation = (useNetworkInformation() || {}) as NetworkInformation;
+  const networkSpeed: NetworkInformationSpeed = networkInformation?.effectiveType || 'unknown';
 
   // Configure Sentry user and track navigation through breadcrumb
   configureSentryUser(userSession);
@@ -103,6 +108,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     locale,
     userId,
     userConsent,
+    networkSpeed,
   });
 
   // Init the Cookie Consent popup, which will open on the browser
@@ -175,6 +181,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
           hasUserGivenAnyCookieConsent: hasUserGivenAnyCookieConsent,
           isCypressRunning,
           isLightHouseRunning,
+          networkSpeed,
         }}
         // XXX Do not use "userProperties" here, add default user-related properties in getAmplitudeInstance instead
         //  Because "event" had priority over "user event" and will be executed before
