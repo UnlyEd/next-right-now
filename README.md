@@ -62,6 +62,8 @@ Both documentations are related and there are many links from the demos toward t
 > TypeScript, with good typings, is the icing on the cake.
 > It helps us a lot to move quickly on NextJS." - [ApplyFuture](https://www.applyfuture.com/), _2020-10_
 
+
+> "Edooking is a digital marketplace for the international education industry. It was born in 2019 and we wanted it to be built in a stable and scalable platform, so we decided to use Next.js. After months implementing the MVP we saw that it was going to take a long time to implement all the basic features we needed like i18n, Sentry, Locize and Amplitude, after some research we found Next-Right-Now, a production-grade solution that speeded our development workflow a lot, the work that was going to take months became days. After more than a year using it we're very happy with the decision we made. Maintainers are very responsive and the code is really well written." - [Samuel Silva | Edooking](https://www.edooking.com), _2021-06_
 ---
 
 # FAQ
