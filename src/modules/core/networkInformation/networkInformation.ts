@@ -1,5 +1,4 @@
 import { isBrowser } from '@unly/utils';
-import { NetworkInformation } from 'web-api-hooks/dist-types/experimental-types/NetworkInformation.bundled';
 
 /**
  * Connection speed used by the client (browser).
@@ -10,9 +9,10 @@ import { NetworkInformation } from 'web-api-hooks/dist-types/experimental-types/
  * Experimental feature.
  *
  * @see https://developer.mozilla.org/fr/docs/Web/API/Navigator/connection
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType
  */
 export type ClientNetworkInformationSpeed =
-  NetworkInformation['effectiveType'] // '2g' | '3g' | '4g' | 'slow-2g'
+  '2g' | '3g' | '4g' | 'slow-2g' // Native types
   | 'unknown' // When the browser doesn't provide a "Connection" feature
   | 'not-applicable'; // Connection speed isn't applicable on the server
 
@@ -22,12 +22,13 @@ export type ClientNetworkInformationSpeed =
  * Universal, will return "not-applicable" if executed on the server.
  * Not available on all browsers, only a few of them provide such API.
  *
- * Experimental feature.
+ * Experimental feature. Only supported by Chrome OS as of June 2021.
  *
  * @see https://developer.mozilla.org/fr/docs/Web/API/Navigator/connection
+ * @seehttps://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/type
  */
 export type ClientNetworkConnectionType =
-  NetworkInformation['type'] // 'bluetooth' | 'cellular' | 'ethernet' | 'mixed' | 'none' | 'other' | 'unknown' | 'wifi' | 'wimax'
+  'bluetooth' | 'cellular' | 'ethernet' | 'mixed' | 'none' | 'other' | 'unknown' | 'wifi' | 'wimax'
   | 'not-applicable'; // Connection type isn't applicable on the server
 
 /**
@@ -35,7 +36,9 @@ export type ClientNetworkConnectionType =
  *
  * Meant to be used outside of React components.
  *
- * XXX If you want to use this in a React component, you should rather use the "useNetworkInformation" hook from "web-api-hooks" library.
+ * XXX If you want to use this in a React component and react to network changes, you should rather use the "useNetworkInformation" hook from "web-api-hooks" library.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType
  */
 export const getClientNetworkInformationSpeed = (): ClientNetworkInformationSpeed => {
   let networkInformation;
@@ -55,7 +58,9 @@ export const getClientNetworkInformationSpeed = (): ClientNetworkInformationSpee
  *
  * Meant to be used outside of React components.
  *
- * XXX If you want to use this in a React component, you should rather use the "useNetworkInformation" hook from "web-api-hooks" library.
+ * XXX If you want to use this in a React component and react to network changes, you should rather use the "useNetworkInformation" hook from "web-api-hooks" library.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/type
  */
 export const getClientNetworkConnectionType = (): ClientNetworkConnectionType => {
   let networkInformation;
@@ -66,6 +71,7 @@ export const getClientNetworkConnectionType = (): ClientNetworkConnectionType =>
   } else {
     return 'not-applicable';
   }
+  console.log('networkInformation', networkInformation);
 
   return networkInformation?.type;
 };

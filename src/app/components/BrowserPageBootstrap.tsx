@@ -8,6 +8,12 @@ import useDataset from '@/modules/core/data/hooks/useDataset';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
 import { createLogger } from '@/modules/core/logging/logger';
+import {
+  ClientNetworkConnectionType,
+  ClientNetworkInformationSpeed,
+  getClientNetworkConnectionType,
+  getClientNetworkInformationSpeed,
+} from '@/modules/core/networkInformation/networkInformation';
 import { configureSentryUser } from '@/modules/core/sentry/sentry';
 import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
 import {
@@ -19,10 +25,6 @@ import initCookieConsent, { getUserConsent } from '@/modules/core/userConsent/co
 import { UserConsent } from '@/modules/core/userConsent/types/UserConsent';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
 import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
-import {
-  ClientNetworkConnectionType,
-  ClientNetworkInformationSpeed,
-} from '@/modules/core/networkInformation/networkInformation';
 import {
   getIframeReferrer,
   isRunningInIframe,
@@ -36,8 +38,6 @@ import * as Sentry from '@sentry/node';
 import { AmplitudeClient } from 'amplitude-js';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNetworkInformation } from 'web-api-hooks';
-import { NetworkInformation } from 'web-api-hooks/dist-types/experimental-types/NetworkInformation.bundled';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
 
@@ -87,9 +87,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const theme = useTheme();
   const isCypressRunning = detectCypress();
   const isLightHouseRunning = detectLightHouse();
-  const networkInformation = (useNetworkInformation() || {}) as NetworkInformation;
-  const networkSpeed: ClientNetworkInformationSpeed = networkInformation?.effectiveType || 'unknown';
-  const networkConnectionType: ClientNetworkConnectionType = networkInformation?.type;
+  const networkSpeed: ClientNetworkInformationSpeed = getClientNetworkInformationSpeed();
+  const networkConnectionType: ClientNetworkConnectionType = getClientNetworkConnectionType();
 
   // Configure Sentry user and track navigation through breadcrumb
   configureSentryUser(userSession);
