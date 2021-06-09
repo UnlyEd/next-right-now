@@ -122,11 +122,29 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
           },
         ],
       },
+      {
+        source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
+        // source: '/:path*', // Match all paths, excluding "/"
+        headers: [
+          // This directive helps protect against some XSS attacks
+          // See https://infosec.mozilla.org/guidelines/web_security#x-content-type-options
+          {
+            key: 'X-Content-Type-Options',
+            value: `nosniff`,
+          },
+        ],
+      },
     ];
 
-    // XXX Forbid usage in iframes from external 3rd parties, for non-production site
-    //  This is meant to avoid customers using the preview in their production website, which would incur uncontrolled costs on our end
-    //  Also, our preview env cannot scale considering each request send many airtable API calls and those are rate limited and out of our control
+    /**
+     * Because the NRN demo uses Stacker provider to show our app as an embedded iframe, we need to allow our pages to be embedded by other websites.
+     *
+     * In staging, we don't want to allow any website to embed our app by default, to avoid customers mistakenly use our preview URL in their production app.
+     * Although, we want to allow Stacker to do it, so we can preview our website from Stacker (quick-preview).
+     *
+     * In production, we want to allow any website to embed our app by default, because we don't want to manage the list of websites that might embed our content.
+     * Alternatively, we could also generate the CSP dynamically by pre-fetching the allowed websites from our CMS/API.
+     */
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
       headers.push({
         source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
