@@ -19,7 +19,10 @@ import initCookieConsent, { getUserConsent } from '@/modules/core/userConsent/co
 import { UserConsent } from '@/modules/core/userConsent/types/UserConsent';
 import { UserSemiPersistentSession } from '@/modules/core/userSession/types/UserSemiPersistentSession';
 import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
-import { NetworkInformationSpeed } from '@/modules/core/networkInformation/networkInformation';
+import {
+  ClientNetworkConnectionType,
+  ClientNetworkInformationSpeed,
+} from '@/modules/core/networkInformation/networkInformation';
 import {
   getIframeReferrer,
   isRunningInIframe,
@@ -85,7 +88,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const isCypressRunning = detectCypress();
   const isLightHouseRunning = detectLightHouse();
   const networkInformation = (useNetworkInformation() || {}) as NetworkInformation;
-  const networkSpeed: NetworkInformationSpeed = networkInformation?.effectiveType || 'unknown';
+  const networkSpeed: ClientNetworkInformationSpeed = networkInformation?.effectiveType || 'unknown';
+  const networkConnectionType: ClientNetworkConnectionType = networkInformation?.type;
 
   // Configure Sentry user and track navigation through breadcrumb
   configureSentryUser(userSession);
@@ -109,6 +113,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     userId,
     userConsent,
     networkSpeed,
+    networkConnectionType,
   });
 
   // Init the Cookie Consent popup, which will open on the browser
@@ -182,6 +187,7 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
           isCypressRunning,
           isLightHouseRunning,
           networkSpeed,
+          networkConnectionType,
         }}
         // XXX Do not use "userProperties" here, add default user-related properties in getAmplitudeInstance instead
         //  Because "event" had priority over "user event" and will be executed before
