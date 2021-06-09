@@ -139,6 +139,21 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
           },
         ],
       },
+      {
+        source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
+        headers: [
+          // This directive helps protect user's privacy and might avoid leaking sensitive data in urls to 3rd parties (e.g: when loading a 3rd party asset)
+          // See https://infosec.mozilla.org/guidelines/web_security#referrer-policy
+          // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
+          // See https://scotthelme.co.uk/a-new-security-header-referrer-policy/
+          {
+            key: 'Referrer-Policy',
+            // "no-referrer-when-downgrade" is the default behaviour
+            // XXX You might want to restrict even more the referrer policy
+            value: `no-referrer-when-downgrade`,
+          },
+        ],
+      },
     ];
 
     /**
