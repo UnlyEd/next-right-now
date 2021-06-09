@@ -104,11 +104,17 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
    * Headers allow you to set route specific headers like CORS headers, content-types, and any other headers that may be needed.
    * They are applied at the very top of the routes.
    *
+   * @example source: '/(.*?)', // Match all paths, including "/"
+   * @example source: '/:path*', // Match all paths, excluding "/"
+   *
    * @return {Promise<Array<{ headers: [{value: string, key: string}], source: string }>>}
    * @see https://nextjs.org/docs/api-reference/next.config.js/headers
    * @since 9.5 - See https://nextjs.org/blog/next-9-5#headers
    */
   async headers() {
+    // XXX We need to embed our website into external websites for the NRN demo, but you might want to disable this
+    const DISABLE_IFRAME_EMBED_FROM_3RD_PARTIES = false;
+
     const headers = [
       {
         // Make all fonts immutable and cached for one year
@@ -118,11 +124,80 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
             'key': 'Cache-Control',
             // See https://www.keycdn.com/blog/cache-control-immutable#what-is-cache-control-immutable
             // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#browser_compatibility
-            'value': 'public, max-age=31536000, immutable',
+            'value': `public, max-age=31536000, immutable`,
+          },
+        ],
+      },
+      {
+        source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
+        headers: [
+          // This directive helps protect against some XSS attacks
+          // See https://infosec.mozilla.org/guidelines/web_security#x-content-type-options
+          {
+            key: 'X-Content-Type-Options',
+            value: `nosniff`,
+          },
+        ],
+      },
+      {
+        source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
+        headers: [
+          // This directive helps protect user's privacy and might avoid leaking sensitive data in urls to 3rd parties (e.g: when loading a 3rd party asset)
+          // See https://infosec.mozilla.org/guidelines/web_security#referrer-policy
+          // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
+          // See https://scotthelme.co.uk/a-new-security-header-referrer-policy/
+          {
+            key: 'Referrer-Policy',
+            // "no-referrer-when-downgrade" is the default behaviour
+            // XXX You might want to restrict even more the referrer policy
+            value: `no-referrer-when-downgrade`,
           },
         ],
       },
     ];
+
+    /**
+     * Because the NRN demo uses Stacker provider to show our app as an embedded iframe, we need to allow our pages to be embedded by other websites.
+     *
+     * In staging, we don't want to allow any website to embed our app by default, to avoid customers mistakenly use our preview URL in their production app.
+     * Although, we want to allow Stacker to do it, so we can preview our website from Stacker (quick-preview).
+     *
+     * In production, we want to allow any website to embed our app by default, because we don't want to manage the list of websites that might embed our content.
+     * Alternatively, we could also generate the CSP dynamically by pre-fetching the allowed websites from our CMS/API.
+     */
+    if (!DISABLE_IFRAME_EMBED_FROM_3RD_PARTIES && process.env.NEXT_PUBLIC_APP_STAGE !== 'production') {
+      headers.push({
+        source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: `frame-ancestors *.stacker.app`,
+          },
+        ],
+      });
+    }
+
+    // When 3rd party embeds are forbidden, only allow same origin to embed iframe by default
+    // This is a stronger default, if you don't to embed your site in any external website
+    if (DISABLE_IFRAME_EMBED_FROM_3RD_PARTIES) {
+      headers.push({
+        // This directive's "ALLOW-FROM" option is deprecated in favor of "Content-Security-Policy" "frame-ancestors"
+        // So, we use a combination of both the CSP directive and the "X-Frame-Options" for browser that don't support CSP
+        // See https://infosec.mozilla.org/guidelines/web_security#x-frame-options
+        key: 'X-Frame-Options',
+        value: `SAMEORIGIN`,
+      });
+      headers.push({
+        source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
+        // See https://infosec.mozilla.org/guidelines/web_security#x-frame-options
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: `frame-ancestors 'self`,
+          },
+        ],
+      });
+    }
 
     console.info('Using headers:', JSON.stringify(headers, null, 2));
 
