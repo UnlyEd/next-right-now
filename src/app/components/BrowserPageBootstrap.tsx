@@ -8,6 +8,12 @@ import useDataset from '@/modules/core/data/hooks/useDataset';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
 import { createLogger } from '@/modules/core/logging/logger';
+import {
+  ClientNetworkConnectionType,
+  ClientNetworkInformationSpeed,
+  getClientNetworkConnectionType,
+  getClientNetworkInformationSpeed,
+} from '@/modules/core/networkInformation/networkInformation';
 import { configureSentryUser } from '@/modules/core/sentry/sentry';
 import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
 import {
@@ -81,6 +87,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const theme = useTheme();
   const isCypressRunning = detectCypress();
   const isLightHouseRunning = detectLightHouse();
+  const networkSpeed: ClientNetworkInformationSpeed = getClientNetworkInformationSpeed();
+  const networkConnectionType: ClientNetworkConnectionType = getClientNetworkConnectionType();
 
   // Configure Sentry user and track navigation through breadcrumb
   configureSentryUser(userSession);
@@ -103,6 +111,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
     locale,
     userId,
     userConsent,
+    networkSpeed,
+    networkConnectionType,
   });
 
   // Init the Cookie Consent popup, which will open on the browser
@@ -175,6 +185,8 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
           hasUserGivenAnyCookieConsent: hasUserGivenAnyCookieConsent,
           isCypressRunning,
           isLightHouseRunning,
+          networkSpeed,
+          networkConnectionType,
         }}
         // XXX Do not use "userProperties" here, add default user-related properties in getAmplitudeInstance instead
         //  Because "event" had priority over "user event" and will be executed before

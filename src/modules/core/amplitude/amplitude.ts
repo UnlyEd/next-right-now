@@ -1,4 +1,10 @@
 import { createLogger } from '@/modules/core/logging/logger';
+import {
+  getClientNetworkInformationSpeed,
+  ClientNetworkInformationSpeed,
+  ClientNetworkConnectionType,
+  getClientNetworkConnectionType,
+} from '@/modules/core/networkInformation/networkInformation';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import {
@@ -54,6 +60,8 @@ type GetAmplitudeInstanceProps = {
   locale: string;
   userId: string;
   userConsent: UserConsent;
+  networkSpeed: ClientNetworkInformationSpeed;
+  networkConnectionType: ClientNetworkConnectionType;
 }
 
 export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): AmplitudeClient | null => {
@@ -68,6 +76,8 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       locale,
       userId,
       userConsent,
+      networkSpeed,
+      networkConnectionType,
     } = props;
     const {
       isUserOptedOutOfAnalytics,
@@ -75,6 +85,8 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
     } = userConsent;
 
     Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+      scope.setTag('networkSpeed', networkSpeed);
+      scope.setTag('networkConnectionType', networkConnectionType);
       scope.setTag('iframe', `${isInIframe}`);
       scope.setExtra('iframe', isInIframe);
       scope.setExtra('iframeReferrer', iframeReferrer);
@@ -123,6 +135,8 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       // XXX Learn more about "setOnce" at https://github.com/amplitude/Amplitude-JavaScript/issues/223
       visitor.setOnce('initial_lang', lang); // DA Helps figuring out if the initial language (auto-detected) is changed afterwards
       visitor.setOnce('initial_locale', locale);
+      visitor.setOnce('initial_networkSpeed', networkSpeed);
+      visitor.setOnce('initial_networkConnectionType', networkConnectionType);
       // DA This will help track down the users who discovered our platform because of an iframe
       visitor.setOnce('initial_iframe', isInIframe);
       visitor.setOnce('initial_iframeReferrer', iframeReferrer);
@@ -131,6 +145,8 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       visitor.setOnce('customer.ref', customerRef);
       visitor.setOnce('lang', lang);
       visitor.setOnce('locale', locale);
+      visitor.setOnce('networkSpeed', networkSpeed);
+      visitor.setOnce('networkConnectionType', networkConnectionType);
       visitor.setOnce('iframe', isInIframe);
       visitor.setOnce('iframeReferrer', iframeReferrer);
 
@@ -160,11 +176,14 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
     const amplitudeInstance: AmplitudeClient = amplitude.getInstance();
     const universalCookiesManager = new UniversalCookiesManager();
     const userData: UserSemiPersistentSession = universalCookiesManager.getUserData();
+    const networkSpeed: ClientNetworkInformationSpeed = getClientNetworkInformationSpeed();
+    const networkConnectionType: ClientNetworkConnectionType = getClientNetworkConnectionType();
+    console.log('networkConnectionType', networkConnectionType)
 
     // https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
     amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
       // userId: null,
-      userId: userData.id,
+      userId: userData?.id,
       logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
       includeGclid: false, // GDPR Enabling this is not GDPR compliant and must not be enabled without explicit user consent - See https://croud.com/blog/news/10-point-gdpr-checklist-digital-advertising/
       includeReferrer: true, // https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
@@ -197,6 +216,8 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
         ref: process.env.NEXT_PUBLIC_CUSTOMER_REF,
       },
       report,
+      networkSpeed,
+      networkConnectionType,
     });
     // eslint-disable-next-line no-console
     console.debug('report-web-vitals report sent to Amplitude');

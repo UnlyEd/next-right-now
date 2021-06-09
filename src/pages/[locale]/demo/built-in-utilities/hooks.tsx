@@ -189,6 +189,18 @@ const HooksPage: NextPage<Props> = (props): JSX.Element => {
 
         <hr />
 
+        <Alert color={'info'}>
+          If you want to add more utility hooks, here are some famous open-source projects you might want to check out:
+          <ul>
+            <li>
+              <ExternalLink href={'https://github.com/kripod/react-hooks/tree/master/packages/state-hooks'}><code>state-hooks</code></ExternalLink>
+            </li>
+            <li>
+              <ExternalLink href={'https://github.com/kripod/react-hooks/tree/master/packages/web-api-hooks'}><code>web-api-hooks</code></ExternalLink>
+            </li>
+          </ul>
+        </Alert>
+
       </DemoPage>
     </DemoLayout>
   );
