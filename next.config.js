@@ -129,6 +129,18 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
         ],
       },
       {
+        // Make all other static assets immutable and cached for one hour
+        'source': '/static/(.*?)',
+        'headers': [
+          {
+            'key': 'Cache-Control',
+            // See https://www.keycdn.com/blog/cache-control-immutable#what-is-cache-control-immutable
+            // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control#browser_compatibility
+            'value': `public, max-age=3600, immutable`,
+          },
+        ],
+      },
+      {
         source: '/(.*?)', // Match all paths, including "/" - See https://github.com/vercel/next.js/discussions/17991#discussioncomment-112028
         headers: [
           // This directive helps protect against some XSS attacks
