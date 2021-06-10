@@ -9,6 +9,7 @@ import {
   getDemoLayoutStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
 import { createLogger } from '@/modules/core/logging/logger';
+import * as Sentry from '@sentry/nextjs';
 import {
   GetStaticPaths,
   GetStaticProps,
@@ -106,6 +107,18 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
           </Button>
         `}
       />
+
+      <br />
+
+      <div>
+        <Button
+          onClick={() => {
+            Sentry.showReportDialog();
+          }}
+        >
+          This should show the Sentry report dialog.
+        </Button>
+      </div>
     </DemoLayout>
   );
 };
