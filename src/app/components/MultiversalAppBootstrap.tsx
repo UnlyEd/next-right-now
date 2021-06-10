@@ -142,6 +142,7 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
   }
 
   if (pageProps.isReadyToRender || pageProps.statusCode === 404) {
+    logger.debug('IS_SERVER_INITIAL_BUILD', process.env.IS_SERVER_INITIAL_BUILD);
     if (!process.env.IS_SERVER_INITIAL_BUILD) { // Avoids noise when building the whole app
       logger.info('MultiversalAppBootstrap - App is ready, rendering...');
     }
