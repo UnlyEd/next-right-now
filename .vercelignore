@@ -1,18 +1,23 @@
 # Optimize speed/size of deployments by not uploading those files
 .idea/
+.github/
 node_modules/
 cypress/
+docs/
 coverage/
+scripts/
+svg-to-react/
 .codeclimate.yml
 .editorconfig
-.env.build.example
+.env*
 .graphqlconfig
-buildspec.yml
-README.md
+.hybrid-cache-*.cache
+.jest-test-results.json
+*.md
+LICENSE
 schema.graphql
-yarn.lock
 yarn-error.log
 
-# Avoid tests being deployed as Vercel Serverless Functions (increases bundle size, and count towards limits)
+# Avoid tests being deployed as Vercel Serverless Functions (they would increase bundle size, and count towards Vercel's limits)
 src/pages/api/*.test.ts
 src/pages/api/**/*.test.ts
