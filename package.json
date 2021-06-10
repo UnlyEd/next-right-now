@@ -116,6 +116,7 @@
     "@fortawesome/free-solid-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
     "@sentry/browser": "6.3.6",
+    "@sentry/nextjs": "6.6.0",
     "@sentry/node": "6.3.6",
     "@types/lodash.isequal": "4.5.5",
     "@unly/simple-logger": "1.0.0",

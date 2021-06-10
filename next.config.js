@@ -3,6 +3,7 @@ const nextSourceMaps = require('@zeit/next-source-maps');
 const createNextPluginPreval = require('next-plugin-preval/config');
 const packageJson = require('./package');
 const i18nConfig = require('./src/modules/core/i18n/i18nConfig');
+const { withSentryConfig } = require('@sentry/nextjs');
 
 const withNextPluginPreval = createNextPluginPreval();
 const withSourceMaps = nextSourceMaps();
@@ -17,6 +18,16 @@ const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folde
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const date = new Date();
 const GIT_COMMIT_SHA_SHORT = typeof process.env.GIT_COMMIT_SHA === 'string' && process.env.GIT_COMMIT_SHA.substring(0, 8);
+const SentryWebpackPluginOptions = {
+  // Additional config options for the Sentry Webpack plugin. Keep in mind that
+  // the following options are set automatically, and overriding them is not
+  // recommended:
+  //   release, url, org, project, authToken, configFile, stripPrefix,
+  //   urlPrefix, include, ignore
+  // For all available options, see:
+  // https://github.com/getsentry/sentry-webpack-plugin#options.
+  debug: process.env.NODE_ENV === 'development',
+};
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${process.env.GIT_COMMIT_SHA} and GIT_COMMIT_REF=${process.env.GIT_COMMIT_REF}`);
 
@@ -35,14 +46,18 @@ console.debug(`Release version resolved from tags: "${APP_RELEASE_TAG}" (matchin
  * The below config applies to the whole application.
  * next.config.js gets used by the Next.js server and build phases, and it's not included in the browser build.
  *
+ * Make sure adding "withSentryConfig" is the last code to run before exporting, to  ensure that your source maps include changes from all other Webpack plugins.
+ *
  * XXX Not all configuration options are listed below, we only kept those of most interest.
  *  You'll need to dive into Next.js own documentation to find out about what's not included.
  *  Basically, we focused on options that seemed important for a SSG/SSR app running on serverless mode (Vercel).
  *  Also, we included some options by are not using them, this is mostly to help make you aware of those options, in case you'd need them.
  *
  * @see https://nextjs.org/docs/api-reference/next.config.js/introduction
+ * @see https://docs.sentry.io/platforms/javascript/guides/nextjs/
+ * @see https://github.com/getsentry/sentry-webpack-plugin#options
  */
-module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
+module.exports = withSentryConfig(withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
   // basepath: '', // If you want Next.js to cover only a subsection of the domain. See https://nextjs.org/docs/api-reference/next.config.js/basepath
   // target: 'serverless', // Automatically enabled on Vercel, you may need to manually opt-in if you're not using Vercel. See https://nextjs.org/docs/api-reference/next.config.js/build-target#serverless-target
   // trailingSlash: false, // By default Next.js will redirect urls with trailing slashes to their counterpart without a trailing slash. See https://nextjs.org/docs/api-reference/next.config.js/trailing-slash
@@ -403,4 +418,4 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
   // },
 
   poweredByHeader: false, // See https://nextjs.org/docs/api-reference/next.config.js/disabling-x-powered-by
-})));
+}))), SentryWebpackPluginOptions);
