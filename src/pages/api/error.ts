@@ -1,5 +1,6 @@
 import { createLogger } from '@/modules/core/logging/logger';
 import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
+import { withSentry } from '@sentry/nextjs';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -36,4 +37,4 @@ export const error = async (req: NextApiRequest, res: NextApiResponse): Promise<
   }
 };
 
-export default error;
+export default withSentry(error);

@@ -1,10 +1,10 @@
 import { createLogger } from '@/modules/core/logging/logger';
 import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
+import { withSentry } from '@sentry/nextjs';
 import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { withSentry } from '@sentry/nextjs';
 
 const fileLabel = 'api/status';
 const logger = createLogger({
