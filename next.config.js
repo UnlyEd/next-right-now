@@ -27,6 +27,7 @@ const sentryWebpackPluginOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
   debug: process.env.NODE_ENV === 'development',
+  // silent: true, // Suppresses all logs
 };
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${process.env.GIT_COMMIT_SHA} and GIT_COMMIT_REF=${process.env.GIT_COMMIT_REF}`);
@@ -364,25 +365,6 @@ module.exports = withSentryConfig(withNextPluginPreval(withBundleAnalyzer(withSo
 
     if (isServer) { // Trick to only log once
       console.debug(`[webpack] Building release "${APP_VERSION_RELEASE}" using NODE_ENV="${process.env.NODE_ENV}" ${process.env.IS_SERVER_INITIAL_BUILD ? 'with IS_SERVER_INITIAL_BUILD="1"' : ''}`);
-    }
-
-    // XXX See https://github.com/vercel/next.js/blob/canary/examples/with-sentry-simple/next.config.js
-    // In `pages/_app.js`, Sentry is imported from @sentry/node. While
-    // @sentry/browser will run in a Node.js environment, @sentry/node will use
-    // Node.js-only APIs to catch even more unhandled exceptions.
-    //
-    // This works well when Next.js is SSRing your page on a server with
-    // Node.js, but it is not what we want when your client-side bundle is being
-    // executed by a browser.
-    //
-    // Luckily, Next.js will call this webpack function twice, once for the
-    // server and once for the client. Read more:
-    // https://nextjs.org/docs#customizing-webpack-config
-    //
-    // So ask Webpack to replace @sentry/node imports with @sentry/browser when
-    // building the browser's bundle
-    if (!isServer) {
-      config.resolve.alias['@sentry/node'] = '@sentry/browser';
     }
 
     return config;

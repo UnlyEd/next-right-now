@@ -1,5 +1,5 @@
 import { createLogger } from '@/modules/core/logging/logger';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import cloneDeep from 'lodash.clonedeep';
 import find from 'lodash.find';
 import get from 'lodash.get';

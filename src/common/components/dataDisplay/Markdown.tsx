@@ -3,7 +3,7 @@ import { Markdown as MarkdownType } from '@/modules/core/data/types/Markdown';
 import I18nBtnChangeLocale from '@/modules/core/i18n/components/I18nBtnChangeLocale';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { createLogger } from '@/modules/core/logging/logger';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import classnames from 'classnames';
 import deepmerge from 'deepmerge';
 import MarkdownToJSXLib, { MarkdownToJSX } from 'markdown-to-jsx';

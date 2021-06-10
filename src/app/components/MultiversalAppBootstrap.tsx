@@ -29,7 +29,7 @@ import { NotFound404PageName } from '@/pages/404';
 import ErrorPage from '@/pages/_error';
 import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
 import { ThemeProvider } from '@emotion/react';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { isBrowser } from '@unly/utils';
 import { i18n } from 'i18next';
 import isEmpty from 'lodash.isempty';

@@ -34,7 +34,7 @@ import {
   AmplitudeProvider,
 } from '@amplitude/react-amplitude';
 import { useTheme } from '@emotion/react';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { AmplitudeClient } from 'amplitude-js';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

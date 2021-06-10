@@ -5,7 +5,7 @@ import {
   ClientNetworkConnectionType,
   getClientNetworkConnectionType,
 } from '@/modules/core/networkInformation/networkInformation';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { isBrowser } from '@unly/utils';
 import {
   AmplitudeClient,
@@ -85,7 +85,7 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
       hasUserGivenAnyCookieConsent,
     } = userConsent;
 
-    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+    Sentry.configureScope((scope) => { // See https://docs.sentry.io/platforms/javascript/guides/nextjs/usage/
       scope.setTag('networkSpeed', networkSpeed);
       scope.setTag('networkConnectionType', networkConnectionType);
       scope.setTag('iframe', `${isInIframe}`);

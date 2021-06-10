@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { isBrowser } from '@unly/utils';
 import map from 'lodash.map';
 import { NextApiRequest } from 'next';
@@ -14,7 +14,7 @@ import { UserSession } from '../userSession/useUserSession';
  *
  * Doesn't initialise Sentry if SENTRY_DSN isn't defined
  *
- * @see https://www.npmjs.com/package/@sentry/node
+ * @see https://www.npmjs.com/package/@sentry/nextjs
  */
 if (process.env.SENTRY_DSN) {
   Sentry.init({
@@ -30,7 +30,7 @@ if (process.env.SENTRY_DSN) {
   }
 
   // Scope configured by default, subsequent calls to "configureScope" will add additional data
-  Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+  Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/nextjs
     scope.setTag('customerRef', process.env.NEXT_PUBLIC_CUSTOMER_REF);
     scope.setTag('appStage', process.env.NEXT_PUBLIC_APP_STAGE);
     scope.setTag('appName', process.env.NEXT_PUBLIC_APP_NAME);
@@ -70,7 +70,7 @@ export const ALERT_TYPES = {
  * The tracking remains anonymous, there are no personal information being tracked, only internal ids.
  *
  * @param userSession
- * @see https://www.npmjs.com/package/@sentry/node
+ * @see https://www.npmjs.com/package/@sentry/nextjs
  */
 export const configureSentryUser = (userSession: UserSession): void => {
   if (process.env.SENTRY_DSN) {
@@ -87,11 +87,11 @@ export const configureSentryUser = (userSession: UserSession): void => {
  *
  * @param lang
  * @param locale
- * @see https://www.npmjs.com/package/@sentry/node
+ * @see https://www.npmjs.com/package/@sentry/nextjs
  */
 export const configureSentryI18n = (lang: string, locale: string): void => {
   if (process.env.SENTRY_DSN) {
-    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/nextjs
       scope.setTag('lang', lang);
       scope.setTag('locale', locale);
     });
@@ -104,7 +104,7 @@ export const configureSentryI18n = (lang: string, locale: string): void => {
  * @param req
  * @param tags
  * @param contexts
- * @see https://www.npmjs.com/package/@sentry/node
+ * @see https://www.npmjs.com/package/@sentry/nextjs
  */
 export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string }, contexts?: { [key: string]: any }): void => {
   let parsedBody: GenericObject = {};

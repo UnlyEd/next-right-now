@@ -1,7 +1,7 @@
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { createLogger } from '@/modules/core/logging/logger';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import universalLanguageDetect from '@unly/universal-language-detector';
 import { ERROR_LEVELS } from '@unly/universal-language-detector/lib/utils/error';
 import { IncomingMessage } from 'http';
