@@ -80,61 +80,66 @@ const DemoLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
         },
       })}
     >
-      <DemoHead {...headProps} />
-      <LogOnMount eventType="page-displayed" />
-
-      {/* Loaded from components/Head - See https://github.com/mikemaccana/outdated-browser-rework */}
-      {/*<div*/}
-      {/*  id="outdated"*/}
-      {/*  style={{ display: 'none' }}*/}
-      {/*></div>*/}
-
-      {
-        // XXX You may want to enable preview mode during non-production stages only
-        process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && (
-          <PreviewModeBanner />
-        )
-      }
-
-      {
-        (!isInIframe || isIframeWithFullPagePreview) && (
-          <DemoNav />
-        )
-      }
-
-      <div
-        className={classnames('page-wrapper', isInIframe ? 'is-in-iframe' : 'not-in-iframe')}
+      <main
+        role={'main'}
+        className={'demo-layout'}
       >
+        <DemoHead {...headProps} />
+        <LogOnMount eventType="page-displayed" />
+
+        {/* Loaded from components/Head - See https://github.com/mikemaccana/outdated-browser-rework */}
+        {/*<div*/}
+        {/*  id="outdated"*/}
+        {/*  style={{ display: 'none' }}*/}
+        {/*></div>*/}
+
         {
-          // If an error happened, we display it instead of displaying the page
-          // We display a custom error instead of the native Next.js error by providing children (removing children will display the native Next.js error)
-          error ? (
-            <ErrorPage
-              statusCode={500}
-              isReadyToRender={true}
-              err={error}
-            >
-              <DefaultErrorLayout
-                error={error}
-              />
-            </ErrorPage>
-          ) : (
-            <DemoPageContainer
-              isSidebarOpen={isSidebarOpen}
-              setIsSidebarOpen={setIsSidebarOpen}
-              Sidebar={Sidebar}
-            >
-              {children}
-            </DemoPageContainer>
+          // XXX You may want to enable preview mode during non-production stages only
+          process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && (
+            <PreviewModeBanner />
           )
         }
-      </div>
 
-      {
-        (!isInIframe || isIframeWithFullPagePreview) && (
-          <DemoFooter />
-        )
-      }
+        {
+          (!isInIframe || isIframeWithFullPagePreview) && (
+            <DemoNav />
+          )
+        }
+
+        <div
+          className={classnames('page-wrapper', isInIframe ? 'is-in-iframe' : 'not-in-iframe')}
+        >
+          {
+            // If an error happened, we display it instead of displaying the page
+            // We display a custom error instead of the native Next.js error by providing children (removing children will display the native Next.js error)
+            error ? (
+              <ErrorPage
+                statusCode={500}
+                isReadyToRender={true}
+                err={error}
+              >
+                <DefaultErrorLayout
+                  error={error}
+                />
+              </ErrorPage>
+            ) : (
+              <DemoPageContainer
+                isSidebarOpen={isSidebarOpen}
+                setIsSidebarOpen={setIsSidebarOpen}
+                Sidebar={Sidebar}
+              >
+                {children}
+              </DemoPageContainer>
+            )
+          }
+        </div>
+
+        {
+          (!isInIframe || isIframeWithFullPagePreview) && (
+            <DemoFooter />
+          )
+        }
+      </main>
     </Amplitude>
   );
 };

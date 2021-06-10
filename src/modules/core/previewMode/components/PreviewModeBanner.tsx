@@ -69,7 +69,8 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
   }
 
   return (
-    <div
+    <header
+      role="banner"
       css={css`
         display: inline-flex;
         justify-content: space-between;
@@ -167,7 +168,7 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
           </Fragment>
         )
       }
-    </div>
+    </header>
   );
 };
 

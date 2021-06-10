@@ -66,6 +66,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
       {({ logEvent }: { logEvent: LogEvent }): JSX.Element => (
         <Navbar
           id={'nav'}
+          role="navigation"
           color="#F5F5F5"
           light
           css={css`
