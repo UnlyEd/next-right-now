@@ -25,8 +25,6 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
   try {
     configureReq(req, { fileLabel });
 
-    logger.log('status API', process.env.IS_SERVER_INITIAL_BUILD);
-
     res.json({
       appStage: process.env.NEXT_PUBLIC_APP_STAGE,
       appName: process.env.NEXT_PUBLIC_APP_NAME,

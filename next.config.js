@@ -321,9 +321,18 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
     defaultLoaders,
   }) => {
     if (isServer) {
-      // IS_SERVER_INITIAL_BUILD is meant to be defined only at build time and not at run time, and therefore must not be "made public"
-      // Always undefined on the browser
-      // Always true during development (on the server side)
+      /**
+       * This special server-only environment variable isn't string-replaced by webpack during bundling (it isn't added to the DefinePlugin definitions).
+       *
+       * Therefore, it's:
+       * - Always '1' on the server, during development
+       * - Always '1' on the server, during the Next.js build step
+       * - Always undefined on the browser
+       * - Always undefined in API endpoints
+       * - Always undefined during static pages re-generations (ISG) and server-side pages
+       *
+       * It can be useful when performing processing that should only happen during the initial build, or not during the initial build.
+       */
       process.env.IS_SERVER_INITIAL_BUILD = '1';
     }
 

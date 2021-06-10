@@ -87,7 +87,6 @@ export const fetchAirtableDataset = async (airtableSchema: AirtableSchema, local
       // eslint-disable-next-line no-console
       console.warn(`[WARNING] Your Vercel cache TTL is lower than the Airtable API request delay for ${tableName} (delay: ${preDelay} > ${VERCEL_DISK_CACHE_TTL * 1000}. This will cause your API requests to be sent multiple times and is probably not what you want. You should increase your TTL value.`);
     }
-    logger.debug('IS_SERVER_INITIAL_BUILD', process.env.IS_SERVER_INITIAL_BUILD);
 
     // Running all promises but don't await for them (we will await them all later to run them in parallel)
     promises.push(
