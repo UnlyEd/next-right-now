@@ -161,7 +161,8 @@ const CoreLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
         },
       })}
     >
-      <div
+      <main
+        role={'main'}
         className={layoutName}
         css={css`
           ${layoutBaseCSS || ''}
@@ -217,7 +218,7 @@ const CoreLayout: React.FunctionComponent<Props> = (props): JSX.Element => {
             <Footer />
           )
         }
-      </div>
+      </main>
     </Amplitude>
   );
 };

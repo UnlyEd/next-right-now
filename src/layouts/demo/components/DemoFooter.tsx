@@ -43,8 +43,9 @@ const DemoFooter: React.FunctionComponent<Props> = (props) => {
   const currentYear = (new Date()).getFullYear();
 
   return (
-    <div
+    <footer
       id="footer"
+      role="contentinfo"
       className={'footer'}
       style={style}
       css={css`
@@ -165,7 +166,7 @@ const DemoFooter: React.FunctionComponent<Props> = (props) => {
           />
         </div>
       </section>
-    </div>
+    </footer>
   );
 };
 

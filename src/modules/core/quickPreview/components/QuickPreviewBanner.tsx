@@ -55,7 +55,11 @@ const QuickPreviewBanner: React.FunctionComponent<Props> = (props): JSX.Element 
   const shouldDisplayI18nButton = availableLanguages?.length > 1;
 
   return (
-    <div className={'quick-preview-banner'}>
+    <main
+      // Role is "main" because only this banner is displayed on the page when this component is used (through Stacker)
+      role="main"
+      className={'quick-preview-banner'}
+    >
       <div
         css={css`
           display: inline-flex;
@@ -149,7 +153,7 @@ const QuickPreviewBanner: React.FunctionComponent<Props> = (props): JSX.Element 
           }
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
