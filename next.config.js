@@ -18,7 +18,7 @@ const publicBasePaths = ['robots', 'static', 'favicon.ico']; // All items (folde
 const noRedirectBasePaths = [...supportedLocales, ...publicBasePaths, ...noRedirectBlacklistedPaths]; // Will disable url rewrite for those items (should contain all supported languages and all public base paths)
 const date = new Date();
 const GIT_COMMIT_SHA_SHORT = typeof process.env.GIT_COMMIT_SHA === 'string' && process.env.GIT_COMMIT_SHA.substring(0, 8);
-const SentryWebpackPluginOptions = {
+const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
   // the following options are set automatically, and overriding them is not
   // recommended:
@@ -418,4 +418,4 @@ module.exports = withSentryConfig(withNextPluginPreval(withBundleAnalyzer(withSo
   // },
 
   poweredByHeader: false, // See https://nextjs.org/docs/api-reference/next.config.js/disabling-x-powered-by
-}))), SentryWebpackPluginOptions);
+}))), sentryWebpackPluginOptions);
