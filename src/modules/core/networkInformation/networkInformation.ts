@@ -71,7 +71,6 @@ export const getClientNetworkConnectionType = (): ClientNetworkConnectionType =>
   } else {
     return 'not-applicable';
   }
-  console.log('networkInformation', networkInformation);
 
   return networkInformation?.type;
 };
