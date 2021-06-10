@@ -19,7 +19,7 @@ export const createLogger = ({ fileLabel }: { fileLabel: string }): SimpleLogger
   return createSimpleLogger({
     prefix: fileLabel,
     shouldPrint: (mode) => {
-      console.debug('IS_SERVER_INITIAL_BUILD', process.env.IS_SERVER_INITIAL_BUILD);
+      console.debug('createSimpleLogger.shouldPrint IS_SERVER_INITIAL_BUILD', process.env.IS_SERVER_INITIAL_BUILD);
       // When bundling with Webpack, only print errors/warnings to avoid printing too much noise on Vercel
       // IS_SERVER_INITIAL_BUILD is always "1" during development, and is being ignored
       // if (process.env.NEXT_PUBLIC_APP_STAGE !== 'development' && process.env.IS_SERVER_INITIAL_BUILD === '1') {
