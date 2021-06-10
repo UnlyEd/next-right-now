@@ -4,6 +4,7 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
+import { withSentry } from '@sentry/nextjs';
 
 const fileLabel = 'api/status';
 const logger = createLogger({
@@ -59,4 +60,4 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
   }
 };
 
-export default status;
+export default withSentry(status);
