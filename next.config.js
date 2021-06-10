@@ -26,7 +26,8 @@ const sentryWebpackPluginOptions = {
   //   urlPrefix, include, ignore
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
-  debug: process.env.NODE_ENV === 'development',
+
+  // debug: process.env.NODE_ENV === 'development',
   // silent: true, // Suppresses all logs
 };
 
@@ -77,7 +78,7 @@ module.exports = withSentryConfig(withNextPluginPreval(withBundleAnalyzer(withSo
   reactStrictMode: true,
 
   /**
-   * Environment variables added to JS bundle
+   * Environment variables added to JS bundle.
    *
    * XXX All env variables defined in ".env*" files that aren't public (those that don't start with "NEXT_PUBLIC_") MUST manually be made available at build time below.
    *  They're necessary on Vercel for runtime execution (SSR, SSG with revalidate, everything that happens server-side will need those).
@@ -89,11 +90,13 @@ module.exports = withSentryConfig(withNextPluginPreval(withBundleAnalyzer(withSo
    * @see https://nextjs.org/docs/api-reference/next.config.js/environment-variables
    */
   env: {
+    // Most sensitive env variables
     GITHUB_DISPATCH_TOKEN: process.env.GITHUB_DISPATCH_TOKEN,
     AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY,
     AIRTABLE_BASE_ID: process.env.AIRTABLE_BASE_ID,
     LOCIZE_API_KEY: process.env.LOCIZE_API_KEY,
     SENTRY_DSN: process.env.SENTRY_DSN,
+    NEXT_PUBLIC_SENTRY_DSN: process.env.SENTRY_DSN, // Sentry DSN must be provided to the browser for error reporting to work there
 
     // Vercel env variables - See https://vercel.com/docs/environment-variables#system-environment-variables
     VERCEL: process.env.VERCEL,
@@ -360,6 +363,7 @@ module.exports = withSentryConfig(withNextPluginPreval(withBundleAnalyzer(withSo
         // Those variables are considered public because they are available at build time and at run time (they'll be replaced during initial build, by their value)
         plugin.definitions['process.env.NEXT_PUBLIC_APP_BUILD_ID'] = JSON.stringify(buildId);
         plugin.definitions['process.env.NEXT_PUBLIC_APP_VERSION_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE);
+        plugin.definitions['process.env.SENTRY_RELEASE'] = JSON.stringify(APP_VERSION_RELEASE); // Necessary to forward it automatically to source maps
       }
     });
 

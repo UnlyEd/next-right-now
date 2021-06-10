@@ -31,6 +31,8 @@ declare global {
       NEXT_PUBLIC_LOCIZE_PROJECT_ID: string;
       NEXT_PUBLIC_NRN_PRESET: string;
       SENTRY_DSN: string;
+      NEXT_PUBLIC_SENTRY_DSN: string; // Public version of SENTRY_DSN made available to the browser (value is identical to SENTRY_DSN)
+      SENTRY_RELEASE: string;
 
       // Git env variables
       GIT_COMMIT_SHA_SHORT: string;
