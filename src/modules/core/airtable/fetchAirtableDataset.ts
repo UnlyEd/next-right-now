@@ -1,3 +1,4 @@
+import { createLogger } from '@/modules/core/logging/logger';
 import map from 'lodash.map';
 import size from 'lodash.size';
 import hybridCache from '../vercelCache/hybridCache';
@@ -8,6 +9,11 @@ import { FieldSchema } from './types/FieldSchema';
 import { GenericAirtableRecordsListApiResponse } from './types/GenericAirtableRecordsListApiResponse';
 import { RawAirtableRecordsSet } from './types/RawAirtableRecordsSet';
 import { TableSchema } from './types/TableSchema';
+
+const fileLabel = 'modules/core/airtable/fetchAirtableDataset.ts';
+const logger = createLogger({
+  fileLabel,
+});
 
 /**
  * When running on Vercel, wait some time after each API request to avoid running the next API request too fast
