@@ -48,7 +48,11 @@ console.debug(`Release version resolved from tags: "${APP_RELEASE_TAG}" (matchin
  * The below config applies to the whole application.
  * next.config.js gets used by the Next.js server and build phases, and it's not included in the browser build.
  *
- * Make sure adding "withSentryConfig" is the last code to run before exporting, to  ensure that your source maps include changes from all other Webpack plugins.
+ * The Sentry doc states:
+ *  "Make sure adding "withSentryConfig" is the last code to run before exporting, to  ensure that your source maps include changes from all other Webpack plugins."
+ * XXX DO NOT follow that guideline blindly! "withNextPluginPreval" must be the last code to run when exporting.
+ *  See https://github.com/getsentry/sentry-docs/issues/3723
+ *  See https://github.com/ricokahler/next-plugin-preval/issues/42
  *
  * XXX Not all configuration options are listed below, we only kept those of most interest.
  *  You'll need to dive into Next.js own documentation to find out about what's not included.
