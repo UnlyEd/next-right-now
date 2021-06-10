@@ -322,6 +322,8 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
   }) => {
     if (isServer) {
       // IS_SERVER_INITIAL_BUILD is meant to be defined only at build time and not at run time, and therefore must not be "made public"
+      // Always undefined on the browser
+      // Always true during development (on the server side)
       process.env.IS_SERVER_INITIAL_BUILD = '1';
     }
 
