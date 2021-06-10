@@ -48,6 +48,7 @@ const DefaultErrorLayout: React.FunctionComponent<Props> = (props): JSX.Element 
         <Button
           color={'primary'}
           onClick={(): void =>
+            // @ts-ignore Works fine even though TS is warning, see https://github.com/getsentry/sentry-docs/issues/3720
             Sentry.showReportDialog({ eventId: errorEventId })
           }
         >

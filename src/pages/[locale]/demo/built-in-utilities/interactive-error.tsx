@@ -69,8 +69,12 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
         Interactive error
       </h1>
 
+      <h2>
+        Dynamic error catching on user event
+      </h2>
+
       <Alert color={'info'}>
-        This page throws an error once the button is clicked.
+        Throws an error once the button is clicked, the error is caught by Sentry automatically.
       </Alert>
 
       <div>
@@ -110,13 +114,44 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
 
       <br />
 
+      <h2>
+        Display report dialog when an error happens
+      </h2>
+
+      <Alert color={'info'}>
+        Sentry default report dialog can be handy to get user feedback when something bad happens.<br />
+        If people actually use it, that is.
+      </Alert>
+
       <div>
         <Button
           onClick={() => {
+            // @ts-ignore Works fine even though TS is warning, see https://github.com/getsentry/sentry-docs/issues/3720
             Sentry.showReportDialog();
           }}
         >
           This should show the Sentry report dialog.
+        </Button>
+      </div>
+
+      <br />
+
+      <h2>
+        Play around with custom error messages
+      </h2>
+
+      <Alert color={'info'}>
+        Generate your own errors dynamically!
+      </Alert>
+
+      <div>
+        <Button
+          onClick={() => {
+            const errorMessage = prompt(`Type something, it'll be used as error message and reported into Sentry!`);
+            throw new Error(errorMessage);
+          }}
+        >
+          Create an error!
         </Button>
       </div>
     </DemoLayout>
