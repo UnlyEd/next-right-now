@@ -143,6 +143,7 @@ const AirtableAsset: React.FunctionComponent<Props> = (props: Props): JSX.Elemen
 
   const Image = (): JSX.Element => {
     return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         key={identifier}
         id={identifier}

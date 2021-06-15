@@ -1,9 +1,9 @@
 import { createLogger } from '@/modules/core/logging/logger';
 import {
-  getClientNetworkInformationSpeed,
-  ClientNetworkInformationSpeed,
   ClientNetworkConnectionType,
+  ClientNetworkInformationSpeed,
   getClientNetworkConnectionType,
+  getClientNetworkInformationSpeed,
 } from '@/modules/core/networkInformation/networkInformation';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
@@ -181,7 +181,6 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
     const userData: UserSemiPersistentSession = universalCookiesManager.getUserData();
     const networkSpeed: ClientNetworkInformationSpeed = getClientNetworkInformationSpeed();
     const networkConnectionType: ClientNetworkConnectionType = getClientNetworkConnectionType();
-    console.log('networkConnectionType', networkConnectionType)
 
     // https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
     // See all JS SDK options https://github.com/amplitude/Amplitude-JavaScript/blob/master/src/options.js
