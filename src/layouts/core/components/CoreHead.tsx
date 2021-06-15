@@ -65,7 +65,6 @@ export type HeadProps = {
  *
  * Configures SEO, load fonts.
  *
- * TODO Fonts should be loaded differently. Lee Robinson (Vercel) has given great talks recently, see https://leerob.io/blog/fonts
  * TODO SEO should be done differently. See https://github.com/UnlyEd/next-right-now/issues/150
  *
  * XXX Core component, meant to be used by other layouts, shouldn't be used by other components directly.
@@ -75,7 +74,7 @@ export type HeadProps = {
 const CoreHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
 
-  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
+  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 11, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultMetaURL = 'https://github.com/UnlyEd/next-right-now';
   const defaultMetaImage = customer?.theme?.logo?.url;
   const defaultFavicon = '/favicon.ico';
