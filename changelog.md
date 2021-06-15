@@ -29,6 +29,30 @@ such as a preset release history, but it is not meant to warn about non-backward
 
 Here is a short list of the most valuable changes and new features.
 
+- 2021-06-15
+    - [NextJS 11](https://github.com/UnlyEd/next-right-now/pull/371)
+- 2021-06-09
+    - [Send network speed to Amplitude analytics and Sentry](https://github.com/UnlyEd/next-right-now/pull/358)
+    - [Improve HTTP headers security by default](https://github.com/UnlyEd/next-right-now/pull/364)
+    - [Use main, footer, nav and their ARIA equivalent for better a11y](https://github.com/UnlyEd/next-right-now/pull/365)
+    - [Optimize .vercelignore configuration](https://github.com/UnlyEd/next-right-now/pull/366)
+- 2021-05-29
+    - [Fix 404 page generation + refactor all layouts SSG/SSR](https://github.com/UnlyEd/next-right-now/pull/346)
+    - [Upgrade Cypress to v7](https://github.com/UnlyEd/next-right-now/pull/327)
+- 2021-05-20
+    - [Preload app-wide shared data](https://github.com/UnlyEd/next-right-now/pull/334)
+    - [Pre-fetch all Locize translations as app-wide static data](https://github.com/UnlyEd/next-right-now/pull/337)
+    - [Enable react strict mode](https://github.com/UnlyEd/next-right-now/pull/340)
+- 2021-05-20
+    - [Improve 404 page detection (covers more use-cases) + Don't serve pages under a locale that hasn't been enabled](https://github.com/UnlyEd/next-right-now/pull/333)
+- 2021-05-13
+    - [Fix - Display deployment's aliases on PR (regression from #296)](https://github.com/UnlyEd/next-right-now/pull/318)
+- 2021-05-12
+    - [Upgrade dependencies](https://github.com/UnlyEd/next-right-now/pull/328)
+    - [Simplify layouts](https://github.com/UnlyEd/next-right-now/pull/330)
+- 2021-05-10
+    - [Rework of fonts](https://github.com/UnlyEd/next-right-now/pull/315)
+    - [Optimise cookieConsent to avoid rendering on each page transition](https://github.com/UnlyEd/next-right-now/pull/319)
 - 2021-05-09
     - [GHA - Replace Vercel bash deploy script by "deploy-on-vercel" github action](https://github.com/UnlyEd/next-right-now/pull/296)
     - [Replace @unly/utils-simple-logger and winston by @unly/simple-logger and chalk (reduces bundle size by 40Kb)](https://github.com/UnlyEd/next-right-now/pull/314)
