@@ -186,6 +186,7 @@ const GraphCMSAsset: React.FunctionComponent<Props> = (props): JSX.Element => {
 
   const Image = (): JSX.Element => {
     return (
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         key={id}
         id={id}
