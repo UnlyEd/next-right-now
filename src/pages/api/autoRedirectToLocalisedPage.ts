@@ -14,5 +14,7 @@ import {
  * @param res
  * @method GET
  */
-export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => localeMiddleware(req, res);
+const autoRedirectToLocalisedPage = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => localeMiddleware(req, res);
+
+export default autoRedirectToLocalisedPage;
 
