@@ -22,7 +22,6 @@ import useI18n, { I18n } from '@/modules/core/i18n/hooks/useI18n';
 import { createLogger } from '@/modules/core/logging/logger';
 import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import deepmerge from 'deepmerge';
-import find from 'lodash.find';
 import size from 'lodash.size';
 import {
   GetStaticPaths,
