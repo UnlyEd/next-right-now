@@ -117,6 +117,7 @@
     "@fortawesome/react-fontawesome": "0.1.14",
     "@sentry/browser": "6.3.6",
     "@sentry/node": "6.3.6",
+    "@stitches/react": "0.2.2",
     "@types/lodash.isequal": "4.5.5",
     "@unly/simple-logger": "1.0.0",
     "@unly/universal-language-detector": "2.0.3",
