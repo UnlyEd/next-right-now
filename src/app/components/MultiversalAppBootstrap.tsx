@@ -9,7 +9,6 @@ import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
 import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
 import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
-import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
 import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
@@ -212,13 +211,6 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
     const dataset: GraphCMSDataset = deserializeSafe(serializedDataset);
     const customer: Customer = dataset?.customer;
-    let availableLanguages: string[] = customer?.availableLanguages;
-
-    if (isEmpty(availableLanguages)) {
-      // If no language have been set, apply default (fallback)
-      // XXX Applying proper default is critical to avoid an infinite loop
-      availableLanguages = [DEFAULT_LOCALE];
-    }
 
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser()) {
       // eslint-disable-next-line no-console
