@@ -211,13 +211,6 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
     const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
     const customer: AirtableRecord<Customer> = getCustomer(dataset);
-    let availableLanguages: string[] = customer?.availableLanguages;
-
-    if (isEmpty(availableLanguages)) {
-      // If no language have been set, apply default (fallback)
-      // XXX Applying proper default is critical to avoid an infinite loop
-      availableLanguages = [DEFAULT_LOCALE];
-    }
 
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser()) {
       // eslint-disable-next-line no-console
