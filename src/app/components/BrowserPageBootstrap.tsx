@@ -14,7 +14,10 @@ import {
   getClientNetworkConnectionType,
   getClientNetworkInformationSpeed,
 } from '@/modules/core/networkInformation/networkInformation';
-import { configureSentryUser } from '@/modules/core/sentry/sentry';
+import {
+  configureSentryBrowserMetadata,
+  configureSentryUserMetadata,
+} from '@/modules/core/sentry/sentry';
 import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
 import {
   CYPRESS_WINDOW_NS,
@@ -91,7 +94,9 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const networkConnectionType: ClientNetworkConnectionType = getClientNetworkConnectionType();
 
   // Configure Sentry user and track navigation through breadcrumb
-  configureSentryUser(userSession);
+  configureSentryUserMetadata(userSession);
+  configureSentryBrowserMetadata(networkSpeed, networkConnectionType, isInIframe, iframeReferrer);
+
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,

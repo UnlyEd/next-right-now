@@ -11,6 +11,7 @@ import {
   getDemoLayoutStaticPaths,
   getDemoLayoutStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
+import { AMPLITUDE_ACTIONS } from '@/modules/core/amplitude/events';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { createLogger } from '@/modules/core/logging/logger';
 import useUserConsent from '@/modules/core/userConsent/hooks/useUserConsent';
@@ -240,7 +241,9 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
               onClick={(): void => {
                 // eslint-disable-next-line no-console
                 console.log('Button click');
-                logEvent('analytics-button-test-event');
+                logEvent('analytics-button-test-event', {
+                  action: AMPLITUDE_ACTIONS.CLICK,
+                });
               }}
             >
               Click me
@@ -256,7 +259,9 @@ const ExampleAnalyticsPage: NextPage<Props> = (props): JSX.Element => {
                       onClick={(): void => {
                         // eslint-disable-next-line no-console
                         console.log('Button click');
-                        logEvent('analytics-button-test-event');
+                        logEvent('analytics-button-test-event', {
+                          action: AMPLITUDE_ACTIONS.CLICK,
+                        });
                       }}
                     >
                       Click me

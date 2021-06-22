@@ -1,5 +1,6 @@
 import Tooltip from '@/components/dataDisplay/Tooltip';
 import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import { AMPLITUDE_ACTIONS } from '@/modules/core/amplitude/events';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { AirtableAttachment } from '@/modules/core/data/types/AirtableAttachment';
 import { Asset } from '@/modules/core/data/types/Asset';
@@ -284,7 +285,9 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-github-doc');
+                        logEvent('open-github-doc', {
+                          action: AMPLITUDE_ACTIONS.CLICK,
+                        });
                       }}
                     >
                       <FontAwesomeIcon icon={['fas', 'book']} />
@@ -307,7 +310,9 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-github');
+                        logEvent('open-github', {
+                          action: AMPLITUDE_ACTIONS.CLICK,
+                        });
                       }}
                       title={''}
                     >
@@ -338,7 +343,9 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-admin-site');
+                        logEvent('open-admin-site', {
+                          action: AMPLITUDE_ACTIONS.CLICK,
+                        });
                       }}
                     >
                       <FontAwesomeIcon icon={['fas', 'user-cog']} />

@@ -1,3 +1,6 @@
+import { AMPLITUDE_ACTIONS } from '@/modules/core/amplitude/events';
+import { GetAmplitudeInstanceProps } from '@/modules/core/amplitude/types/GetAmplitudeInstanceProps';
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { createLogger } from '@/modules/core/logging/logger';
 import {
   ClientNetworkConnectionType,
@@ -12,7 +15,6 @@ import {
   Identify,
 } from 'amplitude-js';
 import UniversalCookiesManager from '../cookiesManager/UniversalCookiesManager';
-import { UserConsent } from '../userConsent/types/UserConsent';
 import { UserSemiPersistentSession } from '../userSession/types/UserSemiPersistentSession';
 import { NextWebVitalsMetricsReport } from '../webVitals/types/NextWebVitalsMetricsReport';
 
@@ -22,142 +24,148 @@ const logger = createLogger({
 });
 
 /**
- * Event actions.
+ * Initializes an existing amplitude instance with base configuration shared by all Amplitude events.
  *
- * All actions must use action verb (imperative form).
- *
- * DA Usefulness: Avoids using anonymous constants that will likely duplicate each other.
- *  Using constants ensures strict usage with a proper definition for the analytics team and the developers.
- *  Example: Using both "remove" and "delete" could lead to misunderstanding or errors when configuring charts.
+ * @param amplitudeInstance
+ * @param options
  */
-export enum AMPLITUDE_ACTIONS {
-  CLICK = 'click', // When an element is clicked (mouse) or tapped (screen, mobile)
-  SELECT = 'select', // When an element is selected (checkbox, select input, multi choices)
-  REMOVE = 'remove', // When an element is removed/delete
-  OPEN = 'open', // When an element is opened
-  CLOSE = 'close', // When an element is closed
-}
+export const initAmplitudeInstance = (amplitudeInstance: AmplitudeClient, options: GetAmplitudeInstanceProps): void => {
+  const {
+    customerRef,
+    iframeReferrer,
+    isInIframe,
+    lang,
+    locale,
+    userId,
+    userConsent,
+    networkSpeed,
+    networkConnectionType,
+  } = options;
+  const {
+    isUserOptedOutOfAnalytics,
+    hasUserGivenAnyCookieConsent,
+  } = userConsent;
+
+  // See https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
+  // See all JS SDK options https://github.com/amplitude/Amplitude-JavaScript/blob/master/src/options.js
+  amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
+    userId,
+    logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
+    includeGclid: false, // GDPR Enabling this is not GDPR compliant and must not be enabled without explicit user consent - See https://croud.com/blog/news/10-point-gdpr-checklist-digital-advertising/
+    includeReferrer: true, // See https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
+    includeUtm: true,
+    // @ts-ignore XXX onError should be allowed, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/42005
+    onError: (error): void => {
+      Sentry.captureException(error);
+      console.error(error); // eslint-disable-line no-console
+    },
+    sameSiteCookie: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
+    cookieExpiration: 365, // Expires in 1 year (would fallback to 10 years by default, which isn't GDPR compliant)
+  });
+
+  // Disable analytics tracking entirely if the user has opted-out
+  if (isUserOptedOutOfAnalytics) {
+    amplitudeInstance.setOptOut(true); // If true, then no events will be logged or sent.
+
+    if (process.env.STORYBOOK !== 'true') {
+      logger.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
+    }
+  } else {
+    // Re-enable tracking (necessary if it was previously disabled!)
+    amplitudeInstance.setOptOut(false);
+
+    if (process.env.STORYBOOK !== 'true') {
+      logger.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
+    }
+  }
+
+  amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION_RELEASE); // e.g: v1.0.0
+
+  /**
+   * Initializes the Amplitude user session.
+   *
+   * We must set all "must-have" properties here (instead of doing it in the "AmplitudeProvider", as userProperties),
+   * because "react-amplitude" would send the next "page-displayed" event BEFORE sending the $identify event,
+   * which would lead to events not containing the user's session.
+   *
+   * We're only doing this when detecting a new session, as it won't be executed multiple times for the same session anyway, and it avoids noise.
+   *
+   * @see https://github.com/amplitude/Amplitude-JavaScript/issues/223 Learn more about "setOnce"
+   */
+  if (amplitudeInstance.isNewSession()) {
+    const visitor: Identify = new amplitudeInstance.Identify();
+    visitor.setOnce('customer.ref', customerRef);
+
+    if (lang) {
+      // DA Helps figuring out if the initial language (auto-detected) is changed afterwards
+      visitor.setOnce('initial_lang', lang);
+      visitor.setOnce('lang', lang);
+    }
+
+    if (locale) {
+      visitor.setOnce('initial_locale', locale);
+      visitor.setOnce('locale', locale);
+    }
+
+    if (isInIframe) {
+      // DA This will help track down the users who discovered our platform because of an iframe
+      visitor.setOnce('initial_iframe', isInIframe);
+      visitor.setOnce('iframe', isInIframe);
+    }
+
+    if (iframeReferrer) {
+      visitor.setOnce('initial_iframeReferrer', iframeReferrer);
+      visitor.setOnce('iframeReferrer', iframeReferrer);
+    }
+
+    visitor.setOnce('initial_networkSpeed', networkSpeed);
+    visitor.setOnce('initial_networkConnectionType', networkConnectionType);
+
+    visitor.setOnce('networkSpeed', networkSpeed);
+    visitor.setOnce('networkConnectionType', networkConnectionType);
+
+    visitor.set('isUserOptedOutOfAnalytics', isUserOptedOutOfAnalytics);
+    visitor.set('hasUserGivenAnyCookieConsent', hasUserGivenAnyCookieConsent);
+
+    amplitudeInstance.identify(visitor); // Send the new identify event to amplitude (updates the user's identity)
+  }
+};
 
 /**
- * Pages names used by Amplitude
- *
- * Each page within the /src/pages directory should use a different page name as "pageName".
- * This is used to track events happening within the pages, to know on which page they occurred.
+ * Base properties shared by all events.
  */
-export enum AMPLITUDE_PAGES {
-  DEMO_HOME_PAGE = 'demo',
-  PREVIEW_PRODUCT_PAGE = 'demo/preview-product',
-  TERMS_PAGE = 'demo/terms',
-  PRIVACY_PAGE = 'demo/privacy',
-  TEMPLATE_SSG_PAGE = 'template-ssg',
-  TEMPLATE_SSR_PAGE = 'template-ssr',
-}
+export const getDefaultEventProperties = (): GenericObject => {
+  const customerRef = process.env.NEXT_PUBLIC_CUSTOMER_REF;
+  const customerRefWithoutVersion = customerRef?.replace('-v4', ''); // Hack removing the version number from the customer ref
 
-type GetAmplitudeInstanceProps = {
-  customerRef: string;
-  iframeReferrer: string;
-  isInIframe: boolean;
-  lang: string;
-  locale: string;
-  userId: string;
-  userConsent: UserConsent;
-  networkSpeed: ClientNetworkInformationSpeed;
-  networkConnectionType: ClientNetworkConnectionType;
-}
+  return {
+    app: {
+      name: process.env.NEXT_PUBLIC_APP_NAME,
+      release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
+      stage: process.env.NEXT_PUBLIC_APP_STAGE,
+    },
+    page: {
+      url: location.href,
+      path: location.pathname,
+      origin: location.origin,
+      name: null, // XXX Will be set by the page (usually through its layout)
+    },
+    customer: {
+      ref: customerRefWithoutVersion,
+    },
+  };
+};
 
+/**
+ * Returns a browser-compatible Amplitude instance
+ * @param props
+ */
 export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): AmplitudeClient | null => {
-  // XXX Amplitude is disabled on the server side, it's only used on the client side
-  //  (avoids duplicated events, and amplitude-js isn't server-side compatible anyway)
   if (isBrowser()) {
-    const {
-      customerRef,
-      iframeReferrer,
-      isInIframe,
-      lang,
-      locale,
-      userId,
-      userConsent,
-      networkSpeed,
-      networkConnectionType,
-    } = props;
-    const {
-      isUserOptedOutOfAnalytics,
-      hasUserGivenAnyCookieConsent,
-    } = userConsent;
-
-    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
-      scope.setTag('networkSpeed', networkSpeed);
-      scope.setTag('networkConnectionType', networkConnectionType);
-      scope.setTag('iframe', `${isInIframe}`);
-      scope.setExtra('iframe', isInIframe);
-      scope.setExtra('iframeReferrer', iframeReferrer);
-    });
-
     const amplitude = require('amplitude-js'); // eslint-disable-line @typescript-eslint/no-var-requires
     const amplitudeInstance: AmplitudeClient = amplitude.getInstance();
 
-    // See https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
-    // See all JS SDK options https://github.com/amplitude/Amplitude-JavaScript/blob/master/src/options.js
-    amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
-      userId,
-      logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
-      includeGclid: true,
-      includeReferrer: true, // See https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
-      includeUtm: true,
-      // @ts-ignore XXX onError should be allowed, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/42005
-      onError: (error): void => {
-        Sentry.captureException(error);
-        console.error(error); // eslint-disable-line no-console
-      },
-      sameSiteCookie: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
-      cookieExpiration: 365, // Expires in 1 year (would fallback to 10 years by default, which isn't GDPR compliant)
-    });
-
-    // Disable analytics tracking entirely if the user has opted-out
-    if (isUserOptedOutOfAnalytics) {
-      amplitudeInstance.setOptOut(true); // If true, then no events will be logged or sent.
-
-      if (process.env.STORYBOOK !== 'true') {
-        logger.info('User has opted-out of analytics tracking.'); // eslint-disable-line no-console
-      }
-    } else {
-      // Re-enable tracking (necessary if it was previously disabled!)
-      amplitudeInstance.setOptOut(false);
-
-      if (process.env.STORYBOOK !== 'true') {
-        logger.info(`User has opted-in into analytics tracking. (Thank you! This helps us make our product better, and we don't track any personal/identifiable data.`); // eslint-disable-line no-console
-      }
-    }
-
-    amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION_RELEASE); // e.g: v1.0.0
-
-    // We're only doing this when detecting a new session, as it won't be executed multiple times for the same session anyway, and it avoids noise
-    if (amplitudeInstance.isNewSession()) {
-      // Store whether the visitor originally came from an iframe (and from where)
-      const visitor: Identify = new amplitudeInstance.Identify();
-      // XXX Learn more about "setOnce" at https://github.com/amplitude/Amplitude-JavaScript/issues/223
-      visitor.setOnce('initial_lang', lang); // DA Helps figuring out if the initial language (auto-detected) is changed afterwards
-      visitor.setOnce('initial_locale', locale);
-      visitor.setOnce('initial_networkSpeed', networkSpeed);
-      visitor.setOnce('initial_networkConnectionType', networkConnectionType);
-      // DA This will help track down the users who discovered our platform because of an iframe
-      visitor.setOnce('initial_iframe', isInIframe);
-      visitor.setOnce('initial_iframeReferrer', iframeReferrer);
-
-      // XXX We set all "must-have" properties here (instead of doing it in the "AmplitudeProvider", as userProperties), because react-amplitude will send the next "page-displayed" event BEFORE sending the $identify event
-      visitor.setOnce('customer.ref', customerRef);
-      visitor.setOnce('lang', lang);
-      visitor.setOnce('locale', locale);
-      visitor.setOnce('networkSpeed', networkSpeed);
-      visitor.setOnce('networkConnectionType', networkConnectionType);
-      visitor.setOnce('iframe', isInIframe);
-      visitor.setOnce('iframeReferrer', iframeReferrer);
-
-      visitor.set('isUserOptedOutOfAnalytics', isUserOptedOutOfAnalytics);
-      visitor.set('hasUserGivenAnyCookieConsent', hasUserGivenAnyCookieConsent);
-
-      amplitudeInstance.identify(visitor); // Send the new identify event to amplitude (updates user's identity)
-    }
+    initAmplitudeInstance(amplitudeInstance, props);
 
     return amplitudeInstance;
 
@@ -181,47 +189,30 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
     const userData: UserSemiPersistentSession = universalCookiesManager.getUserData();
     const networkSpeed: ClientNetworkInformationSpeed = getClientNetworkInformationSpeed();
     const networkConnectionType: ClientNetworkConnectionType = getClientNetworkConnectionType();
+    const customerRef = process.env.NEXT_PUBLIC_CUSTOMER_REF;
 
-    // https://help.amplitude.com/hc/en-us/articles/115001361248#settings-configuration-options
-    // See all JS SDK options https://github.com/amplitude/Amplitude-JavaScript/blob/master/src/options.js
-    amplitudeInstance.init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
-      // userId: null,
+    initAmplitudeInstance(amplitudeInstance, {
+      customerRef: customerRef,
       userId: userData?.id,
-      logLevel: process.env.NEXT_PUBLIC_APP_STAGE === 'production' ? 'DISABLE' : 'WARN',
-      includeGclid: false, // GDPR Enabling this is not GDPR compliant and must not be enabled without explicit user consent - See https://croud.com/blog/news/10-point-gdpr-checklist-digital-advertising/
-      includeReferrer: true, // https://help.amplitude.com/hc/en-us/articles/215131888#track-referrers
-      includeUtm: true,
-      // @ts-ignore XXX onError should be allowed, see https://github.com/DefinitelyTyped/DefinitelyTyped/issues/42005
-      onError: (error): void => {
-        Sentry.captureException(error);
-        console.error(error); // eslint-disable-line no-console
+      userConsent: {
+        isUserOptedOutOfAnalytics: false,
+        hasUserGivenAnyCookieConsent: false,
       },
-      sameSiteCookie: 'Strict', // 'Strict' | 'Lax' | 'None' - See https://web.dev/samesite-cookies-explained/
-      cookieExpiration: 365, // Expires in 1 year (would fallback to 10 years by default, which isn't GDPR compliant)
+      locale: null,
+      lang: null,
+      isInIframe: null,
+      iframeReferrer: null,
+      networkSpeed,
+      networkConnectionType,
     });
-
-    amplitudeInstance.setVersionName(process.env.NEXT_PUBLIC_APP_VERSION_RELEASE); // e.g: v1.0.0
 
     // Send metrics to our analytics service
     amplitudeInstance.logEvent(`report-web-vitals`, {
-      app: {
-        name: process.env.NEXT_PUBLIC_APP_NAME,
-        release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
-        stage: process.env.NEXT_PUBLIC_APP_STAGE,
-        preset: process.env.NEXT_PUBLIC_NRN_PRESET,
-      },
-      page: {
-        url: location.href,
-        path: location.pathname,
-        origin: location.origin,
-        name: null,
-      },
-      customer: {
-        ref: process.env.NEXT_PUBLIC_CUSTOMER_REF,
-      },
+      ...getDefaultEventProperties(),
       report,
       networkSpeed,
       networkConnectionType,
+      action: AMPLITUDE_ACTIONS.AUTO,
     });
     // eslint-disable-next-line no-console
     console.debug('report-web-vitals report sent to Amplitude');

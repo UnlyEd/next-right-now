@@ -1,7 +1,7 @@
 import { MultiversalPageProps } from '@/layouts/core/types/MultiversalPageProps';
 import { OnlyServerPageProps } from '@/layouts/core/types/OnlyServerPageProps';
 import { createLogger } from '@/modules/core/logging/logger';
-import { configureSentryUser } from '@/modules/core/sentry/sentry';
+import { configureSentryUserMetadata } from '@/modules/core/sentry/sentry';
 import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
 import * as Sentry from '@sentry/node';
 import React from 'react';
@@ -35,7 +35,7 @@ const ServerPageBootstrap = (props: ServerPageBootstrapProps): JSX.Element => {
   } = pageProps;
 
   // Configure Sentry user and track navigation through breadcrumb
-  configureSentryUser(userSession);
+  configureSentryUserMetadata(userSession);
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,
