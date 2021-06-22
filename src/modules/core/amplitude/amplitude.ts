@@ -1,4 +1,7 @@
-import { AMPLITUDE_ACTIONS } from '@/modules/core/amplitude/events';
+import {
+  AMPLITUDE_ACTIONS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { GetAmplitudeInstanceProps } from '@/modules/core/amplitude/types/GetAmplitudeInstanceProps';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { createLogger } from '@/modules/core/logging/logger';
@@ -206,7 +209,7 @@ export const sendWebVitals = (report: NextWebVitalsMetricsReport): void => {
     });
 
     // Send metrics to our analytics service
-    amplitudeInstance.logEvent(`report-web-vitals`, {
+    amplitudeInstance.logEvent(AMPLITUDE_EVENTS.REPORT_WEB_VITALS, {
       ...getDefaultEventProperties(),
       report,
       networkSpeed,

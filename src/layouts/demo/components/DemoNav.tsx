@@ -1,6 +1,9 @@
 import Tooltip from '@/components/dataDisplay/Tooltip';
 import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
-import { AMPLITUDE_ACTIONS } from '@/modules/core/amplitude/events';
+import {
+  AMPLITUDE_ACTIONS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { AirtableAttachment } from '@/modules/core/data/types/AirtableAttachment';
 import { Asset } from '@/modules/core/data/types/Asset';
@@ -285,7 +288,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-github-doc', {
+                        logEvent(AMPLITUDE_EVENTS.OPEN_GITHUB_DOC, {
                           action: AMPLITUDE_ACTIONS.CLICK,
                         });
                       }}
@@ -310,7 +313,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-github', {
+                        logEvent(AMPLITUDE_EVENTS.OPEN_GITHUB, {
                           action: AMPLITUDE_ACTIONS.CLICK,
                         });
                       }}
@@ -343,7 +346,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-admin-site', {
+                        logEvent(AMPLITUDE_EVENTS.OPEN_ADMIN_SITE, {
                           action: AMPLITUDE_ACTIONS.CLICK,
                         });
                       }}

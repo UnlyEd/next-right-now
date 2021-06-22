@@ -1,4 +1,7 @@
-import { AMPLITUDE_ACTIONS } from '@/modules/core/amplitude/events';
+import {
+  AMPLITUDE_ACTIONS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { createLogger } from '@/modules/core/logging/logger';
 import * as Sentry from '@sentry/node';
 import { AmplitudeClient } from 'amplitude-js';
@@ -221,7 +224,7 @@ const initCookieConsent = (options: InitOptions): void => {
       logger.info('onStatusChange', status, previousChoice);
       if (status === 'deny') {
         // Store user choice, then disable analytics tracking
-        amplitudeInstance.logEvent('user-consent-manually-given', {
+        amplitudeInstance.logEvent(AMPLITUDE_EVENTS.USER_CONSENT_MANUALLY_GIVEN, {
           action: AMPLITUDE_ACTIONS.CLICK,
           choice: 'deny',
           at: +new Date(),
@@ -233,7 +236,7 @@ const initCookieConsent = (options: InitOptions): void => {
       } else if (status === 'allow') {
         // Enable analytics tracking, then store user choice
         amplitudeInstance.setOptOut(false);
-        amplitudeInstance.logEvent('user-consent-manually-given', {
+        amplitudeInstance.logEvent(AMPLITUDE_EVENTS.USER_CONSENT_MANUALLY_GIVEN, {
           action: AMPLITUDE_ACTIONS.CLICK,
           choice: 'allow',
           at: +new Date(),

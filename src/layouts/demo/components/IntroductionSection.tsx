@@ -1,5 +1,8 @@
 import ExternalLink from '@/components/dataDisplay/ExternalLink';
-import { AMPLITUDE_ACTIONS } from '@/modules/core/amplitude/events';
+import {
+  AMPLITUDE_ACTIONS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import I18nLink from '@/modules/core/i18n/components/I18nLink';
 import { css } from '@emotion/react';
@@ -42,7 +45,7 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
 
       <ExternalLink
         href={'https://unlyed.github.io/next-right-now/concepts/presets'}
-        onClick={(): number => logEvent('open-what-is-preset-doc', {
+        onClick={(): number => logEvent(AMPLITUDE_EVENTS.OPEN_WHAT_IS_PRESET_DOC, {
           action: AMPLITUDE_ACTIONS.CLICK,
         })}
       >
@@ -51,7 +54,7 @@ const IntroductionSection: React.FunctionComponent<Props> = (props): JSX.Element
       &nbsp;-&nbsp;
       <ExternalLink
         href={'https://unlyed.github.io/next-right-now/getting-started/select-preset'}
-        onClick={(): number => logEvent('open-see-all-presets-doc', {
+        onClick={(): number => logEvent(AMPLITUDE_EVENTS.OPEN_SEE_ALL_PRESETS_DOC, {
           action: AMPLITUDE_ACTIONS.CLICK,
         })}
       >

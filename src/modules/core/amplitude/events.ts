@@ -1,4 +1,18 @@
 /**
+ * Event names.
+ */
+export enum AMPLITUDE_EVENTS {
+  REPORT_WEB_VITALS = 'report-web-vitals',
+  USER_CONSENT_MANUALLY_GIVEN = 'user-consent-manually-given',
+  OPEN_WHAT_IS_PRESET_DOC = 'open-what-is-preset-doc',
+  OPEN_SEE_ALL_PRESETS_DOC = 'open-see-all-presets-doc',
+  OPEN_GITHUB_DOC = 'open-github-doc',
+  OPEN_GITHUB = 'open-github',
+  OPEN_ADMIN_SITE = 'open-admin-site',
+  ANALYTIC_BUTTON_TEST_EVENT = 'analytics-button-test-event',
+}
+
+/**
  * Event actions.
  *
  * We use an "action" property to track the event's trigger.
