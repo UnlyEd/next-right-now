@@ -4,6 +4,7 @@ import { createLogger } from '@/modules/core/logging/logger';
 import { init } from '@amplitude/node';
 import { LogLevel } from '@amplitude/types/dist/src/logger';
 import * as Sentry from '@sentry/node';
+import startsWith from 'lodash.startswith';
 
 const fileLabel = 'modules/core/amplitude/amplitudeServerClient';
 const logger = createLogger({
@@ -43,14 +44,25 @@ export const logEvent = async (eventName: AMPLITUDE_EVENTS, userId: string, prop
         'customer.ref': process.env.NEXT_PUBLIC_CUSTOMER_REF,
         ...props,
       },
-    }).then((res) => logger.info('response', res))
+    })
+      // .then((res) => logger.info('response', res))
       .catch((e) => logger.error(e));
 
     // Send any events that are currently queued for sending.
     // Will automatically happen on the next event loop.
     // XXX It's necessary to await, or it might not work properly - See https://vercel.com/docs/platform/limits#streaming-responses
     const response = await amplitudeServerClient.flush();
-    logger.log('response', response);
+
+    // Monitor non 2XX response codes to allow for advanced debugging of edge cases
+    if (!startsWith(response?.statusCode?.toString(10), '2')) {
+      const message = `Amplitude event didn't return 200 response.`;
+      logger.error(message, response);
+      Sentry.withScope((scope) => {
+        scope.setExtra('response', response);
+        Sentry.captureException(message);
+      });
+    }
+    // TODO trouver origine warning
   } catch (e) {
     logger.error(e);
     Sentry.captureException(e);
