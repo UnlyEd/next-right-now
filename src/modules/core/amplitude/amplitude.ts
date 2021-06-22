@@ -136,7 +136,6 @@ export const initAmplitudeInstance = (amplitudeInstance: AmplitudeClient, option
  */
 export const getDefaultEventProperties = (): GenericObject => {
   const customerRef = process.env.NEXT_PUBLIC_CUSTOMER_REF;
-  const customerRefWithoutVersion = customerRef?.replace('-v4', ''); // Hack removing the version number from the customer ref
 
   return {
     app: {
@@ -151,7 +150,7 @@ export const getDefaultEventProperties = (): GenericObject => {
       name: null, // XXX Will be set by the page (usually through its layout)
     },
     customer: {
-      ref: customerRefWithoutVersion,
+      ref: customerRef,
     },
   };
 };
