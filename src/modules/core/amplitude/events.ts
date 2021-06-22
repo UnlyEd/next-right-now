@@ -11,6 +11,7 @@ export enum AMPLITUDE_EVENTS {
   OPEN_ADMIN_SITE = 'open-admin-site', // When the user clicks on the "Go to CMS" link
   ANALYTIC_BUTTON_TEST_EVENT = 'analytics-button-test-event', // Test event for demo purpose
   API_INVOKED = 'api-invoked', // When any API is invoked
+  API_LOCALE_MIDDLEWARE_INVOKED = 'api-locale-middleware-invoked', // When the "localeMiddleware" API is invoked
 }
 
 /**
@@ -51,6 +52,12 @@ export enum AMPLITUDE_PAGES {
   TEMPLATE_SSR_PAGE = 'template-ssr',
 }
 
+/**
+ * API endpoint names.
+ *
+ * Each API endpoint within the src/pages/api directory should use a different endpoint name.
+ * This is used to track events happening within the API endpoints, to know on which endpoint they occurred.
+ */
 export enum AMPLITUDE_API_ENDPOINTS {
   STATUS = 'status',
   AUTO_REDIRECT_TO_LOCALISED_PAGE = 'autoRedirectToLocalisedPage',

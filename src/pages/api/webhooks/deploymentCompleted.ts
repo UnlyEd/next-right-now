@@ -102,15 +102,12 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
       apiEndpoint: AMPLITUDE_API_ENDPOINTS.WEBHOOK_DEPLOYMENT_COMPLETED,
     });
 
-    // eslint-disable-next-line no-console
-    console.log(`Received body of type "${typeof req?.body}":`);
-    // eslint-disable-next-line no-console
-    console.log(req?.body);
+    logger.log(`Received body of type "${typeof req?.body}":`);
+    logger.log(req?.body);
 
     const parsedBody = convertRequestBodyToJSObject<EndpointRequestBody>(req);
 
-    // eslint-disable-next-line no-console
-    console.debug('body (parsed)', parsedBody);
+    logger.debug('body (parsed)', parsedBody);
 
     Sentry.withScope((scope): void => {
       scope.setTag('alertType', ALERT_TYPES.VERCEL_DEPLOYMENT_COMPLETED);
