@@ -26,19 +26,19 @@ const amplitudeServerClient = init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, {
 /**
  * Sends an analytic event to Amplitude.
  *
- * @param eventType
+ * @param eventName
  * @param userId
  *
  * @param props
  * @see https://developers.amplitude.com/docs/nodejs
  */
-export const logEvent = async (eventType: AMPLITUDE_EVENTS, userId: string, props: GenericObject = {}): Promise<void> => {
+export const logEvent = async (eventName: AMPLITUDE_EVENTS, userId: string, props: GenericObject = {}): Promise<void> => {
   try {
-    logger.info('Logging Amplitude event', eventType, userId, props);
+    logger.info(`Logging Amplitude event "${eventName}"${userId ? ` for user "${userId}"` : ''} with properties:`, props);
 
     amplitudeServerClient.logEvent({
-      event_type: eventType,
-      user_id: userId,
+      event_type: eventName,
+      user_id: userId || '', // User id must be set (even if empty) for the event to be sent correctly
       event_properties: {
         'customer.ref': process.env.NEXT_PUBLIC_CUSTOMER_REF,
         ...props,
