@@ -12,30 +12,27 @@ const logger = createLogger({
 });
 
 /**
- * Amplitude client, for the server-side (Node.js).
- *
- * XXX Do not use it in Next.js pages (it's not universal!), only in the API.
- *
- * @see https://www.npmjs.com/package/@amplitude/node
- * @see https://developers.amplitude.com/docs/nodejs
- */
-const amplitudeServerClient = init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, {
-  debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production',
-  logLevel: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' ? LogLevel.Verbose : LogLevel.Error,
-});
-
-/**
  * Sends an analytic event to Amplitude.
+ *
+ * XXX Do not use it in Next.js pages, only in the API (it's not universal and won't work in the browser!).
  *
  * @param eventName
  * @param userId
  *
  * @param props
+ *
  * @see https://developers.amplitude.com/docs/nodejs
+ * @see https://www.npmjs.com/package/@amplitude/node
  */
 export const logEvent = async (eventName: AMPLITUDE_EVENTS, userId: string, props: GenericObject = {}): Promise<void> => {
   try {
     logger.info(`Logging Amplitude event "${eventName}"${userId ? ` for user "${userId}"` : ''} with properties:`, props);
+
+    const amplitudeServerClient = init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, {
+      debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production',
+      logLevel: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' ? LogLevel.Verbose : LogLevel.Error,
+    });
+    logger.log(amplitudeServerClient);
 
     amplitudeServerClient.logEvent({
       event_type: eventName,
@@ -52,6 +49,7 @@ export const logEvent = async (eventName: AMPLITUDE_EVENTS, userId: string, prop
     // Will automatically happen on the next event loop.
     // XXX It's necessary to await, or it might not work properly - See https://vercel.com/docs/platform/limits#streaming-responses
     const response = await amplitudeServerClient.flush();
+    console.log('response', response);
 
     // Monitor non 2XX response codes to allow for advanced debugging of edge cases
     if (!startsWith(response?.statusCode?.toString(10), '2')) {
@@ -68,5 +66,3 @@ export const logEvent = async (eventName: AMPLITUDE_EVENTS, userId: string, prop
     Sentry.captureException(e);
   }
 };
-
-export default amplitudeServerClient;
