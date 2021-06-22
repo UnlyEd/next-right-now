@@ -6,13 +6,12 @@ import { LogLevel } from '@amplitude/types/dist/src/logger';
 import { Response } from '@amplitude/types/dist/src/response';
 import * as Sentry from '@sentry/node';
 import startsWith from 'lodash.startswith';
+import { v1 as uuid } from 'uuid'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
 
 const fileLabel = 'modules/core/amplitude/amplitudeServerClient';
 const logger = createLogger({
   fileLabel,
 });
-
-const DEFAULT_DEVICE_ID = 'server';
 
 const amplitudeServerClient = init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, {
   debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production',
@@ -39,8 +38,8 @@ export const logEvent = async (eventName: AMPLITUDE_EVENTS, userId: string, prop
     amplitudeServerClient.logEvent({
       event_type: eventName,
       // Either user_id or device_id must be set, they can't both be empty or "unknown" or "eventsIngested" will be set to 0 in the response
-      user_id: userId || undefined,
-      device_id: userId ? undefined : DEFAULT_DEVICE_ID,
+      // If the user_id isn't defined, then generate a dynamic/unique id for this event only
+      user_id: userId || uuid(),
       event_properties: {
         'customer.ref': process.env.NEXT_PUBLIC_CUSTOMER_REF,
         ...props,
@@ -65,7 +64,8 @@ export const logEvent = async (eventName: AMPLITUDE_EVENTS, userId: string, prop
     } else {
       // @ts-ignore
       if (response?.body?.eventsIngested === 0) {
-        const message = `Amplitude event wasn't ingested (it was sent, but not stored in Amplitude).`;
+        // See https://github.com/amplitude/Amplitude-Node/issues/123
+        const message = `Amplitude event wasn't ingested (it was sent, but not stored in Amplitude). This usually happens when both user_id and device_id are invalid, they can't both be empty/undefined or 'unknown'!`;
         logger.error(message, response);
         Sentry.withScope((scope) => {
           scope.setContext('response', response);
