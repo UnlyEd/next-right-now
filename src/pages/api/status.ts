@@ -1,3 +1,8 @@
+import { logEvent } from '@/modules/core/amplitude/amplitudeServerClient';
+import {
+  AMPLITUDE_API_ENDPOINTS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { createLogger } from '@/modules/core/logging/logger';
 import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
 import {
@@ -24,6 +29,10 @@ const logger = createLogger({
 export const status = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req, { fileLabel });
+
+    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+      apiEndpoint: AMPLITUDE_API_ENDPOINTS.STATUS,
+    });
 
     res.json({
       appStage: process.env.NEXT_PUBLIC_APP_STAGE,

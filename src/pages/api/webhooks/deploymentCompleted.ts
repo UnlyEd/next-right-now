@@ -1,3 +1,8 @@
+import { logEvent } from '@/modules/core/amplitude/amplitudeServerClient';
+import {
+  AMPLITUDE_API_ENDPOINTS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { convertRequestBodyToJSObject } from '@/modules/core/api/convertRequestBodyToJSObject';
 import { createLogger } from '@/modules/core/logging/logger';
 import Sentry, {
@@ -92,6 +97,10 @@ type EndpointRequest = NextApiRequest & {
 export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req, { fileLabel });
+
+    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+      apiEndpoint: AMPLITUDE_API_ENDPOINTS.WEBHOOK_DEPLOYMENT_COMPLETED,
+    });
 
     // eslint-disable-next-line no-console
     console.log(`Received body of type "${typeof req?.body}":`);

@@ -1,3 +1,8 @@
+import { logEvent } from '@/modules/core/amplitude/amplitudeServerClient';
+import {
+  AMPLITUDE_API_ENDPOINTS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { filterExternalAbsoluteUrl } from '@/modules/core/js/url';
 import { createLogger } from '@/modules/core/logging/logger';
 import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
@@ -65,6 +70,10 @@ type EndpointRequest = NextApiRequest & {
 export const preview = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req, { fileLabel });
+
+    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+      apiEndpoint: AMPLITUDE_API_ENDPOINTS.PREVIEW,
+    });
 
     const {
       stop = 'false',

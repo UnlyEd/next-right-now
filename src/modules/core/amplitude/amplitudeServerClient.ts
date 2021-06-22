@@ -1,0 +1,60 @@
+import { AMPLITUDE_EVENTS } from '@/modules/core/amplitude/events';
+import { GenericObject } from '@/modules/core/data/types/GenericObject';
+import { createLogger } from '@/modules/core/logging/logger';
+import { init } from '@amplitude/node';
+import { LogLevel } from '@amplitude/types/dist/src/logger';
+import * as Sentry from '@sentry/node';
+
+const fileLabel = 'modules/core/amplitude/amplitudeServerClient';
+const logger = createLogger({
+  fileLabel,
+});
+
+/**
+ * Amplitude client, for the server-side (Node.js).
+ *
+ * XXX Do not use it in Next.js pages (it's not universal!), only in the API.
+ *
+ * @see https://www.npmjs.com/package/@amplitude/node
+ * @see https://developers.amplitude.com/docs/nodejs
+ */
+const amplitudeServerClient = init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, {
+  debug: process.env.NEXT_PUBLIC_APP_STAGE !== 'production',
+  logLevel: process.env.NEXT_PUBLIC_APP_STAGE !== 'production' ? LogLevel.Verbose : LogLevel.Error,
+});
+
+/**
+ * Sends an analytic event to Amplitude.
+ *
+ * @param eventType
+ * @param userId
+ *
+ * @param props
+ * @see https://developers.amplitude.com/docs/nodejs
+ */
+export const logEvent = async (eventType: AMPLITUDE_EVENTS, userId: string, props: GenericObject = {}): Promise<void> => {
+  try {
+    logger.info('Logging Amplitude event', eventType, userId, props);
+
+    amplitudeServerClient.logEvent({
+      event_type: eventType,
+      user_id: userId,
+      event_properties: {
+        'customer.ref': process.env.NEXT_PUBLIC_CUSTOMER_REF,
+        ...props,
+      },
+    }).then((res) => logger.info('response', res))
+      .catch((e) => logger.error(e));
+
+    // Send any events that are currently queued for sending.
+    // Will automatically happen on the next event loop.
+    // XXX It's necessary to await, or it might not work properly - See https://vercel.com/docs/platform/limits#streaming-responses
+    const response = await amplitudeServerClient.flush();
+    logger.log('response', response);
+  } catch (e) {
+    logger.error(e);
+    Sentry.captureException(e);
+  }
+};
+
+export default amplitudeServerClient;

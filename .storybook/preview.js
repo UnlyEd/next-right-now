@@ -2,7 +2,7 @@ import '@/app/components/MultiversalGlobalExternalStyles'; // Import the same 3r
 import MultiversalGlobalStyles from '@/app/components/MultiversalGlobalStyles';
 import '@/common/utils/ignoreNoisyWarningsHacks';
 import { getCustomer } from '@/modules/core/airtable/dataset';
-import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitude';
+import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitudeBrowserClient';
 import amplitudeContext from '@/modules/core/amplitude/context/amplitudeContext';
 import customerContext from '@/modules/core/data/contexts/customerContext';
 import datasetContext from '@/modules/core/data/contexts/datasetContext';

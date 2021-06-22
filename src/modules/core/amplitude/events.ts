@@ -2,14 +2,15 @@
  * Event names.
  */
 export enum AMPLITUDE_EVENTS {
-  REPORT_WEB_VITALS = 'report-web-vitals',
-  USER_CONSENT_MANUALLY_GIVEN = 'user-consent-manually-given',
-  OPEN_WHAT_IS_PRESET_DOC = 'open-what-is-preset-doc',
-  OPEN_SEE_ALL_PRESETS_DOC = 'open-see-all-presets-doc',
-  OPEN_GITHUB_DOC = 'open-github-doc',
-  OPEN_GITHUB = 'open-github',
-  OPEN_ADMIN_SITE = 'open-admin-site',
-  ANALYTIC_BUTTON_TEST_EVENT = 'analytics-button-test-event',
+  REPORT_WEB_VITALS = 'report-web-vitals', // When the Core Web Vitals report is sent automatically on any page load
+  USER_CONSENT_MANUALLY_GIVEN = 'user-consent-manually-given', // When the user makes a manual choice regarding cookies consent
+  OPEN_WHAT_IS_PRESET_DOC = 'open-what-is-preset-doc', // When the user clicks on "What is a preset?" link
+  OPEN_SEE_ALL_PRESETS_DOC = 'open-see-all-presets-doc', // When the user clicks on "See all presets" link
+  OPEN_GITHUB_DOC = 'open-github-doc', // When the user clicks on the NRN documentation link
+  OPEN_GITHUB = 'open-github', // When the user clicks on the GitHub link
+  OPEN_ADMIN_SITE = 'open-admin-site', // When the user clicks on the "Go to CMS" link
+  ANALYTIC_BUTTON_TEST_EVENT = 'analytics-button-test-event', // Test event for demo purpose
+  API_INVOKED = 'api-invoked', // When any API is invoked
 }
 
 /**
@@ -48,4 +49,13 @@ export enum AMPLITUDE_PAGES {
   PRIVACY_PAGE = 'demo/privacy',
   TEMPLATE_SSG_PAGE = 'template-ssg',
   TEMPLATE_SSR_PAGE = 'template-ssr',
+}
+
+export enum AMPLITUDE_API_ENDPOINTS {
+  STATUS = 'status',
+  AUTO_REDIRECT_TO_LOCALISED_PAGE = 'autoRedirectToLocalisedPage',
+  START_VERCEL_DEPLOYMENT = 'startVercelDeployment',
+  ERROR = 'error',
+  PREVIEW = 'preview',
+  WEBHOOK_DEPLOYMENT_COMPLETED = 'deploymentCompleted',
 }
