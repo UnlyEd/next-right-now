@@ -62,9 +62,11 @@ export const logEvent = async (eventName: AMPLITUDE_EVENTS, userId: string, prop
       });
     } else {
       // @ts-ignore
-      if (response?.body?.eventsIngested === 0) {
+      const eventsIngested = response?.body?.eventsIngested;
+
+      if (!eventsIngested) {
         // See https://github.com/amplitude/Amplitude-Node/issues/123
-        const message = `Amplitude event wasn't ingested (it was sent, but not stored in Amplitude). This usually happens when both user_id and device_id are invalid, they can't both be empty/undefined or 'unknown'!`;
+        const message = `Amplitude event wasn't ingested (it was sent, but not stored in Amplitude), expected value ">= 1" and got "${eventsIngested}". This usually happens when both user_id and device_id are invalid, they can't both be empty/undefined or 'unknown'!`;
         logger.error(message, response);
         Sentry.withScope((scope) => {
           scope.setContext('response', response);
