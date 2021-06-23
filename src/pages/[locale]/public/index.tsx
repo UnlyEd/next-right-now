@@ -63,7 +63,8 @@ const ExamplePublicPage: NextPage<Props> = (props): JSX.Element => {
       <p>
         This page was created using from <code>"/layouts/public/pagePublicTemplateSSG.tsx"</code>, which uses a completely different <b><code>layout</code></b>.<br />
         <br />
-        This page uses the <code>"public"</code> <b>layout</b>, which comes "naked" (no nav/footer) and doesn't fetch any data. (data are mocked, and minimalist)
+        This page uses the <code>"public"</code>
+        <b>layout</b>, which comes "naked" (no nav/footer) and doesn't fetch any data. (data are mocked, and minimalist)
         <br />
         Other pages use the <code>"demo"</code> layout, which comes with its own data fetching, components, and inherent complexity.<br />
         <br />
