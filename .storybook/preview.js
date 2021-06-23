@@ -1,7 +1,7 @@
 import '@/app/components/MultiversalGlobalExternalStyles'; // Import the same 3rd party libraries global styles as the pages/_app.tsx (for UI consistency)
 import MultiversalGlobalStyles from '@/app/components/MultiversalGlobalStyles';
 import '@/common/utils/ignoreNoisyWarningsHacks';
-import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitude';
+import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitudeBrowserClient';
 import amplitudeContext from '@/modules/core/amplitude/context/amplitudeContext';
 import customerContext from '@/modules/core/data/contexts/customerContext';
 import datasetContext from '@/modules/core/data/contexts/datasetContext';

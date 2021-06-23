@@ -107,6 +107,7 @@
     ]
   },
   "dependencies": {
+    "@amplitude/node": "1.6.1",
     "@amplitude/react-amplitude": "1.0.0",
     "@apollo/client": "3.3.17",
     "@emotion/react": "11.4.0",

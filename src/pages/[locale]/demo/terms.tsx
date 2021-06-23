@@ -9,7 +9,7 @@ import {
   getDemoLayoutStaticPaths,
   getDemoLayoutStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
-import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/events';
 import { initializeApollo } from '@/modules/core/apollo/apolloClient';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
@@ -100,7 +100,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
     });
 
     result.props.serializedDataset = serializeSafe({
-      customer: result.props.customer
+      customer: result.props.customer,
     });
 
     return result;

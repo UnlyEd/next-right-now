@@ -8,8 +8,8 @@ import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import DemoLayout from '@/layouts/demo/components/DemoLayout';
 import NativeFeaturesSidebar from '@/layouts/demo/components/NativeFeaturesSidebar';
 import {
-  GetDemoLayoutServerSidePropsResults,
   getDemoLayoutServerSideProps,
+  GetDemoLayoutServerSidePropsResults,
 } from '@/layouts/demo/demoLayoutSSR';
 import {
   APOLLO_STATE_PROP_NAME,

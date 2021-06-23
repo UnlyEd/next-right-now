@@ -1,7 +1,12 @@
-import Tooltip from '@/common/components/dataDisplay/Tooltip';
+import Tooltip from '@/components/dataDisplay/Tooltip';
 import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '@/layouts/demo/components/BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
 import { NATIVE_FEATURES_SIDEBAR_LINKS } from '@/layouts/demo/components/NativeFeaturesSidebar';
+import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
+import {
+  AMPLITUDE_ACTIONS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { Asset } from '@/modules/core/data/types/Asset';
 import { SidebarLink } from '@/modules/core/data/types/SidebarLink';
@@ -278,7 +283,9 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-github-doc');
+                        logEvent(AMPLITUDE_EVENTS.OPEN_GITHUB_DOC, {
+                          action: AMPLITUDE_ACTIONS.CLICK,
+                        });
                       }}
                     >
                       <FontAwesomeIcon icon={['fas', 'book']} />
@@ -301,7 +308,9 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-github');
+                        logEvent(AMPLITUDE_EVENTS.OPEN_GITHUB, {
+                          action: AMPLITUDE_ACTIONS.CLICK,
+                        });
                       }}
                       title={''}
                     >
@@ -335,7 +344,9 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {
-                        logEvent('open-admin-site');
+                        logEvent(AMPLITUDE_EVENTS.OPEN_ADMIN_SITE, {
+                          action: AMPLITUDE_ACTIONS.CLICK,
+                        });
                       }}
                     >
                       <FontAwesomeIcon icon={['fas', 'user-cog']} />

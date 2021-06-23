@@ -1,3 +1,8 @@
+import { logEvent } from '@/modules/core/amplitude/amplitudeServerClient';
+import {
+  AMPLITUDE_API_ENDPOINTS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import localeMiddleware from '@/modules/core/i18n/middlewares/localeMiddleware';
 import {
   NextApiRequest,
@@ -14,7 +19,13 @@ import {
  * @param res
  * @method GET
  */
-const autoRedirectToLocalisedPage = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => localeMiddleware(req, res);
+const autoRedirectToLocalisedPage = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
+  await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+    apiEndpoint: AMPLITUDE_API_ENDPOINTS.AUTO_REDIRECT_TO_LOCALISED_PAGE,
+  });
+
+  return await localeMiddleware(req, res);
+};
 
 export default autoRedirectToLocalisedPage;
 

@@ -6,7 +6,7 @@ import {
   getPublicLayoutStaticPaths,
   getPublicLayoutStaticProps,
 } from '@/layouts/public/publicLayoutSSG';
-import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/events';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { createLogger } from '@/modules/core/logging/logger';
