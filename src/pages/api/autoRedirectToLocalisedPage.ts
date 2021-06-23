@@ -20,7 +20,7 @@ import {
  * @method GET
  */
 const autoRedirectToLocalisedPage = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-  logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+  await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
     apiEndpoint: AMPLITUDE_API_ENDPOINTS.AUTO_REDIRECT_TO_LOCALISED_PAGE,
   });
 

@@ -113,7 +113,7 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
   try {
     configureReq(req, { fileLabel });
 
-    logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
       apiEndpoint: AMPLITUDE_API_ENDPOINTS.START_VERCEL_DEPLOYMENT,
     });
 

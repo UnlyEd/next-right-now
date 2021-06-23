@@ -98,7 +98,7 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
   try {
     configureReq(req, { fileLabel });
 
-    logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
       apiEndpoint: AMPLITUDE_API_ENDPOINTS.WEBHOOK_DEPLOYMENT_COMPLETED,
     });
 
