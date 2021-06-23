@@ -5,10 +5,9 @@ import {
 } from '@/modules/core/amplitude/events';
 import { convertRequestBodyToJSObject } from '@/modules/core/api/convertRequestBodyToJSObject';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry, {
-  ALERT_TYPES,
-  configureReq,
-} from '@/modules/core/sentry/sentry';
+import { ALERT_TYPES } from '@/modules/core/sentry/events';
+import Sentry from '@/modules/core/sentry/init';
+import { configureReq } from '@/modules/core/sentry/server';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -117,6 +116,8 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
         level: Sentry.Severity.Log,
       });
     });
+
+    await Sentry.flush(2000);
 
     res.status(200);
     res.end();

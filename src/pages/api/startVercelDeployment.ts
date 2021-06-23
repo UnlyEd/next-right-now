@@ -6,10 +6,9 @@ import {
 } from '@/modules/core/amplitude/events';
 import dispatchWorkflowByPath from '@/modules/core/githubActions/dispatchWorkflowByPath';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry, {
-  ALERT_TYPES,
-  configureReq,
-} from '@/modules/core/sentry/sentry';
+import { ALERT_TYPES } from '@/modules/core/sentry/events';
+import Sentry from '@/modules/core/sentry/init';
+import { configureReq } from '@/modules/core/sentry/server';
 import size from 'lodash.size';
 import {
   NextApiRequest,

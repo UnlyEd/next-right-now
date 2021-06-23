@@ -20,7 +20,7 @@ import {
   stopPreviewMode,
 } from '@/modules/core/previewMode/previewMode';
 import quickPreviewContext from '@/modules/core/quickPreview/contexts/quickPreviewContext';
-import { configureSentryI18n } from '@/modules/core/sentry/sentry';
+import { configureSentryI18n } from '@/modules/core/sentry/universal';
 import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import { detectCypress } from '@/modules/core/testing/cypress';
 import { initCustomerTheme } from '@/modules/core/theming/theme';
