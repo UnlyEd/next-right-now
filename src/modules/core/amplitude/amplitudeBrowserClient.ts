@@ -159,7 +159,8 @@ export const getDefaultEventProperties = (): GenericObject => {
 };
 
 /**
- * Returns a browser-compatible Amplitude instance
+ * Returns a browser-compatible Amplitude instance.
+ *
  * @param props
  */
 export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): AmplitudeClient | null => {
@@ -180,6 +181,7 @@ export const getAmplitudeInstance = (props: GetAmplitudeInstanceProps): Amplitud
  * Initialise Amplitude and send web-vitals metrics report.
  *
  * @param report
+ *
  * @see https://web.dev/vitals/ Essential metrics for a healthy site
  * @see https://nextjs.org/blog/next-9-4#integrated-web-vitals-reporting
  */

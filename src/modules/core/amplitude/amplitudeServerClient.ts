@@ -25,7 +25,6 @@ const amplitudeServerClient = init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, {
  *
  * @param eventName
  * @param userId
- *
  * @param props
  *
  * @see https://developers.amplitude.com/docs/nodejs
