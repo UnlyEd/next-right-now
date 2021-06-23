@@ -25,8 +25,8 @@ const amplitudeServerClient = init(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, {
  *
  * XXX Do not use it in Next.js pages, only in the API (it's not universal and won't work in the browser!).
  *
- * XXX It isn't necessary to await the "logEvent()" call, as the event seem to be ingested correctly when not awaiting them.
- *  But, if events aren't always processed (ingested by Amplitude) as expected, awaiting them might solve the issue.
+ * XXX It is necessary to ALWAYS await for "logEvent()" call on the server or API endpoints, as the event seem to NOT be ingested correctly when not waiting for the response (would return "Timeout" response).
+ *  See https://github.com/vercel/next.js/discussions/26523
  *  See https://github.com/amplitude/Amplitude-Node/issues/123#issuecomment-866278069
  *
  * @param eventName
