@@ -30,7 +30,7 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
   try {
     configureReq(req, { fileLabel });
 
-    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+    logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
       apiEndpoint: AMPLITUDE_API_ENDPOINTS.STATUS,
     });
 

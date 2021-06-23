@@ -71,7 +71,7 @@ export const preview = async (req: EndpointRequest, res: NextApiResponse): Promi
   try {
     configureReq(req, { fileLabel });
 
-    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+    logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
       apiEndpoint: AMPLITUDE_API_ENDPOINTS.PREVIEW,
     });
 
