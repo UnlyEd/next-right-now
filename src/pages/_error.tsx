@@ -1,3 +1,4 @@
+import { FLUSH_TIMEOUT } from '@/modules/core/sentry/config';
 import * as Sentry from '@sentry/node';
 import { NextPageContext } from 'next';
 import NextError, { ErrorProps as NextErrorProps } from 'next/error';
@@ -89,6 +90,8 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
  *  What's the point of getInitialProps when using SSG or hybrid apps?
  *
  * @param props
+ *
+ * @see https://github.com/vercel/next.js/blob/canary/examples/with-sentry/pages/_error.js
  */
 ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> => {
   const {
@@ -123,6 +126,9 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
     if (err) {
       Sentry.captureException(err);
 
+      // It's necessary to flush all events when running on the server, because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+      await Sentry.flush(FLUSH_TIMEOUT);
+
       return errorInitialProps;
     }
   } else {
@@ -148,6 +154,9 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
   Sentry.captureException(
     new Error(`_error.js getInitialProps missing data at path: ${asPath}`),
   );
+
+  // It's necessary to flush all events when running on the server, because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+  await Sentry.flush(FLUSH_TIMEOUT);
 
   return errorInitialProps;
 };
