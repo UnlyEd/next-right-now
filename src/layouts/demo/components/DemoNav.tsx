@@ -2,7 +2,6 @@ import Tooltip from '@/components/dataDisplay/Tooltip';
 import { BUILT_IN_FEATURES_SIDEBAR_LINKS } from '@/layouts/demo/components/BuiltInFeaturesSidebar';
 import { BUILT_IN_UTILITIES_SIDEBAR_LINKS } from '@/layouts/demo/components/BuiltInUtilitiesSidebar';
 import { NATIVE_FEATURES_SIDEBAR_LINKS } from '@/layouts/demo/components/NativeFeaturesSidebar';
-import AirtableAsset from '@/modules/core/airtable/components/AirtableAsset';
 import {
   AMPLITUDE_ACTIONS,
   AMPLITUDE_EVENTS,

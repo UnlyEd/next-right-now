@@ -1,8 +1,5 @@
-import { getCustomer } from '@/modules/core/airtable/dataset';
-import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
 import { logEvent } from '@/modules/core/amplitude/amplitudeServerClient';
 import { AMPLITUDE_EVENTS } from '@/modules/core/amplitude/events';
-import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { GraphCMSDataset } from '@/modules/core/data/types/GraphCMSDataset';
 import { getGraphcmsDataset } from '@/modules/core/gql/getGraphcmsDataset';
