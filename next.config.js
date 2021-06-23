@@ -20,9 +20,7 @@ const GIT_COMMIT_SHA_SHORT = typeof process.env.GIT_COMMIT_SHA === 'string' && p
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${process.env.GIT_COMMIT_SHA} and GIT_COMMIT_REF=${process.env.GIT_COMMIT_REF}`);
 
-// We use `filter` to make sure there are not empty element.
-// Default value is an empty array.
-const GIT_COMMIT_TAGS = process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.trim() : '';
+const GIT_COMMIT_TAGS = (process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.trim() : '').replace('refs/tags/', '');
 console.debug(`Deployment will be tagged automatically, using GIT_COMMIT_TAGS: "${GIT_COMMIT_TAGS}"`);
 
 // Iterate over all tags and extract the first the match "v*"
@@ -183,7 +181,7 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: `frame-ancestors *.stacker.app`,
+            value: 'frame-ancestors *.stacker.app *.airportal.app', // Airportal is the former name of Stacker
           },
         ],
       });

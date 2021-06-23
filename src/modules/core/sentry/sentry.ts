@@ -1,3 +1,7 @@
+import {
+  ClientNetworkConnectionType,
+  ClientNetworkInformationSpeed,
+} from '@/modules/core/networkInformation/networkInformation';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
 import map from 'lodash.map';
@@ -64,7 +68,7 @@ export const ALERT_TYPES = {
 };
 
 /**
- * Configure Sentry tags for the current user.
+ * Configure Sentry tags related to the current user.
  *
  * Allows to track all Sentry events related to a particular user.
  * The tracking remains anonymous, there are no personal information being tracked, only internal ids.
@@ -72,12 +76,32 @@ export const ALERT_TYPES = {
  * @param userSession
  * @see https://www.npmjs.com/package/@sentry/node
  */
-export const configureSentryUser = (userSession: UserSession): void => {
+export const configureSentryUserMetadata = (userSession: UserSession): void => {
   if (process.env.SENTRY_DSN) {
     Sentry.configureScope((scope) => {
       scope.setTag('userId', userSession?.id);
       scope.setTag('userDeviceId', userSession?.deviceId);
       scope.setContext('user', userSession);
+    });
+  }
+};
+
+/**
+ * Configure Sentry tags related to the browser metadata.
+ *
+ * @param networkSpeed
+ * @param networkConnectionType
+ * @param isInIframe
+ * @param iframeReferrer
+ */
+export const configureSentryBrowserMetadata = (networkSpeed: ClientNetworkInformationSpeed, networkConnectionType: ClientNetworkConnectionType, isInIframe: boolean, iframeReferrer: string): void => {
+  if (process.env.SENTRY_DSN) {
+    Sentry.configureScope((scope) => {
+      scope.setTag('networkSpeed', networkSpeed);
+      scope.setTag('networkConnectionType', networkConnectionType);
+      scope.setTag('iframe', `${isInIframe}`);
+      scope.setExtra('iframe', isInIframe);
+      scope.setExtra('iframeReferrer', iframeReferrer);
     });
   }
 };

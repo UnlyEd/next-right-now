@@ -1,5 +1,7 @@
 import { getCustomer } from '@/modules/core/airtable/dataset';
 import { getAirtableDataset } from '@/modules/core/airtable/getAirtableDataset';
+import { logEvent } from '@/modules/core/amplitude/amplitudeServerClient';
+import { AMPLITUDE_EVENTS } from '@/modules/core/amplitude/events';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
@@ -59,6 +61,10 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
   if (!localeFound) {
     localeFound = customer?.availableLanguages?.[0] || DEFAULT_LOCALE;
   }
+
+  logEvent(AMPLITUDE_EVENTS.API_LOCALE_MIDDLEWARE_INVOKED, null, {
+    locale: localeFound,
+  });
 
   logger.debug(`Locale applied: "${localeFound}", for url "${req.url}"`);
 

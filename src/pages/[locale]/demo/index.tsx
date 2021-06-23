@@ -11,7 +11,7 @@ import {
   getDemoLayoutStaticPaths,
   getDemoLayoutStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
-import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/events';
 import { LogEvent } from '@/modules/core/amplitude/types/Amplitude';
 import { createLogger } from '@/modules/core/logging/logger';
 import { Amplitude } from '@amplitude/react-amplitude';

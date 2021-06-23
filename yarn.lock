@@ -7,6 +7,25 @@
   resolved "https://registry.yarnpkg.com/@amplitude/eslint-config-typescript/-/eslint-config-typescript-1.1.0.tgz#f6d876febda6f4470564e806576e43750d60a094"
   integrity sha512-N8sKkwtFakPD2/cSOrBnM5Wudjp4qeDD69U1cG7dZ6DDczxBhUEqnJDJ0wiYmKMPXqr+bmFOsDdbCcOmb/CLYA==
 
+"@amplitude/identify@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@amplitude/identify/-/identify-1.6.1.tgz#11bd423b4fb330a4a7b0adfb7075753b1c8d0235"
+  integrity sha512-+iT7e+Iw6XJCUvqgJRy/73bCbW6XO1j1EXtfBJ6XefGSeDpKJL651DtS848+qaf5SGji0vE934K1gShuTrouOA==
+  dependencies:
+    "@amplitude/types" "^1.6.1"
+    "@amplitude/utils" "^1.6.1"
+    tslib "^1.9.3"
+
+"@amplitude/node@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@amplitude/node/-/node-1.6.1.tgz#d5dc1f40c1ffa24c3ab3a52cc4d35f0db4ce49f2"
+  integrity sha512-6mTVLJ4g7usNIMBKAkbBAIn3y2Y7rrI0DGHg8IFL0zLYaeYVJjvaOixqpGgPTFmiu1PO+NfHba8gk6/SWs879A==
+  dependencies:
+    "@amplitude/identify" "^1.6.1"
+    "@amplitude/types" "^1.6.1"
+    "@amplitude/utils" "^1.6.1"
+    tslib "^1.9.3"
+
 "@amplitude/react-amplitude@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@amplitude/react-amplitude/-/react-amplitude-1.0.0.tgz#60145d02de035fc457e28e173f90aa33af2d149a"
@@ -22,6 +41,11 @@
   dependencies:
     "@amplitude/eslint-config-typescript" "^1.1.0"
 
+"@amplitude/types@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@amplitude/types/-/types-1.6.1.tgz#ed15be42746526d6f7087bedc916734e13be56fd"
+  integrity sha512-GSaNbROpG5gaoLQPo9crpCkB+BgfN7ZtK6SPJaQC2IX2xNqvfq/RZwYLhMZyNfZw/Nce0Z6lKYXCoNPyhdL26Q==
+
 "@amplitude/ua-parser-js@0.7.24":
   version "0.7.24"
   resolved "https://registry.yarnpkg.com/@amplitude/ua-parser-js/-/ua-parser-js-0.7.24.tgz#2ce605af7d2c38d4a01313fb2385df55fbbd69aa"
@@ -33,6 +57,14 @@
   integrity sha512-qAsyQLNjGSh98q/dQajnLVAanf2SdbXcjEDJuoiC/INnS/KhEr3ixkS/30WuabYyWxFRJmkhrGBxGuebuV7J1Q==
   dependencies:
     "@amplitude/types" "^1.1.1"
+    tslib "^1.9.3"
+
+"@amplitude/utils@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@amplitude/utils/-/utils-1.6.1.tgz#fb6833bca5a35af01468e0317363520ff2377259"
+  integrity sha512-lzmjvKOkg2tbr5YvLuxBAOoCvnmAJ5mvuLYy9hth5j4dzeVfE8aoZp9PYpxOGAuonVEPJas3BH0XGTVBDn1zNA==
+  dependencies:
+    "@amplitude/types" "^1.6.1"
     tslib "^1.9.3"
 
 "@babel/code-frame@7.10.4", "@babel/code-frame@^7.10.4":

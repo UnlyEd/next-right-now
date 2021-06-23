@@ -7,7 +7,7 @@ import {
   getDemoLayoutStaticPaths,
   getDemoLayoutStaticProps,
 } from '@/layouts/demo/demoLayoutSSG';
-import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/events';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { replaceAllOccurrences } from '@/modules/core/js/string';

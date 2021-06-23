@@ -84,8 +84,8 @@ jobs:
         with:
           node-version: '14.x' # Use the same node.js version as the one Vercel's uses (currently node14.x)
 
-  # Starts a Vercel deployment, using the production configuration file of the default institution
-  # The default institution is the one defined in the `vercel.json` file (which is a symlink to the actual file)
+  # Starts a Vercel deployment, using the production configuration file of the default customer
+  # The default customer is the one defined in the `vercel.json` file (which is a symlink to the actual file)
   # N.B: It's Vercel that will perform the actual deployment
   start-production-deployment:
     name: Starts Vercel deployment (production) (Ubuntu 18.04)
