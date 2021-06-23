@@ -1,5 +1,5 @@
 import { createLogger } from '@/modules/core/logging/logger';
-import { ALERT_TYPES } from '@/modules/core/sentry/events';
+import { ALERT_TYPES } from '@/modules/core/sentry/config';
 import Sentry from '../sentry/init';
 import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 

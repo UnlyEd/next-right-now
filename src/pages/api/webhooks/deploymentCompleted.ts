@@ -5,7 +5,10 @@ import {
 } from '@/modules/core/amplitude/events';
 import { convertRequestBodyToJSObject } from '@/modules/core/api/convertRequestBodyToJSObject';
 import { createLogger } from '@/modules/core/logging/logger';
-import { ALERT_TYPES } from '@/modules/core/sentry/events';
+import {
+  ALERT_TYPES,
+  FLUSH_TIMEOUT,
+} from '@/modules/core/sentry/config';
 import Sentry from '@/modules/core/sentry/init';
 import { configureReq } from '@/modules/core/sentry/server';
 import {
@@ -117,13 +120,17 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
       });
     });
 
-    await Sentry.flush(2000);
+    // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+    await Sentry.flush(FLUSH_TIMEOUT);
 
     res.status(200);
     res.end();
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);
+
+    // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+    await Sentry.flush(FLUSH_TIMEOUT);
 
     res.status(500);
     res.end();
