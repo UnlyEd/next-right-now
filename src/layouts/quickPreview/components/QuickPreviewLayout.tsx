@@ -2,7 +2,7 @@ import Head, { HeadProps } from '@/layouts/core/components/CoreHead';
 import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry from '@/modules/core/sentry/sentry';
+import Sentry from '@/modules/core/sentry/init';
 import {
   Amplitude,
   LogOnMount,
