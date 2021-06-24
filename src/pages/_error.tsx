@@ -1,4 +1,4 @@
-import { FLUSH_TIMEOUT } from '@/modules/core/sentry/config';
+import { flushSafe } from '@/modules/core/sentry/universal';
 import * as Sentry from '@sentry/node';
 import { NextPageContext } from 'next';
 import NextError, { ErrorProps as NextErrorProps } from 'next/error';
@@ -126,8 +126,7 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
     if (err) {
       Sentry.captureException(err);
 
-      // It's necessary to flush all events when running on the server, because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
-      await Sentry.flush(FLUSH_TIMEOUT);
+      await flushSafe();
 
       return errorInitialProps;
     }
@@ -155,8 +154,7 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
     new Error(`_error.js getInitialProps missing data at path: ${asPath}`),
   );
 
-  // It's necessary to flush all events when running on the server, because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
-  await Sentry.flush(FLUSH_TIMEOUT);
+  await flushSafe();
 
   return errorInitialProps;
 };
