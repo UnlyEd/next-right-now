@@ -27,8 +27,11 @@ const sentryWebpackPluginOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
 
-  debug: process.env.NODE_ENV === 'development',
-  // silent: true, // Suppresses all logs
+  // XXX The error "Error: Cannot find module '/.next/server/sentry/initServerSDK.js'" in the console is a false-positive error
+  //  See https://github.com/getsentry/sentry-docs/issues/3721
+
+  debug: process.env.NODE_ENV !== 'development', // You'll need to configure "debug" in sentry.x.config.js files as well
+  silent: true, // Suppresses all logs, because "[Sentry Webpack Plugin]" logs are too noisy
 };
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${process.env.GIT_COMMIT_SHA} and GIT_COMMIT_REF=${process.env.GIT_COMMIT_REF}`);
