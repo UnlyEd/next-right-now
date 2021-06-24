@@ -41,5 +41,3 @@ if (process.env.SENTRY_DSN) {
     scope.setTag('runtimeEngine', isBrowser() ? 'browser' : 'server');
   });
 }
-
-export default Sentry;
