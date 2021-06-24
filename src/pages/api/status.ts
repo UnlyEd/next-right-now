@@ -4,7 +4,9 @@ import {
   AMPLITUDE_EVENTS,
 } from '@/modules/core/amplitude/events';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
+import { FLUSH_TIMEOUT } from '@/modules/core/sentry/config';
+import Sentry from '@/modules/core/sentry/init';
+import { configureReq } from '@/modules/core/sentry/server';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -60,6 +62,9 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);
+
+    // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+    await Sentry.flush(FLUSH_TIMEOUT);
 
     res.json({
       error: true,

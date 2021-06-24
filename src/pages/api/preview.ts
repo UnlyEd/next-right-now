@@ -5,7 +5,9 @@ import {
 } from '@/modules/core/amplitude/events';
 import { filterExternalAbsoluteUrl } from '@/modules/core/js/url';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry, { configureReq } from '@/modules/core/sentry/sentry';
+import { FLUSH_TIMEOUT } from '@/modules/core/sentry/config';
+import Sentry from '@/modules/core/sentry/init';
+import { configureReq } from '@/modules/core/sentry/server';
 import appendQueryParameter from 'append-query';
 import {
   NextApiRequest,
@@ -101,11 +103,17 @@ export const preview = async (req: EndpointRequest, res: NextApiResponse): Promi
       Sentry.captureMessage('Preview mode is not allowed in production', Sentry.Severity.Warning);
     }
 
+    // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+    await Sentry.flush(FLUSH_TIMEOUT);
+
     res.writeHead(307, { Location: safeRedirectUrl });
     res.end();
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);
+
+    // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+    await Sentry.flush(FLUSH_TIMEOUT);
 
     res.json({
       error: true,

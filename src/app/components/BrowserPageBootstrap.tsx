@@ -14,10 +14,8 @@ import {
   getClientNetworkConnectionType,
   getClientNetworkInformationSpeed,
 } from '@/modules/core/networkInformation/networkInformation';
-import {
-  configureSentryBrowserMetadata,
-  configureSentryUserMetadata,
-} from '@/modules/core/sentry/sentry';
+import { configureSentryBrowserMetadata } from '@/modules/core/sentry/browser';
+import { configureSentryUserMetadata } from '@/modules/core/sentry/universal';
 import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
 import {
   CYPRESS_WINDOW_NS,
