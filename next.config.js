@@ -33,9 +33,7 @@ const sentryWebpackPluginOptions = {
 
 console.debug(`Building Next with NODE_ENV="${process.env.NODE_ENV}" NEXT_PUBLIC_APP_STAGE="${process.env.NEXT_PUBLIC_APP_STAGE}" for NEXT_PUBLIC_CUSTOMER_REF="${process.env.NEXT_PUBLIC_CUSTOMER_REF}" using GIT_COMMIT_SHA=${process.env.GIT_COMMIT_SHA} and GIT_COMMIT_REF=${process.env.GIT_COMMIT_REF}`);
 
-// We use `filter` to make sure there are not empty element.
-// Default value is an empty array.
-const GIT_COMMIT_TAGS = process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.trim() : '';
+const GIT_COMMIT_TAGS = (process.env.GIT_COMMIT_TAGS ? process.env.GIT_COMMIT_TAGS.trim() : '').replace('refs/tags/', '');
 console.debug(`Deployment will be tagged automatically, using GIT_COMMIT_TAGS: "${GIT_COMMIT_TAGS}"`);
 
 // Iterate over all tags and extract the first the match "v*"
@@ -206,7 +204,7 @@ module.exports = withNextPluginPreval(withSentryConfig(withBundleAnalyzer(withSo
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: `frame-ancestors *.stacker.app`,
+            value: 'frame-ancestors *.stacker.app *.airportal.app', // Airportal is the former name of Stacker
           },
         ],
       });
@@ -312,11 +310,9 @@ module.exports = withNextPluginPreval(withSentryConfig(withBundleAnalyzer(withSo
     return redirects;
   },
 
-  future: {
-    // See https://nextjs.org/docs/messages/webpack5
-    // Necessary to manually specify to use webpack 5, because we use a custom "webpack" config (see below)
-    webpack5: true,
-  },
+  // See https://nextjs.org/docs/messages/webpack5
+  // Necessary to manually specify to use webpack 5, because we use a custom "webpack" config (see below)
+  webpack5: true,
 
   resolve: {
     fallback: {

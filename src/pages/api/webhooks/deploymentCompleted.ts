@@ -1,9 +1,16 @@
+import { logEvent } from '@/modules/core/amplitude/amplitudeServerClient';
+import {
+  AMPLITUDE_API_ENDPOINTS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import { convertRequestBodyToJSObject } from '@/modules/core/api/convertRequestBodyToJSObject';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry, {
+import {
   ALERT_TYPES,
-  configureReq,
-} from '@/modules/core/sentry/sentry';
+  FLUSH_TIMEOUT,
+} from '@/modules/core/sentry/config';
+import Sentry from '@/modules/core/sentry/init';
+import { configureReq } from '@/modules/core/sentry/server';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -93,15 +100,16 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
   try {
     configureReq(req, { fileLabel });
 
-    // eslint-disable-next-line no-console
-    console.log(`Received body of type "${typeof req?.body}":`);
-    // eslint-disable-next-line no-console
-    console.log(req?.body);
+    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+      apiEndpoint: AMPLITUDE_API_ENDPOINTS.WEBHOOK_DEPLOYMENT_COMPLETED,
+    });
+
+    logger.log(`Received body of type "${typeof req?.body}":`);
+    logger.log(req?.body);
 
     const parsedBody = convertRequestBodyToJSObject<EndpointRequestBody>(req);
 
-    // eslint-disable-next-line no-console
-    console.debug('body (parsed)', parsedBody);
+    logger.debug('body (parsed)', parsedBody);
 
     Sentry.withScope((scope): void => {
       scope.setTag('alertType', ALERT_TYPES.VERCEL_DEPLOYMENT_COMPLETED);
@@ -112,11 +120,17 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
       });
     });
 
+    // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+    await Sentry.flush(FLUSH_TIMEOUT);
+
     res.status(200);
     res.end();
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);
+
+    // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+    await Sentry.flush(FLUSH_TIMEOUT);
 
     res.status(500);
     res.end();

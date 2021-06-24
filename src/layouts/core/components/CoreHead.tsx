@@ -74,7 +74,7 @@ export type HeadProps = {
 const CoreHead: React.FunctionComponent<HeadProps> = (props): JSX.Element => {
   const customer: Customer = useCustomer();
 
-  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 9, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
+  const defaultDescription = 'Flexible production-grade boilerplate with Next.js 11, Vercel and TypeScript. Includes multiple opt-in presets using Storybook, Airtable, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization, CI/CD and SaaS B2B multiple single-tenants (monorepo) support';
   const defaultMetaURL = 'https://github.com/UnlyEd/next-right-now';
   const defaultMetaImage = customer?.theme?.logo?.url;
   const defaultFavicon = '/favicon.ico';

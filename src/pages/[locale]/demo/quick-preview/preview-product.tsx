@@ -3,13 +3,13 @@ import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps'
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
 import { getDemoLayoutServerSideProps } from '@/layouts/demo/demoLayoutSSR';
-import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/amplitude';
+import QuickPreviewLayout from '@/layouts/quickPreview/components/QuickPreviewLayout';
+import { AMPLITUDE_PAGES } from '@/modules/core/amplitude/events';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
 import { AirtableRecord } from '@/modules/core/data/types/AirtableRecord';
 import { Customer } from '@/modules/core/data/types/Customer';
 import { Product } from '@/modules/core/data/types/Product';
 import { createLogger } from '@/modules/core/logging/logger';
-import QuickPreviewLayout from '@/layouts/quickPreview/components/QuickPreviewLayout';
 import find from 'lodash.find';
 import {
   GetServerSideProps,

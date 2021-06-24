@@ -10,7 +10,6 @@ import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
-import { DEFAULT_LOCALE } from '@/modules/core/i18n/i18n';
 import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
 import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
@@ -21,7 +20,7 @@ import {
   stopPreviewMode,
 } from '@/modules/core/previewMode/previewMode';
 import quickPreviewContext from '@/modules/core/quickPreview/contexts/quickPreviewContext';
-import { configureSentryI18n } from '@/modules/core/sentry/sentry';
+import { configureSentryI18n } from '@/modules/core/sentry/universal';
 import deserializeSafe from '@/modules/core/serializeSafe/deserializeSafe';
 import { detectCypress } from '@/modules/core/testing/cypress';
 import { initCustomerTheme } from '@/modules/core/theming/theme';
@@ -211,13 +210,6 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
 
     const dataset: SanitizedAirtableDataset = deserializeSafe(serializedDataset);
     const customer: AirtableRecord<Customer> = getCustomer(dataset);
-    let availableLanguages: string[] = customer?.availableLanguages;
-
-    if (isEmpty(availableLanguages)) {
-      // If no language have been set, apply default (fallback)
-      // XXX Applying proper default is critical to avoid an infinite loop
-      availableLanguages = [DEFAULT_LOCALE];
-    }
 
     if (process.env.NEXT_PUBLIC_APP_STAGE !== 'production' && isBrowser()) {
       // eslint-disable-next-line no-console

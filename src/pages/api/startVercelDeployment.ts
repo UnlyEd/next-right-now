@@ -1,10 +1,14 @@
 import redirect from '@/common/utils/redirect';
+import { logEvent } from '@/modules/core/amplitude/amplitudeServerClient';
+import {
+  AMPLITUDE_API_ENDPOINTS,
+  AMPLITUDE_EVENTS,
+} from '@/modules/core/amplitude/events';
 import dispatchWorkflowByPath from '@/modules/core/githubActions/dispatchWorkflowByPath';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry, {
-  ALERT_TYPES,
-  configureReq,
-} from '@/modules/core/sentry/sentry';
+import { ALERT_TYPES } from '@/modules/core/sentry/config';
+import Sentry from '@/modules/core/sentry/init';
+import { configureReq } from '@/modules/core/sentry/server';
 import size from 'lodash.size';
 import {
   NextApiRequest,
@@ -107,6 +111,10 @@ const GITHUB_ACTION_WORKFLOW_FILE_PATH_STAGING = '.github/workflows/deploy-verce
 const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse): Promise<void> => {
   try {
     configureReq(req, { fileLabel });
+
+    await logEvent(AMPLITUDE_EVENTS.API_INVOKED, null, {
+      apiEndpoint: AMPLITUDE_API_ENDPOINTS.START_VERCEL_DEPLOYMENT,
+    });
 
     Sentry.withScope((scope): void => {
       scope.setTag('alertType', ALERT_TYPES.VERCEL_DEPLOYMENT_INVOKED);

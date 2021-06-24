@@ -1,6 +1,6 @@
 import { MultiversalPageProps } from '@/layouts/core/types/MultiversalPageProps';
 import { OnlyBrowserPageProps } from '@/layouts/core/types/OnlyBrowserPageProps';
-import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitude';
+import { getAmplitudeInstance } from '@/modules/core/amplitude/amplitudeBrowserClient';
 import amplitudeContext from '@/modules/core/amplitude/context/amplitudeContext';
 import UniversalCookiesManager from '@/modules/core/cookiesManager/UniversalCookiesManager';
 import useCustomer from '@/modules/core/data/hooks/useCustomer';
@@ -14,7 +14,8 @@ import {
   getClientNetworkConnectionType,
   getClientNetworkInformationSpeed,
 } from '@/modules/core/networkInformation/networkInformation';
-import { configureSentryUser } from '@/modules/core/sentry/sentry';
+import { configureSentryBrowserMetadata } from '@/modules/core/sentry/browser';
+import { configureSentryUserMetadata } from '@/modules/core/sentry/universal';
 import { cypressContext } from '@/modules/core/testing/contexts/cypressContext';
 import {
   CYPRESS_WINDOW_NS,
@@ -91,7 +92,9 @@ const BrowserPageBootstrap = (props: BrowserPageBootstrapProps): JSX.Element => 
   const networkConnectionType: ClientNetworkConnectionType = getClientNetworkConnectionType();
 
   // Configure Sentry user and track navigation through breadcrumb
-  configureSentryUser(userSession);
+  configureSentryUserMetadata(userSession);
+  configureSentryBrowserMetadata(networkSpeed, networkConnectionType, isInIframe, iframeReferrer);
+
   Sentry.addBreadcrumb({ // See https://docs.sentry.io/enriching-error-data/breadcrumbs
     category: fileLabel,
     message: `Rendering ${fileLabel}`,

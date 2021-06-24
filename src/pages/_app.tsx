@@ -4,9 +4,9 @@ import { MultiversalAppBootstrapProps } from '@/app/types/MultiversalAppBootstra
 import '@/common/utils/ignoreNoisyWarningsHacks'; // HACK This ignore warnings and errors I personally find too noisy and useless
 import { SSGPageProps } from '@/layouts/core/types/SSGPageProps';
 import { SSRPageProps } from '@/layouts/core/types/SSRPageProps';
-import { sendWebVitals } from '@/modules/core/amplitude/amplitude';
+import { sendWebVitals } from '@/modules/core/amplitude/amplitudeBrowserClient';
 import '@/modules/core/fontAwesome/fontAwesome';
-import '@/modules/core/sentry/sentry';
+import '@/modules/core/sentry/init';
 import { NextWebVitalsMetrics } from '@/modules/core/webVitals/types/NextWebVitalsMetrics';
 import { NextWebVitalsMetricsReport } from '@/modules/core/webVitals/types/NextWebVitalsMetricsReport';
 import size from 'lodash.size';
