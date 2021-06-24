@@ -3,13 +3,16 @@ import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
 import { createLogger } from '@/modules/core/logging/logger';
 import PreviewModeBanner from '@/modules/core/previewMode/components/PreviewModeBanner';
-import Sentry from '@/modules/core/sentry/init';
 import ErrorPage from '@/pages/_error';
 import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
-import { css, SerializedStyles } from '@emotion/react';
+import {
+  css,
+  SerializedStyles,
+} from '@emotion/react';
+import * as Sentry from '@sentry/node';
 import classnames from 'classnames';
 import {
   NextRouter,
