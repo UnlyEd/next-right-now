@@ -110,7 +110,7 @@ export const preview = async (req: EndpointRequest, res: NextApiResponse): Promi
     res.end();
   } catch (e) {
     Sentry.captureException(e);
-    logger.error(e.message);
+    logger.error(e);
 
     // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
     await Sentry.flush(FLUSH_TIMEOUT);
