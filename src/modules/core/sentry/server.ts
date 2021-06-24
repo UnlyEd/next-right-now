@@ -1,6 +1,6 @@
 import { convertRequestBodyToJSObject } from '@/modules/core/api/convertRequestBodyToJSObject';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import map from 'lodash.map';
 import { NextApiRequest } from 'next';
 
@@ -10,7 +10,7 @@ import { NextApiRequest } from 'next';
  * @param req
  * @param tags
  * @param contexts
- * @see https://www.npmjs.com/package/@sentry/node
+ * @see https://www.npmjs.com/package/@sentry/nextjs
  */
 export const configureReq = (req: NextApiRequest, tags?: { [key: string]: string }, contexts?: { [key: string]: any }): void => {
   let parsedBody: GenericObject = {};

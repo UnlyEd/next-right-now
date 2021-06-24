@@ -2,7 +2,7 @@ import {
   ClientNetworkConnectionType,
   ClientNetworkInformationSpeed,
 } from '@/modules/core/networkInformation/networkInformation';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 
 /**
  * Configure Sentry tags related to the browser metadata.

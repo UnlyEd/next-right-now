@@ -5,7 +5,7 @@ import { init } from '@amplitude/node';
 import { Event } from '@amplitude/types';
 import { LogLevel } from '@amplitude/types/dist/src/logger';
 import { Response } from '@amplitude/types/dist/src/response';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { Context } from '@sentry/types';
 import startsWith from 'lodash.startswith';
 import { v1 as uuid } from 'uuid'; // XXX Use v1 for uniqueness - See https://www.sohamkamani.com/blog/2016/10/05/uuid1-vs-uuid4/
