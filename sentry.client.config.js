@@ -10,6 +10,7 @@ Sentry.init({
   enabled: process.env.NODE_ENV !== 'test',
   environment: process.env.NEXT_PUBLIC_APP_STAGE,
   debug: process.env.NODE_ENV === 'development',
+  tracesSampleRate: 1.0,
 
   // Note: if you want to override the automatic release value, do not set a
   // `release` value here - use the environment variable `SENTRY_RELEASE`, so
