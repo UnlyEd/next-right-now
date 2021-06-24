@@ -5,9 +5,9 @@ import {
 } from '@/modules/core/amplitude/events';
 import { filterExternalAbsoluteUrl } from '@/modules/core/js/url';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry from '@/modules/core/sentry/init';
 import { configureReq } from '@/modules/core/sentry/server';
 import { flushSafe } from '@/modules/core/sentry/universal';
+import * as Sentry from '@sentry/node';
 import appendQueryParameter from 'append-query';
 import {
   NextApiRequest,
