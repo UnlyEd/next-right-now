@@ -17,7 +17,7 @@ ga_tracking: UA-89785688-8 # See https://pmarsceill.github.io/just-the-docs/docs
 # in the templates via {{ site.myvariable }}.
 title: Next Right Now
 description: >- # this means to ignore newlines until "baseurl:"
-  Flexible production-grade boilerplate with Next.js 10, Vercel and TypeScript.
+  Flexible production-grade boilerplate with Next.js 11, Vercel and TypeScript.
   Includes multiple opt-in presets using Storybook, Airtable, GraphQL, Analytics, CSS-in-JS, Monitoring, End-to-end testing, Internationalization,
   CI/CD and SaaS B2B multi single-tenancy (monorepo) support
 #baseurl: "" # the subpath of your site, e.g. /blog
