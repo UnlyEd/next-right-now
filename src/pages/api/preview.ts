@@ -103,8 +103,13 @@ export const preview = async (req: EndpointRequest, res: NextApiResponse): Promi
       Sentry.captureMessage('Preview mode is not allowed in production', Sentry.Severity.Warning);
     }
 
-    // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
-    await Sentry.flush(FLUSH_TIMEOUT);
+    try {
+      // It's necessary to flush all events because Vercel runs on AWS Lambda, see https://vercel.com/docs/platform/limits#streaming-responses
+      await Sentry.flush(FLUSH_TIMEOUT);
+    } catch (e) {
+      Sentry.captureException(e);
+      logger.error(e);
+    }
 
     res.writeHead(307, { Location: safeRedirectUrl });
     res.end();
