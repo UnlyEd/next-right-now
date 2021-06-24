@@ -7,8 +7,8 @@ import {
 import dispatchWorkflowByPath from '@/modules/core/githubActions/dispatchWorkflowByPath';
 import { createLogger } from '@/modules/core/logging/logger';
 import { ALERT_TYPES } from '@/modules/core/sentry/config';
-import Sentry from '@/modules/core/sentry/init';
 import { configureReq } from '@/modules/core/sentry/server';
+import * as Sentry from '@sentry/nextjs';
 import size from 'lodash.size';
 import {
   NextApiRequest,

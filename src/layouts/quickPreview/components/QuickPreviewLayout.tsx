@@ -2,12 +2,12 @@ import Head, { HeadProps } from '@/layouts/core/components/CoreHead';
 import { SoftPageProps } from '@/layouts/core/types/SoftPageProps';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
 import { createLogger } from '@/modules/core/logging/logger';
-import Sentry from '@/modules/core/sentry/init';
 import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
 import { css } from '@emotion/react';
+import * as Sentry from '@sentry/nextjs';
 import React from 'react';
 import { Container } from 'reactstrap';
 import QuickPreviewBanner from './QuickPreviewBanner';

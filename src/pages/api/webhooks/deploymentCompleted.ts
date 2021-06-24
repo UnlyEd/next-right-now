@@ -9,8 +9,8 @@ import {
   ALERT_TYPES,
   FLUSH_TIMEOUT,
 } from '@/modules/core/sentry/config';
-import Sentry from '@/modules/core/sentry/init';
 import { configureReq } from '@/modules/core/sentry/server';
+import * as Sentry from '@sentry/nextjs';
 import {
   NextApiRequest,
   NextApiResponse,

@@ -39,5 +39,3 @@ export const configureSentry = (): void => {
     });
   }
 };
-
-export default Sentry;
