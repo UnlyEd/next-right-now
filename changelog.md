@@ -29,6 +29,10 @@ such as a preset release history, but it is not meant to warn about non-backward
 
 Here is a short list of the most valuable changes and new features.
 
+- 2021-06-24
+    - [Refactor Amplitude (browser) + add Amplitude to the server side (API)](https://github.com/UnlyEd/next-right-now/pull/374)
+- 2021-06-23
+    - [Refactor Sentry + fix Sentry usage in API endpoints](https://github.com/UnlyEd/next-right-now/pull/375)
 - 2021-06-15
     - [NextJS 11](https://github.com/UnlyEd/next-right-now/pull/371)
 - 2021-06-09
