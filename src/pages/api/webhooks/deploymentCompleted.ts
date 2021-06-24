@@ -10,7 +10,6 @@ import {
   FLUSH_TIMEOUT,
 } from '@/modules/core/sentry/config';
 import { configureReq } from '@/modules/core/sentry/server';
-import { withSentry } from '@sentry/nextjs';
 import * as Sentry from '@sentry/nextjs';
 import {
   NextApiRequest,
@@ -138,4 +137,4 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
   }
 };
 
-export default withSentry(deploymentCompleted);
+export default Sentry.withSentry(deploymentCompleted);

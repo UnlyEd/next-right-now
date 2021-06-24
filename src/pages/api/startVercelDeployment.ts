@@ -8,7 +8,6 @@ import dispatchWorkflowByPath from '@/modules/core/githubActions/dispatchWorkflo
 import { createLogger } from '@/modules/core/logging/logger';
 import { ALERT_TYPES } from '@/modules/core/sentry/config';
 import { configureReq } from '@/modules/core/sentry/server';
-import { withSentry } from '@sentry/nextjs';
 import * as Sentry from '@sentry/nextjs';
 import size from 'lodash.size';
 import {
@@ -187,4 +186,4 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
   }
 };
 
-export default withSentry(startVercelDeployment);
+export default Sentry.withSentry(startVercelDeployment);

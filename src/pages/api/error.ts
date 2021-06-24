@@ -7,7 +7,6 @@ import { createLogger } from '@/modules/core/logging/logger';
 import { FLUSH_TIMEOUT } from '@/modules/core/sentry/config';
 import { configureReq } from '@/modules/core/sentry/server';
 import * as Sentry from '@sentry/nextjs';
-import { withSentry } from '@sentry/nextjs';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -51,4 +50,4 @@ export const error = async (req: NextApiRequest, res: NextApiResponse): Promise<
   }
 };
 
-export default withSentry(error);
+export default Sentry.withSentry(error);
