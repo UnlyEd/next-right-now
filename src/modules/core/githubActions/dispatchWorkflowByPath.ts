@@ -4,7 +4,7 @@ import {
   GITHUB_REPO_NAME,
 } from '@/app/constants';
 import { createLogger } from '@/modules/core/logging/logger';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import dispatchWorkflow from './dispatchWorkflow';
 import { WorkflowsAPIResponse } from './types/WorkflowsAPIResponse';
 

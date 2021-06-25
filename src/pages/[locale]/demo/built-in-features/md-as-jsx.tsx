@@ -116,7 +116,7 @@ const ExampleMarkdownAsJSXPage: NextPage<Props> = (props): JSX.Element => {
             <br />
             <Code
               text={`
-                import * as Sentry from '@sentry/node';
+                import * as Sentry from '@sentry/nextjs';
                 import { createLogger } from '@/modules/core/logging/logger';
                 import deepmerge from 'deepmerge';
                 import MarkdownToJSX, { MarkdownOptions } from 'markdown-to-jsx';

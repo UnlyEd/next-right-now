@@ -1,5 +1,5 @@
 import { createLogger } from '@/modules/core/logging/logger';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { isBrowser } from '@unly/utils';
 
 const fileLabel = 'common/utils/mobile';

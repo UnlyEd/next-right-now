@@ -1,7 +1,7 @@
 import { Cookies } from '@/modules/core/cookiesManager/types/Cookies';
 import { resolveSSRLocale } from '@/modules/core/i18n/i18n';
 import { createLogger } from '@/modules/core/logging/logger';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import classnames from 'classnames';
 import NextCookies from 'next-cookies';
 import { DocumentInitialProps } from 'next/dist/next-server/lib/utils';

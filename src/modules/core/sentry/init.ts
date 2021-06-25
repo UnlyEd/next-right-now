@@ -1,13 +1,11 @@
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { isBrowser } from '@unly/utils';
 
 /**
- * Initializes Sentry and exports it.
+ * Configure Sentry default scope.
  *
- * Helper to avoid duplicating the Sentry initialization in:
- * - The "/pages/api" files, for the server side.
- * - The "pages/_app" file, for the client side, which in turns automatically applies it for all frontend pages.
- *
+ * Used by both sentry config files (client/server).
+
  * Also configures the default scope, subsequent calls to "configureScope" will enrich the scope.
  * Must only contain tags/contexts/extras that are universal (not server or browser specific).
  *
@@ -20,14 +18,21 @@ import { isBrowser } from '@unly/utils';
  * Doesn't initialize Sentry if SENTRY_DSN isn't defined.
  * Re-exports the Sentry object to make it simpler to consume by developers (DX).
  *
- * @see https://www.npmjs.com/package/@sentry/node
+ * Automatically applied on the browser, thanks to @sentry/nextjs.
+ * Automatically applied on the server, thanks to @sentry/nextjs, when "withSentry" HOC is used.
+ *
+ * @see https://www.npmjs.com/package/@sentry/nextjs
+ * @see https://docs.sentry.io/platforms/javascript/guides/nextjs/
+ * @see https://docs.sentry.io/platforms/javascript/guides/nextjs/usage
  */
-if (process.env.SENTRY_DSN) {
+if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
   Sentry.init({
-    dsn: process.env.SENTRY_DSN,
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
     enabled: process.env.NODE_ENV !== 'test',
     environment: process.env.NEXT_PUBLIC_APP_STAGE,
-    release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
+    // release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE, // Uses the environment variable `SENTRY_RELEASE`, which is also attached to the source maps
+    debug: process.env.NODE_ENV === 'development', // You'll need to configure "debug" in sentry.x.config.js files as well as next.config.js
+    tracesSampleRate: 1.0,
   });
 
   Sentry.configureScope((scope) => {

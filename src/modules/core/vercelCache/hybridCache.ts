@@ -1,6 +1,6 @@
 import { createLogger } from '@/modules/core/logging/logger';
 import waitFor from '@/utils/waitFor';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import deepmerge from 'deepmerge';
 import getTimestampsElapsedTime from '../date/getTimestampsElapsedTime';
 import { DiskStorageOptions } from './diskCacheStorage';

@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { isBrowser } from '@unly/utils';
 import StringifySafe from 'json-stringify-safe';
 import startsWith from 'lodash.startswith';

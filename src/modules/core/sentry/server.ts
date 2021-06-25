@@ -1,7 +1,7 @@
 import { isNextApiRequest } from '@/app/isNextApiRequest';
 import { convertRequestBodyToJSObject } from '@/modules/core/api/convertRequestBodyToJSObject';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import Sentry from '@/modules/core/sentry/init';
+import * as Sentry from '@sentry/nextjs';
 import { IncomingMessage } from 'http'; // Automatically inits Sentry during import
 import map from 'lodash.map';
 import { NextApiRequest } from 'next';
@@ -9,12 +9,11 @@ import { NextApiRequest } from 'next';
 /**
  * Configures the Sentry scope by extracting useful tags and context from the given request.
  *
- * XXX Because it imports Sentry from "@/modules/core/sentry/init", it automatically initializes Sentry as well
- *
  * @param req
  * @param tags
  * @param contexts
- * @see https://www.npmjs.com/package/@sentry/node
+ *
+ * @see https://www.npmjs.com/package/@sentry/nextjs
  */
 export const configureReq = (req: NextApiRequest | IncomingMessage, tags?: { [key: string]: string }, contexts?: { [key: string]: any }): void => {
   let parsedBody: GenericObject = {};

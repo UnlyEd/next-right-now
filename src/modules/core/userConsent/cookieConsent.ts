@@ -3,7 +3,7 @@ import {
   AMPLITUDE_EVENTS,
 } from '@/modules/core/amplitude/events';
 import { createLogger } from '@/modules/core/logging/logger';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { AmplitudeClient } from 'amplitude-js';
 import { TFunction } from 'i18next';
 import BrowserCookies from 'js-cookie';

@@ -8,7 +8,7 @@ import {
   Amplitude,
   LogOnMount,
 } from '@amplitude/react-amplitude';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import classnames from 'classnames';
 import {
   NextRouter,

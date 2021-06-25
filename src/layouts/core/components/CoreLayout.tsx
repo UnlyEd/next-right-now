@@ -12,7 +12,7 @@ import {
   css,
   SerializedStyles,
 } from '@emotion/react';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import classnames from 'classnames';
 import {
   NextRouter,

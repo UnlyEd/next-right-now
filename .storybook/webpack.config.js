@@ -30,9 +30,5 @@ module.exports = async ({
     console: true,
   };
 
-  // XXX See https://github.com/vercel/next.js/blob/canary/examples/with-sentry-simple/next.config.js
-  // Because StoryBook only compiles for client and has no server runtime, we must replace backend-related libs like @sentry/node to their browser counterpart
-  config.resolve.alias['@sentry/node'] = '@sentry/browser';
-
   return config;
 };

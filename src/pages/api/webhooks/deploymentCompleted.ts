@@ -8,7 +8,7 @@ import { createLogger } from '@/modules/core/logging/logger';
 import { ALERT_TYPES } from '@/modules/core/sentry/config';
 import { configureReq } from '@/modules/core/sentry/server';
 import { flushSafe } from '@/modules/core/sentry/universal';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -133,4 +133,4 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
   }
 };
 
-export default deploymentCompleted;
+export default Sentry.withSentry(deploymentCompleted);

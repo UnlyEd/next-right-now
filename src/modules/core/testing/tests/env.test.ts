@@ -117,5 +117,12 @@ describe(`utils/env/env.ts`, () => {
       }
       expect(1).toEqual(1);
     });
+
+    test(`NEXT_PUBLIC_SENTRY_DSN`, async () => {
+      if (typeof process.env.SENTRY_DSN === 'undefined') {
+        console.warn(`[warning] NEXT_PUBLIC_SENTRY_DSN environment variable isn't defined. This is not critical and the app will still function normally, but you may want to look into this. \nThis variable is automatically inherited from SENTRY_DSN. You may also disable this warning in "src/utils/env/env.test.ts".`);
+      }
+      expect(1).toEqual(1);
+    });
   });
 });

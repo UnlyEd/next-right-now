@@ -11,7 +11,7 @@ import {
   getClientNetworkConnectionType,
   getClientNetworkInformationSpeed,
 } from '@/modules/core/networkInformation/networkInformation';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { isBrowser } from '@unly/utils';
 import {
   AmplitudeClient,

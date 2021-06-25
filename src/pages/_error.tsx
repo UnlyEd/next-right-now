@@ -1,5 +1,5 @@
 import { flushSafe } from '@/modules/core/sentry/universal';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { NextPageContext } from 'next';
 import NextError, { ErrorProps as NextErrorProps } from 'next/error';
 import React, { Fragment } from 'react';

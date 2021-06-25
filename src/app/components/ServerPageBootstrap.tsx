@@ -3,7 +3,7 @@ import { OnlyServerPageProps } from '@/layouts/core/types/OnlyServerPageProps';
 import { createLogger } from '@/modules/core/logging/logger';
 import { configureSentryUserMetadata } from '@/modules/core/sentry/universal';
 import { userSessionContext } from '@/modules/core/userSession/userSessionContext';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import React from 'react';
 import { MultiversalAppBootstrapPageProps } from '../types/MultiversalAppBootstrapPageProps';
 import { MultiversalAppBootstrapProps } from '../types/MultiversalAppBootstrapProps';
