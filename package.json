@@ -33,7 +33,7 @@
     "deploy:customer2:production:simple": "yarn vercel:cleanup && yarn vercel:deploy --local-config=vercel.customer2.production.json --prod",
     "deploy:fake": "git commit --allow-empty -m \"Fake empty commit (force CI trigger)\"",
     "vercel:cleanup": "npx del-cli .vercel/",
-    "vercel:deploy": ". ./scripts/populate-git-env.sh && vercel --build-env GIT_COMMIT_TAGS=$GIT_COMMIT_TAGS --build-env GIT_COMMIT_REF=$GIT_COMMIT_REF --build-env GIT_COMMIT_SHA=$GIT_COMMIT_SHA --build-env VERCEL_GIT_PROVIDER=github --build-env VERCEL_GIT_REPO_OWNER=UnlyEd --build-env VERCEL_GIT_REPO_SLUG=next-right-now --build-env VERCEL_GIT_COMMIT_REF=$GIT_COMMIT_REF --build-env VERCEL_GIT_COMMIT_SHA=$GIT_COMMIT_SHA --build-env VERCEL_GIT_COMMIT_MESSAGE=$GIT_COMMIT_MESSAGE --confirm --debug --force",
+    "vercel:deploy": ". ./scripts/populate-git-env.sh && vercel --build-env GIT_COMMIT_TAGS=$GIT_COMMIT_TAGS --build-env GIT_COMMIT_REF=$GIT_COMMIT_REF --build-env GIT_COMMIT_SHA=$GIT_COMMIT_SHA --build-env NEXT_PUBLIC_VERCEL_GIT_PROVIDER=github --build-env NEXT_PUBLIC_VERCEL_GIT_REPO_OWNER=UnlyEd --build-env NEXT_PUBLIC_VERCEL_GIT_REPO_SLUG=next-right-now --build-env NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF=$GIT_COMMIT_REF --build-env NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA=$GIT_COMMIT_SHA --build-env NEXT_PUBLIC_VERCEL_GIT_COMMIT_MESSAGE=$GIT_COMMIT_MESSAGE --confirm --debug --force",
     "script:populate-git-env:print": ". ./scripts/populate-git-env.sh && echo 'SHA: '${GIT_COMMIT_SHA} && echo 'REF (current branch/tag): '${GIT_COMMIT_REF} && echo 'TAGS: '${GIT_COMMIT_TAGS}",
     "git:getReleasesAndTags": "git tag --points-at HEAD | tr '\\r\\n' ' '",
     "git:getCommitSHA": "git rev-parse HEAD",
