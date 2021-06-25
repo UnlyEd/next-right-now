@@ -31,6 +31,7 @@ const sentryWebpackPluginOptions = {
   //  See https://github.com/getsentry/sentry-docs/issues/3721
 
   debug: process.env.NODE_ENV === 'development', // You'll need to configure "debug" in sentry.x.config.js files as well
+  dryRun: process.env.NODE_ENV === 'development', // Don't upload source maps during dev (doesn't work anyway)
   silent: true, // Suppresses all logs, because "[Sentry Webpack Plugin]" logs are too noisy
 };
 
