@@ -49,6 +49,7 @@ if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     scope.setTag('nodejsAWS', process.env.AWS_EXECUTION_ENV || null); // Optional - Available on production environment only
     scope.setTag('memory', process.env.AWS_LAMBDA_FUNCTION_MEMORY_SIZE || null); // Optional - Available on production environment only
     scope.setTag('runtimeEngine', isBrowser() ? 'browser' : 'server');
+    scope.setTag('isServerInitialBuild', process.env.IS_SERVER_INITIAL_BUILD || '0');
   });
 } else {
   if (process.env.NODE_ENV !== 'test') {
