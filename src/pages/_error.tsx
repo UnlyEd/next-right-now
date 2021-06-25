@@ -86,8 +86,9 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
 };
 
 /**
- * TODO Doc - Is this only called when the error happens server-side?
- *  What's the point of getInitialProps when using SSG or hybrid apps?
+ * Called both on the server and the client side.
+ *
+ * XXX Question: What's the point of getInitialProps when using SSG or hybrid apps? Is it being used? In what cases?
  *
  * @param props
  *
@@ -95,6 +96,7 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
  */
 ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> => {
   const {
+    req,
     res,
     err,
     asPath,
@@ -115,8 +117,9 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
   if (res) {
     // Running on the server, the response object is available.
     //
-    // Next.js will pass an err on the server if a page's `getInitialProps`
-    // threw or returned a Promise that rejected
+    // Next.js will pass an err on the server if a page's `getInitialProps` threw or returned a Promise that rejected
+    const configureReq = (await import('@/modules/core/sentry/server')).configureReq;
+    configureReq(req);
 
     // XXX Opinionated: Record an exception in Sentry for 404, if you don't want this then uncomment the below code
     // if (res.statusCode === 404) {
@@ -134,7 +137,6 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
     // Running on the client (browser).
     //
     // Next.js will provide an err if:
-    //
     //  - a page's `getInitialProps` threw or returned a Promise that rejected
     //  - an exception was thrown somewhere in the React lifecycle (render,
     //    componentDidMount, etc) that was caught by Next.js's React Error
