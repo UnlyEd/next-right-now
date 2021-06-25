@@ -86,7 +86,9 @@ const ErrorPage = (props: ErrorPageProps): JSX.Element => {
 };
 
 /**
- * Called both on the server and the client side.
+ * Might be called from the server and the client side.
+ *
+ * Won't be called for 404 errors (those are caught in MultiversalPageBootstrap).
  *
  * XXX Question: What's the point of getInitialProps when using SSG or hybrid apps? Is it being used? In what cases?
  *
@@ -120,11 +122,6 @@ ErrorPage.getInitialProps = async (props: NextPageContext): Promise<ErrorProps> 
     // Next.js will pass an err on the server if a page's `getInitialProps` threw or returned a Promise that rejected
     const configureReq = (await import('@/modules/core/sentry/server')).configureReq;
     configureReq(req);
-
-    // XXX Opinionated: Record an exception in Sentry for 404, if you don't want this then uncomment the below code
-    // if (res.statusCode === 404) {
-    //   return { statusCode: 404, isReadyToRender: true };
-    // }
 
     if (err) {
       Sentry.captureException(err);
