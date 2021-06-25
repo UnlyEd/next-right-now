@@ -7,3 +7,5 @@ export "GIT_COMMIT_SHA=${GIT_COMMIT_SHA:-$(yarn --silent git:getCommitSHA)}"
 export "GIT_COMMIT_REF=${GIT_COMMIT_REF:-$(yarn --silent git:getCommitRef)}"
 export "GIT_COMMIT_TAGS=${GIT_COMMIT_TAGS:-$(yarn --silent git:getReleasesAndTags)}"
 export "GIT_COMMIT_MESSAGE=${GIT_COMMIT_MESSAGE:-$(yarn --silent git:getCommitMessage)}"
+
+echo "GIT_COMMIT_MESSAGE: $GIT_COMMIT_MESSAGE"
