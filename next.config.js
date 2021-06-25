@@ -81,6 +81,8 @@ module.exports = withNextPluginPreval(withBundleAnalyzer(withSourceMaps({
     VERCEL: process.env.VERCEL,
     VERCEL_ENV: process.env.VERCEL_ENV,
     VERCEL_URL: process.env.VERCEL_URL,
+    VERCEL_GIT_COMMIT_REF: process.env.VERCEL_GIT_COMMIT_REF,
+    VERCEL_GIT_COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA,
     CI: process.env.CI,
 
     // Dynamic env variables
