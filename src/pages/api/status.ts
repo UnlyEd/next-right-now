@@ -58,6 +58,7 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
       GIT_COMMIT_TAGS: process.env.GIT_COMMIT_TAGS,
       VERCEL_GIT_COMMIT_REF: process.env.VERCEL_GIT_COMMIT_REF,
       VERCEL_GIT_COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA,
+      VERCEL_GIT_COMMIT_MESSAGE: process.env.VERCEL_GIT_COMMIT_MESSAGE,
       NEXT_PUBLIC_APP_BASE_URL: process.env.NEXT_PUBLIC_APP_BASE_URL,
       IS_SERVER_INITIAL_BUILD: process.env.IS_SERVER_INITIAL_BUILD, // Shouldn't be displayed, because should always be undefined in APIs
     });
