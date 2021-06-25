@@ -76,7 +76,7 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
         <Button
           onClick={(): void => {
             setIsClicked(true);
-            throw new Error('Page 500 error example');
+            throw new Error('Page 500 error example (handled)');
           }}
         >
           Will it crash the whole app?
@@ -99,7 +99,7 @@ const InteractiveErrorPage: NextPage<Props> = (props): JSX.Element => {
           <Button
             onClick={(): void => {
               setIsClicked(true);
-              throw new Error('Page 500 error example');
+              throw new Error('Page 500 error example (handled)');
             }}
           >
             Will it crash the whole app?
