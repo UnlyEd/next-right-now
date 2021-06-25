@@ -30,7 +30,7 @@ const sentryWebpackPluginOptions = {
   // XXX The error "Error: Cannot find module '/.next/server/sentry/initServerSDK.js'" in the console is a false-positive error
   //  See https://github.com/getsentry/sentry-docs/issues/3721
 
-  debug: process.env.NODE_ENV !== 'development', // You'll need to configure "debug" in sentry.x.config.js files as well
+  debug: process.env.NODE_ENV === 'development', // You'll need to configure "debug" in sentry.x.config.js files as well
   silent: true, // Suppresses all logs, because "[Sentry Webpack Plugin]" logs are too noisy
 };
 
