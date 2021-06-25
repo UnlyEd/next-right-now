@@ -141,7 +141,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Passing github's secret to the worker
           GIT_COMMIT_REF: ${{ github.ref }} # Passing current branch/tag to the worker
-          GIT_COMMIT_SHA: ${{ github.ref }} # Passing current commit SHA to the worker
+          GIT_COMMIT_SHA: ${{ github.sha }} # Passing current commit SHA to the worker
           CUSTOMER_REF: ${{ env.CUSTOMER_REF_TO_DEPLOY }} # Passing current customer to deploy
 
       # Update the previously created GitHub deployment, and link it to our Vercel deployment
