@@ -8,6 +8,7 @@ import dispatchWorkflowByPath from '@/modules/core/githubActions/dispatchWorkflo
 import { createLogger } from '@/modules/core/logging/logger';
 import { ALERT_TYPES } from '@/modules/core/sentry/config';
 import { configureReq } from '@/modules/core/sentry/server';
+import { flushSafe } from '@/modules/core/sentry/universal';
 import * as Sentry from '@sentry/node';
 import size from 'lodash.size';
 import {
@@ -141,6 +142,8 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
       Sentry.captureException(new Error(errorMessage));
       logger.error(errorMessage);
 
+      await flushSafe();
+
       return redirect(res, redirectTo, statusCode);
     }
 
@@ -159,6 +162,8 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
       Sentry.captureException(new Error(errorMessage));
       logger.error(errorMessage);
 
+      await flushSafe();
+
       return redirect(res, redirectTo, statusCode);
     }
 
@@ -166,6 +171,8 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
       const errorMessage = `Query parameter "platformReleaseRef" is not defined.`;
       Sentry.captureException(new Error(errorMessage));
       logger.error(errorMessage);
+
+      await flushSafe();
 
       return redirect(res, redirectTo, statusCode);
     }
@@ -178,6 +185,8 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);
+
+    await flushSafe();
 
     res.json({
       error: true,
