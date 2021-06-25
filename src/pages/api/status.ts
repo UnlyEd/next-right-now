@@ -72,4 +72,4 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
   }
 };
 
-export default status;
+export default Sentry.withSentry(status);

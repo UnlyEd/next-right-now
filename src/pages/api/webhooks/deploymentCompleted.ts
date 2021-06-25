@@ -133,4 +133,4 @@ export const deploymentCompleted = async (req: EndpointRequest, res: NextApiResp
   }
 };
 
-export default deploymentCompleted;
+export default Sentry.withSentry(deploymentCompleted);

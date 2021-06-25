@@ -120,4 +120,4 @@ export const preview = async (req: EndpointRequest, res: NextApiResponse): Promi
   }
 };
 
-export default preview;
+export default Sentry.withSentry(preview);

@@ -8,6 +8,7 @@ import dispatchWorkflowByPath from '@/modules/core/githubActions/dispatchWorkflo
 import { createLogger } from '@/modules/core/logging/logger';
 import { ALERT_TYPES } from '@/modules/core/sentry/config';
 import { configureReq } from '@/modules/core/sentry/server';
+import { flushSafe } from '@/modules/core/sentry/universal';
 import * as Sentry from '@sentry/nextjs';
 import size from 'lodash.size';
 import {

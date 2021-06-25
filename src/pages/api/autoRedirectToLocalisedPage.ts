@@ -4,7 +4,7 @@ import {
   AMPLITUDE_EVENTS,
 } from '@/modules/core/amplitude/events';
 import localeMiddleware from '@/modules/core/i18n/middlewares/localeMiddleware';
-import { withSentry } from '@sentry/nextjs';
+import * as Sentry from '@sentry/nextjs';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -28,5 +28,5 @@ const autoRedirectToLocalisedPage = async (req: NextApiRequest, res: NextApiResp
   return await localeMiddleware(req, res);
 };
 
-export default withSentry(autoRedirectToLocalisedPage);
+export default Sentry.withSentry(autoRedirectToLocalisedPage);
 

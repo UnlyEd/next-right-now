@@ -49,4 +49,4 @@ export const error = async (req: NextApiRequest, res: NextApiResponse): Promise<
   }
 };
 
-export default error;
+export default Sentry.withSentry(error);
