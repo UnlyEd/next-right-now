@@ -77,7 +77,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
         <h2>404 - Using CSR</h2>
 
         <Alert color={'info'}>
-          This page doesn't exist and should display a 404 page.
+          This page doesn't exist and should display a 404 page. The error will be reported to Sentry.
         </Alert>
 
         <p>
@@ -98,7 +98,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
         <h2>404 - Using full page reload</h2>
 
         <Alert color={'info'}>
-          This page doesn't exist and should display a 404 page.
+          This page doesn't exist and should display a 404 page. The error will be reported to Sentry.
         </Alert>
 
         <p>
@@ -123,6 +123,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
 
         <Alert color={'info'}>
           This page throws an error right from the Page component and should display a 500 page error without anything else (no footer/header).
+          The error will be reported to Sentry.
         </Alert>
 
         <Code
@@ -162,7 +163,7 @@ const ErrorsHandlingPage: NextPage<Props> = (props): JSX.Element => {
 
         <hr />
 
-        <h2>Interactive error (simulating User interaction)</h2>
+        <h2>Interactive errors (simulating User interaction)</h2>
 
         <Btn mode={'primary-outline'}>
           <I18nLink href={'/demo/built-in-utilities/interactive-error'}>Go to interactive error page</I18nLink><br />

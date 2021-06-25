@@ -141,6 +141,8 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
       Sentry.captureException(new Error(errorMessage));
       logger.error(errorMessage);
 
+      await flushSafe();
+
       return redirect(res, redirectTo, statusCode);
     }
 
@@ -159,6 +161,8 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
       Sentry.captureException(new Error(errorMessage));
       logger.error(errorMessage);
 
+      await flushSafe();
+
       return redirect(res, redirectTo, statusCode);
     }
 
@@ -166,6 +170,8 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
       const errorMessage = `Query parameter "platformReleaseRef" is not defined.`;
       Sentry.captureException(new Error(errorMessage));
       logger.error(errorMessage);
+
+      await flushSafe();
 
       return redirect(res, redirectTo, statusCode);
     }
@@ -178,6 +184,8 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
   } catch (e) {
     Sentry.captureException(e);
     logger.error(e.message);
+
+    await flushSafe();
 
     res.json({
       error: true,

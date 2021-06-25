@@ -62,7 +62,7 @@ export const localeMiddleware = async (req: NextApiRequest, res: NextApiResponse
     localeFound = customer?.availableLanguages?.[0] || DEFAULT_LOCALE;
   }
 
-  logEvent(AMPLITUDE_EVENTS.API_LOCALE_MIDDLEWARE_INVOKED, null, {
+  await logEvent(AMPLITUDE_EVENTS.API_LOCALE_MIDDLEWARE_INVOKED, null, {
     locale: localeFound,
   });
 

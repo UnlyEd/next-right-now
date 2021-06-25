@@ -300,6 +300,12 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
           Sentry.captureException(props.err);
         });
       }
+    } else {
+      // XXX Opinionated: Record an exception in Sentry for 404, if you don't want this then uncomment the below code
+      const err = new Error(`Page not found (404) for "${router?.asPath}"`);
+
+      logger.warn(err);
+      Sentry.captureException(err);
     }
 
     const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
