@@ -13,7 +13,7 @@ import * as Sentry from '@sentry/nextjs';
  * @param iframeReferrer
  */
 export const configureSentryBrowserMetadata = (networkSpeed: ClientNetworkInformationSpeed, networkConnectionType: ClientNetworkConnectionType, isInIframe: boolean, iframeReferrer: string): void => {
-  if (process.env.SENTRY_DSN) {
+  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     Sentry.configureScope((scope) => {
       scope.setTag('networkSpeed', networkSpeed);
       scope.setTag('networkConnectionType', networkConnectionType);
