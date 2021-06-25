@@ -1,11 +1,13 @@
 import { convertRequestBodyToJSObject } from '@/modules/core/api/convertRequestBodyToJSObject';
 import { GenericObject } from '@/modules/core/data/types/GenericObject';
-import * as Sentry from '@sentry/node';
+import Sentry from '@/modules/core/sentry/init'; // Automatically inits Sentry during import
 import map from 'lodash.map';
 import { NextApiRequest } from 'next';
 
 /**
- * Configure the Sentry scope by extracting useful tags and context from the given request.
+ * Configures the Sentry scope by extracting useful tags and context from the given request.
+ *
+ * XXX Because it imports Sentry from "@/modules/core/sentry/init", it automatically initializes Sentry as well
  *
  * @param req
  * @param tags

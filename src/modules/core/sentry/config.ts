@@ -20,4 +20,4 @@ export const ALERT_TYPES = {
  * @see https://github.com/vercel/next.js/blob/canary/examples/with-sentry/pages/_error.js#L45
  * @see https://vercel.com/docs/platform/limits#streaming-responses
  */
-export const FLUSH_TIMEOUT = 5000;
+export const FLUSH_TIMEOUT = 2000;

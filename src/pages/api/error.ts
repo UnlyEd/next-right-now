@@ -6,7 +6,7 @@ import {
 import { createLogger } from '@/modules/core/logging/logger';
 import { configureReq } from '@/modules/core/sentry/server';
 import { flushSafe } from '@/modules/core/sentry/universal';
-import Sentry from '@/modules/core/sentry/init';
+import * as Sentry from '@sentry/node';
 import {
   NextApiRequest,
   NextApiResponse,
