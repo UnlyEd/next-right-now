@@ -21,7 +21,7 @@ type Props = {
    * Displayed as an overlay within a `<div>` element.
    */
   text: string;
-} & Partial<TooltipProps>;
+} & Partial<Omit<TooltipProps, 'children'>>;
 
 /**
  * Tooltip with simplified props meant to be used from Markdown.
