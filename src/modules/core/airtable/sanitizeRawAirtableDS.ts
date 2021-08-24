@@ -281,10 +281,17 @@ export const sanitizeRawAirtableDS = (airtableSchema: AirtableSchema, airtableDa
         delete attachmentFields?.['id']; // Delete the id field so that it won't override the record id (it'll still be available as "attachmentId")
         delete sanitizedRecord[tableSchema?.attachmentFieldName]; // Delete the attachment altogether to avoid noise (all props will be copied to the sanitized record)
 
-        // Add the native Airtable attachment fields
+        // Add the native Airtable attachment fields as properties of the record
         map(attachmentFields, (attachmentFieldValue: any, attachmentFieldName: string) => {
-          sanitizedRecord[attachmentFieldName] = attachmentFieldValue;
+          // Except for width/height which shouldn't be
+          if (attachmentFieldName !== 'width' && attachmentFieldName !== 'height') {
+            sanitizedRecord[attachmentFieldName] = attachmentFieldValue;
+          }
         });
+
+        // Copy auto-detected width/height properties using aliases (they represent the dimensions of the uploaded/origin attachment, not the dimensions it's meant to be resized to on the screen)
+        sanitizedRecord['attachmentWidth'] = attachmentFields?.width;
+        sanitizedRecord['attachmentHeight'] = attachmentFields?.height;
       } else {
         // When there is no attachment in the attachment field, then do nothing
       }

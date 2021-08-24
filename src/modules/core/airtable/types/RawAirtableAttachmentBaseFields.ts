@@ -8,6 +8,8 @@ import { RawAirtableAttachmentThumbnails } from './RawAirtableAttachmentThumbnai
 export type RawAirtableAttachmentBaseFields = {
   id: string;
   url: string;
+  width: number;
+  height: number;
   filename: string;
   size?: number; // TODO Not sure if it's always present, gotta confirm behaviour
   type: string;
