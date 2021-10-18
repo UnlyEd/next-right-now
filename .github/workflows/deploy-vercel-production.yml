@@ -172,7 +172,7 @@ jobs:
 
       # Wait for deployment to be ready, before running E2E (otherwise Cypress might start testing too early, and gets redirected to Vercel's "Login page", and tests fail)
       - name: Awaiting Vercel deployment to be ready
-        uses: UnlyEd/github-action-await-vercel@v1.1.1 # See https://github.com/UnlyEd/github-action-await-vercel
+        uses: UnlyEd/github-action-await-vercel@v1.2.14 # See https://github.com/UnlyEd/github-action-await-vercel
         id: await-vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
