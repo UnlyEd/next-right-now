@@ -10,11 +10,6 @@ import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
-import { resolveFallbackLanguage } from '@/modules/core/i18n/i18n';
-import {
-  locizeBackendOptions,
-  locizeOptions,
-} from '@/modules/core/i18n/i18nextLocize';
 import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
 import { createLogger } from '@/modules/core/logging/logger';
