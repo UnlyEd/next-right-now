@@ -65,7 +65,8 @@ const PreviewProductPage: NextPage<Props> = (props): JSX.Element => {
   const router: NextRouter = useRouter();
   const { query } = router;
   const productRef = query?.ref;
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const t = (key, defaultValue, any?) => defaultValue;
 
   if (!productRef) {
     return (

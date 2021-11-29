@@ -48,7 +48,9 @@ const QuickPreviewBanner: React.FunctionComponent<Props> = (props): JSX.Element 
     secondaryColor,
     secondaryColorVariant1,
   } = useTheme();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const t = (key, defaultValue, any?) => defaultValue;
+
   const router: NextRouter = useRouter();
   const customer: Customer = useCustomer();
   const { availableLanguages } = customer;

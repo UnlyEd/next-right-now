@@ -31,7 +31,9 @@ const DemoFooter: React.FunctionComponent<Props> = (props) => {
   const {
     style,
   } = props;
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const t = (key, defaultValue, any?) => defaultValue;
+
   const customer: Customer = useCustomer();
   const { availableLanguages } = customer;
   const shouldDisplayI18nButton = availableLanguages?.length > 1;

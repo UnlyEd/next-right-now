@@ -55,7 +55,9 @@ type Props = {};
  * XXX Demo component, not meant to be modified. It's a copy of the core implementation, so the demo keeps working even the core implementation changes.
  */
 const DemoNav: React.FunctionComponent<Props> = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const t = (key, defaultValue, any?) => defaultValue;
+
   const router: NextRouter = useRouter();
   const theme = useTheme();
   const {

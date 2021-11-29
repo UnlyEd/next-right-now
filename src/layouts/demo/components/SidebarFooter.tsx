@@ -10,7 +10,8 @@ type Props = {
 };
 
 const HomePageLink: React.FunctionComponent = () => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const t = (key, defaultValue, any?) => defaultValue;
 
   return (
     <I18nLink href={'/'}>

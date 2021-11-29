@@ -1,9 +1,3 @@
-import { supportedLocales } from '@/modules/core/i18n/i18nConfig';
-import {
-  fetchTranslations,
-  I18nextResources,
-} from '@/modules/core/i18n/i18nextLocize';
-import { I18nLocale } from '@/modules/core/i18n/types/I18nLocale';
 import { LocizeTranslationByLang } from '@/modules/core/i18n/types/LocizeTranslationByLang';
 import { createLogger } from '@/modules/core/logging/logger';
 import preval from 'next-plugin-preval';
@@ -25,24 +19,25 @@ const logger = createLogger({
  *  (lang is simpler)
  */
 export const fetchStaticLocizeTranslations = async (): Promise<LocizeTranslationByLang> => {
-  if (process.env.NODE_ENV !== 'development') {
-    logger.debug(`Pre-evaluation (prefetching of the static translations at build time) is starting.`);
-    const translationsByLocale: LocizeTranslationByLang = {};
-    const promises: Promise<any>[] = [];
-
-    supportedLocales.map((supportedLocale: I18nLocale) => {
-      promises.push(fetchTranslations(supportedLocale?.lang));
-    });
-
-    // Run all promises in parallel and compute results into the dataset
-    const results: I18nextResources[] = await Promise.all(promises);
-    results.map((i18nextResources: I18nextResources, index) => translationsByLocale[supportedLocales[index]?.lang] = i18nextResources);
-
-    return translationsByLocale;
-  } else {
-    logger.debug(`Pre-evaluation (prefetching of the static translations at build time) is disabled in development mode for a better developer experience.`);
-    return {};
-  }
+  // if (process.env.NODE_ENV !== 'development') {
+  //   logger.debug(`Pre-evaluation (prefetching of the static translations at build time) is starting.`);
+  //   const translationsByLocale: LocizeTranslationByLang = {};
+  //   const promises: Promise<any>[] = [];
+  //
+  //   supportedLocales.map((supportedLocale: I18nLocale) => {
+  //     promises.push(fetchTranslations(supportedLocale?.lang));
+  //   });
+  //
+  //   // Run all promises in parallel and compute results into the dataset
+  //   const results: I18nextResources[] = await Promise.all(promises);
+  //   results.map((i18nextResources: I18nextResources, index) => translationsByLocale[supportedLocales[index]?.lang] = i18nextResources);
+  //
+  //   return translationsByLocale;
+  // } else {
+  //   logger.debug(`Pre-evaluation (prefetching of the static translations at build time) is disabled in development mode for a better developer experience.`);
+  //   return {};
+  // }
+  return {};
 };
 
 /**

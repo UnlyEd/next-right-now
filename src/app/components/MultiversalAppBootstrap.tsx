@@ -10,7 +10,11 @@ import { CustomerTheme } from '@/modules/core/data/types/CustomerTheme';
 import { SanitizedAirtableDataset } from '@/modules/core/data/types/SanitizedAirtableDataset';
 import DefaultErrorLayout from '@/modules/core/errorHandling/DefaultErrorLayout';
 import i18nContext from '@/modules/core/i18n/contexts/i18nContext';
-import i18nextLocize from '@/modules/core/i18n/i18nextLocize';
+import { resolveFallbackLanguage } from '@/modules/core/i18n/i18n';
+import {
+  locizeBackendOptions,
+  locizeOptions,
+} from '@/modules/core/i18n/i18nextLocize';
 import { stringifyQueryParameters } from '@/modules/core/i18n/i18nRouter';
 import { detectLightHouse } from '@/modules/core/lightHouse/lighthouse';
 import { createLogger } from '@/modules/core/logging/logger';
@@ -30,7 +34,7 @@ import { NO_AUTO_PREVIEW_MODE_KEY } from '@/pages/api/preview';
 import { ThemeProvider } from '@emotion/react';
 import * as Sentry from '@sentry/node';
 import { isBrowser } from '@unly/utils';
-import { i18n } from 'i18next';
+import i18next, { i18n } from 'i18next';
 import isEmpty from 'lodash.isempty';
 import size from 'lodash.size';
 import React, { useState } from 'react';
@@ -310,7 +314,21 @@ const MultiversalAppBootstrap: React.FunctionComponent<Props> = (props): JSX.Ele
       }
     }
 
-    const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
+    // const i18nextInstance: i18n = i18nextLocize(lang, i18nTranslations); // Apply i18next configuration with Locize backend
+    const i18nextInstance: i18n = i18next;
+    i18nextInstance.init({ // XXX See https://www.i18next.com/overview/configuration-options
+      resources: {en: {}},
+      lng: 'en', // XXX We don't use the built-in i18next-browser-languageDetector because we have our own way of detecting language
+      interpolation: {
+        escapeValue: false, // not needed for react as it escapes by default
+      },
+      react: {
+        bindI18n: 'languageChanged editorSaved',
+        useSuspense: false, // Not compatible with SSR
+      },
+      load: 'languageOnly', // Remove if you want to use localization (en-US, en-GB)
+    });
+
     const customerTheme: CustomerTheme = initCustomerTheme(customer);
 
     /*

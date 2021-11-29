@@ -86,7 +86,9 @@ const En404 = (): JSX.Element => {
  * @see https://nextjs.org/docs/advanced-features/custom-error-page#404-page
  */
 const NotFound404Page: NextPage<Props> = (props): JSX.Element => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const t = (key, defaultValue, any?) => defaultValue;
+
   const router: NextRouter = useRouter();
   const locale = router?.asPath?.split('/')?.[1] || DEFAULT_LOCALE;
   const lang: string = locale.split('-')?.[0];

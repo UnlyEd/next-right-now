@@ -44,12 +44,13 @@ export const getStaticLocizeTranslations = async (lang: string): Promise<I18next
  * @param isPreviewMode
  */
 export const getLocizeTranslations = async (lang: string, isPreviewMode = false): Promise<I18nextResources> => {
-  if (isPreviewMode || process.env.NODE_ENV === 'development') {
-    // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
-    // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
-    return await fetchTranslations(lang);
-  } else {
-    // Otherwise, we fallback to the app-wide shared/static data (stale)
-    return await getStaticLocizeTranslations(lang);
-  }
+  // if (isPreviewMode || process.env.NODE_ENV === 'development') {
+  //   // When preview mode is enabled or working locally, we want to make real-time API requests to get up-to-date data
+  //   // Because using the "next-plugin-preval" plugin worsen developer experience in dev - See https://github.com/UnlyEd/next-right-now/discussions/335#discussioncomment-792821
+  //   return await fetchTranslations(lang);
+  // } else {
+  //   // Otherwise, we fallback to the app-wide shared/static data (stale)
+  //   return await getStaticLocizeTranslations(lang);
+  // }
+  return {};
 };

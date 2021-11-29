@@ -58,7 +58,9 @@ const PreviewModeBanner: React.FunctionComponent<Props> = (props): JSX.Element =
   const { isPreviewModeEnabled }: PreviewMode = usePreviewMode();
   const router: NextRouter = useRouter();
   const queryParameters: string = stringifyQueryParameters(router);
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const t = (key, defaultValue, any?) => defaultValue;
+
   const {
     secondaryColor,
     secondaryColorVariant1,

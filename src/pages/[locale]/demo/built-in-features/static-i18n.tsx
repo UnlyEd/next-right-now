@@ -22,10 +22,7 @@ import {
 } from 'next';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars,no-unused-vars
 import React from 'react';
-import {
-  Trans,
-  useTranslation,
-} from 'react-i18next';
+import { Trans } from 'react-i18next';
 import {
   Alert,
   Container,
@@ -64,7 +61,7 @@ export const getStaticProps: GetStaticProps<SSGPageProps, CommonServerSideParams
 type Props = {} & SSGPageProps<Partial<OnlyBrowserPageProps>>;
 
 const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
-  const { t } = useTranslation();
+  const t = (key, defaultValue, any?) => defaultValue;
   const { lang }: I18n = useI18n();
 
   return (
@@ -139,7 +136,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
           </Alert>
 
           <div>
-            {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 1 })}<br />
+            {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel')}<br />
             <Code
               text={`
                 {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 1 })}
@@ -148,7 +145,7 @@ const ExampleStaticI18nPage: NextPage<Props> = (props): JSX.Element => {
           </div>
           <br />
           <div>
-            {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 2 })}<br />
+            {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel')}<br />
             <Code
               text={`
                 {t('examples.i18n.pluralTranslation', 'Traduction avec gestion du pluriel', { count: 2 })}
