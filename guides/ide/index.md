@@ -17,7 +17,7 @@ Therefore, we will provide **advanced WebStorm advices and configuration**.
 > If you don't know what IDE to use, then we advise using [Visual Studio Code](https://code.visualstudio.com/), which is completely free, and wonderful too.
 
 
-As of 2021, we recommend either:
+As of 2022, we recommend either:
 
 - [WebStorm](https://www.jetbrains.com/webstorm/) (paid, free for students)
 - or [VSCode](https://code.visualstudio.com/) (free, OSS)
