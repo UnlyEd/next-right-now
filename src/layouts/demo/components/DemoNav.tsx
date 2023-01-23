@@ -339,7 +339,7 @@ const DemoNav: React.FunctionComponent<Props> = () => {
                   >
                     <NavLink
                       id={'nav-link-admin-site'}
-                      href={`https://app.graphcms.com/b767f8ab435746e2909249461e2f1eb7/master`}
+                      href={`https://app.hygraph.com/b767f8ab435746e2909249461e2f1eb7/master`}
                       target={'_blank'}
                       rel={'noopener'}
                       onClick={(): void => {

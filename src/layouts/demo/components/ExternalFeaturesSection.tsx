@@ -55,7 +55,7 @@ const ExternalFeaturesSection: React.FunctionComponent<Props> = (props): JSX.Ele
               </Alert>
 
               <div className={'buttons'}>
-                <ExternalLink href={'https://app.graphcms.com/b767f8ab435746e2909249461e2f1eb7/master'}>
+                <ExternalLink href={'https://app.hygraph.com/b767f8ab435746e2909249461e2f1eb7/master'}>
                   <Btn mode={'primary-outline'}>Go to GraphCMS</Btn>
                 </ExternalLink>
               </div>
