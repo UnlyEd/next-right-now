@@ -56,8 +56,8 @@ jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
   setup-environment:
-    name: Setup deployment environment (Ubuntu 18.04 - Node 14.x)
-    runs-on: ubuntu-18.04
+    name: Setup deployment environment (Ubuntu latest - Node 14.x)
+    runs-on: ubuntu-latest
     steps:
       - name: Installing node.js
         uses: actions/setup-node@v2 # Used to install node environment - https://github.com/actions/setup-node
@@ -67,8 +67,8 @@ jobs:
   # Starts a Vercel deployment, using the storybook configuration file
   # N.B: It's Vercel that will perform the actual deployment
   start-deployment:
-    name: Starts Vercel deployment (Ubuntu 18.04)
-    runs-on: ubuntu-18.04
+    name: Starts Vercel deployment (Ubuntu latest)
+    runs-on: ubuntu-latest
     timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     needs: setup-environment
     steps:
@@ -155,9 +155,9 @@ jobs:
 
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
   await-for-vercel-deployment:
-    name: Await current deployment to be ready (Ubuntu 18.04)
+    name: Await current deployment to be ready (Ubuntu latest)
     timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: start-deployment
     steps:
       - uses: actions/checkout@v1 # Get last commit pushed - See https://github.com/actions/checkout
@@ -186,9 +186,9 @@ jobs:
 
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
-    name: Run end to end (E2E) tests (Ubuntu 18.04)
+    name: Run end to end (E2E) tests (Ubuntu latest)
     timeout-minutes: 20 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
     container: cypress/included:7.4.0

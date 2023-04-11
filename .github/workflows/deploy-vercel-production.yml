@@ -76,8 +76,8 @@ jobs:
   # Configures the deployment environment, install dependencies (like node, npm, etc.) that are requirements for the upcoming jobs
   # Ex: Necessary to run `yarn deploy`
   setup-environment:
-    name: Setup deployment environment (Ubuntu 18.04 - Node 14.x)
-    runs-on: ubuntu-18.04
+    name: Setup deployment environment (Ubuntu latest - Node 14.x)
+    runs-on: ubuntu-latest
     steps:
       - name: Installing node.js
         uses: actions/setup-node@v2 # Used to install node environment - https://github.com/actions/setup-node
@@ -88,8 +88,8 @@ jobs:
   # The default customer is the one defined in the `vercel.json` file (which is a symlink to the actual file)
   # N.B: It's Vercel that will perform the actual deployment
   start-production-deployment:
-    name: Starts Vercel deployment (production) (Ubuntu 18.04)
-    runs-on: ubuntu-18.04
+    name: Starts Vercel deployment (production) (Ubuntu latest)
+    runs-on: ubuntu-latest
     needs: setup-environment
     timeout-minutes: 40 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
@@ -154,8 +154,8 @@ jobs:
 
   # Waits for the Vercel deployment to reach "READY" state, so that other actions will be applied on a domain that is really online
   await-for-vercel-deployment:
-    name: Await current deployment to be ready (Ubuntu 18.04)
-    runs-on: ubuntu-18.04
+    name: Await current deployment to be ready (Ubuntu latest)
+    runs-on: ubuntu-latest
     needs: start-production-deployment
     timeout-minutes: 5 # Limit current job timeout (including action timeout setup down there) https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
@@ -185,8 +185,8 @@ jobs:
 
   # Send a HTTP call to the webhook url that's provided in the customer configuration file (vercel.*.json)
   send-webhook-callback-once-deployment-ready:
-    name: Invoke webhook callback url defined by the customer (Ubuntu 18.04)
-    runs-on: ubuntu-18.04
+    name: Invoke webhook callback url defined by the customer (Ubuntu latest)
+    runs-on: ubuntu-latest
     needs: await-for-vercel-deployment
     timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
@@ -264,8 +264,8 @@ jobs:
 
   # Runs E2E tests against the Vercel deployment
   run-2e2-tests:
-    name: Run end to end (E2E) tests (Ubuntu 18.04)
-    runs-on: ubuntu-18.04
+    name: Run end to end (E2E) tests (Ubuntu latest)
+    runs-on: ubuntu-latest
     # Docker image with Cypress pre-installed
     # https://github.com/cypress-io/cypress-docker-images/tree/master/included
     container: cypress/included:7.4.0
@@ -314,8 +314,8 @@ jobs:
 
   # Runs LightHouse reports in parallel of E2E tests
   run-lighthouse-tests:
-    name: Run LightHouse checks (Ubuntu 18.04)
-    runs-on: ubuntu-18.04
+    name: Run LightHouse checks (Ubuntu latest)
+    runs-on: ubuntu-latest
     needs: await-for-vercel-deployment
     timeout-minutes: 5 # Limit current job timeout https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes
     steps:
