@@ -21,9 +21,10 @@ describe('Common > Footer section', () => {
     cy.get('#footer-logo-unly-brand').should('have.length', 1);
   });
 
-  it('should have the customer logo in the footer', () => {
-    cy.get('#footer-logo').should('have.length', 1);
-  });
+  // Disabled because footer logo can be removed by anyone on the public demo and this makes tests crash for no valid reason (annoying)
+  // it('should have the customer logo in the footer', () => {
+  //   cy.get('#footer-logo').should('have.length', 1);
+  // });
 
   it('should display the i18n button to change language', () => {
     cy.get<Customer>('@customer').then((customer: Customer) => {
