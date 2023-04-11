@@ -119,7 +119,7 @@ jobs:
           no_override: true # Disables auto marking previous environments as "inactive", as they're still active (Vercel deployments don't auto-deactivate) and it would remove the previous deployment links needlessly
 
       - name: Deploying on Vercel (${{ env.STAGE }})
-        uses: UnlyEd/github-action-deploy-on-vercel@3e71d3e26fd56941fc24a6429fdd257598df2017 # Pin "v1.0.0" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/3e71d3e26fd56941fc24a6429fdd257598df2017
+        uses: UnlyEd/github-action-deploy-on-vercel@94d41ec1ff9b5b1de5256312e385632b6fcd8fa4 # Pin "v1.2.1" - See https://github.com/UnlyEd/github-action-deploy-on-vercel/commit/94d41ec1ff9b5b1de5256312e385632b6fcd8fa4
         with:
           command: "yarn deploy:ci:gha:production --token ${{ secrets.VERCEL_TOKEN }}"
         env:
