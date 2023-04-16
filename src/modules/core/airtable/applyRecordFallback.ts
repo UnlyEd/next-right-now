@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import map from 'lodash.map';
 import { AirtableRecord } from '../data/types/AirtableRecord';
 import { GenericObject } from '../data/types/GenericObject';

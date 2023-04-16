@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import { COOKIE_LOOKUP_KEY_LANG } from '@unly/universal-language-detector/lib';
 import { isBrowser } from '@unly/utils';
 import ServerCookies, {

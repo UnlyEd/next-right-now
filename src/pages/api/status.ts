@@ -6,7 +6,7 @@ import {
 import { createLogger } from '@/modules/core/logging/logger';
 import { configureReq } from '@/modules/core/sentry/server';
 import { flushSafe } from '@/modules/core/sentry/universal';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import {
   NextApiRequest,
   NextApiResponse,
@@ -72,4 +72,4 @@ export const status = async (req: NextApiRequest, res: NextApiResponse): Promise
   }
 };
 
-export default status;
+export default Sentry.withSentry(status);

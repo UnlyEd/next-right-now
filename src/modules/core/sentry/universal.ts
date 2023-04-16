@@ -1,7 +1,7 @@
 import { createLogger } from '@/modules/core/logging/logger';
 import { FLUSH_TIMEOUT } from '@/modules/core/sentry/config';
 import { UserSession } from '@/modules/core/userSession/useUserSession';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 
 const fileLabel = 'modules/core/sentry/universal';
 const logger = createLogger({
@@ -15,10 +15,11 @@ const logger = createLogger({
  * The tracking remains anonymous, there are no personal information being tracked, only internal ids.
  *
  * @param userSession
- * @see https://www.npmjs.com/package/@sentry/node
+ *
+ * @see https://www.npmjs.com/package/@sentry/nextjs
  */
 export const configureSentryUserMetadata = (userSession: UserSession): void => {
-  if (process.env.SENTRY_DSN) {
+  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
     Sentry.configureScope((scope) => {
       scope.setTag('userId', userSession?.id);
       scope.setTag('userDeviceId', userSession?.deviceId);
@@ -32,11 +33,12 @@ export const configureSentryUserMetadata = (userSession: UserSession): void => {
  *
  * @param lang
  * @param locale
- * @see https://www.npmjs.com/package/@sentry/node
+ *
+ * @see https://www.npmjs.com/package/@sentry/nextjs
  */
 export const configureSentryI18n = (lang: string, locale: string): void => {
-  if (process.env.SENTRY_DSN) {
-    Sentry.configureScope((scope) => { // See https://www.npmjs.com/package/@sentry/node
+  if (process.env.NEXT_PUBLIC_SENTRY_DSN) {
+    Sentry.configureScope((scope) => {
       scope.setTag('lang', lang);
       scope.setTag('locale', locale);
     });

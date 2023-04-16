@@ -9,7 +9,7 @@ import { createLogger } from '@/modules/core/logging/logger';
 import { ALERT_TYPES } from '@/modules/core/sentry/config';
 import { configureReq } from '@/modules/core/sentry/server';
 import { flushSafe } from '@/modules/core/sentry/universal';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import size from 'lodash.size';
 import {
   NextApiRequest,
@@ -195,4 +195,4 @@ const startVercelDeployment = async (req: EndpointRequest, res: NextApiResponse)
   }
 };
 
-export default startVercelDeployment;
+export default Sentry.withSentry(startVercelDeployment);

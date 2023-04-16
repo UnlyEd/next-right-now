@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import cloneDeep from 'lodash.clonedeep';
 import filter from 'lodash.filter';
 import find from 'lodash.find';

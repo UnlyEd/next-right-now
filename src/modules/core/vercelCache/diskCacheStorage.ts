@@ -3,7 +3,7 @@ import {
   readFile,
   writeFile,
 } from '@/utils/fs-utils';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import path from 'path';
 import {
   CachedItem,

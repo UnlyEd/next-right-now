@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import * as React from 'react';
 import { Button } from 'reactstrap';
 import { GenericObject } from '../data/types/GenericObject';
@@ -48,7 +48,7 @@ const DefaultErrorLayout: React.FunctionComponent<Props> = (props): JSX.Element 
         <Button
           color={'primary'}
           onClick={(): void =>
-            // @ts-ignore XXX showReportDialog is not recognised by TS (due to the webpack trick that replaces @sentry/node), but it works just fine
+            // @ts-ignore Works fine even though TS is warning, see https://github.com/getsentry/sentry-docs/issues/3720
             Sentry.showReportDialog({ eventId: errorEventId })
           }
         >

@@ -7,7 +7,7 @@ import { filterExternalAbsoluteUrl } from '@/modules/core/js/url';
 import { createLogger } from '@/modules/core/logging/logger';
 import { configureReq } from '@/modules/core/sentry/server';
 import { flushSafe } from '@/modules/core/sentry/universal';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/nextjs';
 import appendQueryParameter from 'append-query';
 import {
   NextApiRequest,
@@ -120,4 +120,4 @@ export const preview = async (req: EndpointRequest, res: NextApiResponse): Promi
   }
 };
 
-export default preview;
+export default Sentry.withSentry(preview);
